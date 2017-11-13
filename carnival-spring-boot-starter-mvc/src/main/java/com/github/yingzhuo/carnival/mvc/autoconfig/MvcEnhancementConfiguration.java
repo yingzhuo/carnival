@@ -10,7 +10,11 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.support.IpHandlerMethodArgumentResolver;
+import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -19,6 +23,8 @@ import org.springframework.web.util.UrlPathHelper;
 import java.util.List;
 
 @ConditionalOnWebApplication
+@EnableConfigurationProperties(MvcEnhancementConfiguration.Props.class)
+@ConditionalOnProperty(prefix = "carnival.mvc.enhancement", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcEnhancementConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
@@ -35,6 +41,13 @@ public class MvcEnhancementConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new IpHandlerMethodArgumentResolver());
+    }
+
+    @Data
+    @ConfigurationProperties("carnival.mvc.enhancement")
+    static class Props {
+        private boolean enabled = true;
+        private String attributeName = "WEBROOT";
     }
 
 }

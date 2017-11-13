@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.support.BasePathInterceptor;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcWebrootConfiguration.Props.class)
+@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcWebrootConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
@@ -38,6 +40,7 @@ public class MvcWebrootConfiguration extends WebMvcConfigurerAdapter {
     @Data
     @ConfigurationProperties("carnival.mvc.webroot")
     static class Props {
+        private boolean enabled = true;
         private String attributeName = "WEBROOT";
     }
 

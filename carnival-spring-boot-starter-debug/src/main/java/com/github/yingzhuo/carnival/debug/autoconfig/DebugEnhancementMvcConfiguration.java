@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.debug.autoconfig;
 
 import com.github.yingzhuo.carnival.debug.mvc.DebugMvcInterceptor;
 import lombok.Data;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(DebugEnhancementMvcConfiguration.Props.class)
+@ConditionalOnProperty(prefix = "carnival.debug", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DebugEnhancementMvcConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
@@ -41,6 +43,7 @@ public class DebugEnhancementMvcConfiguration extends WebMvcConfigurerAdapter {
     @Data
     @ConfigurationProperties("carnival.debug")
     static class Props {
+        private boolean enabled = true;
         private String profile = "debug";
     }
 

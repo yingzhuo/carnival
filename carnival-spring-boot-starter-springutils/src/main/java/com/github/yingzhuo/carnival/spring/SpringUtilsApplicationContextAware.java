@@ -21,6 +21,11 @@ import org.springframework.core.env.Environment;
  */
 public class SpringUtilsApplicationContextAware implements ApplicationContextAware, EnvironmentAware {
 
+    public static final SpringUtilsApplicationContextAware INSTANCE = new SpringUtilsApplicationContextAware();
+
+    private SpringUtilsApplicationContextAware() {
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         SpringUtils.AC = ctx;

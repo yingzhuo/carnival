@@ -21,7 +21,7 @@ public class SpringUtilsConfiguration {
 
     @Bean
     public SpringUtilsApplicationContextAware springUtilsBeanPostProcessor() {
-        return new SpringUtilsApplicationContextAware();
+        return SpringUtilsApplicationContextAware.INSTANCE;
     }
 
 }
