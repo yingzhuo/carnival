@@ -17,6 +17,7 @@
         <module>carnival-spring-boot-starter-refuse</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-mustache</module>
+        <module>carnival-spring-boot-starter-datasource</module>
     </modules>
     <packaging>pom</packaging>
 
