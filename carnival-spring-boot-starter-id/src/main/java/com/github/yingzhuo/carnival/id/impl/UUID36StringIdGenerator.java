@@ -7,13 +7,20 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id;
+package com.github.yingzhuo.carnival.id.impl;
+
+import com.github.yingzhuo.carnival.id.StringIdGenerator;
+
+import java.util.UUID;
 
 /**
  * @author 应卓
  */
-public enum Algorithm {
+public class UUID36StringIdGenerator implements StringIdGenerator {
 
-    UUID32, UUID36, SNOWFLAKE
+    @Override
+    public String nextId() {
+        return UUID.randomUUID().toString();
+    }
 
 }

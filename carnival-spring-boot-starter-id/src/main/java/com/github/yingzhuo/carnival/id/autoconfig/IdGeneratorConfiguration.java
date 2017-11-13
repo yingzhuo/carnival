@@ -11,6 +11,9 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.StringIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUID32StringIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUID36StringIdGenerator;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,20 +21,35 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-@EnableConfigurationProperties(IdGeneratorConfiguration.Props.class)
+@EnableConfigurationProperties({
+        IdGeneratorConfiguration.Props.class,
+        IdGeneratorConfiguration.SnowflakeProps.class
+})
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class IdGeneratorConfiguration {
 
     private final Props props;
+    private final SnowflakeProps snowflakeProps;
 
-    public IdGeneratorConfiguration(Props props) {
+    public IdGeneratorConfiguration(Props props, SnowflakeProps snowflakeProps) {
         this.props = props;
+        this.snowflakeProps = snowflakeProps;
     }
 
     @Bean
     @ConditionalOnMissingBean
     public StringIdGenerator stringIdGenerator() {
-        return props.algorithm;
+
+        switch (props.getAlgorithm()) {
+            case UUID32:
+                return new UUID32StringIdGenerator();
+            case UUID36:
+                return new UUID36StringIdGenerator();
+            case SNOWFLAKE:
+                return new SnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
+        }
+
+        throw new IllegalStateException();
     }
 
     @Data
@@ -39,6 +57,13 @@ public class IdGeneratorConfiguration {
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.UUID32;
+    }
+
+    @Data
+    @ConfigurationProperties("carnival.id.snowflake")
+    static class SnowflakeProps {
+        private long workerId = 0L;
+        private int pad = 32;
     }
 
 }
