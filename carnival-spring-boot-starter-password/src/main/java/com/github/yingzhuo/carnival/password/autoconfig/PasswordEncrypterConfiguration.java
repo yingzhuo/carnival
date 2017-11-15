@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.password.autoconfig;
 
 import com.github.yingzhuo.carnival.password.Algorithm;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
+import com.github.yingzhuo.carnival.password.impl.*;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -31,7 +32,20 @@ public class PasswordEncrypterConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncrypter passwordEncrypter() {
-        return props.getAlgorithm();
+        switch (props.getAlgorithm()) {
+            case MD5:
+                return new MD5PasswordEncrypter();
+            case BCRYPT:
+                return new BCryptPasswordEncrypter();
+            case MD2:
+                return new MD2PasswordEncrypter();
+            case SHA1:
+                return new SHA1PasswordEncrypter();
+            case SHA256:
+                return new SHA256PasswordEncrypter();
+            default:
+                throw new IllegalStateException();
+        }
     }
 
     @Data

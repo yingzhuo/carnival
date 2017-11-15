@@ -9,45 +9,11 @@
  */
 package com.github.yingzhuo.carnival.password;
 
-import com.github.yingzhuo.carnival.password.support.BCrypt;
-import org.apache.commons.codec.digest.DigestUtils;
-
 /**
  * @author 应卓
  */
-public enum Algorithm implements PasswordEncrypter {
+public enum Algorithm {
 
-    MD5 {
-        @Override
-        public String encrypt(String password) {
-            return DigestUtils.md5Hex(password);
-        }
-    },
-
-    SHA1 {
-        @Override
-        public String encrypt(String password) {
-            return DigestUtils.sha1Hex(password);
-        }
-    },
-
-    SHA256 {
-        @Override
-        public String encrypt(String password) {
-            return DigestUtils.sha256Hex(password);
-        }
-    },
-
-    BCRYPT {
-        @Override
-        public String encrypt(String password) {
-            return BCrypt.hashpw(password, BCrypt.gensalt());
-        }
-
-        @Override
-        public boolean matches(String password, String encrypted) {
-            return BCrypt.checkpw(password, encrypted);
-        }
-    }
+    MD5, MD2, SHA1, SHA256, BCRYPT
 
 }
