@@ -1,2 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsConfiguration

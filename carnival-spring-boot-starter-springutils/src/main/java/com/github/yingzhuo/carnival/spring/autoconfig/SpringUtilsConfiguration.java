@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Bean;
 public class SpringUtilsConfiguration {
 
     @Bean
-    public SpringUtilsApplicationContextAware springUtilsBeanPostProcessor() {
+    public SpringUtilsApplicationContextAware springUtilsApplicationContextAware() {
         return SpringUtilsApplicationContextAware.INSTANCE;
     }
 

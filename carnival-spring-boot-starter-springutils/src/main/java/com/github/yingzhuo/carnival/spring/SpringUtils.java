@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 0.0.1
  */
-public class SpringUtils {
+public final class SpringUtils {
 
     static ApplicationContext AC = null;
     static Environment ENV = null;
