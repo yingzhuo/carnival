@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.impl;
 import com.github.yingzhuo.carnival.restful.security.Permission;
 import com.github.yingzhuo.carnival.restful.security.Role;
 import com.github.yingzhuo.carnival.restful.security.UserDetails;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -23,6 +24,7 @@ import java.util.Collections;
  * @see com.github.yingzhuo.carnival.restful.security.UserDetails
  * @since 0.0.1
  */
+@ToString
 public final class SimpleUserDetails implements UserDetails {
 
     private String id = null;

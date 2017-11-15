@@ -128,7 +128,7 @@ public interface UserDetails {
         }
 
         public UserDetails build() {
-            return new SimpleUserDetails();
+            return ud;
         }
     }
 

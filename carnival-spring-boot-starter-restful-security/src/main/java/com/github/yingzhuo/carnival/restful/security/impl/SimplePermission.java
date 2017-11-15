@@ -10,8 +10,10 @@
 package com.github.yingzhuo.carnival.restful.security.impl;
 
 import com.github.yingzhuo.carnival.restful.security.Permission;
+import lombok.ToString;
 import org.springframework.util.Assert;
 
+@ToString
 public final class SimplePermission implements Permission {
 
     private final String name;
