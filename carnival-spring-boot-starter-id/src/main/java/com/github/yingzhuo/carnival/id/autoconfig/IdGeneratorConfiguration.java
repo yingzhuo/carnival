@@ -15,17 +15,21 @@ import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32StringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36StringIdGenerator;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 @EnableConfigurationProperties({
         IdGeneratorConfiguration.Props.class,
         IdGeneratorConfiguration.SnowflakeProps.class
 })
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
+@Slf4j
 public class IdGeneratorConfiguration {
 
     private final Props props;
@@ -34,6 +38,11 @@ public class IdGeneratorConfiguration {
     public IdGeneratorConfiguration(Props props, SnowflakeProps snowflakeProps) {
         this.props = props;
         this.snowflakeProps = snowflakeProps;
+    }
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Bean

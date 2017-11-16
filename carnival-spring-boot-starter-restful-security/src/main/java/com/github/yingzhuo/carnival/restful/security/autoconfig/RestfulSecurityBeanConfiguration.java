@@ -17,12 +17,21 @@ import com.github.yingzhuo.carnival.restful.security.impl.AlwaysEmptyUserDetails
 import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
 import com.github.yingzhuo.carnival.restful.security.impl.NopAuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.impl.SimpleRunAsIdGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 @ConditionalOnWebApplication
+@Slf4j
 public class RestfulSecurityBeanConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean

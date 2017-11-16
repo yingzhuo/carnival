@@ -11,13 +11,22 @@ package com.github.yingzhuo.carnival.spring.autoconfig;
 
 import com.github.yingzhuo.carnival.spring.SpringUtilsApplicationContextAware;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author 应卓
  * @see SpringUtils
  */
+@Slf4j
 public class SpringUtilsConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     public SpringUtilsApplicationContextAware springUtilsApplicationContextAware() {

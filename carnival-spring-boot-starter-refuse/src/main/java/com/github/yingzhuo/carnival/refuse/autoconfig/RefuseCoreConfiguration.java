@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
 import com.github.yingzhuo.carnival.refuse.RefuseContext;
 import com.github.yingzhuo.carnival.refuse.RefuseListener;
 import com.github.yingzhuo.carnival.refuse.RefusedException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.util.AntPathMatcher;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
@@ -32,6 +34,7 @@ import java.util.Map;
  */
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RefuseBeanConfiguration.class)
+@Slf4j
 public class RefuseCoreConfiguration extends WebMvcConfigurerAdapter {
 
     private final RefuseConfigLoader loader;
@@ -40,6 +43,11 @@ public class RefuseCoreConfiguration extends WebMvcConfigurerAdapter {
     public RefuseCoreConfiguration(RefuseConfigLoader loader, RefuseListener listener) {
         this.loader = loader;
         this.listener = listener;
+    }
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Override

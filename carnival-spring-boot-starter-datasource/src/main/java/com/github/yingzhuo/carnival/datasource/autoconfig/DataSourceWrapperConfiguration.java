@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.datasource.autoconfig;
 import com.github.yingzhuo.carnival.datasource.impl.DataSourceLoggingBeanPostProcessor;
 import com.github.yingzhuo.carnival.datasource.impl.DataSourceWrapperAopAdvice;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -19,9 +20,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 @EnableConfigurationProperties(DataSourceWrapperConfiguration.DataSourceWrapperProps.class)
 @ConditionalOnProperty(prefix = "carnival.datasource.wrapper", name = "enabled", havingValue = "true", matchIfMissing = true)
+@Slf4j
 public class DataSourceWrapperConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean

@@ -12,18 +12,27 @@ package com.github.yingzhuo.carnival.mustache.autoconfig;
 import com.github.yingzhuo.carnival.mustache.MustacheLoader;
 import com.github.yingzhuo.carnival.mustache.impl.MustacheLoaderImpl;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author 应卓
  */
 @EnableConfigurationProperties(MustacheLoaderConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.mustache", name = "enabled", havingValue = "true", matchIfMissing = true)
+@Slf4j
 public class MustacheLoaderConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean

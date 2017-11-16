@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.debug.autoconfig;
 
 import com.github.yingzhuo.carnival.debug.mvc.DebugMvcInterceptor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -19,12 +20,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(DebugMvcConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.debug", name = "enabled", havingValue = "true", matchIfMissing = true)
+@Slf4j
 public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
@@ -33,6 +36,11 @@ public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
     public DebugMvcConfiguration(Props props, Environment environment) {
         this.props = props;
         this.environment = environment;
+    }
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Override

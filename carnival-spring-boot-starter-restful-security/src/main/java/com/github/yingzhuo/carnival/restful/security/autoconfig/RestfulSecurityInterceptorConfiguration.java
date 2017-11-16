@@ -15,17 +15,19 @@ import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
+@Slf4j
 public class RestfulSecurityInterceptorConfiguration extends WebMvcConfigurerAdapter {
 
     private final TokenParser tokenParser;
@@ -33,12 +35,16 @@ public class RestfulSecurityInterceptorConfiguration extends WebMvcConfigurerAda
     private final AuthenticationListener authenticationListener;
     private final RunAsIdGenerator runAsIdGenerator;
 
-    @Autowired
     public RestfulSecurityInterceptorConfiguration(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener, RunAsIdGenerator runAsIdGenerator) {
         this.tokenParser = tokenParser;
         this.userDetailsRealm = userDetailsRealm;
         this.authenticationListener = authenticationListener;
         this.runAsIdGenerator = runAsIdGenerator;
+    }
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Override

@@ -13,15 +13,24 @@ import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
 import com.github.yingzhuo.carnival.refuse.RefuseListener;
 import com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefuseConfigLoader;
 import com.github.yingzhuo.carnival.refuse.impl.NopRefuseListener;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author 应卓
  */
 @ConditionalOnWebApplication
+@Slf4j
 public class RefuseBeanConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean
