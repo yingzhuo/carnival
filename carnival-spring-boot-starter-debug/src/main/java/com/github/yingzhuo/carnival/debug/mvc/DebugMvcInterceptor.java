@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
+/**
+ * 日志拦截器
+ */
 public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
 
     private final boolean enabled;

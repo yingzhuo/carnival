@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.debug;
 
-import com.github.yingzhuo.carnival.debug.autoconfig.DebugEnhancementMvcConfiguration;
+import com.github.yingzhuo.carnival.debug.autoconfig.DebugMvcConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;
@@ -19,6 +19,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(DebugEnhancementMvcConfiguration.class)
+@Import(DebugMvcConfiguration.class)
 public @interface EnableDebugEnhancement {
 }

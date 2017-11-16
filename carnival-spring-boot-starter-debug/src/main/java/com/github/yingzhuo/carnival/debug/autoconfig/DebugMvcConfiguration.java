@@ -23,14 +23,14 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(DebugEnhancementMvcConfiguration.Props.class)
+@EnableConfigurationProperties(DebugMvcConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.debug", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class DebugEnhancementMvcConfiguration extends WebMvcConfigurerAdapter {
+public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
     private final Environment environment;
 
-    public DebugEnhancementMvcConfiguration(Props props, Environment environment) {
+    public DebugMvcConfiguration(Props props, Environment environment) {
         this.props = props;
         this.environment = environment;
     }
