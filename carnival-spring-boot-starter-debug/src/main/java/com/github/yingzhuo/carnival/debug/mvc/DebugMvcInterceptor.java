@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.debug.mvc;
 
+import com.github.yingzhuo.carnival.debug.support.LogLevel;
+import com.github.yingzhuo.carnival.debug.support.LoggerWrapper;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -24,11 +24,15 @@ import java.util.Enumeration;
  */
 public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
 
-    private final boolean enabled;
-    private static Logger LOGGER = LoggerFactory.getLogger(DebugMvcInterceptor.class);
+    private boolean enabled;
+    private LoggerWrapper logger;
 
-    public DebugMvcInterceptor(boolean enabled) {
+    public DebugMvcInterceptor(boolean enabled, LogLevel logLevel, String loggerName) {
         this.enabled = enabled;
+        this.logger = new LoggerWrapper(logLevel, loggerName);
+        if (logLevel == LogLevel.OFF) {
+            this.enabled = false;
+        }
     }
 
     @Override
@@ -40,37 +44,37 @@ public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
     }
 
     private void doLog(HttpServletRequest request, HandlerMethod handlerMethod) {
-        LOGGER.debug(StringUtils.repeat('-', 120));
+        logger.doLog(StringUtils.repeat('-', 120));
 
-        LOGGER.debug("[Path]: ");
-        LOGGER.debug("\t\t\t{}", request.getRequestURI());
+        logger.doLog("[Path]: ");
+        logger.doLog("\t\t\t{}", request.getRequestURI());
 
-        LOGGER.debug("[Method]: ");
-        LOGGER.debug("\t\t\t{}", request.getMethod());
+        logger.doLog("[Method]: ");
+        logger.doLog("\t\t\t{}", request.getMethod());
 
-        LOGGER.debug("[Headers]: ");
+        logger.doLog("[Headers]: ");
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String value = request.getHeader(name);
-            LOGGER.debug("\t\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
+            logger.doLog("\t\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
         }
 
-        LOGGER.debug("[Params]: ");
+        logger.doLog("[Params]: ");
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String name = paramNames.nextElement();
             String value = request.getParameter(name);
-            LOGGER.debug("\t\t\t{} = {}", name, value);
+            logger.doLog("\t\t\t{} = {}", name, value);
         }
 
         if (handlerMethod != null) {
-            LOGGER.debug("[Controller]: ");
-            LOGGER.debug("\t\t\ttype = {}", handlerMethod.getBeanType().getName());
-            LOGGER.debug("\t\t\tmethod-name = {}", handlerMethod.getMethod().getName());
+            logger.doLog("[Controller]: ");
+            logger.doLog("\t\t\ttype = {}", handlerMethod.getBeanType().getName());
+            logger.doLog("\t\t\tmethod-name = {}", handlerMethod.getMethod().getName());
         }
 
-        LOGGER.debug(StringUtils.repeat('-', 120));
+        logger.doLog(StringUtils.repeat('-', 120));
     }
 
 }

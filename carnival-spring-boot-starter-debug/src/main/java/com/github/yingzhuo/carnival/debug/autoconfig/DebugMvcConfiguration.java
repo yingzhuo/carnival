@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.debug.autoconfig;
 
 import com.github.yingzhuo.carnival.debug.mvc.DebugMvcInterceptor;
+import com.github.yingzhuo.carnival.debug.support.LogLevel;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -45,7 +46,12 @@ public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DebugMvcInterceptor(Arrays.stream(environment.getActiveProfiles()).collect(Collectors.toSet()).contains(props.getProfile()))).addPathPatterns("/", "/**");
+        registry.addInterceptor(
+                new DebugMvcInterceptor(
+                        Arrays.stream(environment.getActiveProfiles()).collect(Collectors.toSet()).contains(props.getProfile()),
+                        props.getLogLevel(),
+                        props.getLoggerName()))
+                .addPathPatterns("/", "/**");
     }
 
     @Data
@@ -53,6 +59,8 @@ public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
     static class Props {
         private boolean enabled = true;
         private String profile = "debug";
+        private LogLevel logLevel = LogLevel.DEBUG;
+        private String loggerName = DebugMvcConfiguration.class.getName();
     }
 
 }
