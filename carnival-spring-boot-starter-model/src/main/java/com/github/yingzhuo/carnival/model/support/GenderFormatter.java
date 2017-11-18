@@ -41,6 +41,7 @@ public class GenderFormatter implements Formatter<Gender> {
 
     @Override
     public String print(Gender gender, Locale locale) {
+        if (gender == null) return null;
         return gender.name();
     }
 
