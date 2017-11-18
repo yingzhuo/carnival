@@ -55,7 +55,6 @@ public class MvcEnhancementConfiguration extends WebMvcConfigurerAdapter {
     @ConfigurationProperties("carnival.mvc.enhancement")
     static class Props {
         private boolean enabled = true;
-        private String attributeName = "WEBROOT";
     }
 
 }

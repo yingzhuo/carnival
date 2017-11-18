@@ -1,3 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.github.yingzhuo.carnival.mvc.autoconfig.MvcEnhancementConfiguration,\
-com.github.yingzhuo.carnival.mvc.autoconfig.MvcWebrootConfiguration
+com.github.yingzhuo.carnival.mvc.autoconfig.MvcWebrootConfiguration,\
+com.github.yingzhuo.carnival.mvc.autoconfig.MvcXssProtectingConfiguration,\
+com.github.yingzhuo.carnival.mvc.autoconfig.MvcI18nConfiguration

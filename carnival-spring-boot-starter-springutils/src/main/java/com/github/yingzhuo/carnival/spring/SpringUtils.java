@@ -52,12 +52,12 @@ public final class SpringUtils {
         return getApplicationContext().getBean(beanName, beanType);
     }
 
-    public static Set<String> getActiveProfiles() {
-        return Collections.unmodifiableSet(Arrays.stream(ENV.getActiveProfiles()).collect(Collectors.toSet()));
+    public static boolean acceptsProfiles(String... profiles) {
+        return ENV.acceptsProfiles(profiles);
     }
 
-    public static Set<String> getDefaultProfiles() {
-        return Collections.unmodifiableSet(Arrays.stream(ENV.getDefaultProfiles()).collect(Collectors.toSet()));
+    public static Set<String> getActiveProfiles() {
+        return Collections.unmodifiableSet(Arrays.stream(ENV.getActiveProfiles()).collect(Collectors.toSet()));
     }
 
 }
