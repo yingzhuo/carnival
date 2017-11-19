@@ -14,16 +14,34 @@ package com.github.yingzhuo.carnival.model;
  */
 public enum Gender {
 
-    UNKNOWN(-1),
+    /**
+     * 未知
+     */
+    UNKNOWN(-1, "未知"),
 
-    FEMALE(0),
+    /**
+     * 女性
+     */
+    FEMALE(0, "女性"),
 
-    MALE(1);
+    /**
+     * 男性
+     */
+    MALE(1, "男性");
 
     private int value;
+    private String description;
 
-    Gender(int value) {
+    Gender(int value, String description) {
         this.value = value;
+        this.description = description;
     }
 
+    public int getValue() {
+        return value;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

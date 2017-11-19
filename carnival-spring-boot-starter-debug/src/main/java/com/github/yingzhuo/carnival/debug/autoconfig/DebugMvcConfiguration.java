@@ -32,11 +32,11 @@ import java.util.stream.Collectors;
 public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
-    private final Environment environment;
+    private final Environment env;
 
-    public DebugMvcConfiguration(Props props, Environment environment) {
+    public DebugMvcConfiguration(Props props, Environment env) {
         this.props = props;
-        this.environment = environment;
+        this.env = env;
     }
 
     @PostConstruct
@@ -48,7 +48,7 @@ public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(
                 new DebugMvcInterceptor(
-                        Arrays.stream(environment.getActiveProfiles()).collect(Collectors.toSet()).contains(props.getProfile()),
+                        Arrays.stream(env.getActiveProfiles()).collect(Collectors.toSet()).contains(props.getProfile()),
                         props.getLogLevel(),
                         props.getLoggerName()))
                 .addPathPatterns("/", "/**");

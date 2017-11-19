@@ -24,15 +24,15 @@ public class GenderFormatter implements Formatter<Gender> {
     public Gender parse(String text, Locale locale) throws ParseException {
         if (text == null) return null;
 
-        if ("UNKNOWN".equalsIgnoreCase(text) || "-1".equalsIgnoreCase(text)) {
+        if ("UNKNOWN".equalsIgnoreCase(text) || "-1".equalsIgnoreCase(text) || "未知".equalsIgnoreCase(text)) {
             return Gender.UNKNOWN;
         }
 
-        if ("FEMALE".equalsIgnoreCase(text) || "0".equalsIgnoreCase(text)) {
+        if ("FEMALE".equalsIgnoreCase(text) || "0".equalsIgnoreCase(text) || "女性".equalsIgnoreCase(text) || "女".equalsIgnoreCase(text)) {
             return Gender.FEMALE;
         }
 
-        if ("MALE".equalsIgnoreCase(text) || "1".equalsIgnoreCase(text)) {
+        if ("MALE".equalsIgnoreCase(text) || "1".equalsIgnoreCase(text) || "男性".equalsIgnoreCase(text) || "男".equalsIgnoreCase(text)) {
             return Gender.MALE;
         }
 
