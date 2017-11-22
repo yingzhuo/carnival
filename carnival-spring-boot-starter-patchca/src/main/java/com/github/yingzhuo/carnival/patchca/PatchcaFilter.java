@@ -9,11 +9,10 @@
  */
 package com.github.yingzhuo.carnival.patchca;
 
+import lombok.extern.slf4j.Slf4j;
 import org.patchca.service.CaptchaService;
 import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.utils.encoder.EncoderHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -24,9 +23,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
+@Slf4j
 public class PatchcaFilter extends OncePerRequestFilter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PatchcaFilter.class);
 
     private String patchcaSessionAttributeName = "PATCHCA_SESSION_ATTRIBUTE_NAME";
     private CaptchaService captchaService = new ConfigurableCaptchaService();
@@ -40,7 +38,7 @@ public class PatchcaFilter extends OncePerRequestFilter {
         OutputStream outputStream = response.getOutputStream();
         String patchca = EncoderHelper.getChallangeAndWriteImage(captchaService, "png", outputStream);
         session.setAttribute(patchcaSessionAttributeName, patchca);
-        LOGGER.info("SesstionAttribute: {}={}", patchcaSessionAttributeName, patchca);
+        log.info("SesstionAttribute: {}={}", patchcaSessionAttributeName, patchca);
 
         outputStream.flush();
         outputStream.close();

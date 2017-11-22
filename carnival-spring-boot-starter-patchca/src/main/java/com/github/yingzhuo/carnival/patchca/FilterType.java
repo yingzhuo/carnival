@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.patchca;
 
+/**
+ * 滤镜类型
+ */
 public enum FilterType {
 
     CURVES, DIFFUSE, DOUBLE, MARBLE, WOBBLE
