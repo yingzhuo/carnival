@@ -17,11 +17,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 import javax.annotation.PostConstruct;
 
-@ConditionalOnClass(name = {
-        "scala.Option",
-        "com.fasterxml.jackson.module.scala.DefaultScalaModule"
-})
 @Slf4j
+@ConditionalOnClass(name = "scala.Option")
 public class ScalaObjectMapperConfiguration {
 
     @PostConstruct

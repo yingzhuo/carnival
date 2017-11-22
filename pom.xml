@@ -28,7 +28,7 @@
         <java.version>1.8</java.version>
         <springboot.version>1.5.8.RELEASE</springboot.version>
         <spring.version>4.3.12.RELEASE</spring.version>
-        <jackson.version>2.9.1</jackson.version>
+        <jackson.version>2.9.2</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
         <specs2.version>3.9.5</specs2.version>
     </properties>

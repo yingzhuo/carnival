@@ -20,11 +20,8 @@ import javax.annotation.PostConstruct;
 /**
  * @author 应卓
  */
-@ConditionalOnClass(name = {
-        "kotlin.Int",
-        "com.fasterxml.jackson.module.kotlin.KotlinModule"
-})
 @Slf4j
+@ConditionalOnClass(name = "kotlin.KotlinVersion")
 public class KotlinObjectMapperConfiguration {
 
     @PostConstruct
