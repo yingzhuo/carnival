@@ -14,19 +14,28 @@ import com.github.yingzhuo.carnival.integration.smsbao.SmsbaoManager;
 import com.github.yingzhuo.carnival.integration.smsbao.impl.DefaultSmsbaoManagerImpl;
 import com.github.yingzhuo.carnival.integration.smsbao.impl.NopSmsbaoManager;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 @EnableConfigurationProperties(SmsbaoManagerConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.integration.smsbao", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class SmsbaoManagerConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -55,6 +64,14 @@ public class SmsbaoManagerConfiguration {
         private Mode mode = Mode.REGULAR;
         private String username = null;
         private String password = null;
+
+        @PostConstruct
+        public void init() {
+            if (enabled && Mode.REGULAR == getMode()) {
+                if (StringUtils.isEmpty(getUsername())) throw new IllegalArgumentException();
+                if (StringUtils.isEmpty(getPassword())) throw new IllegalArgumentException();
+            }
+        }
     }
 
 }
