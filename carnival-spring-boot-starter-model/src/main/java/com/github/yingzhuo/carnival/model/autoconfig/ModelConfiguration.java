@@ -22,8 +22,8 @@ import javax.annotation.PostConstruct;
 /**
  * @author 应卓
  */
-@ConditionalOnProperty(prefix = "carnival.model", name = "enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
+@ConditionalOnProperty(prefix = "carnival.model", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class ModelConfiguration {
 
     @PostConstruct
