@@ -45,10 +45,6 @@ public class DebugMessageAdvice {
             return call.proceed();
         }
 
-        long start = System.currentTimeMillis();
-        Object result = call.proceed();
-        long end = System.currentTimeMillis();
-
         logger.doLog(StringUtils.repeat('-', 20));
 
         logger.doLog("[Method]: ");
@@ -66,12 +62,9 @@ public class DebugMessageAdvice {
             logger.doLog("\t\t\t{}", call.getArgs());
         }
 
-        logger.doLog("[Time-Consuming (ms)]: ");
-        logger.doLog("\t\t\t{}", end - start);
-
         logger.doLog(StringUtils.repeat('-', 20));
 
-        return result;
+        return call.proceed();
     }
 
     private <A extends Annotation> A getAnnotation(ProceedingJoinPoint call, Class<A> annotationType) {
