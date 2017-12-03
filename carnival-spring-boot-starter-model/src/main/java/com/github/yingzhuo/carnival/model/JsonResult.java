@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.model;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -19,16 +21,32 @@ import java.util.Map;
  */
 public interface JsonResult extends java.io.Serializable {
 
+    public static JsonResult of(HttpStatus httpStatus) {
+        return of(Integer.toString(httpStatus.value()));
+    }
+
     public static JsonResult of(String code) {
         return of(code, null, null);
+    }
+
+    public static JsonResult of(HttpStatus httpStatus, Map<String, Object> payload) {
+        return of(Integer.toString(httpStatus.value()), payload);
     }
 
     public static JsonResult of(String code, Map<String, Object> payload) {
         return of(code, null, payload);
     }
 
+    public static JsonResult of(HttpStatus httpStatus, String... errorMessages) {
+        return of(Integer.toString(httpStatus.value()), errorMessages);
+    }
+
     public static JsonResult of(String code, String... errorMessages) {
         return of(code, Arrays.asList(errorMessages), null);
+    }
+
+    public static JsonResult of(HttpStatus httpStatus, List<String> errorMessages, Map<String, Object> payload) {
+        return of(Integer.toString(httpStatus.value()), errorMessages, payload);
     }
 
     public static JsonResult of(String code, List<String> errorMessages, Map<String, Object> payload) {

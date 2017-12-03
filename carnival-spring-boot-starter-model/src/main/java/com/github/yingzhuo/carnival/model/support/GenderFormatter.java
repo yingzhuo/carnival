@@ -20,6 +20,11 @@ import java.util.Locale;
  */
 public class GenderFormatter implements Formatter<Gender> {
 
+    public static Formatter<?> INSTANCE = new GenderFormatter();
+
+    private GenderFormatter() {
+    }
+
     @Override
     public Gender parse(String text, Locale locale) throws ParseException {
         if (text == null) return null;

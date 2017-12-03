@@ -33,7 +33,7 @@ public class ModelConfiguration {
 
     @Autowired
     public void configFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new GenderFormatter());
+        registry.addFormatter(GenderFormatter.INSTANCE);
     }
 
     @Data

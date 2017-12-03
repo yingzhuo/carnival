@@ -23,12 +23,12 @@ import org.springframework.context.annotation.Bean;
 import javax.annotation.PostConstruct;
 import java.util.UUID;
 
+@Slf4j
 @EnableConfigurationProperties({
         IdGeneratorConfiguration.Props.class,
         IdGeneratorConfiguration.SnowflakeProps.class
 })
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Slf4j
 public class IdGeneratorConfiguration {
 
     private final Props props;
@@ -49,6 +49,7 @@ public class IdGeneratorConfiguration {
     public StringIdGenerator stringIdGenerator() {
 
         switch (props.getAlgorithm()) {
+            case UUID:
             case UUID32:
                 return () -> UUID.randomUUID().toString().replaceAll("-", "");
             case UUID36:

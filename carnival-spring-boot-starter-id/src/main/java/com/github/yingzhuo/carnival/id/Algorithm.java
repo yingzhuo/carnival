@@ -14,6 +14,12 @@ package com.github.yingzhuo.carnival.id;
  */
 public enum Algorithm {
 
-    UUID32, UUID36, SNOWFLAKE
+    @Deprecated UUID,
+
+    UUID32,
+
+    UUID36,
+
+    SNOWFLAKE
 
 }
