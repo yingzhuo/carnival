@@ -13,19 +13,20 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.RunAsIdGenerator;
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.AlwaysEmptyUserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
-import com.github.yingzhuo.carnival.restful.security.impl.NopAuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.impl.SimpleRunAsIdGenerator;
+import com.github.yingzhuo.carnival.restful.security.impl.*;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
 
-@ConditionalOnWebApplication
 @Slf4j
+@ConditionalOnWebApplication
+@EnableConfigurationProperties(RestfulSecurityBeanConfiguration.UserProps.class)
 public class RestfulSecurityBeanConfiguration {
 
     @PostConstruct
@@ -41,8 +42,14 @@ public class RestfulSecurityBeanConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public UserDetailsRealm userDetailsRealm() {
-        return new AlwaysEmptyUserDetailsRealm();
+    public UserDetailsRealm userDetailsRealm(UserProps userProps) {
+
+        if (userProps.getPassword() != null && userProps.getUsername() != null) {
+            return new UsernamePasswordUserDetailsRealm(userProps.isCaseSensitive(), userProps.getUsername(), userProps.getPassword());
+        }
+        else {
+            return new AlwaysEmptyUserDetailsRealm();
+        }
     }
 
     @Bean
@@ -55,6 +62,14 @@ public class RestfulSecurityBeanConfiguration {
     @ConditionalOnMissingBean
     public RunAsIdGenerator runAsIdGenerator() {
         return new SimpleRunAsIdGenerator();
+    }
+
+    @Data
+    @ConfigurationProperties("carnival.restful.security")
+    static class UserProps {
+        private boolean caseSensitive = true;
+        private String username = "user";
+        private String password = "changeme";
     }
 
 }

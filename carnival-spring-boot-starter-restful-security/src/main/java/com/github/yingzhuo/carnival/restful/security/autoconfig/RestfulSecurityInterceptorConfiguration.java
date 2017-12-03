@@ -25,9 +25,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Slf4j
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
-@Slf4j
 public class RestfulSecurityInterceptorConfiguration extends WebMvcConfigurerAdapter {
 
     private final TokenParser tokenParser;
