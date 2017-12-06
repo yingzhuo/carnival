@@ -12,16 +12,17 @@
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-endpoint</module>
         <module>carnival-spring-boot-starter-id</module>
+        <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-model</module>
         <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
+        <module>carnival-spring-boot-starter-pinyin</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-refuse</module>
         <module>carnival-spring-boot-starter-springutils</module>
-        <module>carnival-spring-boot-starter-integration-smsbao</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -284,6 +285,13 @@
                 <groupId>com.github.spullara.mustache.java</groupId>
                 <artifactId>compiler</artifactId>
                 <version>0.9.5</version>
+            </dependency>
+
+            <!-- pinyin4j -->
+            <dependency>
+                <groupId>com.belerweb</groupId>
+                <artifactId>pinyin4j</artifactId>
+                <version>2.5.1</version>
             </dependency>
 
             <!-- commons -->

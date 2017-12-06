@@ -22,9 +22,9 @@ import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
 
+@Slf4j
 @EnableConfigurationProperties(PasswordEncrypterConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Slf4j
 public class PasswordEncrypterConfiguration {
 
     private final Props props;
