@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.model;
+package com.github.yingzhuo.carnival.json;
 
 import org.springframework.http.HttpStatus;
 

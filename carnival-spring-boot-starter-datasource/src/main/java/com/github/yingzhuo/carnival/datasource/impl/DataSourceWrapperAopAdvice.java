@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.datasource.impl;
 
+import com.github.yingzhuo.carnival.aop.AbstractAroundAdvice;
 import com.github.yingzhuo.carnival.datasource.DataSourceSwitch;
 import com.github.yingzhuo.carnival.datasource.DataSourceWrapper;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -25,7 +26,7 @@ import javax.sql.DataSource;
 import java.lang.reflect.Method;
 
 @Aspect
-public class DataSourceWrapperAopAdvice implements ApplicationContextAware, Ordered {
+public class DataSourceWrapperAopAdvice extends AbstractAroundAdvice implements ApplicationContextAware, Ordered {
 
     private ApplicationContext applicationContext;
     private int order = 0;
@@ -48,7 +49,7 @@ public class DataSourceWrapperAopAdvice implements ApplicationContextAware, Orde
         this.applicationContext = applicationContext;
     }
 
-    @Around("@annotation(com.lincomb.origen.datasource.DataSourceSwitch)")
+    @Around("@annotation(com.github.yingzhuo.carnival.datasource.DataSourceSwitch)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
         if (!skip()) {
@@ -68,35 +69,15 @@ public class DataSourceWrapperAopAdvice implements ApplicationContextAware, Orde
         }
     }
 
-    private String getDataSourceName(ProceedingJoinPoint joinPoint) {
-        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        DataSourceSwitch annotation = getMethodAnnotation(joinPoint);
+    private String getDataSourceName(ProceedingJoinPoint call) {
+        Method method = ((MethodSignature) call.getSignature()).getMethod();
+        DataSourceSwitch annotation = super.getMethodAnnotation(call, DataSourceSwitch.class);
 
         if (annotation == null) {
             return null;
         } else {
             String name = annotation.value();
             return "".equals(name) ? null : name;
-        }
-    }
-
-    private DataSourceSwitch getMethodAnnotation(ProceedingJoinPoint joinPoint) {
-        try {
-            Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-            DataSourceSwitch annotation = method.getAnnotation(DataSourceSwitch.class);
-
-            if (annotation == null) {
-                Class<?> targetClass = joinPoint.getTarget().getClass();
-                method = targetClass.getMethod(method.getName(), method.getParameterTypes());
-
-                if (method != null) {
-                    annotation = method.getAnnotation(DataSourceSwitch.class);
-                }
-            }
-
-            return annotation;
-        } catch (Exception e) {
-            return null;
         }
     }
 }

@@ -8,6 +8,7 @@
     <artifactId>carnival</artifactId>
     <version>0.0.1</version>
     <modules>
+        <module>carnival-spring-boot-starter</module>
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-endpoint</module>

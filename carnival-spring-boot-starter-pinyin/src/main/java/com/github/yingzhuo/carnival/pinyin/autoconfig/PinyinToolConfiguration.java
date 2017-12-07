@@ -19,6 +19,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+
 /**
  * @author 应卓
  */
@@ -26,6 +28,11 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(PinyinToolConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.pinyin", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class PinyinToolConfiguration {
+
+    @PostConstruct
+    private void init() {
+        log.debug("SpringBoot auto-config: {}", getClass().getName());
+    }
 
     @Bean
     @ConditionalOnMissingBean

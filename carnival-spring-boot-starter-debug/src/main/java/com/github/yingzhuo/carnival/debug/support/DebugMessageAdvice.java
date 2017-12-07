@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.debug.support;
 
+import com.github.yingzhuo.carnival.aop.AbstractAroundAdvice;
 import com.github.yingzhuo.carnival.debug.DebugMessage;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -16,11 +17,10 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 @Aspect
-public class DebugMessageAdvice {
+public class DebugMessageAdvice extends AbstractAroundAdvice {
 
     private final boolean enabled;
     private final LoggerWrapper logger;
@@ -38,7 +38,7 @@ public class DebugMessageAdvice {
         }
 
         Method method = ((MethodSignature) call.getSignature()).getMethod();
-        DebugMessage annotation = getAnnotation(call, DebugMessage.class);
+        DebugMessage annotation = getMethodAnnotation(call, DebugMessage.class);
         Object[] args = call.getArgs();
 
         if (annotation == null) {
@@ -67,23 +67,4 @@ public class DebugMessageAdvice {
         return call.proceed();
     }
 
-    private <A extends Annotation> A getAnnotation(ProceedingJoinPoint call, Class<A> annotationType) {
-
-        final String methodName = call.getSignature().getName();
-        final MethodSignature methodSignature = (MethodSignature) call.getSignature();
-        Method method = methodSignature.getMethod();
-        A annotation = method.getAnnotation(annotationType);
-
-        if (annotation == null) {
-
-            try {
-                method = call.getTarget().getClass().getDeclaredMethod(methodName, method.getParameterTypes());
-                annotation = method.getAnnotation(annotationType);
-            } catch (NoSuchMethodException e) {
-                return null;
-            }
-        }
-
-        return annotation;
-    }
 }

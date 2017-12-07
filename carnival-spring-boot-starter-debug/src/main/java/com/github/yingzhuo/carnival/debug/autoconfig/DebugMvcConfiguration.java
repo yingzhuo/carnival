@@ -25,10 +25,10 @@ import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+@Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(DebugMvcConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.debug", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Slf4j
 public class DebugMvcConfiguration extends WebMvcConfigurerAdapter {
 
     private final Props props;
