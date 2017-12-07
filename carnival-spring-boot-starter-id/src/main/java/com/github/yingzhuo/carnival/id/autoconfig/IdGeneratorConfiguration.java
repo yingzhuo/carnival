@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.StringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -21,7 +23,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
-import java.util.UUID;
 
 @Slf4j
 @EnableConfigurationProperties({
@@ -49,11 +50,10 @@ public class IdGeneratorConfiguration {
     public StringIdGenerator stringIdGenerator() {
 
         switch (props.getAlgorithm()) {
-            case UUID:
             case UUID32:
-                return () -> UUID.randomUUID().toString().replaceAll("-", "");
+                return new UUID32IdGenerator();
             case UUID36:
-                return () -> UUID.randomUUID().toString();
+                return new UUID36IdGenerator();
             case SNOWFLAKE:
                 return new SnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
         }
