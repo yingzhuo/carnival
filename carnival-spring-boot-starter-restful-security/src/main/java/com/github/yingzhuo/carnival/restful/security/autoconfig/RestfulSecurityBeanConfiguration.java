@@ -21,6 +21,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 
@@ -44,7 +45,12 @@ public class RestfulSecurityBeanConfiguration {
     @ConditionalOnMissingBean
     public UserDetailsRealm userDetailsRealm(UserProps userProps) {
 
-        if (userProps.getPassword() != null && userProps.getUsername() != null) {
+        if (userProps.getUsername() != null) {
+
+            if (StringUtils.isEmpty(userProps.getPassword())) {
+                userProps.setPassword("changeme");
+            }
+
             log.info("\n\n\t\tUSERNAME: \"{}\"\n", userProps.getUsername());
             log.info("\n\n\t\tPASSWORD: \"{}\"\n", userProps.getPassword());
             return new UsernamePasswordUserDetailsRealm(userProps.isCaseSensitive(), userProps.getUsername(), userProps.getPassword());
