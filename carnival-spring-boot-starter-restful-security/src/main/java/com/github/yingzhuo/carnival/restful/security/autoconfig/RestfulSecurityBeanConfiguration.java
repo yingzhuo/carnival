@@ -16,6 +16,7 @@ import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -46,9 +47,8 @@ public class RestfulSecurityBeanConfiguration {
     public UserDetailsRealm userDetailsRealm(UserProps userProps) {
 
         if (userProps.getUsername() != null) {
-
             if (StringUtils.isEmpty(userProps.getPassword())) {
-                userProps.setPassword("changeme");
+                userProps.setPassword(RandomStringUtils.randomAscii(6));
             }
 
             log.info("\n\n\t\tUSERNAME: \"{}\"\n", userProps.getUsername());
