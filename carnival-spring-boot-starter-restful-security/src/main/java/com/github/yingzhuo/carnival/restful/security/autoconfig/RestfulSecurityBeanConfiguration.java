@@ -48,6 +48,7 @@ public class RestfulSecurityBeanConfiguration {
 
         if (userProps.getUsername() != null) {
             if (StringUtils.isEmpty(userProps.getPassword())) {
+                log.warn("'carnival.restful.security.password' is EMPTY.");
                 userProps.setPassword(RandomStringUtils.randomAscii(6));
             }
 
