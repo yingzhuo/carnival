@@ -58,16 +58,17 @@ public final class Color implements Serializable {
         this.b = b;
     }
 
+    public java.awt.Color toAwtColor() {
+        return new java.awt.Color(r, g, b);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         Color color = (Color) o;
-
-        if (r != color.r) return false;
-        if (g != color.g) return false;
-        return b == color.b;
+        return r == color.r && g == color.g && b == color.b;
     }
 
     @Override
