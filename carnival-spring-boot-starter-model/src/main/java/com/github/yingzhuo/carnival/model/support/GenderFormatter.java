@@ -20,15 +20,13 @@ import java.util.Locale;
  */
 public class GenderFormatter implements Formatter<Gender> {
 
-    public static Formatter<?> INSTANCE = new GenderFormatter();
+    public final static Formatter<?> INSTANCE = new GenderFormatter();
 
     private GenderFormatter() {
     }
 
     @Override
     public Gender parse(String text, Locale locale) throws ParseException {
-        if (text == null) return null;
-
         if ("UNKNOWN".equalsIgnoreCase(text) || "-1".equalsIgnoreCase(text) || "未知".equalsIgnoreCase(text)) {
             return Gender.UNKNOWN;
         }
@@ -46,7 +44,6 @@ public class GenderFormatter implements Formatter<Gender> {
 
     @Override
     public String print(Gender gender, Locale locale) {
-        if (gender == null) return null;
         return gender.name();
     }
 

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.model.autoconfig;
 
+import com.github.yingzhuo.carnival.model.support.ColorFormatter;
 import com.github.yingzhuo.carnival.model.support.GenderFormatter;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,7 @@ public class ModelConfiguration {
     @Autowired
     public void configFormatters(FormatterRegistry registry) {
         registry.addFormatter(GenderFormatter.INSTANCE);
+        registry.addFormatter(ColorFormatter.INSTANCE);
     }
 
     @Data
@@ -41,4 +43,5 @@ public class ModelConfiguration {
     static class Props {
         private boolean enabled = true;
     }
+
 }
