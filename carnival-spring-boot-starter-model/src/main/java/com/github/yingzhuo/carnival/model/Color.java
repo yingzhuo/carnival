@@ -9,12 +9,10 @@
  */
 package com.github.yingzhuo.carnival.model;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  */
-public final class Color implements Serializable {
+public final class Color implements java.io.Serializable {
 
     private static final long serialVersionUID = 5730688186059906304L;
 
@@ -53,6 +51,18 @@ public final class Color implements Serializable {
     private final int b;
 
     public Color(int r, int g, int b) {
+        if (r < 0 || r > 255) {
+            throw new IllegalArgumentException();
+        }
+
+        if (g < 0 || g > 255) {
+            throw new IllegalArgumentException();
+        }
+
+        if (b < 0 || b > 255) {
+            throw new IllegalArgumentException();
+        }
+
         this.r = r;
         this.g = g;
         this.b = b;
