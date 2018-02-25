@@ -34,10 +34,10 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <scala.version>2.12.4</scala.version>
-        <kotlin.version>1.2.10</kotlin.version>
-        <springboot.version>1.5.9.RELEASE</springboot.version>
-        <spring.version>4.3.13.RELEASE</spring.version>
-        <jackson.version>2.9.2</jackson.version>
+        <kotlin.version>1.2.21</kotlin.version>
+        <springboot.version>1.5.10.RELEASE</springboot.version>
+        <spring.version>4.3.14.RELEASE</spring.version>
+        <jackson.version>2.9.4</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
@@ -291,6 +291,13 @@
                 <groupId>com.github.spullara.mustache.java</groupId>
                 <artifactId>compiler</artifactId>
                 <version>0.9.5</version>
+            </dependency>
+
+            <!-- yaml -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.19</version>
             </dependency>
 
             <!-- pinyin4j -->
