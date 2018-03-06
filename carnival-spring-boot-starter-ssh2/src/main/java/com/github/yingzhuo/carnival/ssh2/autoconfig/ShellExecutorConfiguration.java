@@ -58,9 +58,9 @@ public class ShellExecutorConfiguration {
 
         @Override
         public void afterPropertiesSet() throws Exception {
-            Assert.hasText(hostname, null);
-            Assert.hasText(username, null);
-            Assert.notNull(port, null);
+            Assert.hasText(hostname, "Config Error");
+            Assert.hasText(username, "Config Error");
+            Assert.notNull(port, "Config Error");
             if (password == null) {
                 password = "";
             }

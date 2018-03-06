@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.impl;
 
 import com.github.yingzhuo.carnival.restful.security.Role;
 import lombok.ToString;
-import org.springframework.util.Assert;
 
 @ToString
 public final class SimpleRole implements Role {
@@ -19,7 +18,6 @@ public final class SimpleRole implements Role {
     private final String name;
 
     public SimpleRole(String name) {
-        Assert.hasText(name, null);
         this.name = name;
     }
 

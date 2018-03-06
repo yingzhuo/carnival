@@ -11,7 +11,6 @@
         <module>carnival-spring-boot-starter</module>
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
-        <module>carnival-spring-boot-starter-endpoint</module>
         <module>carnival-spring-boot-starter-hook</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
@@ -35,8 +34,8 @@
         <java.version>1.8</java.version>
         <scala.version>2.12.4</scala.version>
         <kotlin.version>1.2.21</kotlin.version>
-        <springboot.version>1.5.10.RELEASE</springboot.version>
-        <spring.version>4.3.14.RELEASE</spring.version>
+        <springboot.version>2.0.0.RELEASE</springboot.version>
+        <spring.version>5.0.4.RELEASE</spring.version>
         <jackson.version>2.9.4</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
