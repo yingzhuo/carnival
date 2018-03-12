@@ -5,6 +5,11 @@
 Carnival
 ---
 
+Wiki
+---
+
+[carinival-spring-boot-starter-password](/carinival-spring-boot-starter-password)
+
 许可证
 ---
 
