@@ -5,6 +5,13 @@
 Carnival
 ---
 
+本项目没有发布到`maven`中央仓库，需自行安装到本地库。
+
+```bash
+git clone https://github.com/yingzhuo/carnival.git
+mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
+```
+
 维基
 ---
 
