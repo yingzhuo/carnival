@@ -8,8 +8,8 @@ Carnival
 维基
 ---
 
-* [carinival-spring-boot-starter-id](/carinival-spring-boot-starter-id)
-* [carinival-spring-boot-starter-password](/carinival-spring-boot-starter-password)
+* [carinival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
+* [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * (未完待续)
 
 许可证
