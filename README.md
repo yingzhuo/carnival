@@ -16,6 +16,7 @@ mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
 ---
 
 * [carinival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
+* [carinival-spring-boot-starter-model](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-model)
 * [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * (未完待续)
 
