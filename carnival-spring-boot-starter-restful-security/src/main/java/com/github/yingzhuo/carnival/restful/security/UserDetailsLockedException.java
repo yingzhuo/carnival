@@ -21,6 +21,10 @@ public class UserDetailsLockedException extends AuthenticationException {
 
     private static final long serialVersionUID = 3640426498330580934L;
 
+    public UserDetailsLockedException() {
+        this(null);
+    }
+
     public UserDetailsLockedException(String message) {
         super(message);
     }

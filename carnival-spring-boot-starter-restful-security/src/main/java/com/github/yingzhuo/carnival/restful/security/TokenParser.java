@@ -15,6 +15,8 @@ import java.util.Optional;
 
 /**
  * 令牌解析器
+ *
+ * @see com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser
  */
 public interface TokenParser {
 

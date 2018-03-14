@@ -20,6 +20,10 @@ public class AuthorizationException extends RestfulSecurityException {
 
     private static final long serialVersionUID = -137142203553204461L;
 
+    public AuthorizationException() {
+        this(null);
+    }
+
     public AuthorizationException(String message) {
         super(message);
     }

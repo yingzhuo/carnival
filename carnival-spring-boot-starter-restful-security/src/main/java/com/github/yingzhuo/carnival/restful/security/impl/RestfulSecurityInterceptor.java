@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 
+/**
+ * @author 应卓
+ */
 public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter {
 
     private final TokenParser tokenParser;

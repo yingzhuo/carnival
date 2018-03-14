@@ -55,8 +55,7 @@ public class RestfulSecurityBeanConfiguration {
             log.info("\n\n\t\tUSERNAME: \"{}\"\n", userProps.getUsername());
             log.info("\n\n\t\tPASSWORD: \"{}\"\n", userProps.getPassword());
             return new UsernamePasswordUserDetailsRealm(userProps.isCaseSensitive(), userProps.getUsername(), userProps.getPassword());
-        }
-        else {
+        } else {
             return new AlwaysEmptyUserDetailsRealm();
         }
     }

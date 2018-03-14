@@ -17,6 +17,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Optional;
 
+/**
+ * @author 应卓
+ * @see TokenParser
+ */
 public class HttpBasicTokenParser implements TokenParser {
 
     private static final String AUTHORIZATION = "Authorization";

@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.restful.security.impl;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.UserDetails;
 
+/**
+ * @author 应卓
+ */
 public class NopAuthenticationListener implements AuthenticationListener {
 
     @Override

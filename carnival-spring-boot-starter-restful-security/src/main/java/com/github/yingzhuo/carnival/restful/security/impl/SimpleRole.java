@@ -12,13 +12,15 @@ package com.github.yingzhuo.carnival.restful.security.impl;
 import com.github.yingzhuo.carnival.restful.security.Role;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @ToString
 public final class SimpleRole implements Role {
 
     private final String name;
 
     public SimpleRole(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override
