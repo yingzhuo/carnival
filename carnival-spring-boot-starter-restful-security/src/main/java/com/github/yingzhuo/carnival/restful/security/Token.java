@@ -9,8 +9,13 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import java.io.Serializable;
+
 /**
  * 用户令牌
+ *
+ * @author 应卓
+ * @see com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordToken
  */
-public interface Token extends java.io.Serializable {
+public interface Token extends Serializable {
 }

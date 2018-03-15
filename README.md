@@ -19,6 +19,7 @@ mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
 * [carinival-spring-boot-starter-json](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-json)
 * [carinival-spring-boot-starter-model](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-model)
 * [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
+* [carinival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
 * (未完待续)
 
 许可证

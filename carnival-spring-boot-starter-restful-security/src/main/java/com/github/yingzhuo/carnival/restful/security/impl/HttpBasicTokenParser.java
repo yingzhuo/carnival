@@ -19,6 +19,7 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see Token
  * @see TokenParser
  */
 public class HttpBasicTokenParser implements TokenParser {
