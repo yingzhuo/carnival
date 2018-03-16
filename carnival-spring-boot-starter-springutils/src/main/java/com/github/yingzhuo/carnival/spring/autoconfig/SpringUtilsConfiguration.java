@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.spring.autoconfig;
 
-import com.github.yingzhuo.carnival.spring.SpringUtilsApplicationContextAware;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import com.github.yingzhuo.carnival.spring.SpringUtilsApplicationContextAware;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 

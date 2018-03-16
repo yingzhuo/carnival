@@ -77,7 +77,6 @@ public class ConfigRestfulSecurity {
 ```
 
 ```java
-
 @RestController
 public class MyController {
 
@@ -85,8 +84,26 @@ public class MyController {
 	@RequiresAuthentication			// 判断用户是否认证
 	@GetMapping("/hello")
 	public String hello() {
-		return ....
+		return "hello";
 	}
 }
-
 ```
+
+```java
+@Controller
+public class SomeController {
+
+	@GetMapping("/some")
+	public String some(UserDetails userDetails, Token token) { // 本插件已经注册了相应的 HandlerMethodArgumentResolver
+		return "some";
+	}
+}
+```
+
+异常体系
+
+* [RestfulSecurityException](https://github.com/yingzhuo/carnival/blob/master/carnival-spring-boot-starter-restful-security/src/main/java/com/github/yingzhuo/carnival/restful/security/RestfulSecurityException.java)
+	* [AuthenticationException](https://github.com/yingzhuo/carnival/blob/master/carnival-spring-boot-starter-restful-security/src/main/java/com/github/yingzhuo/carnival/restful/security/AuthenticationException.java)
+		* [UserDetailsExpiredException](https://github.com/yingzhuo/carnival/blob/master/carnival-spring-boot-starter-restful-security/src/main/java/com/github/yingzhuo/carnival/restful/security/UserDetailsExpiredException.java)
+		* [UserDetailsLockedException](https://github.com/yingzhuo/carnival/blob/master/carnival-spring-boot-starter-restful-security/src/main/java/com/github/yingzhuo/carnival/restful/security/UserDetailsLockedException.java)
+	* [AuthorizationException](https://github.com/yingzhuo/carnival/blob/master/carnival-spring-boot-starter-restful-security/src/main/java/com/github/yingzhuo/carnival/restful/security/AuthorizationException.java)
