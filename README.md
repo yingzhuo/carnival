@@ -8,8 +8,12 @@ Carnival
 本项目没有发布到`maven`中央仓库，需自行安装到本地库。
 
 ```bash
+# 下载安装
 git clone https://github.com/yingzhuo/carnival.git
 mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
+
+# 删除(可选)
+rm -rf carnival/
 ```
 
 维基
@@ -20,6 +24,7 @@ mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
 * [carinival-spring-boot-starter-model](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-model)
 * [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * [carinival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
+* [carinival-spring-boot-starter-pinyin](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-pinyin)
 * [carinival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
 * (未完待续)
 
