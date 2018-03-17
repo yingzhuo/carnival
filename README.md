@@ -19,6 +19,7 @@ rm -rf carnival/
 维基
 ---
 
+* [carinival-spring-boot-starter-debug](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-debug)
 * [carinival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
 * [carinival-spring-boot-starter-json](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-json)
 * [carinival-spring-boot-starter-model](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-model)
