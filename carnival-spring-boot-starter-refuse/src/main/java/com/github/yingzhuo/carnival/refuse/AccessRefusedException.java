@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.refuse;
 
-public class RefusedException extends RuntimeException {
+public class AccessRefusedException extends RuntimeException {
 
     private static final long serialVersionUID = 8024507719136569515L;
 
-    public RefusedException(String message) {
+    public AccessRefusedException(String message) {
         super(message);
     }
 

@@ -9,15 +9,13 @@
  */
 package com.github.yingzhuo.carnival.refuse.autoconfig;
 
-import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
-import com.github.yingzhuo.carnival.refuse.RefuseContext;
-import com.github.yingzhuo.carnival.refuse.RefuseListener;
-import com.github.yingzhuo.carnival.refuse.RefusedException;
+import com.github.yingzhuo.carnival.refuse.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -67,13 +65,18 @@ public class RefuseCoreConfiguration extends WebMvcConfigurerAdapter {
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            Map<String, String> config = loader.load();
+            RefuseConfig refuseConfig = loader.load();
+            Map<String, String> config = refuseConfig.toMap();
             String path = request.getRequestURI();
 
             config.keySet().forEach(pattern -> {
                 if (pathMatcher.match(pattern, path)) {
                     listener.execute(new RefuseContext(new Date(), path, (HandlerMethod) handler));
-                    throw new RefusedException(config.get(pattern));
+                    String reason = config.get(pattern);
+                    if (!StringUtils.hasText(reason)) {
+                        reason = refuseConfig.getDefaultReason();
+                    }
+                    throw new AccessRefusedException(reason);
                 }
             });
 

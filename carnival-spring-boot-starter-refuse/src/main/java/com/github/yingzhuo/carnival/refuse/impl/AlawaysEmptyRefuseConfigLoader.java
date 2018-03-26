@@ -9,10 +9,8 @@
  */
 package com.github.yingzhuo.carnival.refuse.impl;
 
+import com.github.yingzhuo.carnival.refuse.RefuseConfig;
 import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
-
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * @author 应卓
@@ -20,10 +18,10 @@ import java.util.Map;
  */
 public class AlawaysEmptyRefuseConfigLoader implements RefuseConfigLoader {
 
-    private static final Map<String, String> EMPTY = Collections.emptyMap();
+    private static final RefuseConfig EMPTY = new RefuseConfig();
 
     @Override
-    public Map<String, String> load() {
+    public RefuseConfig load() {
         return EMPTY;
     }
 

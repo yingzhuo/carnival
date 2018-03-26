@@ -9,14 +9,12 @@
  */
 package com.github.yingzhuo.carnival.refuse;
 
-import java.util.Map;
-
 /**
  * @author 应卓
  * @see com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefuseConfigLoader
  */
 public interface RefuseConfigLoader {
 
-    public Map<String, String> load();
+    public RefuseConfig load();
 
 }
