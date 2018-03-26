@@ -26,6 +26,7 @@ rm -rf carnival/
 * [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * [carinival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
 * [carinival-spring-boot-starter-pinyin](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-pinyin)
+* [carinival-spring-boot-starter-refuse](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-refuse)
 * [carinival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
 * [carnival-spring-boot-starter-integration-smsbao](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-integration-smsbao)
 * (未完待续)
