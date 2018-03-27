@@ -9,12 +9,14 @@
  */
 package com.github.yingzhuo.carnival.refuse;
 
+import com.github.yingzhuo.carnival.refuse.impl.NopRefusingListener;
+
 /**
  * @author 应卓
- * @see com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefuseConfigLoader
+ * @see NopRefusingListener
  */
-public interface RefuseConfigLoader {
+public interface RefusingListener {
 
-    public RefuseConfig load();
+    public void execute(RefuseContext refuseContext);
 
 }

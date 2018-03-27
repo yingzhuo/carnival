@@ -17,7 +17,7 @@ import java.util.Date;
 
 /**
  * @author 应卓
- * @see RefuseListener
+ * @see RefusingListener
  */
 @Data
 @AllArgsConstructor
@@ -26,5 +26,6 @@ public final class RefuseContext {
     private Date timestamp;
     private String requestURI;
     private HandlerMethod handlerMethod;
+    private String reason;
 
 }

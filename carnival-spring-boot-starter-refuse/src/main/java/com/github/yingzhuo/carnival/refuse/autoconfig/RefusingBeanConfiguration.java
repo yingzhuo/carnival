@@ -9,10 +9,10 @@
  */
 package com.github.yingzhuo.carnival.refuse.autoconfig;
 
-import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
-import com.github.yingzhuo.carnival.refuse.RefuseListener;
-import com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefuseConfigLoader;
-import com.github.yingzhuo.carnival.refuse.impl.NopRefuseListener;
+import com.github.yingzhuo.carnival.refuse.RefusingConfigLoader;
+import com.github.yingzhuo.carnival.refuse.RefusingListener;
+import com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefusingConfigLoader;
+import com.github.yingzhuo.carnival.refuse.impl.NopRefusingListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -25,7 +25,7 @@ import javax.annotation.PostConstruct;
  */
 @ConditionalOnWebApplication
 @Slf4j
-public class RefuseBeanConfiguration {
+public class RefusingBeanConfiguration {
 
     @PostConstruct
     private void init() {
@@ -34,14 +34,14 @@ public class RefuseBeanConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public RefuseConfigLoader refuseConfigLoader() {
-        return new AlawaysEmptyRefuseConfigLoader();
+    public RefusingConfigLoader refuseConfigLoader() {
+        return new AlawaysEmptyRefusingConfigLoader();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public RefuseListener refuseListener() {
-        return new NopRefuseListener();
+    public RefusingListener refuseListener() {
+        return new NopRefusingListener();
     }
 
 }

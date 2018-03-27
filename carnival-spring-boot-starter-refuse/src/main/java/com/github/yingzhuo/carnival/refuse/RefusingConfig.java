@@ -16,20 +16,20 @@ import java.util.Objects;
 
 /**
  * @author 应卓
- * @see RefuseConfigLoader
+ * @see RefusingConfigLoader
  */
-final public class RefuseConfig {
+final public class RefusingConfig {
 
     private static final String EMPTY_REASON = "";
 
     private final Map<String, String> infos = new HashMap<>();
     private String defaultReason = null;
 
-    public RefuseConfig() {
+    public RefusingConfig() {
         this(null);
     }
 
-    public RefuseConfig(String defaultReason) {
+    public RefusingConfig(String defaultReason) {
         this.defaultReason = defaultReason;
     }
 

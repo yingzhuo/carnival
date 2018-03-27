@@ -19,16 +19,16 @@ public class ApplicationConfigRefusing {
 
     <lang:defaults refresh-check-delay="100000"/>
 
-    <lang:groovy id="refuseConfigLoader" script-source="classpath:/RefuseConfigLoaderImpl.groovy"/>
+    <lang:groovy id="refuseConfigLoader" script-source="classpath:/RefusingConfigLoaderImpl.groovy"/>
 
 </beans>
 ```
 
 ```groovy
-import com.github.yingzhuo.carnival.refuse.RefuseConfig
-import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader
+import com.github.yingzhuo.carnival.refuse.RefusingConfig
+import com.github.yingzhuo.carnival.refuse.RefusingConfigLoader
 
-class RefuseConfigLoaderImpl implements RefuseConfigLoader {
+class RefuseConfigLoaderImpl implements RefusingConfigLoader {
 
     @Override
     RefuseConfig load() {

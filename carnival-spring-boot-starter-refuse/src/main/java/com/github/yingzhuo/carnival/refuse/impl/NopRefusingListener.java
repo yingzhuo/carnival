@@ -10,13 +10,13 @@
 package com.github.yingzhuo.carnival.refuse.impl;
 
 import com.github.yingzhuo.carnival.refuse.RefuseContext;
-import com.github.yingzhuo.carnival.refuse.RefuseListener;
+import com.github.yingzhuo.carnival.refuse.RefusingListener;
 
 /**
  * @author 应卓
- * @see com.github.yingzhuo.carnival.refuse.RefuseListener
+ * @see RefusingListener
  */
-public class NopRefuseListener implements RefuseListener {
+final public class NopRefusingListener implements RefusingListener {
 
     @Override
     public void execute(RefuseContext refuseContext) {

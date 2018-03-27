@@ -9,19 +9,19 @@
  */
 package com.github.yingzhuo.carnival.refuse.impl;
 
-import com.github.yingzhuo.carnival.refuse.RefuseConfig;
-import com.github.yingzhuo.carnival.refuse.RefuseConfigLoader;
+import com.github.yingzhuo.carnival.refuse.RefusingConfig;
+import com.github.yingzhuo.carnival.refuse.RefusingConfigLoader;
 
 /**
  * @author 应卓
- * @see RefuseConfigLoader
+ * @see RefusingConfigLoader
  */
-public class AlawaysEmptyRefuseConfigLoader implements RefuseConfigLoader {
+public class AlawaysEmptyRefusingConfigLoader implements RefusingConfigLoader {
 
-    private static final RefuseConfig EMPTY = new RefuseConfig();
+    private static final RefusingConfig EMPTY = new RefusingConfig();
 
     @Override
-    public RefuseConfig load() {
+    public RefusingConfig load() {
         return EMPTY;
     }
 

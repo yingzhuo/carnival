@@ -31,14 +31,14 @@ import java.util.Map;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@AutoConfigureAfter(RefuseBeanConfiguration.class)
+@AutoConfigureAfter(RefusingBeanConfiguration.class)
 @Slf4j
-public class RefuseCoreConfiguration extends WebMvcConfigurerAdapter {
+public class RefusingCoreConfiguration extends WebMvcConfigurerAdapter {
 
-    private final RefuseConfigLoader loader;
-    private final RefuseListener listener;
+    private final RefusingConfigLoader loader;
+    private final RefusingListener listener;
 
-    public RefuseCoreConfiguration(RefuseConfigLoader loader, RefuseListener listener) {
+    public RefusingCoreConfiguration(RefusingConfigLoader loader, RefusingListener listener) {
         this.loader = loader;
         this.listener = listener;
     }
@@ -55,27 +55,27 @@ public class RefuseCoreConfiguration extends WebMvcConfigurerAdapter {
 
     private static class RefuseInterceptor extends HandlerInterceptorAdapter {
         private final PathMatcher pathMatcher = new AntPathMatcher();
-        private RefuseConfigLoader loader;
-        private RefuseListener listener;
+        private RefusingConfigLoader loader;
+        private RefusingListener listener;
 
-        public RefuseInterceptor(RefuseConfigLoader loader, RefuseListener listener) {
+        public RefuseInterceptor(RefusingConfigLoader loader, RefusingListener listener) {
             this.loader = loader;
             this.listener = listener;
         }
 
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-            RefuseConfig refuseConfig = loader.load();
-            Map<String, String> config = refuseConfig.toMap();
+            RefusingConfig refusingConfig = loader.load();
+            Map<String, String> config = refusingConfig.toMap();
             String path = request.getRequestURI();
 
             config.keySet().forEach(pattern -> {
                 if (pathMatcher.match(pattern, path)) {
-                    listener.execute(new RefuseContext(new Date(), path, (HandlerMethod) handler));
                     String reason = config.get(pattern);
                     if (!StringUtils.hasText(reason)) {
-                        reason = refuseConfig.getDefaultReason();
+                        reason = refusingConfig.getDefaultReason();
                     }
+                    listener.execute(new RefuseContext(new Date(), path, (HandlerMethod) handler, reason));
                     throw new AccessRefusedException(reason);
                 }
             });
