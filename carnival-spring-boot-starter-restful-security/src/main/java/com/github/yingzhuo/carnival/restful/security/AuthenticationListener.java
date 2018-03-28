@@ -16,7 +16,6 @@ package com.github.yingzhuo.carnival.restful.security;
  * </p>
  *
  * @author 应卓
- * @see com.github.yingzhuo.carnival.restful.security.impl.NopAuthenticationListener
  */
 public interface AuthenticationListener {
 

@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.refuse.autoconfig;
 
+import com.github.yingzhuo.carnival.refuse.RefusingConfig;
 import com.github.yingzhuo.carnival.refuse.RefusingConfigLoader;
 import com.github.yingzhuo.carnival.refuse.RefusingListener;
-import com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefusingConfigLoader;
-import com.github.yingzhuo.carnival.refuse.impl.NopRefusingListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -35,13 +34,13 @@ public class RefusingBeanConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public RefusingConfigLoader refuseConfigLoader() {
-        return new AlawaysEmptyRefusingConfigLoader();
+        return RefusingConfig::new;
     }
 
     @Bean
     @ConditionalOnMissingBean
     public RefusingListener refuseListener() {
-        return new NopRefusingListener();
+        return refuseContext -> {};
     }
 
 }

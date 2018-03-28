@@ -13,7 +13,9 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.RunAsIdGenerator;
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.*;
+import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
+import com.github.yingzhuo.carnival.restful.security.impl.SimpleRunAsIdGenerator;
+import com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordUserDetailsRealm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -25,6 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
+import java.util.Optional;
 
 @Slf4j
 @ConditionalOnWebApplication
@@ -56,14 +59,14 @@ public class RestfulSecurityBeanConfiguration {
             log.info("\n\n\t\tPASSWORD: \"{}\"\n", userProps.getPassword());
             return new UsernamePasswordUserDetailsRealm(userProps.isCaseSensitive(), userProps.getUsername(), userProps.getPassword());
         } else {
-            return new AlwaysEmptyUserDetailsRealm();
+            return (token) -> Optional.empty();
         }
     }
 
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationListener authenticationListener() {
-        return new NopAuthenticationListener();
+        return (userDetails) -> {};
     }
 
     @Bean

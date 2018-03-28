@@ -9,11 +9,8 @@
  */
 package com.github.yingzhuo.carnival.refuse;
 
-import com.github.yingzhuo.carnival.refuse.impl.NopRefusingListener;
-
 /**
  * @author 应卓
- * @see NopRefusingListener
  */
 public interface RefusingListener {
 

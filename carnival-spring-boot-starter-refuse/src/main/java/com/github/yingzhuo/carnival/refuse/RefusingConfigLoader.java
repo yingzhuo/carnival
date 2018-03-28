@@ -9,11 +9,8 @@
  */
 package com.github.yingzhuo.carnival.refuse;
 
-import com.github.yingzhuo.carnival.refuse.impl.AlawaysEmptyRefusingConfigLoader;
-
 /**
  * @author 应卓
- * @see AlawaysEmptyRefusingConfigLoader
  */
 public interface RefusingConfigLoader {
 
