@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.integration.smsbao.autoconfig;
 import com.github.yingzhuo.carnival.integration.smsbao.Mode;
 import com.github.yingzhuo.carnival.integration.smsbao.SmsbaoManager;
 import com.github.yingzhuo.carnival.integration.smsbao.impl.DefaultSmsbaoManagerImpl;
-import com.github.yingzhuo.carnival.integration.smsbao.impl.NopSmsbaoManager;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -52,9 +51,12 @@ public class SmsbaoManagerConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public SmsbaoManager smsbaoManager(Props props, RestTemplate restTemplate) {
-        if (props.getMode() == Mode.NOP) return new NopSmsbaoManager();
-        else
+        if (props.getMode() == Mode.NOP) {
+            return (phoneNumber, content) -> true;
+        }
+        else {
             return new DefaultSmsbaoManagerImpl(restTemplate, props.getUsername(), props.getPassword());
+        }
     }
 
     @Data

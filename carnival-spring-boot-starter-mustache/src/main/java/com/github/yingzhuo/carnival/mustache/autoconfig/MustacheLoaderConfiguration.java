@@ -36,13 +36,14 @@ public class MustacheLoaderConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public MustacheLoader mustacheLoader() {
-        return new MustacheLoaderImpl("UTF-8");
+    public MustacheLoader mustacheLoader(Props props) {
+        return new MustacheLoaderImpl(props.getEncoding());
     }
 
     @Data
     @ConfigurationProperties("carnival.mustache")
     static class Props {
         private boolean enabled = true;
+        private String encoding = "UTF-8";
     }
 }
