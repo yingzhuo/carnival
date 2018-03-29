@@ -9,11 +9,15 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsConfiguration;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -27,6 +31,8 @@ public final class SpringUtils {
 
     static ApplicationContext AC = null;
     static Environment ENV = null;
+    static ApplicationArguments APP_ARGS = null;
+    static List<String> CMD_ARGS = null;
 
     private SpringUtils() {
     }
@@ -37,6 +43,14 @@ public final class SpringUtils {
 
     public static Environment getEnvironment() {
         return ENV;
+    }
+
+    public static ApplicationArguments getApplicationArguments() {
+        return APP_ARGS;
+    }
+
+    public static List<String> getCommandArguments() {
+        return CMD_ARGS;
     }
 
     public static <B> B getBean(Class<B> beanType) {
@@ -58,6 +72,19 @@ public final class SpringUtils {
 
     public static Set<String> getActiveProfiles() {
         return Collections.unmodifiableSet(Arrays.stream(ENV.getActiveProfiles()).collect(Collectors.toSet()));
+    }
+
+    public static boolean isWebApplication() {
+        try {
+            getBean(SpringUtilsConfiguration.WebApplicationAnchor.class);
+            return true;
+        } catch (NoSuchBeanDefinitionException e) {
+            return false;
+        }
+    }
+
+    public static boolean isNotWebApplication() {
+        return !isWebApplication();
     }
 
 }

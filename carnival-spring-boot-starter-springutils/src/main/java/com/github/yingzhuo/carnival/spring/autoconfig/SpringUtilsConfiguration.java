@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.spring.autoconfig;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtilsApplicationContextAware;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +32,16 @@ public class SpringUtilsConfiguration {
     @Bean
     public SpringUtilsApplicationContextAware springUtilsApplicationContextAware() {
         return SpringUtilsApplicationContextAware.INSTANCE;
+    }
+
+    @Bean
+    @ConditionalOnWebApplication
+    public WebApplicationAnchor webApplicationAnchor() {
+        return new WebApplicationAnchor();
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    final public class WebApplicationAnchor {
     }
 
 }
