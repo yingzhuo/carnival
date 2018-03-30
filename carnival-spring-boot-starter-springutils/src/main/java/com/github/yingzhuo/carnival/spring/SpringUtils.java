@@ -15,11 +15,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Spring通用工具
@@ -41,18 +37,6 @@ public final class SpringUtils {
         return AC;
     }
 
-    public static Environment getEnvironment() {
-        return ENV;
-    }
-
-    public static ApplicationArguments getApplicationArguments() {
-        return APP_ARGS;
-    }
-
-    public static List<String> getCommandArguments() {
-        return CMD_ARGS;
-    }
-
     public static <B> B getBean(Class<B> beanType) {
         return getApplicationContext().getBean(beanType);
     }
@@ -64,14 +48,6 @@ public final class SpringUtils {
 
     public static <B> B getBean(String beanName, Class<B> beanType) {
         return getApplicationContext().getBean(beanName, beanType);
-    }
-
-    public static boolean acceptsProfiles(String... profiles) {
-        return ENV.acceptsProfiles(profiles);
-    }
-
-    public static Set<String> getActiveProfiles() {
-        return Collections.unmodifiableSet(Arrays.stream(ENV.getActiveProfiles()).collect(Collectors.toSet()));
     }
 
     public static boolean isWebApplication() {

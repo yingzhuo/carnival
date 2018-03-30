@@ -16,6 +16,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
@@ -24,11 +25,16 @@ import java.util.Arrays;
  * @author 应卓
  * @since 0.0.1
  */
-public class SpringUtilsApplicationContextAware implements ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
+public class SpringUtilsApplicationContextAware implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
 
     public static final SpringUtilsApplicationContextAware INSTANCE = new SpringUtilsApplicationContextAware();
 
     private SpringUtilsApplicationContextAware() {
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
     @Override
