@@ -30,11 +30,12 @@ public @interface EnableRefusing {
 
     static final class ImportSelector implements DeferredImportSelector {
         @Override
-        public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+        public String[] selectImports(AnnotationMetadata metadata) {
             return new String[] {
                     RefusingBeanConfiguration.class.getName(),
                     RefusingCoreConfiguration.class.getName()
             };
         }
     }
+
 }

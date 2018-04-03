@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.refuse;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.web.method.HandlerMethod;
 
 import java.util.Date;
 
@@ -25,7 +24,6 @@ public final class RefuseContext {
 
     private Date timestamp;
     private String requestURI;
-    private HandlerMethod handlerMethod;
     private String reason;
 
 }
