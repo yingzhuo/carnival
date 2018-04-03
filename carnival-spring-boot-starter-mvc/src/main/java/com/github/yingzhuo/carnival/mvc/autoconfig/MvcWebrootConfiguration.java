@@ -26,7 +26,7 @@ import javax.annotation.PostConstruct;
  */
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcWebrootConfiguration.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true")
 @Slf4j
 public class MvcWebrootConfiguration extends WebMvcConfigurerAdapter {
 
@@ -49,7 +49,7 @@ public class MvcWebrootConfiguration extends WebMvcConfigurerAdapter {
     @Data
     @ConfigurationProperties("carnival.mvc.webroot")
     static class Props {
-        private boolean enabled = true;
+        private boolean enabled = false;
         private String attributeName = "WEBROOT";
     }
 
