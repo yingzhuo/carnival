@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.Algorithm;
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
-import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
+import com.github.yingzhuo.carnival.id.IdGenerator;
+import com.github.yingzhuo.carnival.id.impl.StringSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Data;
@@ -47,15 +47,17 @@ public class IdGeneratorConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public StringIdGenerator stringIdGenerator() {
+    public IdGenerator<?> stringIdGenerator() {
 
         switch (props.getAlgorithm()) {
-            case UUID32:
+            case UUID_32:
                 return new UUID32IdGenerator();
-            case UUID36:
+            case UUID_36:
                 return new UUID36IdGenerator();
-            case SNOWFLAKE:
-                return new SnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
+            case SNOWFLAKE_STRING:
+                return new StringSnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
+            case SNOWFLAKE_LONG:
+                return new StringSnowflakeIdGenerator(snowflakeProps.getWorkerId());
         }
 
         throw new IllegalStateException();
@@ -65,7 +67,7 @@ public class IdGeneratorConfiguration {
     @ConfigurationProperties("carnival.id")
     static class Props {
         private boolean enabled = true;
-        private Algorithm algorithm = Algorithm.UUID32;
+        private Algorithm algorithm = Algorithm.UUID_32;
     }
 
     @Data

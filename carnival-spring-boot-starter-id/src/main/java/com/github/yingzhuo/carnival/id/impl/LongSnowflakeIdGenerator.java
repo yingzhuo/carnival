@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.id.impl;
 
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
+import com.github.yingzhuo.carnival.id.LongIdGenerator;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class SnowflakeIdGenerator implements StringIdGenerator {
+public class LongSnowflakeIdGenerator implements LongIdGenerator {
 
     private final static long TWEPOCH = 1361753741828L;
     private final static long WORKER_ID_BITS = 4L;
@@ -25,9 +25,8 @@ public class SnowflakeIdGenerator implements StringIdGenerator {
     private final long workerId;
     private long sequence = 0L;
     private long lastTimestamp = -1L;
-    private int pad = 32;
 
-    public SnowflakeIdGenerator(long workerId) {
+    public LongSnowflakeIdGenerator(long workerId) {
         if (workerId > MAX_WORKER_ID || workerId < 0) {
             final String msg = String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID);
             log.warn(msg);
@@ -37,13 +36,8 @@ public class SnowflakeIdGenerator implements StringIdGenerator {
         this.workerId = workerId;
     }
 
-    public SnowflakeIdGenerator(long workerId, int pad) {
-        this(workerId);
-        this.pad = pad;
-    }
-
     @Override
-    public synchronized String nextId() {
+    public synchronized Long nextId() {
         long timestamp = timeGen();
         if (this.lastTimestamp == timestamp) {
             this.sequence = (this.sequence + 1) & SEQUENCE_MASK;
@@ -60,13 +54,7 @@ public class SnowflakeIdGenerator implements StringIdGenerator {
         }
 
         this.lastTimestamp = timestamp;
-        long nextId = ((timestamp - TWEPOCH << TIMESTAMP_LEFT_SHIFT)) | (this.workerId << WORKER_ID_SHIFT) | (this.sequence);
-
-        if (pad <= 0) {
-            return Long.toString(nextId);
-        } else {
-            return String.format("%0" + this.pad + "d", nextId);
-        }
+        return ((timestamp - TWEPOCH << TIMESTAMP_LEFT_SHIFT)) | (this.workerId << WORKER_ID_SHIFT) | (this.sequence);
     }
 
     private long tilNextMillis(final long lastTimestamp) {
@@ -81,8 +69,8 @@ public class SnowflakeIdGenerator implements StringIdGenerator {
         return System.currentTimeMillis();
     }
 
-    public void setPad(int pad) {
-        this.pad = pad;
+    public long getWorkerId() {
+        return workerId;
     }
 
 }

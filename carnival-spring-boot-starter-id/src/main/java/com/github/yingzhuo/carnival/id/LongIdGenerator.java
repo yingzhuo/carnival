@@ -12,9 +12,5 @@ package com.github.yingzhuo.carnival.id;
 /**
  * @author 应卓
  */
-@FunctionalInterface
-public interface IdGenerator<ID> {
-
-    public ID nextId();
-
+public interface LongIdGenerator extends IdGenerator<Long> {
 }

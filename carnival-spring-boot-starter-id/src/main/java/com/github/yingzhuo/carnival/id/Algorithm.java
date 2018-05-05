@@ -14,10 +14,12 @@ package com.github.yingzhuo.carnival.id;
  */
 public enum Algorithm {
 
-    UUID32,
+    UUID_32,
 
-    UUID36,
+    UUID_36,
 
-    SNOWFLAKE
+    SNOWFLAKE_STRING,
+
+    SNOWFLAKE_LONG
 
 }
