@@ -7,19 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id.impl;
-
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
-import com.github.yingzhuo.carnival.id.util.UUIDUtils;
+package com.github.yingzhuo.carnival.id.util;
 
 /**
  * @author 应卓
  */
-public class UUID32IdGenerator implements StringIdGenerator {
+public final class UUIDUtils {
 
-    @Override
-    public String nextId() {
-        return UUIDUtils.randomUUID32();
+    private UUIDUtils() {
     }
 
+    public static String randomUUID32() {
+        return randomUUID36().replaceAll("-", "");
+    }
+
+    public static String randomUUID36() {
+        return java.util.UUID.randomUUID().toString();
+    }
 }
