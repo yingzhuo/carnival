@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
+import com.github.yingzhuo.carnival.id.impl.LongSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.StringSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
@@ -57,7 +58,7 @@ public class IdGeneratorConfiguration {
             case SNOWFLAKE_STRING:
                 return new StringSnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
             case SNOWFLAKE_LONG:
-                return new StringSnowflakeIdGenerator(snowflakeProps.getWorkerId());
+                return new LongSnowflakeIdGenerator(snowflakeProps.getWorkerId());
         }
 
         throw new IllegalStateException();
