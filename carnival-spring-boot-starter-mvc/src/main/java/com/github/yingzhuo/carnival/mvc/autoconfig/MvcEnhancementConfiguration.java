@@ -18,17 +18,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcEnhancementConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.mvc.enhancement", name = "enabled", havingValue = "true", matchIfMissing = true)
-@Slf4j
-public class MvcEnhancementConfiguration extends WebMvcConfigurerAdapter {
+public class MvcEnhancementConfiguration implements WebMvcConfigurer {
 
     @PostConstruct
     private void init() {

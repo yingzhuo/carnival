@@ -22,6 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 
@@ -31,10 +32,10 @@ import javax.annotation.PostConstruct;
 @Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties({
-        JwtConfiguration.JwtProps.class
+        JwtWebConfiguration.JwtProps.class
 })
-@ConditionalOnProperty(prefix = "carnival.pinyin", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class JwtConfiguration {
+@ConditionalOnProperty(prefix = "carnival.jwt", name = "enabled", havingValue = "true", matchIfMissing = true)
+public class JwtWebConfiguration implements WebMvcConfigurer {
 
     @PostConstruct
     private void init() {

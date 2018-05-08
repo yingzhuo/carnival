@@ -17,18 +17,18 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 
 /**
  * @author 应卓
  */
+@Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcWebrootConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true")
-@Slf4j
-public class MvcWebrootConfiguration extends WebMvcConfigurerAdapter {
+public class MvcWebrootConfiguration implements WebMvcConfigurer {
 
     private final Props props;
 

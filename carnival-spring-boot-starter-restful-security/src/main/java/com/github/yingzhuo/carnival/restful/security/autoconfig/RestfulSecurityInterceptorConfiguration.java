@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -28,7 +28,7 @@ import java.util.List;
 @Slf4j
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
-public class RestfulSecurityInterceptorConfiguration extends WebMvcConfigurerAdapter {
+public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer {
 
     private final TokenParser tokenParser;
     private final UserDetailsRealm userDetailsRealm;

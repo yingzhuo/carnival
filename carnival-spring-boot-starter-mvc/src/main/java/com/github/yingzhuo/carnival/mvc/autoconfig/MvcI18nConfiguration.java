@@ -19,17 +19,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.annotation.PostConstruct;
 
+@Slf4j
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.i18n", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcI18nConfiguration.MvcI18nProps.class)
-@Slf4j
-public class MvcI18nConfiguration extends WebMvcConfigurerAdapter {
+public class MvcI18nConfiguration implements WebMvcConfigurer {
 
     private final MvcI18nProps props;
 

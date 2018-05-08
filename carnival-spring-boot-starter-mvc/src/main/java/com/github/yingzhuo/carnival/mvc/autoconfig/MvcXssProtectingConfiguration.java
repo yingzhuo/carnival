@@ -19,6 +19,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.FilterChain;
@@ -30,11 +31,11 @@ import java.io.IOException;
 /**
  * @author 应卓
  */
+@Slf4j
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.xss-protecting", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(MvcXssProtectingConfiguration.Props.class)
-@Slf4j
-public class MvcXssProtectingConfiguration {
+public class MvcXssProtectingConfiguration implements WebMvcConfigurer {
 
     @PostConstruct
     private void init() {
