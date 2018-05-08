@@ -15,6 +15,7 @@
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
+        <module>carnival-spring-boot-starter-jwt</module>
         <module>carnival-spring-boot-starter-model</module>
         <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
@@ -343,6 +344,13 @@
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy-all</artifactId>
                 <version>${groovy.version}</version>
+            </dependency>
+
+            <!-- jwt -->
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>java-jwt</artifactId>
+                <version>3.3.0</version>
             </dependency>
 
             <!-- commons -->
