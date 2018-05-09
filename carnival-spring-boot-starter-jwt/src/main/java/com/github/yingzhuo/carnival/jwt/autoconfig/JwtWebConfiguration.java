@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.jwt.autoconfig;
 import com.github.yingzhuo.carnival.jwt.JwtInfoTransform;
 import com.github.yingzhuo.carnival.jwt.JwtTokenGenerator;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenGenerator;
+import com.github.yingzhuo.carnival.jwt.mvc.JwtValidatingHandlerInterceptor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -22,6 +23,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
@@ -63,6 +65,11 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
         public void afterPropertiesSet() throws Exception {
             Assert.hasText(getSecret(), "'carnival.jwt.secret' should NOT be null or blank.");
         }
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new JwtValidatingHandlerInterceptor(null)).addPathPatterns("/**");
     }
 
 }
