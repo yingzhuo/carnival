@@ -41,4 +41,5 @@ public class SimpleJwtTokenParser implements JwtTokenParser {
 
         return Optional.of(headerValue.substring(BEARER_LEN, headerValue.length()));
     }
+
 }

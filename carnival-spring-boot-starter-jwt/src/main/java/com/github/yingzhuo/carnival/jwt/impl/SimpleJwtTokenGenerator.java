@@ -18,7 +18,6 @@ import com.github.yingzhuo.carnival.jwt.JwtTokenGenerator;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.util.AlUtils;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
