@@ -72,7 +72,7 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean
     public JwtTokenGenerator jwtTokenGenerator(JwtInfoTransform transform) {
-        return new SimpleJwtTokenGenerator(props.getSecret(), transform);
+        return new SimpleJwtTokenGenerator(props.getSignatureAlgorithm(), props.getSecret(), transform);
     }
 
     @Override

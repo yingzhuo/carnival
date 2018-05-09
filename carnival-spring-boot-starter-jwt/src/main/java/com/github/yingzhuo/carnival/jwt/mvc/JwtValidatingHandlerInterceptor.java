@@ -15,6 +15,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.github.yingzhuo.carnival.jwt.JwtTokenParser;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.exception.JwtParsingException;
+import com.github.yingzhuo.carnival.jwt.util.AlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -67,10 +69,10 @@ public class JwtValidatingHandlerInterceptor extends HandlerInterceptorAdapter {
         Optional<String> tokenOp = jwtTokenParser.parse(new ServletWebRequest(request));
 
         if (!tokenOp.isPresent()) {
-            throw new RuntimeException("无法解析Token");
+            throw new JwtParsingException("Can not parse token.");
         }
 
-        Algorithm algorithm = Algorithm.HMAC256(this.secret);
+        Algorithm algorithm = AlUtils.of(signatureAlgorithm, secret);
         JWTVerifier verifier = JWT.require(algorithm).build();
 
         try {
