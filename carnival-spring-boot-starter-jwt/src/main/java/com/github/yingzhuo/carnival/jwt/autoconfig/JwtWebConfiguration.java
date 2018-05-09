@@ -11,11 +11,16 @@ package com.github.yingzhuo.carnival.jwt.autoconfig;
 
 import com.github.yingzhuo.carnival.jwt.JwtInfoTransform;
 import com.github.yingzhuo.carnival.jwt.JwtTokenGenerator;
+import com.github.yingzhuo.carnival.jwt.JwtTokenParser;
+import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenGenerator;
+import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenParser;
 import com.github.yingzhuo.carnival.jwt.mvc.JwtValidatingHandlerInterceptor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -27,17 +32,31 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author 应卓
  */
 @Slf4j
 @ConditionalOnWebApplication
-@EnableConfigurationProperties({
-        JwtWebConfiguration.JwtProps.class
-})
 @ConditionalOnProperty(prefix = "carnival.jwt", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties({
+        JwtWebConfiguration.JwtProps.class,
+        JwtWebConfiguration.JwtValidatingProps.class
+})
+@AutoConfigureAfter(JwtBeanConfiguration.class)
 public class JwtWebConfiguration implements WebMvcConfigurer {
+
+    @Autowired
+    private JwtProps props;
+
+    @Autowired
+    private JwtValidatingProps jwtValidatingProps;
+
+    @Autowired
+    private JwtTokenParser jwtTokenParser;
 
     @PostConstruct
     private void init() {
@@ -46,12 +65,26 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    public JwtTokenGenerator jwtTokenGenerator(JwtProps props, JwtInfoTransform transform) {
+    public JwtTokenParser jwtTokenParser() {
+        return new SimpleJwtTokenParser();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public JwtTokenGenerator jwtTokenGenerator(JwtInfoTransform transform) {
         return new SimpleJwtTokenGenerator(props.getSecret(), transform);
     }
 
-    enum SignatureAlgorithm {
-        HMAC256 // 暂时只支持本算法
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        final JwtValidatingHandlerInterceptor interceptor = new JwtValidatingHandlerInterceptor(
+                props.getSignatureAlgorithm(),
+                props.getSecret(),
+                jwtValidatingProps.getExcludePatternsAsSet(),
+                jwtTokenParser
+        );
+
+        registry.addInterceptor(interceptor).addPathPatterns("/**");
     }
 
     @Data
@@ -67,9 +100,18 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
         }
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new JwtValidatingHandlerInterceptor(null)).addPathPatterns("/**");
-    }
+    @Data
+    @ConfigurationProperties("carnival.jwt.validating")
+    static class JwtValidatingProps {
+        private String[] excludePatterns;
 
+        Set<String> getExcludePatternsAsSet() {
+            if (excludePatterns == null) {
+                return new HashSet<>();
+            }
+            else {
+                return new HashSet<>(Arrays.asList(excludePatterns));
+            }
+        }
+    }
 }
