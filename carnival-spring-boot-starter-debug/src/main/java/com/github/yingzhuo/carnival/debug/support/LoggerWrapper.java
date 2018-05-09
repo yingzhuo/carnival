@@ -19,8 +19,8 @@ import java.util.Objects;
  */
 public class LoggerWrapper {
 
-    private LogLevel logLevel;
     private final Logger log;
+    private LogLevel logLevel;
 
     public LoggerWrapper(LogLevel logLevel, String loggerName) {
         this.logLevel = Objects.requireNonNull(logLevel);
@@ -34,12 +34,23 @@ public class LoggerWrapper {
 
     public void doLog(String format, Object... args) {
         switch (logLevel) {
-            case OFF: break;
-            case TRACE: log.trace(format, args); break;
-            case DEBUG: log.debug(format, args); break;
-            case INFO: log.info(format, args); break;
-            case WARN: log.warn(format, args); break;
-            case ERROR: log.error(format, args); break;
+            case OFF:
+                break;
+            case TRACE:
+                log.trace(format, args);
+                break;
+            case DEBUG:
+                log.debug(format, args);
+                break;
+            case INFO:
+                log.info(format, args);
+                break;
+            case WARN:
+                log.warn(format, args);
+                break;
+            case ERROR:
+                log.error(format, args);
+                break;
         }
     }
 

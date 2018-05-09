@@ -53,8 +53,7 @@ public class SmsbaoManagerConfiguration {
     public SmsbaoManager smsbaoManager(Props props, RestTemplate restTemplate) {
         if (props.getMode() == Mode.NOP) {
             return (phoneNumber, content) -> true;
-        }
-        else {
+        } else {
             return new DefaultSmsbaoManagerImpl(restTemplate, props.getUsername(), props.getPassword());
         }
     }

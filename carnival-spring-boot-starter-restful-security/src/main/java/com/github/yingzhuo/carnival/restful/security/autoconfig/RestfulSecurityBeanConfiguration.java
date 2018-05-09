@@ -66,7 +66,8 @@ public class RestfulSecurityBeanConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationListener authenticationListener() {
-        return (userDetails) -> {};
+        return (userDetails) -> {
+        };
     }
 
     @Bean

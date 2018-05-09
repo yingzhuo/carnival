@@ -31,7 +31,7 @@ public class SimpleHookExecutionContext implements HookExecutionContext, PreHook
     private Object result;
 
     public SimpleHookExecutionContext(ProceedingJoinPoint call) {
-        this(((MethodSignature)call.getSignature()).getMethod(), call.getTarget(), call.getArgs());
+        this(((MethodSignature) call.getSignature()).getMethod(), call.getTarget(), call.getArgs());
     }
 
     public SimpleHookExecutionContext(ProceedingJoinPoint call, Throwable exception, Object result) {

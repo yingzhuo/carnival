@@ -27,24 +27,24 @@ public final class RestfulSecurityContext {
     private RestfulSecurityContext() {
     }
 
+    public static Optional<Token> getToken() {
+        return Optional.ofNullable(tokenHolder.get());
+    }
+
     public static void setToken(Token token) {
         if (token != null) {
             tokenHolder.set(token);
         }
     }
 
+    public static Optional<UserDetails> getUserDetails() {
+        return Optional.ofNullable(userDetailsHolder.get());
+    }
+
     public static void setUserDetails(UserDetails userDetails) {
         if (userDetails != null) {
             userDetailsHolder.set(userDetails);
         }
-    }
-
-    public static Optional<Token> getToken() {
-        return Optional.ofNullable(tokenHolder.get());
-    }
-
-    public static Optional<UserDetails> getUserDetails() {
-        return Optional.ofNullable(userDetailsHolder.get());
     }
 
 }

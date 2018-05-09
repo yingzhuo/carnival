@@ -108,8 +108,7 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
         Set<String> getExcludePatternsAsSet() {
             if (excludePatterns == null) {
                 return new HashSet<>();
-            }
-            else {
+            } else {
                 return new HashSet<>(Arrays.asList(excludePatterns));
             }
         }

@@ -22,22 +22,6 @@ public class DataSourceWrapper implements DataSource {
     private final Map<String, DataSource> dataSourceMap = new HashMap<>();
     private String defaultName;
 
-    public static final class Switch {
-
-        private static final ThreadLocal<String> HOLDER = ThreadLocal.withInitial(() -> null);
-
-        private Switch() {
-        }
-
-        public static String getName() {
-            return HOLDER.get();
-        }
-
-        public static void setName(String name) {
-            HOLDER.set(name);
-        }
-    }
-
     public DataSourceWrapper() {
         this(null);
     }
@@ -99,13 +83,13 @@ public class DataSourceWrapper implements DataSource {
     }
 
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-        _getDataSource().setLoginTimeout(seconds);
+    public int getLoginTimeout() throws SQLException {
+        return _getDataSource().getLoginTimeout();
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-        return _getDataSource().getLoginTimeout();
+    public void setLoginTimeout(int seconds) throws SQLException {
+        _getDataSource().setLoginTimeout(seconds);
     }
 
     @Override
@@ -118,5 +102,21 @@ public class DataSourceWrapper implements DataSource {
                 .orElse(dataSourceMap.get(defaultName));
 
         return Objects.requireNonNull(dataSource);
+    }
+
+    public static final class Switch {
+
+        private static final ThreadLocal<String> HOLDER = ThreadLocal.withInitial(() -> null);
+
+        private Switch() {
+        }
+
+        public static String getName() {
+            return HOLDER.get();
+        }
+
+        public static void setName(String name) {
+            HOLDER.set(name);
+        }
     }
 }

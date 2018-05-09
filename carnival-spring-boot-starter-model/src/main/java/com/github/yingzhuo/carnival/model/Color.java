@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.model;
  */
 public final class Color implements java.io.Serializable {
 
-    private static final long serialVersionUID = 5730688186059906304L;
-
     public static final Color WHITE;
     public static final Color LIGHT_GRAY;
     public static final Color GRAY;
@@ -29,6 +27,7 @@ public final class Color implements java.io.Serializable {
     public static final Color MAGENTA;
     public static final Color CYAN;
     public static final Color BLUE;
+    private static final long serialVersionUID = 5730688186059906304L;
 
     static {
         WHITE = new Color(255, 255, 255);

@@ -27,7 +27,7 @@ public class SimpleJwtTokenParser implements JwtTokenParser {
     public Optional<String> parse(NativeWebRequest request) {
         String headerValue = request.getHeader(AUTHORIZATION);
 
-        if (! StringUtils.hasText(headerValue)) {
+        if (!StringUtils.hasText(headerValue)) {
             return Optional.empty();
         }
 

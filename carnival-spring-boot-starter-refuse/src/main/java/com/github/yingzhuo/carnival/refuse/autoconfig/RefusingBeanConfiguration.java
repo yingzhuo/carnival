@@ -40,7 +40,8 @@ public class RefusingBeanConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public RefusingListener refuseListener() {
-        return refuseContext -> {};
+        return refuseContext -> {
+        };
     }
 
 }

@@ -19,16 +19,15 @@ import java.util.logging.Logger;
 
 public class NamedDataSource implements Named, DataSource {
 
-    public static NamedDataSource newInstance(String name, DataSource dataSource) {
-        return new NamedDataSource(name, dataSource);
-    }
-
     private final String name;
     private final DataSource dataSource;
-
     public NamedDataSource(String name, DataSource dataSource) {
         this.name = Objects.requireNonNull(name);
         this.dataSource = Objects.requireNonNull(dataSource);
+    }
+
+    public static NamedDataSource newInstance(String name, DataSource dataSource) {
+        return new NamedDataSource(name, dataSource);
     }
 
     @Override
@@ -67,13 +66,13 @@ public class NamedDataSource implements Named, DataSource {
     }
 
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-        dataSource.setLoginTimeout(seconds);
+    public int getLoginTimeout() throws SQLException {
+        return dataSource.getLoginTimeout();
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-        return dataSource.getLoginTimeout();
+    public void setLoginTimeout(int seconds) throws SQLException {
+        dataSource.setLoginTimeout(seconds);
     }
 
     @Override

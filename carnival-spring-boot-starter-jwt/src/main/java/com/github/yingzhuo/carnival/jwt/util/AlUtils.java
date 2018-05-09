@@ -22,8 +22,10 @@ public final class AlUtils {
     public static Algorithm of(SignatureAlgorithm signatureAlgorithm, String s) {
         try {
             switch (signatureAlgorithm) {
-                case HMAC256: return Algorithm.HMAC256(s);
-                default: return null;
+                case HMAC256:
+                    return Algorithm.HMAC256(s);
+                default:
+                    return null;
             }
         } catch (UnsupportedEncodingException e) {
             return null;

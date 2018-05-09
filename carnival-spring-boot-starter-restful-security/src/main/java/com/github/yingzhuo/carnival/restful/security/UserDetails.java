@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
 
 public interface UserDetails {
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public String getId();
 
     public String getUsername();
@@ -44,19 +48,15 @@ public interface UserDetails {
                 getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()));
     }
 
+    // Builder
+    // --------------------------------------------------------------------------
+
     public default Collection<String> getPermissionNames() {
         if (getPermissions() == null) {
             return Collections.emptyList();
         }
 
         return Collections.unmodifiableList(getPermissions().stream().map(Permission::getPermissionName).collect(Collectors.toList()));
-    }
-
-    // Builder
-    // --------------------------------------------------------------------------
-
-    public static Builder builder() {
-        return new Builder();
     }
 
     public static class Builder {
