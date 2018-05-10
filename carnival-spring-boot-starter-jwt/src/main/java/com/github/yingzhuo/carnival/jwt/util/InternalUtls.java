@@ -13,6 +13,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Objects;
 
 public final class InternalUtls {
 
@@ -20,15 +21,22 @@ public final class InternalUtls {
     }
 
     public static Algorithm toAlgorithm(SignatureAlgorithm signatureAlgorithm, String s) {
+        Objects.requireNonNull(signatureAlgorithm);
+        Objects.requireNonNull(s);
+
         try {
             switch (signatureAlgorithm) {
                 case HMAC256:
                     return Algorithm.HMAC256(s);
+                case HMAC384:
+                    return Algorithm.HMAC384(s);
+                case HMAC512:
+                    return Algorithm.HMAC512(s);
                 default:
-                    return null;
+                    throw new IllegalArgumentException();
             }
         } catch (UnsupportedEncodingException e) {
-            return null;
+            throw new IllegalArgumentException(); // 不可能抛出此异常
         }
     }
 

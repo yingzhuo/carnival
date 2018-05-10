@@ -14,6 +14,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public final class JwtValidatingContext {
 
     private JwtValidatingContext() {
+        super();
     }
 
     private static final ThreadLocal<DecodedJWT> HOLDER = ThreadLocal.withInitial(() -> null);

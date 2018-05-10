@@ -9,10 +9,8 @@
  */
 package com.github.yingzhuo.carnival.jwt.autoconfig;
 
-import com.github.yingzhuo.carnival.jwt.JwtInfoTransform;
-import com.github.yingzhuo.carnival.jwt.JwtTokenGenerator;
-import com.github.yingzhuo.carnival.jwt.JwtTokenParser;
-import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.*;
+import com.github.yingzhuo.carnival.jwt.impl.NopAuthorizationManager;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenGenerator;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenParser;
 import com.github.yingzhuo.carnival.jwt.mvc.JwtValidatingHandlerInterceptor;
@@ -21,7 +19,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -46,11 +43,10 @@ import java.util.Set;
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.jwt", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({
-        JwtWebConfiguration.JwtProps.class,
-        JwtWebConfiguration.JwtValidatingProps.class
+        JwtConfiguration.JwtProps.class,
+        JwtConfiguration.JwtValidatingProps.class
 })
-@AutoConfigureAfter(JwtBeanConfiguration.class)
-public class JwtWebConfiguration implements WebMvcConfigurer {
+public class JwtConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private JwtProps props;
@@ -60,6 +56,9 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
 
     @Autowired
     private JwtTokenParser jwtTokenParser;
+
+    @Autowired
+    private AuthorizationManager authorizationManager;
 
     @PostConstruct
     private void init() {
@@ -74,6 +73,12 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
+    public AuthorizationManager authorizationManager() {
+        return new NopAuthorizationManager();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     public JwtTokenGenerator jwtTokenGenerator(JwtInfoTransform transform) {
         return new SimpleJwtTokenGenerator(props.getSignatureAlgorithm(), props.getSecret(), transform);
     }
@@ -84,7 +89,8 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
                 props.getSignatureAlgorithm(),
                 props.getSecret(),
                 jwtValidatingProps.getExcludePatternsAsSet(),
-                jwtTokenParser
+                jwtTokenParser,
+                authorizationManager
         );
 
         registry.addInterceptor(interceptor).addPathPatterns("/**");

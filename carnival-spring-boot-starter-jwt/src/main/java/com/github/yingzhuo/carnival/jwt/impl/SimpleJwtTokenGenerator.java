@@ -38,6 +38,7 @@ public class SimpleJwtTokenGenerator implements JwtTokenGenerator {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public String generate(Object entity) {
         Algorithm al = InternalUtls.toAlgorithm(signatureAlgorithm, secret);
 

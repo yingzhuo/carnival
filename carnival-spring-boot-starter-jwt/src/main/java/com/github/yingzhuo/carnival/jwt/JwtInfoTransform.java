@@ -13,8 +13,8 @@ package com.github.yingzhuo.carnival.jwt;
  * @author 应卓
  */
 @FunctionalInterface
-public interface JwtInfoTransform {
+public interface JwtInfoTransform<T> {
 
-    public JwtInfo apply(Object entity);
+    public JwtInfo apply(T entity);
 
 }

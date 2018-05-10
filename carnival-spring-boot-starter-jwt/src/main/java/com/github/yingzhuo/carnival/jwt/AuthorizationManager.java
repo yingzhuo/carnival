@@ -9,8 +9,13 @@
  */
 package com.github.yingzhuo.carnival.jwt;
 
-public enum SignatureAlgorithm {
-    HMAC256,
-    HMAC384,
-    HMAC512,
+import com.auth0.jwt.interfaces.DecodedJWT;
+
+import java.lang.reflect.Method;
+
+@FunctionalInterface
+public interface AuthorizationManager {
+
+    public void check(DecodedJWT decodedJWT, String path, Method method, Object Handler);
+
 }
