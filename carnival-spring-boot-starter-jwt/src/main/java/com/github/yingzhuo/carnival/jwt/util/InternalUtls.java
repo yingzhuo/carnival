@@ -14,12 +14,12 @@ import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 
 import java.io.UnsupportedEncodingException;
 
-public final class AlUtils {
+public final class InternalUtls {
 
-    private AlUtils() {
+    private InternalUtls() {
     }
 
-    public static Algorithm of(SignatureAlgorithm signatureAlgorithm, String s) {
+    public static Algorithm toAlgorithm(SignatureAlgorithm signatureAlgorithm, String s) {
         try {
             switch (signatureAlgorithm) {
                 case HMAC256:
@@ -31,4 +31,5 @@ public final class AlUtils {
             return null;
         }
     }
+
 }

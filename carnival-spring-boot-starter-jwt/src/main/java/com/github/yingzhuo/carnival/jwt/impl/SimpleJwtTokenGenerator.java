@@ -16,7 +16,7 @@ import com.github.yingzhuo.carnival.jwt.JwtInfo;
 import com.github.yingzhuo.carnival.jwt.JwtInfoTransform;
 import com.github.yingzhuo.carnival.jwt.JwtTokenGenerator;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.jwt.util.AlUtils;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 
 import java.util.Date;
 import java.util.Optional;
@@ -39,7 +39,7 @@ public class SimpleJwtTokenGenerator implements JwtTokenGenerator {
 
     @Override
     public String generate(Object entity) {
-        Algorithm al = AlUtils.of(signatureAlgorithm, secret);
+        Algorithm al = InternalUtls.toAlgorithm(signatureAlgorithm, secret);
 
         JwtInfo info = jwtInfoTransform.apply(entity);
         JWTCreator.Builder builder = JWT.create();

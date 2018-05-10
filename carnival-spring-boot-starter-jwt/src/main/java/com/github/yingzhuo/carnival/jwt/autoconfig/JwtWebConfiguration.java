@@ -16,6 +16,7 @@ import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenGenerator;
 import com.github.yingzhuo.carnival.jwt.impl.SimpleJwtTokenParser;
 import com.github.yingzhuo.carnival.jwt.mvc.JwtValidatingHandlerInterceptor;
+import com.github.yingzhuo.carnival.jwt.mvc.JwtValidatingHandlerMethodArgumentResolver;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
@@ -28,12 +29,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -85,6 +88,11 @@ public class JwtWebConfiguration implements WebMvcConfigurer {
         );
 
         registry.addInterceptor(interceptor).addPathPatterns("/**");
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new JwtValidatingHandlerMethodArgumentResolver());
     }
 
     @Data

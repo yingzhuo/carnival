@@ -13,10 +13,12 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.jwt.JwtTokenParser;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.exception.InvalidTokenException;
 import com.github.yingzhuo.carnival.jwt.exception.JwtParsingException;
-import com.github.yingzhuo.carnival.jwt.util.AlUtils;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
@@ -72,13 +74,14 @@ public class JwtValidatingHandlerInterceptor extends HandlerInterceptorAdapter {
             throw new JwtParsingException("Can not parse token.");
         }
 
-        Algorithm algorithm = AlUtils.of(signatureAlgorithm, secret);
+        Algorithm algorithm = InternalUtls.toAlgorithm(signatureAlgorithm, secret);
         JWTVerifier verifier = JWT.require(algorithm).build();
 
         try {
-            verifier.verify(tokenOp.get());
+            DecodedJWT djwt = verifier.verify(tokenOp.get());
+            JwtValidatingContext.setJwt(djwt);
         } catch (JWTVerificationException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new InvalidTokenException(e.getMessage());
         }
 
         return true;

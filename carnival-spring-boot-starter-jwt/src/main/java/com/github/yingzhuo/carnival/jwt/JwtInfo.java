@@ -21,9 +21,9 @@ public final class JwtInfo {
 
     // Public Claims (Header)
 
-    /* private String type; */
-
-    /* private String contentType; */
+//    private String type;
+//
+//    private String contentType;
 
     private String keyId;
 
