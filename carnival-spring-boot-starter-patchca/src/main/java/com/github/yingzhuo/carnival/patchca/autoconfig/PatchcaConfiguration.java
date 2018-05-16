@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.patchca.autoconfig;
 import com.github.yingzhuo.carnival.patchca.PatchcaFilter;
 import com.github.yingzhuo.carnival.patchca.props.*;
 import com.github.yingzhuo.carnival.patchca.support.SessionPatchcaHandlerMethodArgumentResolver;
-import lombok.extern.slf4j.Slf4j;
 import org.patchca.background.SingleColorBackgroundFactory;
 import org.patchca.color.ColorFactory;
 import org.patchca.filter.FilterFactory;
@@ -29,11 +28,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.annotation.PostConstruct;
 import java.util.Arrays;
 import java.util.List;
 
-@Slf4j
 @EnableConfigurationProperties({
         SwitchProps.class,
         PatchcaFilterProps.class,
@@ -51,11 +48,6 @@ public class PatchcaConfiguration implements WebMvcConfigurer {
 
     public PatchcaConfiguration(PatchcaFilterProps filterProps) {
         this.filterProps = filterProps;
-    }
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Bean

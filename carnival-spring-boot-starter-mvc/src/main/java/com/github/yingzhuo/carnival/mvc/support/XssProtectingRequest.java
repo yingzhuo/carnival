@@ -51,4 +51,5 @@ public class XssProtectingRequest extends HttpServletRequestWrapper {
         }
         return super.getParameterValues(name);
     }
+
 }

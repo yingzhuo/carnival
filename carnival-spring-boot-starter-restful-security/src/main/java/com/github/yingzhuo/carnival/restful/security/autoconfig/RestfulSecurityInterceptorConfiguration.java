@@ -22,7 +22,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Slf4j
@@ -40,11 +39,6 @@ public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer
         this.userDetailsRealm = userDetailsRealm;
         this.authenticationListener = authenticationListener;
         this.runAsIdGenerator = runAsIdGenerator;
-    }
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Override

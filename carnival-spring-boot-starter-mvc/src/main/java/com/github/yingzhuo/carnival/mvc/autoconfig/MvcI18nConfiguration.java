@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -23,9 +22,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import javax.annotation.PostConstruct;
-
-@Slf4j
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.i18n", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcI18nConfiguration.MvcI18nProps.class)
@@ -35,11 +31,6 @@ public class MvcI18nConfiguration implements WebMvcConfigurer {
 
     public MvcI18nConfiguration(MvcI18nProps props) {
         this.props = props;
-    }
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Bean

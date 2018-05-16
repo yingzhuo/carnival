@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.debug.support;
 
-/**
- * @author 应卓
- */
 public enum LogLevel {
+
     TRACE, DEBUG, INFO, WARN, ERROR, OFF
+
 }

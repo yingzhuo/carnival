@@ -12,14 +12,7 @@
     <artifactId>carnival-spring-boot-starter-mvc</artifactId>
 
     <dependencies>
-        <!-- 其他项目 -->
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>carnival-spring-boot-starter</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <!-- springboot -->
+         <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

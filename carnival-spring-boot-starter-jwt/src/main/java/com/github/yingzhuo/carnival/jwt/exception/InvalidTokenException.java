@@ -11,10 +11,13 @@ package com.github.yingzhuo.carnival.jwt.exception;
 
 public class InvalidTokenException extends RuntimeException {
 
+    private static final long serialVersionUID = 1665218098608948490L;
+
     public InvalidTokenException() {
     }
 
     public InvalidTokenException(String message) {
         super(message);
     }
+
 }

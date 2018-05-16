@@ -24,22 +24,15 @@ import java.util.Enumeration;
  */
 public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
 
-    private boolean enabled;
     private LoggerWrapper logger;
 
-    public DebugMvcInterceptor(boolean enabled, LogLevel logLevel, String loggerName) {
-        this.enabled = enabled;
+    public DebugMvcInterceptor(LogLevel logLevel, String loggerName) {
         this.logger = new LoggerWrapper(logLevel, loggerName);
-        if (logLevel == LogLevel.OFF) {
-            this.enabled = false;
-        }
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (enabled) {
-            doLog(request, (HandlerMethod) handler);
-        }
+        doLog(request, (HandlerMethod) handler);
         return true;
     }
 

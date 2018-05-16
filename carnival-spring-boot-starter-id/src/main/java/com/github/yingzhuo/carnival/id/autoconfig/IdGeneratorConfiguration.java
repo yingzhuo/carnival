@@ -16,34 +16,20 @@ import com.github.yingzhuo.carnival.id.impl.StringSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import javax.annotation.PostConstruct;
-
-@Slf4j
-@EnableConfigurationProperties({
-        IdGeneratorConfiguration.Props.class,
-        IdGeneratorConfiguration.SnowflakeProps.class
-})
+@EnableConfigurationProperties(IdGeneratorConfiguration.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class IdGeneratorConfiguration {
 
     private final Props props;
-    private final SnowflakeProps snowflakeProps;
 
-    public IdGeneratorConfiguration(Props props, SnowflakeProps snowflakeProps) {
+    public IdGeneratorConfiguration(Props props) {
         this.props = props;
-        this.snowflakeProps = snowflakeProps;
-    }
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
     }
 
     @Bean
@@ -56,12 +42,12 @@ public class IdGeneratorConfiguration {
             case UUID_36:
                 return new UUID36IdGenerator();
             case SNOWFLAKE_STRING:
-                return new StringSnowflakeIdGenerator(snowflakeProps.getWorkerId(), snowflakeProps.getPad());
+                return new StringSnowflakeIdGenerator(props.getSnowflake().getWorkerId(), props.getSnowflake().pad);
             case SNOWFLAKE_LONG:
-                return new LongSnowflakeIdGenerator(snowflakeProps.getWorkerId());
+                return new LongSnowflakeIdGenerator(props.getSnowflake().getWorkerId());
+            default:
+                throw new UnsupportedOperationException();
         }
-
-        throw new IllegalStateException();
     }
 
     @Data
@@ -69,13 +55,13 @@ public class IdGeneratorConfiguration {
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.UUID_32;
-    }
+        private Snowflake snowflake = new Snowflake();
 
-    @Data
-    @ConfigurationProperties("carnival.id.snowflake")
-    static class SnowflakeProps {
-        private long workerId = 0L;
-        private int pad = 32;
+        @Data
+        static class Snowflake {
+            private long workerId = 0L;
+            private int pad = 32;
+        }
     }
 
 }

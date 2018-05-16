@@ -8,25 +8,17 @@
     <artifactId>carnival</artifactId>
     <version>0.0.1</version>
     <modules>
-        <module>carnival-spring-boot-starter</module>
-        <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
-        <module>carnival-spring-boot-starter-hook</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-jwt</module>
-        <module>carnival-spring-boot-starter-model</module>
-        <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-pinyin</module>
         <module>carnival-spring-boot-starter-restful-security</module>
-        <module>carnival-spring-boot-starter-refuse</module>
-        <module>carnival-spring-boot-starter-script</module>
         <module>carnival-spring-boot-starter-springutils</module>
-        <module>carnival-spring-boot-starter-ssh2</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -36,8 +28,8 @@
         <scala.version>2.12.6</scala.version>
         <groovy.version>2.4.14</groovy.version>
         <kotlin.version>1.2.31</kotlin.version>
-        <springboot.version>2.0.1.RELEASE</springboot.version>
-        <spring.version>5.0.5.RELEASE</spring.version>
+        <springboot.version>2.0.2.RELEASE</springboot.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
         <jackson.version>2.9.5</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>

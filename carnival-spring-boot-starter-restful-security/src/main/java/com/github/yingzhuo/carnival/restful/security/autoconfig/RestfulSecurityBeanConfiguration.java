@@ -26,18 +26,12 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 
-import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(RestfulSecurityBeanConfiguration.UserProps.class)
 public class RestfulSecurityBeanConfiguration {
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
-    }
 
     @Bean
     @ConditionalOnMissingBean
