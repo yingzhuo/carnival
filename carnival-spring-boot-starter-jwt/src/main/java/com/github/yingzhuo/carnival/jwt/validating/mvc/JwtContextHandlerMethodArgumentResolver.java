@@ -7,25 +7,29 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt.mvc;
+package com.github.yingzhuo.carnival.jwt.validating.mvc;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.core.MethodParameter;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-public class JwtValidatingHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+/**
+ * @author 应卓
+ */
+public class JwtContextHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType() == DecodedJWT.class;
+        return ClassUtils.isAssignable(DecodedJWT.class, parameter.getParameterType());
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return JwtValidatingContext.getCurrentJwtInfo();
+        return JwtContext.getJwt();
     }
 
 }

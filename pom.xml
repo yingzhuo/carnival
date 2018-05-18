@@ -16,7 +16,6 @@
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
-        <module>carnival-spring-boot-starter-pinyin</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-springutils</module>
     </modules>

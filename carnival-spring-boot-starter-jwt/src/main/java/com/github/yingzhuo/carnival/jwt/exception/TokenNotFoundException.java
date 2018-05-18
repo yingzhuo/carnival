@@ -12,23 +12,22 @@ package com.github.yingzhuo.carnival.jwt.exception;
 /**
  * @author 应卓
  */
-public class InvalidTokenException extends RuntimeException {
+public class TokenNotFoundException extends InvalidTokenException {
 
-    private static final long serialVersionUID = 1413183217830493676L;
+    private static final long serialVersionUID = -4328476214544693972L;
 
-    public InvalidTokenException() {
-        super();
+    public TokenNotFoundException() {
     }
 
-    public InvalidTokenException(String message) {
+    public TokenNotFoundException(String message) {
         super(message);
     }
 
-    public InvalidTokenException(String message, Throwable cause) {
+    public TokenNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public InvalidTokenException(Throwable cause) {
+    public TokenNotFoundException(Throwable cause) {
         super(cause);
     }
 

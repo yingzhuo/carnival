@@ -9,12 +9,17 @@
  */
 package com.github.yingzhuo.carnival.jwt.util;
 
-import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.auth0.jwt.algorithms.Algorithm;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 
+/**
+ * 内部使用工具
+ *
+ * @author 应卓
+ */
 public final class InternalUtls {
 
     private InternalUtls() {

@@ -7,14 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt.mvc;
+package com.github.yingzhuo.carnival.jwt.validating.mvc;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-public final class JwtValidatingContext {
+/**
+ * @author 应卓
+ */
+public final class JwtContext {
 
-    private JwtValidatingContext() {
-        super();
+    private JwtContext() {
     }
 
     private static final ThreadLocal<DecodedJWT> HOLDER = ThreadLocal.withInitial(() -> null);
@@ -23,7 +25,7 @@ public final class JwtValidatingContext {
         HOLDER.set(jwt);
     }
 
-    public static DecodedJWT getCurrentJwtInfo() {
+    public static DecodedJWT getJwt() {
         return HOLDER.get();
     }
 

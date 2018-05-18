@@ -12,7 +12,8 @@ package com.github.yingzhuo.carnival.debug.autoconfig;
 import com.github.yingzhuo.carnival.debug.ConditionalOnDebugMode;
 import com.github.yingzhuo.carnival.debug.mvc.DebugMvcInterceptor;
 import com.github.yingzhuo.carnival.debug.support.LogLevel;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,10 +34,11 @@ public class DebugMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DebugMvcInterceptor(props.getLogLevel(), props.getLoggerName())).addPathPatterns("/", "/**");
+        registry.addInterceptor(new DebugMvcInterceptor(props.logLevel, props.loggerName)).addPathPatterns("/", "/**");
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.debug")
     static class Props {
         private LogLevel logLevel = LogLevel.DEBUG;
