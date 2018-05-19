@@ -9,6 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import org.springframework.web.context.request.WebRequest;
+
+import java.lang.reflect.Method;
+
 /**
  * 认证监听器
  * <p>
@@ -19,6 +23,6 @@ package com.github.yingzhuo.carnival.restful.security;
  */
 public interface AuthenticationListener {
 
-    public void onAuthenticated(UserDetails userDetails);
+    public void onAuthenticated(WebRequest request, UserDetails userDetails, Method method);
 
 }

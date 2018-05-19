@@ -18,6 +18,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
 /**
@@ -28,28 +29,15 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
     private final TokenParser tokenParser;
     private final UserDetailsRealm userDetailsRealm;
     private final AuthenticationListener authenticationListener;
-    private final RunAsIdGenerator runAsIdGenerator;
 
-    public RestfulSecurityInterceptor(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener, RunAsIdGenerator runAsIdGenerator) {
+    public RestfulSecurityInterceptor(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener) {
         this.tokenParser = tokenParser;
         this.userDetailsRealm = userDetailsRealm;
         this.authenticationListener = authenticationListener;
-        this.runAsIdGenerator = runAsIdGenerator;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        RunAs runAs = getMethodAnnotation(RunAs.class, handler);
-
-        if (runAs != null) {
-            RestfulSecurityContext.setUserDetails(
-                    UserDetails.builder()
-                            .id(runAsIdGenerator.nextId())
-                            .roles(runAs.roles())
-                            .permissions(runAs.permissions())
-                            .build()
-            );
-        }
 
         RequiresAuthentication requiresAuthentication = getMethodAnnotation(RequiresAuthentication.class, handler);
         RequiresGuest requiresGuest = getMethodAnnotation(RequiresGuest.class, handler);
@@ -70,7 +58,9 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
 
         if (tokenOptional.isPresent()) {
             Optional<UserDetails> userDetailsOptional = userDetailsRealm.loadUserDetails(tokenOptional.get());
-            userDetailsOptional.ifPresent(authenticationListener::onAuthenticated);
+            userDetailsOptional.ifPresent(userDetails -> {
+                authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler));
+            });
             RestfulSecurityContext.setUserDetails(userDetailsOptional.orElse(null));
         }
 
@@ -80,6 +70,10 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
         CheckUtils.check(requiresPermissions);
 
         return true;
+    }
+
+    private Method getMethod(Object handler) {
+        return ((HandlerMethod) handler).getMethod();
     }
 
     private <A extends Annotation> A getMethodAnnotation(Class<A> annotationType, Object handler) {
@@ -98,7 +92,4 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
         return authenticationListener;
     }
 
-    public RunAsIdGenerator getRunAsIdGenerator() {
-        return runAsIdGenerator;
-    }
 }

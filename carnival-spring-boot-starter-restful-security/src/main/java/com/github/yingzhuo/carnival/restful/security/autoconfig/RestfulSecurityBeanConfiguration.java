@@ -10,11 +10,9 @@
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.RunAsIdGenerator;
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
-import com.github.yingzhuo.carnival.restful.security.impl.SimpleRunAsIdGenerator;
 import com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordUserDetailsRealm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -60,14 +58,8 @@ public class RestfulSecurityBeanConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationListener authenticationListener() {
-        return (userDetails) -> {
+        return (request, userDetails, method) -> {
         };
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public RunAsIdGenerator runAsIdGenerator() {
-        return new SimpleRunAsIdGenerator();
     }
 
     @Data

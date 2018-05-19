@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.RunAsIdGenerator;
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.RestfulSecurityInterceptor;
@@ -32,18 +31,16 @@ public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer
     private final TokenParser tokenParser;
     private final UserDetailsRealm userDetailsRealm;
     private final AuthenticationListener authenticationListener;
-    private final RunAsIdGenerator runAsIdGenerator;
 
-    public RestfulSecurityInterceptorConfiguration(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener, RunAsIdGenerator runAsIdGenerator) {
+    public RestfulSecurityInterceptorConfiguration(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener) {
         this.tokenParser = tokenParser;
         this.userDetailsRealm = userDetailsRealm;
         this.authenticationListener = authenticationListener;
-        this.runAsIdGenerator = runAsIdGenerator;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RestfulSecurityInterceptor(tokenParser, userDetailsRealm, authenticationListener, runAsIdGenerator)).addPathPatterns("/", "/**");
+        registry.addInterceptor(new RestfulSecurityInterceptor(tokenParser, userDetailsRealm, authenticationListener)).addPathPatterns("/", "/**");
     }
 
     @Override
