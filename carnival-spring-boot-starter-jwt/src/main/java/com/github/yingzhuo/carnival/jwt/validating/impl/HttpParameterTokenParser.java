@@ -30,7 +30,7 @@ public class HttpParameterTokenParser implements TokenParser {
     @Override
     public Optional<String> parse(WebRequest request) {
         String token = request.getParameter(parameterName);
-        log.debug("JWT token: {}", token);
+        log.debug("token: {}", token);
         return Optional.ofNullable(token);
     }
 

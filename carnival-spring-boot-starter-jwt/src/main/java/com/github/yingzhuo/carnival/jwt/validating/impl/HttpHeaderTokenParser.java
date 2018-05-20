@@ -55,7 +55,7 @@ public class HttpHeaderTokenParser implements TokenParser {
 
         String token = headerValue.substring(prefixLen, headerValue.length());
 
-        log.debug("JWT token: {}", token);
+        log.debug("token: {}", token);
 
         return Optional.of(token);
     }
