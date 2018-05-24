@@ -17,6 +17,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 
 /**
@@ -62,9 +63,14 @@ public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
         }
 
         if (handlerMethod != null) {
+            final Method method = handlerMethod.getMethod();
+            final Class<?> type = handlerMethod.getBeanType();
+            boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
+            boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
+
             logger.doLog("[Controller]: ");
-            logger.doLog("\t\t\ttype = {}", handlerMethod.getBeanType().getName());
-            logger.doLog("\t\t\tmethod-name = {}", handlerMethod.getMethod().getName());
+            logger.doLog("\t\t\ttype = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
+            logger.doLog("\t\t\tmethod-name = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
         }
 
         logger.doLog(StringUtils.repeat('-', 120));
