@@ -58,9 +58,7 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
 
         if (tokenOptional.isPresent()) {
             Optional<UserDetails> userDetailsOptional = userDetailsRealm.loadUserDetails(tokenOptional.get());
-            userDetailsOptional.ifPresent(userDetails -> {
-                authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler));
-            });
+            userDetailsOptional.ifPresent(userDetails -> authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler)));
             RestfulSecurityContext.setUserDetails(userDetailsOptional.orElse(null));
         }
 

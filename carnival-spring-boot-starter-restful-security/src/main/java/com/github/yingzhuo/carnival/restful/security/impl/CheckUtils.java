@@ -18,7 +18,6 @@ import java.util.*;
  * 元注释检查工具 (内部工具)
  *
  * @author 应卓
- * @since 0.0.1
  */
 public class CheckUtils {
 

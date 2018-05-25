@@ -25,6 +25,10 @@ public class HttpHeaderTokenParser implements TokenParser {
     private final String prefix;
     private final int prefixLen;
 
+    public HttpHeaderTokenParser(String headerName) {
+        this(headerName, "");
+    }
+
     public HttpHeaderTokenParser(String headerName, String prefix) {
         this.headerName = headerName;
         this.prefix = prefix;

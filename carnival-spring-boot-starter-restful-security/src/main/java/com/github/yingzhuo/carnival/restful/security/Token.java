@@ -16,6 +16,7 @@ import java.io.Serializable;
  *
  * @author 应卓
  * @see com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordToken
+ * @see com.github.yingzhuo.carnival.restful.security.impl.StringToken
  */
 public interface Token extends Serializable {
 }
