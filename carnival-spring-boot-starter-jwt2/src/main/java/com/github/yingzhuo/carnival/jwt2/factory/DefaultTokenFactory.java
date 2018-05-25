@@ -27,6 +27,7 @@ public class DefaultTokenFactory implements TokenFactory {
     private SignatureAlgorithm signatureAlgorithm;
 
     public DefaultTokenFactory() {
+        super();
     }
 
     @Override
