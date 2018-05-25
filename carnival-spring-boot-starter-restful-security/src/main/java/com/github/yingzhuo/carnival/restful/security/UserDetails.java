@@ -23,7 +23,7 @@ public interface UserDetails {
         return new Builder();
     }
 
-    public String getId();
+    public Object getId();
 
     public String getUsername();
 
@@ -62,7 +62,7 @@ public interface UserDetails {
     public static class Builder {
         private SimpleUserDetails ud = new SimpleUserDetails();
 
-        public Builder id(String id) {
+        public Builder id(Object id) {
             ud.setId(id);
             return this;
         }

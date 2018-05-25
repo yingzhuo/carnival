@@ -27,7 +27,7 @@ import java.util.Collections;
 @ToString
 public final class SimpleUserDetails implements UserDetails {
 
-    private String id = null;
+    private Object id = null;
     private String username = null;
     private String password = null;
     private boolean expired = false;
@@ -37,11 +37,11 @@ public final class SimpleUserDetails implements UserDetails {
     private Object nativeUser = null;
 
     @Override
-    public String getId() {
+    public Object getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Object id) {
         this.id = id;
     }
 
