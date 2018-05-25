@@ -1,6 +1,6 @@
-package com.github.yingzhuo.carnival.jwt2;
+package com.github.yingzhuo.carnival.jwt;
 
-import com.github.yingzhuo.carnival.jwt2.autoconfig.TokenFactoryConfiguration;
+import com.github.yingzhuo.carnival.jwt.autoconfig.TokenFactoryConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;

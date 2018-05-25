@@ -7,14 +7,12 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt.impl;
+package com.github.yingzhuo.carnival.jwt.factory;
 
-import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.jwt.TokenFactory;
-import com.github.yingzhuo.carnival.jwt.TokenInfo;
-import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
+import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 
 import java.util.Date;
 import java.util.Optional;
@@ -29,6 +27,7 @@ public class DefaultTokenFactory implements TokenFactory {
     private SignatureAlgorithm signatureAlgorithm;
 
     public DefaultTokenFactory() {
+        super();
     }
 
     @Override
@@ -93,6 +92,7 @@ public class DefaultTokenFactory implements TokenFactory {
                 }
             }
         });
+
         return builder.sign(InternalUtls.toAlgorithm(signatureAlgorithm, secret));
     }
 

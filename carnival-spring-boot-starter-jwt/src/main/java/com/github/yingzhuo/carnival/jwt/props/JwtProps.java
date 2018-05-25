@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2.props;
+package com.github.yingzhuo.carnival.jwt.props;
 
-import com.github.yingzhuo.carnival.jwt2.Secret;
-import com.github.yingzhuo.carnival.jwt2.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.Secret;
+import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

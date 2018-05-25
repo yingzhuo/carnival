@@ -7,10 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2;
+package com.github.yingzhuo.carnival.jwt.factory;
 
-public enum SignatureAlgorithm {
-    HMAC256,
-    HMAC384,
-    HMAC512
+/**
+ * @author 应卓
+ */
+@FunctionalInterface
+public interface TokenFactory {
+
+    public String create(TokenInfo entity);
+
 }

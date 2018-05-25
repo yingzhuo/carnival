@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2.realm;
+package com.github.yingzhuo.carnival.jwt.realm;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
 

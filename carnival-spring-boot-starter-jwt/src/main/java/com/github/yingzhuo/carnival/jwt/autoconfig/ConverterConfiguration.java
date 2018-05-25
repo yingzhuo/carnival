@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2.autoconfig;
+package com.github.yingzhuo.carnival.jwt.autoconfig;
 
-import com.github.yingzhuo.carnival.jwt2.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;

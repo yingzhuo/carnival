@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.jwt.autoconfig.TokenFactoryConfiguration,\
-com.github.yingzhuo.carnival.jwt.autoconfig.TokenValidatingConfiguration
+com.github.yingzhuo.carnival.jwt.autoconfig.ConverterConfiguration

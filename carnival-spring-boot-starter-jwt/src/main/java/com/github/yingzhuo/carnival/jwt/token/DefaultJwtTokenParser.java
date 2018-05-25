@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2.token;
+package com.github.yingzhuo.carnival.jwt.token;
 
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.impl.HttpHeaderTokenParser;

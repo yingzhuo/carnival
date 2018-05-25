@@ -7,18 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt2.realm;
+package com.github.yingzhuo.carnival.jwt.realm;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.github.yingzhuo.carnival.jwt2.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.jwt2.exception.AlgorithmMismatchException;
-import com.github.yingzhuo.carnival.jwt2.exception.InvalidClaimException;
-import com.github.yingzhuo.carnival.jwt2.exception.SignatureVerificationException;
-import com.github.yingzhuo.carnival.jwt2.exception.TokenExpiredException;
-import com.github.yingzhuo.carnival.jwt2.util.InternalUtls;
+import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
+import com.github.yingzhuo.carnival.jwt.exception.AlgorithmMismatchException;
+import com.github.yingzhuo.carnival.jwt.exception.InvalidClaimException;
+import com.github.yingzhuo.carnival.jwt.exception.SignatureVerificationException;
+import com.github.yingzhuo.carnival.jwt.exception.TokenExpiredException;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 import com.github.yingzhuo.carnival.restful.security.Token;
 import com.github.yingzhuo.carnival.restful.security.UserDetails;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;

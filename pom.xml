@@ -13,7 +13,6 @@
         <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-jwt</module>
-        <module>carnival-spring-boot-starter-jwt2</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jwt;
+package com.github.yingzhuo.carnival.jwt.factory;
 
 import lombok.Getter;
 import lombok.Setter;
