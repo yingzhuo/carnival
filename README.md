@@ -19,18 +19,6 @@ rm -rf carnival/
 维基
 ---
 
-* [carinival-spring-boot-starter-debug](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-debug)
-* [carinival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
-* [carinival-spring-boot-starter-json](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-json)
-* [carinival-spring-boot-starter-model](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-model)
-* [carinival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
-* [carinival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
-* [carinival-spring-boot-starter-pinyin](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-pinyin)
-* [carinival-spring-boot-starter-refuse](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-refuse)
-* [carinival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
-* [carnival-spring-boot-starter-integration-smsbao](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-integration-smsbao)
-* (未完待续)
-
 许可证
 ---
 
