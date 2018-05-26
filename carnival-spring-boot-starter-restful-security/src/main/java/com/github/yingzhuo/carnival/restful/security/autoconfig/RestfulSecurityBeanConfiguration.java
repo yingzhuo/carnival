@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
+import com.github.yingzhuo.carnival.restful.security.impl.NopAuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordUserDetailsRealm;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -58,8 +59,7 @@ public class RestfulSecurityBeanConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public AuthenticationListener authenticationListener() {
-        return (request, userDetails, method) -> {
-        };
+        return new NopAuthenticationListener();
     }
 
     @Data

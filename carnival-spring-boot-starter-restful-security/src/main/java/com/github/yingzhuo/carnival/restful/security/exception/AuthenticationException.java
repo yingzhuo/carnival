@@ -7,7 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.exception;
+
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.UserDetailsExpiredException;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.UserDetailsLockedException;
 
 /**
  * 认证异常

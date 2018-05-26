@@ -19,9 +19,6 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import({
-        RestfulSecurityBeanConfiguration.class,
-        RestfulSecurityInterceptorConfiguration.class
-})
+@Import({RestfulSecurityBeanConfiguration.class, RestfulSecurityInterceptorConfiguration.class})
 public @interface EnableRestfulSecurity {
 }

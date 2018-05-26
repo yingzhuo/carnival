@@ -7,7 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.exception;
+
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityException;
 
 /**
  * 授权异常
