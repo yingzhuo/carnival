@@ -13,13 +13,11 @@ import com.github.yingzhuo.carnival.jwt.factory.DefaultTokenFactory;
 import com.github.yingzhuo.carnival.jwt.factory.TokenFactory;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(JwtProps.class)
 public class TokenFactoryConfiguration {
 
     @Bean

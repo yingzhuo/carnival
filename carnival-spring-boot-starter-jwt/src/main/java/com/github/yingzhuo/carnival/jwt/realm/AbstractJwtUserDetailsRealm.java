@@ -18,12 +18,15 @@ import com.github.yingzhuo.carnival.jwt.exception.AlgorithmMismatchException;
 import com.github.yingzhuo.carnival.jwt.exception.InvalidClaimException;
 import com.github.yingzhuo.carnival.jwt.exception.SignatureVerificationException;
 import com.github.yingzhuo.carnival.jwt.exception.TokenExpiredException;
+import com.github.yingzhuo.carnival.jwt.props.JwtProps;
 import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 import com.github.yingzhuo.carnival.restful.security.Token;
 import com.github.yingzhuo.carnival.restful.security.UserDetails;
 import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.impl.StringToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 import java.util.Optional;
@@ -31,10 +34,14 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@Slf4j
 public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private String secret;
     private SignatureAlgorithm signatureAlgorithm;
+
+    @Autowired(required = false)
+    private JwtProps jwtProps;
 
     public AbstractJwtUserDetailsRealm() {
         super();
@@ -42,9 +49,18 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
+        Optional.ofNullable(jwtProps).ifPresent(it -> {
+            this.secret = it.getSecret();
+            this.signatureAlgorithm = it.getSignatureAlgorithm();
+        });
+
         // 检查用户配置
         Assert.hasText(secret, (String) null);
         Assert.notNull(signatureAlgorithm, (String) null);
+
+        log.info("secret: {}", this.secret);
+        log.info("signature-algorithm", this.signatureAlgorithm);
     }
 
     @Override
