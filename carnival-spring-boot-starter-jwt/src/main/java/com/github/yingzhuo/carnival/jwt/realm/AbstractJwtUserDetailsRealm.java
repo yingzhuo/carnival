@@ -86,7 +86,6 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
             } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
                 throw new InvalidClaimException(ex.getMessage(), ex);
             }
-
         }
 
         return Optional.empty();
