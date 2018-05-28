@@ -8,11 +8,18 @@ public class RestfulSecurityException extends RuntimeException {
     private static final long serialVersionUID = -3491211983113582542L;
 
     public RestfulSecurityException() {
-        this(null);
     }
 
     public RestfulSecurityException(String message) {
         super(message);
+    }
+
+    public RestfulSecurityException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public RestfulSecurityException(Throwable cause) {
+        super(cause);
     }
 
 }

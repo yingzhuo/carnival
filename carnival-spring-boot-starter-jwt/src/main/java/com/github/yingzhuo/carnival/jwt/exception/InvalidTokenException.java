@@ -9,10 +9,12 @@
  */
 package com.github.yingzhuo.carnival.jwt.exception;
 
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityException;
+
 /**
  * @author 应卓
  */
-public class InvalidTokenException extends RuntimeException {
+public class InvalidTokenException extends RestfulSecurityException {
 
     private static final long serialVersionUID = 1413183217830493676L;
 
