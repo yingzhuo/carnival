@@ -9,13 +9,16 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.TokenParser;
-import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser;
-import com.github.yingzhuo.carnival.restful.security.impl.NopAuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.impl.UsernamePasswordUserDetailsRealm;
-import lombok.Data;
+import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
+import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
+import com.github.yingzhuo.carnival.restful.security.listener.NopAuthenticationListener;
+import com.github.yingzhuo.carnival.restful.security.parser.HttpBasicTokenParser;
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.realm.UsernamePasswordUserDetailsRealm;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -62,7 +65,14 @@ public class RestfulSecurityBeanConfiguration {
         return new NopAuthenticationListener();
     }
 
-    @Data
+    @ConditionalOnMissingBean
+    @Bean(name = "restfulSecurityCacheManager")
+    public CacheManager cacheManager() {
+        return new NopCacheManager();
+    }
+
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.restful.security")
     static class UserProps {
         private boolean caseSensitive = true;

@@ -7,9 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.restful.security.impl.SimpleUserDetails;
+import com.github.yingzhuo.carnival.restful.security.role.Permission;
+import com.github.yingzhuo.carnival.restful.security.role.Role;
 
 import java.util.Arrays;
 import java.util.Collection;

@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.jwt.token;
 
-import com.github.yingzhuo.carnival.restful.security.TokenParser;
-import com.github.yingzhuo.carnival.restful.security.impl.HttpHeaderTokenParser;
+import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 
 /**
  * @author 应卓

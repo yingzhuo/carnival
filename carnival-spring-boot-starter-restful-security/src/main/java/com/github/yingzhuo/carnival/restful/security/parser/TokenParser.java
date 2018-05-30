@@ -7,8 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.parser;
 
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.Optional;
 /**
  * 令牌解析器
  *
- * @see com.github.yingzhuo.carnival.restful.security.impl.HttpBasicTokenParser
+ * @see HttpBasicTokenParser
  * @see Token
  */
 public interface TokenParser {

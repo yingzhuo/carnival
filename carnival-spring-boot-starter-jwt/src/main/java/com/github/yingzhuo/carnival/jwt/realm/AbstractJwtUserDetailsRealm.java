@@ -20,10 +20,10 @@ import com.github.yingzhuo.carnival.jwt.exception.SignatureVerificationException
 import com.github.yingzhuo.carnival.jwt.exception.TokenExpiredException;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
 import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
-import com.github.yingzhuo.carnival.restful.security.Token;
-import com.github.yingzhuo.carnival.restful.security.UserDetails;
-import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.StringToken;
+import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.token.StringToken;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;

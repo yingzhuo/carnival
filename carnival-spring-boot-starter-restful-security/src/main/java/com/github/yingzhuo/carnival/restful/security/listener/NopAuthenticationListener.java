@@ -7,10 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.listener;
 
-import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.UserDetails;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import org.springframework.web.context.request.WebRequest;
 
 import java.lang.reflect.Method;

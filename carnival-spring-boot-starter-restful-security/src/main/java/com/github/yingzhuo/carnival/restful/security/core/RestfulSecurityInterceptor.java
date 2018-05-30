@@ -7,9 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.restful.security.*;
+import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
+import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
+import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
+import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
+import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -26,14 +35,20 @@ import java.util.Optional;
  */
 public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter {
 
-    private final TokenParser tokenParser;
-    private final UserDetailsRealm userDetailsRealm;
-    private final AuthenticationListener authenticationListener;
+    private TokenParser tokenParser;
+    private UserDetailsRealm userDetailsRealm;
+    private AuthenticationListener authenticationListener;
+    private CacheManager cacheManager;
 
-    public RestfulSecurityInterceptor(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener) {
+    public RestfulSecurityInterceptor() {
+        super();
+    }
+
+    public RestfulSecurityInterceptor(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener, CacheManager cacheManager) {
         this.tokenParser = tokenParser;
         this.userDetailsRealm = userDetailsRealm;
         this.authenticationListener = authenticationListener;
+        this.cacheManager = cacheManager;
     }
 
     @Override
@@ -53,13 +68,24 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
         }
 
         final NativeWebRequest webRequest = new ServletWebRequest(request, response);
-        Optional<Token> tokenOptional = tokenParser.parse(webRequest);
-        tokenOptional.ifPresent(RestfulSecurityContext::setToken);
+        Optional<Token> tokenOp = tokenParser.parse(webRequest);
 
-        if (tokenOptional.isPresent()) {
-            Optional<UserDetails> userDetailsOptional = userDetailsRealm.loadUserDetails(tokenOptional.get());
-            userDetailsOptional.ifPresent(userDetails -> authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler)));
-            RestfulSecurityContext.setUserDetails(userDetailsOptional.orElse(null));
+        if (tokenOp.isPresent()) {
+            Token token = tokenOp.get();
+            RestfulSecurityContext.setToken(token);
+
+            Optional<UserDetails> userDetailsOp;
+            Optional<UserDetails> cached = cacheManager.getUserDetails(token);
+
+            if (cached.isPresent()) {
+                userDetailsOp = cached;
+            } else {
+                userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
+                userDetailsOp.ifPresent(ud -> cacheManager.saveUserDetails(token, ud));
+            }
+
+            userDetailsOp.ifPresent(userDetails -> authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler)));
+            RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
         }
 
         CheckUtils.check(requiresAuthentication);
@@ -82,12 +108,31 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
         return tokenParser;
     }
 
+    public void setTokenParser(TokenParser tokenParser) {
+        this.tokenParser = tokenParser;
+    }
+
     public UserDetailsRealm getUserDetailsRealm() {
         return userDetailsRealm;
+    }
+
+    public void setUserDetailsRealm(UserDetailsRealm userDetailsRealm) {
+        this.userDetailsRealm = userDetailsRealm;
     }
 
     public AuthenticationListener getAuthenticationListener() {
         return authenticationListener;
     }
 
+    public void setAuthenticationListener(AuthenticationListener authenticationListener) {
+        this.authenticationListener = authenticationListener;
+    }
+
+    public CacheManager getCacheManager() {
+        return cacheManager;
+    }
+
+    public void setCacheManager(CacheManager cacheManager) {
+        this.cacheManager = cacheManager;
+    }
 }

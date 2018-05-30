@@ -7,7 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.core;
+
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.util.Optional;
 

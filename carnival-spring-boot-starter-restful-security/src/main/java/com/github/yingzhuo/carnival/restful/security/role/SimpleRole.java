@@ -7,9 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.role;
 
-import com.github.yingzhuo.carnival.restful.security.Role;
 import lombok.ToString;
 
 import java.util.Objects;

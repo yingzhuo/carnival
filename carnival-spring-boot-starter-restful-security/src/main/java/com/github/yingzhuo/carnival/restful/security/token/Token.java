@@ -7,12 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.token;
 
-import java.util.Optional;
+import java.io.Serializable;
 
-public interface UserDetailsRealm {
-
-    public Optional<UserDetails> loadUserDetails(Token token);
-
+/**
+ * 用户令牌
+ *
+ * @author 应卓
+ * @see UsernamePasswordToken
+ * @see StringToken
+ */
+public interface Token extends Serializable {
 }

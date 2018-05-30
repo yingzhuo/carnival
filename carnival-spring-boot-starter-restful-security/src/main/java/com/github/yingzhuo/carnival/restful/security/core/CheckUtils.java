@@ -7,13 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.restful.security.*;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -23,10 +24,7 @@ import java.util.*;
  *
  * @author 应卓
  */
-public class CheckUtils {
-
-    private CheckUtils() {
-    }
+final class CheckUtils {
 
     private static String getMessage(String message) {
         if (!StringUtils.hasText(message) || ":::<NO MESSAGE>:::".equals(message)) {

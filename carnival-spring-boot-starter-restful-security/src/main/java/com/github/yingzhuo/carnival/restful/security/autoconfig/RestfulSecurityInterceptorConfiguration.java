@@ -9,11 +9,13 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.TokenParser;
-import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.impl.RestfulSecurityInterceptor;
+import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
+import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -26,19 +28,19 @@ import java.util.List;
 @AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
 public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer {
 
-    private final TokenParser tokenParser;
-    private final UserDetailsRealm userDetailsRealm;
-    private final AuthenticationListener authenticationListener;
-
-    public RestfulSecurityInterceptorConfiguration(TokenParser tokenParser, UserDetailsRealm userDetailsRealm, AuthenticationListener authenticationListener) {
-        this.tokenParser = tokenParser;
-        this.userDetailsRealm = userDetailsRealm;
-        this.authenticationListener = authenticationListener;
-    }
+    @Autowired private TokenParser tokenParser;
+    @Autowired private UserDetailsRealm userDetailsRealm;
+    @Autowired private AuthenticationListener authenticationListener;
+    @Autowired private CacheManager cacheManager;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RestfulSecurityInterceptor(tokenParser, userDetailsRealm, authenticationListener)).addPathPatterns("/", "/**");
+        RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
+        interceptor.setTokenParser(tokenParser);
+        interceptor.setUserDetailsRealm(userDetailsRealm);
+        interceptor.setAuthenticationListener(authenticationListener);
+        interceptor.setCacheManager(cacheManager);
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**");
     }
 
     @Override

@@ -7,23 +7,23 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.role;
 
-import com.github.yingzhuo.carnival.restful.security.impl.SimpleRole;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 /**
- * 角色
+ * 权限
  *
  * @author 应卓
  * @see UserDetails
  * @since 0.0.1
  */
-public interface Role {
+public interface Permission {
 
-    public static Role of(String roleName) {
-        return new SimpleRole(roleName);
+    public static Permission of(String permissionName) {
+        return new SimplePermission(permissionName);
     }
 
-    public String getRoleName();
+    public String getPermissionName();
 
 }

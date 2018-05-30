@@ -12,7 +12,7 @@
     <artifactId>carnival-spring-boot-starter-mvc</artifactId>
 
     <dependencies>
-         <!-- springboot -->
+        <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

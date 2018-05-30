@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.parser;
 
-import com.github.yingzhuo.carnival.restful.security.Token;
-import com.github.yingzhuo.carnival.restful.security.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.nio.charset.StandardCharsets;

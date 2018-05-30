@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.token;
 
-import com.github.yingzhuo.carnival.restful.security.Token;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -25,7 +25,7 @@ public class StringToken implements Token {
     private final String value;
 
     public StringToken(String value) {
-        this.value = value;
+        this.value = Objects.requireNonNull(value);
     }
 
     public String getValue() {
@@ -35,6 +35,21 @@ public class StringToken implements Token {
     @Override
     public String toString() {
         return getValue();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        StringToken that = (StringToken) o;
+
+        return value.equals(that.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 
 }

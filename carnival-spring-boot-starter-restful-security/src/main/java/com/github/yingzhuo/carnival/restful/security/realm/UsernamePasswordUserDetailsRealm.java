@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.realm;
 
-import com.github.yingzhuo.carnival.restful.security.Token;
-import com.github.yingzhuo.carnival.restful.security.UserDetails;
-import com.github.yingzhuo.carnival.restful.security.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.util.Optional;
 

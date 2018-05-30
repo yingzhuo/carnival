@@ -7,11 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.impl;
+package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.restful.security.Permission;
-import com.github.yingzhuo.carnival.restful.security.Role;
-import com.github.yingzhuo.carnival.restful.security.UserDetails;
+import com.github.yingzhuo.carnival.restful.security.role.Permission;
+import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.ToString;
 
 import java.util.Collection;
@@ -21,7 +20,7 @@ import java.util.Collections;
  * UserDetails简单实现
  *
  * @author 应卓
- * @see com.github.yingzhuo.carnival.restful.security.UserDetails
+ * @see UserDetails
  * @since 0.0.1
  */
 @ToString

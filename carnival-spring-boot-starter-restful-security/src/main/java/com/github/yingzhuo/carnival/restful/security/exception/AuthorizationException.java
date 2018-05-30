@@ -13,7 +13,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  * 授权异常
  *
  * @author 应卓
- * @see com.github.yingzhuo.carnival.restful.security.impl.CheckUtils
  * @see RestfulSecurityException
  */
 public class AuthorizationException extends RestfulSecurityException {
