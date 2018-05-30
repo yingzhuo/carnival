@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jwt.exception;
 
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 
 /**
  * @author 应卓

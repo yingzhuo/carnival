@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security.impl;
 
 import com.github.yingzhuo.carnival.restful.security.*;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.UserDetailsExpiredException;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
 import org.springframework.util.StringUtils;

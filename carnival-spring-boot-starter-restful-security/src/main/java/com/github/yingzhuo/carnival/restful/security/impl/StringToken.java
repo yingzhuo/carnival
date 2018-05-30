@@ -16,11 +16,12 @@ import com.github.yingzhuo.carnival.restful.security.Token;
  */
 public class StringToken implements Token {
 
+    private static final long serialVersionUID = 5201948233147060904L;
+
     public static StringToken of(String value) {
         return new StringToken(value);
     }
 
-    private static final long serialVersionUID = 5201948233147060904L;
 
     private final String value;
 

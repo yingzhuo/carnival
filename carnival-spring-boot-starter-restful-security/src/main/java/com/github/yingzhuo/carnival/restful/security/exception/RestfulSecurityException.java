@@ -1,4 +1,4 @@
-package com.github.yingzhuo.carnival.restful.security.autoconfig;
+package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓

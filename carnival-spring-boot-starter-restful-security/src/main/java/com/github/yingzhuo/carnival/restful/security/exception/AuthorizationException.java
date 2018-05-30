@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityException;
-
 /**
  * 授权异常
  *
