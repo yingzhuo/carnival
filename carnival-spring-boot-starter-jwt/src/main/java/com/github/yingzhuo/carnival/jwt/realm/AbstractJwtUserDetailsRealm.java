@@ -75,7 +75,6 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
             try {
                 DecodedJWT jwt = verifier.verify(tokenValue);
                 JwtContext.setJwt(jwt);
-
                 return Optional.ofNullable(getUserDetails(jwt));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
                 throw new AlgorithmMismatchException(ex.getMessage(), ex);

@@ -22,7 +22,6 @@ public class StringToken implements Token {
         return new StringToken(value);
     }
 
-
     private final String value;
 
     public StringToken(String value) {
