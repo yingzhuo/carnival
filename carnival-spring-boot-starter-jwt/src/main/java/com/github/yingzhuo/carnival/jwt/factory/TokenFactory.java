@@ -9,12 +9,18 @@
  */
 package com.github.yingzhuo.carnival.jwt.factory;
 
+import java.util.function.Function;
+
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface JwtTokenFactory extends TokenFactory<JwtTokenInfo, String> {
+public interface TokenFactory<S, T> extends Function<S, T> {
 
-    public String create(JwtTokenInfo entity);
+    public T create(S s);
+
+    public default T apply(S s) {
+        return create(s);
+    }
 
 }

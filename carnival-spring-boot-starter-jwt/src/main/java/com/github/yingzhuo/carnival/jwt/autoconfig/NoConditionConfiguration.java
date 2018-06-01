@@ -16,5 +16,4 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
  * @author 应卓
  */
 @EnableConfigurationProperties(JwtProps.class)
-public class NoConditionConfiguration {
-}
+public class NoConditionConfiguration {}
