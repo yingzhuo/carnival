@@ -17,6 +17,7 @@ import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -34,7 +35,7 @@ public class DebugMvcConfiguration implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DebugMvcInterceptor(props.logLevel, props.loggerName)).addPathPatterns("/", "/**");
+        registry.addInterceptor(new DebugMvcInterceptor(props.logLevel, props.loggerName)).addPathPatterns("/", "/**").order(Ordered.LOWEST_PRECEDENCE);
     }
 
     @Getter

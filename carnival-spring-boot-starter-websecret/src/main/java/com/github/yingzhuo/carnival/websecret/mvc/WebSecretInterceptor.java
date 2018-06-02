@@ -15,6 +15,8 @@ import com.github.yingzhuo.carnival.websecret.parser.AppIdParser;
 import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
 import com.github.yingzhuo.carnival.websecret.parser.SignatureParser;
 import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
+import com.github.yingzhuo.carnival.websecret.util.SignatureUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,11 +24,11 @@ import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.MessageDigest;
 
 /**
  * @author 应卓
  */
+@Slf4j
 public class WebSecretInterceptor implements HandlerInterceptor {
 
     private NonceParser nonceParser;
@@ -50,54 +52,45 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         NativeWebRequest req = new ServletWebRequest(request);
 
         String nonce = nonceParser.parse(req);
+        log.debug("nonce: {}", nonce);
         if (nonce == null) {
-            throw new WebSecretException();
+            throw new WebSecretException("Lack of nonce.");
         }
 
         String timestamp = timestampParser.parse(req);
+        log.debug("timestamp: {}", timestamp);
         if (timestamp == null) {
-            throw new WebSecretException();
+            throw new WebSecretException("Lack of timestamp.");
         }
 
         String signature = signatureParser.parse(req);
+        log.debug("signature: {}", signature);
         if (signature == null) {
-            throw new WebSecretException();
+            throw new WebSecretException("Lack of signature.");
         }
 
         String appId = appIdParser.parse(req);
+        log.debug("appId: {}", appId);
         if (appId == null) {
-            throw new WebSecretException();
+            throw new WebSecretException("Lack of ApplicationId");
         }
 
         String secret = secretLoader.load(appId);
+        log.debug("secret: {}", secret);
         if (secret == null) {
-            throw new WebSecretException();
+            final String msg = String.format("Cannot load secret for applicationId (%s)", appId);
+            throw new WebSecretException(msg);
         }
 
-        String s = sha256Hex(secret + nonce + timestamp);   // 正确的签名
+        String s = SignatureUtils.signature(secret, nonce, timestamp);   // 正确的签名
 
-        if (!s.equals(secret)) {
-            throw new WebSecretException();
+        if (!s.equals(signature)) {
+            throw new WebSecretException("Invalid signature.");
         }
 
         return true;
     }
 
-    public String sha256Hex(String input) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(input.getBytes("UTF-8"));
-            StringBuilder hexString = new StringBuilder();
-            for (byte aHash : hash) {
-                String hex = Integer.toHexString(0xff & aHash);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-    }
 
     public void setNonceParser(NonceParser nonceParser) {
         this.nonceParser = nonceParser;
