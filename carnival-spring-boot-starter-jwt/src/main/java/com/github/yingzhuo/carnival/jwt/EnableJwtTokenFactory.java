@@ -10,7 +10,9 @@
 package com.github.yingzhuo.carnival.jwt;
 
 import com.github.yingzhuo.carnival.jwt.autoconfig.TokenFactoryConfiguration;
+import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.type.AnnotationMetadata;
 
 import java.lang.annotation.*;
 
@@ -18,6 +20,17 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(TokenFactoryConfiguration.class)
+@Import(EnableJwtTokenFactory.ImportSelector.class)
 public @interface EnableJwtTokenFactory {
+
+    public static class ImportSelector implements DeferredImportSelector {
+
+        @Override
+        public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+            return new String[] {
+                    TokenFactoryConfiguration.class.getName()
+            };
+        }
+    }
+
 }
