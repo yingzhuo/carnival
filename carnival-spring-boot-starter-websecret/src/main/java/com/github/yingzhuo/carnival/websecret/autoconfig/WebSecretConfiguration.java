@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.websecret.autoconfig;
 
+import com.github.yingzhuo.carnival.websecret.ImportSelectorConfigHolder;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
@@ -84,6 +85,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
         interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureParser(signatureParser);
         interceptor.setSecretLoader(secretLoader);
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**");
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(ImportSelectorConfigHolder.interceptorOrder);
     }
+
 }
