@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.websecret.autoconfig;
 import com.github.yingzhuo.carnival.websecret.ImportSelectorConfigHolder;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
+import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
 import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
 import com.github.yingzhuo.carnival.websecret.parser.AppIdParser;
@@ -46,6 +47,9 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     @Autowired
     private SecretLoader secretLoader;
 
+    @Autowired
+    private SignatureMatcher signatureMatcher;
+
     @Bean
     @ConditionalOnMissingBean
     public NonceParser nonceParser() {
@@ -77,6 +81,12 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
         return new PropertiesSecretLoader();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public SignatureMatcher signatureMatcher() {
+        return SignatureMatcher.DEFAULT;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebSecretInterceptor interceptor = new WebSecretInterceptor();
@@ -85,6 +95,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
         interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureParser(signatureParser);
         interceptor.setSecretLoader(secretLoader);
+        interceptor.setSignatureMatcher(signatureMatcher);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(ImportSelectorConfigHolder.interceptorOrder);
     }
 

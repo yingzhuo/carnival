@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.websecret.mvc;
 
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.exception.WebSecretException;
+import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.parser.AppIdParser;
 import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
 import com.github.yingzhuo.carnival.websecret.parser.SignatureParser;
 import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
-import com.github.yingzhuo.carnival.websecret.util.SignatureUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -40,6 +40,8 @@ public class WebSecretInterceptor implements HandlerInterceptor {
     private TimestampParser timestampParser;
 
     private SecretLoader secretLoader;
+
+    private SignatureMatcher signatureMatcher;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -82,9 +84,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
             throw new WebSecretException(msg);
         }
 
-        String s = SignatureUtils.signature(secret, nonce, timestamp);   // 正确的签名
-
-        if (!s.equals(signature)) {
+        if (! signatureMatcher.matches(signature, secret, nonce, timestamp)) {
             throw new WebSecretException("Invalid signature.");
         }
 
@@ -111,4 +111,9 @@ public class WebSecretInterceptor implements HandlerInterceptor {
     public void setSecretLoader(SecretLoader secretLoader) {
         this.secretLoader = secretLoader;
     }
+
+    public void setSignatureMatcher(SignatureMatcher signatureMatcher) {
+        this.signatureMatcher = signatureMatcher;
+    }
+
 }
