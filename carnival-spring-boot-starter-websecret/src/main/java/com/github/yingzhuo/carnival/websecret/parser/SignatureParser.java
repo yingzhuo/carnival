@@ -14,15 +14,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface SignatureParser {
-
-    public static final SignatureParser DEFAULT = new DefaultSignatureParser();
 
     public String parse(NativeWebRequest request);
 
-    public static class DefaultSignatureParser extends AbstractHttpHeaderParser implements SignatureParser {
-        public DefaultSignatureParser() {
-            super.setHeaderName("Signature");
-        }
-    }
 }

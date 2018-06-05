@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.websecret.mvc;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.exception.WebSecretException;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
-import com.github.yingzhuo.carnival.websecret.parser.AppIdParser;
+import com.github.yingzhuo.carnival.websecret.parser.ClientIdParser;
 import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
 import com.github.yingzhuo.carnival.websecret.parser.SignatureParser;
 import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
@@ -33,7 +33,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     private NonceParser nonceParser;
 
-    private AppIdParser appIdParser;
+    private ClientIdParser clientIdParser;
 
     private SignatureParser signatureParser;
 
@@ -71,7 +71,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
             throw new WebSecretException("Lack of signature.");
         }
 
-        String appId = appIdParser.parse(req);
+        String appId = clientIdParser.parse(req);
         log.debug("appId: {}", appId);
         if (appId == null) {
             throw new WebSecretException("Lack of ApplicationId");
@@ -96,8 +96,8 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         this.nonceParser = nonceParser;
     }
 
-    public void setAppIdParser(AppIdParser appIdParser) {
-        this.appIdParser = appIdParser;
+    public void setClientIdParser(ClientIdParser clientIdParser) {
+        this.clientIdParser = clientIdParser;
     }
 
     public void setSignatureParser(SignatureParser signatureParser) {

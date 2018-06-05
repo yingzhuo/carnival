@@ -14,16 +14,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface NonceParser {
 
-    public static final NonceParser DEFAULT = new DefaultNonceParser();
-
     public String parse(NativeWebRequest request);
-
-    public static class DefaultNonceParser extends AbstractHttpHeaderParser implements NonceParser {
-        public DefaultNonceParser() {
-            super.setHeaderName("Nonce");
-        }
-    }
 
 }

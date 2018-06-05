@@ -9,14 +9,13 @@
  */
 package com.github.yingzhuo.carnival.websecret.parser;
 
-import org.springframework.web.context.request.NativeWebRequest;
-
 /**
  * @author 应卓
  */
-@FunctionalInterface
-public interface TimestampParser {
+public class DefaultTimestampParser extends AbstractHttpHeaderParser implements TimestampParser {
 
-    public String parse(NativeWebRequest request);
+    public DefaultTimestampParser() {
+        super.setHeaderName("Timestamp");
+    }
 
 }

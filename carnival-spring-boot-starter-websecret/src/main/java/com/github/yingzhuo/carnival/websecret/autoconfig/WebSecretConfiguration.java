@@ -14,10 +14,7 @@ import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
-import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
-import com.github.yingzhuo.carnival.websecret.parser.AppIdParser;
-import com.github.yingzhuo.carnival.websecret.parser.SignatureParser;
-import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
+import com.github.yingzhuo.carnival.websecret.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
@@ -36,7 +33,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     private NonceParser nonceParser;
 
     @Autowired
-    private AppIdParser appIdParser;
+    private ClientIdParser clientIdParser;
 
     @Autowired
     private TimestampParser timestampParser;
@@ -53,25 +50,25 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean
     public NonceParser nonceParser() {
-        return NonceParser.DEFAULT;
+        return new DefaultNonceParser();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public AppIdParser appIdParser() {
-        return AppIdParser.DEFAULT;
+    public ClientIdParser clientIdParser() {
+        return new DefaultClientIdParser();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public SignatureParser signatureParser() {
-        return SignatureParser.DEFAULT;
+        return new DefaultSignatureParser();
     }
 
     @Bean
     @ConditionalOnMissingBean
     public TimestampParser timestampParser() {
-        return TimestampParser.DEFAULT;
+        return new DefaultTimestampParser();
     }
 
     @Bean
@@ -90,12 +87,12 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebSecretInterceptor interceptor = new WebSecretInterceptor();
-        interceptor.setAppIdParser(appIdParser);
+        interceptor.setClientIdParser(clientIdParser);
         interceptor.setNonceParser(nonceParser);
-        interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureParser(signatureParser);
-        interceptor.setSecretLoader(secretLoader);
+        interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureMatcher(signatureMatcher);
+        interceptor.setSecretLoader(secretLoader);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(ImportSelectorConfigHolder.interceptorOrder);
     }
 

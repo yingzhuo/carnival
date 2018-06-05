@@ -14,16 +14,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 /**
  * @author 应卓
  */
-public interface AppIdParser {
-
-    public static final AppIdParser DEFAULT = new DefaultAppIdParser();
+@FunctionalInterface
+public interface ClientIdParser {
 
     public String parse(NativeWebRequest nativeWebRequest);
-
-    public static class DefaultAppIdParser extends AbstractHttpHeaderParser implements AppIdParser {
-        public DefaultAppIdParser() {
-            super.setHeaderName("App-Id");
-        }
-    }
 
 }
