@@ -1,0 +1,76 @@
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
+package com.github.yingzhuo.carnival.apigateway.filter;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import com.netflix.zuul.exception.ZuulException;
+
+/**
+ * @author 应卓
+ */
+public abstract class AbstractZuulFilter extends ZuulFilter {
+
+    private static final Object NULL = new Object();
+
+    private int order = 0;
+
+    @Override
+    public final String filterType() {
+        return getFilterType().getValue();
+    }
+
+    protected FilterType getFilterType() {
+        return FilterType.PRE;
+    }
+
+    @Override
+    public final int filterOrder() {
+        return this.order;
+    }
+
+    @Override
+    public final boolean shouldFilter() {
+        return doShouldFilter(RequestContext.getCurrentContext());
+    }
+
+    @Override
+    public final Object run() throws ZuulException {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        doRun(ctx);
+        return NULL;
+    }
+
+    protected abstract boolean doShouldFilter(RequestContext requestContext);
+
+    protected abstract void doRun(RequestContext requestContext) throws ZuulException;
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static enum FilterType {
+
+        PRE("pre"), POST("post");   // 暂时不支持其他类型
+
+        private final String value;
+
+        private FilterType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+}

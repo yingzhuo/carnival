@@ -74,7 +74,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnResource(resources = {"classpath:/websecret.properties"})
+    @ConditionalOnResource(resources = "classpath:/websecret.properties")
     public SecretLoader secretLoader() {
         return new PropertiesSecretLoader();
     }

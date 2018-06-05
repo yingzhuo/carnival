@@ -8,6 +8,7 @@
     <artifactId>carnival</artifactId>
     <version>1.0.0</version>
     <modules>
+        <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
@@ -23,6 +24,17 @@
     </modules>
     <packaging>pom</packaging>
 
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <properties>
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
@@ -30,6 +42,7 @@
         <groovy.version>2.4.14</groovy.version>
         <kotlin.version>1.2.31</kotlin.version>
         <springboot.version>2.0.2.RELEASE</springboot.version>
+        <springcloud.version>Finchley.M9</springcloud.version>
         <spring.version>5.0.6.RELEASE</spring.version>
         <jackson.version>2.9.5</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -199,6 +212,15 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+
+            <!-- spring-cloud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${springcloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!-- slf4j -->
