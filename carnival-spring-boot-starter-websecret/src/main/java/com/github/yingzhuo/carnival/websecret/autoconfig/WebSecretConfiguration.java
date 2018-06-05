@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.websecret.autoconfig;
 import com.github.yingzhuo.carnival.websecret.ImportSelectorConfigHolder;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
+import com.github.yingzhuo.carnival.websecret.matcher.DefaultSignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
 import com.github.yingzhuo.carnival.websecret.parser.*;
@@ -81,7 +82,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean
     public SignatureMatcher signatureMatcher() {
-        return SignatureMatcher.DEFAULT;
+        return new DefaultSignatureMatcher();
     }
 
     @Override

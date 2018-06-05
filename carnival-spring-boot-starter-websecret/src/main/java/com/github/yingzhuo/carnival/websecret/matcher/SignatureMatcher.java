@@ -9,28 +9,12 @@
  */
 package com.github.yingzhuo.carnival.websecret.matcher;
 
-import com.github.yingzhuo.carnival.websecret.util.SignatureUtils;
-
-import java.util.Objects;
-
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface SignatureMatcher {
 
-    public static final SignatureMatcher DEFAULT = new DefaultSignatureMatcher();
-
     public boolean matches(String signature, String secret, String nonce, String timestamp);
-
-    public static class DefaultSignatureMatcher implements SignatureMatcher {
-        @Override
-        public boolean matches(String signature, String secret, String nonce, String timestamp) {
-            Objects.requireNonNull(signature);
-            Objects.requireNonNull(secret);
-            Objects.requireNonNull(nonce);
-            Objects.requireNonNull(timestamp);
-            return signature.equals(SignatureUtils.signature(secret, nonce, timestamp));
-        }
-    }
 
 }
