@@ -21,14 +21,11 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
     private static final Object NULL = new Object();
 
     private int order = 0;
+    private FilterType filterType = FilterType.PRE;
 
     @Override
     public final String filterType() {
-        return getFilterType().getValue();
-    }
-
-    protected FilterType getFilterType() {
-        return FilterType.PRE;
+        return this.filterType.getValue();
     }
 
     @Override
@@ -54,6 +51,10 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public void setFilterType(FilterType filterType) {
+        this.filterType = filterType;
     }
 
     // ----------------------------------------------------------------------------------------------------------------

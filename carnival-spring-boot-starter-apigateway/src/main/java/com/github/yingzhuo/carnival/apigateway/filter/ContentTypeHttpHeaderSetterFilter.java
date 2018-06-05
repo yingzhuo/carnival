@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.apigateway.filter;
 
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
@@ -21,7 +22,9 @@ public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
     private final static String APPLICATION_JSON = "application/json;charset=UTF-8";
 
     public ContentTypeHttpHeaderSetterFilter() {
+        super.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.setOrder(Integer.MIN_VALUE);
+        super.setFilterType(FilterType.PRE);
     }
 
     @Override
@@ -34,4 +37,5 @@ public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
     protected void doRun(RequestContext requestContext) throws ZuulException {
         requestContext.addZuulRequestHeader(CONTENT_TYPE, APPLICATION_JSON);
     }
+
 }
