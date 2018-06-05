@@ -35,7 +35,7 @@ public @interface EnableRestfulSecurity {
             AnnotationAttributes attributes = AnnotationAttributes.fromMap(
                     importingClassMetadata.getAnnotationAttributes(EnableRestfulSecurity.class.getName(), false));
 
-            ImportSelectorConfigHolder.interceptorOrder = (Integer) attributes.get("interceptorOrder");
+            ImportSelectorConfigHolder.interceptorOrder = attributes.getNumber("interceptorOrder");
 
             return new String[]{
                     RestfulSecurityBeanConfiguration.class.getName(),

@@ -38,7 +38,7 @@ public @interface EnableWebSecret {
             AnnotationAttributes attributes = AnnotationAttributes.fromMap(
                     importingClassMetadata.getAnnotationAttributes(EnableWebSecret.class.getName(), false));
 
-            ImportSelectorConfigHolder.interceptorOrder = (Integer) attributes.get("interceptorOrder");
+            ImportSelectorConfigHolder.interceptorOrder = attributes.getNumber("interceptorOrder");
 
             return new String[]{
                     WebSecretConfiguration.class.getName()
