@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class Page<T> implements Iterable<T> {
 
     public static <T> Page<T> empty() {
-        return empty(-1, -1);
+        return empty(1, 0);
     }
 
     public static <T> Page<T> empty(int number, int size) {
