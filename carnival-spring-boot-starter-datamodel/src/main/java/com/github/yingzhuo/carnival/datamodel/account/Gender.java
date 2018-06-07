@@ -9,15 +9,15 @@
  */
 package com.github.yingzhuo.carnival.datamodel.account;
 
-import com.github.yingzhuo.carnival.datamodel.Coded;
 import com.github.yingzhuo.carnival.datamodel.DisplayNamed;
+import com.github.yingzhuo.carnival.datamodel.IntCoded;
 
 /**
  * 性别
  *
  * @author 应卓
  */
-public enum Gender implements Coded<Integer>, DisplayNamed {
+public enum Gender implements IntCoded, DisplayNamed {
 
     UNKOWN(-1, "未知"),
     FEMALE(0, "女"),
