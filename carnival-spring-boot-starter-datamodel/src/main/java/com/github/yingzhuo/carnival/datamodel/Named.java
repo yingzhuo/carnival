@@ -13,4 +13,7 @@ package com.github.yingzhuo.carnival.datamodel;
  * @author 应卓
  */
 public interface Named {
+
+    public String getName();
+
 }

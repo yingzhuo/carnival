@@ -13,8 +13,5 @@ package com.github.yingzhuo.carnival.datamodel;
  * @author 应卓
  */
 @FunctionalInterface
-public interface Coded<T> {
-
-    public T getCode();
-
+public interface IntCoded extends Coded<Integer> {
 }

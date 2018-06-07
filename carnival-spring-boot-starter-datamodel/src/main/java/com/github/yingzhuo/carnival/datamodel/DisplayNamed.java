@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.datamodel;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface DisplayNamed {
 
     public String getDisplayName();
