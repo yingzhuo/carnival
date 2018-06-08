@@ -11,6 +11,7 @@
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-debug</module>
+        <module>carnival-spring-boot-starter-gravatar</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
