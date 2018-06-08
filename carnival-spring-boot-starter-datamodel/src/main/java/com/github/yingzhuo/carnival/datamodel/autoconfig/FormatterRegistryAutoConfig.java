@@ -10,16 +10,18 @@
 package com.github.yingzhuo.carnival.datamodel.autoconfig;
 
 import com.github.yingzhuo.carnival.datamodel.account.GenderFormatter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author 应卓
  */
-public class FormatterRegistryAutoConfig {
+@ConditionalOnWebApplication
+public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
 
-    @Autowired
-    public void config(FormatterRegistry registry) {
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new GenderFormatter());
     }
 
