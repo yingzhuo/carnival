@@ -7,14 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface DisplayNamed {
+public interface Named {
 
-    public String getDisplayName();
+    public String getName();
 
 }

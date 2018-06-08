@@ -21,14 +21,20 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Optional;
 
 /**
  * @author 应卓
  */
 @ConditionalOnWebApplication
 public class WebSecretConfiguration implements WebMvcConfigurer {
+
+    @Autowired(required = false)
+    private LocaleResolver localeResolver;
 
     @Autowired
     private NonceParser nonceParser;
@@ -88,6 +94,7 @@ public class WebSecretConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         WebSecretInterceptor interceptor = new WebSecretInterceptor();
+        Optional.ofNullable(localeResolver).ifPresent(interceptor::setLocaleResolver);
         interceptor.setClientIdParser(clientIdParser);
         interceptor.setNonceParser(nonceParser);
         interceptor.setSignatureParser(signatureParser);

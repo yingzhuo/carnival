@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.datamodel.account;
 
-import com.github.yingzhuo.carnival.datamodel.DisplayNamed;
-import com.github.yingzhuo.carnival.datamodel.IntCoded;
+import com.github.yingzhuo.carnival.common.DisplayNamed;
+import com.github.yingzhuo.carnival.common.IntCoded;
 
 /**
  * 性别

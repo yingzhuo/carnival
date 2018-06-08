@@ -7,11 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface IntCoded extends Coded<Integer> {
+public interface DisplayNamed {
+
+    public String getDisplayName();
+
 }

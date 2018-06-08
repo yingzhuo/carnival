@@ -7,14 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.websecret.parser;
-
-import com.github.yingzhuo.carnival.common.parser.Parser;
-import org.springframework.web.context.request.WebRequest;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface NonceParser extends Parser<WebRequest, String> {
+public interface IntCoded extends Coded<Integer> {
 }

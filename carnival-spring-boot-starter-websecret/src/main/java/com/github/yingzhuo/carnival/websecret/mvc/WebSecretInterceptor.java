@@ -20,16 +20,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Locale;
 
 /**
  * @author 应卓
  */
 @Slf4j
 public class WebSecretInterceptor implements HandlerInterceptor {
+
+    private LocaleResolver localeResolver = new DefaultLocaleResolver();
 
     private NonceParser nonceParser;
 
@@ -53,25 +57,27 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
         NativeWebRequest req = new ServletWebRequest(request);
 
-        String nonce = nonceParser.parse(req);
+        Locale locale = localeResolver.resolveLocale(request);
+
+        String nonce = nonceParser.parse(req, locale).orElse(null);
         log.debug("nonce: {}", nonce);
         if (nonce == null) {
             throw new WebSecretException("Lack of nonce.");
         }
 
-        String timestamp = timestampParser.parse(req);
+        String timestamp = timestampParser.parse(req, locale).orElse(null);
         log.debug("timestamp: {}", timestamp);
         if (timestamp == null) {
             throw new WebSecretException("Lack of timestamp.");
         }
 
-        String signature = signatureParser.parse(req);
+        String signature = signatureParser.parse(req, locale).orElse(null);
         log.debug("signature: {}", signature);
         if (signature == null) {
             throw new WebSecretException("Lack of signature.");
         }
 
-        String appId = clientIdParser.parse(req);
+        String appId = clientIdParser.parse(req, locale).orElse(null);
         log.debug("appId: {}", appId);
         if (appId == null) {
             throw new WebSecretException("Lack of ApplicationId");
@@ -91,6 +97,9 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    public void setLocaleResolver(LocaleResolver localeResolver) {
+        this.localeResolver = localeResolver;
+    }
 
     public void setNonceParser(NonceParser nonceParser) {
         this.nonceParser = nonceParser;
@@ -114,6 +123,20 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     public void setSignatureMatcher(SignatureMatcher signatureMatcher) {
         this.signatureMatcher = signatureMatcher;
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+
+    private static class DefaultLocaleResolver implements LocaleResolver {
+        @Override
+        public Locale resolveLocale(HttpServletRequest request) {
+            return Locale.getDefault();
+        }
+
+        @Override
+        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+            // 无动作
+        }
     }
 
 }

@@ -7,13 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  */
-public interface Named {
+public final class Null {
 
-    public String getName();
+    private static Null INSTANCE = new Null();
 
+    private Null() {
+    }
 }

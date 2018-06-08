@@ -7,14 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface Coded<T> {
-
-    public T getCode();
-
+public interface StringCoded extends Coded<String> {
 }

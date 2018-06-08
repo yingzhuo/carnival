@@ -7,15 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel;
+package com.github.yingzhuo.carnival.common.parser;
+
+import java.util.Locale;
+import java.util.Optional;
 
 /**
  * @author 应卓
  */
-public final class Null {
+public interface Parser<S, T> {
 
-    private static Null INSTANCE = new Null();
+    public Optional<T> parse(S obj, Locale locale);
 
-    private Null() {
-    }
 }
