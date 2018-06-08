@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -27,7 +28,7 @@ public class HttpParameterTokenParser implements TokenParser {
     }
 
     @Override
-    public Optional<Token> parse(NativeWebRequest request) {
+    public Optional<Token> parse(NativeWebRequest request, Locale locale) {
         final String tokenValue = request.getParameter(parameterName);
 
         if (tokenValue == null) {

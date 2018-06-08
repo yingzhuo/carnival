@@ -22,12 +22,14 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -35,6 +37,7 @@ import java.util.Optional;
  */
 public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter {
 
+    private LocaleResolver localeResolver = new DefaultLocaleLocaleResolver();
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private AuthenticationListener authenticationListener;
@@ -67,8 +70,10 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
             return true;
         }
 
+        Locale locale = localeResolver.resolveLocale(request);
+
         final NativeWebRequest webRequest = new ServletWebRequest(request, response);
-        Optional<Token> tokenOp = tokenParser.parse(webRequest);
+        Optional<Token> tokenOp = tokenParser.parse(webRequest, locale);
 
         if (tokenOp.isPresent()) {
             Token token = tokenOp.get();
@@ -134,5 +139,24 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
 
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
+    }
+
+    public void setLocaleResolver(LocaleResolver localeResolver) {
+        this.localeResolver = localeResolver;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    private static class DefaultLocaleLocaleResolver implements LocaleResolver {
+
+        @Override
+        public Locale resolveLocale(HttpServletRequest request) {
+            return Locale.getDefault();
+        }
+
+        @Override
+        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
+            // 无动作
+        }
     }
 }

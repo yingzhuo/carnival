@@ -9,9 +9,11 @@
  */
 package com.github.yingzhuo.carnival.restful.security.parser;
 
+import com.github.yingzhuo.carnival.common.parser.Parser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -20,8 +22,9 @@ import java.util.Optional;
  * @see HttpBasicTokenParser
  * @see Token
  */
-public interface TokenParser {
+@FunctionalInterface
+public interface TokenParser extends Parser<NativeWebRequest, Token> {
 
-    public Optional<Token> parse(NativeWebRequest webRequest);
+    public Optional<Token> parse(NativeWebRequest webRequest, Locale locale);
 
 }

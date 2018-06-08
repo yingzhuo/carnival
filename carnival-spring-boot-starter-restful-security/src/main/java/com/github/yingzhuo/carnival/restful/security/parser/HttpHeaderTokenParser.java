@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -36,7 +37,7 @@ public class HttpHeaderTokenParser implements TokenParser {
     }
 
     @Override
-    public Optional<Token> parse(NativeWebRequest request) {
+    public Optional<Token> parse(NativeWebRequest request, Locale locale) {
         String headerValue = request.getHeader(headerName);
 
         if (!StringUtils.hasText(headerValue)) {
