@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.gravatar.autoconfig;
 
 import com.github.yingzhuo.carnival.gravatar.DefaultImage;
+import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
 import com.github.yingzhuo.carnival.gravatar.GravatarFunction;
 import com.github.yingzhuo.carnival.gravatar.Rating;
 import lombok.Getter;
@@ -29,10 +30,12 @@ public class GravatarFunctionAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public GravatarFunction gravatarFunction(Props props) {
+    public GravatarFactory gravatarFunction(Props props) {
         GravatarFunction function = new GravatarFunction();
         function.setDefaultImage(props.defaultImage);
         function.setRating(props.rating);
+        function.setPrefix(props.getPrefix());
+        function.setSuffix(props.getSuffix());
         return function;
     }
 
@@ -43,6 +46,8 @@ public class GravatarFunctionAutoConfiguration {
         private boolean enabled = true;
         private DefaultImage defaultImage = DefaultImage.IDENTICON;
         private Rating rating = Rating.GENERAL_AUDIENCE;
+        private String prefix = "http://www.gravatar.com/avatar/";
+        private String suffix = ".jpg";
     }
 
 }

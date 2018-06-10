@@ -17,17 +17,8 @@ import java.security.NoSuchAlgorithmException;
  */
 public class GravatarFunction implements GravatarFactory {
 
-    public static GravatarFunction create() {
-        return new GravatarFunction();
-    }
-
     public GravatarFunction() {
         super();
-    }
-
-    public GravatarFunction(DefaultImage defaultImage, Rating rating) {
-        this.defaultImage = defaultImage;
-        this.rating = rating;
     }
 
     private final static String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
@@ -35,6 +26,8 @@ public class GravatarFunction implements GravatarFactory {
 
     private DefaultImage defaultImage = DefaultImage.IDENTICON;
     private Rating rating = Rating.GENERAL_AUDIENCE;
+    private String prefix = GRAVATAR_URL;
+    private String suffix = FILE_TYPE_EXTENSION;
 
     @Override
     public String create(final String email) {
@@ -44,7 +37,7 @@ public class GravatarFunction implements GravatarFactory {
     @Override
     public String create(final String email, int size) {
         validate(email);
-        return GRAVATAR_URL + md5(email.toLowerCase()) + FILE_TYPE_EXTENSION +
+        return prefix + md5(email.toLowerCase()) + suffix +
                 "?s=" + size +
                 "&r=" + rating.getKey() +
                 "&d=" + defaultImage.getKey();
@@ -84,4 +77,11 @@ public class GravatarFunction implements GravatarFactory {
         this.rating = rating;
     }
 
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
 }
