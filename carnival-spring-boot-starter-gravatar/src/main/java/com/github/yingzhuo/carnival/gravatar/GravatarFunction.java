@@ -12,7 +12,10 @@ package com.github.yingzhuo.carnival.gravatar;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class GravatarFunction {
+/**
+ * @author 应卓
+ */
+public class GravatarFunction implements GravatarFactory {
 
     public static GravatarFunction create() {
         return new GravatarFunction();
@@ -33,28 +36,15 @@ public class GravatarFunction {
     private DefaultImage defaultImage = DefaultImage.IDENTICON;
     private Rating rating = Rating.GENERAL_AUDIENCE;
 
-    /**
-     * create avatar url.
-     *
-     * @param email user's email address
-     * @return the avatar url
-     */
+    @Override
     public String create(final String email) {
         return create(email, 120);
     }
 
-    /**
-     * create avatar url.
-     *
-     * @param email user's email address
-     * @param size  size of avatar
-     * @return the avatar url
-     */
+    @Override
     public String create(final String email, int size) {
-
         validate(email);
-
-        return GRAVATAR_URL + _md5(email.toLowerCase()) + FILE_TYPE_EXTENSION +
+        return GRAVATAR_URL + md5(email.toLowerCase()) + FILE_TYPE_EXTENSION +
                 "?s=" + size +
                 "&r=" + rating.getKey() +
                 "&d=" + defaultImage.getKey();
@@ -70,12 +60,12 @@ public class GravatarFunction {
         }
     }
 
-
-    private String _md5(String string) {
+    private String md5(String string) {
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException ignored) {
+            // 不会抛出此异常
         }
         md.update(string.getBytes());
         byte byteData[] = md.digest();
@@ -93,4 +83,5 @@ public class GravatarFunction {
     public void setRating(Rating rating) {
         this.rating = rating;
     }
+
 }

@@ -12,27 +12,12 @@ package com.github.yingzhuo.carnival.gravatar;
 /**
  * @author 应卓
  */
-public enum DefaultImage {
+public interface GravatarFactory {
 
-    HTTP_404("404"),
+    public String create(final String email, int size);
 
-    MYSTERY_MAN("mm"),
-
-    IDENTICON("identicon"),
-
-    MONSTER("monsterid"),
-
-    WAVATAR("wavatar"),
-
-    RETRO("retro");
-
-    private final String key;
-
-    private DefaultImage(String key) {
-        this.key = key;
+    public default String create(final String email) {
+        return create(email, 120);
     }
 
-    public String getKey() {
-        return key;
-    }
 }

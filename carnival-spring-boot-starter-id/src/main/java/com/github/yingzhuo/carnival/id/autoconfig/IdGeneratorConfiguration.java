@@ -16,6 +16,8 @@ import com.github.yingzhuo.carnival.id.impl.StringSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -50,7 +52,8 @@ public class IdGeneratorConfiguration {
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.id")
     static class Props {
         private boolean enabled = true;

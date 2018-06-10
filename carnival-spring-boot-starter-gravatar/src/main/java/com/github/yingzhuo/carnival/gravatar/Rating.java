@@ -48,17 +48,12 @@ public enum Rating {
      */
     ADULT_ONLY("x");
 
-    private String key;
+    private final String key;
 
     private Rating(String key) {
         this.key = key;
     }
 
-    /**
-     * Retrieve the query parameter value which indicates the desired rating.
-     *
-     * @return Gravatar rating query parameter value
-     */
     public String getKey() {
         return key;
     }
