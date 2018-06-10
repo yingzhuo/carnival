@@ -12,6 +12,12 @@
     <artifactId>carnival-spring-boot-starter-mvc</artifactId>
 
     <dependencies>
+        <!-- carnival -->
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>carnival-spring-boot-starter-common</artifactId>
+        </dependency>
+
         <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

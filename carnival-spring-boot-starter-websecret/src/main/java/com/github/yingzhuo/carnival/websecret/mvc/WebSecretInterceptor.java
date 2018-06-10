@@ -90,7 +90,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
             throw new WebSecretException(msg);
         }
 
-        if (! signatureMatcher.matches(signature, secret, nonce, timestamp)) {
+        if (!signatureMatcher.matches(signature, secret, nonce, timestamp)) {
             throw new WebSecretException("Invalid signature.");
         }
 

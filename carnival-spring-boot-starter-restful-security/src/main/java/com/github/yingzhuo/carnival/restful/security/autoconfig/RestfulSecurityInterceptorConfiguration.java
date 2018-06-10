@@ -31,11 +31,16 @@ import java.util.Optional;
 @AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
 public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer {
 
-    @Autowired private TokenParser tokenParser;
-    @Autowired private UserDetailsRealm userDetailsRealm;
-    @Autowired private AuthenticationListener authenticationListener;
-    @Autowired private CacheManager cacheManager;
-    @Autowired(required = false) private LocaleResolver localeResolver;
+    @Autowired
+    private TokenParser tokenParser;
+    @Autowired
+    private UserDetailsRealm userDetailsRealm;
+    @Autowired
+    private AuthenticationListener authenticationListener;
+    @Autowired
+    private CacheManager cacheManager;
+    @Autowired(required = false)
+    private LocaleResolver localeResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

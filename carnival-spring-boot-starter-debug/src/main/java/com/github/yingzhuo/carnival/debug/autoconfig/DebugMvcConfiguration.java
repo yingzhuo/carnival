@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.debug.autoconfig;
 
-import com.github.yingzhuo.carnival.debug.ConditionalOnDebugMode;
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
 import com.github.yingzhuo.carnival.debug.mvc.DebugMvcInterceptor;
 import com.github.yingzhuo.carnival.debug.support.LogLevel;
 import lombok.Getter;
@@ -22,6 +22,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * @author 应卓
+ */
 @ConditionalOnDebugMode
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(DebugMvcConfiguration.Props.class)

@@ -27,7 +27,7 @@ public @interface EnableJwtTokenFactory {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-            return new String[] {
+            return new String[]{
                     TokenFactoryConfiguration.class.getName()
             };
         }

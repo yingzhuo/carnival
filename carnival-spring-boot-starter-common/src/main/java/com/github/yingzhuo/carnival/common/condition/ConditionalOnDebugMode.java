@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.debug;
+package com.github.yingzhuo.carnival.common.condition;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -22,15 +22,12 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnDebugMode.OnDebugMode.class)
 public @interface ConditionalOnDebugMode {
 
-    public static final class OnDebugMode implements Condition {
-
+    static final class OnDebugMode implements Condition {
         private static final String DEBUG = "debug";
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             return context.getEnvironment().acceptsProfiles(DEBUG);
         }
-
     }
-
 }

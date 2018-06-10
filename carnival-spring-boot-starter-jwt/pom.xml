@@ -15,8 +15,11 @@
         <!-- carnival -->
         <dependency>
             <groupId>com.github.yingzhuo</groupId>
+            <artifactId>carnival-spring-boot-starter-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-restful-security</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <!-- springboot -->

@@ -36,7 +36,9 @@ public class PropertiesSecretLoader implements SecretLoader, InitializingBean {
     public void afterPropertiesSet() throws Exception {
         InputStream ins = resourceLoader.getResource(RESLOC).getInputStream();
         properties.load(ins);
-        try {ins.close();} catch (IOException e) {/* NOP */}
+        try {
+            ins.close();
+        } catch (IOException e) {/* NOP */}
     }
 
 }

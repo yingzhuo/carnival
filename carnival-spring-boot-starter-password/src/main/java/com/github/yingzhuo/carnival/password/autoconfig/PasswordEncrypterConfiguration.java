@@ -12,7 +12,8 @@ package com.github.yingzhuo.carnival.password.autoconfig;
 import com.github.yingzhuo.carnival.password.Algorithm;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.password.impl.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -48,7 +49,8 @@ public class PasswordEncrypterConfiguration {
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.password")
     static class Props {
         private boolean enabled = true;
