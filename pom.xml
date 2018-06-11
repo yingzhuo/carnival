@@ -22,7 +22,6 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-springutils</module>
         <module>carnival-spring-boot-starter-websecret</module>
-        <module>carnival-spring-boot-starter-datamodel</module>
     </modules>
     <packaging>pom</packaging>
 

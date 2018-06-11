@@ -30,4 +30,5 @@ public @interface ConditionalOnDebugMode {
             return context.getEnvironment().acceptsProfiles(DEBUG);
         }
     }
+
 }

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel.page;
+package com.github.yingzhuo.carnival.common.datamodel.page;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -7,9 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datamodel.autoconfig;
+package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.datamodel.account.GenderFormatter;
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
+import com.github.yingzhuo.carnival.common.datamodel.IntPrice;
+import com.github.yingzhuo.carnival.common.datamodel.LongPrice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -22,7 +24,9 @@ public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new GenderFormatter());
+        registry.addFormatter(new Gender.GenderFormatter());
+        registry.addFormatterForFieldAnnotation(new IntPrice.IntPriceAnnotationFormatterFactory());
+        registry.addFormatterForFieldAnnotation(new LongPrice.LongPriceAnnotationFormatterFactory());
     }
 
 }
