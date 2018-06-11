@@ -10,7 +10,8 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.support.XssProtectingRequest;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -44,7 +45,8 @@ public class MvcXssProtectingConfiguration implements WebMvcConfigurer {
         return bean;
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.mvc.xss-protecting")
     static class Props {
         private boolean enabled = true;

@@ -10,7 +10,8 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.support.BasePathInterceptor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -37,7 +38,8 @@ public class MvcWebrootConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(new BasePathInterceptor(props.getAttributeName())).addPathPatterns("/", "/**");
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.mvc.webroot")
     static class Props {
         private boolean enabled = false;

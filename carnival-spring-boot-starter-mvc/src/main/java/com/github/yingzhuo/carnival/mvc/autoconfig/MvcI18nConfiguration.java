@@ -9,7 +9,8 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -47,7 +48,8 @@ public class MvcI18nConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**");
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties(prefix = "carnival.mvc.i18n")
     static class MvcI18nProps {
         private boolean enabled = true;

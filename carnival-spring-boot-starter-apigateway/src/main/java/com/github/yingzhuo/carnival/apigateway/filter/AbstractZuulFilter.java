@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.apigateway.filter;
 
+import com.github.yingzhuo.carnival.common.Null;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -17,8 +18,6 @@ import com.netflix.zuul.exception.ZuulException;
  * @author 应卓
  */
 public abstract class AbstractZuulFilter extends ZuulFilter {
-
-    private static final Object NULL = new Object();
 
     private int order = 0;
     private FilterType filterType = FilterType.PRE;
@@ -42,7 +41,7 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
     public final Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         doRun(ctx);
-        return NULL;
+        return Null.INSTANCE;
     }
 
     protected abstract boolean doShouldFilter(RequestContext requestContext);

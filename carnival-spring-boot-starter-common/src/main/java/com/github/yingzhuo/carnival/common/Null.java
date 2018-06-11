@@ -9,12 +9,14 @@
  */
 package com.github.yingzhuo.carnival.common;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  */
-public final class Null {
+public final class Null implements Serializable {
 
-    private static Null INSTANCE = new Null();
+    public static Null INSTANCE = new Null();
 
     private Null() {
     }

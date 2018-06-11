@@ -23,7 +23,6 @@ public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
 
     public ContentTypeHttpHeaderSetterFilter() {
         super.setOrder(Ordered.HIGHEST_PRECEDENCE);
-//        super.setOrder(Integer.MIN_VALUE);
         super.setFilterType(FilterType.PRE);
     }
 
