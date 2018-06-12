@@ -25,6 +25,14 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
     private Ini ini = null;
+    private String location;
+
+    public IniBusinessExceptionFactory() {
+    }
+
+    public IniBusinessExceptionFactory(String location) {
+        this.location = location;
+    }
 
     @Override
     public BusinessException create(String code) {
@@ -50,7 +58,7 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        final InputStream inputStream = resourceLoader.getResource(ImportSelectorConfigHolder.location).getInputStream();
+        final InputStream inputStream = resourceLoader.getResource(location).getInputStream();
         this.ini = new Ini(inputStream);
 
         try {
@@ -58,5 +66,9 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
         } catch (IOException e) {
             // NOP
         }
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

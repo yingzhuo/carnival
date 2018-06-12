@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.EnableBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.IniBusinessExceptionFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +23,7 @@ public class BusinessExceptionFactoryConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory() {
-        return new IniBusinessExceptionFactory();
+        return new IniBusinessExceptionFactory(EnableBusinessExceptionFactory.ImportSelector.getConfig("location", String.class));
     }
 
 }

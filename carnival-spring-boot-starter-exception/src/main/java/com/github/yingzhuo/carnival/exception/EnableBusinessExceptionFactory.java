@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
 import com.github.yingzhuo.carnival.exception.autoconfig.BusinessExceptionFactoryConfiguration;
-import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
@@ -29,17 +29,14 @@ public @interface EnableBusinessExceptionFactory {
 
     public String location() default "classpath:/business-exception.ini";
 
-    static class ImportSelector implements DeferredImportSelector {
+    public static class ImportSelector extends AbstractImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
+            AnnotationAttributes aas = getAnnotationAttributes(importingClassMetadata, EnableBusinessExceptionFactory.class);
+            ImportSelector.putConfig("location", aas.getString("location"));
 
-            AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(
-                    importingClassMetadata.getAnnotationAttributes(EnableBusinessExceptionFactory.class.getName(), false));
-
-            ImportSelectorConfigHolder.location = annotationAttributes.getString("location");
-
-            return new String[] {
+            return new String[]{
                     BusinessExceptionFactoryConfiguration.class.getName()
             };
         }
