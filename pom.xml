@@ -11,6 +11,7 @@
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-debug</module>
+        <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-gravatar</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
@@ -379,6 +380,13 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>3.3.0</version>
+            </dependency>
+
+            <!-- ini4j -->
+            <dependency>
+                <groupId>org.ini4j</groupId>
+                <artifactId>ini4j</artifactId>
+                <version>0.5.4</version>
             </dependency>
 
             <!-- commons -->
