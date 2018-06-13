@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.ImportSelectorConfigHolder;
+import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
@@ -50,7 +50,7 @@ public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer
         interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setAuthenticationListener(authenticationListener);
         interceptor.setCacheManager(cacheManager);
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(ImportSelectorConfigHolder.interceptorOrder);
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(EnableRestfulSecurity.ImportSelector.getConfig("order", Integer.class));
     }
 
     @Override

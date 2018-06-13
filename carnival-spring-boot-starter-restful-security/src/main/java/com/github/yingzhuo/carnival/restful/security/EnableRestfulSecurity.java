@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityBeanConfiguration;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityInterceptorConfiguration;
-import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
@@ -27,15 +27,15 @@ public @interface EnableRestfulSecurity {
 
     public int interceptorOrder() default 0;
 
-    public static class ImportSelector implements DeferredImportSelector {
+    public static class ImportSelector extends AbstractImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 
-            AnnotationAttributes attributes = AnnotationAttributes.fromMap(
-                    importingClassMetadata.getAnnotationAttributes(EnableRestfulSecurity.class.getName(), false));
+            AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableRestfulSecurity.class);
 
-            ImportSelectorConfigHolder.interceptorOrder = attributes.getNumber("interceptorOrder");
+            Integer order = aas.getNumber("interceptorOrder");
+            putConfig("order", order);
 
             return new String[]{
                     RestfulSecurityBeanConfiguration.class.getName(),

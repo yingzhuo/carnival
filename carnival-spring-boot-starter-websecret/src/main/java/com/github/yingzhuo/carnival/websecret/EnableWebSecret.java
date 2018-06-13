@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.websecret;
 
+import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
 import com.github.yingzhuo.carnival.websecret.autoconfig.WebSecretConfiguration;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
@@ -30,15 +31,15 @@ public @interface EnableWebSecret {
 
     public int interceptorOrder() default 0;
 
-    public static class WebSecretImportSelector implements DeferredImportSelector {
+    public static class WebSecretImportSelector extends AbstractImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 
-            AnnotationAttributes attributes = AnnotationAttributes.fromMap(
-                    importingClassMetadata.getAnnotationAttributes(EnableWebSecret.class.getName(), false));
+            AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableWebSecret.class);
 
-            ImportSelectorConfigHolder.interceptorOrder = attributes.getNumber("interceptorOrder");
+            Integer order = aas.getNumber("interceptorOrder");
+            putConfig("order", order);
 
             return new String[]{
                     WebSecretConfiguration.class.getName()
