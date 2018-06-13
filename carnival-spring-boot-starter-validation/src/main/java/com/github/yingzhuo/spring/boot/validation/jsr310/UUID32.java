@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UUID32Validator.class)
 public @interface UUID32 {
 
-    public String message() default "Invalid uuid (36)";
+    public String message() default "Invalid uuid (32)";
 
     public Class<?>[] groups() default {};
 
