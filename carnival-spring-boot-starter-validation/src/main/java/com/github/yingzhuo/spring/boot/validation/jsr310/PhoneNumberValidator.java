@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
 
-    // 2018-06-13 支持166号段
+    // 2018-06-13 支持号段
     // 参考: https://blog.csdn.net/voidmain_123/article/details/78962164
     private static final Pattern PHONE_NUMBER_REG = Pattern.compile("^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$");
 
