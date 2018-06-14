@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
+package com.github.yingzhuo.carnival.jsr310;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,20 +17,14 @@ import java.util.regex.Pattern;
 /**
  * @author 应卓
  */
-public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
+public class UUID36Validator implements ConstraintValidator<UUID36, String> {
 
-    // 2018-06-13 支持号段
-    // 参考: https://blog.csdn.net/voidmain_123/article/details/78962164
-    private static final Pattern PHONE_NUMBER_REG = Pattern.compile("^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\\d{8}$");
+    private static final Pattern PATTERN = Pattern.compile("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$");
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-
-        if (value.length() != 11) {
-            return false;
-        }
-
-        Matcher matcher = PHONE_NUMBER_REG.matcher(value);
+        if (value == null) return false;
+        Matcher matcher = PATTERN.matcher(value);
         return matcher.matches();
     }
 

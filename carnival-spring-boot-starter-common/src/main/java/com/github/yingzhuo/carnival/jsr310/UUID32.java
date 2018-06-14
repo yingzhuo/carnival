@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
+package com.github.yingzhuo.carnival.jsr310;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -18,25 +18,14 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Constraint(validatedBy = FieldsValueMatchValidator.class)
-public @interface FieldsValueMatch {
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = UUID32Validator.class)
+public @interface UUID32 {
 
-    public String message() default "Fields values don't match!";
-
-    public String field();
-
-    public String fieldMatch();
+    public String message() default "Invalid uuid (32)";
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
-
-    @Documented
-    @Target({ ElementType.TYPE })
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface List {
-        FieldsValueMatch[] value();
-    }
 
 }

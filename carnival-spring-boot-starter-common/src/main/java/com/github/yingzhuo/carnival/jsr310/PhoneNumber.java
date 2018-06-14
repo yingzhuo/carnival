@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
+package com.github.yingzhuo.carnival.jsr310;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -17,12 +17,12 @@ import java.lang.annotation.*;
  * @author 应卓
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-@Constraint(validatedBy = UUID32Validator.class)
-public @interface UUID32 {
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = PhoneNumberValidator.class)
+public @interface PhoneNumber {
 
-    public String message() default "Invalid uuid (32)";
+    public String message() default "Invalid phone number";
 
     public Class<?>[] groups() default {};
 

@@ -7,9 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
-
-import com.github.yingzhuo.carnival.validation.jsr310.password.Complexity;
+package com.github.yingzhuo.carnival.jsr310;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
-    private Complexity complexity;
+    private Password.Complexity complexity;
     private Set<String> specialChars;
     private int minLength;
     private int maxLength;
@@ -40,26 +38,24 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         final int len = password.length();
         if (len < minLength || len > maxLength) return false;
 
-        switch (complexity) {
-            case NONE: {
-                return true;
-            }
+        if (complexity == Password.Complexity.NONE) {
+            return true;
+        }
 
-            case NUMERIC: {
-                return password.matches(".*[0-9]+.*");
-            }
+        if (complexity == Password.Complexity.NUMERIC) {
+            return password.matches(".*[0-9]+.*");
+        }
 
-            case ALPHABETIC: {
-                return password.matches(".*[a-zA-Z]+.*");
-            }
+        if (complexity == Password.Complexity.ALPHABETIC) {
+            return password.matches(".*[a-zA-Z]+.*");
+        }
 
-            case ALPHABETIC_AND_NUMERIC: {
-                return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*");
-            }
+        if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC) {
+            return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*");
+        }
 
-            case ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS: {
-                return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*") && specialChars.stream().anyMatch(password::contains);
-            }
+        if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS) {
+            return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*") && specialChars.stream().anyMatch(password::contains);
         }
 
         return true;

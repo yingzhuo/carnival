@@ -22,7 +22,6 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-springutils</module>
-        <module>carnival-spring-boot-starter-validation</module>
         <module>carnival-spring-boot-starter-websecret</module>
     </modules>
     <packaging>pom</packaging>

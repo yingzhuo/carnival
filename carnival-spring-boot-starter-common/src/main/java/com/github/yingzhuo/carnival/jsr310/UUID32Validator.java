@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
+package com.github.yingzhuo.carnival.jsr310;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -23,6 +23,7 @@ public class UUID32Validator implements ConstraintValidator<UUID32, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return false;
         Matcher matcher = PATTERN.matcher(value);
         return matcher.matches();
     }

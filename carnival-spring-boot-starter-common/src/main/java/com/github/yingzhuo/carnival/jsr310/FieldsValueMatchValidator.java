@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.validation.jsr310;
+package com.github.yingzhuo.carnival.jsr310;
 
 import org.springframework.beans.BeanWrapperImpl;
 
