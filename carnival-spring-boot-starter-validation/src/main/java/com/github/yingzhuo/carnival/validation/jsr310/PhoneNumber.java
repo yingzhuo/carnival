@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.jsr310;
+package com.github.yingzhuo.carnival.validation.jsr310;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -17,26 +17,15 @@ import java.lang.annotation.*;
  * @author 应卓
  */
 @Documented
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Constraint(validatedBy = FieldsValueMatchValidator.class)
-public @interface FieldsValueMatch {
+@Constraint(validatedBy = PhoneNumberValidator.class)
+public @interface PhoneNumber {
 
-    public String message() default "Fields values don't match!";
-
-    public String field();
-
-    public String fieldMatch();
+    public String message() default "Invalid phone number";
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
-
-    @Documented
-    @Target({ ElementType.TYPE })
-    @Retention(RetentionPolicy.RUNTIME)
-    public @interface List {
-        FieldsValueMatch[] value();
-    }
 
 }

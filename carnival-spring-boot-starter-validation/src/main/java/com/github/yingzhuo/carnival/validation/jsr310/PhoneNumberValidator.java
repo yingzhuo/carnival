@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.jsr310;
+package com.github.yingzhuo.carnival.validation.jsr310;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -25,6 +25,11 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+
+        if (value.length() != 11) {
+            return false;
+        }
+
         Matcher matcher = PHONE_NUMBER_REG.matcher(value);
         return matcher.matches();
     }

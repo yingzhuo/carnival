@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.exception;
+package com.github.yingzhuo.carnival.validation.exception;
 
 /**
  * @author 应卓

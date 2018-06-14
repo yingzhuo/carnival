@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.group;
+package com.github.yingzhuo.carnival.validation.group;
 
 /**
  * @author 应卓

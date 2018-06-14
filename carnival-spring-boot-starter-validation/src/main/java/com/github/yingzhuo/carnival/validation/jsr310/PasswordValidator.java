@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.jsr310;
+package com.github.yingzhuo.carnival.validation.jsr310;
 
-import com.github.yingzhuo.spring.boot.validation.jsr310.password.Complexity;
+import com.github.yingzhuo.carnival.validation.jsr310.password.Complexity;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.jsr310;
+package com.github.yingzhuo.carnival.validation.jsr310;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -17,9 +17,9 @@ import java.util.regex.Pattern;
 /**
  * @author 应卓
  */
-public class UUID32Validator implements ConstraintValidator<UUID32, String> {
+public class UUID36Validator implements ConstraintValidator<UUID36, String> {
 
-    private static final Pattern PATTERN = Pattern.compile("^[0-9a-z]{32}$");
+    private static final Pattern PATTERN = Pattern.compile("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$");
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

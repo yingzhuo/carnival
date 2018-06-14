@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.spring.boot.validation.jsr310.password;
+package com.github.yingzhuo.carnival.validation.jsr310.password;
 
 /**
  * 密码验证的复杂度
