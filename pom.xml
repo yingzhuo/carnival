@@ -8,8 +8,9 @@
     <artifactId>carnival</artifactId>
     <version>1.0.0</version>
     <modules>
-        <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-apigateway</module>
+        <module>carnival-spring-boot-starter-common</module>
+        <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-gravatar</module>
