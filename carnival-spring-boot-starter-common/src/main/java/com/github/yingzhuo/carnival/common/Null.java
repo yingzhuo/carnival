@@ -14,10 +14,20 @@ import java.io.Serializable;
 /**
  * @author 应卓
  */
-public final class Null implements Serializable {
+public final class Null implements Serializable, DisplayNamed {
 
     public static Null INSTANCE = new Null();
 
     private Null() {
     }
+
+    public String toString() {
+        return "Null";
+    }
+
+    @Override
+    public String getDisplayName() {
+        return toString();
+    }
+
 }

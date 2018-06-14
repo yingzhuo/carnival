@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.common.datamodel.page;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 @Setter
-public class Page<T> implements Iterable<T> {
+public class Page<T> implements Iterable<T>, Serializable {
 
     public static <T> Page<T> empty() {
         return empty(1, 0);

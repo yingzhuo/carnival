@@ -53,9 +53,12 @@ public enum Gender implements IntCoded, DisplayNamed {
     public static class GenderFormatter implements Formatter<Gender> {
         @Override
         public Gender parse(String text, Locale locale) throws ParseException {
-            if ("-1".equals(text) || "未知".equals(text) || "UNKNOWN".equalsIgnoreCase(text) || "U".equalsIgnoreCase(text)) return Gender.UNKNOWN;
-            if ("0".equals(text) || "女".equals(text) || "FEMALE".equalsIgnoreCase(text) || "F".equalsIgnoreCase(text)) return Gender.FEMALE;
-            if ("1".equals(text) || "男".equals(text) || "MALE".equalsIgnoreCase(text) || "M".equalsIgnoreCase(text)) return Gender.MALE;
+            if ("-1".equals(text) || "未知".equals(text) || "UNKNOWN".equalsIgnoreCase(text) || "U".equalsIgnoreCase(text))
+                return Gender.UNKNOWN;
+            if ("0".equals(text) || "女".equals(text) || "FEMALE".equalsIgnoreCase(text) || "F".equalsIgnoreCase(text))
+                return Gender.FEMALE;
+            if ("1".equals(text) || "男".equals(text) || "MALE".equalsIgnoreCase(text) || "M".equalsIgnoreCase(text))
+                return Gender.MALE;
             throw new ParseException("Cannot parse Gender from '" + text + "'.", 0);
         }
 

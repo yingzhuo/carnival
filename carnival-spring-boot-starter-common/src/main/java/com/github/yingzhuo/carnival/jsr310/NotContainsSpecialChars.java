@@ -18,25 +18,16 @@ import java.lang.annotation.*;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Constraint(validatedBy = FieldsValueMatchValidator.class)
-public @interface FieldsValueMatch {
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Constraint(validatedBy = NotContainsSpecialCharsValidator.class)
+public @interface NotContainsSpecialChars {
 
-    public String message() default "Fields values don't match!";
+    public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~ ";
 
-    public String field();
-
-    public String fieldMatch();
+    public String message() default "Invalid string.";
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
-
-    @Documented
-    @Target(ElementType.TYPE)
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        FieldsValueMatch[] value();
-    }
 
 }

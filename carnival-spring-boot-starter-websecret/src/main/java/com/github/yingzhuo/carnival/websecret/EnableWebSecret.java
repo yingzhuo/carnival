@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.websecret;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
 import com.github.yingzhuo.carnival.websecret.autoconfig.WebSecretConfiguration;
-import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;

@@ -30,7 +30,7 @@ public @interface Password {
 
     public int maxLength() default 12;
 
-    public String message() default "Invalid password";
+    public String message() default "Invalid password.";
 
     public Class<?>[] groups() default {};
 
