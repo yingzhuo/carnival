@@ -1,1 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.yingzhuo.carnival.debug.autoconfig.DebugMvcConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.yingzhuo.carnival.debug.autoconfig.DebugMvcAutoConfig

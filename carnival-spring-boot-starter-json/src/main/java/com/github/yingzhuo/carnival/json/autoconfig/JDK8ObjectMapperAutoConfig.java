@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 
 @Slf4j
-public class JDK8ObjectMapperConfiguration {
+public class JDK8ObjectMapperAutoConfig {
 
     @PostConstruct
     private void init() {

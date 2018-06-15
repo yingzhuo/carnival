@@ -7,21 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datasource.autoconfig;
+package com.github.yingzhuo.carnival.apigateway.autoconfig;
 
-import com.github.yingzhuo.carnival.datasource.aop.DataSourceSwitchAdvice;
+import com.github.yingzhuo.carnival.apigateway.filter.ContentTypeHttpHeaderSetterFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
  */
-public class CompositeDataSourceConfiguration {
+public class ContentTypeHttpHeaderSetterFilterAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public DataSourceSwitchAdvice dataSourceSwitchAdvice() {
-        return new DataSourceSwitchAdvice();
+    public ContentTypeHttpHeaderSetterFilter contentTypeHttpHeaderSetterFilter() {
+        return new ContentTypeHttpHeaderSetterFilter();
     }
 
 }

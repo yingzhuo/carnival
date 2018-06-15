@@ -32,8 +32,8 @@ import java.io.IOException;
  */
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.xss-protecting", name = "enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(MvcXssProtectingConfiguration.Props.class)
-public class MvcXssProtectingConfiguration implements WebMvcConfigurer {
+@EnableConfigurationProperties(MvcXssProtectingAutoConfig.Props.class)
+public class MvcXssProtectingAutoConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<XssProtectingFilter> xssProtectingFilter() {

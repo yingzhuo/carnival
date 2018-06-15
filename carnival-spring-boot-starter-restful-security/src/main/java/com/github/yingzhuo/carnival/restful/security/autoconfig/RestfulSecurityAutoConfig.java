@@ -32,8 +32,8 @@ import java.util.Optional;
 
 @Slf4j
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(RestfulSecurityBeanConfiguration.UserProps.class)
-public class RestfulSecurityBeanConfiguration {
+@EnableConfigurationProperties(RestfulSecurityAutoConfig.UserProps.class)
+public class RestfulSecurityAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

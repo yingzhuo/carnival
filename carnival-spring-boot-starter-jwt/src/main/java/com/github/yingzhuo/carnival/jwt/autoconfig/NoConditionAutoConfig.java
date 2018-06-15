@@ -7,10 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.debug.support;
+package com.github.yingzhuo.carnival.jwt.autoconfig;
 
-public enum LogLevel {
+import com.github.yingzhuo.carnival.jwt.props.JwtProps;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-    TRACE, DEBUG, INFO, WARN, ERROR, OFF
-
+/**
+ * @author 应卓
+ */
+@EnableConfigurationProperties(JwtProps.class)
+public class NoConditionAutoConfig {
 }

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jwt;
 
-import com.github.yingzhuo.carnival.jwt.autoconfig.TokenFactoryConfiguration;
+import com.github.yingzhuo.carnival.jwt.autoconfig.TokenFactoryAutoConfig;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.type.AnnotationMetadata;
@@ -28,7 +28,7 @@ public @interface EnableJwtTokenFactory {
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
             return new String[]{
-                    TokenFactoryConfiguration.class.getName()
+                    TokenFactoryAutoConfig.class.getName()
             };
         }
     }

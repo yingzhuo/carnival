@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.gravatar.autoconfig;
 
 import com.github.yingzhuo.carnival.gravatar.DefaultImage;
 import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
-import com.github.yingzhuo.carnival.gravatar.GravatarFunction;
+import com.github.yingzhuo.carnival.gravatar.DefaultGravatarFactory;
 import com.github.yingzhuo.carnival.gravatar.Rating;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,14 +24,14 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(GravatarFunctionAutoConfiguration.Props.class)
+@EnableConfigurationProperties(GravatarFunctionAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.gravatar", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class GravatarFunctionAutoConfiguration {
+public class GravatarFunctionAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
     public GravatarFactory gravatarFunction(Props props) {
-        GravatarFunction function = new GravatarFunction();
+        DefaultGravatarFactory function = new DefaultGravatarFactory();
         function.setDefaultImage(props.defaultImage);
         function.setRating(props.rating);
         function.setPrefix(props.getPrefix());

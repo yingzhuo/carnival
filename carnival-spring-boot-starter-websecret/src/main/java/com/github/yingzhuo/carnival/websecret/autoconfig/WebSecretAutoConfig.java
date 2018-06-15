@@ -31,7 +31,7 @@ import java.util.Optional;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-public class WebSecretConfiguration implements WebMvcConfigurer {
+public class WebSecretAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)
     private LocaleResolver localeResolver;

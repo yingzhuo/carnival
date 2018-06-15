@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.datasource.autoconfig.CompositeDataSourceConfiguration
+com.github.yingzhuo.carnival.datasource.autoconfig.CompositeDataSourceAutoConfig

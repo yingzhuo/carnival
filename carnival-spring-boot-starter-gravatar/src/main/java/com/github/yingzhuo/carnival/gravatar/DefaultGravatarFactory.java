@@ -15,9 +15,9 @@ import java.security.NoSuchAlgorithmException;
 /**
  * @author 应卓
  */
-public class GravatarFunction implements GravatarFactory {
+public class DefaultGravatarFactory implements GravatarFactory {
 
-    public GravatarFunction() {
+    public DefaultGravatarFactory() {
         super();
     }
 

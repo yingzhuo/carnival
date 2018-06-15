@@ -24,13 +24,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-@EnableConfigurationProperties(IdGeneratorConfiguration.Props.class)
+@EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class IdGeneratorConfiguration {
+public class IdGeneratorAutoConfig {
 
     private final Props props;
 
-    public IdGeneratorConfiguration(Props props) {
+    public IdGeneratorAutoConfig(Props props) {
         this.props = props;
     }
 

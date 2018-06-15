@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.exception;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
-import com.github.yingzhuo.carnival.exception.autoconfig.BusinessExceptionFactoryConfiguration;
+import com.github.yingzhuo.carnival.exception.autoconfig.BusinessExceptionFactoryAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
@@ -37,7 +37,7 @@ public @interface EnableBusinessExceptionFactory {
             ImportSelector.putConfig("location", aas.getString("location"));
 
             return new String[]{
-                    BusinessExceptionFactoryConfiguration.class.getName()
+                    BusinessExceptionFactoryAutoConfig.class.getName()
             };
         }
     }

@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityBeanConfiguration;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityInterceptorConfiguration;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityAutoConfig;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityInterceptorAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
@@ -38,8 +38,8 @@ public @interface EnableRestfulSecurity {
             putConfig("order", order);
 
             return new String[]{
-                    RestfulSecurityBeanConfiguration.class.getName(),
-                    RestfulSecurityInterceptorConfiguration.class.getName()
+                    RestfulSecurityAutoConfig.class.getName(),
+                    RestfulSecurityInterceptorAutoConfig.class.getName()
             };
         }
     }

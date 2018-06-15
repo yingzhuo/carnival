@@ -10,16 +10,19 @@
 package com.github.yingzhuo.carnival.json.autoconfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.module.scala.DefaultScalaModule;
+import com.fasterxml.jackson.module.kotlin.KotlinModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
-@ConditionalOnClass(name = "scala.Option")
-public class ScalaObjectMapperConfiguration {
+@ConditionalOnClass(name = "kotlin.KotlinVersion")
+public class KotlinObjectMapperAutoConfig {
 
     @PostConstruct
     private void init() {
@@ -29,7 +32,7 @@ public class ScalaObjectMapperConfiguration {
     @Autowired(required = false)
     public void config(ObjectMapper om) {
         if (om != null) {
-            om.registerModule(new DefaultScalaModule());
+            om.registerModule(new KotlinModule());
         }
     }
 

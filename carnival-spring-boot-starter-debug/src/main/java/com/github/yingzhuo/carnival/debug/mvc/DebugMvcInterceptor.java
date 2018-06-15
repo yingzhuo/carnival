@@ -9,8 +9,7 @@
  */
 package com.github.yingzhuo.carnival.debug.mvc;
 
-import com.github.yingzhuo.carnival.debug.support.LogLevel;
-import com.github.yingzhuo.carnival.debug.support.LoggerWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -24,13 +23,8 @@ import java.util.Enumeration;
 /**
  * 日志拦截器
  */
+@Slf4j
 public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
-
-    private LoggerWrapper logger;
-
-    public DebugMvcInterceptor(LogLevel logLevel, String loggerName) {
-        this.logger = new LoggerWrapper(logLevel, loggerName);
-    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -50,28 +44,28 @@ public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
     }
 
     private void doLog(HttpServletRequest request, HandlerMethod handlerMethod) {
-        logger.doLog(StringUtils.repeat('-', 120));
+        log.debug(StringUtils.repeat('-', 120));
 
-        logger.doLog("[Path]: ");
-        logger.doLog("\t\t\t{}", request.getRequestURI());
+        log.debug("[Path]: ");
+        log.debug("\t\t\t{}", request.getRequestURI());
 
-        logger.doLog("[Method]: ");
-        logger.doLog("\t\t\t{}", request.getMethod());
+        log.debug("[Method]: ");
+        log.debug("\t\t\t{}", request.getMethod());
 
-        logger.doLog("[Headers]: ");
+        log.debug("[Headers]: ");
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String value = request.getHeader(name);
-            logger.doLog("\t\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
+            log.debug("\t\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
         }
 
-        logger.doLog("[Params]: ");
+        log.debug("[Params]: ");
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String name = paramNames.nextElement();
             String value = request.getParameter(name);
-            logger.doLog("\t\t\t{} = {}", name, value);
+            log.debug("\t\t\t{} = {}", name, value);
         }
 
         if (handlerMethod != null) {
@@ -80,12 +74,12 @@ public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
             boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
             boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
 
-            logger.doLog("[Controller]: ");
-            logger.doLog("\t\t\ttype = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
-            logger.doLog("\t\t\tmethod-name = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
+            log.debug("[Controller]: ");
+            log.debug("\t\t\ttype = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
+            log.debug("\t\t\tmethod-name = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
         }
 
-        logger.doLog(StringUtils.repeat('-', 120));
+        log.debug(StringUtils.repeat('-', 120));
     }
 
 }

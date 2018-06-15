@@ -29,9 +29,9 @@ import org.springframework.web.util.UrlPathHelper;
 import java.util.List;
 
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(MvcEnhancementConfiguration.Props.class)
+@EnableConfigurationProperties(MvcEnhancementAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.mvc.enhancement", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class MvcEnhancementConfiguration implements WebMvcConfigurer {
+public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)
     public void config(BeanNameViewResolver resolver) {

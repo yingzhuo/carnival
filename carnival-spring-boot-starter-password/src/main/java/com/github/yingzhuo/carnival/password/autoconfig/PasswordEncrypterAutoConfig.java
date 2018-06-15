@@ -20,13 +20,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-@EnableConfigurationProperties(PasswordEncrypterConfiguration.Props.class)
+@EnableConfigurationProperties(PasswordEncrypterAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class PasswordEncrypterConfiguration {
+public class PasswordEncrypterAutoConfig {
 
     private final Props props;
 
-    public PasswordEncrypterConfiguration(Props props) {
+    public PasswordEncrypterAutoConfig(Props props) {
         this.props = props;
     }
 

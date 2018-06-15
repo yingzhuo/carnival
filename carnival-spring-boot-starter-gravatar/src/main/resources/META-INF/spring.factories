@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.gravatar.autoconfig.GravatarFunctionAutoConfiguration
+com.github.yingzhuo.carnival.gravatar.autoconfig.GravatarFunctionAutoConfig

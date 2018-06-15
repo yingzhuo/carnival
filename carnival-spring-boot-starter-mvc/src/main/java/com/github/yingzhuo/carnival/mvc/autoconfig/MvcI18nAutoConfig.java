@@ -25,12 +25,12 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.i18n", name = "enabled", havingValue = "true")
-@EnableConfigurationProperties(MvcI18nConfiguration.MvcI18nProps.class)
-public class MvcI18nConfiguration implements WebMvcConfigurer {
+@EnableConfigurationProperties(MvcI18nAutoConfig.MvcI18nProps.class)
+public class MvcI18nAutoConfig implements WebMvcConfigurer {
 
     private final MvcI18nProps props;
 
-    public MvcI18nConfiguration(MvcI18nProps props) {
+    public MvcI18nAutoConfig(MvcI18nProps props) {
         this.props = props;
     }
 

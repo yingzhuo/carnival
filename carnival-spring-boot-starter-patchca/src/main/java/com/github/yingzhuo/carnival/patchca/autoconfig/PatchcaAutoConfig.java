@@ -42,11 +42,11 @@ import java.util.List;
 })
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnWebApplication
-public class PatchcaConfiguration implements WebMvcConfigurer {
+public class PatchcaAutoConfig implements WebMvcConfigurer {
 
     private final PatchcaFilterProps filterProps;
 
-    public PatchcaConfiguration(PatchcaFilterProps filterProps) {
+    public PatchcaAutoConfig(PatchcaFilterProps filterProps) {
         this.filterProps = filterProps;
     }
 

@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Optional;
 
 @ConditionalOnWebApplication
-@AutoConfigureAfter(RestfulSecurityBeanConfiguration.class)
-public class RestfulSecurityInterceptorConfiguration implements WebMvcConfigurer {
+@AutoConfigureAfter(RestfulSecurityAutoConfig.class)
+public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private TokenParser tokenParser;

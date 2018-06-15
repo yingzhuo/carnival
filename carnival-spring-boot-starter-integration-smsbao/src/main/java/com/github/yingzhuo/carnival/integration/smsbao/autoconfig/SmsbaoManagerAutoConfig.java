@@ -27,9 +27,9 @@ import javax.annotation.PostConstruct;
 import java.nio.charset.StandardCharsets;
 
 @Slf4j
-@EnableConfigurationProperties(SmsbaoManagerConfiguration.Props.class)
+@EnableConfigurationProperties(SmsbaoManagerAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.integration.smsbao", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class SmsbaoManagerConfiguration {
+public class SmsbaoManagerAutoConfig {
 
     @PostConstruct
     private void init() {

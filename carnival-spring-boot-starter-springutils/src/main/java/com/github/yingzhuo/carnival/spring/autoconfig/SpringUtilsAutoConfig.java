@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  * @see SpringUtils
  */
-public class SpringUtilsConfiguration {
+public class SpringUtilsAutoConfig {
 
     @Bean
     public SpringUtilsApplicationContextAware springUtilsApplicationContextAware() {

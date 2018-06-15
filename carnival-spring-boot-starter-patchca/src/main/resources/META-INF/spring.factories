@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaAutoConfig

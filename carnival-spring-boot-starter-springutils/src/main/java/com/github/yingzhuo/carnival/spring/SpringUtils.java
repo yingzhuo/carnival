@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsConfiguration;
+import com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsAutoConfig;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
@@ -52,7 +52,7 @@ public final class SpringUtils {
 
     public static boolean isWebApplication() {
         try {
-            getBean(SpringUtilsConfiguration.WebApplicationAnchor.class);
+            getBean(SpringUtilsAutoConfig.WebApplicationAnchor.class);
             return true;
         } catch (NoSuchBeanDefinitionException e) {
             return false;
