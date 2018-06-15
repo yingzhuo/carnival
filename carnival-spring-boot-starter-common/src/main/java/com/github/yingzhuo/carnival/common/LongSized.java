@@ -13,8 +13,5 @@ package com.github.yingzhuo.carnival.common;
  * @author 应卓
  */
 @FunctionalInterface
-public interface Sized<T extends Number> {
-
-    public T size();
-
+public interface LongSized extends Sized<Long> {
 }

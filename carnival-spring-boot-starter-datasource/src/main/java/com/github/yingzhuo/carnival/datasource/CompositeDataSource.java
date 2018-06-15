@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.datasource;
 
-import com.github.yingzhuo.carnival.common.Sized;
+import com.github.yingzhuo.carnival.common.IntSized;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 /**
  * @author 应卓
  */
-public class CompositeDataSource implements DataSource, Iterable<Map.Entry<String, DataSource>>, Sized {
+public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
 
     private final Remote remote = new Remote();
     private final Map<String, DataSource> cachedDataSources = new TreeMap<>();
@@ -54,7 +54,7 @@ public class CompositeDataSource implements DataSource, Iterable<Map.Entry<Strin
     }
 
     @Override
-    public int getSize() {
+    public Integer size() {
         return cachedDataSources.size();
     }
 
