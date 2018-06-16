@@ -44,9 +44,9 @@
         <scala.version>2.12.6</scala.version>
         <groovy.version>2.4.14</groovy.version>
         <kotlin.version>1.2.31</kotlin.version>
-        <springboot.version>2.0.2.RELEASE</springboot.version>
+        <springboot.version>2.0.3.RELEASE</springboot.version>
         <springcloud.version>Finchley.M9</springcloud.version>
-        <spring.version>5.0.6.RELEASE</spring.version>
+        <spring.version>5.0.7.RELEASE</spring.version>
         <jackson.version>2.9.5</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
