@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 @Slf4j
 @EnableConfigurationProperties(DistributedLockAutoCnf.DistributedLockProps.class)
+@ConditionalOnProperty(prefix = "carnival.redis-distributed-lock", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DistributedLockAutoCnf {
 
     @Bean
@@ -57,9 +59,10 @@ public class DistributedLockAutoCnf {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "ccae.redis-distributed-lock")
+    @ConfigurationProperties(prefix = "carnival.redis-distributed-lock")
     public static class DistributedLockProps {
 
+        private boolean enabled = true;
         private String keyScope = "";
         private long keyExpireInMillis = 2000;
         private JedisConfig jedis = new JedisConfig();
