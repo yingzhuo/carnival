@@ -21,6 +21,7 @@
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
+        <module>carnival-spring-boot-starter-redis-distributed-lock</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-springutils</module>
         <module>carnival-spring-boot-starter-websecret</module>
@@ -258,6 +259,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+
+            <!-- jedis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.9.0</version>
             </dependency>
 
             <!-- jackson -->
