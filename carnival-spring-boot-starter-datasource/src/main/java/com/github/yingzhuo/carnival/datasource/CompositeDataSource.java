@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
@@ -26,17 +27,20 @@ import java.util.logging.Logger;
  */
 public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     private final Remote remote = new Remote();
     private final Map<String, DataSource> cachedDataSources = new TreeMap<>();
-    private final String defaultEffectiveDataSourceName;
+    private String defaultDataSourceName;
 
-    public CompositeDataSource(String defaultEffectiveDataSourceName) {
+    public CompositeDataSource() {
+        this(null);
+    }
 
-        if (defaultEffectiveDataSourceName == null) {
-            throw new NullPointerException();
-        }
-
-        this.defaultEffectiveDataSourceName = defaultEffectiveDataSourceName;
+    public CompositeDataSource(String defaultDataSourceName) {
+        this.defaultDataSourceName = defaultDataSourceName;
     }
 
     public CompositeDataSource add(String name, DataSource dataSource) {
@@ -111,8 +115,8 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
     private DataSource effective() {
         String name = getRemote().nameHolder.get();
 
-        if (name == null) {
-            name = this.defaultEffectiveDataSourceName;
+        if (name == null && defaultDataSourceName != null) {
+            name = this.defaultDataSourceName;
         }
 
         DataSource dataSource = cachedDataSources.get(name);
@@ -135,6 +139,30 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
 
         public String getName() {
             return nameHolder.get();
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------
+
+    public static class Builder {
+        private Map<String, DataSource> dataSourceMap = new HashMap<>();
+        private String defaultDataSourceName;
+
+        public Builder defaultDataSourceName(String defaultDataSourceName) {
+            this.defaultDataSourceName = defaultDataSourceName;
+            return this;
+        }
+
+        public Builder put(String name, DataSource dataSource) {
+            dataSourceMap.put(name, dataSource);
+            return this;
+        }
+
+        public CompositeDataSource build() {
+            CompositeDataSource bean = new CompositeDataSource();
+            bean.defaultDataSourceName = this.defaultDataSourceName;
+            bean.cachedDataSources.putAll(this.dataSourceMap);
+            return bean;
         }
     }
 }
