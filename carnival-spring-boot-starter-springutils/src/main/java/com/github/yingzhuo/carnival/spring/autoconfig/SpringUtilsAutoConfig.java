@@ -11,8 +11,13 @@ package com.github.yingzhuo.carnival.spring.autoconfig;
 
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtilsApplicationContextAware;
+import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.util.UUID;
 
 /**
  * @author 应卓
@@ -31,8 +36,35 @@ public class SpringUtilsAutoConfig {
         return new WebApplicationAnchor();
     }
 
+    @Bean(name = "springId")
+    @ConditionalOnMissingBean
+    public SpringIdFactoryBean springId() {
+        return new SpringIdFactoryBean();
+    }
+
     /*----------------------------------------------------------------------------------------------------------------*/
     final public class WebApplicationAnchor {
+    }
+
+    /*----------------------------------------------------------------------------------------------------------------*/
+    final public class SpringIdFactoryBean implements InitializingBean, FactoryBean<String> {
+
+        private String uuid;
+
+        @Override
+        public void afterPropertiesSet() throws Exception {
+            this.uuid = UUID.randomUUID().toString();
+        }
+
+        @Override
+        public String getObject() throws Exception {
+            return this.uuid;
+        }
+
+        @Override
+        public Class<?> getObjectType() {
+            return String.class;
+        }
     }
 
 }

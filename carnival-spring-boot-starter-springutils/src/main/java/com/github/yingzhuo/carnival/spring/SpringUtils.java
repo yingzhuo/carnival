@@ -33,6 +33,10 @@ public final class SpringUtils {
     private SpringUtils() {
     }
 
+    public static String getSpringId() {
+        return getBean("springId", String.class);
+    }
+
     public static ApplicationContext getApplicationContext() {
         return AC;
     }
