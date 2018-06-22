@@ -24,14 +24,11 @@ import java.io.InputStream;
 public class IniBusinessExceptionFactory implements BusinessExceptionFactory, InitializingBean {
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
+    private final String location;
     private Ini ini = null;
-    private String location;
 
-    public IniBusinessExceptionFactory() {
-    }
-
-    public IniBusinessExceptionFactory(String location) {
-        this.location = location;
+    public IniBusinessExceptionFactory(String iniLocation) {
+        this.location = iniLocation;
     }
 
     @Override
@@ -41,13 +38,15 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        String[] pair = code.split("\\.");
-
-        if (pair.length != 2) {
+        int firstDot = code.indexOf(".");
+        if (firstDot == -1) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        final String message = ini.get(pair[0], pair[1], String.class);
+        String section = code.substring(0, firstDot);
+        String option = code.substring(firstDot + 1, code.length());
+
+        final String message = ini.get(section, option, String.class);
 
         if (!StringUtils.hasText(message)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
@@ -68,7 +67,4 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
         }
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 }

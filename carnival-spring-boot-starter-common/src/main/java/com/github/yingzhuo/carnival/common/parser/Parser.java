@@ -15,6 +15,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface Parser<S, T> {
 
     public Optional<T> parse(S obj, Locale locale);

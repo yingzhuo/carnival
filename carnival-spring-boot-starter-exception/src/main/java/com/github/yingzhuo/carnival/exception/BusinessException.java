@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.exception;
 
 import com.github.yingzhuo.carnival.common.StringCoded;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +20,10 @@ import java.util.Map;
  * @author 应卓
  */
 public class BusinessException extends RuntimeException implements StringCoded {
+
+    public static BusinessException of(String code) {
+        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code);
+    }
 
     private String code;
 
