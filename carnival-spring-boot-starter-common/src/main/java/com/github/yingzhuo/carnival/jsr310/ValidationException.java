@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.jsr310;
 
 import org.springframework.validation.BindingResult;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -23,6 +25,8 @@ public class ValidationException extends RuntimeException {
     }
 
     public static ValidationException from(BindingResult bindingResult) {
+        Objects.requireNonNull(bindingResult);
+
         if (!bindingResult.hasErrors()) {
             throw new IllegalArgumentException("BindingResult has NO errors!");
         }

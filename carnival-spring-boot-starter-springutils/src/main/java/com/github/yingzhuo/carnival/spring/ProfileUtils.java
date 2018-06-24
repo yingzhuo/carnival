@@ -30,12 +30,12 @@ final public class ProfileUtils {
         return SpringUtils.ENV;
     }
 
-    public static List<String> getActivedProfiles() {
+    public static List<String> getActiveProfiles() {
         return Collections.unmodifiableList(Arrays.asList(getEnvironment().getActiveProfiles()));
     }
 
-    public static Set<String> getActivedProfilesAsSet() {
-        return Collections.unmodifiableSet(new HashSet<>(getActivedProfiles()));
+    public static Set<String> getActiveProfilesAsSet() {
+        return Collections.unmodifiableSet(new HashSet<>(getActiveProfiles()));
     }
 
     public static List<String> getDefaultProfiles() {
@@ -46,13 +46,13 @@ final public class ProfileUtils {
         return Collections.unmodifiableSet(new HashSet<>(getDefaultProfiles()));
     }
 
-    public static void whenActived(String profileName, Consumer<String> ifTrue) {
+    public static void whenActive(String profileName, Consumer<String> ifTrue) {
         if (getEnvironment().acceptsProfiles(profileName)) {
             ifTrue.accept(profileName);
         }
     }
 
-    public static void whenActived(String profileName, Consumer<String> ifTrue, Consumer<String> ifFlase) {
+    public static void whenActive(String profileName, Consumer<String> ifTrue, Consumer<String> ifFlase) {
         if (getEnvironment().acceptsProfiles(profileName)) {
             ifTrue.accept(profileName);
         } else {
