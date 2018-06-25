@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.gravatar.autoconfig;
 
+import com.github.yingzhuo.carnival.gravatar.DefaultGravatarFactory;
 import com.github.yingzhuo.carnival.gravatar.DefaultImage;
 import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
-import com.github.yingzhuo.carnival.gravatar.DefaultGravatarFactory;
 import com.github.yingzhuo.carnival.gravatar.Rating;
 import lombok.Getter;
 import lombok.Setter;

@@ -645,7 +645,7 @@ public final class BCrypt {
             throw new IllegalArgumentException("Bad number of rounds");
         rounds = 1 << log_rounds;
         if (salt.length != BCRYPT_SALT_LEN)
-            throw new IllegalArgumentException("Bad salt length");
+            throw new IllegalArgumentException("Bad salt right");
 
         init_key();
         ekskey(salt, password);

@@ -337,13 +337,6 @@
                 <version>0.9.5</version>
             </dependency>
 
-            <!-- yaml -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>1.20</version>
-            </dependency>
-
             <!-- pinyin4j -->
             <dependency>
                 <groupId>com.belerweb</groupId>

@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
-import com.github.yingzhuo.carnival.common.datamodel.IntPrice;
-import com.github.yingzhuo.carnival.common.datamodel.LongPrice;
-import com.github.yingzhuo.carnival.common.datamodel.StandardPhoneNumber;
+import com.github.yingzhuo.carnival.common.datamodel.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,9 +23,10 @@ public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new Gender.GenderFormatter());
-        registry.addFormatterForFieldAnnotation(new IntPrice.IntPriceAnnotationFormatterFactory());
-        registry.addFormatterForFieldAnnotation(new LongPrice.LongPriceAnnotationFormatterFactory());
-        registry.addFormatterForFieldAnnotation(new StandardPhoneNumber.StandardPhoneNumberFormatterFactory());
+        registry.addFormatter(new Color.ColorFormatter());
+        registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
     }
 
 }

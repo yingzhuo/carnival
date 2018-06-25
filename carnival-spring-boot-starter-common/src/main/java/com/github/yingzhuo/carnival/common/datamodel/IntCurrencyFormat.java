@@ -24,29 +24,29 @@ import java.util.Set;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-public @interface LongPrice {
+public @interface IntCurrencyFormat {
 
     public int value() default 2;
 
-    public static final class LongPriceAnnotationFormatterFactory implements AnnotationFormatterFactory<LongPrice> {
+    public static final class FormatterFactory implements AnnotationFormatterFactory<IntCurrencyFormat> {
 
         @Override
         public Set<Class<?>> getFieldTypes() {
             Set<Class<?>> set = new HashSet<>();
-            set.add(long.class);
-            set.add(Long.class);
+            set.add(int.class);
+            set.add(Integer.class);
             return set;
         }
 
         @Override
-        public Printer<?> getPrinter(LongPrice annotation, Class<?> fieldType) {
-            return (Printer<Long>) (object, locale) -> object != null ? object.toString() : "null";
+        public Printer<?> getPrinter(IntCurrencyFormat annotation, Class<?> fieldType) {
+            return (Printer<Integer>) (object, locale) -> object != null ? object.toString() : "null";
         }
 
         @Override
-        public Parser<?> getParser(LongPrice annotation, Class<?> fieldType) {
+        public Parser<?> getParser(IntCurrencyFormat annotation, Class<?> fieldType) {
             final int v = annotation.value();
-            return (Parser<Long>) (text, locale) -> (long) (Double.valueOf(text) * (int) Math.pow(10D, (double) v));
+            return (Parser<Integer>) (text, locale) -> (int) (Double.valueOf(text) * (int) Math.pow(10D, (double) v));
         }
     }
 

@@ -25,9 +25,13 @@ import java.util.Set;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.PARAMETER})
-public @interface StandardPhoneNumber {
+public @interface PhoneNumberFormat {
 
-    public static class StandardPhoneNumberFormatterFactory implements AnnotationFormatterFactory<StandardPhoneNumber> {
+    public String charsToDelete() default "-+/\\ \t";
+
+    public int right() default 11;
+
+    public static class FormatterFactory implements AnnotationFormatterFactory<PhoneNumberFormat> {
 
         @Override
         public Set<Class<?>> getFieldTypes() {
@@ -35,17 +39,17 @@ public @interface StandardPhoneNumber {
         }
 
         @Override
-        public Printer<?> getPrinter(StandardPhoneNumber annotation, Class<?> fieldType) {
+        public Printer<?> getPrinter(PhoneNumberFormat annotation, Class<?> fieldType) {
             return (Printer<String>) (object, locale) -> object;
         }
 
         @Override
-        public Parser<?> getParser(StandardPhoneNumber annotation, Class<?> fieldType) {
+        public Parser<?> getParser(PhoneNumberFormat annotation, Class<?> fieldType) {
             return (Parser<String>) (t, locale) -> {
-                t = StringUtils.deleteAny(t, "-+");
+                t = StringUtils.deleteAny(t, annotation.charsToDelete());
 
-                if (t.length() > 11) {
-                    t = t.substring(t.length() - 11);
+                if (t.length() > annotation.right()) {
+                    t = t.substring(t.length() - annotation.right());
                 }
 
                 return t;

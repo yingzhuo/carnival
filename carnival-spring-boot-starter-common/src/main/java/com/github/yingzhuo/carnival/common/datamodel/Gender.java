@@ -51,6 +51,7 @@ public enum Gender implements IntCoded, DisplayNamed {
     }
 
     public static class GenderFormatter implements Formatter<Gender> {
+
         @Override
         public Gender parse(String text, Locale locale) throws ParseException {
             if ("-1".equals(text) || "未知".equals(text) || "UNKNOWN".equalsIgnoreCase(text) || "U".equalsIgnoreCase(text))
