@@ -143,7 +143,7 @@ public class SentinelInterceptor implements HandlerInterceptor {
 
         try {
 
-            if (count > sentinel.getMaxAccessCount()) {
+            if (count >= sentinel.getMaxAccessCount()) {
                 throw new AccessDeniedException();
             }
 
