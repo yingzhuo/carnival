@@ -34,7 +34,7 @@ public class IpHandlerMethodArgumentResolver implements HandlerMethodArgumentRes
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String ip = getIpAdress(webRequest.getNativeRequest(HttpServletRequest.class));
+        String ip = getIpAddress(webRequest.getNativeRequest(HttpServletRequest.class));
         if (!StringUtils.hasText(ip)) {
             ip = null;
         }
@@ -48,7 +48,7 @@ public class IpHandlerMethodArgumentResolver implements HandlerMethodArgumentRes
         }
     }
 
-    private String getIpAdress(HttpServletRequest request) {
+    private String getIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
 
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {

@@ -23,6 +23,7 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis-distributed-lock</module>
         <module>carnival-spring-boot-starter-restful-security</module>
+        <module>carnival-spring-boot-starter-sentinel</module>
         <module>carnival-spring-boot-starter-springutils</module>
         <module>carnival-spring-boot-starter-websecret</module>
     </modules>
