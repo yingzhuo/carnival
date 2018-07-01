@@ -9,20 +9,24 @@
  */
 package com.github.yingzhuo.carnival.sentinel;
 
-import java.io.Serializable;
+import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author 应卓
  */
-public interface Sentinel extends Serializable {
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface LimitedAccess {
 
-    public long getMinAccessIntervalInMillis();
+    public long minAccessIntervalInMillis() default -1;
 
-    public long getMaxAccessCount();
+    public long maxAccessCount() default -1;
 
-    public TimeUnit getMaxAccessCountTimeUnit();
+    public TimeUnit maxAccessCountTimeUnit() default TimeUnit.DAYS;
 
-    public int getMaxAccessCountTimeUnitNumber();
+    public int maxAccessCountTimeUnitNumber() default 1;
 
 }

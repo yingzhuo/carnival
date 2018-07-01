@@ -9,18 +9,16 @@
  */
 package com.github.yingzhuo.carnival.sentinel.web;
 
-import com.github.yingzhuo.carnival.sentinel.Sentinel;
+import com.github.yingzhuo.carnival.sentinel.LimitedAccess;
 import com.github.yingzhuo.carnival.sentinel.exception.AccessDeniedException;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
-import java.util.Optional;
+import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,18 +29,22 @@ public class SentinelInterceptor implements HandlerInterceptor {
     private static final String REDIS_KEY_SCOPE = SentinelInterceptor.class.getSimpleName() + ":";
 
     private final StringRedisTemplate redisTemplate;
-    private final PathMatcher pathMatcher = new AntPathMatcher();
-    private final Map<String, Sentinel> patternSentinelMap;
 
-    public SentinelInterceptor(StringRedisTemplate redisTemplate, Map<String, Sentinel> patternSentinelMap) {
-        this.patternSentinelMap = patternSentinelMap;
+    public SentinelInterceptor(StringRedisTemplate redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        if (patternSentinelMap.isEmpty()) {
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
+        final Method method = ((HandlerMethod) handler).getMethod();
+        final LimitedAccess annotation = method.getAnnotation(LimitedAccess.class);
+
+        if (annotation == null) {
             return true;
         }
 
@@ -52,12 +54,8 @@ public class SentinelInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        final String path = request.getRequestURI();
-
-        findSentinel(path).ifPresent(it -> {
-            checkMinAccessIntervalInMillis(ip, it);
-            checkMaxAccessCount(ip, it);
-        });
+        checkMinAccessIntervalInMillis(ip, annotation);
+        checkMaxAccessCount(ip, annotation);
 
         return true;
     }
@@ -93,8 +91,8 @@ public class SentinelInterceptor implements HandlerInterceptor {
         return ip;
     }
 
-    private void checkMinAccessIntervalInMillis(String ip, Sentinel sentinel) {
-        if (sentinel.getMinAccessIntervalInMillis() < 0) {
+    private void checkMinAccessIntervalInMillis(String ip, LimitedAccess annotation) {
+        if (annotation.minAccessIntervalInMillis() < 0) {
             return;
         }
 
@@ -102,7 +100,7 @@ public class SentinelInterceptor implements HandlerInterceptor {
 
         try {
 
-            String lastAccessString = redisTemplate.opsForValue().get(key);
+            final String lastAccessString = redisTemplate.opsForValue().get(key);
 
             if (lastAccessString == null) {
                 return;
@@ -110,7 +108,7 @@ public class SentinelInterceptor implements HandlerInterceptor {
 
             Long lastAccess = Long.parseLong(lastAccessString);
 
-            if (!(System.currentTimeMillis() - lastAccess > sentinel.getMinAccessIntervalInMillis())) {
+            if (!(System.currentTimeMillis() - lastAccess > annotation.minAccessIntervalInMillis())) {
                 throw new AccessDeniedException();
             }
 
@@ -122,8 +120,8 @@ public class SentinelInterceptor implements HandlerInterceptor {
         }
     }
 
-    private void checkMaxAccessCount(String ip, Sentinel sentinel) {
-        if (sentinel.getMaxAccessCount() < 0) {
+    private void checkMaxAccessCount(String ip, LimitedAccess annotation) {
+        if (annotation.maxAccessCount() < 0) {
             return;
         }
 
@@ -134,8 +132,8 @@ public class SentinelInterceptor implements HandlerInterceptor {
 
         if (countString == null) {
             long now = System.currentTimeMillis();
-            redisTemplate.opsForValue().set(k1, "1", sentinel.getMaxAccessCountTimeUnit().toMillis(1) * sentinel.getMaxAccessCountTimeUnitNumber(), TimeUnit.MILLISECONDS);
-            redisTemplate.opsForValue().set(k2, String.valueOf(now), sentinel.getMaxAccessCountTimeUnit().toMillis(1) * sentinel.getMaxAccessCountTimeUnitNumber(), TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(k1, "1", annotation.maxAccessCountTimeUnit().toMillis(1) * annotation.maxAccessCountTimeUnitNumber(), TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(k2, String.valueOf(now), annotation.maxAccessCountTimeUnit().toMillis(1) * annotation.maxAccessCountTimeUnitNumber(), TimeUnit.MILLISECONDS);
             return;
         }
 
@@ -143,27 +141,15 @@ public class SentinelInterceptor implements HandlerInterceptor {
 
         try {
 
-            if (count >= sentinel.getMaxAccessCount()) {
+            if (count >= annotation.maxAccessCount()) {
                 throw new AccessDeniedException();
             }
 
         } finally {
             count += 1;
             long first = Long.parseLong(redisTemplate.opsForValue().get(k2));
-            redisTemplate.opsForValue().set(k1, String.valueOf(count), sentinel.getMaxAccessCountTimeUnit().toMillis(1) * sentinel.getMaxAccessCountTimeUnitNumber() - (System.currentTimeMillis() - first), TimeUnit.MILLISECONDS);
+            redisTemplate.opsForValue().set(k1, String.valueOf(count), annotation.maxAccessCountTimeUnit().toMillis(1) * annotation.maxAccessCountTimeUnitNumber() - (System.currentTimeMillis() - first), TimeUnit.MILLISECONDS);
         }
-
-    }
-
-    private Optional<Sentinel> findSentinel(String path) {
-
-        for (String pattern : patternSentinelMap.keySet()) {
-            if (pathMatcher.match(pattern, path)) {
-                return Optional.of(patternSentinelMap.get(pattern));
-            }
-        }
-
-        return Optional.empty();
     }
 
 }
