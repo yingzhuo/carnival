@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.DisplayNamed;
 import com.github.yingzhuo.carnival.common.IntCoded;
 import org.springframework.format.Formatter;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Locale;
 
@@ -21,7 +22,7 @@ import java.util.Locale;
  *
  * @author 应卓
  */
-public enum Gender implements IntCoded, DisplayNamed {
+public enum Gender implements IntCoded, DisplayNamed, Serializable {
 
     UNKNOWN(-1, "未知"),
     FEMALE(0, "女"),

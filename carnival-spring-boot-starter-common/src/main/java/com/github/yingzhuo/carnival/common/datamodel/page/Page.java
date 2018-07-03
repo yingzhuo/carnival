@@ -26,6 +26,8 @@ import java.util.stream.Collectors;
 @Setter
 public class Page<T> implements Iterable<T>, Serializable {
 
+    private static final long serialVersionUID = -5537484456632851944L;
+
     public static <T> Page<T> empty() {
         return empty(1, 0);
     }

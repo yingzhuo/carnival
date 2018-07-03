@@ -27,6 +27,7 @@ public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
         registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new Trim.FormatterFactory());
     }
 
 }

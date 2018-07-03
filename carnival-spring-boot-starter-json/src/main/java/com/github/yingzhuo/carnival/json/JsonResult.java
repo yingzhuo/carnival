@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
+@Deprecated
 public interface JsonResult extends java.io.Serializable {
 
     public static JsonResult of(HttpStatus httpStatus) {

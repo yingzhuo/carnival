@@ -11,13 +11,16 @@ package com.github.yingzhuo.carnival.common.datamodel;
 
 import org.springframework.format.Formatter;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Locale;
 
 /**
  * @author 应卓
  */
-public class Color extends java.awt.Color {
+public class Color extends java.awt.Color implements Serializable {
+
+    private static final long serialVersionUID = -310360044867264845L;
 
     public Color(int r, int g, int b) {
         super(r, g, b);
