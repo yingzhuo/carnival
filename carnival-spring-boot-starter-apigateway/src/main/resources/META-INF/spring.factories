@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.yingzhuo.carnival.apigateway.autoconfig.LoggingFilterAutoCnf,\
 com.github.yingzhuo.carnival.apigateway.autoconfig.ContentTypeHttpHeaderSetterFilterAutoConfig
