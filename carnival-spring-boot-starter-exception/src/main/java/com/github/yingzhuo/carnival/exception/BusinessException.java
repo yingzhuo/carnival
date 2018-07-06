@@ -15,14 +15,27 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author 应卓
  */
 public class BusinessException extends RuntimeException implements StringCoded {
 
+    private static final long serialVersionUID = 9128655481919572535L;
+
     public static BusinessException of(String code) {
         return SpringUtils.getBean(BusinessExceptionFactory.class).create(code);
+    }
+
+    public static BusinessException fromMap(Map<String, Object> map) {
+        if (map == null)
+            throw new NullPointerException();
+        else
+            return new BusinessException(
+                    Objects.requireNonNull((String) map.get("code")),
+                    (String) map.get("message")
+            );
     }
 
     private String code;
@@ -59,6 +72,7 @@ public class BusinessException extends RuntimeException implements StringCoded {
 
     public Map<String, Object> asMap() {
         Map<String, Object> map = new HashMap<>();
+        map.put("@type", BusinessException.class.getName());
         map.put("code", getCode());
         map.put("message", getMessage());
         return Collections.unmodifiableMap(map);
