@@ -78,4 +78,20 @@ public final class DistributedLock {
         }
     }
 
+    public static boolean lock(long key) {
+        return lock(String.valueOf(key));
+    }
+
+    public static boolean release(long key) {
+        return release(String.valueOf(key));
+    }
+
+    public static boolean lock(int key) {
+        return lock(String.valueOf(key));
+    }
+
+    public static boolean release(int key) {
+        return release(String.valueOf(key));
+    }
+
 }
