@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.jsr310;
 
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 
 import java.util.Objects;
 
@@ -18,28 +19,38 @@ import java.util.Objects;
  */
 public class ValidationException extends RuntimeException {
 
+    private static final long serialVersionUID = 6980428941250064462L;
+
     public static void raiseIfNecessary(BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw from(bindingResult);
+        raiseIfNecessary((Errors) bindingResult);
+    }
+
+    public static void raiseIfNecessary(Errors errors) {
+        if (errors.hasErrors()) {
+            throw from(errors);
         }
     }
 
     public static ValidationException from(BindingResult bindingResult) {
-        Objects.requireNonNull(bindingResult);
+        return from((Errors) bindingResult);
+    }
 
-        if (!bindingResult.hasErrors()) {
+    public static ValidationException from(Errors errors) {
+        Objects.requireNonNull(errors);
+
+        if (!errors.hasErrors()) {
             throw new IllegalArgumentException("BindingResult has NO errors!");
         }
-        return new ValidationException(bindingResult);
+        return new ValidationException(errors);
     }
 
-    private final BindingResult bindingResult;
+    private final Errors bindingResult;
 
-    private ValidationException(BindingResult bindingResult) {
-        this.bindingResult = bindingResult;
+    private ValidationException(Errors errors) {
+        this.bindingResult = errors;
     }
 
-    public BindingResult getBindingResult() {
+    public Errors getBindingResult() {
         return bindingResult;
     }
 
