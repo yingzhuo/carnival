@@ -145,6 +145,11 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
     // ---------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
+
+        private Builder() {
+            super();
+        }
+
         private Map<String, DataSource> dataSourceMap = new HashMap<>();
         private String defaultDataSourceName;
 

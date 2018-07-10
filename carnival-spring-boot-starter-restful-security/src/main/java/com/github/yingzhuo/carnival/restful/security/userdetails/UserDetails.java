@@ -63,6 +63,10 @@ public interface UserDetails {
     public static class Builder {
         private SimpleUserDetails ud = new SimpleUserDetails();
 
+        private Builder() {
+            super();
+        }
+
         public Builder id(Object id) {
             ud.setId(id);
             return this;

@@ -57,6 +57,7 @@ public class JwtTokenInfo {
         private Map<String, Object> privateClaims = new HashMap<>(0);
 
         private Builder() {
+            super();
         }
 
         public Builder keyId(String keyId) {
