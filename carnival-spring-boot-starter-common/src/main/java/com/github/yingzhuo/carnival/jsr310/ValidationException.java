@@ -36,11 +36,11 @@ public class ValidationException extends RuntimeException {
     }
 
     public static ValidationException from(Errors errors) {
-        Objects.requireNonNull(errors);
 
-        if (!errors.hasErrors()) {
-            throw new IllegalArgumentException("BindingResult has NO errors!");
+        if (!Objects.requireNonNull(errors).hasErrors()) {
+            throw new IllegalArgumentException();
         }
+
         return new ValidationException(errors);
     }
 
