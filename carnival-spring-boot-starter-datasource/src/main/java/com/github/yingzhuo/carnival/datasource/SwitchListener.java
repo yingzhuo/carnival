@@ -9,25 +9,13 @@
  */
 package com.github.yingzhuo.carnival.datasource;
 
-import java.lang.annotation.*;
-
 /**
  * @author 应卓
  */
-@Documented
-@Inherited
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface DataSourceSwitch {
+public interface SwitchListener {
 
-    /**
-     * 切换数据源名称
-     */
-    public String name();
+    public void before();
 
-    /**
-     * 切换监听器
-     */
-    public Class<? extends SwitchListener>[] listeners() default {};
+    public void after();
 
 }

@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 /**
  * @author 应卓
  */
-public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
+public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
 
     public static Builder builder() {
         return new Builder();
@@ -35,20 +35,20 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
     private final Map<String, DataSource> cachedDataSources = new TreeMap<>();
     private String defaultDataSourceName;
 
-    public CompositeDataSource() {
+    public ForkDataSource() {
         this(null);
     }
 
-    public CompositeDataSource(String defaultDataSourceName) {
+    public ForkDataSource(String defaultDataSourceName) {
         this.defaultDataSourceName = defaultDataSourceName;
     }
 
-    public CompositeDataSource add(String name, DataSource dataSource) {
+    public ForkDataSource add(String name, DataSource dataSource) {
         cachedDataSources.put(name, dataSource);
         return this;
     }
 
-    public CompositeDataSource addAll(Map<String, DataSource> dataSources) {
+    public ForkDataSource addAll(Map<String, DataSource> dataSources) {
         cachedDataSources.putAll(dataSources);
         return this;
     }
@@ -131,6 +131,7 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
     // ---------------------------------------------------------------------------------------------------------------
 
     public class Remote {
+
         private final ThreadLocal<String> nameHolder = ThreadLocal.withInitial(() -> null);
 
         public void setName(String name) {
@@ -163,8 +164,8 @@ public class CompositeDataSource implements DataSource, IntSized, Iterable<Map.E
             return this;
         }
 
-        public CompositeDataSource build() {
-            CompositeDataSource bean = new CompositeDataSource();
+        public ForkDataSource build() {
+            ForkDataSource bean = new ForkDataSource();
             bean.defaultDataSourceName = this.defaultDataSourceName;
             bean.cachedDataSources.putAll(this.dataSourceMap);
             return bean;
