@@ -16,6 +16,8 @@ import java.io.Serializable;
  */
 public final class Null implements Serializable, DisplayNamed {
 
+    private static final long serialVersionUID = -4469168606541063401L;
+
     public static Null INSTANCE = new Null();
 
     private Null() {

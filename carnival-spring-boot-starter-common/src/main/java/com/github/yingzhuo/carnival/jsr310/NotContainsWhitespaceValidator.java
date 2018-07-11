@@ -9,9 +9,10 @@
  */
 package com.github.yingzhuo.carnival.jsr310;
 
+import com.github.yingzhuo.carnival.common.util.StringUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.nio.CharBuffer;
 
 /**
  * @author 应卓
@@ -20,7 +21,7 @@ public class NotContainsWhitespaceValidator implements ConstraintValidator<NotCo
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return CharBuffer.wrap(value).chars().mapToObj(ch -> (char) ch).noneMatch((Character::isWhitespace));
+        return StringUtils.toCharStream(value).noneMatch((Character::isWhitespace));
     }
 
 }

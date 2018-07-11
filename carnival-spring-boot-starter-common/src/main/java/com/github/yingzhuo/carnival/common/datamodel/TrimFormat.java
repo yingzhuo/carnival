@@ -13,12 +13,17 @@ import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
+import java.lang.annotation.*;
 import java.util.Collections;
 import java.util.Set;
 
-public @interface Trim {
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.FIELD, ElementType.PARAMETER})
+public @interface TrimFormat {
 
-    public static class FormatterFactory implements AnnotationFormatterFactory<Trim> {
+    public static class FormatterFactory implements AnnotationFormatterFactory<TrimFormat> {
 
         @Override
         public Set<Class<?>> getFieldTypes() {
@@ -26,12 +31,12 @@ public @interface Trim {
         }
 
         @Override
-        public Printer<?> getPrinter(Trim annotation, Class<?> fieldType) {
+        public Printer<?> getPrinter(TrimFormat annotation, Class<?> fieldType) {
             return (Printer<String>) (object, locale) -> object;
         }
 
         @Override
-        public Parser<?> getParser(Trim annotation, Class<?> fieldType) {
+        public Parser<?> getParser(TrimFormat annotation, Class<?> fieldType) {
             return (Parser<String>) (text, locale) -> text.trim();
         }
     }

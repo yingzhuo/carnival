@@ -40,7 +40,7 @@ public @interface EnableSentinel {
             int interceptorOrder = attributes.getNumber("interceptorOrder");
             putConfig("interceptorOrder", interceptorOrder);
 
-            return new String[] {
+            return new String[]{
                     SentinelAutoCnf.class.getName()
             };
         }

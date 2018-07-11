@@ -27,6 +27,7 @@ import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.util.UrlPathHelper;
 
 import java.util.List;
+import java.util.Optional;
 
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcEnhancementAutoConfig.Props.class)
@@ -42,10 +43,7 @@ public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        UrlPathHelper helper = configurer.getUrlPathHelper();
-        if (helper == null) {
-            helper = new UrlPathHelper();
-        }
+        final UrlPathHelper helper = Optional.ofNullable(configurer.getUrlPathHelper()).orElseGet(UrlPathHelper::new);
         helper.setDefaultEncoding("UTF-8");
         helper.setRemoveSemicolonContent(false);
         configurer.setUrlPathHelper(helper);

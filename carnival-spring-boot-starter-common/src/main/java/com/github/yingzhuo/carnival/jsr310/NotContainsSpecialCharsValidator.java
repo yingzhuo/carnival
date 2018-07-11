@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.jsr310;
 
+import com.github.yingzhuo.carnival.common.util.StringUtils;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.nio.CharBuffer;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -24,7 +24,7 @@ public class NotContainsSpecialCharsValidator implements ConstraintValidator<Not
 
     @Override
     public void initialize(NotContainsSpecialChars annotation) {
-        this.specialChars = CharBuffer.wrap(annotation.specialChars()).chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
+        this.specialChars = StringUtils.toCharSet(annotation.specialChars());
     }
 
     @Override
