@@ -48,6 +48,16 @@ public final class StringUtils {
         return isBlank(string) ? null : string;
     }
 
+    public static boolean containsSpace(String string) {
+        Validate.notNull(string);
+        return toCharStream(string).anyMatch(ch -> ch == ' ');
+    }
+
+    public static boolean containsWhitespace(String string) {
+        Validate.notNull(string);
+        return toCharStream(string).anyMatch(Character::isWhitespace);
+    }
+
     public static Stream<Character> toCharStream(String string) {
         if (string == null) {
             return Stream.empty();

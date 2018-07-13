@@ -41,6 +41,18 @@ public final class SpringUtils {
         return AC;
     }
 
+    public static String getPropertyValue(String propertyName) {
+        return getPropertyValue(propertyName, String.class);
+    }
+
+    public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
+        return getPropertyValue(propertyName, targetType, null);
+    }
+
+    public static <T> T getPropertyValue(String propertyName, Class<T> targetType, T defaultIfNull) {
+        return ENV.getProperty(propertyName, targetType, defaultIfNull);
+    }
+
     public static <B> B getBean(Class<B> beanType) {
         return getApplicationContext().getBean(beanType);
     }
