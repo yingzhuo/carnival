@@ -16,10 +16,36 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  */
-public class StringUtils {
+public final class StringUtils {
 
     private StringUtils() {
         super();
+    }
+
+    public static boolean isBlank(String string) {
+        if (string == null) return true;
+
+        return string
+                .chars()
+                .allMatch(Character::isWhitespace);
+    }
+
+    public static boolean isEmpty(String string) {
+        if (string == null) return true;
+
+        return string.isEmpty();
+    }
+
+    public static String nullToEmpty(String string) {
+        return string == null ? "" : string;
+    }
+
+    public static String emptyToNull(String string) {
+        return isEmpty(string) ? null : string;
+    }
+
+    public static String blankToNull(String string) {
+        return isBlank(string) ? null : string;
     }
 
     public static Stream<Character> toCharStream(String string) {
