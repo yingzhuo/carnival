@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# 更新版本 (快照)
+# 更新版本 (SNAPSHOT)
 mvn versions:set -DnewVersion=1.0.0-SNAPSHOT
 mvn -N versions:update-child-modules
 mvn versions:commit
