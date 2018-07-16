@@ -22,6 +22,7 @@ public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new BooleanFormat());
         registry.addFormatter(new Gender.GenderFormatter());
         registry.addFormatter(new Color.ColorFormatter());
         registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
