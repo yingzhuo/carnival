@@ -83,4 +83,10 @@ public final class StringUtils {
         );
     }
 
+    public static String reverse(String string) {
+        return new StringBuilder(Validate.notNull(string))
+                .reverse()
+                .toString();
+    }
+
 }

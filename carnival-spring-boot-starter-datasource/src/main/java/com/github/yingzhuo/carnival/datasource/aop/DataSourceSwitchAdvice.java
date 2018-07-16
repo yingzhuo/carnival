@@ -17,12 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import javax.sql.DataSource;
 import java.util.Arrays;
@@ -35,22 +32,15 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Aspect
-public class DataSourceSwitchAdvice implements ApplicationContextAware {
+public class DataSourceSwitchAdvice {
 
     @Autowired(required = false)
     private DataSource dataSource;
 
-    private ApplicationContext applicationContext;
-
-    @Pointcut("@annotation(com.github.yingzhuo.carnival.datasource.DataSourceSwitch)")
-    public void pointcut() {
-    }
-
-    @Around("pointcut()")
+    @Around("@annotation(com.github.yingzhuo.carnival.datasource.DataSourceSwitch)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
 
-        final DataSourceSwitch annotation =
-                ((MethodSignature) joinPoint.getSignature()).getMethod().getAnnotation(DataSourceSwitch.class);
+        final DataSourceSwitch annotation = AnnotationUtils.getAnnotation(((MethodSignature) joinPoint.getSignature()).getMethod(), DataSourceSwitch.class);
 
         if (!(dataSource instanceof ForkDataSource)) {
             return joinPoint.proceed();
@@ -59,7 +49,6 @@ public class DataSourceSwitchAdvice implements ApplicationContextAware {
         final List<SwitchListener> listeners = getSwitchListeners(annotation.listeners());
         final String name = annotation.name();
         ForkDataSource cds = (ForkDataSource) dataSource;
-
 
         listeners.forEach(SwitchListener::before);
         cds.getRemote().setName(name);
@@ -77,11 +66,6 @@ public class DataSourceSwitchAdvice implements ApplicationContextAware {
         }
 
         return Collections.unmodifiableList(Arrays.stream(types).map(SpringUtils::getBean).collect(Collectors.toList()));
-    }
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
 }
