@@ -15,7 +15,6 @@ import com.github.yingzhuo.carnival.id.impl.LongSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.StringSnowflakeIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -60,7 +59,8 @@ public class IdGeneratorAutoConfig {
         private Algorithm algorithm = Algorithm.UUID_32;
         private Snowflake snowflake = new Snowflake();
 
-        @Data
+        @Getter
+        @Setter
         static class Snowflake {
             private long workerId = 0L;
             private int pad = 32;

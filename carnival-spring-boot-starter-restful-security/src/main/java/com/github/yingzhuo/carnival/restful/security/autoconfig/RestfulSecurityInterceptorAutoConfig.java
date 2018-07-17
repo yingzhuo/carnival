@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityFilter;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
@@ -19,6 +20,9 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -33,18 +37,33 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private TokenParser tokenParser;
+
     @Autowired
     private UserDetailsRealm userDetailsRealm;
+
     @Autowired
     private AuthenticationListener authenticationListener;
+
     @Autowired
     private CacheManager cacheManager;
+
     @Autowired(required = false)
     private LocaleResolver localeResolver;
 
+    @Bean
+    public FilterRegistrationBean<RestfulSecurityFilter> restfulSecurityFilterFilterRegistrationBean() {
+        final FilterRegistrationBean<RestfulSecurityFilter> bean = new FilterRegistrationBean<>();
+        bean.setEnabled(true);
+        bean.setFilter(new RestfulSecurityFilter());
+        bean.setName(RestfulSecurityFilter.class.getSimpleName());
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        bean.addUrlPatterns("/*");
+        return bean;
+    }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
+        final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
         Optional.ofNullable(localeResolver).ifPresent(interceptor::setLocaleResolver);
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);

@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public interface UserDetails {
+public interface UserDetails extends java.security.Principal {
 
     public static Builder builder() {
         return new Builder();
@@ -49,6 +49,11 @@ public interface UserDetails {
                 getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()));
     }
 
+    @Override
+    public default String getName() {
+        return getUsername();
+    }
+
     // Builder
     // --------------------------------------------------------------------------
 
@@ -61,6 +66,7 @@ public interface UserDetails {
     }
 
     public static class Builder {
+
         private SimpleUserDetails ud = new SimpleUserDetails();
 
         private Builder() {
