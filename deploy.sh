@@ -22,5 +22,5 @@ mvn -N versions:update-child-modules
 mvn versions:commit
 
 # 编译 + 打包 + 部署 + 清理
-mvn clean deploy -Dmaven.test.skip=true
+mvn clean deploy -Dmaven.test.skip=true -Dmaven.javadoc.skip=true
 mvn clean -q
