@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.spring;
 import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 
@@ -20,6 +21,9 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
  * @see SpringUtils
  */
 final public class BeanUtils {
+
+    public static final String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
+    public static final String SCOPE_PROTOTYPE = ConfigurableBeanFactory.SCOPE_PROTOTYPE;
 
     private BeanUtils() {
     }

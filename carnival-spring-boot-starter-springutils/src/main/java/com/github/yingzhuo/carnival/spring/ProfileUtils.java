@@ -46,17 +46,29 @@ final public class ProfileUtils {
         return Collections.unmodifiableSet(new HashSet<>(getDefaultProfiles()));
     }
 
-    public static void whenActive(String profileName, Consumer<String> ifTrue) {
+    public static boolean allActive(String... profiles) {
+        return Arrays.stream(profiles).allMatch(getEnvironment()::acceptsProfiles);
+    }
+
+    public static boolean anyActive(String... profiles) {
+        return Arrays.stream(profiles).anyMatch(getEnvironment()::acceptsProfiles);
+    }
+
+    public static boolean noneActive(String... profiles) {
+        return Arrays.stream(profiles).noneMatch(getEnvironment()::acceptsProfiles);
+    }
+
+    public static void ifActive(String profileName, Consumer<String> ifTrue) {
         if (getEnvironment().acceptsProfiles(profileName)) {
             ifTrue.accept(profileName);
         }
     }
 
-    public static void whenActive(String profileName, Consumer<String> ifTrue, Consumer<String> ifFlase) {
+    public static void ifActive(String profileName, Consumer<String> ifTrue, Consumer<String> ifFalse) {
         if (getEnvironment().acceptsProfiles(profileName)) {
-            ifTrue.accept(profileName);
+            Objects.requireNonNull(ifTrue).accept(profileName);
         } else {
-            ifFlase.accept(profileName);
+            Objects.requireNonNull(ifFalse).accept(profileName);
         }
     }
 

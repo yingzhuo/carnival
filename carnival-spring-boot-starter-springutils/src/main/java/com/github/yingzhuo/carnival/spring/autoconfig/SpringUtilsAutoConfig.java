@@ -26,6 +26,7 @@ import java.util.UUID;
 public class SpringUtilsAutoConfig {
 
     @Bean
+    @ConditionalOnMissingBean
     public SpringUtilsApplicationContextAware springUtilsApplicationContextAware() {
         return SpringUtilsApplicationContextAware.INSTANCE;
     }
