@@ -19,11 +19,11 @@ import java.util.function.Consumer;
  *
  * @author 应卓
  * @see SpringUtils
- * @since 0.0.1
  */
-final public class ProfileUtils {
+public final class ProfileUtils {
 
     private ProfileUtils() {
+        super();
     }
 
     public static Environment getEnvironment() {
@@ -34,16 +34,16 @@ final public class ProfileUtils {
         return Collections.unmodifiableList(Arrays.asList(getEnvironment().getActiveProfiles()));
     }
 
-    public static Set<String> getActiveProfilesAsSet() {
-        return Collections.unmodifiableSet(new HashSet<>(getActiveProfiles()));
+    public static SortedSet<String> getActiveProfilesAsSet() {
+        return Collections.unmodifiableSortedSet(new TreeSet<>(getActiveProfiles()));
     }
 
     public static List<String> getDefaultProfiles() {
         return Collections.unmodifiableList(Arrays.asList(getEnvironment().getDefaultProfiles()));
     }
 
-    public static Set<String> getDefaultProfilesAsSet() {
-        return Collections.unmodifiableSet(new HashSet<>(getDefaultProfiles()));
+    public static SortedSet<String> getDefaultProfilesAsSet() {
+        return Collections.unmodifiableSortedSet(new TreeSet<>(getDefaultProfiles()));
     }
 
     public static boolean allActive(String... profiles) {
@@ -65,6 +65,9 @@ final public class ProfileUtils {
     }
 
     public static void ifActive(String profileName, Consumer<String> ifTrue, Consumer<String> ifFalse) {
+
+        Objects.requireNonNull(profileName);
+
         if (getEnvironment().acceptsProfiles(profileName)) {
             Objects.requireNonNull(ifTrue).accept(profileName);
         } else {

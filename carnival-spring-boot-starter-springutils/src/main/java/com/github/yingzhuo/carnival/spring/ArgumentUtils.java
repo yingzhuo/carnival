@@ -10,11 +10,11 @@ import static com.github.yingzhuo.carnival.spring.SpringUtils.CMD_ARGS;
 /**
  * @author 应卓
  * @see SpringUtils
- * @since 0.0.1
  */
 final public class ArgumentUtils {
 
     private ArgumentUtils() {
+        super();
     }
 
     public static ApplicationArguments getApplicationArguments() {

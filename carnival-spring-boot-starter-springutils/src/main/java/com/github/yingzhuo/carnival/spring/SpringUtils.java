@@ -21,7 +21,6 @@ import java.util.List;
  * Spring通用工具
  *
  * @author 应卓
- * @since 0.0.1
  */
 public final class SpringUtils {
 
@@ -31,6 +30,7 @@ public final class SpringUtils {
     static List<String> CMD_ARGS = null;
 
     private SpringUtils() {
+        super();
     }
 
     public static String getSpringId() {

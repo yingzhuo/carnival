@@ -12,7 +12,8 @@ package com.github.yingzhuo.carnival.integration.smsbao.autoconfig;
 import com.github.yingzhuo.carnival.integration.smsbao.Mode;
 import com.github.yingzhuo.carnival.integration.smsbao.SmsbaoManager;
 import com.github.yingzhuo.carnival.integration.smsbao.impl.DefaultSmsbaoManagerImpl;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -58,7 +59,8 @@ public class SmsbaoManagerAutoConfig {
         }
     }
 
-    @Data
+    @Getter
+    @Setter
     @ConfigurationProperties("carnival.integration.smsbao")
     static class Props {
         private boolean enabled = true;

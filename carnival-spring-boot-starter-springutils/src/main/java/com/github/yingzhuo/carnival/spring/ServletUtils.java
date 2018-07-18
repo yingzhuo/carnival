@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public final class ServletUtils {
 
     private ServletUtils() {
+        super();
     }
 
     public static HttpServletRequest getRequest() {

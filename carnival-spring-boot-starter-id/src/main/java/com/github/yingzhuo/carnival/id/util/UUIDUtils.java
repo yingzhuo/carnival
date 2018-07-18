@@ -15,6 +15,7 @@ package com.github.yingzhuo.carnival.id.util;
 public final class UUIDUtils {
 
     private UUIDUtils() {
+        super();
     }
 
     public static String randomUUID32() {
