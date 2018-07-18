@@ -19,11 +19,11 @@ public class BooleanFormat implements Formatter<Boolean> {
     @Override
     public Boolean parse(String text, Locale locale) throws ParseException {
 
-        if ("true".equalsIgnoreCase(text) || "1".equalsIgnoreCase(text) || "yes".equalsIgnoreCase(text) || "y".equalsIgnoreCase(text)) {
+        if ("true".equalsIgnoreCase(text) || "1".equals(text) || "yes".equalsIgnoreCase(text) || "y".equalsIgnoreCase(text)) {
             return Boolean.TRUE;
         }
 
-        if ("false".equalsIgnoreCase(text) || "0".equalsIgnoreCase(text) || "no".equalsIgnoreCase(text) || "n".equalsIgnoreCase(text)) {
+        if ("false".equalsIgnoreCase(text) || "0".equals(text) || "no".equalsIgnoreCase(text) || "n".equalsIgnoreCase(text)) {
             return Boolean.FALSE;
         }
 

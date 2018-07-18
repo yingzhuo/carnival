@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
+/**
+ * @author 应卓
+ */
 public interface DownloadEntity {
 
     public static Builder builder() {

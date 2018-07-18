@@ -31,7 +31,7 @@ public enum Gender implements IntCoded, DisplayNamed, Serializable {
     private int code;
     private String displayName;
 
-    private Gender(int code, String displayName) {
+    Gender(int code, String displayName) {
         this.code = code;
         this.displayName = displayName;
     }
