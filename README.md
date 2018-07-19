@@ -7,13 +7,11 @@ Carnival
 
 本项目没有发布到`maven`中央仓库，需自行安装到本地库。
 
-```bash
-# 下载安装
-git clone https://github.com/yingzhuo/carnival.git
-mvn -f carnival/pom.xml clean install -Dmaven.test.skip=true
+**MacOS / Linux** 可以使用以下脚本安装之。
 
-# 删除(可选)
-rm -rf carnival/
+```bash
+git clone https://github.com/yingzhuo/carnival.git
+bash ./carnival/install.sh
 ```
 
 维基

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.spring.autoconfig.SpringUtilsAutoConfig;
+import com.github.yingzhuo.carnival.spring.tool.WebApplicationAnchor;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
@@ -39,40 +39,18 @@ public final class SpringUtils {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static String getSpringId() {
-        return getBean("springId", String.class);
-    }
-
-    /* -------------------------------------------------------------------------------------------------------------- */
-
     public static ApplicationContext getApplicationContext() {
         return AC;
     }
 
+    public static Environment getEnvironment() {
+        return ENV;
+    }
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static String getPropertyValue(String propertyName) {
-        return getPropertyValue(propertyName, String.class);
-    }
-
-    public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
-        return getPropertyValue(propertyName, targetType, null);
-    }
-
-    public static <T> T getPropertyValue(String propertyName, Class<T> targetType, T defaultIfNull) {
-        return ENV.getProperty(propertyName, targetType, defaultIfNull);
-    }
-
-    public static List<String> getCommaDelimitedPropertyValue(String propertyName) {
-        final String value = getPropertyValue(propertyName);
-
-        if (value == null) {
-            return Collections.emptyList();
-        } else {
-            return Collections.unmodifiableList(
-                    Arrays.asList(StringUtils.commaDelimitedListToStringArray(value))
-            );
-        }
+    public static String getSpringId() {
+        return getBean("springId", String.class);
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -94,7 +72,7 @@ public final class SpringUtils {
 
     public static boolean isWebApplication() {
         try {
-            getBean(SpringUtilsAutoConfig.WebApplicationAnchor.class);
+            getBean(WebApplicationAnchor.class);
             return true;
         } catch (NoSuchBeanDefinitionException e) {
             return false;

@@ -30,6 +30,7 @@ public class SpringUtilsApplicationContextAware implements Ordered, ApplicationC
     public static final SpringUtilsApplicationContextAware INSTANCE = new SpringUtilsApplicationContextAware();
 
     private SpringUtilsApplicationContextAware() {
+        super();
     }
 
     @Override
