@@ -21,13 +21,9 @@ public class DefaultGravatarFactory implements GravatarFactory {
         super();
     }
 
-    private final static String GRAVATAR_URL = "http://www.gravatar.com/avatar/";
-    private final static String FILE_TYPE_EXTENSION = ".jpg";
-
     private DefaultImage defaultImage = DefaultImage.IDENTICON;
     private Rating rating = Rating.GENERAL_AUDIENCE;
-    private String prefix = GRAVATAR_URL;
-    private String suffix = FILE_TYPE_EXTENSION;
+    private Scope scope = Scope.CHINA;
 
     @Override
     public String create(final String email) {
@@ -37,7 +33,7 @@ public class DefaultGravatarFactory implements GravatarFactory {
     @Override
     public String create(final String email, int size) {
         validate(email);
-        return prefix + md5(email.toLowerCase()) + suffix +
+        return scope.getPrefix() + md5(email.toLowerCase()) +
                 "?s=" + size +
                 "&r=" + rating.getKey() +
                 "&d=" + defaultImage.getKey();
@@ -77,11 +73,7 @@ public class DefaultGravatarFactory implements GravatarFactory {
         this.rating = rating;
     }
 
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
-
-    public void setSuffix(String suffix) {
-        this.suffix = suffix;
+    public void setScope(Scope scope) {
+        this.scope = scope;
     }
 }

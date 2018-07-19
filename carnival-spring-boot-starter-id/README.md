@@ -5,7 +5,7 @@
 ```xml
 <dependency>
     <groupId>com.github.yingzhuo</groupId>
-    <artifactId>carnival-spring-boot-starter-xml</artifactId>
+    <artifactId>carnival-spring-boot-starter-id</artifactId>
     <version>${current.version}</version>
 </dependency>
 ```

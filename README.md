@@ -17,6 +17,7 @@ bash ./carnival/install.sh
 维基
 ---
 
+* [carnival-spring-boot-starter-gravatar](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-gravatar)
 * [carnival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
 

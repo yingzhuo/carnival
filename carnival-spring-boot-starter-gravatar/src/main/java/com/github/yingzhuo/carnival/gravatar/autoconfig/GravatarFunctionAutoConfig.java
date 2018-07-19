@@ -9,12 +9,10 @@
  */
 package com.github.yingzhuo.carnival.gravatar.autoconfig;
 
-import com.github.yingzhuo.carnival.gravatar.DefaultGravatarFactory;
-import com.github.yingzhuo.carnival.gravatar.DefaultImage;
-import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
-import com.github.yingzhuo.carnival.gravatar.Rating;
+import com.github.yingzhuo.carnival.gravatar.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -30,13 +28,12 @@ public class GravatarFunctionAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public GravatarFactory gravatarFunction(Props props) {
-        DefaultGravatarFactory function = new DefaultGravatarFactory();
-        function.setDefaultImage(props.defaultImage);
-        function.setRating(props.rating);
-        function.setPrefix(props.getPrefix());
-        function.setSuffix(props.getSuffix());
-        return function;
+    public GravatarFactory gravatarFactory(Props props) {
+        val bean = new DefaultGravatarFactory();
+        bean.setDefaultImage(props.getDefaultImage());
+        bean.setRating(props.getRating());
+        bean.setScope(props.getScope());
+        return bean;
     }
 
     @Getter
@@ -46,8 +43,7 @@ public class GravatarFunctionAutoConfig {
         private boolean enabled = true;
         private DefaultImage defaultImage = DefaultImage.IDENTICON;
         private Rating rating = Rating.GENERAL_AUDIENCE;
-        private String prefix = "http://www.gravatar.com/avatar/";
-        private String suffix = ".jpg";
+        private Scope scope = Scope.CHINA;
     }
 
 }
