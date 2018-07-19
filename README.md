@@ -17,6 +17,8 @@ bash ./carnival/install.sh
 维基
 ---
 
+* [carnival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
+
 许可证
 ---
 
