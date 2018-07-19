@@ -2,7 +2,7 @@
 [![Build](http://img.shields.io/badge/Build-Maven_2-green.svg)](https://maven.apache.org/)
 [![License](http://img.shields.io/badge/License-Apache_2-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-Carnival
+下载 / 安装
 ---
 
 本项目没有发布到`maven`中央仓库，需自行安装到本地库。
@@ -17,6 +17,7 @@ bash ./carnival/install.sh
 维基
 ---
 
+* [carnival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
 
 许可证
