@@ -105,7 +105,35 @@ public class JwtTokenInfo {
             return this;
         }
 
-        public Builder putPrivateClaim(String key, Object value) {
+        public Builder putPrivateClaim(String key, Date value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, String value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, String[] value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, Integer value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, Integer[] value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, Long value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, Long[] value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        private Builder putPrivateClaim(String key, Object value) {
             this.privateClaims.put(key, value);
             return this;
         }
@@ -122,6 +150,7 @@ public class JwtTokenInfo {
             info.privateClaims = this.privateClaims;
             return info;
         }
+
     }
 
 }
