@@ -25,6 +25,10 @@ public class JwtTokenInfo {
         return new Builder();
     }
 
+    private JwtTokenInfo() {
+        super();
+    }
+
     // Public Claims (Header)
     private String keyId;
 
