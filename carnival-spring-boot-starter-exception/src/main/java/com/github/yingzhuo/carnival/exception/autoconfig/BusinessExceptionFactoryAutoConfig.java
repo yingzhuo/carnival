@@ -10,20 +10,31 @@
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.EnableBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.IniBusinessExceptionFactory;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
  */
+@EnableConfigurationProperties(BusinessExceptionFactoryAutoConfig.Props.class)
 public class BusinessExceptionFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public BusinessExceptionFactory businessExceptionFactory() {
-        return new IniBusinessExceptionFactory(EnableBusinessExceptionFactory.ImportSelector.getConfig("location", String.class));
+    public BusinessExceptionFactory businessExceptionFactory(Props props) {
+        return new IniBusinessExceptionFactory(props.getIniLocation());
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.business-exception")
+    static final class Props {
+        private String iniLocation = "classpath:/business-exception.ini";
     }
 
 }

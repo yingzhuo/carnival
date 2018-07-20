@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.ini4j.Ini;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 /**
  * @author 应卓
  */
+@Slf4j
 public class IniBusinessExceptionFactory implements BusinessExceptionFactory, InitializingBean {
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
@@ -57,6 +59,7 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
 
     @Override
     public void afterPropertiesSet() throws Exception {
+        log.debug("ini-location: {}", location);
         final InputStream inputStream = resourceLoader.getResource(location).getInputStream();
         this.ini = new Ini(inputStream);
 
