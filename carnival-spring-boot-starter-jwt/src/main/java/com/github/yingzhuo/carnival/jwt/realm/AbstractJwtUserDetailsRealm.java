@@ -14,10 +14,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.jwt.exception.AlgorithmMismatchException;
-import com.github.yingzhuo.carnival.jwt.exception.InvalidClaimException;
-import com.github.yingzhuo.carnival.jwt.exception.SignatureVerificationException;
-import com.github.yingzhuo.carnival.jwt.exception.TokenExpiredException;
+import com.github.yingzhuo.carnival.jwt.exception.*;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
 import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -84,6 +81,8 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
                 throw new SignatureVerificationException(ex.getMessage(), ex);
             } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
                 throw new InvalidClaimException(ex.getMessage(), ex);
+            } catch (com.auth0.jwt.exceptions.JWTDecodeException ex) {
+                throw new JwtDecodeException(ex.getMessage(), ex);
             }
         }
 
