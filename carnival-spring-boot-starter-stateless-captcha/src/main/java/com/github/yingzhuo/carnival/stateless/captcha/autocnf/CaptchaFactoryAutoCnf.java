@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.SimpleCaptchaFactory;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -26,8 +27,11 @@ public class CaptchaFactoryAutoCnf {
 
     @Bean
     @ConditionalOnMissingBean
-    public CaptchaFactory captchaFactory(CaptchaDao dao) {
-        return new SimpleCaptchaFactory(dao);
+    public CaptchaFactory captchaFactory(CaptchaDao dao, Props props) {
+        val factory =  new SimpleCaptchaFactory(dao);
+        factory.setHeight(props.getHeight());
+        factory.setWidth(props.getWidth());
+        return factory;
     }
 
     @Getter
@@ -35,6 +39,8 @@ public class CaptchaFactoryAutoCnf {
     @ConfigurationProperties(prefix = "carnival.stateless-captcha")
     static class Props {
         private boolean enabled = false;
+        private int width = 100;
+        private int height = 18;
     }
 
 }
