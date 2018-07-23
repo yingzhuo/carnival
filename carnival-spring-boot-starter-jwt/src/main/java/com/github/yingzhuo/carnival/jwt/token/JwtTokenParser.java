@@ -14,13 +14,16 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 
 /**
  * @author 应卓
+ * @see com.github.yingzhuo.carnival.common.parser.Parser
+ * @see com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser
+ * @see com.github.yingzhuo.carnival.restful.security.parser.HttpParameterTokenParser
  */
-public class DefaultJwtTokenParser extends HttpHeaderTokenParser implements TokenParser {
+public class JwtTokenParser extends HttpHeaderTokenParser implements TokenParser {
 
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
 
-    public DefaultJwtTokenParser() {
+    public JwtTokenParser() {
         super(AUTHORIZATION, BEARER);
     }
 

@@ -15,6 +15,8 @@ import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * UserDetails简单实现
@@ -34,6 +36,7 @@ public final class SimpleUserDetails implements UserDetails {
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
     private Object nativeUser = null;
+    private final Map<String, Object> payload = new HashMap<>(0);
 
     @Override
     public Object getId() {
@@ -110,6 +113,15 @@ public final class SimpleUserDetails implements UserDetails {
     @SuppressWarnings("unchecked")
     public <U> U getNativeUser(Class<U> userType) {
         return (U) this.nativeUser;
+    }
+
+    @Override
+    public Map<String, Object> getPayload() {
+        return Collections.unmodifiableMap(this.payload);
+    }
+
+    public void putPayload(String name, Object value) {
+        this.payload.put(name, value);
     }
 
 }

@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.role.Role;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,8 @@ public interface UserDetails extends java.security.Principal {
     public Collection<Permission> getPermissions();
 
     public <U> U getNativeUser(Class<U> userType);
+
+    public Map<String, Object> getPayload();
 
     public default Collection<String> getRoleNames() {
         if (getRoles() == null) {
@@ -135,6 +138,11 @@ public interface UserDetails extends java.security.Principal {
 
         public Builder nativeUser(Object nativeUser) {
             ud.setNativeUser(nativeUser);
+            return this;
+        }
+
+        public Builder putPayload(String name, Object value) {
+            ud.putPayload(name, value);
             return this;
         }
 
