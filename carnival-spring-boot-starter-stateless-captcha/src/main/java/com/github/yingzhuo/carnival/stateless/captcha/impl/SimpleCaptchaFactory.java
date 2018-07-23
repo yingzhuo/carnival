@@ -26,6 +26,9 @@ import java.util.Base64;
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 public class SimpleCaptchaFactory implements CaptchaFactory {
 
@@ -88,6 +91,8 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
 
             final CaptchaId captchaId = CaptchaId.of(id);
             captchaDao.save(captchaId, captchaValue);
+
+            log.info("CAPTCHA: '{}'", captchaValue);
 
             return Pair.of(captchaId, HashedImage.of(imageStr));
         } catch (IOException e) {

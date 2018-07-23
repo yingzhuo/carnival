@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.stateless.captcha;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * @author 应卓
+ */
 public final class CaptchaId implements Serializable {
 
     private static final long serialVersionUID = -4490018081556442337L;

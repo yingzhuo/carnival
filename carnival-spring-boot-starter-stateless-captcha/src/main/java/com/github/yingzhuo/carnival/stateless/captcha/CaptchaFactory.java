@@ -11,6 +11,9 @@ package com.github.yingzhuo.carnival.stateless.captcha;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * @author 应卓
+ */
 public interface CaptchaFactory {
 
     public Pair<CaptchaId, HashedImage> create(int length);
