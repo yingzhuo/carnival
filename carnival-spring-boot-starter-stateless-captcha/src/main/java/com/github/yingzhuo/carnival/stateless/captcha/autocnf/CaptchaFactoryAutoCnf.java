@@ -31,7 +31,7 @@ public class CaptchaFactoryAutoCnf {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaFactory captchaFactory(CaptchaDao dao, Props props) {
-        val factory =  new SimpleCaptchaFactory(dao);
+        val factory = new SimpleCaptchaFactory(dao);
         factory.setHeight(props.getHeight());
         factory.setWidth(props.getWidth());
         return factory;

@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.support;
 
 import org.springframework.util.StringUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,11 @@ public class BasePathInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
         if (StringUtils.hasText(attributeName)) {
             final String path = request.getContextPath();
             final String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";

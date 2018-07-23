@@ -57,6 +57,10 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
         RequiresAuthentication requiresAuthentication = getMethodAnnotation(RequiresAuthentication.class, handler);
         RequiresGuest requiresGuest = getMethodAnnotation(RequiresGuest.class, handler);
         RequiresPermissions requiresPermissions = getMethodAnnotation(RequiresPermissions.class, handler);

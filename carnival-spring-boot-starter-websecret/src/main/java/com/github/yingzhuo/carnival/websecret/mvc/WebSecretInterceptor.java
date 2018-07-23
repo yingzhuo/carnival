@@ -19,9 +19,9 @@ import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,8 +50,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        // 不处理静态资源
-        if (handler instanceof ResourceHttpRequestHandler) {
+        if (!(handler instanceof HandlerMethod)) {
             return true;
         }
 
