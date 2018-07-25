@@ -23,7 +23,8 @@ public class UUID32Validator implements ConstraintValidator<UUID32, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null) return false;
+        if (value == null) return true;
+
         Matcher matcher = PATTERN.matcher(value);
         return matcher.matches();
     }

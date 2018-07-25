@@ -21,6 +21,8 @@ public class NotContainsSpaceValidator implements ConstraintValidator<NotContain
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return true;
+
         return StringUtils.toCharStream(value).noneMatch(ch -> ' ' == ch);
     }
 

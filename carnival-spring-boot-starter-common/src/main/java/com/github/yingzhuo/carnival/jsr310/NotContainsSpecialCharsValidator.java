@@ -29,6 +29,8 @@ public class NotContainsSpecialCharsValidator implements ConstraintValidator<Not
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return true;
+
         return specialChars.stream().noneMatch(ch -> value.contains(String.valueOf(ch)));
     }
 

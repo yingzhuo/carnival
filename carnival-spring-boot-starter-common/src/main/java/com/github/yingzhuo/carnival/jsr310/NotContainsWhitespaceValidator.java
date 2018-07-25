@@ -21,6 +21,8 @@ public class NotContainsWhitespaceValidator implements ConstraintValidator<NotCo
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
+        if (value == null) return true;
+
         return StringUtils.toCharStream(value).noneMatch((Character::isWhitespace));
     }
 
