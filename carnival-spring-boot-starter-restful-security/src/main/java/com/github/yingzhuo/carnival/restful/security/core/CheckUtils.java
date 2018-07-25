@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationExce
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import lombok.val;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -79,14 +80,14 @@ final class CheckUtils {
             throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
         }
 
-        List<String> reqired = Arrays.asList(annotation.value());
+        List<String> require = Arrays.asList(annotation.value());
         Set<String> actual = new HashSet<>(userDetails.getRoleNames());
         if (annotation.logical() == Logical.AND) {
-            if (!reqired.stream().allMatch(actual::contains)) {
+            if (!actual.containsAll(require)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }
         } else {
-            if (reqired.stream().noneMatch(actual::contains)) {
+            if (require.stream().noneMatch(actual::contains)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }
         }
@@ -100,7 +101,7 @@ final class CheckUtils {
             throw new AuthenticationException(getMessage(annotation.errorMessage()));
         }
 
-        UserDetails userDetails = userDetailsOptional.get();
+        val userDetails = userDetailsOptional.get();
 
         if (userDetails.isExpired()) {
             throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
@@ -110,14 +111,14 @@ final class CheckUtils {
             throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
         }
 
-        List<String> reqired = Arrays.asList(annotation.value());
+        List<String> require = Arrays.asList(annotation.value());
         Set<String> actual = new HashSet<>(userDetails.getRoleNames());
         if (annotation.logical() == Logical.AND) {
-            if (!reqired.stream().allMatch(actual::contains)) {
+            if (!actual.containsAll(require)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }
         } else {
-            if (reqired.stream().noneMatch(actual::contains)) {
+            if (require.stream().noneMatch(actual::contains)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }
         }

@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
+import lombok.val;
+
 public class UsernamePasswordToken implements Token {
 
     private static final long serialVersionUID = 3217442894344389575L;
@@ -46,7 +48,7 @@ public class UsernamePasswordToken implements Token {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UsernamePasswordToken that = (UsernamePasswordToken) o;
+        val that = (UsernamePasswordToken) o;
         return username.equals(that.username) && password.equals(that.password);
     }
 
