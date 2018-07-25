@@ -66,6 +66,11 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
                     continue;
                 }
 
+                if (value instanceof Boolean) {
+                    builder.withClaim(name, (Boolean) value);
+                    continue;
+                }
+
                 if (value instanceof Date) {
                     builder.withClaim(name, (Date) value);
                     continue;
@@ -73,6 +78,11 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
                 if (value instanceof Long) {
                     builder.withClaim(name, (Long) value);
+                    continue;
+                }
+
+                if (value instanceof Double) {
+                    builder.withClaim(name, (Double) value);
                     continue;
                 }
 
@@ -88,7 +98,7 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
                 if (value instanceof Long[]) {
                     builder.withArrayClaim(name, (Long[]) value);
-                    // continue;
+//                    continue;
                 }
             }
         });

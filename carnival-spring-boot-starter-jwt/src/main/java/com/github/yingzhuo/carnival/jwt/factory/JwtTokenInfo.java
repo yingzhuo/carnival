@@ -13,7 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -110,7 +109,15 @@ public class JwtTokenInfo {
             return this;
         }
 
+        public Builder putPrivateClaim(String key, Boolean value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
         public Builder putPrivateClaim(String key, Date value) {
+            return putPrivateClaim(key, (Object) value);
+        }
+
+        public Builder putPrivateClaim(String key, Double value) {
             return putPrivateClaim(key, (Object) value);
         }
 
@@ -136,14 +143,6 @@ public class JwtTokenInfo {
 
         public Builder putPrivateClaim(String key, Long[] value) {
             return putPrivateClaim(key, (Object) value);
-        }
-
-        public Builder putPrivateClaim(String key, Boolean value) {
-            return putPrivateClaim(key, Objects.requireNonNull(value).toString());
-        }
-
-        public Builder putPrivateClaim(String key, Boolean[] value) {
-            return putPrivateClaim(key, Arrays.stream(Objects.requireNonNull(value)).map(Object::toString).collect(Collectors.toList()).toArray(new String[value.length]));
         }
 
         private Builder putPrivateClaim(String key, Object value) {
