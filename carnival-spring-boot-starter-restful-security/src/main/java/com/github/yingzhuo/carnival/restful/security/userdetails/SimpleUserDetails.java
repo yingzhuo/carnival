@@ -101,17 +101,13 @@ public final class SimpleUserDetails implements UserDetails {
         this.permissions = permissions;
     }
 
-    public Object getNativeUser() {
-        return nativeUser;
-    }
-
     public void setNativeUser(Object nativeUser) {
         this.nativeUser = nativeUser;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <U> U getNativeUser(Class<U> userType) {
+    public <U> U getNativeUser() {
         return (U) this.nativeUser;
     }
 

@@ -14,7 +14,10 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author 应卓
@@ -44,9 +47,9 @@ public final class RestfulSecurityUtils {
         return userDetails != null ? userDetails.getUsername() : null;
     }
 
-    public static <T> T getNativeUser(Class<T> userType) {
+    public static <T> T getNativeUser() {
         val userDetails = getUserDetails();
-        return userDetails != null ? userDetails.getNativeUser(Objects.requireNonNull(userType)) : null;
+        return (T) (userDetails != null ? userDetails.getNativeUser() : null);
     }
 
     public static List<String> getRoleNames() {

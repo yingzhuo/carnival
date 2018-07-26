@@ -39,7 +39,7 @@ public interface UserDetails extends java.security.Principal {
 
     public Collection<Permission> getPermissions();
 
-    public <U> U getNativeUser(Class<U> userType);
+    public <U> U getNativeUser();
 
     public Map<String, Object> getPayload();
 
