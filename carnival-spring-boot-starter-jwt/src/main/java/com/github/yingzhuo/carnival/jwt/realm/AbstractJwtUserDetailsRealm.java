@@ -16,7 +16,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.exception.*;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
-import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -37,7 +37,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
     private String secret;
     private SignatureAlgorithm signatureAlgorithm;
 
-    @Autowired(required = false)
+    @Autowired
     private JwtProps jwtProps;
 
     public AbstractJwtUserDetailsRealm() {
@@ -47,10 +47,8 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
     @Override
     public void afterPropertiesSet() throws Exception {
 
-        Optional.ofNullable(jwtProps).ifPresent(it -> {
-            this.secret = it.getSecret();
-            this.signatureAlgorithm = it.getSignatureAlgorithm();
-        });
+        this.secret = jwtProps.getSecret();
+        this.signatureAlgorithm = jwtProps.getSignatureAlgorithm();
 
         // 检查用户配置
         Assert.hasText(secret, (String) null);
@@ -66,7 +64,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
 
-            Algorithm algorithm = InternalUtls.toAlgorithm(signatureAlgorithm, secret);
+            Algorithm algorithm = InternalUtils.toAlgorithm(signatureAlgorithm, secret);
             JWTVerifier verifier = JWT.require(algorithm).build();
 
             try {

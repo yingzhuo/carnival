@@ -162,7 +162,5 @@ public class JwtTokenInfo {
             info.privateClaims = this.privateClaims;
             return info;
         }
-
     }
-
 }

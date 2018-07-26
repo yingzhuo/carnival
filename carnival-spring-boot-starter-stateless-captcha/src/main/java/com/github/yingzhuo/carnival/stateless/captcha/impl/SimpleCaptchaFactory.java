@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -39,7 +40,7 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
     private final CaptchaDao captchaDao;
 
     public SimpleCaptchaFactory(CaptchaDao captchaDao) {
-        this.captchaDao = captchaDao;
+        this.captchaDao = Objects.requireNonNull(captchaDao);
     }
 
     @Override

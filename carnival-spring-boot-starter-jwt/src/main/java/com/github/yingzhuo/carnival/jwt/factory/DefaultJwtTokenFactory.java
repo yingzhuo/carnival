@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.jwt.factory;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.jwt.util.InternalUtls;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 
 import java.util.Date;
 import java.util.Optional;
@@ -103,7 +103,7 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
             }
         });
 
-        return builder.sign(InternalUtls.toAlgorithm(signatureAlgorithm, secret));
+        return builder.sign(InternalUtils.toAlgorithm(signatureAlgorithm, secret));
     }
 
     public void setSecret(String secret) {
