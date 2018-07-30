@@ -28,7 +28,7 @@ public class StringToken implements Token {
         this.value = Objects.requireNonNull(value);
     }
 
-    public String getValue() {
+    public final String getValue() {
         return value;
     }
 

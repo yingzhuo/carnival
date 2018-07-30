@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.restful.security.userdetails;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
+import java.io.Serializable;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -19,7 +21,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public interface UserDetails extends java.security.Principal {
+public interface UserDetails extends Principal, Serializable {
 
     public static Builder builder() {
         return new Builder();
@@ -149,6 +151,7 @@ public interface UserDetails extends java.security.Principal {
         public UserDetails build() {
             return ud;
         }
+
     }
 
 }

@@ -16,6 +16,8 @@ import java.util.Objects;
 @ToString
 public final class SimplePermission implements Permission {
 
+    private static final long serialVersionUID = -7421422978387481040L;
+
     private final String name;
 
     public SimplePermission(String name) {

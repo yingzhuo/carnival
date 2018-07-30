@@ -16,6 +16,14 @@ package com.github.yingzhuo.carnival.restful.security;
  */
 public enum Logical {
 
-    OR, AND
+    /**
+     * 或
+     */
+    OR,
+
+    /**
+     * 与
+     */
+    AND
 
 }

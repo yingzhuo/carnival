@@ -13,15 +13,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
-
 @Slf4j
 public class JDK8ObjectMapperAutoConfig {
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
-    }
 
     @Autowired(required = false)
     public void config(ObjectMapper om) {

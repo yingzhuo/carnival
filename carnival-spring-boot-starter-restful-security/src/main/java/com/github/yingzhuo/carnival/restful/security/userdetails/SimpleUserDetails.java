@@ -28,6 +28,8 @@ import java.util.Map;
 @ToString
 public final class SimpleUserDetails implements UserDetails {
 
+    private static final long serialVersionUID = 7811607048302332880L;
+
     private Object id = null;
     private String username = null;
     private String password = null;

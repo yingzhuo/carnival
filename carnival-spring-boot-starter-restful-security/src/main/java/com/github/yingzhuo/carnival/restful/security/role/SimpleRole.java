@@ -16,6 +16,8 @@ import java.util.Objects;
 @ToString
 public final class SimpleRole implements Role {
 
+    private static final long serialVersionUID = 2563135365649264127L;
+
     private final String name;
 
     public SimpleRole(String name) {

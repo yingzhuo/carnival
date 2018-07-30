@@ -33,6 +33,7 @@ public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMeth
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+
         if (parameter.getParameterType() == Token.class || parameter.getParameterType() == UsernamePasswordToken.class) {
             return RestfulSecurityContext.getToken().orElse(null);
         }

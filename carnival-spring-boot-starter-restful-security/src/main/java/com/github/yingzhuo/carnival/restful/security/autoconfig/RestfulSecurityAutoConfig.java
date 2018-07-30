@@ -77,7 +77,7 @@ public class RestfulSecurityAutoConfig {
     static class UserProps {
         private boolean caseSensitive = true;
         private String username = "user";
-        private String password = "changeme";
+        private String password = "change-me";
     }
 
 }

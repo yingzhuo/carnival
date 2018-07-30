@@ -15,16 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
-import javax.annotation.PostConstruct;
-
 @Slf4j
 @ConditionalOnClass(name = "scala.Option")
 public class ScalaObjectMapperAutoConfig {
-
-    @PostConstruct
-    private void init() {
-        log.debug("SpringBoot auto-config: {}", getClass().getName());
-    }
 
     @Autowired(required = false)
     public void config(ObjectMapper om) {
