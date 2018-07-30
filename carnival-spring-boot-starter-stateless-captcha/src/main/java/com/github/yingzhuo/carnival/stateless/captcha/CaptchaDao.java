@@ -19,4 +19,5 @@ public interface CaptchaDao {
     public String load(CaptchaId id);
 
     public void delete(CaptchaId id);
+
 }
