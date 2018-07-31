@@ -14,6 +14,9 @@ import org.springframework.format.Formatter;
 import java.text.ParseException;
 import java.util.Locale;
 
+/**
+ * @author 应卓
+ */
 public class BooleanFormat implements Formatter<Boolean> {
 
     @Override

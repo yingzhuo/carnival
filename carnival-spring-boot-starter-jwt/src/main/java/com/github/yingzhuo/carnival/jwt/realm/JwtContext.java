@@ -16,18 +16,18 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  */
 public final class JwtContext {
 
+    private static final ThreadLocal<DecodedJWT> HOLDER = ThreadLocal.withInitial(() -> null);
+
     private JwtContext() {
         super();
     }
 
-    private static final ThreadLocal<DecodedJWT> HOLDER = ThreadLocal.withInitial(() -> null);
+    public static DecodedJWT getJwt() {
+        return HOLDER.get();
+    }
 
     static void setJwt(DecodedJWT jwt) {
         HOLDER.set(jwt);
-    }
-
-    public static DecodedJWT getJwt() {
-        return HOLDER.get();
     }
 
 }

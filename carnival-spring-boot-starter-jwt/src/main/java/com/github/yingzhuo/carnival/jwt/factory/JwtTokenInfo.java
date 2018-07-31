@@ -21,33 +21,25 @@ import java.util.*;
 @Setter
 public class JwtTokenInfo {
 
-    public static Builder builder() {
-        return new Builder();
-    }
+    // Public Claims (Header)
+    private String keyId;
+    private String issuer;
+    private String subject;
+    private List<String> audience = new ArrayList<>();
+    private Date expiresAt;
+    private Date notBefore;
+    private Date issuedAt;
+    private String jwtId;
+    // Private Claims
+    private Map<String, Object> privateClaims = new HashMap<>(0);
 
     private JwtTokenInfo() {
         super();
     }
 
-    // Public Claims (Header)
-    private String keyId;
-
-    private String issuer;
-
-    private String subject;
-
-    private List<String> audience = new ArrayList<>();
-
-    private Date expiresAt;
-
-    private Date notBefore;
-
-    private Date issuedAt;
-
-    private String jwtId;
-
-    // Private Claims
-    private Map<String, Object> privateClaims = new HashMap<>(0);
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private String keyId;

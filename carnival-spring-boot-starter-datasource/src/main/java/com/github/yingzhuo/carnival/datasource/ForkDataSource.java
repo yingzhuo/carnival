@@ -27,10 +27,6 @@ import java.util.logging.Logger;
  */
 public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     private final Remote remote = new Remote();
     private final Map<String, DataSource> cachedDataSources = new TreeMap<>();
     private String defaultDataSourceName;
@@ -41,6 +37,10 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
 
     public ForkDataSource(String defaultDataSourceName) {
         this.defaultDataSourceName = defaultDataSourceName;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public ForkDataSource add(String name, DataSource dataSource) {
@@ -93,13 +93,13 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
     }
 
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-        effective().setLoginTimeout(seconds);
+    public int getLoginTimeout() throws SQLException {
+        return effective().getLoginTimeout();
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-        return effective().getLoginTimeout();
+    public void setLoginTimeout(int seconds) throws SQLException {
+        effective().setLoginTimeout(seconds);
     }
 
     @Override
@@ -130,29 +130,14 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
 
     // ---------------------------------------------------------------------------------------------------------------
 
-    public class Remote {
-
-        private final ThreadLocal<String> nameHolder = ThreadLocal.withInitial(() -> null);
-
-        public void setName(String name) {
-            nameHolder.set(name);
-        }
-
-        public String getName() {
-            return nameHolder.get();
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------
-
     public static class Builder {
+
+        private Map<String, DataSource> dataSourceMap = new HashMap<>();
+        private String defaultDataSourceName;
 
         private Builder() {
             super();
         }
-
-        private Map<String, DataSource> dataSourceMap = new HashMap<>();
-        private String defaultDataSourceName;
 
         public Builder defaultDataSourceName(String defaultDataSourceName) {
             this.defaultDataSourceName = defaultDataSourceName;
@@ -169,6 +154,21 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
             bean.defaultDataSourceName = this.defaultDataSourceName;
             bean.cachedDataSources.putAll(this.dataSourceMap);
             return bean;
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------
+
+    public class Remote {
+
+        private final ThreadLocal<String> nameHolder = ThreadLocal.withInitial(() -> null);
+
+        public String getName() {
+            return nameHolder.get();
+        }
+
+        public void setName(String name) {
+            nameHolder.set(name);
         }
     }
 }

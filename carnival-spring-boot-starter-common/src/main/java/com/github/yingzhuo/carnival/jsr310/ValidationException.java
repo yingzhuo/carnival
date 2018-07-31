@@ -20,6 +20,11 @@ import java.util.Objects;
 public class ValidationException extends RuntimeException {
 
     private static final long serialVersionUID = 6980428941250064462L;
+    private final Errors errors;
+
+    private ValidationException(Errors errors) {
+        this.errors = errors;
+    }
 
     public static void raiseIfNecessary(BindingResult bindingResult) {
         raiseIfNecessary((Errors) bindingResult);
@@ -44,14 +49,8 @@ public class ValidationException extends RuntimeException {
         return new ValidationException(errors);
     }
 
-    private final Errors bindingResult;
-
-    private ValidationException(Errors errors) {
-        this.bindingResult = errors;
-    }
-
-    public Errors getBindingResult() {
-        return bindingResult;
+    public Errors getErrors() {
+        return errors;
     }
 
 }

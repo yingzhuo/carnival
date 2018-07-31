@@ -17,15 +17,14 @@ import java.util.Objects;
 public class StringToken implements Token {
 
     private static final long serialVersionUID = 5201948233147060904L;
-
-    public static StringToken of(String value) {
-        return new StringToken(value);
-    }
-
     private final String value;
 
     public StringToken(String value) {
         this.value = Objects.requireNonNull(value);
+    }
+
+    public static StringToken of(String value) {
+        return new StringToken(value);
     }
 
     public final String getValue() {

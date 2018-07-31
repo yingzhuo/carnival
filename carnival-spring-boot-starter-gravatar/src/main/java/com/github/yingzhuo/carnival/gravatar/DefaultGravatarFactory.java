@@ -17,13 +17,12 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DefaultGravatarFactory implements GravatarFactory {
 
-    public DefaultGravatarFactory() {
-        super();
-    }
-
     private DefaultImage defaultImage = DefaultImage.IDENTICON;
     private Rating rating = Rating.GENERAL_AUDIENCE;
     private Scope scope = Scope.CHINA;
+    public DefaultGravatarFactory() {
+        super();
+    }
 
     @Override
     public String create(final String email) {

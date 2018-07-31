@@ -39,15 +39,13 @@ public interface DownloadEntity {
     public static class Builder {
 
         private final static ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
-
-        private Builder() {
-            super();
-        }
-
         private String filename = null;
         private String filenameEncoding = "UTF-8";
         private HttpStatus httpStatus = HttpStatus.OK;
         private InputStream inputStream = null;
+        private Builder() {
+            super();
+        }
 
         public Builder filename(String filename) {
             this.filename = filename;

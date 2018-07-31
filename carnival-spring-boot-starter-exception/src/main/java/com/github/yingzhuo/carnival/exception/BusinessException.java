@@ -23,31 +23,7 @@ import java.util.Objects;
 public class BusinessException extends RuntimeException implements StringCoded {
 
     private static final long serialVersionUID = 9128655481919572535L;
-
-    public static BusinessException of(String code) {
-        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code);
-    }
-
-    public static BusinessException fromMap(Map<String, Object> map) {
-        if (map == null)
-            throw new NullPointerException();
-        else
-            return new BusinessException(
-                    Objects.requireNonNull((String) map.get("code")),
-                    (String) map.get("message")
-            );
-    }
-
     private String code;
-
-    @Override
-    public String getCode() {
-        return this.code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public BusinessException() {
         super();
@@ -68,6 +44,29 @@ public class BusinessException extends RuntimeException implements StringCoded {
 
     public BusinessException(Throwable cause) {
         super(cause);
+    }
+
+    public static BusinessException of(String code) {
+        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code);
+    }
+
+    public static BusinessException fromMap(Map<String, Object> map) {
+        if (map == null)
+            throw new NullPointerException();
+        else
+            return new BusinessException(
+                    Objects.requireNonNull((String) map.get("code")),
+                    (String) map.get("message")
+            );
+    }
+
+    @Override
+    public String getCode() {
+        return this.code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Map<String, Object> asMap() {

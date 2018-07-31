@@ -27,6 +27,17 @@ import java.util.stream.Collectors;
 public class Page<T> implements Iterable<T>, Serializable {
 
     private static final long serialVersionUID = -5537484456632851944L;
+    private List<T> content = Collections.emptyList();
+    private int number;
+    private int size;
+    private int totalElements;
+    private int totalPages;
+    private boolean hasPrevious;
+    private boolean hasNext;
+
+    private Page() {
+        super();
+    }
 
     public static <T> Page<T> empty() {
         return empty(1, 0);
@@ -58,24 +69,6 @@ public class Page<T> implements Iterable<T>, Serializable {
         page.hasPrevious = number > 1;
         return page;
     }
-
-    private Page() {
-        super();
-    }
-
-    private List<T> content = Collections.emptyList();
-
-    private int number;
-
-    private int size;
-
-    private int totalElements;
-
-    private int totalPages;
-
-    private boolean hasPrevious;
-
-    private boolean hasNext;
 
     @Override
     public Iterator<T> iterator() {

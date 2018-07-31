@@ -14,6 +14,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+/**
+ * @author 应卓
+ */
 public class ExpressionParserAutoConfig {
 
     @Bean

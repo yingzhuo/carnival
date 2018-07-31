@@ -18,15 +18,14 @@ import java.util.Objects;
 public final class CaptchaId implements Serializable {
 
     private static final long serialVersionUID = -4490018081556442337L;
-
-    public static CaptchaId of(String id) {
-        return new CaptchaId(Objects.requireNonNull(id));
-    }
-
     private final String id;
 
     private CaptchaId(String id) {
         this.id = Objects.requireNonNull(id);
+    }
+
+    public static CaptchaId of(String id) {
+        return new CaptchaId(Objects.requireNonNull(id));
     }
 
     public String getId() {

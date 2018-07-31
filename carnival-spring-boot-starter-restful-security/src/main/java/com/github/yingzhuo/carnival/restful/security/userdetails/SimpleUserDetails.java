@@ -29,7 +29,7 @@ import java.util.Map;
 public final class SimpleUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 7811607048302332880L;
-
+    private final Map<String, Object> payload = new HashMap<>(0);
     private Object id = null;
     private String username = null;
     private String password = null;
@@ -38,7 +38,6 @@ public final class SimpleUserDetails implements UserDetails {
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
     private Object nativeUser = null;
-    private final Map<String, Object> payload = new HashMap<>(0);
 
     @Override
     public Object getId() {
@@ -103,14 +102,14 @@ public final class SimpleUserDetails implements UserDetails {
         this.permissions = permissions;
     }
 
-    public void setNativeUser(Object nativeUser) {
-        this.nativeUser = nativeUser;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public <U> U getNativeUser() {
         return (U) this.nativeUser;
+    }
+
+    public void setNativeUser(Object nativeUser) {
+        this.nativeUser = nativeUser;
     }
 
     @Override

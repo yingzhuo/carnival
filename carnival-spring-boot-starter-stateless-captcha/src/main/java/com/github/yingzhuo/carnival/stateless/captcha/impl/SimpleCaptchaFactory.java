@@ -34,10 +34,9 @@ import java.util.UUID;
 public class SimpleCaptchaFactory implements CaptchaFactory {
 
     private static final Random RANDOM = new Random();
-
+    private final CaptchaDao captchaDao;
     private int width = 100;
     private int height = 18;
-    private final CaptchaDao captchaDao;
 
     public SimpleCaptchaFactory(CaptchaDao captchaDao) {
         this.captchaDao = Objects.requireNonNull(captchaDao);

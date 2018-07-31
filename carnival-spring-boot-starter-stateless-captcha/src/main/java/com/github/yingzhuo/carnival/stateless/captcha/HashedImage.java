@@ -18,15 +18,14 @@ import java.util.Objects;
 public final class HashedImage implements Serializable {
 
     private static final long serialVersionUID = -2949300294618273709L;
-
-    public static HashedImage of(String imageString) {
-        return new HashedImage(Objects.requireNonNull(imageString));
-    }
-
     private final String value;
 
     private HashedImage(String value) {
         this.value = value;
+    }
+
+    public static HashedImage of(String imageString) {
+        return new HashedImage(Objects.requireNonNull(imageString));
     }
 
     public String getValue() {
