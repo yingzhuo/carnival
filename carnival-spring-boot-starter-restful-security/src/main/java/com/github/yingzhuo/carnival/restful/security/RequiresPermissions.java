@@ -19,7 +19,7 @@ public @interface RequiresPermissions {
 
     public String[] value();
 
-    public Logical logical() default Logical.AND;
+    public Logical logical() default Logical.OR;
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 }
