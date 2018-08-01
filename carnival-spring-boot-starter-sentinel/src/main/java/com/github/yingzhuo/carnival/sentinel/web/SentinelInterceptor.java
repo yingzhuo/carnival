@@ -9,22 +9,21 @@
  */
 package com.github.yingzhuo.carnival.sentinel.web;
 
+import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.sentinel.LimitedAccess;
 import com.github.yingzhuo.carnival.sentinel.exception.AccessDeniedException;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author 应卓
  */
-public class SentinelInterceptor implements HandlerInterceptor {
+public class SentinelInterceptor extends HandlerInterceptorSupport {
 
     private static final String REDIS_KEY_SCOPE = SentinelInterceptor.class.getSimpleName() + ":";
 
@@ -41,8 +40,7 @@ public class SentinelInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        final Method method = ((HandlerMethod) handler).getMethod();
-        final LimitedAccess annotation = method.getAnnotation(LimitedAccess.class);
+        final LimitedAccess annotation = super.getMethodAnnotation(LimitedAccess.class, handler).orElse(null);
 
         if (annotation == null) {
             return true;

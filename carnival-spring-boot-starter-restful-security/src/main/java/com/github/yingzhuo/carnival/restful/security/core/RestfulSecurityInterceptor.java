@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
+import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
 import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
 import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
@@ -19,15 +20,13 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.web.context.request.NativeWebRequest;
+import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.Optional;
@@ -35,7 +34,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter {
+public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     private LocaleResolver localeResolver = new DefaultLocaleLocaleResolver();
     private TokenParser tokenParser;
@@ -61,25 +60,26 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
             return true;
         }
 
-        RequiresAuthentication requiresAuthentication = getMethodAnnotation(RequiresAuthentication.class, handler);
-        RequiresGuest requiresGuest = getMethodAnnotation(RequiresGuest.class, handler);
-        RequiresPermissions requiresPermissions = getMethodAnnotation(RequiresPermissions.class, handler);
-        RequiresRoles requiresRoles = getMethodAnnotation(RequiresRoles.class, handler);
+        val requiresAuthentication = getMethodAnnotation(RequiresAuthentication.class, handler);
+        val requiresGuest = getMethodAnnotation(RequiresGuest.class, handler);
+        val requiresPermissions = getMethodAnnotation(RequiresPermissions.class, handler);
+        val requiresRoles = getMethodAnnotation(RequiresRoles.class, handler);
 
         // 被拦截方法没有任何元注释
-        if (requiresAuthentication == null &&
-                requiresGuest == null &&
-                requiresRoles == null &&
-                requiresPermissions == null) {
+        if (!requiresAuthentication.isPresent() &&
+                !requiresGuest.isPresent() &&
+                !requiresRoles.isPresent() &&
+                !requiresPermissions.isPresent()) {
+
             return true;
         }
 
-        Locale locale = localeResolver.resolveLocale(request);
+        final Locale locale = localeResolver.resolveLocale(request);
 
-        final NativeWebRequest webRequest = new ServletWebRequest(request, response);
-        Optional<Token> tokenOp = tokenParser.parse(webRequest, locale);
+        val tokenOp = tokenParser.parse(new ServletWebRequest(request, response), locale);
 
         if (tokenOp.isPresent()) {
+
             Token token = tokenOp.get();
             RestfulSecurityContext.setToken(token);
 
@@ -97,20 +97,15 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorAdapter 
             RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
         }
 
-        CheckUtils.check(requiresAuthentication);
-        CheckUtils.check(requiresGuest);
-        CheckUtils.check(requiresRoles);
-        CheckUtils.check(requiresPermissions);
-
+        requiresAuthentication.ifPresent(CheckUtils::check);
+        requiresGuest.ifPresent(CheckUtils::check);
+        requiresRoles.ifPresent(CheckUtils::check);
+        requiresPermissions.ifPresent(CheckUtils::check);
         return true;
     }
 
     private Method getMethod(Object handler) {
         return ((HandlerMethod) handler).getMethod();
-    }
-
-    private <A extends Annotation> A getMethodAnnotation(Class<A> annotationType, Object handler) {
-        return ((HandlerMethod) handler).getMethodAnnotation(annotationType);
     }
 
     public TokenParser getTokenParser() {
