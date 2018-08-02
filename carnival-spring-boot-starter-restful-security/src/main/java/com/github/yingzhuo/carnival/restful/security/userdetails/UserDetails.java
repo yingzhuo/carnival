@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.IntSized;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
@@ -22,7 +21,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public interface UserDetails extends Serializable, IntSized {
+public interface UserDetails extends Serializable {
 
     public static Builder builder() {
         return new Builder();
