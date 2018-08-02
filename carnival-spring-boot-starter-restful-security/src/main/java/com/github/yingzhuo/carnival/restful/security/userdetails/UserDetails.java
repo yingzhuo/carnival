@@ -9,12 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
+import com.github.yingzhuo.carnival.common.IntSized;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
 
 import java.io.Serializable;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public interface UserDetails extends Principal, Serializable {
+public interface UserDetails extends Serializable, IntSized {
 
     public static Builder builder() {
         return new Builder();
@@ -58,11 +58,6 @@ public interface UserDetails extends Principal, Serializable {
 
         return Collections.unmodifiableList(
                 getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()));
-    }
-
-    @Override
-    public default String getName() {
-        return getUsername();
     }
 
     // Builder
