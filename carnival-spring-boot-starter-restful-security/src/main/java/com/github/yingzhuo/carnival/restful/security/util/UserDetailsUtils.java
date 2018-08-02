@@ -10,38 +10,25 @@
 package com.github.yingzhuo.carnival.restful.security.util;
 
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
-import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
-public final class RestfulSecurityUtils {
+public final class UserDetailsUtils {
 
-    private RestfulSecurityUtils() {
+    private UserDetailsUtils() {
         super();
-    }
-
-    /**
-     * 获取令牌
-     *
-     * @param <T> 令牌类型
-     */
-    public static <T extends Token> T getToken() {
-        return (T) RestfulSecurityContext.getToken().orElse(null);
     }
 
     /**
      * 获取令牌UserDetails实例
      */
-    public static UserDetails getUserDetails() {
+    public static UserDetails get() {
         return RestfulSecurityContext.getUserDetails().orElse(null);
     }
 
@@ -51,7 +38,7 @@ public final class RestfulSecurityUtils {
      * @param <I> ID类型
      */
     public static <I> I getId() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
         return (I) (userDetails != null ? userDetails.getId() : null);
     }
 
@@ -59,8 +46,16 @@ public final class RestfulSecurityUtils {
      * 获取用户名
      */
     public static String getUsername() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
         return userDetails != null ? userDetails.getUsername() : null;
+    }
+
+    /**
+     * 获取口令
+     */
+    public static String getPassword() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getPassword() : null;
     }
 
     /**
@@ -69,7 +64,7 @@ public final class RestfulSecurityUtils {
      * @param <T> 对象类型
      */
     public static <T> T getNativeUser() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
         return (T) (userDetails != null ? userDetails.getNativeUser() : null);
     }
 
@@ -77,7 +72,7 @@ public final class RestfulSecurityUtils {
      * 获取角色名称
      */
     public static List<String> getRoleNames() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
 
         if (userDetails == null) {
             return Collections.emptyList();
@@ -87,10 +82,23 @@ public final class RestfulSecurityUtils {
     }
 
     /**
+     * 获取角色名称
+     */
+    public static Set<String> getRoleNamesAsSet() {
+        val userDetails = get();
+
+        if (userDetails == null) {
+            return Collections.emptySet();
+        }
+
+        return Collections.unmodifiableSet(new HashSet<>(userDetails.getRoleNames()));
+    }
+
+    /**
      * 获取权限名称
      */
     public static List<String> getPermissionNames() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
 
         if (userDetails == null) {
             return Collections.emptyList();
@@ -100,16 +108,37 @@ public final class RestfulSecurityUtils {
     }
 
     /**
+     * 获取权限名称
+     */
+    public static Set<String> getPermissionNamesAsSet() {
+        val userDetails = get();
+
+        if (userDetails == null) {
+            return Collections.emptySet();
+        }
+
+        return Collections.unmodifiableSet(new HashSet<>(userDetails.getPermissionNames()));
+    }
+
+    /**
      * 获取用户负载
      */
     public static Map<String, Object> getPayload() {
-        val userDetails = getUserDetails();
+        val userDetails = get();
 
         if (userDetails == null) {
             return Collections.emptyMap();
         }
 
         return Collections.unmodifiableMap(userDetails.getPayload());
+    }
+
+    /**
+     * 获取负载尺寸
+     */
+    public static int getPayloadSize() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getPayloadSize() : 0;
     }
 
     /**
@@ -129,7 +158,7 @@ public final class RestfulSecurityUtils {
      * @param <T>          数据类型
      * @param defaultValue 默认值
      */
-    public static <T> T getPayloadItemOrDefault(String name, T defaultValue) {
+    public static <T> T getPayloadItem(String name, T defaultValue) {
         final T t = getPayloadItem(name);
         return t != null ? t : defaultValue;
     }

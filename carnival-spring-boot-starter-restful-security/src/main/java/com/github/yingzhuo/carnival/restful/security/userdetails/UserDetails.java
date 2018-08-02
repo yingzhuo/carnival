@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.userdetails;
 
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
+import lombok.val;
 
 import java.io.Serializable;
 import java.security.Principal;
@@ -45,6 +46,11 @@ public interface UserDetails extends Principal, Serializable {
 
     public Map<String, Object> getPayload();
 
+    public default int getPayloadSize() {
+        val payload = getPayload();
+        return payload != null ? payload.size() : 0;
+    }
+
     public default Collection<String> getRoleNames() {
         if (getRoles() == null) {
             return Collections.emptyList();
@@ -60,7 +66,7 @@ public interface UserDetails extends Principal, Serializable {
     }
 
     // Builder
-    // --------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
     public default Collection<String> getPermissionNames() {
         if (getPermissions() == null) {
