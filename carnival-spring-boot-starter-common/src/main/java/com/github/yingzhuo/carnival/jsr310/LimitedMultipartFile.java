@@ -19,8 +19,10 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-@Constraint(validatedBy = NotEmptyFileValidator.class)
-public @interface NotEmptyFile {
+@Constraint(validatedBy = NotEmptyMultipartFileValidator.class)
+public @interface LimitedMultipartFile {
+
+    public String[] allowedExtensions();
 
     public String message() default "Invalid file";
 
