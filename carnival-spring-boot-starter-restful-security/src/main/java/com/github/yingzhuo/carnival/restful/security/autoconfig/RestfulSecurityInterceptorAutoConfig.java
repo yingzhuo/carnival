@@ -19,6 +19,7 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.core.OrderComparator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -27,15 +28,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author 应卓
+ */
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityAutoConfig.class)
 public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
-    private TokenParser tokenParser;
+    private List<TokenParser> tokenParserList;
 
     @Autowired
-    private UserDetailsRealm userDetailsRealm;
+    private List<UserDetailsRealm> userDetailsRealmList;
 
     @Autowired
     private AuthenticationListener authenticationListener;
@@ -50,8 +54,8 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
         Optional.ofNullable(localeResolver).ifPresent(interceptor::setLocaleResolver);
-        interceptor.setTokenParser(tokenParser);
-        interceptor.setUserDetailsRealm(userDetailsRealm);
+        interceptor.setTokenParser(getTokenParser());
+        interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setAuthenticationListener(authenticationListener);
         interceptor.setCacheManager(cacheManager);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(EnableRestfulSecurity.ImportSelector.getConfig("order", Integer.class));
@@ -60,6 +64,26 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new RestfulSecurityHandlerMethodArgumentResolver());
+    }
+
+    private TokenParser getTokenParser() {
+
+        if (tokenParserList.size() == 1) {
+            return tokenParserList.get(0);
+        }
+
+        OrderComparator.sort(tokenParserList);
+        return tokenParserList.stream().reduce((webRequest, locale) -> Optional.empty(), TokenParser::chain);
+    }
+
+    private UserDetailsRealm getUserDetailsRealm() {
+
+        if (userDetailsRealmList.size() == 1) {
+            return userDetailsRealmList.get(0);
+        }
+
+        OrderComparator.sort(userDetailsRealmList);
+        return userDetailsRealmList.stream().reduce(token -> Optional.empty(), UserDetailsRealm::chain);
     }
 
 }
