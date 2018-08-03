@@ -16,6 +16,9 @@ import org.springframework.core.type.AnnotationMetadata;
 
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

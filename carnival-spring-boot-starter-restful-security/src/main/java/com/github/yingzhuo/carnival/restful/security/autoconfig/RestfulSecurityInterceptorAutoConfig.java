@@ -16,6 +16,7 @@ import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationList
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -47,13 +48,14 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired(required = false)
-    private LocaleResolver localeResolver;
+    @Autowired
+    private Optional<LocaleResolver> localeResolverOption;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        Optional.ofNullable(localeResolver).ifPresent(interceptor::setLocaleResolver);
+        val interceptor = new RestfulSecurityInterceptor();
+
+        localeResolverOption.ifPresent(interceptor::setLocaleResolver);
         interceptor.setTokenParser(getTokenParser());
         interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setAuthenticationListener(authenticationListener);

@@ -33,8 +33,8 @@ public class UsernamePasswordUserDetailsRealm implements UserDetailsRealm {
     @Override
     public Optional<UserDetails> loadUserDetails(Token token) {
         if (token instanceof UsernamePasswordToken) {
-            String uname = ((UsernamePasswordToken) token).getUsername();
-            String upass = ((UsernamePasswordToken) token).getPassword();
+            final String uname = ((UsernamePasswordToken) token).getUsername();
+            final String upass = ((UsernamePasswordToken) token).getPassword();
 
             UserDetails.Builder builder = UserDetails.builder();
 

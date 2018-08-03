@@ -9,8 +9,14 @@
  */
 package com.github.yingzhuo.carnival.jwt;
 
+/**
+ * @author 应卓
+ */
 public enum SignatureAlgorithm {
+
     HMAC256,
+
     HMAC384,
+
     HMAC512
 }
