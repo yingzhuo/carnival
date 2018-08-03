@@ -19,7 +19,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-@Constraint(validatedBy = NotEmptyMultipartFileValidator.class)
+@Constraint(validatedBy = LimitedMultipartFileValidator.class)
 public @interface LimitedMultipartFile {
 
     public String[] allowedExtensions();
