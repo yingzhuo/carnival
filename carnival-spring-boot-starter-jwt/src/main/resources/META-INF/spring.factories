@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.jwt.autoconfig.NoConditionAutoConfig
+com.github.yingzhuo.carnival.jwt.autoconfig.NoConditionAutoConfig,\
+com.github.yingzhuo.carnival.jwt.autoconfig.NoConditionWebMvcAutoConfig
