@@ -13,6 +13,7 @@
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-exception</module>
+        <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-gravatar</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-integration-smsbao</module>
