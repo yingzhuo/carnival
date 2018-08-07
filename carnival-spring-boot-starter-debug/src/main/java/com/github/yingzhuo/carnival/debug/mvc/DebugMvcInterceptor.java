@@ -28,14 +28,13 @@ public class DebugMvcInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        // 静态资源不记录日志
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }
 
         try {
             doLog(request, (HandlerMethod) handler);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // NOP
         }
 

@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 
 import java.util.Date;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,6 +33,8 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
     @Override
     public String create(JwtTokenInfo info) {
+        Objects.requireNonNull(info);
+
         JWTCreator.Builder builder = JWT.create();
 
         // Public Claims (Public)

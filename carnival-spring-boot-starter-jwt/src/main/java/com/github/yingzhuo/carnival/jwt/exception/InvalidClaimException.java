@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.jwt.exception;
 
 /**
- * Clainm非法
+ * Claim非法
  *
  * @author 应卓
  * @see com.auth0.jwt.exceptions.InvalidClaimException
@@ -33,4 +33,5 @@ public class InvalidClaimException extends InvalidTokenException {
     public InvalidClaimException(Throwable cause) {
         super(cause);
     }
+
 }

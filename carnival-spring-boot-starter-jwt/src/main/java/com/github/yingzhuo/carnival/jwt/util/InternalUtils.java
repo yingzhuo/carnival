@@ -24,17 +24,17 @@ public final class InternalUtils {
     private InternalUtils() {
     }
 
-    public static Algorithm toAlgorithm(SignatureAlgorithm signatureAlgorithm, String s) {
+    public static Algorithm toAlgorithm(SignatureAlgorithm signatureAlgorithm, String secret) {
+        Objects.requireNonNull(secret);
         Objects.requireNonNull(signatureAlgorithm);
-        Objects.requireNonNull(s);
 
         switch (signatureAlgorithm) {
             case HMAC256:
-                return Algorithm.HMAC256(s);
+                return Algorithm.HMAC256(secret);
             case HMAC384:
-                return Algorithm.HMAC384(s);
+                return Algorithm.HMAC384(secret);
             case HMAC512:
-                return Algorithm.HMAC512(s);
+                return Algorithm.HMAC512(secret);
             default:
                 throw new IllegalArgumentException();
         }
