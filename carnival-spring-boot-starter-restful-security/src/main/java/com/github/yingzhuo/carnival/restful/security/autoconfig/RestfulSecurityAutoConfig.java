@@ -30,6 +30,9 @@ import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(RestfulSecurityAutoConfig.UserProps.class)

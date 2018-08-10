@@ -11,6 +11,9 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ */
 @Documented
 @Inherited
 @Target(ElementType.METHOD)
