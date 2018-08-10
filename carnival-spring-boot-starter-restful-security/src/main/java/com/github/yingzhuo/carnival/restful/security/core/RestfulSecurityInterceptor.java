@@ -10,10 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
-import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
-import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
-import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
-import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
+import com.github.yingzhuo.carnival.restful.security.*;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -36,11 +33,12 @@ import java.util.Optional;
  */
 public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
-    private LocaleResolver localeResolver = new DefaultLocaleLocaleResolver();
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private AuthenticationListener authenticationListener;
     private CacheManager cacheManager;
+    private LocaleResolver localeResolver = new DefaultLocaleLocaleResolver();
+    private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ALL;
 
     public RestfulSecurityInterceptor() {
         super();
@@ -66,11 +64,12 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
         val requiresRoles = getMethodAnnotation(RequiresRoles.class, handler);
 
         // 被拦截方法没有任何元注释
-        if (!requiresAuthentication.isPresent() &&
+        if (authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED &&
+                !requiresAuthentication.isPresent() &&
                 !requiresGuest.isPresent() &&
                 !requiresRoles.isPresent() &&
-                !requiresPermissions.isPresent()) {
-
+                !requiresPermissions.isPresent())
+        {
             return true;
         }
 
@@ -144,6 +143,10 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
         this.localeResolver = localeResolver;
     }
 
+    public void setAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
+        this.authenticationStrategy = authenticationStrategy;
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
     private static class DefaultLocaleLocaleResolver implements LocaleResolver {
@@ -158,4 +161,5 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
             // 无动作
         }
     }
+
 }

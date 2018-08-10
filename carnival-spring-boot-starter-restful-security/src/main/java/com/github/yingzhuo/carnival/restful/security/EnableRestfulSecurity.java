@@ -18,6 +18,9 @@ import org.springframework.core.type.AnnotationMetadata;
 
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
@@ -27,6 +30,8 @@ public @interface EnableRestfulSecurity {
 
     public int interceptorOrder() default 0;
 
+    public AuthenticationStrategy authenticationStrategy() default AuthenticationStrategy.ALL;
+
     public static class ImportSelector extends AbstractImportSelector {
 
         @Override
@@ -34,8 +39,11 @@ public @interface EnableRestfulSecurity {
 
             AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableRestfulSecurity.class);
 
-            Integer order = aas.getNumber("interceptorOrder");
-            putConfig("order", order);
+            Integer interceptorOrder = aas.getNumber("interceptorOrder");
+            AuthenticationStrategy authenticationStrategy = aas.getEnum("authenticationStrategy");
+
+            putConfig("interceptorOrder", interceptorOrder);
+            putConfig("authenticationStrategy", authenticationStrategy);
 
             return new String[]{
                     RestfulSecurityAutoConfig.class.getName(),

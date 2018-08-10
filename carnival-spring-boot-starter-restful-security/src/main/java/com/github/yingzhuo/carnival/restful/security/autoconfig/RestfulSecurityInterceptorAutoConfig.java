@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
+import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
@@ -54,13 +55,16 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         val interceptor = new RestfulSecurityInterceptor();
+        val interceptorOrder = EnableRestfulSecurity.ImportSelector.getConfig("interceptorOrder", Integer.class);
+        val authenticationStrategy = EnableRestfulSecurity.ImportSelector.getConfig("authenticationStrategy", AuthenticationStrategy.class);
 
         localeResolverOption.ifPresent(interceptor::setLocaleResolver);
         interceptor.setTokenParser(getTokenParser());
         interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setAuthenticationListener(authenticationListener);
         interceptor.setCacheManager(cacheManager);
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(EnableRestfulSecurity.ImportSelector.getConfig("order", Integer.class));
+        interceptor.setAuthenticationStrategy(authenticationStrategy);
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 
     @Override
