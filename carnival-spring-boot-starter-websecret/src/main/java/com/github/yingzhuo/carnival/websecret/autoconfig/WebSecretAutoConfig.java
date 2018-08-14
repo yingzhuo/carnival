@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.websecret.autoconfig;
 
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
 import com.github.yingzhuo.carnival.websecret.EnableWebSecret;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
@@ -18,7 +19,6 @@ import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
 import com.github.yingzhuo.carnival.websecret.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
@@ -80,7 +80,11 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnResource(resources = "classpath:/websecret.properties")
+    @ConditionalOnAnyResource(resources = {
+            "file:./websecret.properties",
+            "classpath:/websecret.properties",
+            "classpath:/META-INF/websecret.properties"
+    })
     public SecretLoader secretLoader() {
         return new PropertiesSecretLoader();
     }
@@ -101,7 +105,10 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
         interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureMatcher(signatureMatcher);
         interceptor.setSecretLoader(secretLoader);
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(EnableWebSecret.WebSecretImportSelector.getConfig("interceptorOrder", Integer.class));
+
+        registry.addInterceptor(interceptor)
+                .addPathPatterns("/", "/**")
+                .order(EnableWebSecret.WebSecretImportSelector.getConfig("interceptorOrder", Integer.class));
     }
 
 }

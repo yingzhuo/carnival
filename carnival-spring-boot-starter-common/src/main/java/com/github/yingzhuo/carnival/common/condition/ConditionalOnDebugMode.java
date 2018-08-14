@@ -18,6 +18,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})

@@ -9,20 +9,19 @@
  */
 package com.github.yingzhuo.carnival.websecret.dao;
 
+import com.github.yingzhuo.carnival.common.io.ResourceOption;
+import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
  * @author 应卓
  */
 public class PropertiesSecretLoader implements SecretLoader, InitializingBean {
-
-    public static final String DEFAULT_RESOURCE_LOADER = "classpath:/websecret.properties";
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
     private final Properties properties = new Properties();
@@ -34,13 +33,23 @@ public class PropertiesSecretLoader implements SecretLoader, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        InputStream ins = resourceLoader.getResource(DEFAULT_RESOURCE_LOADER).getInputStream();
-        properties.load(ins);
+        val resourceOp = ResourceOption.of(
+                "file:./websecret.properties",
+                "classpath:/websecret.properties",
+                "classpath:/META-INF/websecret.properties");
 
-        try {
-            ins.close();
-        } catch (IOException e) {
-            /* NOP */
+        if (resourceOp.isPresent()) {
+
+            try {
+                properties.load(resourceOp.get().getInputStream());
+            } finally {
+
+                try {
+                    resourceOp.get().getInputStream().close();
+                } catch (IOException e) {
+                    // NOP
+                }
+            }
         }
     }
 
