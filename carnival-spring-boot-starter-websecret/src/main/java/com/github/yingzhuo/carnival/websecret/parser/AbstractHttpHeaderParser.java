@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.websecret.parser;
 
 import com.github.yingzhuo.carnival.common.parser.Parser;
+import lombok.val;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
@@ -24,13 +25,13 @@ public class AbstractHttpHeaderParser implements Parser<WebRequest, String> {
     private String headerName;
 
     public String parse(NativeWebRequest request) {
-        String value = request.getHeader(headerName);
+        val value = request.getHeader(headerName);
         return "".equals(value) ? null : value;
     }
 
     @Override
     public Optional<String> parse(WebRequest request, Locale locale) {
-        String value = request.getHeader(headerName);
+        val value = request.getHeader(headerName);
         return Optional.ofNullable("".equals(value) ? null : value);
     }
 

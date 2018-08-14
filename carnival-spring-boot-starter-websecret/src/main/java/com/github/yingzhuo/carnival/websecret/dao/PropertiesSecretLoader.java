@@ -22,23 +22,26 @@ import java.util.Properties;
  */
 public class PropertiesSecretLoader implements SecretLoader, InitializingBean {
 
-    public static final String RESLOC = "classpath:/websecret.properties";
+    public static final String DEFAULT_RESOURCE_LOADER = "classpath:/websecret.properties";
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
     private final Properties properties = new Properties();
 
     @Override
-    public String load(String appId) {
-        return properties.getProperty(appId);
+    public String load(String clientId) {
+        return properties.getProperty(clientId);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        InputStream ins = resourceLoader.getResource(RESLOC).getInputStream();
+        InputStream ins = resourceLoader.getResource(DEFAULT_RESOURCE_LOADER).getInputStream();
         properties.load(ins);
+
         try {
             ins.close();
-        } catch (IOException e) {/* NOP */}
+        } catch (IOException e) {
+            /* NOP */
+        }
     }
 
 }

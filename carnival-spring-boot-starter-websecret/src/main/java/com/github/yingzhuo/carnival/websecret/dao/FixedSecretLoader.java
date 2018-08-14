@@ -21,7 +21,7 @@ public class FixedSecretLoader implements SecretLoader {
     }
 
     @Override
-    public String load(String appId) {
+    public String load(String clientId) {
         return this.secret;
     }
 

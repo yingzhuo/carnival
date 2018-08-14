@@ -38,7 +38,7 @@ public @interface EnableWebSecret {
             AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableWebSecret.class);
 
             Integer order = aas.getNumber("interceptorOrder");
-            putConfig("order", order);
+            putConfig("interceptorOrder", order);
 
             return new String[]{
                     WebSecretAutoConfig.class.getName()

@@ -44,6 +44,7 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
 
     @Override
     public Pair<CaptchaId, HashedImage> create(int length) {
+
         try {
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             Graphics g = image.getGraphics();
@@ -73,12 +74,12 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
             }
 
             // 生成随机数,并将随机数字转换为字母
-            String captchaValue = "";
+            final StringBuilder captchaValue = new StringBuilder();
             for (int i = 0; i < length; i++) {
-                char ctmp = (char) (RANDOM.nextInt(26) + 65);
-                captchaValue += String.valueOf(ctmp);
+                char ch = (char) (RANDOM.nextInt(26) + 65);
+                captchaValue.append(String.valueOf(ch));
                 g.setColor(new Color(20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110)));
-                g.drawString(String.valueOf(ctmp), 15 * i + 10, 16);
+                g.drawString(String.valueOf(ch), 15 * i + 10, 16);
             }
             g.dispose();
 
@@ -90,9 +91,9 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
             String id = UUID.randomUUID().toString();
 
             final CaptchaId captchaId = CaptchaId.of(id);
-            captchaDao.save(captchaId, captchaValue);
+            captchaDao.save(captchaId, captchaValue.toString());
 
-            log.info("CAPTCHA: '{}'", captchaValue);
+            log.info("CAPTCHA: '{}'", captchaValue.toString());
 
             return Pair.of(captchaId, HashedImage.of(imageStr));
         } catch (IOException e) {

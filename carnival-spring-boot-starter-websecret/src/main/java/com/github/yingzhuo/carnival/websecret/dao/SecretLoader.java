@@ -14,6 +14,6 @@ package com.github.yingzhuo.carnival.websecret.dao;
  */
 public interface SecretLoader {
 
-    public String load(String appId);
+    public String load(String clientId);
 
 }
