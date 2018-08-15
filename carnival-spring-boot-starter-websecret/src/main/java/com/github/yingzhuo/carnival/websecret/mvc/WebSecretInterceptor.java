@@ -33,7 +33,7 @@ import java.util.Locale;
 @Slf4j
 public class WebSecretInterceptor implements HandlerInterceptor {
 
-    private LocaleResolver localeResolver = new DefaultLocaleResolver();
+    private LocaleResolver localeResolver = new NullLocaleResolver();
 
     private NonceParser nonceParser;
 
@@ -126,10 +126,11 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     // --------------------------------------------------------------------------------------------------------------
 
-    private static class DefaultLocaleResolver implements LocaleResolver {
+    private static class NullLocaleResolver implements LocaleResolver {
+
         @Override
         public Locale resolveLocale(HttpServletRequest request) {
-            return Locale.getDefault();
+            return null;
         }
 
         @Override

@@ -10,13 +10,17 @@
 package com.github.yingzhuo.carnival.spring;
 
 import com.github.yingzhuo.carnival.spring.tool.WebApplicationAnchor;
+import lombok.val;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Spring通用工具
@@ -84,6 +88,16 @@ public final class SpringUtils {
 
     public static ConversionService getConversionService() {
         return getBean(ConversionService.class);
+    }
+
+    public static Locale getLocale() {
+        val request = ServletUtils.getRequest();
+        return RequestContextUtils.getLocale(request);
+    }
+
+    public static TimeZone getTimeZone() {
+        val request = ServletUtils.getRequest();
+        return RequestContextUtils.getTimeZone(request);
     }
 
 }

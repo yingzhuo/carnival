@@ -37,7 +37,7 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
     private UserDetailsRealm userDetailsRealm;
     private AuthenticationListener authenticationListener;
     private CacheManager cacheManager;
-    private LocaleResolver localeResolver = new DefaultLocaleLocaleResolver();
+    private LocaleResolver localeResolver = new NullLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ALL;
 
     public RestfulSecurityInterceptor() {
@@ -68,8 +68,7 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
                 !requiresAuthentication.isPresent() &&
                 !requiresGuest.isPresent() &&
                 !requiresRoles.isPresent() &&
-                !requiresPermissions.isPresent())
-        {
+                !requiresPermissions.isPresent()) {
             return true;
         }
 
@@ -149,11 +148,11 @@ public final class RestfulSecurityInterceptor extends HandlerInterceptorSupport 
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    private static class DefaultLocaleLocaleResolver implements LocaleResolver {
+    private static class NullLocaleResolver implements LocaleResolver {
 
         @Override
         public Locale resolveLocale(HttpServletRequest request) {
-            return Locale.getDefault();
+            return null;
         }
 
         @Override
