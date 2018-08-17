@@ -36,12 +36,19 @@ public @interface Password {
 
     public Class<? extends Payload>[] payload() default {};
 
+    @Documented
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueMatch[] value();
+    }
+
     // ----------------------------------------------------------------------------------------------------------------
 
     /**
      * 密码验证的复杂度
      */
-    public static enum Complexity {
+    public enum Complexity {
 
         /**
          * 无要求

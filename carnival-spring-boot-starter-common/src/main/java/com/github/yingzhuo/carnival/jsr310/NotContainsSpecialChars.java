@@ -30,4 +30,10 @@ public @interface NotContainsSpecialChars {
 
     public Class<? extends Payload>[] payload() default {};
 
+    @Documented
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueMatch[] value();
+    }
 }

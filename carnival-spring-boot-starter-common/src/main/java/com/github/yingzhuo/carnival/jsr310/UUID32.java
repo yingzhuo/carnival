@@ -28,4 +28,11 @@ public @interface UUID32 {
 
     public Class<? extends Payload>[] payload() default {};
 
+    @Documented
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueMatch[] value();
+    }
+
 }
