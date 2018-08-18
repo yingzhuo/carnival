@@ -40,7 +40,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         final int len = password.length();
         if (len < minLength || len > maxLength) return false;
 
-        if (complexity == Password.Complexity.NONE) {
+        if (complexity == Password.Complexity.ANY) {
             return true;
         }
 
@@ -58,6 +58,13 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
 
         if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS) {
             return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*") && specialChars.stream().anyMatch(password::contains);
+        }
+
+        if (complexity == Password.Complexity.LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS) {
+            return password.matches(".*[a-z]+.*") &&
+                    password.matches(".*[A-Z]+.*") &&
+                    password.matches(".*[0-9]+.*") &&
+                    specialChars.stream().anyMatch(password::contains);
         }
 
         return true;

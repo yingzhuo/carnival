@@ -22,13 +22,13 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PasswordValidator.class)
 public @interface Password {
 
-    public Complexity complexity() default Complexity.ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS;
+    public Complexity complexity() default Complexity.ANY;
 
     public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~ ";
 
-    public int minLength() default 6;
+    public int minLength() default -1;
 
-    public int maxLength() default 12;
+    public int maxLength() default Integer.MAX_VALUE;
 
     public String message() default "Invalid password.";
 
@@ -46,14 +46,14 @@ public @interface Password {
     // ----------------------------------------------------------------------------------------------------------------
 
     /**
-     * 密码验证的复杂度
+     * 密码的复杂度
      */
     public enum Complexity {
 
         /**
          * 无要求
          */
-        NONE,
+        ANY,
 
         /**
          * 数字 (0-9)
@@ -73,7 +73,12 @@ public @interface Password {
         /**
          * 字母 + 数字 + 特殊字符
          */
-        ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS
+        ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS,
+
+        /**
+         * 小写字母 + 大写字母 + 数字 + 特殊字符
+         */
+        LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS
 
     }
 }
