@@ -44,6 +44,8 @@ public class PasswordEncrypterAutoConfig {
                 return new SHA1PasswordEncrypter();
             case SHA256:
                 return new SHA256PasswordEncrypter();
+            case AES:
+                return new AesPasswordEncrypter();
             default:
                 throw new IllegalStateException();
         }
