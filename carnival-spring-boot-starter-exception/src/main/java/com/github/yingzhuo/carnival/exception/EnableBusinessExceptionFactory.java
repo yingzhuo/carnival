@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
 import com.github.yingzhuo.carnival.exception.autoconfig.BusinessExceptionFactoryAutoConfig;
-import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.type.AnnotationMetadata;
 
@@ -26,14 +26,10 @@ import java.lang.annotation.*;
 @Import(EnableBusinessExceptionFactory.ImportSelector.class)
 public @interface EnableBusinessExceptionFactory {
 
-    public static class ImportSelector implements DeferredImportSelector {
-
+    public static class ImportSelector extends AbstractImportSelector {
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-
-            return new String[]{
-                    BusinessExceptionFactoryAutoConfig.class.getName()
-            };
+            return new String[]{BusinessExceptionFactoryAutoConfig.class.getName()};
         }
     }
 

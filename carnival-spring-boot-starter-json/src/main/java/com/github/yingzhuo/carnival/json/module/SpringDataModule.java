@@ -150,4 +150,5 @@ public class SpringDataModule extends SimpleModule {
             return delegate.iterator();
         }
     }
+
 }

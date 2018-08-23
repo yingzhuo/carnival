@@ -26,6 +26,10 @@ import java.util.function.Function;
  */
 public class PageWrapper<T> implements Page<T> {
 
+    public static <T> Page<T> of(Page<T> page) {
+        return new PageWrapper<>(Objects.requireNonNull(page));
+    }
+
     private final Page<T> delegate;
 
     public PageWrapper(Page<T> delegate) {
