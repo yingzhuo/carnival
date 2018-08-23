@@ -34,6 +34,6 @@ public @interface NotContainsSpecialChars {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        NotContainsSpecialChars[] value();
     }
 }

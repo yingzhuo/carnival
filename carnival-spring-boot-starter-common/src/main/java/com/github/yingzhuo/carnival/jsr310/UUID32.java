@@ -32,7 +32,7 @@ public @interface UUID32 {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        UUID32[] value();
     }
 
 }

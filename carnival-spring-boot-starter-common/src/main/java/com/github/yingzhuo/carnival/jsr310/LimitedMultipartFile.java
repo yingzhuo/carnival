@@ -34,7 +34,7 @@ public @interface LimitedMultipartFile {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        LimitedMultipartFile[] value();
     }
 
 }

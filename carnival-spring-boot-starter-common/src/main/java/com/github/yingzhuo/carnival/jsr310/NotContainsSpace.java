@@ -32,7 +32,7 @@ public @interface NotContainsSpace {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        NotContainsSpace[] value();
     }
 
 }

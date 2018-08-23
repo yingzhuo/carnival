@@ -26,7 +26,7 @@ public @interface Password {
 
     public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~ ";
 
-    public int minLength() default -1;
+    public int minLength() default Integer.MIN_VALUE;
 
     public int maxLength() default Integer.MAX_VALUE;
 
@@ -40,7 +40,7 @@ public @interface Password {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        Password[] value();
     }
 
     // ----------------------------------------------------------------------------------------------------------------

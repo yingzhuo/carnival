@@ -32,7 +32,7 @@ public @interface PhoneNumber {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        PhoneNumber[] value();
     }
 
 }

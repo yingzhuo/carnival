@@ -32,7 +32,7 @@ public @interface NotEmptyMultipartFile {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FieldsValueMatch[] value();
+        NotEmptyMultipartFile[] value();
     }
 
 }
