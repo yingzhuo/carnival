@@ -1,5 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.github.yingzhuo.carnival.json.autoconfig.JDK8ObjectMapperAutoConfig,\
-com.github.yingzhuo.carnival.json.autoconfig.KotlinObjectMapperAutoConfig,\
-com.github.yingzhuo.carnival.json.autoconfig.ScalaObjectMapperAutoConfig,\
 com.github.yingzhuo.carnival.json.autoconfig.SpringDataObjectMapperAutoConfig

@@ -28,6 +28,7 @@
         <module>carnival-spring-boot-starter-springutils</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-websecret</module>
+        <module>carnival-spring-boot-starter-scala</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -389,6 +390,13 @@
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-reflect</artifactId>
                 <version>${scala.version}</version>
+            </dependency>
+
+            <!-- scala-logging -->
+            <dependency>
+                <groupId>com.typesafe.scala-logging</groupId>
+                <artifactId>scala-logging_2.12</artifactId>
+                <version>3.9.0</version>
             </dependency>
 
             <!-- groovy -->
