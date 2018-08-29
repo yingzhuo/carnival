@@ -19,6 +19,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface UserDetailsRealm {
 
     public Optional<UserDetails> loadUserDetails(Token token);

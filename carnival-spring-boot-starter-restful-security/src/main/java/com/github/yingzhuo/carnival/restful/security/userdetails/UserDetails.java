@@ -21,6 +21,9 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * @author 应卓
+ */
 public interface UserDetails extends Serializable {
 
     public static Builder builder() {
@@ -54,21 +57,19 @@ public interface UserDetails extends Serializable {
         if (getRoles() == null) {
             return Collections.emptyList();
         }
-
         return Collections.unmodifiableList(
-                getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()));
+                getRoles().stream().map(Role::getName).collect(Collectors.toList()));
     }
-
-    // Builder
-    // -----------------------------------------------------------------------------------------------------------------
 
     public default Collection<String> getPermissionNames() {
         if (getPermissions() == null) {
             return Collections.emptyList();
         }
-
-        return Collections.unmodifiableList(getPermissions().stream().map(Permission::getPermissionName).collect(Collectors.toList()));
+        return Collections.unmodifiableList(getPermissions().stream().map(Permission::getName).collect(Collectors.toList()));
     }
+
+    // Builder
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
 

@@ -25,7 +25,7 @@ public final class SimplePermission implements Permission {
     }
 
     @Override
-    public String getPermissionName() {
+    public String getName() {
         return name;
     }
 }

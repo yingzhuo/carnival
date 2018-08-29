@@ -22,10 +22,10 @@ import java.io.Serializable;
  */
 public interface Permission extends Serializable {
 
-    public static Permission of(String permissionName) {
-        return new SimplePermission(permissionName);
+    public static Permission of(String name) {
+        return new SimplePermission(name);
     }
 
-    public String getPermissionName();
+    public String getName();
 
 }

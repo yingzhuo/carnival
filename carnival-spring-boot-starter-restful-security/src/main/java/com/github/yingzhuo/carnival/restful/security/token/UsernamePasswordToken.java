@@ -11,6 +11,9 @@ package com.github.yingzhuo.carnival.restful.security.token;
 
 import lombok.val;
 
+/**
+ * @author 应卓
+ */
 public class UsernamePasswordToken implements Token {
 
     private static final long serialVersionUID = 3217442894344389575L;

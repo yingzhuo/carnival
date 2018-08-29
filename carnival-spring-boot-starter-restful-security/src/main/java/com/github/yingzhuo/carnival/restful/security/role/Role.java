@@ -22,10 +22,10 @@ import java.io.Serializable;
  */
 public interface Role extends Serializable {
 
-    public static Role of(String roleName) {
-        return new SimpleRole(roleName);
+    public static Role of(String name) {
+        return new SimpleRole(name);
     }
 
-    public String getRoleName();
+    public String getName();
 
 }

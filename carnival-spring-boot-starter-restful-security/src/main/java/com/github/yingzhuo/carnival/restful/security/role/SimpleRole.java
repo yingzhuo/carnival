@@ -25,7 +25,7 @@ public final class SimpleRole implements Role {
     }
 
     @Override
-    public String getRoleName() {
+    public String getName() {
         return name;
     }
 
