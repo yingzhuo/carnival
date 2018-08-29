@@ -34,6 +34,10 @@ package object carnival {
 
   implicit def string2Rich(s: String): RichString = new RichString(s)
 
+  implicit def string2RichDigest(s: String): RichStringDigest = new RichStringDigest(s)
+
+  implicit def string2RichStringBase64(s: String): RichStringBase64 = new RichStringBase64(s)
+
   implicit def string2NullableRich(s: String): RichNullableString = new RichNullableString(s)
 
   implicit def enumCls2Rich[E <: Enum[E]](enumType: Class[E]): RichEnum[E] = new RichEnum[E](enumType)

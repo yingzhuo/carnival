@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.password;
 
+/**
+ * @author 应卓
+ */
 public interface PasswordEncrypter {
 
     public String encrypt(String password);

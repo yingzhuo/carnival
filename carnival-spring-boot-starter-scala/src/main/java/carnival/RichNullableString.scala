@@ -9,6 +9,9 @@
  */
 package carnival
 
+/**
+  * @author 应卓
+  */
 private[carnival] class RichNullableString(s: String) {
 
   // -----------------------------------------------------------------------------------------------------------------

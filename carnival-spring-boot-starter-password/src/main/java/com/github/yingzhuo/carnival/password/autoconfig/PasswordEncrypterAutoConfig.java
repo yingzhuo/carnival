@@ -20,6 +20,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * @author 应卓
+ */
 @EnableConfigurationProperties(PasswordEncrypterAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class PasswordEncrypterAutoConfig {
@@ -46,6 +49,8 @@ public class PasswordEncrypterAutoConfig {
                 return new SHA256PasswordEncrypter();
             case AES:
                 return new AesPasswordEncrypter();
+            case BASE64:
+                return new Base64PasswordEncrypter();
             default:
                 throw new IllegalStateException();
         }

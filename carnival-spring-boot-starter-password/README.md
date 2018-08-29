@@ -27,6 +27,7 @@ carnival:
 * sha1
 * sha256
 * aes
+* base64
 
 在需要处理password的地方，注入`PasswordEncrypter`对象即可使用。如：
 

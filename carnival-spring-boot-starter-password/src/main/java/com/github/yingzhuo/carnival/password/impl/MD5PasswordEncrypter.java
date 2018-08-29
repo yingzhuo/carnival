@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.password.impl;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import org.apache.commons.codec.digest.DigestUtils;
 
+/**
+ * @author 应卓
+ */
 public class MD5PasswordEncrypter implements PasswordEncrypter {
 
     @Override

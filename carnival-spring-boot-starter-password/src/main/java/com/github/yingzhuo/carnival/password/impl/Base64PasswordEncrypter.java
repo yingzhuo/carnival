@@ -10,16 +10,18 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.binary.Base64;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
  */
-public class SHA1PasswordEncrypter implements PasswordEncrypter {
+public class Base64PasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String password) {
-        return DigestUtils.sha1Hex(password);
+        return Base64.encodeBase64URLSafeString(password.getBytes(StandardCharsets.UTF_8));
     }
 
 }

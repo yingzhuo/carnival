@@ -11,6 +11,9 @@ package carnival
 
 import java.util.{Optional => JOption}
 
+/**
+  * @author 应卓
+  */
 private[carnival] class RichOptional[T](op: JOption[T]) {
 
   assert(op != null)

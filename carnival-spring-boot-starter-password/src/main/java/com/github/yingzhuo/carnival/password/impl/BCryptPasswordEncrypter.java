@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.password.impl;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.password.support.BCrypt;
 
+/**
+ * @author 应卓
+ */
 public class BCryptPasswordEncrypter implements PasswordEncrypter {
 
     @Override
