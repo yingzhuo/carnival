@@ -18,11 +18,7 @@ public class DefaultRequestIdFactory implements RequestIdFactory {
 
     @Override
     public String create(String springId, long threadId) {
-        final StringBuilder sb = new StringBuilder();
-        sb.append(Objects.requireNonNull(springId));
-        sb.append("#");
-        sb.append(threadId);
-        return sb.toString();
+        return Objects.requireNonNull(springId) + "#" + threadId;
     }
 
 }
