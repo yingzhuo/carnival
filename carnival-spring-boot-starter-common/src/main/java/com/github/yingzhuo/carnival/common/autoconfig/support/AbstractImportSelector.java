@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig.support;
 
-import org.springframework.context.annotation.DeferredImportSelector;
+import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public abstract class AbstractImportSelector implements DeferredImportSelector {
+public abstract class AbstractImportSelector implements ImportSelector {
 
     public static final ThreadLocal<Map<String, Object>> HOLDER = ThreadLocal.withInitial(HashMap::new);
 

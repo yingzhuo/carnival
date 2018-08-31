@@ -25,7 +25,7 @@ import java.util.*;
  *
  * @author 应卓
  */
-final class CheckUtils {
+public final class CheckUtils {
 
     private CheckUtils() {
     }

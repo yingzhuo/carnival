@@ -9,6 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
+import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+
 import java.lang.annotation.*;
 
 /**
@@ -18,6 +24,7 @@ import java.lang.annotation.*;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
+@Requires(RequiresPermissions.AuthComponent.class)
 public @interface RequiresPermissions {
 
     public String[] value();
@@ -25,4 +32,13 @@ public @interface RequiresPermissions {
     public Logical logical() default Logical.OR;
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
+
+    public static class AuthComponent implements AuthenticationComponent {
+
+        @Override
+        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
+            CheckUtils.check((RequiresPermissions) annotation);
+        }
+    }
+
 }

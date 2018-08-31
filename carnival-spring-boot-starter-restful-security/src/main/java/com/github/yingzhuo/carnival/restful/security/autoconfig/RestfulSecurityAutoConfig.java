@@ -9,6 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
+import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
+import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
+import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
+import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
@@ -26,6 +30,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.util.StringUtils;
 
 import java.util.Optional;
@@ -73,6 +78,34 @@ public class RestfulSecurityAutoConfig {
     public CacheManager cacheManager() {
         return new NopCacheManager();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @Primary
+    public RequiresAuthentication.AuthComponent requiresAuthenticationAuthenticationComponent() {
+        return new RequiresAuthentication.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresGuest.AuthComponent requiresGuestAuthenticationComponent() {
+        return new RequiresGuest.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresRoles.AuthComponent requiresRolesAuthenticationComponent() {
+        return new RequiresRoles.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresPermissions.AuthComponent requiresPermissionsAuthenticationComponent() {
+        return new RequiresPermissions.AuthComponent();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     @Getter
     @Setter
