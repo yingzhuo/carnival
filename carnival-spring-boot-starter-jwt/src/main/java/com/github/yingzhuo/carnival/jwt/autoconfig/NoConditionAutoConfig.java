@@ -9,12 +9,22 @@
  */
 package com.github.yingzhuo.carnival.jwt.autoconfig;
 
+import com.github.yingzhuo.carnival.jwt.RequiresJwt;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author 应卓
  */
 @EnableConfigurationProperties(JwtProps.class)
 public class NoConditionAutoConfig {
+
+    @Bean
+    @Primary
+    public RequiresJwt.AuthComponent RequiresJwtAuthenticationComponent() {
+        return new RequiresJwt.AuthComponent();
+    }
+
 }

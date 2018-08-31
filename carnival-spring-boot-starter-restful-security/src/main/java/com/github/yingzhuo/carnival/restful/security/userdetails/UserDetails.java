@@ -94,8 +94,18 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder username(Supplier<String> usernameSupplier) {
-            ud.setUsername(usernameSupplier.get());
+        public Builder username(Supplier<String> supplier) {
+            ud.setUsername(supplier.get());
+            return this;
+        }
+
+        public Builder password(String password) {
+            ud.setPassword(password);
+            return this;
+        }
+
+        public Builder password(Supplier<String> supplier) {
+            ud.setPassword(supplier.get());
             return this;
         }
 
@@ -104,8 +114,8 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder expired(Supplier<Boolean> expiredSupplier) {
-            ud.setExpired(expiredSupplier.get());
+        public Builder expired(Supplier<Boolean> supplier) {
+            ud.setExpired(supplier.get());
             return this;
         }
 
@@ -114,8 +124,8 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder locked(Supplier<Boolean> lockedSupplier) {
-            ud.setLocked(lockedSupplier.get());
+        public Builder locked(Supplier<Boolean> supplier) {
+            ud.setLocked(supplier.get());
             return this;
         }
 
