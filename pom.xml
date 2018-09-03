@@ -25,7 +25,6 @@
         <module>carnival-spring-boot-starter-redis-distributed-lock</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-sentinel</module>
-        <module>carnival-spring-boot-starter-springutils</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-scala</module>
@@ -80,11 +79,6 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-restful-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-springutils</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

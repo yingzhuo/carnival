@@ -9,9 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.spring.tool.WebApplicationAnchor;
 import lombok.val;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.ConversionService;
@@ -67,21 +65,6 @@ public final class SpringUtils {
 
     public static <B> B getBean(String beanName, Class<B> beanType) {
         return getApplicationContext().getBean(beanName, beanType);
-    }
-
-    /* -------------------------------------------------------------------------------------------------------------- */
-
-    public static boolean isWebApplication() {
-        try {
-            getBean(WebApplicationAnchor.class);
-            return true;
-        } catch (NoSuchBeanDefinitionException e) {
-            return false;
-        }
-    }
-
-    public static boolean isNotWebApplication() {
-        return !isWebApplication();
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

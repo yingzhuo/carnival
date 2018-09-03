@@ -25,11 +25,11 @@ import java.util.Arrays;
  * @author 应卓
  * @since 0.0.1
  */
-public class SpringUtilsApplicationContextAware implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
+public class SpringUtilsInitBean implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
 
-    public static final SpringUtilsApplicationContextAware INSTANCE = new SpringUtilsApplicationContextAware();
+    public static final SpringUtilsInitBean INSTANCE = new SpringUtilsInitBean();
 
-    private SpringUtilsApplicationContextAware() {
+    private SpringUtilsInitBean() {
         super();
     }
 

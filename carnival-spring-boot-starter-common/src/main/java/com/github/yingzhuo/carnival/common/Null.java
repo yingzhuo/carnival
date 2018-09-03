@@ -21,6 +21,7 @@ public final class Null implements Serializable, DisplayNamed {
     public static Null INSTANCE = new Null();
 
     private Null() {
+        super();
     }
 
     public String toString() {
