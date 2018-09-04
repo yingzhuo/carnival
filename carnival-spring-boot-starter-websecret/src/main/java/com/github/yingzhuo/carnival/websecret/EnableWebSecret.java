@@ -29,6 +29,9 @@ import java.lang.annotation.Target;
 public @interface EnableWebSecret {
 
     public int interceptorOrder() default 0;
+    public ValidationStrategy validationStrategy() default ValidationStrategy.ANNOTATED;
+
+    // ---------------------------------------------------------------------------------------------------------------
 
     public static class WebSecretImportSelector extends AbstractImportSelector {
 
@@ -38,7 +41,9 @@ public @interface EnableWebSecret {
             AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableWebSecret.class);
 
             Integer interceptorOrder = aas.getNumber("interceptorOrder");
+            ValidationStrategy validationStrategy = aas.getEnum("validationStrategy");
             putConfig("interceptorOrder", interceptorOrder);
+            putConfig("validationStrategy", validationStrategy);
 
             return new String[]{
                     WebSecretAutoConfig.class.getName()

@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.websecret.mvc;
 
+import com.github.yingzhuo.carnival.websecret.ValidationStrategy;
+import com.github.yingzhuo.carnival.websecret.WebSecret;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.exception.WebSecretException;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
@@ -17,6 +19,7 @@ import com.github.yingzhuo.carnival.websecret.parser.NonceParser;
 import com.github.yingzhuo.carnival.websecret.parser.SignatureParser;
 import com.github.yingzhuo.carnival.websecret.parser.TimestampParser;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -47,10 +50,17 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     private SignatureMatcher signatureMatcher;
 
+    private ValidationStrategy validationStrategy = ValidationStrategy.ANNOTATED;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
+        val method = ((HandlerMethod) handler).getMethod();
+        if (method.getAnnotation(WebSecret.class) == null && validationStrategy == ValidationStrategy.ANNOTATED) {
             return true;
         }
 
@@ -62,30 +72,38 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         log.debug("nonce: {}", nonce);
         if (nonce == null) {
             throw new WebSecretException("Lack of nonce.");
+        } else {
+            WebSecretHolder.nonceHolder.set(nonce);
         }
 
         String timestamp = timestampParser.parse(req, locale).orElse(null);
         log.debug("timestamp: {}", timestamp);
         if (timestamp == null) {
             throw new WebSecretException("Lack of timestamp.");
+        } else {
+            WebSecretHolder.timestampHolder.set(timestamp);
         }
 
         String signature = signatureParser.parse(req, locale).orElse(null);
         log.debug("signature: {}", signature);
         if (signature == null) {
             throw new WebSecretException("Lack of signature.");
+        } else {
+            WebSecretHolder.signatureHolder.set(signature);
         }
 
-        String appId = clientIdParser.parse(req, locale).orElse(null);
-        log.debug("appId: {}", appId);
-        if (appId == null) {
+        String clientId = clientIdParser.parse(req, locale).orElse(null);
+        log.debug("appId: {}", clientId);
+        if (clientId == null) {
             throw new WebSecretException("Lack of ApplicationId");
+        } else {
+            WebSecretHolder.clientIdHolder.set(clientId);
         }
 
-        String secret = secretLoader.load(appId);
+        String secret = secretLoader.load(clientId);
         log.debug("secret: {}", secret);
         if (secret == null) {
-            final String msg = String.format("Cannot load secret for applicationId (%s)", appId);
+            final String msg = String.format("Cannot load secret for clientId (%s)", clientId);
             throw new WebSecretException(msg);
         }
 
@@ -122,6 +140,10 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     public void setSignatureMatcher(SignatureMatcher signatureMatcher) {
         this.signatureMatcher = signatureMatcher;
+    }
+
+    public void setValidationStrategy(ValidationStrategy validationStrategy) {
+        this.validationStrategy = validationStrategy;
     }
 
     // --------------------------------------------------------------------------------------------------------------

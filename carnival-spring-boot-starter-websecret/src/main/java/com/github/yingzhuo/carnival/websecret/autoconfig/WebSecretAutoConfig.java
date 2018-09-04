@@ -11,20 +11,28 @@ package com.github.yingzhuo.carnival.websecret.autoconfig;
 
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
 import com.github.yingzhuo.carnival.websecret.EnableWebSecret;
+import com.github.yingzhuo.carnival.websecret.ValidationStrategy;
+import com.github.yingzhuo.carnival.websecret.annotation.ClientIdHandlerMethodArgResolver;
+import com.github.yingzhuo.carnival.websecret.annotation.NonceHandlerMethodArgResolver;
+import com.github.yingzhuo.carnival.websecret.annotation.SignatureMethodArgResolver;
+import com.github.yingzhuo.carnival.websecret.annotation.TimestampMethodArgResolver;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.matcher.DefaultSignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
 import com.github.yingzhuo.carnival.websecret.parser.*;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -97,6 +105,10 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+
+        val validationStrategy = EnableWebSecret.WebSecretImportSelector
+                .getConfig("validationStrategy", ValidationStrategy.class);
+
         WebSecretInterceptor interceptor = new WebSecretInterceptor();
         Optional.ofNullable(localeResolver).ifPresent(interceptor::setLocaleResolver);
         interceptor.setClientIdParser(clientIdParser);
@@ -105,10 +117,19 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
         interceptor.setTimestampParser(timestampParser);
         interceptor.setSignatureMatcher(signatureMatcher);
         interceptor.setSecretLoader(secretLoader);
+        interceptor.setValidationStrategy(validationStrategy);
 
         registry.addInterceptor(interceptor)
                 .addPathPatterns("/", "/**")
                 .order(EnableWebSecret.WebSecretImportSelector.getConfig("interceptorOrder", Integer.class));
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new ClientIdHandlerMethodArgResolver());
+        resolvers.add(new NonceHandlerMethodArgResolver());
+        resolvers.add(new TimestampMethodArgResolver());
+        resolvers.add(new SignatureMethodArgResolver());
     }
 
 }

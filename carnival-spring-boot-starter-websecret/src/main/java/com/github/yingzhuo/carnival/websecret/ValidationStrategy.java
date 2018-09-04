@@ -7,21 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.websecret.exception;
+package com.github.yingzhuo.carnival.websecret;
 
 /**
  * @author 应卓
  */
-public class WebSecretException extends RuntimeException {
+public enum ValidationStrategy {
 
-    private static final long serialVersionUID = -6287995977875590347L;
+    ANNOTATED,
 
-    public WebSecretException() {
-        super();
-    }
-
-    public WebSecretException(String message) {
-        super(message);
-    }
+    ALL
 
 }
