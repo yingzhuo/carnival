@@ -25,4 +25,5 @@ public final class UUIDUtils {
     public static String randomUUID36() {
         return java.util.UUID.randomUUID().toString();
     }
+
 }

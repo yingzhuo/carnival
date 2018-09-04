@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.id.impl;
 import com.github.yingzhuo.carnival.id.LongIdGenerator;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 public class LongSnowflakeIdGenerator implements LongIdGenerator {
 
