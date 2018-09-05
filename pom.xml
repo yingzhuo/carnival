@@ -28,6 +28,7 @@
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-scala</module>
+        <module>carnival-spring-boot-starter-zxing</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -353,6 +354,13 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>2.5.1</version>
+            </dependency>
+
+            <!-- qrcode -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>3.3.3</version>
             </dependency>
 
             <!-- ssh2 -->

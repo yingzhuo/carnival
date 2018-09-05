@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.yingzhuo.carnival.zxing.autoconfig.QRCodeAutoConfig,\
+com.github.yingzhuo.carnival.zxing.autoconfig.QRCodeWebAutoConfig
