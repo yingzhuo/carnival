@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
@@ -52,6 +53,9 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Autowired
     private Optional<LocaleResolver> localeResolverOption;
 
+    @Autowired
+    private TokenBlackList tokenBlackList;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         val interceptor = new RestfulSecurityInterceptor();
@@ -59,6 +63,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         val authenticationStrategy = EnableRestfulSecurity.ImportSelector.getConfig("authenticationStrategy", AuthenticationStrategy.class);
 
         localeResolverOption.ifPresent(interceptor::setLocaleResolver);
+        interceptor.setTokenBlackList(tokenBlackList);
         interceptor.setTokenParser(getTokenParser());
         interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setAuthenticationListener(authenticationListener);

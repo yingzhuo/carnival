@@ -13,6 +13,8 @@ import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
 import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
 import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
 import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
+import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlackList;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
@@ -77,6 +79,12 @@ public class RestfulSecurityAutoConfig {
     @Bean(name = "restfulSecurityCacheManager")
     public CacheManager cacheManager() {
         return new NopCacheManager();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public TokenBlackList tokenBlackList() {
+        return new NopTokenBlackList();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

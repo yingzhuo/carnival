@@ -12,7 +12,9 @@ package com.github.yingzhuo.carnival.restful.security.core;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -46,6 +48,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private CacheManager cacheManager;
     private LocaleResolver localeResolver = new NullLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
+    private TokenBlackList tokenBlackList;
     private boolean initialized = false;
 
     public RestfulSecurityInterceptor() {
@@ -63,6 +66,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             return true;
         }
 
+
         val handlerMethod = (HandlerMethod) handler;
         AuthenticationComponent ac = cache1.get(handlerMethod.getMethod());
         Annotation annotation = cache2.get(handlerMethod.getMethod());
@@ -78,6 +82,10 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
             Token token = tokenOp.get();
             RestfulSecurityContext.setToken(token);
+
+            if (tokenBlackList.isBlacklisted(token)) {
+                throw new TokenBlacklistedException();
+            }
 
             Optional<UserDetails> userDetailsOp;
             Optional<UserDetails> cached = cacheManager.getUserDetails(token);
@@ -173,6 +181,10 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     public void setAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
         this.authenticationStrategy = authenticationStrategy;
+    }
+
+    public void setTokenBlackList(TokenBlackList tokenBlackList) {
+        this.tokenBlackList = tokenBlackList;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
