@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.zxing.mvc;
 
-import com.github.yingzhuo.carnival.zxing.QRCode;
 import com.github.yingzhuo.carnival.zxing.QRCodeCreator;
-import com.github.yingzhuo.carnival.zxing.autoconfig.QRCodeWebAutoConfig;
+import com.github.yingzhuo.carnival.zxing.StringQRCode;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -25,43 +24,38 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public class QRCodeHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
+public class StringQRCodeHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
 
     private final QRCodeCreator creator;
-    private final QRCodeWebAutoConfig.Props props;
 
-    public QRCodeHandlerMethodReturnValueHandler(QRCodeCreator creator, QRCodeWebAutoConfig.Props props) {
+    public StringQRCodeHandlerMethodReturnValueHandler(QRCodeCreator creator) {
         this.creator = creator;
-        this.props = props;
     }
 
     @Override
     public boolean supportsReturnType(MethodParameter returnType) {
-        return QRCode.class.isAssignableFrom(returnType.getParameterType());
+        return StringQRCode.class.isAssignableFrom(returnType.getParameterType());
     }
 
     @Override
     public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
-        QRCode qrCode = (QRCode) returnValue;
-        mavContainer.setView(new QRCodeView(qrCode.getContent(), creator, props));
+        mavContainer.setView(new StringQRCodeView(creator, (StringQRCode) returnValue));
     }
 
-    private static class QRCodeView implements View {
+    public static class StringQRCodeView implements View {
 
-        private final String content;
         private final QRCodeCreator creator;
-        private final QRCodeWebAutoConfig.Props props;
+        private final StringQRCode qrCode;
 
-        public QRCodeView(String content, QRCodeCreator creator, QRCodeWebAutoConfig.Props props) {
-            this.content = content;
+        public StringQRCodeView(QRCodeCreator creator, StringQRCode qrCode) {
             this.creator = creator;
-            this.props = props;
+            this.qrCode = qrCode;
         }
 
         @Override
         public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
             response.setContentType("image/png");
-            creator.create(response.getOutputStream(), content, props.getSize(), props.getImageFormat(), props.getErrorCorrectionLevel());
+            creator.create(response.getOutputStream(), qrCode.getContent(), qrCode.getSize(), qrCode.getFormat(), qrCode.getErrorCorrectionLevel());
         }
     }
 

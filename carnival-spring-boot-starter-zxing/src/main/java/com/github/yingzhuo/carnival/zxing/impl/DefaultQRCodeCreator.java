@@ -38,12 +38,13 @@ public class DefaultQRCodeCreator implements QRCodeCreator {
         }
 
         try {
-            final Map<EncodeHintType, ErrorCorrectionLevel> config = new Hashtable<>();
-            config.put(EncodeHintType.ERROR_CORRECTION, errorCorrectionLevel);
+            final Map<EncodeHintType, Object> hints = new Hashtable<>();
+            hints.put(EncodeHintType.ERROR_CORRECTION, errorCorrectionLevel);
+            hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
 
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
 
-            final BitMatrix byteMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, size, size, config);
+            final BitMatrix byteMatrix = qrCodeWriter.encode(content, BarcodeFormat.QR_CODE, size, size, hints);
             int matrixWidth = byteMatrix.getWidth();
             BufferedImage image = new BufferedImage(matrixWidth - 200, matrixWidth - 200, BufferedImage.TYPE_INT_RGB);
             image.createGraphics();

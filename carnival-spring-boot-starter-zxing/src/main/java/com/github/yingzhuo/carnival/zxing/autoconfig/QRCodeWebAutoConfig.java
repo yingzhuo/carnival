@@ -9,15 +9,12 @@
  */
 package com.github.yingzhuo.carnival.zxing.autoconfig;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yingzhuo.carnival.zxing.QRCodeCreator;
-import com.github.yingzhuo.carnival.zxing.mvc.QRCodeHandlerMethodReturnValueHandler;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import lombok.Getter;
-import lombok.Setter;
+import com.github.yingzhuo.carnival.zxing.mvc.JsonQRCodeHandlerMethodReturnValueHandler;
+import com.github.yingzhuo.carnival.zxing.mvc.StringQRCodeHandlerMethodReturnValueHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -27,27 +24,18 @@ import java.util.List;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(QRCodeWebAutoConfig.Props.class)
 public class QRCodeWebAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private QRCodeCreator creator;
 
-    @Autowired
-    private Props props;
+    @Autowired(required = false)
+    private ObjectMapper om;
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        handlers.add(new QRCodeHandlerMethodReturnValueHandler(creator, props));
-    }
-
-    @Getter
-    @Setter
-    @ConfigurationProperties(prefix = "carnival.zxing.view")
-    public static class Props {
-        private int size = 600;
-        private String imageFormat = "png";
-        private ErrorCorrectionLevel errorCorrectionLevel = ErrorCorrectionLevel.L;
+        handlers.add(new StringQRCodeHandlerMethodReturnValueHandler(creator));
+        handlers.add(new JsonQRCodeHandlerMethodReturnValueHandler(creator, om != null ? om : new ObjectMapper()));
     }
 
 }
