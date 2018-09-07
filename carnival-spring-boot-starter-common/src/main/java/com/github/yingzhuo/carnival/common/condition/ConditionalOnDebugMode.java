@@ -38,7 +38,7 @@ public @interface ConditionalOnDebugMode {
 
             val aas = AnnotationAttributes.fromMap(
                     metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName()));
-            val value = aas.getStringArray("debugProfile");
+            val value = aas.getString("debugProfile");
 
             val match = context.getEnvironment().acceptsProfiles(value);
 
