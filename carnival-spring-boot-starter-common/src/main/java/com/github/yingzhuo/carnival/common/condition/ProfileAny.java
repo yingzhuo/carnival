@@ -10,8 +10,7 @@
 package com.github.yingzhuo.carnival.common.condition;
 
 import lombok.val;
-import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
+import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -26,27 +25,25 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnDebugMode.OnDebugMode.class)
-public @interface ConditionalOnDebugMode {
+@Conditional(ProfileAny.OnProfileAnyCondition.class)
+public @interface ProfileAny {
 
-    public String debugProfile() default "debug";
+    public String[] value();
 
-    static final class OnDebugMode extends SpringBootCondition {
+    public static class OnProfileAnyCondition implements Condition {
 
         @Override
-        public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val aas = AnnotationAttributes.fromMap(
-                    metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName()));
-            val value = aas.getStringArray("debugProfile");
+                    metadata.getAnnotationAttributes(ProfileAny.class.getName()));
+            val value = aas.getStringArray("value");
 
-            val match = context.getEnvironment().acceptsProfiles(value);
-
-            if (match) {
-                return ConditionOutcome.match();
-            } else {
-                return ConditionOutcome.noMatch("'debug' mode is not enabled.");
+            for (String v : value) {
+                if (context.getEnvironment().acceptsProfiles(v)) {
+                    return true;
+                }
             }
+            return false;
         }
     }
 
