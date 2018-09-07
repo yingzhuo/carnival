@@ -9,6 +9,7 @@
     <version>1.1.0-SNAPSHOT</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
+        <module>carnival-spring-boot-starter-beanmapper</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
@@ -26,8 +27,8 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-sentinel</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
-        <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-scala</module>
+        <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-zxing</module>
     </modules>
     <packaging>pom</packaging>
@@ -420,6 +421,19 @@
                 <groupId>org.ini4j</groupId>
                 <artifactId>ini4j</artifactId>
                 <version>0.5.4</version>
+            </dependency>
+
+            <!-- easy-mapper -->
+            <dependency>
+                <groupId>com.baidu.unbiz</groupId>
+                <artifactId>easy-mapper</artifactId>
+                <version>1.0.4</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <!-- commons -->
