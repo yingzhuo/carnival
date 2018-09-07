@@ -35,11 +35,7 @@ public abstract class AbstractImportSelector implements ImportSelector {
 
     public static <T> T getConfig(String key, Class<T> type, T defaultValue) {
         T value = getConfig(key, type);
-
-        if (value == null)
-            return defaultValue;
-        else
-            return value;
+        return value == null ? defaultValue : value;
     }
 
     public static void clearConfigs() {

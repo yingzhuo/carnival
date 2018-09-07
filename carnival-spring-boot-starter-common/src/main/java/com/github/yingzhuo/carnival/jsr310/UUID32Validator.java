@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class UUID32Validator implements ConstraintValidator<UUID32, String> {
 
-    private static final Pattern PATTERN = Pattern.compile("^[0-9a-z]{32}$");
+    private static final Pattern PATTERN = Pattern.compile("^[0-9a-zA-Z]{32}$");
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
