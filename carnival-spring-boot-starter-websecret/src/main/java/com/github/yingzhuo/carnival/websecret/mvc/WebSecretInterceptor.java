@@ -25,6 +25,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +37,7 @@ import java.util.Locale;
 @Slf4j
 public class WebSecretInterceptor implements HandlerInterceptor {
 
-    private LocaleResolver localeResolver = new NullLocaleResolver();
+    private LocaleResolver localeResolver = new FixedLocaleResolver();
 
     private NonceParser nonceParser;
 
@@ -144,21 +145,6 @@ public class WebSecretInterceptor implements HandlerInterceptor {
 
     public void setValidationStrategy(ValidationStrategy validationStrategy) {
         this.validationStrategy = validationStrategy;
-    }
-
-    // --------------------------------------------------------------------------------------------------------------
-
-    private static class NullLocaleResolver implements LocaleResolver {
-
-        @Override
-        public Locale resolveLocale(HttpServletRequest request) {
-            return null;
-        }
-
-        @Override
-        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
-            // 无动作
-        }
     }
 
 }

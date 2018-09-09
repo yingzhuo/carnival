@@ -28,6 +28,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +50,7 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
 
     private AuthenticationListener authenticationListener;
     private CacheManager cacheManager;
-    private LocaleResolver localeResolver = new NullLocaleResolver();
+    private LocaleResolver localeResolver = new FixedLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlackList tokenBlackList;
     private boolean initialized = false;
@@ -208,18 +209,4 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
         return results;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    private static class NullLocaleResolver implements LocaleResolver {
-
-        @Override
-        public Locale resolveLocale(HttpServletRequest request) {
-            return null;
-        }
-
-        @Override
-        public void setLocale(HttpServletRequest request, HttpServletResponse response, Locale locale) {
-            // 无动作
-        }
-    }
 }

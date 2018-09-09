@@ -30,7 +30,7 @@ public @interface EnableRestfulSecurity {
 
     public int interceptorOrder() default 0;
 
-    public AuthenticationStrategy authenticationStrategy() default AuthenticationStrategy.ALL;
+    public AuthenticationStrategy authenticationStrategy() default AuthenticationStrategy.ONLY_ANNOTATED;
 
     public static class ImportSelector extends AbstractImportSelector {
 
