@@ -10,7 +10,7 @@
 
 import java.util.{Optional => JOption}
 
-import scala.language.implicitConversions
+import scala.language.{implicitConversions, reflectiveCalls}
 import scala.util.Try
 
 /**
@@ -18,9 +18,9 @@ import scala.util.Try
   */
 package object carnival {
 
-  implicit def any2Rich[T](o: T): RichAnyRef[T] = new RichAnyRef(o)
+  implicit def any2Rich[T <: AnyRef](o: T): RichAnyRef[T] = new RichAnyRef(o)
 
-  implicit def any2NullableRich[T](o: T): RichNullableAnyRef[T] = new RichNullableAnyRef[T](o)
+  implicit def any2NullableRich[T <: AnyRef](o: T): RichNullableAnyRef[T] = new RichNullableAnyRef[T](o)
 
   implicit def try2Rich[T](t: Try[T]): RichTry[T] = new RichTry[T](t)
 
@@ -40,6 +40,8 @@ package object carnival {
 
   implicit def string2NullableRich(s: String): RichNullableString = new RichNullableString(s)
 
-  implicit def enumCls2Rich[E <: Enum[E]](enumType: Class[E]): RichEnum[E] = new RichEnum[E](enumType)
+  implicit def enumCls2Rich[E <: Enum[E]](enumType: Class[E]): RichEnumClass[E] = new RichEnumClass[E](enumType)
+
+  implicit def closeable2Rich[C <: {def close() : Unit}](c: C): RichCloseable[C] = new RichCloseable[C](c)
 
 }

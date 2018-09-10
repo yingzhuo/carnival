@@ -12,7 +12,7 @@ package carnival
 /**
   * @author 应卓
   */
-private[carnival] class RichAnyRef[T](o: T) {
+private[carnival] class RichAnyRef[T <: AnyRef](o: T) {
 
   assert(o != null)
 

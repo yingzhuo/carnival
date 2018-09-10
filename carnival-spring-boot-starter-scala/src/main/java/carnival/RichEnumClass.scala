@@ -16,7 +16,7 @@ import scala.collection.JavaConverters._
 /**
   * @author 应卓
   */
-private[carnival] class RichEnum[E <: Enum[E]](enumType: Class[E]) {
+private[carnival] class RichEnumClass[E <: Enum[E]](enumType: Class[E]) {
 
   assert(enumType != null)
 

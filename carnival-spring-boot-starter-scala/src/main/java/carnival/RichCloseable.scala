@@ -9,19 +9,16 @@
  */
 package carnival
 
+import scala.language.reflectiveCalls
+import scala.util.Try
+
 /**
   * @author 应卓
   */
-private[carnival] class RichChar(ch: Char) {
+private[carnival] class RichCloseable[C <: {def close() : Unit}](c: C) {
 
-  def isAlphabetic: Boolean = Character.isAlphabetic(ch)
+  assert(c != null)
 
-  def isAlphabeticSpace: Boolean = ch.isAlphabetic || ch == ' '
-
-  def isNumeric: Boolean = Character.isDigit(ch)
-
-  def isAlphanumeric: Boolean = ch.isNumeric || ch.isAlphabetic
-
-  def isAlphanumericSpace: Boolean = ch.isAlphanumeric || ch == ' '
+  def closeQuietly(): Unit = Try(c.close())
 
 }

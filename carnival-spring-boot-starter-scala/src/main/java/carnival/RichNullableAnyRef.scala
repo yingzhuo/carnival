@@ -12,20 +12,23 @@ package carnival
 /**
   * @author 应卓
   */
-private[carnival] class RichNullableAnyRef[T](o: T) {
+private[carnival] class RichNullableAnyRef[T <: AnyRef](any: T) {
+
+  def option: Option[T] = Option(any)
 
   // -----------------------------------------------------------------------------------------------------------------
 
-  def option: Option[T] = Option(o)
+  def isNull: Boolean = null eq any
 
+  def isNotNull: Boolean = null ne any
 
   // -----------------------------------------------------------------------------------------------------------------
 
-  def ?!(t: => T): T = o match {
+  def ?!(t: => T): T = any match {
     case null => t
-    case _ => o
+    case _ => any
   }
 
-  def defaultIfNull(t: => T): T = o ?! t
+  def defaultIfNull(t: => T): T = any ?! t
 
 }
