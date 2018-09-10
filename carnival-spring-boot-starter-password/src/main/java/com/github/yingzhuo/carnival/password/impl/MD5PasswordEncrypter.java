@@ -17,9 +17,19 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class MD5PasswordEncrypter implements PasswordEncrypter {
 
+    private final String salt;
+
+    public MD5PasswordEncrypter() {
+        this("");
+    }
+
+    public MD5PasswordEncrypter(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String encrypt(String password) {
-        return DigestUtils.md5Hex(password);
+        return DigestUtils.md5Hex(salt + password);
     }
 
 }

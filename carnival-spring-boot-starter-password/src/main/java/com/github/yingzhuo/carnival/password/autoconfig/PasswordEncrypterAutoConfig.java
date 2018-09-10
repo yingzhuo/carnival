@@ -27,26 +27,20 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class PasswordEncrypterAutoConfig {
 
-    private final Props props;
-
-    public PasswordEncrypterAutoConfig(Props props) {
-        this.props = props;
-    }
-
     @Bean
     @ConditionalOnMissingBean
-    public PasswordEncrypter passwordEncrypter() {
+    public PasswordEncrypter passwordEncrypter(Props props) {
         switch (props.getAlgorithm()) {
             case MD5:
-                return new MD5PasswordEncrypter();
+                return new MD5PasswordEncrypter(props.getMd5Salt());
             case BCRYPT:
                 return new BCryptPasswordEncrypter();
             case MD2:
-                return new MD2PasswordEncrypter();
+                return new MD2PasswordEncrypter(props.getMd2Salt());
             case SHA1:
-                return new SHA1PasswordEncrypter();
+                return new SHA1PasswordEncrypter(props.getSha1Salt());
             case SHA256:
-                return new SHA256PasswordEncrypter();
+                return new SHA256PasswordEncrypter(props.getSha256Salt());
             case AES:
                 return new AesPasswordEncrypter();
             case BASE64:
@@ -62,6 +56,10 @@ public class PasswordEncrypterAutoConfig {
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.MD5;
+        private String md5Salt = "";
+        private String md2Salt = "";
+        private String sha1Salt = "";
+        private String sha256Salt = "";
     }
 
 }

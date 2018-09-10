@@ -17,9 +17,19 @@ import org.apache.commons.codec.digest.DigestUtils;
  */
 public class SHA256PasswordEncrypter implements PasswordEncrypter {
 
+    private final String salt;
+
+    public SHA256PasswordEncrypter() {
+        this("");
+    }
+
+    public SHA256PasswordEncrypter(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public String encrypt(String password) {
-        return DigestUtils.sha256Hex(password);
+        return DigestUtils.sha256Hex(salt + password);
     }
 
 }
