@@ -30,10 +30,18 @@ public final class StringUtils {
                 .allMatch(Character::isWhitespace);
     }
 
+    public static boolean isNotBlank(String string) {
+        return !isBlank(string);
+    }
+
     public static boolean isEmpty(String string) {
         if (string == null) return true;
 
         return string.isEmpty();
+    }
+
+    public static boolean isNotEmpty(String string) {
+        return !isEmpty(string);
     }
 
     public static String nullToEmpty(String string) {

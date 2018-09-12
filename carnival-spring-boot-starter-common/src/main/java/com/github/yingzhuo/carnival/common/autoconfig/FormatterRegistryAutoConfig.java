@@ -10,25 +10,27 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.datamodel.*;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Optional;
 
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication
-public class FormatterRegistryAutoConfig implements WebMvcConfigurer {
+public class FormatterRegistryAutoConfig {
 
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new BooleanFormat());
-        registry.addFormatter(new Gender.GenderFormatter());
-        registry.addFormatter(new Color.ColorFormatter());
-        registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new TrimFormat.FormatterFactory());
+    @Autowired(required = false)
+    public void config(FormatterRegistry registry) {
+        Optional.ofNullable(registry).ifPresent(x -> {
+            x.addFormatter(new BooleanFormat());
+            x.addFormatter(new Gender.GenderFormatter());
+            x.addFormatter(new Color.ColorFormatter());
+            x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
+            x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
+            x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
+            x.addFormatterForFieldAnnotation(new TrimFormat.FormatterFactory());
+        });
     }
 
 }
