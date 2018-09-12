@@ -9,17 +9,15 @@
  */
 package com.github.yingzhuo.carnival.exception.impl;
 
+import com.github.yingzhuo.carnival.common.io.ini.Ini;
 import com.github.yingzhuo.carnival.exception.BusinessException;
 import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.ini4j.Ini;
+import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * @author 应卓
@@ -42,15 +40,7 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        int firstDot = code.indexOf(".");
-        if (firstDot == -1) {
-            throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
-        }
-
-        String section = code.substring(0, firstDot);
-        String option = code.substring(firstDot + 1, code.length());
-
-        final String message = ini.get(section, option, String.class);
+        final String message = ini.get(code);
 
         if (!StringUtils.hasText(message)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
@@ -62,14 +52,12 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
     @Override
     public void afterPropertiesSet() throws Exception {
         log.debug("ini-location: {}", location);
-        final InputStream inputStream = resourceLoader.getResource(location).getInputStream();
-        this.ini = new Ini(inputStream);
+        val resource = resourceLoader.getResource(location);
+        this.ini = new Ini(resource);
+    }
 
-        try {
-            inputStream.close();
-        } catch (IOException e) {
-            // NOP
-        }
+    public Ini getIni() {
+        return ini;
     }
 
 }
