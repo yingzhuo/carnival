@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -24,18 +23,14 @@ import java.util.stream.Collectors;
 /**
  * @author 应卓
  */
-public final class Ini implements Map<String, String>, Iterable<Map.Entry<String, String>>, Serializable {
-
-    private static final long serialVersionUID = -4908520993640111148L;
+public final class Ini implements Map<String, String>, Iterable<Map.Entry<String, String>> {
 
     private final Map<String, String> delegate;
-    private final List<String> options;
     private final List<String> sections;
 
     public Ini(Resource resource) {
 
         val _sections = new LinkedList<String>();
-        val _options = new LinkedList<String>();
         val _delegate = new TreeMap<String, String>();
 
         try {
@@ -46,6 +41,7 @@ public final class Ini implements Map<String, String>, Iterable<Map.Entry<String
                     .collect(Collectors.toList());
 
             String section = null;
+
 
             for (final String line : lines) {
                 if (line.startsWith("[") && line.endsWith("]")) {
@@ -62,14 +58,12 @@ public final class Ini implements Map<String, String>, Iterable<Map.Entry<String
                         val option = optionAndValue[0].trim();
                         val value = optionAndValue[1].trim();
 
-                        _options.add(option);
                         _delegate.put(section + "." + option, value);
                     }
                 }
             }
 
             delegate = Collections.unmodifiableMap(_delegate);
-            options = Collections.unmodifiableList(_options);
             sections = Collections.unmodifiableList(_sections);
 
             try {
@@ -88,12 +82,6 @@ public final class Ini implements Map<String, String>, Iterable<Map.Entry<String
     public List<String> getSections() {
         return this.sections;
     }
-
-    public List<String> getOptions() {
-        return this.options;
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------
 
     @Override
     public Iterator<Entry<String, String>> iterator() {
@@ -172,5 +160,4 @@ public final class Ini implements Map<String, String>, Iterable<Map.Entry<String
     public int hashCode() {
         return Objects.hash(delegate);
     }
-
 }
