@@ -26,9 +26,10 @@ public class FormatterRegistryAutoConfig {
             x.addFormatter(new BooleanFormat());
             x.addFormatter(new Gender.GenderFormatter());
             x.addFormatter(new Color.ColorFormatter());
+            x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
+            x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
-            x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new TrimFormat.FormatterFactory());
         });
     }
