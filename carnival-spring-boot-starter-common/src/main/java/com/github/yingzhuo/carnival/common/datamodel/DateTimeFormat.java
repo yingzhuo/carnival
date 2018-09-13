@@ -9,15 +9,15 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
+import lombok.val;
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
 
 import java.lang.annotation.*;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 应卓
@@ -44,19 +44,37 @@ public @interface DateTimeFormat {
     };
 
     public static class FormatterFactory implements AnnotationFormatterFactory<DateTimeFormat> {
+
+        private static final Set<Class<?>> FIELD_TYPES;
+
+        static {
+            val types = new HashSet<Class<?>>();
+            types.add(Date.class);
+            types.add(Calendar.class);
+            FIELD_TYPES = Collections.unmodifiableSet(types);
+        }
+
         @Override
         public Set<Class<?>> getFieldTypes() {
-            return Collections.singleton(Date.class);
+            return FIELD_TYPES;
         }
 
         @Override
         public Printer<?> getPrinter(DateTimeFormat annotation, Class<?> fieldType) {
-            return (Printer<Date>) (date, locale) -> date == null ? "null" : date.toString();
+            return (date, locale) -> date == null ? "null" : date.toString();
         }
 
         @Override
         public Parser<?> getParser(DateTimeFormat annotation, Class<?> fieldType) {
-            return (Parser<Date>) (text, locale) -> DateUtils.parseDate(text, annotation.patterns());
+            return (text, locale) -> {
+                val date = DateUtils.parseDate(text, annotation.patterns());
+
+                if (ClassUtils.isAssignable(fieldType, Date.class)) {
+                    return date;
+                } else {
+                    return DateUtils.toCalendar(date);
+                }
+            };
         }
     }
 
