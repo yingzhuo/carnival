@@ -23,7 +23,7 @@ import java.util.Set;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface IntCurrencyFormat {
 
     public int value() default 2;

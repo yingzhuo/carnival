@@ -20,7 +20,7 @@ import java.util.Set;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface TrimFormat {
 
     public static class FormatterFactory implements AnnotationFormatterFactory<TrimFormat> {

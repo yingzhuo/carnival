@@ -25,7 +25,7 @@ import java.util.Set;
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface DateTimeFormat {
 
     public String[] patterns() default {
