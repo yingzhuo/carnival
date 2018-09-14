@@ -70,7 +70,6 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
             return true;
         }
 
-
         val handlerMethod = (HandlerMethod) handler;
         AuthenticationComponent ac = cache1.get(handlerMethod.getMethod());
         Annotation annotation = cache2.get(handlerMethod.getMethod());
@@ -80,8 +79,8 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
         }
 
         val results = getAuthenticationResults(request, response, handler);
-
         val op = userDetailsVoter.vote(results);
+
         RestfulSecurityContext.setUserDetails(op.orElse(null));
 
         if (ac != null) {
@@ -117,8 +116,7 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
 
             cache1 = Collections.unmodifiableMap(map1);
             cache2 = Collections.unmodifiableMap(map2);
-
-            this.initialized = true;
+            initialized = true;
         }
     }
 
