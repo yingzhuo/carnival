@@ -20,8 +20,8 @@ private[spring] class RichStringAsProfile(profile: String) {
 
   def isActiveAsProfile: Boolean = ProfileUtils.allActive(profile)
 
-  def ifActiveAsProfile[U](f: String => U): Unit = {
-    if (ProfileUtils.allActive(profile)) f.apply(profile)
+  def ifActiveAsProfile[U](f: => U): Unit = {
+    if (ProfileUtils.allActive(profile)) f
   }
 
 }

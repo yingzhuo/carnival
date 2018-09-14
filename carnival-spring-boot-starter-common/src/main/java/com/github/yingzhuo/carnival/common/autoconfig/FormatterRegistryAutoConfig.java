@@ -24,8 +24,6 @@ public class FormatterRegistryAutoConfig {
     public void config(FormatterRegistry registry) {
         Optional.ofNullable(registry).ifPresent(x -> {
             x.addFormatter(new BooleanFormat());
-            x.addFormatter(new Gender.GenderFormatter());
-            x.addFormatter(new Color.ColorFormatter());
             x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
