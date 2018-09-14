@@ -18,7 +18,7 @@ import java.util.Objects;
  *
  * @author 应卓
  */
-public class OneBasedPageNumberPageWrapper<T> extends PageWrapper<T> {
+public class OneBasedPageNumberPageWrapper<T> extends PageWrapper<T> implements Page<T> {
 
     public static <T> Page<T> of(Page<T> page) {
         return new OneBasedPageNumberPageWrapper<>(Objects.requireNonNull(page));

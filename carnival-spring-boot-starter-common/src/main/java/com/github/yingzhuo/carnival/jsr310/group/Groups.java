@@ -22,5 +22,7 @@ public interface Groups {
     public static interface F {}
     public static interface G {}
     public static interface H {}
+    public static interface I {}
+    public static interface K {}
 
 }

@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import org.springframework.beans.factory.annotation.Autowired
 
+/**
+  * @author 应卓
+  */
 class ScalaSpringAutoCnf {
 
   @Autowired(required = false)
