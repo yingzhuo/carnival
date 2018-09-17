@@ -116,4 +116,5 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
     public void setSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
         this.signatureAlgorithm = signatureAlgorithm;
     }
+
 }

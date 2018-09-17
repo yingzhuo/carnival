@@ -59,7 +59,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
     }
 
     @Override
-    public Optional<UserDetails> loadUserDetails(Token token) {
+    public final Optional<UserDetails> loadUserDetails(Token token) {
 
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();

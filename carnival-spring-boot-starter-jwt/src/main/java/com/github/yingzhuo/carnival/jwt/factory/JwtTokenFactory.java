@@ -15,6 +15,7 @@ package com.github.yingzhuo.carnival.jwt.factory;
 @FunctionalInterface
 public interface JwtTokenFactory extends TokenFactory<JwtTokenInfo, String> {
 
+    @Override
     public String create(JwtTokenInfo entity);
 
 }

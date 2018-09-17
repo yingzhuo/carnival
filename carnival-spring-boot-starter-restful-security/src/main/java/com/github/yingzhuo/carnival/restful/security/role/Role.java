@@ -10,15 +10,16 @@
 package com.github.yingzhuo.carnival.restful.security.role;
 
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 角色
  *
  * @author 应卓
  * @see UserDetails
- * @since 0.0.1
  */
 public interface Role extends Serializable {
 
@@ -27,5 +28,24 @@ public interface Role extends Serializable {
     }
 
     public String getName();
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @ToString
+    public static final class SimpleRole implements Role {
+
+        private static final long serialVersionUID = 2563135365649264127L;
+
+        private final String name;
+
+        public SimpleRole(String name) {
+            this.name = Objects.requireNonNull(name);
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
 
 }

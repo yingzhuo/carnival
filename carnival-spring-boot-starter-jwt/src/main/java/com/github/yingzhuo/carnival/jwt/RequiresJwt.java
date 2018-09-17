@@ -23,6 +23,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
 @Requires(RequiresJwt.AuthComponent.class)
 public @interface RequiresJwt {
 

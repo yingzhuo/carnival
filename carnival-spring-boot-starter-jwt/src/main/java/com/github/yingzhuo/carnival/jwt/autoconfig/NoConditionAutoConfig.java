@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.jwt.autoconfig;
 
 import com.github.yingzhuo.carnival.jwt.RequiresJwt;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
@@ -18,6 +19,7 @@ import org.springframework.context.annotation.Primary;
 /**
  * @author 应卓
  */
+@ConditionalOnWebApplication
 @EnableConfigurationProperties(JwtProps.class)
 public class NoConditionAutoConfig {
 

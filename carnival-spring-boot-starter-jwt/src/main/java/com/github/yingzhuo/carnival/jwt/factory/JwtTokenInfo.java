@@ -41,6 +41,8 @@ public class JwtTokenInfo {
         return new Builder();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static class Builder {
         private String keyId;
         private String issuer;

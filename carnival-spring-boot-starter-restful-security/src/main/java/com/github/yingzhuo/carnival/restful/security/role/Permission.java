@@ -10,15 +10,16 @@
 package com.github.yingzhuo.carnival.restful.security.role;
 
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * 权限
  *
  * @author 应卓
  * @see UserDetails
- * @since 0.0.1
  */
 public interface Permission extends Serializable {
 
@@ -27,5 +28,24 @@ public interface Permission extends Serializable {
     }
 
     public String getName();
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @ToString
+    public static final class SimplePermission implements Permission {
+
+        private static final long serialVersionUID = -7421422978387481040L;
+
+        private final String name;
+
+        public SimplePermission(String name) {
+            this.name = Objects.requireNonNull(name);
+        }
+
+        @Override
+        public String getName() {
+            return name;
+        }
+    }
 
 }
