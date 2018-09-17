@@ -28,6 +28,7 @@ public final class RestfulSecurityContext {
      * 私有构造
      */
     private RestfulSecurityContext() {
+        super();
     }
 
     public static Optional<Token> getToken() {

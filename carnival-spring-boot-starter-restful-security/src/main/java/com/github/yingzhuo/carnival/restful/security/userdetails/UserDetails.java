@@ -154,7 +154,13 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
+        @Deprecated
         public Builder putPayload(String name, Object value) {
+            ud.putPayload(name, value);
+            return this;
+        }
+
+        public Builder payload(String name, Object value) {
             ud.putPayload(name, value);
             return this;
         }

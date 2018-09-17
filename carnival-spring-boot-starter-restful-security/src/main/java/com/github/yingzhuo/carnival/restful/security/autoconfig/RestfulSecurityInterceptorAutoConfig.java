@@ -18,6 +18,7 @@ import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityChainIn
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.voter.UserDetailsVoter;
@@ -115,6 +116,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new RestfulSecurityHandlerMethodArgumentResolver());
+        argumentResolvers.add(new UserDetailsPropertyHandlerMethodArgumentResolver());
     }
 
 }
