@@ -20,6 +20,6 @@ import java.lang.annotation.*;
 @Target(ElementType.PARAMETER)
 public @interface UserDetailsProperty {
 
-    public String value() default "#root";
+    public String value() default "";
 
 }

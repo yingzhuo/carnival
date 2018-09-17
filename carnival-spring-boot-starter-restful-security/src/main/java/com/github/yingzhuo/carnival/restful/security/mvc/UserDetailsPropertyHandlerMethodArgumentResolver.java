@@ -34,11 +34,17 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
         val property = parameter.getParameterAnnotation(UserDetailsProperty.class).value();
         val userDetails = RestfulSecurityContext.getUserDetails().orElse(null);
 
-        if ("#root".equals(property)) {
+        if ("".equals(property)) {
             return userDetails;
         } else {
             if (userDetails != null) {
-                return new BeanWrapperImpl(userDetails).getPropertyValue(property);
+
+                try {
+                    return new BeanWrapperImpl(userDetails).getPropertyValue(property);
+                } catch (Throwable e) {
+                    return null;
+                }
+
             } else {
                 return null;
             }
