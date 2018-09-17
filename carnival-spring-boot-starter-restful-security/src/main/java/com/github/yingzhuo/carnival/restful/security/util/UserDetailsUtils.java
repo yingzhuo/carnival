@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.restful.security.util;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
+import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.beans.BeansException;
 
 import java.util.*;
 
@@ -146,6 +148,7 @@ public final class UserDetailsUtils {
      *
      * @param name 名称
      * @param <T>  数据类型
+     * @return 数据
      */
     public static <T> T getPayloadItem(String name) {
         return (T) getPayload().get(name);
@@ -157,10 +160,45 @@ public final class UserDetailsUtils {
      * @param name         名称
      * @param <T>          数据类型
      * @param defaultValue 默认值
+     * @return 数据
      */
     public static <T> T getPayloadItem(String name, T defaultValue) {
         final T t = getPayloadItem(name);
         return t != null ? t : defaultValue;
+    }
+
+    /**
+     * 通过表达式获取UserDetails中的对象
+     *
+     * @param propertyName 表达式
+     * @param <T>          数据类型
+     * @return 数据
+     */
+    public static <T> T getProperty(String propertyName) {
+        return getProperty(propertyName, null);
+    }
+
+    /**
+     * 通过表达式获取UserDetails中的对象
+     *
+     * @param propertyName 表达式
+     * @param defaultValue 默认值
+     * @param <T>          数据类型
+     * @return 数据
+     */
+    public static <T> T getProperty(String propertyName, T defaultValue) {
+        final UserDetails userDetails = get();
+
+        if (userDetails == null) {
+            return defaultValue;
+        }
+
+        try {
+            T result = (T) new BeanWrapperImpl(userDetails).getPropertyValue(propertyName);
+            return result != null ? result : defaultValue;
+        } catch (BeansException e) {
+            return defaultValue;
+        }
     }
 
 }

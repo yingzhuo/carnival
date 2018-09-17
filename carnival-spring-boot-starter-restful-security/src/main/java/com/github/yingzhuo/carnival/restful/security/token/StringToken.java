@@ -9,12 +9,13 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-public class StringToken implements Token {
+public class StringToken implements Token, Serializable {
 
     private static final long serialVersionUID = 5201948233147060904L;
     private final String value;
@@ -31,6 +32,10 @@ public class StringToken implements Token {
         return value;
     }
 
+    public final int length() {
+        return value.length();
+    }
+
     @Override
     public String toString() {
         return getValue();
@@ -40,9 +45,7 @@ public class StringToken implements Token {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         StringToken that = (StringToken) o;
-
         return value.equals(that.value);
     }
 

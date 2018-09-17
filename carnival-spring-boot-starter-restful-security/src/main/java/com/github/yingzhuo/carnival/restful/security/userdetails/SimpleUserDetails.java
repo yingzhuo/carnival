@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -23,12 +24,12 @@ import java.util.Map;
  *
  * @author 应卓
  * @see UserDetails
- * @since 0.0.1
  */
 @ToString
-public final class SimpleUserDetails implements UserDetails {
+public class SimpleUserDetails implements UserDetails, Serializable {
 
     private static final long serialVersionUID = 7811607048302332880L;
+
     private final Map<String, Object> payload = new HashMap<>(0);
     private Object id = null;
     private String username = null;

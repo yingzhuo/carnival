@@ -17,6 +17,7 @@ public class TokenNotFoundException extends InvalidTokenException {
     private static final long serialVersionUID = -4328476214544693972L;
 
     public TokenNotFoundException() {
+        super();
     }
 
     public TokenNotFoundException(String message) {

@@ -11,10 +11,12 @@ package com.github.yingzhuo.carnival.restful.security.token;
 
 import lombok.val;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  */
-public class UsernamePasswordToken implements Token {
+public class UsernamePasswordToken implements Token, Serializable {
 
     private static final long serialVersionUID = 3217442894344389575L;
 

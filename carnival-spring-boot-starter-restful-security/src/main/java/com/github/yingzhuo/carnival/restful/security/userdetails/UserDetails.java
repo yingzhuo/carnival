@@ -14,10 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -154,14 +151,12 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        @Deprecated
-        public Builder putPayload(String name, Object value) {
-            ud.putPayload(name, value);
-            return this;
-        }
-
         public Builder payload(String name, Object value) {
-            ud.putPayload(name, value);
+            ud.putPayload(
+                    Objects.requireNonNull(name),
+                    Objects.requireNonNull(value)
+            );
+
             return this;
         }
 

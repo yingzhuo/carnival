@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓
+ * @see RestfulSecurityException
  */
 public class UnsupportedTokenTypeException extends RestfulSecurityException {
 
