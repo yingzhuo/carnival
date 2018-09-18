@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
-import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
-import com.github.yingzhuo.carnival.restful.security.RequiresPermissions;
-import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
+import com.github.yingzhuo.carnival.restful.security.*;
 import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
@@ -59,6 +56,12 @@ public class RestfulSecurityAutoConfig {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @Primary
+    public RequiresAdult.AuthComponent requiresAdultAuthenticationComponent() {
+        return new RequiresAdult.AuthComponent();
+    }
 
     @Bean
     @Primary

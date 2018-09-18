@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.jwt.token;
 
 import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
+import lombok.val;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Locale;
@@ -33,7 +34,20 @@ public class JwtTokenParser extends HttpHeaderTokenParser {
 
     @Override
     public Optional<Token> parse(NativeWebRequest request, Locale locale) {
-        return super.parse(request, locale).map(t -> new JwtToken(t.toString()));
+        val op = super.parse(request, locale);
+
+        if (op.isPresent()) {
+            val tokenValue = op.get().toString();
+            val parts = tokenValue.split("\\.");
+
+            if (parts.length != 3) {
+                return Optional.empty();
+            } else {
+                return Optional.of(new JwtToken(tokenValue));
+            }
+        }
+
+        return Optional.empty();
     }
 
 }

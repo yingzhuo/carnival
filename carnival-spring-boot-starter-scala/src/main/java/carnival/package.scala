@@ -8,7 +8,7 @@
  * https://github.com/yingzhuo/carnival
  */
 
-import java.util.{Optional => JOption}
+import java.util.{Calendar, Date, Optional => JOption}
 
 import scala.language.{implicitConversions, reflectiveCalls}
 import scala.util.Try
@@ -41,6 +41,10 @@ package object carnival {
   implicit def string2NullableRich(s: String): RichNullableString = new RichNullableString(s)
 
   implicit def enumCls2Rich[E <: Enum[E]](enumType: Class[E]): RichEnumClass[E] = new RichEnumClass[E](enumType)
+
+  implicit def date2Rich(date: Date): RichDate = new RichDate(date)
+
+  implicit def calendar2Rich(calendar: Calendar): RichCalendar = new RichCalendar(calendar)
 
   implicit def closeable2Rich[C <: {def close() : Unit}](c: C): RichCloseable[C] = new RichCloseable[C](c)
 

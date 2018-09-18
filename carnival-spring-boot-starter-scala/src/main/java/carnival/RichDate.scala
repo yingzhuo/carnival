@@ -16,11 +16,14 @@ import org.apache.commons.lang3.time.{DateFormatUtils, DateUtils}
 /**
   * @author 应卓
   */
-private[carnival] class RichDate(date: Date) {
+private[carnival] class RichDate(date: Date) extends Ordered[Date] {
 
   assert(date != null)
 
+  override def compare(that: Date): Int = date compareTo that
+
   // -----------------------------------------------------------------------------------------------------------------
+
 
   def toCalendar: Calendar = DateUtils.toCalendar(date)
 

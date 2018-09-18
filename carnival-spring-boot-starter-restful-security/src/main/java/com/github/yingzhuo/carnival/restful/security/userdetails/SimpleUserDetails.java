@@ -14,10 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * UserDetails简单实现
@@ -34,6 +31,7 @@ public class SimpleUserDetails implements UserDetails, Serializable {
     private Object id = null;
     private String username = null;
     private String password = null;
+    private Date dob = null;
     private boolean expired = false;
     private boolean locked = false;
     private Collection<Role> roles = Collections.emptyList();
@@ -101,6 +99,15 @@ public class SimpleUserDetails implements UserDetails, Serializable {
 
     public void setPermissions(Collection<Permission> permissions) {
         this.permissions = permissions;
+    }
+
+    @Override
+    public Date getDateOfBirth() {
+        return dob;
+    }
+
+    public void setDateOfBirth(Date dob) {
+        this.dob = dob;
     }
 
     @Override

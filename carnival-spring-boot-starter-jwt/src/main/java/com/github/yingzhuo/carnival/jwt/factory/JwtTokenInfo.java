@@ -9,17 +9,23 @@
  */
 package com.github.yingzhuo.carnival.jwt.factory;
 
+import com.github.yingzhuo.carnival.jwt.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
  */
 @Getter
 @Setter
-public class JwtTokenInfo {
+public class JwtTokenInfo implements Serializable {
+
+    private static final long serialVersionUID = -846791671276090816L;
 
     // Public Claims (Header)
     private String keyId;
@@ -35,6 +41,27 @@ public class JwtTokenInfo {
 
     private JwtTokenInfo() {
         super();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JwtTokenInfo that = (JwtTokenInfo) o;
+        return Objects.equals(keyId, that.keyId) &&
+                Objects.equals(issuer, that.issuer) &&
+                Objects.equals(subject, that.subject) &&
+                Objects.equals(audience, that.audience) &&
+                Objects.equals(expiresAt, that.expiresAt) &&
+                Objects.equals(notBefore, that.notBefore) &&
+                Objects.equals(issuedAt, that.issuedAt) &&
+                Objects.equals(jwtId, that.jwtId) &&
+                Objects.equals(privateClaims, that.privateClaims);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(keyId, issuer, subject, audience, expiresAt, notBefore, issuedAt, jwtId, privateClaims);
     }
 
     public static Builder builder() {
@@ -63,6 +90,10 @@ public class JwtTokenInfo {
             return this;
         }
 
+        public Builder keyId(Supplier<String> supplier) {
+            return keyId(supplier.get());
+        }
+
         public Builder issuer(String issuer) {
             this.issuer = issuer;
             return this;
@@ -78,6 +109,10 @@ public class JwtTokenInfo {
             return this;
         }
 
+        public Builder audience(String... audience) {
+            return audience(Arrays.asList(audience));
+        }
+
         public Builder audience(String audience) {
             List<String> list = new ArrayList<>(1);
             list.add(audience);
@@ -89,9 +124,27 @@ public class JwtTokenInfo {
             return this;
         }
 
+        public Builder expiresAtFuture(int duration, TimeUnit timeUnit) {
+            return expiresAt(DateUtils.afterNow(duration, timeUnit));
+        }
+
+        @Deprecated
+        public Builder expiresAtPast(int duration, TimeUnit timeUnit) {
+            return expiresAt(DateUtils.beforeNow(duration, timeUnit));
+        }
+
         public Builder notBefore(Date notBefore) {
             this.notBefore = notBefore;
             return this;
+        }
+
+        public Builder notBeforeFuture(int duration, TimeUnit timeUnit) {
+            return notBefore(DateUtils.afterNow(duration, timeUnit));
+        }
+
+        @Deprecated
+        public Builder notBeforePast(int duration, TimeUnit timeUnit) {
+            return notBefore(DateUtils.beforeNow(duration, timeUnit));
         }
 
         public Builder issuedAt(Date issuedAt) {
@@ -99,8 +152,17 @@ public class JwtTokenInfo {
             return this;
         }
 
+        public Builder issuedAtNow() {
+            return issuedAt(new Date());
+        }
+
         public Builder jwtId(String jwtId) {
+            this.jwtId = jwtId;
             return this;
+        }
+
+        public Builder jwtId(Supplier<String> supplier) {
+            return jwtId(supplier.get());
         }
 
         public Builder putPrivateClaim(String key, Boolean value) {
@@ -146,6 +208,7 @@ public class JwtTokenInfo {
 
         public JwtTokenInfo build() {
             JwtTokenInfo info = new JwtTokenInfo();
+            info.jwtId = this.jwtId;
             info.keyId = this.keyId;
             info.issuer = this.issuer;
             info.subject = this.subject;
@@ -157,4 +220,5 @@ public class JwtTokenInfo {
             return info;
         }
     }
+
 }

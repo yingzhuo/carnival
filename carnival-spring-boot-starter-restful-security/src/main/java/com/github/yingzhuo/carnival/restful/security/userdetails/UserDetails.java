@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.userdetails;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -30,6 +31,8 @@ public interface UserDetails extends Serializable {
     public Object getId();
 
     public String getUsername();
+
+    public Date getDateOfBirth();
 
     public String getPassword();
 
@@ -106,6 +109,23 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
+        public Builder dateOfBirth(Date date) {
+            ud.setDateOfBirth(date);
+            return this;
+        }
+
+        public Builder dateOfBirth(Supplier<Date> supplier) {
+            return dateOfBirth(supplier.get());
+        }
+
+        public Builder dateOfBirth(int year, int month, int day) {
+            val date = new Date();
+            DateUtils.setYears(date, year);
+            DateUtils.setMonths(date, month);
+            DateUtils.setDays(date, day);
+            return dateOfBirth(date);
+        }
+
         public Builder expired(boolean expired) {
             ud.setExpired(expired);
             return this;
@@ -163,7 +183,6 @@ public interface UserDetails extends Serializable {
         public UserDetails build() {
             return ud;
         }
-
     }
 
 }
