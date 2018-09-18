@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.jsr310;
 
+import lombok.val;
+import lombok.var;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.nio.CharBuffer;
@@ -21,7 +24,7 @@ import java.util.stream.Collectors;
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     private Password.Complexity complexity;
-    private Set<String> specialChars;
+    private Set<Character> specialChars;
     private int minLength;
     private int maxLength;
 
@@ -30,41 +33,71 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         this.complexity = annotation.complexity();
         this.minLength = annotation.minLength();
         this.maxLength = annotation.maxLength();
-        this.specialChars = CharBuffer.wrap(annotation.specialChars()).chars().mapToObj(ch -> String.valueOf((char) ch)).collect(Collectors.toSet());
+        this.specialChars = CharBuffer.wrap(annotation.specialChars()).chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
     }
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-        if (password == null) return true;
+
+        if (password == null) {
+            return true;
+        }
 
         final int len = password.length();
-        if (len < minLength || len > maxLength) return false;
+        if (len < minLength || len > maxLength) {
+            return false;
+        }
 
         if (complexity == Password.Complexity.ANY) {
             return true;
         }
 
+        val chars = CharBuffer.wrap(password).chars().toArray();
+        var hasNumeric = false;
+        var hasAlphabetic = false;
+        var hasUpper = false;
+        var hasLower = false;
+        var hasSpecial = false;
+
+        for (int ch : chars) {
+
+            if ('a' <= ch && ch <= 'z') {
+                hasAlphabetic = true;
+                hasLower = true;
+            }
+
+            if ('A' <= ch && ch <= 'Z') {
+                hasAlphabetic = true;
+                hasUpper = true;
+            }
+
+            if ('0' <= ch && ch <= '9') {
+                hasNumeric = true;
+            }
+
+            if (specialChars.stream().anyMatch(i -> i == ch)) {
+                hasSpecial = true;
+            }
+        }
+
         if (complexity == Password.Complexity.NUMERIC) {
-            return password.matches(".*[0-9]+.*");
+            return hasNumeric;
         }
 
         if (complexity == Password.Complexity.ALPHABETIC) {
-            return password.matches(".*[a-zA-Z]+.*");
+            return hasAlphabetic;
         }
 
         if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC) {
-            return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*");
+            return hasAlphabetic && hasNumeric;
         }
 
         if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS) {
-            return password.matches(".*[a-zA-Z]+.*") && password.matches(".*[0-9]+.*") && specialChars.stream().anyMatch(password::contains);
+            return hasAlphabetic && hasNumeric && hasSpecial;
         }
 
         if (complexity == Password.Complexity.LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS) {
-            return password.matches(".*[a-z]+.*") &&
-                    password.matches(".*[A-Z]+.*") &&
-                    password.matches(".*[0-9]+.*") &&
-                    specialChars.stream().anyMatch(password::contains);
+            return hasLower && hasUpper && hasNumeric && hasSpecial;
         }
 
         return true;
