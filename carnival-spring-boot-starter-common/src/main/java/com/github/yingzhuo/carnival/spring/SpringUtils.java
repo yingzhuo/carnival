@@ -14,6 +14,8 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import java.util.List;
@@ -44,6 +46,15 @@ public final class SpringUtils {
 
     public static Environment getEnvironment() {
         return ENV;
+    }
+
+    public static ResourceLoader getResourceLoader() {
+        return AC;
+    }
+
+    public static ResourcePatternResolver getResourcePatternResolver() {
+        return AC;
+
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

@@ -58,7 +58,4 @@ private[carnival] class RichString(s: String) {
 
   def abbreviate(max: Int, abbrevMarker: String = "..."): String = StringUtils.abbreviate(s, abbrevMarker, max)
 
-  // -----------------------------------------------------------------------------------------------------------------
-
-
 }

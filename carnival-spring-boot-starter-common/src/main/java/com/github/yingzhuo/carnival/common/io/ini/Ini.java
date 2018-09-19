@@ -42,7 +42,6 @@ public final class Ini implements Map<String, String>, Iterable<Map.Entry<String
 
             String section = null;
 
-
             for (final String line : lines) {
                 if (line.startsWith("[") && line.endsWith("]")) {
                     section = line.substring(1, line.length() - 1);

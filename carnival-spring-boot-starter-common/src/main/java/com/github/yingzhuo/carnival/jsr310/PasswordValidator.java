@@ -9,14 +9,13 @@
  */
 package com.github.yingzhuo.carnival.jsr310;
 
+import com.github.yingzhuo.carnival.common.util.StringUtils;
 import lombok.val;
 import lombok.var;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.nio.CharBuffer;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -33,7 +32,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         this.complexity = annotation.complexity();
         this.minLength = annotation.minLength();
         this.maxLength = annotation.maxLength();
-        this.specialChars = CharBuffer.wrap(annotation.specialChars()).chars().mapToObj(ch -> (char) ch).collect(Collectors.toSet());
+        this.specialChars = StringUtils.toCharSet(annotation.specialChars());
     }
 
     @Override
@@ -48,11 +47,11 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return false;
         }
 
-        if (complexity == Password.Complexity.ANY) {
+        if (complexity == Password.Complexity.ANY || complexity == Password.Complexity.LEVEL0) {
             return true;
         }
 
-        val chars = CharBuffer.wrap(password).chars().toArray();
+        val chars = StringUtils.toCharSet(password);
         var hasNumeric = false;
         var hasAlphabetic = false;
         var hasUpper = false;
@@ -80,27 +79,25 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             }
         }
 
-        if (complexity == Password.Complexity.NUMERIC) {
-            return hasNumeric;
+        switch (complexity) {
+            case NUMERIC:
+            case LEVEL1:
+                return hasNumeric;
+            case ALPHABETIC:
+            case LEVEL2:
+                return hasAlphabetic;
+            case ALPHABETIC_AND_NUMERIC:
+            case LEVEL3:
+                return hasAlphabetic && hasNumeric;
+            case ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS:
+            case LEVEL4:
+                return hasAlphabetic && hasNumeric && hasSpecial;
+            case LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS:
+            case LEVEL5:
+                return hasLower && hasUpper && hasNumeric && hasSpecial;
+            default:
+                return true;
         }
-
-        if (complexity == Password.Complexity.ALPHABETIC) {
-            return hasAlphabetic;
-        }
-
-        if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC) {
-            return hasAlphabetic && hasNumeric;
-        }
-
-        if (complexity == Password.Complexity.ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS) {
-            return hasAlphabetic && hasNumeric && hasSpecial;
-        }
-
-        if (complexity == Password.Complexity.LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS) {
-            return hasLower && hasUpper && hasNumeric && hasSpecial;
-        }
-
-        return true;
     }
 
 }

@@ -65,4 +65,5 @@ public final class ResourceOption {
             Objects.requireNonNull(consumer).accept(get());
         }
     }
+
 }

@@ -10,23 +10,23 @@
 package com.github.yingzhuo.carnival.json.autoconfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.yingzhuo.carnival.json.module.SpringDataModule;
+import com.github.yingzhuo.carnival.json.module.SpringDataJacksonModule;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+
+import java.util.Optional;
 
 /**
  * @author 应卓
  */
 @Slf4j
 @ConditionalOnClass(name = "org.springframework.data.domain.Page")
-public class SpringDataObjectMapperAutoConfig {
+public class JacksonModuleAutoConfig {
 
     @Autowired(required = false)
     public void config(ObjectMapper om) {
-        if (om != null) {
-            om.registerModule(new SpringDataModule());
-        }
+        Optional.ofNullable(om).ifPresent(it -> it.registerModule(new SpringDataJacksonModule()));
     }
 
 }

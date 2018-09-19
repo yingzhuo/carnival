@@ -7,12 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.json.module;
+package com.github.yingzhuo.carnival.json.module.jackson;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.data.domain.*;
 
 import java.util.Iterator;
@@ -22,28 +21,10 @@ import java.util.function.Function;
 /**
  * @author 应卓
  */
-public class SpringDataModule extends SimpleModule {
+@JsonDeserialize(as = PageMixIn.SimplePageImpl.class)
+public interface PageMixIn {
 
-    private static final long serialVersionUID = 4571012966222625271L;
-
-    public SpringDataModule() {
-        super();
-    }
-
-    @Override
-    public void setupModule(SetupContext context) {
-        super.setupModule(context);
-        context.setMixInAnnotations(Page.class, PageMixIn.class);
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------
-
-    @JsonDeserialize(as = SimplePageImpl.class)
-    private static interface PageMixIn {
-    }
-
-    private static class SimplePageImpl<T> implements Page<T> {
-
+    public static class SimplePageImpl<T> implements Page<T> {
         private final Page<T> delegate;
 
         public SimplePageImpl(
@@ -150,5 +131,4 @@ public class SpringDataModule extends SimpleModule {
             return delegate.iterator();
         }
     }
-
 }

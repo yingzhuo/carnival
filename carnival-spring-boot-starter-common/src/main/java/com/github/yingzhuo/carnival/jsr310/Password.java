@@ -56,9 +56,19 @@ public @interface Password {
         ANY,
 
         /**
+         * 无要求
+         */
+        LEVEL0,
+
+        /**
          * 数字 (0-9)
          */
         NUMERIC,
+
+        /**
+         * 数字 (0-9)
+         */
+        LEVEL1,
 
         /**
          * 字母 (a-z, A-Z)
@@ -66,9 +76,19 @@ public @interface Password {
         ALPHABETIC,
 
         /**
+         * 字母 (a-z, A-Z)
+         */
+        LEVEL2,
+
+        /**
          * 字母 + 数字 (a-z, A-Z, 0-9)
          */
         ALPHABETIC_AND_NUMERIC,
+
+        /**
+         * 字母 + 数字 (a-z, A-Z, 0-9)
+         */
+        LEVEL3,
 
         /**
          * 字母 + 数字 + 特殊字符
@@ -76,9 +96,19 @@ public @interface Password {
         ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS,
 
         /**
+         * 字母 + 数字 + 特殊字符
+         */
+        LEVEL4,
+
+        /**
          * 小写字母 + 大写字母 + 数字 + 特殊字符
          */
-        LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS
+        LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS,
 
+        /**
+         * 小写字母 + 大写字母 + 数字 + 特殊字符
+         */
+        LEVEL5
     }
+
 }
