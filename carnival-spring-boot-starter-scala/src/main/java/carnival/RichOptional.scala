@@ -16,7 +16,7 @@ import java.util.{Optional => JOption}
   */
 private[carnival] class RichOptional[T](op: JOption[T]) {
 
-  assert(op != null)
+  require(op != null)
 
   def asScala: Option[T] = if (op.isPresent) Some(op.get()) else None
 

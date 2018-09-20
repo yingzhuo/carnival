@@ -18,7 +18,7 @@ import org.apache.commons.lang3.time.{DateFormatUtils, DateUtils}
   */
 private[carnival] class RichDate(date: Date) extends Ordered[Date] {
 
-  assert(date != null)
+  require(date != null)
 
   override def compare(that: Date): Int = date compareTo that
 

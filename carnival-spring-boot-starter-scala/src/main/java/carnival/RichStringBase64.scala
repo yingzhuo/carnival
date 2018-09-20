@@ -13,9 +13,12 @@ import java.nio.charset.StandardCharsets
 
 import org.apache.commons.codec.binary.Base64
 
+/**
+  * @author 应卓
+  */
 private[carnival] class RichStringBase64(s: String) {
 
-  assert(s != null)
+  require(s != null)
 
   def encodeBase64(): String = Base64.encodeBase64String(s.getBytes(StandardCharsets.UTF_8))
 

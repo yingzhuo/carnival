@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils
   */
 private[carnival] class RichString(s: String) {
 
-  assert(s != null)
+  require(s != null)
 
   // -----------------------------------------------------------------------------------------------------------------
 

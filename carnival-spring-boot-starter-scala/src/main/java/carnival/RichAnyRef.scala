@@ -14,7 +14,7 @@ package carnival
   */
 private[carnival] class RichAnyRef[T <: AnyRef](o: T) {
 
-  assert(o != null)
+  require(o != null)
 
   // -----------------------------------------------------------------------------------------------------------------
 

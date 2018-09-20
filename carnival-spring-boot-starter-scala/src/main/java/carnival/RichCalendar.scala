@@ -16,7 +16,7 @@ import java.util.Calendar
   */
 private[carnival] class RichCalendar(calendar: Calendar) extends Ordered[Calendar] {
 
-  assert(calendar != null)
+  require(calendar != null)
 
   override def compare(that: Calendar): Int = calendar compareTo that
 

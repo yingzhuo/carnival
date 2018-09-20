@@ -16,7 +16,7 @@ import org.apache.commons.codec.digest.DigestUtils
   */
 private[carnival] class RichStringDigest(s: String) {
 
-  assert(s != null)
+  require(s != null)
 
   def md2(): String = DigestUtils.md2Hex(s)
 

@@ -12,23 +12,18 @@ package carnival
 /**
   * @author 应卓
   */
-private[carnival] class RichNullableAnyRef[T <: AnyRef](any: T) {
-
-  def option: Option[T] = Option(any)
+private[carnival] class RichStringNullable(s: String) {
 
   // -----------------------------------------------------------------------------------------------------------------
 
-  def isNull: Boolean = null eq any
-
-  def isNotNull: Boolean = null ne any
-
-  // -----------------------------------------------------------------------------------------------------------------
-
-  def ?!(t: => T): T = any match {
-    case null => t
-    case _ => any
+  def isNullOrEmpty: Boolean = s match {
+    case null => true
+    case x => x.isEmpty
   }
 
-  def defaultIfNull(t: => T): T = any ?! t
+  def isNullOrBlank: Boolean = s match {
+    case null => true
+    case x => x.isBlank
+  }
 
 }

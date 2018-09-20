@@ -16,6 +16,8 @@ import scala.util.{Failure, Success, Try}
   */
 private[carnival] class RichTry[T](t: Try[T]) {
 
+  require(t != null)
+
   def ifSuccess[U](f: T => U): Unit = t match {
     case Failure(_) =>
     case Success(x) => f(x)

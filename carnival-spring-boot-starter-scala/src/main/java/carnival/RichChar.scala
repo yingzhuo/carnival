@@ -14,6 +14,8 @@ package carnival
   */
 private[carnival] class RichChar(ch: Char) {
 
+//  require(ch != null)
+
   def isAlphabetic: Boolean = Character.isAlphabetic(ch)
 
   def isAlphabeticSpace: Boolean = ch.isAlphabetic || ch == ' '

@@ -16,7 +16,7 @@ import scala.annotation.tailrec
   */
 private[carnival] class RichThrowable[T <: Throwable](t: T) {
 
-  assert(t != null)
+  require(t != null)
 
   def getRoot: Throwable = {
 
@@ -27,6 +27,11 @@ private[carnival] class RichThrowable[T <: Throwable](t: T) {
     }
 
     doGetRoot(t)
+  }
+
+  def getMessageOrElse(default: => String): String = {
+    val msg = t.getMessage
+    if (msg.isNullOrBlank) default else msg
   }
 
 }

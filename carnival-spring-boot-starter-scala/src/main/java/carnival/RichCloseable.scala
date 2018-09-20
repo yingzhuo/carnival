@@ -17,7 +17,7 @@ import scala.util.Try
   */
 private[carnival] class RichCloseable[C <: {def close() : Unit}](c: C) {
 
-  assert(c != null)
+  require(c != null)
 
   def closeQuietly(): Unit = Try(c.close())
 

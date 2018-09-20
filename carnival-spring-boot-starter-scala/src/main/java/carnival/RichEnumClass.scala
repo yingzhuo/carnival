@@ -18,7 +18,7 @@ import scala.collection.JavaConverters._
   */
 private[carnival] class RichEnumClass[E <: Enum[E]](enumType: Class[E]) {
 
-  assert(enumType != null)
+  require(enumType != null)
 
   def getEnumConstants: Iterable[E] = enumType.getEnumConstants
 

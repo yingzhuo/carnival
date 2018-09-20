@@ -20,7 +20,7 @@ package object carnival {
 
   implicit def any2Rich[T <: AnyRef](o: T): RichAnyRef[T] = new RichAnyRef(o)
 
-  implicit def any2NullableRich[T <: AnyRef](o: T): RichNullableAnyRef[T] = new RichNullableAnyRef[T](o)
+  implicit def any2RichNullable[T <: AnyRef](o: T): RichAnyRefNullable[T] = new RichAnyRefNullable[T](o)
 
   implicit def try2Rich[T](t: Try[T]): RichTry[T] = new RichTry[T](t)
 
@@ -38,7 +38,7 @@ package object carnival {
 
   implicit def string2RichStringBase64(s: String): RichStringBase64 = new RichStringBase64(s)
 
-  implicit def string2NullableRich(s: String): RichNullableString = new RichNullableString(s)
+  implicit def string2RichNullable(s: String): RichStringNullable = new RichStringNullable(s)
 
   implicit def enumCls2Rich[E <: Enum[E]](enumType: Class[E]): RichEnumClass[E] = new RichEnumClass[E](enumType)
 
