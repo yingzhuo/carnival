@@ -8,6 +8,7 @@
  * https://github.com/yingzhuo/carnival
  */
 
+import java.io.File
 import java.util.{Calendar, Date, Optional => JOption}
 
 import scala.language.{implicitConversions, reflectiveCalls}
@@ -47,5 +48,7 @@ package object carnival {
   implicit def calendar2Rich(calendar: Calendar): RichCalendar = new RichCalendar(calendar)
 
   implicit def closeable2Rich[C <: {def close() : Unit}](c: C): RichCloseable[C] = new RichCloseable[C](c)
+
+  implicit def file2Rich(file: File): RichFile = new RichFile(file)
 
 }

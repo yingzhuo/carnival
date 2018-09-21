@@ -14,8 +14,6 @@ package carnival
   */
 private[carnival] class RichStringNullable(s: String) {
 
-  // -----------------------------------------------------------------------------------------------------------------
-
   def isNullOrEmpty: Boolean = s match {
     case null => true
     case x => x.isEmpty

@@ -18,6 +18,8 @@ private[carnival] class RichOptional[T](op: JOption[T]) {
 
   require(op != null)
 
+  def isAbsent: Boolean = !op.isPresent
+
   def asScala: Option[T] = if (op.isPresent) Some(op.get()) else None
 
 }
