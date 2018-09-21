@@ -13,7 +13,7 @@ import java.util.UUID
 
 import org.apache.commons.lang3.RandomStringUtils
 
-package object util {
+object Random {
 
   def uuid32(): String = uuid36().replaceAll("-", "")
 
