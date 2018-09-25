@@ -14,15 +14,25 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  *
  * @author 应卓
  * @see RestfulSecurityException
- * @see UserDetailsExpiredException
- * @see UserDetailsLockedException
  */
 public class AuthenticationException extends RestfulSecurityException {
 
     private static final long serialVersionUID = -6282965303632550788L;
 
+    public AuthenticationException() {
+        super();
+    }
+
     public AuthenticationException(String message) {
         super(message);
+    }
+
+    public AuthenticationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public AuthenticationException(Throwable cause) {
+        super(cause);
     }
 
 }

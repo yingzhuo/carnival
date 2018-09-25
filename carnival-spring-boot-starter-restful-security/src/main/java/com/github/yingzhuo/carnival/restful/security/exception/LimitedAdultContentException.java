@@ -12,12 +12,14 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 /**
  * @author 应卓
  */
-public class LimitedAdultContentException extends AuthenticationException {
+public class LimitedAdultContentException extends AuthorizationException {
 
     private static final long serialVersionUID = 8746181628579979929L;
+
+    public LimitedAdultContentException() {
+    }
 
     public LimitedAdultContentException(String message) {
         super(message);
     }
-
 }

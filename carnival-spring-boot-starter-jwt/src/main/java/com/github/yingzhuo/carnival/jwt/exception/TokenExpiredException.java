@@ -20,6 +20,7 @@ public class TokenExpiredException extends InvalidTokenException {
     private static final long serialVersionUID = -352484774992036785L;
 
     public TokenExpiredException() {
+        super();
     }
 
     public TokenExpiredException(String message) {
@@ -33,4 +34,5 @@ public class TokenExpiredException extends InvalidTokenException {
     public TokenExpiredException(Throwable cause) {
         super(cause);
     }
+
 }

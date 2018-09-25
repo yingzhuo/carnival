@@ -11,25 +11,24 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓
- * @see RestfulSecurityException
  */
-public class UnsupportedTokenTypeException extends AuthenticationException {
+public class TokenNotFoundException extends AuthenticationException {
 
-    private static final long serialVersionUID = -3898427217629257270L;
+    private static final long serialVersionUID = 4911243848873045716L;
 
-    public UnsupportedTokenTypeException() {
+    public TokenNotFoundException() {
         super();
     }
 
-    public UnsupportedTokenTypeException(String message) {
+    public TokenNotFoundException(String message) {
         super(message);
     }
 
-    public UnsupportedTokenTypeException(String message, Throwable cause) {
+    public TokenNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public UnsupportedTokenTypeException(Throwable cause) {
+    public TokenNotFoundException(Throwable cause) {
         super(cause);
     }
 }

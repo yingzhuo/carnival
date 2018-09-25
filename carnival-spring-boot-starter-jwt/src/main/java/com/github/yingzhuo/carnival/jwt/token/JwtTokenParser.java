@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jwt.token;
 
-import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
+import com.github.yingzhuo.carnival.restful.security.parser.BearerTokenParser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.val;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -23,14 +23,7 @@ import java.util.Optional;
  * @see com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser
  * @see com.github.yingzhuo.carnival.restful.security.parser.HttpParameterTokenParser
  */
-public class JwtTokenParser extends HttpHeaderTokenParser {
-
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String BEARER = "Bearer ";
-
-    public JwtTokenParser() {
-        super(AUTHORIZATION, BEARER);
-    }
+public class JwtTokenParser extends BearerTokenParser {
 
     @Override
     public Optional<Token> parse(NativeWebRequest request, Locale locale) {

@@ -14,17 +14,24 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  *
  * @author 应卓
  * @see RestfulSecurityException
- * @see AuthenticationException
  */
-public class UserDetailsLockedException extends AuthenticationException {
+public class UserDetailsLockedException extends AuthorizationException {
 
     private static final long serialVersionUID = 3640426498330580934L;
 
     public UserDetailsLockedException() {
-        this(null);
+        super();
     }
 
     public UserDetailsLockedException(String message) {
         super(message);
+    }
+
+    public UserDetailsLockedException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public UserDetailsLockedException(Throwable cause) {
+        super(cause);
     }
 }

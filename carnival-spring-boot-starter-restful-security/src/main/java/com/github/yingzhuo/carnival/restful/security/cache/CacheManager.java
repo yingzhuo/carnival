@@ -19,8 +19,10 @@ import java.util.Optional;
  */
 public interface CacheManager {
 
+    // 读
     public Optional<UserDetails> getUserDetails(Token token);
 
+    // 写
     public void saveUserDetails(Token token, UserDetails userDetails);
 
 }

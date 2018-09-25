@@ -20,6 +20,7 @@ public class AlgorithmMismatchException extends InvalidTokenException {
     private static final long serialVersionUID = -7975260628952282628L;
 
     public AlgorithmMismatchException() {
+        super();
     }
 
     public AlgorithmMismatchException(String message) {

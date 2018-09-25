@@ -48,14 +48,6 @@ public class SimpleUsernamePasswordTokenParser implements TokenParser {
         return Optional.empty();
     }
 
-    public String getUsernameParameterName() {
-        return usernameParameterName;
-    }
-
-    public String getPasswordParameterName() {
-        return passwordParameterName;
-    }
-
     public void setUsernameMapper(Function<String, String> usernameMapper) {
         this.usernameMapper = usernameMapper;
     }

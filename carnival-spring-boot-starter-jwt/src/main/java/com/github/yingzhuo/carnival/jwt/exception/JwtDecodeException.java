@@ -17,6 +17,7 @@ public class JwtDecodeException extends InvalidTokenException {
     private static final long serialVersionUID = 1232483943103042944L;
 
     public JwtDecodeException() {
+        super();
     }
 
     public JwtDecodeException(String message) {
@@ -30,4 +31,5 @@ public class JwtDecodeException extends InvalidTokenException {
     public JwtDecodeException(Throwable cause) {
         super(cause);
     }
+
 }
