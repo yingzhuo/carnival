@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.impl;
+package com.github.yingzhuo.carnival.exception.business.impl;
 
 import com.github.yingzhuo.carnival.common.io.ini.Ini;
-import com.github.yingzhuo.carnival.exception.BusinessException;
-import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.BusinessException;
+import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;

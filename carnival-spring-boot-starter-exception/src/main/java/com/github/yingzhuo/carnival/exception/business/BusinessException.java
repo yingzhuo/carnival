@@ -7,9 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception;
+package com.github.yingzhuo.carnival.exception.business;
 
 import com.github.yingzhuo.carnival.common.StringCoded;
+import com.github.yingzhuo.carnival.exception.CarnivalStandardException;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.util.Collections;
@@ -19,7 +20,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public class BusinessException extends RuntimeException implements StringCoded {
+public class BusinessException extends CarnivalStandardException implements StringCoded {
 
     private static final long serialVersionUID = 9128655481919572535L;
     private String code;

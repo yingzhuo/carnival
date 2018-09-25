@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.impl;
+package com.github.yingzhuo.carnival.exception.business.impl;
 
-import com.github.yingzhuo.carnival.exception.BusinessException;
-import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.BusinessException;
+import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.val;
 
 import java.util.Map;

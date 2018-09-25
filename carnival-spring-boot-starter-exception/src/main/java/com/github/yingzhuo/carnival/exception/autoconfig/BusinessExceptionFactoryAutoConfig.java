@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
-import com.github.yingzhuo.carnival.exception.BusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.impl.DefaultBusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.impl.IniBusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.impl.DefaultBusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.impl.IniBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

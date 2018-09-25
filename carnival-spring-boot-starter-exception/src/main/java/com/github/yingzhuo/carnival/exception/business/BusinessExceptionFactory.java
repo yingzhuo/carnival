@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception;
+package com.github.yingzhuo.carnival.exception.business;
 
 /**
  * @author 应卓
