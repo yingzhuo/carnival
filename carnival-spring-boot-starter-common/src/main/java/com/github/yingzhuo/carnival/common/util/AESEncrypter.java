@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.support;
+package com.github.yingzhuo.carnival.common.util;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -21,7 +21,7 @@ import java.security.spec.KeySpec;
 /**
  * @author 应卓
  */
-public class AESEncrypter {
+public final class AESEncrypter {
 
     private static final byte[] SALT = {
             (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32,

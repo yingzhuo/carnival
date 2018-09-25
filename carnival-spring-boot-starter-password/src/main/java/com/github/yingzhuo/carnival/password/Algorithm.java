@@ -14,6 +14,6 @@ package com.github.yingzhuo.carnival.password;
  */
 public enum Algorithm {
 
-    MD5, MD2, SHA1, SHA256, BCRYPT, AES, BASE64
+    MD5, MD2, SHA1, SHA256, BCRYPT, BASE64
 
 }

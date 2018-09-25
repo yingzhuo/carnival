@@ -35,7 +35,9 @@ package object carnival {
 
   implicit def string2Rich(s: String): RichString = new RichString(s)
 
-  implicit def string2RichDigest(s: String): RichStringDigest = new RichStringDigest(s)
+  implicit def string2RichStringDigest(s: String): RichStringDigest = new RichStringDigest(s)
+
+  implicit def string2RichStringAes(s: String): RichStringAes = new RichStringAes(s)
 
   implicit def string2RichStringBase64(s: String): RichStringBase64 = new RichStringBase64(s)
 
