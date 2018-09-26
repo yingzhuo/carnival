@@ -20,5 +20,12 @@ public enum SignatureAlgorithm {
 
     HMAC384,
 
-    HMAC512
+    HMAC512,
+
+    RSA256,
+
+    RSA384,
+
+    RSA512
+
 }
