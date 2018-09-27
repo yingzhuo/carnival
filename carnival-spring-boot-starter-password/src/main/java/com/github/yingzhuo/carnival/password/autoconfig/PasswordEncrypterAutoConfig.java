@@ -41,6 +41,8 @@ public class PasswordEncrypterAutoConfig {
                 return new SHA256PasswordEncrypter(props.getSha256Salt());
             case BASE64:
                 return new Base64PasswordEncrypter();
+            case NONE:
+                return new NonePasswordEncrypter();
             default:
                 throw new IllegalStateException();
         }
@@ -51,8 +53,8 @@ public class PasswordEncrypterAutoConfig {
     @ConfigurationProperties("carnival.password")
     static class Props {
         private Algorithm algorithm = Algorithm.MD5;
-        private String md5Salt = "";
         private String md2Salt = "";
+        private String md5Salt = "";
         private String sha1Salt = "";
         private String sha256Salt = "";
     }
