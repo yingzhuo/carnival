@@ -11,11 +11,13 @@ package carnival.autocnf
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnScala
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
   * @author 应卓
   */
+@ConditionalOnScala
 class ScalaSpringAutoCnf {
 
   @Autowired(required = false)
