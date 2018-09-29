@@ -24,7 +24,7 @@ public interface UserDetailsRealm {
 
     public Optional<UserDetails> loadUserDetails(Token token);
 
-    public default UserDetailsRealm chain(UserDetailsRealm that) {
+    public default UserDetailsRealm or(UserDetailsRealm that) {
         return token -> {
             val thisOp = this.loadUserDetails(token);
 

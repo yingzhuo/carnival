@@ -29,7 +29,7 @@ public interface TokenParser extends Parser<NativeWebRequest, Token> {
 
     public Optional<Token> parse(NativeWebRequest webRequest, Locale locale);
 
-    public default TokenParser chain(TokenParser that) {
+    public default TokenParser or(TokenParser that) {
         return (webRequest, locale) -> {
             val thisOp = this.parse(webRequest, locale);
 
