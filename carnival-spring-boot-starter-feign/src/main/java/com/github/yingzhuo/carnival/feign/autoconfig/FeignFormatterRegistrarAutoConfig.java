@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.feign.autoconfig;
 
+import com.github.yingzhuo.carnival.feign.formatter.FeignCalendarFormatter;
 import com.github.yingzhuo.carnival.feign.formatter.FeignDateFormatter;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +23,18 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  */
 @EnableConfigurationProperties({
-        FeignFormatterRegistrarAutoConfig.DateProps.class
+        FeignFormatterRegistrarAutoConfig.DateProps.class,
+        FeignFormatterRegistrarAutoConfig.CalendarProps.class
 })
 public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistrar {
 
-    @Autowired
-    private DateProps dateProps;
+    @Autowired private DateProps dateProps;
+    @Autowired private CalendarProps calendarProps;
 
     @Override
     public void registerFormatters(FormatterRegistry registry) {
         registry.addFormatter(new FeignDateFormatter(dateProps.getPattern()));
+        registry.addFormatter(new FeignCalendarFormatter(calendarProps.getPattern()));
     }
 
     // -------------------------------------------------------------------------------------
@@ -40,6 +43,13 @@ public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistra
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.date-formatter")
     public static class DateProps {
+        private String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.feign.calendar-formatter")
+    public static class CalendarProps {
         private String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
     }
 
