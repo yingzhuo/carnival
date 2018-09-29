@@ -10,32 +10,30 @@
 package com.github.yingzhuo.carnival.feign.formatter;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.format.Formatter;
+import org.springframework.core.convert.converter.Converter;
 
-import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.function.Function;
 
 /**
  * @author 应卓
  */
-public class FeignCalendarFormatter implements Formatter<Calendar> {
+public class FeignCalendar2StringConverter implements Converter<Calendar, String>, Function<Calendar, String> {
 
     private final String pattern;
 
-    public FeignCalendarFormatter(String pattern) {
+    public FeignCalendar2StringConverter(String pattern) {
         this.pattern = pattern;
     }
 
     @Override
-    public Calendar parse(String text, Locale locale) throws ParseException {
-        return DateUtils.toCalendar(DateUtils.parseDate(text, pattern));
+    public String convert(Calendar calendar) {
+        return DateFormatUtils.format(calendar, pattern);
     }
 
     @Override
-    public String print(Calendar object, Locale locale) {
-        return DateFormatUtils.format(object, pattern);
+    public final String apply(Calendar calendar) {
+        return convert(calendar);
     }
 
 }

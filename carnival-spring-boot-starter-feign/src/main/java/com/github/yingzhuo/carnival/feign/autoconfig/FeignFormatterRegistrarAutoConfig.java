@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.feign.autoconfig;
 
-import com.github.yingzhuo.carnival.feign.formatter.FeignCalendarFormatter;
-import com.github.yingzhuo.carnival.feign.formatter.FeignDateFormatter;
+import com.github.yingzhuo.carnival.feign.formatter.FeignCalendar2StringConverter;
+import com.github.yingzhuo.carnival.feign.formatter.FeignDate2StringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +28,16 @@ import org.springframework.format.FormatterRegistry;
 })
 public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistrar {
 
-    @Autowired private DateProps dateProps;
-    @Autowired private CalendarProps calendarProps;
+    @Autowired
+    private DateProps dateProps;
+
+    @Autowired
+    private CalendarProps calendarProps;
 
     @Override
     public void registerFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new FeignDateFormatter(dateProps.getPattern()));
-        registry.addFormatter(new FeignCalendarFormatter(calendarProps.getPattern()));
+        registry.addConverter(new FeignCalendar2StringConverter(calendarProps.getPattern()));
+        registry.addConverter(new FeignDate2StringConverter(dateProps.getPattern()));
     }
 
     // -------------------------------------------------------------------------------------
