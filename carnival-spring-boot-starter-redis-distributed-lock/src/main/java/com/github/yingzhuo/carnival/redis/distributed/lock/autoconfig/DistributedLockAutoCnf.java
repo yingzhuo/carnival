@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
 
+import com.github.yingzhuo.carnival.redis.distributed.lock.aop.DistributedLockAdvice;
 import com.github.yingzhuo.carnival.redis.distributed.lock.request.DefaultRequestIdFactory;
 import com.github.yingzhuo.carnival.redis.distributed.lock.request.RequestIdFactory;
 import lombok.Getter;
@@ -55,6 +56,12 @@ public class DistributedLockAutoCnf {
         return new DefaultRequestIdFactory();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public DistributedLockAdvice distributedLockAdvice() {
+        return new DistributedLockAdvice();
+    }
+
     // ---------------------------------------------------------------------------------------------------------------
 
     @Getter
@@ -77,6 +84,6 @@ public class DistributedLockAutoCnf {
             private String password = null;
             private int timeout = 2000;
         }
-
     }
+
 }
