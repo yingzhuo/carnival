@@ -43,9 +43,15 @@ public class DistributedLockAdvice implements Ordered {
 
         val keyBuilder = new StringBuilder();
 
-        for (int i : annotation.keyIndices()) {
-            val parameter = args[i];
-            keyBuilder.append(parameter);
+        if (annotation.keyIndices().length != 0) {
+            for (int i : annotation.keyIndices()) {
+                val parameter = args[i];
+                keyBuilder.append(parameter);
+            }
+        } else {
+            for (int i = 0; i <= args.length; i ++) {
+                keyBuilder.append(args[i]);
+            }
         }
 
         val key = keyBuilder.toString();
