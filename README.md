@@ -22,6 +22,7 @@ bash ./carnival/install.sh
 * [carnival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * [carnival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
 * [carnival-spring-boot-starter-springutils](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-springutils)
+* [carnival-spring-boot-starter-redis-distributed-lock](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-redis-distributed-lock)
 
 许可证
 ---
