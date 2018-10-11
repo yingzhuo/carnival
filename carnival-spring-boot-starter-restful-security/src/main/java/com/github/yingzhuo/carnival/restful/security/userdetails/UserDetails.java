@@ -119,10 +119,10 @@ public interface UserDetails extends Serializable {
         }
 
         public Builder dateOfBirth(int year, int month, int day) {
-            val date = new Date();
-            DateUtils.setYears(date, year);
-            DateUtils.setMonths(date, month);
-            DateUtils.setDays(date, day);
+            Date date = new Date();
+            date = DateUtils.setYears(date, year);
+            date = DateUtils.setMonths(date, month);
+            date = DateUtils.setDays(date, day);
             return dateOfBirth(date);
         }
 

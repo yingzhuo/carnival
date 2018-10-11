@@ -42,8 +42,7 @@ import java.util.*;
  */
 public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
 
-    private Map<Method, AuthenticationComponent> cache1;
-    private Map<Method, Annotation> cache2;
+    private Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
 
     private List<ChainNode> chainNodes;
     private UserDetailsVoter userDetailsVoter;
@@ -71,10 +70,9 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
         }
 
         val handlerMethod = (HandlerMethod) handler;
-        AuthenticationComponent ac = cache1.get(handlerMethod.getMethod());
-        Annotation annotation = cache2.get(handlerMethod.getMethod());
 
-        if (ac == null && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
+        final List<MethodCheckPoint> list = cache.get(handlerMethod.getMethod());
+        if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
             return true;
         }
 
@@ -83,8 +81,14 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
 
         RestfulSecurityContext.setUserDetails(op.orElse(null));
 
-        if (ac != null) {
-            ac.authenticate(RestfulSecurityContext.getUserDetails().orElse(null), annotation);
+        if (list != null && !list.isEmpty()) {
+
+            list.forEach(cp -> {
+                Annotation annotation = cp.getAnnotation();
+                AuthenticationComponent ac = cp.getAuthenticationComponent();
+                ac.authenticate(RestfulSecurityContext.getUserDetails().orElse(null), annotation);
+            });
+
         }
 
         return true;
@@ -98,25 +102,29 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
     private synchronized void initCache(Collection<HandlerMethod> handlerMethods) {
         if (!initialized) {
 
-            final Map<Method, AuthenticationComponent> map1 = new HashMap<>();
-            final Map<Method, Annotation> map2 = new HashMap<>();
-
             for (HandlerMethod hm : handlerMethods) {
-                Method method = hm.getMethod();
+                final Method method = hm.getMethod();
+                final List<MethodCheckPoint> list = new LinkedList<>();
 
                 for (Annotation annotation : method.getDeclaredAnnotations()) {
                     Requires requires = annotation.annotationType().getAnnotation(Requires.class);
                     if (requires != null) {
-                        map1.put(method, SpringUtils.getBean(requires.value()));
-                        map2.put(method, annotation);
-                        break;
+
+                        final MethodCheckPoint checkPoint = new MethodCheckPoint(
+                                annotation,
+                                SpringUtils.getBean(requires.value())
+                        );
+
+                        list.add(checkPoint);
                     }
+                }
+
+                if (!list.isEmpty()) {
+                    cache.put(method, list);
                 }
             }
 
-            cache1 = Collections.unmodifiableMap(map1);
-            cache2 = Collections.unmodifiableMap(map2);
-            initialized = true;
+            this.initialized = true;
         }
     }
 
