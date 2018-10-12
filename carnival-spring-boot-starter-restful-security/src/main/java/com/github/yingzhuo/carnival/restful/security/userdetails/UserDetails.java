@@ -119,7 +119,7 @@ public interface UserDetails extends Serializable {
         }
 
         public Builder dateOfBirth(int year, int month, int day) {
-            Date date = new Date();
+            Date date = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
             date = DateUtils.setYears(date, year);
             date = DateUtils.setMonths(date, month);
             date = DateUtils.setDays(date, day);

@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-beanmapper</module>
@@ -46,14 +46,14 @@
 
     <distributionManagement>
         <repository>
-            <id>ccae-releases</id>
+            <id>mirai-releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://192.168.0.154:8081/nexus/content/repositories/releases/</url>
+            <url>http://10.211.55.26:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>ccae-snapshots</id>
+            <id>mirai-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.0.154:8081/nexus/content/repositories/snapshots/</url>
+            <url>http://10.211.55.26:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
