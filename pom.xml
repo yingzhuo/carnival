@@ -46,14 +46,14 @@
 
     <distributionManagement>
         <repository>
-            <id>mirai-releases</id>
+            <id>ccae-releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://10.211.55.26:8081/repository/maven-releases/</url>
+            <url>http://192.168.0.108:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
-            <id>mirai-snapshots</id>
+            <id>ccae-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://10.211.55.26:8081/repository/maven-snapshots/</url>
+            <url>http://192.168.0.108:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
