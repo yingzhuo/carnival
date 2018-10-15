@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "请输入你要部署的版本: "
+echo "请输入新版本号: "
 read version
 
 # 更新版本

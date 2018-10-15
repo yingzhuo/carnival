@@ -13,4 +13,8 @@ package com.github.yingzhuo.carnival.id;
  * @author 应卓
  */
 public interface StringIdGenerator extends IdGenerator<String> {
+
+    @Override
+    public String nextId();
+
 }

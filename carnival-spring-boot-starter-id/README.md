@@ -35,17 +35,11 @@ carnival:
 ```yaml
 carnival:
   id:
-    enabled: true
-    algorithm: snowflake_long
-```
-
-### 雪花算法 (String)
-
-```yaml
-carnival:
-  id:
-    enabled: true
-    algorithm: snowflake_long
+    enable: true
+    algorithm: snowflake
+    snowflake:
+      worker-id: 0        # 取值范围 0-31
+      data-center-id: 0   # 取值范围 0-31
 ```
 
 在需要生成ID的地方，注入`IdGenerator<?>`对象即可使用。如：
@@ -59,11 +53,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User save(User user) {
-        user.setId(idGenerator.generateId());
+        user.setId(idGenerator.nextId());
         return null;
     }
     
 }
 ```
-
-编程时应当注意`IdGenerator`的泛型类型。
