@@ -43,6 +43,7 @@ public interface DownloadEntity {
         private String filenameEncoding = "UTF-8";
         private HttpStatus httpStatus = HttpStatus.OK;
         private InputStream inputStream = null;
+
         private Builder() {
             super();
         }

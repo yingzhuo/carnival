@@ -42,6 +42,13 @@ carnival:
       data-center-id: 0   # 取值范围 0-31
 ```
 
+`worker-id`和`data-center-id`也可通过环境变量指定。环境变量的配置优先于`application.yml`中的配置。
+
+```bash
+export CARNIVAL_SNOWFLAKE_WORKER_ID=0
+export CARNIVAL_SNOWFLAKE_DATA_CENTER_ID=0
+```
+
 在需要生成ID的地方，注入`IdGenerator<?>`对象即可使用。如：
 
 ```java

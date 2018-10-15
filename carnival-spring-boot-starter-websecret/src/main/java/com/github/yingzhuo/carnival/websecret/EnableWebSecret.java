@@ -29,6 +29,7 @@ import java.lang.annotation.Target;
 public @interface EnableWebSecret {
 
     public int interceptorOrder() default 0;
+
     public ValidationStrategy validationStrategy() default ValidationStrategy.ANNOTATED;
 
     // ---------------------------------------------------------------------------------------------------------------

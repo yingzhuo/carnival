@@ -20,6 +20,7 @@ public class DefaultGravatarFactory implements GravatarFactory {
     private DefaultImage defaultImage = DefaultImage.IDENTICON;
     private Rating rating = Rating.GENERAL_AUDIENCE;
     private Scope scope = Scope.CHINA;
+
     public DefaultGravatarFactory() {
         super();
     }

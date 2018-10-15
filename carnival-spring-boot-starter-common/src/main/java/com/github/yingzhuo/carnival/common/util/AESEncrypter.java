@@ -12,7 +12,9 @@ package com.github.yingzhuo.carnival.common.util;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-import javax.crypto.*;
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
@@ -61,7 +63,7 @@ public final class AESEncrypter {
         }
     }
 
-    public byte[] encrypt(byte[] plain){
+    public byte[] encrypt(byte[] plain) {
         try {
             return ecipher.doFinal(plain);
         } catch (Exception e) {

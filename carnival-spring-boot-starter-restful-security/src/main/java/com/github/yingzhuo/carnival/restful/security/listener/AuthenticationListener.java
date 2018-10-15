@@ -9,8 +9,3 @@
  */
 package com.github.yingzhuo.carnival.restful.security.listener;
 
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.web.context.request.WebRequest;
-
-import java.lang.reflect.Method;
-
