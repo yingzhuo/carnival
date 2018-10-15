@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.spring;
 
 import lombok.val;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.convert.ConversionService;
@@ -54,7 +55,10 @@ public final class SpringUtils {
 
     public static ResourcePatternResolver getResourcePatternResolver() {
         return AC;
+    }
 
+    public static BeanFactory getBeanFactory() {
+        return AC;
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

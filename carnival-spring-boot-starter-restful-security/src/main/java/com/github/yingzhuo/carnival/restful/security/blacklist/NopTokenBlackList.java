@@ -17,13 +17,13 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 public class NopTokenBlackList implements TokenBlackList {
 
     @Override
-    public boolean isBlacklisted(Token token) {
-        return false;
+    public void save(Token token) {
+        // NOP
     }
 
     @Override
-    public void blacklist(Token token) {
-        // NOP
+    public boolean isBlacklisted(Token token) {
+        return false;
     }
 
 }

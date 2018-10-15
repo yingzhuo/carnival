@@ -11,16 +11,13 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.exception.LimitedAdultContentException;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import lombok.var;
-import org.apache.commons.lang3.time.DateUtils;
 
 import java.lang.annotation.*;
-import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @author 应卓
@@ -29,10 +26,12 @@ import java.util.Date;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresAdult.AuthComponent.class)
-public @interface RequiresAdult {
+@Requires(RequiresUser.AuthComponent.class)
+public @interface RequiresUser {
 
-    public int ageOfAdult() default 18;
+    public String value();
+
+    public boolean caseSensitive() default true;
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
@@ -41,21 +40,26 @@ public @interface RequiresAdult {
         @Override
         public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
 
-            val requiresAdult = (RequiresAdult) annotation;
+            val requiresUser = (RequiresUser) annotation;
+            val caseSensitive = requiresUser.caseSensitive();
+            val requiredUsername = requiresUser.value();
 
-            if (userDetails == null || userDetails.getDateOfBirth() == null) {
-                throw new LimitedAdultContentException(getMessage(requiresAdult));
+            if (userDetails == null) {
+                throw new AuthenticationException(getMessage(requiresUser));
             }
 
-            val t = DateUtils.truncate(new Date(), Calendar.DATE);
-            val a = DateUtils.addYears(userDetails.getDateOfBirth(), requiresAdult.ageOfAdult());
-
-            if (t.before(a)) {
-                throw new LimitedAdultContentException(getMessage(requiresAdult));
+            if (caseSensitive) {
+                if (!requiredUsername.equals(userDetails.getUsername())) {
+                    throw new AuthenticationException(getMessage(requiresUser));
+                }
+            } else {
+                if (!requiredUsername.equalsIgnoreCase(userDetails.getUsername())) {
+                    throw new AuthenticationException(getMessage(requiresUser));
+                }
             }
         }
 
-        private String getMessage(RequiresAdult annotation) {
+        private String getMessage(RequiresUser annotation) {
             var msg = annotation.errorMessage();
             if (":::<NO MESSAGE>:::".equals(msg)) {
                 msg = null;

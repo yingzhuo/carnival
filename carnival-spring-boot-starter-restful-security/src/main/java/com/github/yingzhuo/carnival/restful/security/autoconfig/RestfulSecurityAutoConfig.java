@@ -14,8 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlackList
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
-import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
-import com.github.yingzhuo.carnival.restful.security.listener.NopAuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.voter.FirstSuccessUserDetailsVoter;
 import com.github.yingzhuo.carnival.restful.security.voter.UserDetailsVoter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,12 +28,6 @@ import org.springframework.context.annotation.Primary;
 @Slf4j
 @ConditionalOnWebApplication
 public class RestfulSecurityAutoConfig {
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AuthenticationListener authenticationListener() {
-        return new NopAuthenticationListener();
-    }
 
     @ConditionalOnMissingBean
     @Bean(name = "restfulSecurityCacheManager")
@@ -56,6 +48,12 @@ public class RestfulSecurityAutoConfig {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @Primary
+    public RequiresUser.AuthComponent requiresUserAuthenticationComponent() {
+        return new RequiresUser.AuthComponent();
+    }
 
     @Bean
     @Primary

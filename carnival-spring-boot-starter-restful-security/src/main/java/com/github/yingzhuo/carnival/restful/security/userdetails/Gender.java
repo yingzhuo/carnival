@@ -7,10 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.listener;
+package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.web.context.request.WebRequest;
+/**
+ * @author 应卓
+ */
+public enum Gender {
 
-import java.lang.reflect.Method;
+    MALE, FEMALE, UNKNOWN
 
+}

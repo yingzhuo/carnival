@@ -16,8 +16,8 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
  */
 public interface TokenBlackList {
 
-    public boolean isBlacklisted(Token token);
+    public void save(Token token);
 
-    public void blacklist(Token token);
+    public boolean isBlacklisted(Token token);
 
 }

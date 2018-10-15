@@ -15,7 +15,6 @@ import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
-import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -44,7 +43,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
-    private AuthenticationListener authenticationListener;
     private CacheManager cacheManager;
     private LocaleResolver localeResolver = new FixedLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
@@ -95,7 +93,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
                 userDetailsOp.ifPresent(ud -> cacheManager.saveUserDetails(token, ud));
             }
 
-            userDetailsOp.ifPresent(userDetails -> authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler)));
             RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
         }
 
@@ -160,14 +157,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     public void setUserDetailsRealm(UserDetailsRealm userDetailsRealm) {
         this.userDetailsRealm = userDetailsRealm;
-    }
-
-    public AuthenticationListener getAuthenticationListener() {
-        return authenticationListener;
-    }
-
-    public void setAuthenticationListener(AuthenticationListener authenticationListener) {
-        this.authenticationListener = authenticationListener;
     }
 
     public CacheManager getCacheManager() {

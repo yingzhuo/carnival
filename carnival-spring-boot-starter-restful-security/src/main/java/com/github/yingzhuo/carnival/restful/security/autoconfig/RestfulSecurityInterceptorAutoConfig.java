@@ -16,7 +16,6 @@ import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.chain.ChainNode;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityChainInterceptor;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
-import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -50,9 +49,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     private List<UserDetailsRealm> userDetailsRealmList;
 
     @Autowired
-    private AuthenticationListener authenticationListener;
-
-    @Autowired
     private CacheManager cacheManager;
 
     @Autowired
@@ -81,7 +77,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             localeResolverOption.ifPresent(interceptor::setLocaleResolver);
             interceptor.setTokenBlackList(tokenBlackList);
             interceptor.setUserDetailsVoter(userDetailsVoter);
-            interceptor.setAuthenticationListener(authenticationListener);
             interceptor.setCacheManager(cacheManager);
             interceptor.setChainNodes(getChainNodes());
             interceptor.setAuthenticationStrategy(authenticationStrategy);
@@ -93,12 +88,10 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             interceptor.setTokenBlackList(tokenBlackList);
             interceptor.setTokenParser(tokenParserList.get(0));
             interceptor.setUserDetailsRealm(userDetailsRealmList.get(0));
-            interceptor.setAuthenticationListener(authenticationListener);
             interceptor.setCacheManager(cacheManager);
             interceptor.setAuthenticationStrategy(authenticationStrategy);
             registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
         }
-
     }
 
     private List<ChainNode> getChainNodes() {

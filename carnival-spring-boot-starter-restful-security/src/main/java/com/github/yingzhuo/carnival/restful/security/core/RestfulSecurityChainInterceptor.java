@@ -16,7 +16,6 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.chain.ChainNode;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
-import com.github.yingzhuo.carnival.restful.security.listener.AuthenticationListener;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import com.github.yingzhuo.carnival.restful.security.voter.AuthenticationResult;
@@ -47,7 +46,6 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
     private List<ChainNode> chainNodes;
     private UserDetailsVoter userDetailsVoter;
 
-    private AuthenticationListener authenticationListener;
     private CacheManager cacheManager;
     private LocaleResolver localeResolver = new FixedLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
@@ -132,10 +130,6 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
         this.chainNodes = chainNodes;
     }
 
-    public void setAuthenticationListener(AuthenticationListener authenticationListener) {
-        this.authenticationListener = authenticationListener;
-    }
-
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
     }
@@ -192,7 +186,6 @@ public class RestfulSecurityChainInterceptor implements HandlerInterceptor {
                         userDetailsOp.ifPresent(ud -> cacheManager.saveUserDetails(token, ud));
                     }
 
-                    userDetailsOp.ifPresent(userDetails -> authenticationListener.onAuthenticated(new ServletWebRequest(request), userDetails, getMethod(handler)));
                     RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
 
                     results.add(

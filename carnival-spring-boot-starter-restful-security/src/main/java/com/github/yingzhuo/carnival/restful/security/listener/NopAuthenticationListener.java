@@ -9,19 +9,19 @@
  */
 package com.github.yingzhuo.carnival.restful.security.listener;
 
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.web.context.request.WebRequest;
-
-import java.lang.reflect.Method;
-
-/**
- * @author 应卓
- */
-public class NopAuthenticationListener implements AuthenticationListener {
-
-    @Override
-    public void onAuthenticated(WebRequest request, UserDetails userDetails, Method method) {
-        // NOP
-    }
-
-}
+//import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+//import org.springframework.web.context.request.WebRequest;
+//
+//import java.lang.reflect.Method;
+//
+///**
+// * @author 应卓
+// */
+//public class NopAuthenticationListener implements AuthenticationListener {
+//
+//    @Override
+//    public void onAuthenticated(WebRequest request, UserDetails userDetails, Method method) {
+//        // NOP
+//    }
+//
+//}

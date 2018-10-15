@@ -36,6 +36,8 @@ public interface UserDetails extends Serializable {
 
     public String getPassword();
 
+    public Gender getGender();
+
     public boolean isExpired();
 
     public boolean isLocked();
@@ -107,6 +109,15 @@ public interface UserDetails extends Serializable {
         public Builder password(Supplier<String> supplier) {
             ud.setPassword(supplier.get());
             return this;
+        }
+
+        public Builder gender(Gender gender) {
+            ud.setGender(gender);
+            return this;
+        }
+
+        public Builder gender(Supplier<Gender> supplier) {
+            return gender(supplier.get());
         }
 
         public Builder dateOfBirth(Date date) {

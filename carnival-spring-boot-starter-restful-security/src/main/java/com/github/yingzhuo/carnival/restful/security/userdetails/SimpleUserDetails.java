@@ -31,6 +31,7 @@ public class SimpleUserDetails implements UserDetails, Serializable {
     private Object id = null;
     private String username = null;
     private String password = null;
+    private Gender gender = null;
     private Date dob = null;
     private boolean expired = false;
     private boolean locked = false;
@@ -63,6 +64,15 @@ public class SimpleUserDetails implements UserDetails, Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     @Override

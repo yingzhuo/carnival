@@ -46,14 +46,14 @@ public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistra
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.date-formatter")
     public static class DateProps {
-        private String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
+        private String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.calendar-formatter")
     public static class CalendarProps {
-        private String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
+        private String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     }
 
 }
