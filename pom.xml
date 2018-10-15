@@ -17,7 +17,6 @@
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-gravatar</module>
         <module>carnival-spring-boot-starter-id</module>
-        <module>carnival-spring-boot-starter-integration-smsbao</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-jwt</module>
         <module>carnival-spring-boot-starter-mvc</module>
