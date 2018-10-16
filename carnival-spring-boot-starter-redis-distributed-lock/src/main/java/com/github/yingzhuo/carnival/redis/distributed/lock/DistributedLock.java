@@ -12,8 +12,6 @@ package com.github.yingzhuo.carnival.redis.distributed.lock;
 import com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockAutoCnf;
 import com.github.yingzhuo.carnival.redis.distributed.lock.request.RequestIdFactory;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -32,10 +30,7 @@ public final class DistributedLock {
     private static final String SET_WITH_EXPIRE_TIME = "PX";
     private static final Long RELEASE_SUCCESS = 1L;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(DistributedLock.class);
-
     private DistributedLock() {
-        super();
     }
 
     public static boolean lock(String key) {
@@ -49,7 +44,6 @@ public final class DistributedLock {
         final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
         try (Jedis jedis = jedisPool.getResource()) {
-
             String result = jedis.set(
                     effKey,
                     requestId,
@@ -77,7 +71,6 @@ public final class DistributedLock {
             return RELEASE_SUCCESS.equals(result);
         }
     }
-
 
     public static boolean lock(short key) {
         return lock(String.valueOf(key));

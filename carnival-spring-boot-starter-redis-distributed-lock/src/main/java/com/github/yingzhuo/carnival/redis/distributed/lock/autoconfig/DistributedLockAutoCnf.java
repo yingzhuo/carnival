@@ -82,7 +82,7 @@ public class DistributedLockAutoCnf {
             private String host = "localhost";
             private int port = 6379;
             private String password = null;
-            private int timeout = 2000;
+            private int timeout = 3000;
         }
     }
 
