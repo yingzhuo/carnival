@@ -73,8 +73,8 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
             boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
 
             log.debug("[Controller]: ");
-            log.debug("\t\t\ttype = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
-            log.debug("\t\t\tmethod-name = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
+            log.debug("\t\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
+            log.debug("\t\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
         }
 
         log.debug(StringUtils.repeat('-', 120));
