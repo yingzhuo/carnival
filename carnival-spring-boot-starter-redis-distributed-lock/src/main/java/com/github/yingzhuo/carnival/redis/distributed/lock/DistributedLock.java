@@ -31,6 +31,7 @@ public final class DistributedLock {
     private static final Long RELEASE_SUCCESS = 1L;
 
     private DistributedLock() {
+        super();
     }
 
     public static boolean lock(String key) {

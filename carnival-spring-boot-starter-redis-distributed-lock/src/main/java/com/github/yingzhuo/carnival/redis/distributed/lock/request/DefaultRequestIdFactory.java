@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.request;
 
+import lombok.val;
+
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author 应卓
@@ -18,7 +21,13 @@ public class DefaultRequestIdFactory implements RequestIdFactory {
 
     @Override
     public String create(String springId, long threadId) {
-        return Objects.requireNonNull(springId) + "#" + threadId;
+        val build = new StringBuilder();
+        build.append(Objects.requireNonNull(springId));
+        build.append(".");
+        build.append(threadId);
+        build.append(".");
+        build.append(UUID.randomUUID().toString());
+        return build.toString();
     }
 
 }

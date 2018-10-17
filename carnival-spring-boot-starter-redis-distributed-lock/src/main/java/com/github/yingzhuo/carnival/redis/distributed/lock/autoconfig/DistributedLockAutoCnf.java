@@ -52,7 +52,7 @@ public class DistributedLockAutoCnf {
 
     @Bean
     @ConditionalOnMissingBean
-    public RequestIdFactory stringValueFactory() {
+    public RequestIdFactory requestIdFactory() {
         return new DefaultRequestIdFactory();
     }
 

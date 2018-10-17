@@ -28,4 +28,9 @@ public class SpringIdFactoryBean implements FactoryBean<String> {
         return String.class;
     }
 
+    @Override
+    public boolean isSingleton() {
+        return true;
+    }
+
 }
