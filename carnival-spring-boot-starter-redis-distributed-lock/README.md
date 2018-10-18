@@ -24,6 +24,8 @@ carnival:
 
 配置好之后，就可以使用分布式锁了。
 
+例子1:
+
 ```java
 final String lockKey = "abc";
 final boolean locked  = DistributedLock.lock(lockKey, 3000L);
@@ -39,19 +41,11 @@ try {
 }
 ```
 
-本插件还实现了AOP元注释
+例子2:
 
 ```java
-@Service
-public class TestServiceImpl implements TestService {
-
-    @Override
-    @DistributedLock
-    public void test() {
-        System.out.println("test !");
-    }
-
-}
+final String lockKey = "abc";
+DistributedLock.waitAndRun(lockKey, 3000L, () -> {      // 不等到拿到分布式锁，本方法不会退出。
+    // 这里是临界区代码
+});
 ```
-
-在进入方法时会尝试获取锁，在获取锁失败时，将抛出`CannotGetLockException`的实例。

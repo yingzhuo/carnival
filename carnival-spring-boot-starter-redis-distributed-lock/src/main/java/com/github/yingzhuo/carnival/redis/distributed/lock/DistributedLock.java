@@ -17,6 +17,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import java.util.Collections;
+import java.util.Objects;
 
 /**
  * Redis实现分布式锁
@@ -103,6 +104,33 @@ public final class DistributedLock {
 
     public static boolean release(double key) {
         return release(String.valueOf(key));
+    }
+
+    public static void waitAndRun(String key, long expireInMillis, Runnable runnable) {
+        Objects.requireNonNull(runnable);
+
+        while(true) {
+            if (lock(key, expireInMillis)) {
+                runnable.run();
+                return;
+            }
+        }
+    }
+
+    public static void waitAndRun(short key, long expireInMillis, Runnable runnable) {
+        waitAndRun(String.valueOf(key), expireInMillis, runnable);
+    }
+
+    public static void waitAndRun(int key, long expireInMillis, Runnable runnable) {
+        waitAndRun(String.valueOf(key), expireInMillis, runnable);
+    }
+
+    public static void waitAndRun(long key, long expireInMillis, Runnable runnable) {
+        waitAndRun(String.valueOf(key), expireInMillis, runnable);
+    }
+
+    public static void waitAndRun(double key, long expireInMillis, Runnable runnable) {
+        waitAndRun(String.valueOf(key), expireInMillis, runnable);
     }
 
 }
