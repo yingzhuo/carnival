@@ -31,7 +31,7 @@ import java.io.IOException;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.mvc.xss-protecting", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.mvc.xss-protecting", name = "enabled", havingValue = "true", matchIfMissing = false)
 @EnableConfigurationProperties(MvcXssProtectingAutoConfig.Props.class)
 public class MvcXssProtectingAutoConfig implements WebMvcConfigurer {
 
@@ -49,7 +49,7 @@ public class MvcXssProtectingAutoConfig implements WebMvcConfigurer {
     @Setter
     @ConfigurationProperties("carnival.mvc.xss-protecting")
     static class Props {
-        private boolean enabled = true;
+        private boolean enabled = false;
     }
 
     public static class XssProtectingFilter extends OncePerRequestFilter {

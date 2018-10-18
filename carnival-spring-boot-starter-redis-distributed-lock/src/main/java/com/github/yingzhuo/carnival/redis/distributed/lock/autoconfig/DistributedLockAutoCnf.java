@@ -80,7 +80,7 @@ public class DistributedLockAutoCnf {
         public static class JedisConfig {
             private String host = "localhost";
             private int port = 6379;
-            private String password = null;
+            private String password = "";
             private int timeout = 3000;
         }
     }
