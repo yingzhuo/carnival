@@ -26,7 +26,7 @@ carnival:
 
 ```java
 final String lockKey = "abc";
-final boolean locked  = DistributedLock.lock(lockKey);
+final boolean locked  = DistributedLock.lock(lockKey, 3000L);
 
 if (!locked) {
     throw new CannotGetLockException();

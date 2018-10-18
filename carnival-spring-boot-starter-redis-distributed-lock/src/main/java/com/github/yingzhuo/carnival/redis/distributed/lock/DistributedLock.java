@@ -34,7 +34,7 @@ public final class DistributedLock {
         super();
     }
 
-    public static boolean lock(String key) {
+    public static boolean lock(String key, long expireInMillis) {
 
         Assert.hasText(key, "key is null or blank");
 
@@ -50,7 +50,7 @@ public final class DistributedLock {
                     requestId,
                     SET_IF_NOT_EXIST,
                     SET_WITH_EXPIRE_TIME,
-                    props.getKeyExpireInMillis());
+                    expireInMillis);
 
             return LOCK_SUCCESS.equals(result);
         }
@@ -73,32 +73,32 @@ public final class DistributedLock {
         }
     }
 
-    public static boolean lock(short key) {
-        return lock(String.valueOf(key));
+    public static boolean lock(short key, long expireInMillis) {
+        return lock(String.valueOf(key), expireInMillis);
     }
 
     public static boolean release(short key) {
         return release(String.valueOf(key));
     }
 
-    public static boolean lock(long key) {
-        return lock(String.valueOf(key));
+    public static boolean lock(long key, long expireInMillis) {
+        return lock(String.valueOf(key), expireInMillis);
     }
 
     public static boolean release(long key) {
         return release(String.valueOf(key));
     }
 
-    public static boolean lock(int key) {
-        return lock(String.valueOf(key));
+    public static boolean lock(int key, long expireInMillis) {
+        return lock(String.valueOf(key), expireInMillis);
     }
 
     public static boolean release(int key) {
         return release(String.valueOf(key));
     }
 
-    public static boolean lock(double key) {
-        return lock(String.valueOf(key));
+    public static boolean lock(double key, long expireInMillis) {
+        return lock(String.valueOf(key), expireInMillis);
     }
 
     public static boolean release(double key) {

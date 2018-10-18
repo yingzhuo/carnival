@@ -24,4 +24,6 @@ public @interface DistributedLock {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
+    public long expireInMillis() default 3000L;
+
 }

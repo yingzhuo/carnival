@@ -71,7 +71,6 @@ public class DistributedLockAutoCnf {
 
         private boolean enabled = true;
         private String keyScope = "";
-        private long keyExpireInMillis = 2000;
         private JedisConfig jedis = new JedisConfig();
 
         // ----------------------------------------------------------------------------------------------------------------

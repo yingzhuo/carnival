@@ -62,7 +62,7 @@ public class DistributedLockAdvice implements Ordered {
 
         log.debug("key = {}", key);
 
-        val lock = com.github.yingzhuo.carnival.redis.distributed.lock.DistributedLock.lock(key);
+        val lock = com.github.yingzhuo.carnival.redis.distributed.lock.DistributedLock.lock(key, annotation.expireInMillis());
 
         if (!lock) {
             throw new CannotGetLockException(getMessage(annotation.errorMessage()));
