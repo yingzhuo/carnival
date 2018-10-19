@@ -1,4 +1,4 @@
-# carnival-spring-boot-starter-restful-security
+# 说明
 
 本插件是专注于`RESTful`风格服务的鉴权框架。本插件逻辑简单明了。每一次请求都将检查令牌；通过令牌查询用户实体。最后通过元注释的配置检查角色/权限。如果插件判定请求为非法，则抛出异常。异常由本插件用户来处理。
 
@@ -17,7 +17,7 @@ public interface Token extends Serializable {
 }
 ```
 
-很明显地，上面的代码是一个高度抽象的标记型接口。它还有两个子类型方便使用`UsernamePasswordToken`和`StringToken`。显然本插件的用户如果可以自行定义复合业务要求的`Token`实现。
+很明显地，上面的代码是一个高度抽象的标记型接口。它还有两个子类型方便使用`UsernamePasswordToken`和`StringToken`。显然本插件的用户如果可以自行定义符合业务要求的`Token`实现。
 
 * (2) `TokenParser` - 令牌解析器
 
@@ -69,6 +69,7 @@ import com.github.yingzhuo.carnival.restful.security.role.Role;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Map;
 
 public interface UserDetails extends Serializable {
@@ -82,6 +83,8 @@ public interface UserDetails extends Serializable {
     public boolean isExpired();
 
     public boolean isLocked();
+    
+    public Date getDateOfBirth();
 
     public Collection<Role> getRoles();
 
@@ -128,3 +131,4 @@ public interface UserDetailsRealm {
 
 这个部件负责通过令牌信息获取用户实体。大部分应用用户数据都是RDB持久化的，本插接件用户应当自行实现之。
 
+### TODO
