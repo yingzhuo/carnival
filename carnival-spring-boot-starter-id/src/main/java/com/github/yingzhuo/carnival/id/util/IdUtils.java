@@ -15,12 +15,12 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 /**
  * @author 应卓
  */
-@SuppressWarnings("unchecked")
 public final class IdUtils {
 
     private IdUtils() {
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T nextId() {
         return (T) ((IdGenerator<?>) SpringUtils.getBean(IdGenerator.class)).nextId();
     }

@@ -26,7 +26,10 @@ import org.springframework.format.FormatterRegistry;
         FeignFormatterRegistrarAutoConfig.DateProps.class,
         FeignFormatterRegistrarAutoConfig.CalendarProps.class
 })
+@SuppressWarnings("SpellCheckingInspection")       // 消除IDEA警告
 public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistrar {
+
+    private static final String DEFAULT_DATE_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";  // iso: datetime
 
     @Autowired
     private DateProps dateProps;
@@ -46,14 +49,14 @@ public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistra
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.date-formatter")
     public static class DateProps {
-        private String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        private String pattern = FeignFormatterRegistrarAutoConfig.DEFAULT_DATE_FORMATTER;
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.calendar-formatter")
     public static class CalendarProps {
-        private String pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+        private String pattern = FeignFormatterRegistrarAutoConfig.DEFAULT_DATE_FORMATTER;
     }
 
 }

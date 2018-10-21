@@ -32,6 +32,13 @@
     </modules>
     <packaging>pom</packaging>
 
+    <developers>
+        <developer>
+            <name>yingzhuo</name>
+            <email>yingzhor@gmail.com</email>
+        </developer>
+    </developers>
+
     <repositories>
         <repository>
             <id>spring-milestones</id>
@@ -60,7 +67,6 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <scala.version>2.12.6</scala.version>
-        <groovy.version>2.4.15</groovy.version>
         <kotlin.version>1.2.71</kotlin.version>
         <springboot.version>2.0.6.RELEASE</springboot.version>
         <springcloud.version>Finchley.RELEASE</springcloud.version>

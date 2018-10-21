@@ -18,6 +18,7 @@ public enum Algorithm {
 
     UUID_36,
 
-    SNOWFLAKE
+    SNOWFLAKE,
 
+    SNOWFLAKE_STRING
 }

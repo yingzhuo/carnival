@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Getter;
@@ -49,6 +50,7 @@ public class IdGeneratorAutoConfig {
             case UUID_36:
                 return new UUID36IdGenerator();
             case SNOWFLAKE:
+            case SNOWFLAKE_STRING:
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
                 val envWorkerId = getEnvWorkId();
@@ -65,7 +67,11 @@ public class IdGeneratorAutoConfig {
                 log.info("SNOWFLAKE_WORKER_ID: {}", workerId);
                 log.info("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
 
-                return new SnowflakeIdGenerator(workerId, dataCenterId);
+                if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
+                    return new SnowflakeIdGenerator(workerId, dataCenterId);
+                } else {
+                    return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
+                }
             default:
                 throw new UnsupportedOperationException();      // 程序不会运行到此处
         }
@@ -100,6 +106,8 @@ public class IdGeneratorAutoConfig {
         static class Snowflake {
             private long workerId = 0L;
             private long dataCenterId = 0L;
+            private int length = 32;
+            private char padCharacter = '0';
         }
     }
 
