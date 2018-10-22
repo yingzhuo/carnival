@@ -55,7 +55,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
         Assert.notNull(signatureAlgorithm, (String) null);
 
         log.info("secret: {}", this.secret);
-        log.info("signature-algorithm", this.signatureAlgorithm);
+        log.info("signature-algorithm: {}", this.signatureAlgorithm);
     }
 
     @Override
