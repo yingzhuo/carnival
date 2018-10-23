@@ -26,6 +26,10 @@ public class ValidationException extends RuntimeException {
         this.errors = errors;
     }
 
+    public static ValidationException create() {
+        return new ValidationException(null);
+    }
+
     public static void raiseIfNecessary(BindingResult bindingResult) {
         raiseIfNecessary((Errors) bindingResult);
     }
