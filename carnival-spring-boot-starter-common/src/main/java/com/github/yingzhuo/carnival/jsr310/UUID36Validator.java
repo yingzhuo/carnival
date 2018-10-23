@@ -25,7 +25,7 @@ public class UUID36Validator implements ConstraintValidator<UUID36, String> {
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) return true;
 
-        Matcher matcher = PATTERN.matcher(value);
+        final Matcher matcher = PATTERN.matcher(value);
         return matcher.matches();
     }
 

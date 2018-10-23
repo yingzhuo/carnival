@@ -17,9 +17,11 @@ import java.util.regex.Pattern;
 /**
  * @author 应卓
  */
-public class UUID32Validator implements ConstraintValidator<UUID32, String> {
+public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber, String> {
 
-    private static final Pattern PATTERN = Pattern.compile("^[0-9a-zA-Z]{32}$");
+    // TODO: 参考 https://segmentfault.com/a/1190000013737958
+
+    private static final Pattern PATTERN = Pattern.compile("^[0-9]{17}[0-9xX]$");
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
