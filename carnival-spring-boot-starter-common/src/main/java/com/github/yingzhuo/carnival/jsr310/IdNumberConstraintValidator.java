@@ -10,11 +10,12 @@
 package com.github.yingzhuo.carnival.jsr310;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.DateUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -30,10 +31,12 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
 
     private static final int[] FACTOR = new int[]{7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
     private static final String[] PARITY = new String[]{"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
-
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyyMMdd");
     private static final Map<Integer, String> REGION_MAP = new HashMap<>();
 
     static {
+        DATE_FORMAT.setLenient(false);
+
         REGION_MAP.put(11, "北京");
         REGION_MAP.put(12, "天津");
         REGION_MAP.put(13, "河北");
@@ -109,7 +112,7 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
     private boolean isValidDob(String idNumber) {
         final String s = idNumber.substring(6, 14);
         try {
-            DateUtils.parseDate(s, "yyyyMMdd");
+            DATE_FORMAT.parse(s);
             return true;
         } catch (ParseException e) {
             return false;
