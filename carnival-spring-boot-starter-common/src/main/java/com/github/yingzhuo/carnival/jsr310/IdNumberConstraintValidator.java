@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.jsr310;
 
-import lombok.extern.slf4j.Slf4j;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.text.DateFormat;
@@ -24,10 +22,9 @@ import java.util.regex.Pattern;
 /**
  * @author 应卓
  */
-@Slf4j
 public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber, String> {
 
-    // TODO: 参考 https://segmentfault.com/a/1190000013737958
+    // 参考: https://segmentfault.com/a/1190000013737958
 
     private static final int[] FACTOR = new int[]{7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
     private static final String[] PARITY = new String[]{"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
@@ -100,6 +97,7 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
         return idNumber.substring(17, 18).equalsIgnoreCase(test);
     }
 
+    // 地区码
     private boolean isValidRegionCode(String idNumber) {
         try {
             final int code = Integer.valueOf(idNumber.substring(0, 2));
@@ -109,6 +107,7 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
         }
     }
 
+    // 出生日期
     private boolean isValidDob(String idNumber) {
         final String s = idNumber.substring(6, 14);
         try {
