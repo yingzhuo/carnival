@@ -19,15 +19,17 @@ import java.util.concurrent.TimeUnit;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
-@Constraint(validatedBy = FutureLimitedConstraintValidator.class)
-public @interface FutureLimited {
+@Target({ElementType.FIELD, ElementType.METHOD})
+@Constraint(validatedBy = AroundCurrentTimeMatchValidator.class)
+public @interface AroundCurrentTime {
 
-    public long value();
+    public int past() default -1;
+
+    public int future() default -1;
 
     public TimeUnit timeUnit() default TimeUnit.DAYS;
 
-    public DateTruncation dateTruncation() default DateTruncation.DATE;
+    public DateTruncation dateTruncation() default DateTruncation.DAY;
 
     public String message() default "Invalid file";
 
@@ -39,7 +41,7 @@ public @interface FutureLimited {
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
-        FutureLimited[] value();
+        AroundCurrentTime[] value();
     }
 
 }
