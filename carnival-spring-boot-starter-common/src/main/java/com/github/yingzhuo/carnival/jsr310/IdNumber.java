@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = IdNumberConstraintValidator.class)
 public @interface IdNumber {
 
-    public String message() default "Invalid file";
+    public String message() default "Invalid id number.";
 
     public Class<?>[] groups() default {};
 

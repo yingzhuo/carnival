@@ -31,7 +31,7 @@ public @interface AroundCurrentTime {
 
     public DateTruncation dateTruncation() default DateTruncation.DAY;
 
-    public String message() default "Invalid file";
+    public String message() default "Invalid date.";
 
     public Class<?>[] groups() default {};
 
