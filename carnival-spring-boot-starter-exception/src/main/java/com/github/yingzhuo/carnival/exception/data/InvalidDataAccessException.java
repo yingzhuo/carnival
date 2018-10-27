@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.exception.CarnivalStandardException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @author 应卓
@@ -46,53 +45,6 @@ public class InvalidDataAccessException extends CarnivalStandardException {
             map.put("type", getClass().getName());
         }
         return Collections.unmodifiableMap(map);
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-
-    public static final class Assert {
-
-        private Assert() {
-        }
-
-        public static void state(boolean expression) {
-            if (!expression) {
-                throw new InvalidDataAccessException(null);
-            }
-        }
-
-        public static void state(boolean expression, String format, Object... args) {
-            if (!expression) {
-                throw new InvalidDataAccessException(format, args);
-            }
-        }
-
-        public static <T> T notNull(T obj) {
-            state(obj != null);
-            return obj;
-        }
-
-        public static <T> T notNull(T obj, String format, Object... args) {
-            state(obj != null, format, args);
-            return obj;
-        }
-
-        public static <T> void equals(T obj1, T obj2) {
-            state(Objects.equals(obj1, obj2));
-        }
-
-        public static <T> void equals(T obj1, T obj2, String format, Object... args) {
-            state(Objects.equals(obj1, obj2), format, args);
-        }
-
-        public static <T> void notEmpty(String string) {
-            state(string != null && !string.isEmpty());
-        }
-
-        public static <T> void notEmpty(String string, String format, Object... args) {
-            state(string != null && !string.isEmpty(), format, args);
-        }
-
     }
 
 }

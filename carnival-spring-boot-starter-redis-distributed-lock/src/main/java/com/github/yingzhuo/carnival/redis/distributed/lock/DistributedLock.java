@@ -109,7 +109,7 @@ public final class DistributedLock {
     public static void waitAndRun(String key, long expireInMillis, Runnable runnable) {
         Objects.requireNonNull(runnable);
 
-        while(true) {
+        while (true) {
             if (lock(key, expireInMillis)) {
                 runnable.run();
                 return;
