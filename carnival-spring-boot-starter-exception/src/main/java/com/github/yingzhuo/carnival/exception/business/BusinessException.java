@@ -60,7 +60,7 @@ public class BusinessException extends CarnivalStandardException implements Stri
     }
 
     public Map<String, Object> asMap() {
-        return asMap(false);
+        return asMap(true);
     }
 
     public Map<String, Object> asMap(boolean includeType) {
