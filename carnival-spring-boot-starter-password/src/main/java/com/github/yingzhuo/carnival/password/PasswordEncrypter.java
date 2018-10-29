@@ -20,4 +20,8 @@ public interface PasswordEncrypter {
         return encrypt(password).equals(encrypted);
     }
 
+    public default boolean notMatches(String password, String encrypted) {
+        return !matches(password, encrypted);
+    }
+
 }
