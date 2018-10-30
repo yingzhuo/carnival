@@ -70,7 +70,7 @@
         <kotlin.version>1.2.71</kotlin.version>
         <springboot.version>2.0.6.RELEASE</springboot.version>
         <springcloud.version>Finchley.RELEASE</springcloud.version>
-        <spring.version>5.1.0.RELEASE</spring.version>
+        <spring.version>5.1.2.RELEASE</spring.version>
         <jackson.version>2.9.7</jackson.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
