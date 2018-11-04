@@ -9,34 +9,28 @@
  */
 package com.github.yingzhuo.carnival.datasource;
 
-import com.github.yingzhuo.carnival.common.IntSized;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
  * @author 应卓
  */
-public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<String, DataSource>> {
+public class ForkDataSource implements DataSource, InitializingBean {
 
     private final Remote remote = new Remote();
-    private final Map<String, DataSource> cachedDataSources = new TreeMap<>();
+    private final SortedMap<String, DataSource> cachedDataSources = new TreeMap<>();
     private String defaultDataSourceName;
 
-    public ForkDataSource() {
-        this(null);
-    }
-
     public ForkDataSource(String defaultDataSourceName) {
-        this.defaultDataSourceName = defaultDataSourceName;
+        this.defaultDataSourceName = Objects.requireNonNull(defaultDataSourceName);
     }
 
     public static Builder builder() {
@@ -55,11 +49,6 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
 
     public Remote getRemote() {
         return this.remote;
-    }
-
-    @Override
-    public Integer size() {
-        return cachedDataSources.size();
     }
 
     @Override
@@ -107,11 +96,6 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
         return effective().getParentLogger();
     }
 
-    @Override
-    public Iterator<Map.Entry<String, DataSource>> iterator() {
-        return cachedDataSources.entrySet().iterator();
-    }
-
     private DataSource effective() {
         String name = getRemote().nameHolder.get();
 
@@ -128,12 +112,18 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
         return dataSource;
     }
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        Assert.isTrue(!cachedDataSources.isEmpty(), "Cached datasource is empty.");
+        Assert.isTrue(cachedDataSources.get(defaultDataSourceName) != null, "Invalid default datasource name: " + defaultDataSourceName + ".");
+    }
+
     // ---------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
 
         private Map<String, DataSource> dataSourceMap = new HashMap<>();
-        private String defaultDataSourceName;
+        private String defaultDataSourceName = "default";
 
         private Builder() {
             super();
@@ -150,11 +140,11 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
         }
 
         public ForkDataSource build() {
-            ForkDataSource bean = new ForkDataSource();
-            bean.defaultDataSourceName = this.defaultDataSourceName;
+            ForkDataSource bean = new ForkDataSource(this.defaultDataSourceName);
             bean.cachedDataSources.putAll(this.dataSourceMap);
             return bean;
         }
+
     }
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -171,4 +161,5 @@ public class ForkDataSource implements DataSource, IntSized, Iterable<Map.Entry<
             nameHolder.set(name);
         }
     }
+
 }

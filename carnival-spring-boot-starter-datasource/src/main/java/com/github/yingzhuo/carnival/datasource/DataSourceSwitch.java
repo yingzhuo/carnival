@@ -23,11 +23,6 @@ public @interface DataSourceSwitch {
     /**
      * 切换数据源名称
      */
-    public String name();
-
-    /**
-     * 切换监听器
-     */
-    public Class<? extends SwitchListener>[] listeners() default {};
+    public String value();
 
 }

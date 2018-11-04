@@ -6,7 +6,7 @@
     <parent>
         <artifactId>carnival</artifactId>
         <groupId>com.github.yingzhuo</groupId>
-        <version>1.1.7-SNAPSHOT</version>
+        <version>1.1.8-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>carnival-spring-boot-starter-password</artifactId>
