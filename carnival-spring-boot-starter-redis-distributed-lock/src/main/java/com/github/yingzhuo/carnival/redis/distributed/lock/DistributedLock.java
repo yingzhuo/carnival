@@ -112,6 +112,7 @@ public final class DistributedLock {
         while (true) {
             if (lock(key, expireInMillis)) {
                 runnable.run();
+                release(key);
                 return;
             }
         }
