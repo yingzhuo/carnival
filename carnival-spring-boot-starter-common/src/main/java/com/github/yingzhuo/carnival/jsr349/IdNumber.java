@@ -28,11 +28,4 @@ public @interface IdNumber {
 
     public Class<? extends Payload>[] payload() default {};
 
-    @Documented
-    @Target(ElementType.TYPE)
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        IdNumber[] value();
-    }
-
 }

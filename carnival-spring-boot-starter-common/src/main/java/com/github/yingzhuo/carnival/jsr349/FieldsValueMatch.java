@@ -16,9 +16,10 @@ import java.lang.annotation.*;
 /**
  * @author 应卓
  */
+@Repeatable(FieldsValueMatch.List.class)
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldsValueMatchValidator.class)
 public @interface FieldsValueMatch {
 
@@ -32,6 +33,7 @@ public @interface FieldsValueMatch {
 
     public Class<? extends Payload>[] payload() default {};
 
+    @Inherited
     @Documented
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)

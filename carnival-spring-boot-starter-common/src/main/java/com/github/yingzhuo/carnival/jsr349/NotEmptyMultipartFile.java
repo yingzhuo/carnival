@@ -28,11 +28,4 @@ public @interface NotEmptyMultipartFile {
 
     public Class<? extends Payload>[] payload() default {};
 
-    @Documented
-    @Target(ElementType.TYPE)
-    @Retention(RetentionPolicy.RUNTIME)
-    @interface List {
-        NotEmptyMultipartFile[] value();
-    }
-
 }
