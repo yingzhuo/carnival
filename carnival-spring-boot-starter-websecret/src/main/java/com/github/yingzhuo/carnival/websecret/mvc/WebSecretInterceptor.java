@@ -74,7 +74,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         if (nonce == null) {
             throw new WebSecretException("Lack of nonce.");
         } else {
-            WebSecretHolder.nonceHolder.set(nonce);
+            WebSecretHolder.setNonce(nonce);
         }
 
         String timestamp = timestampParser.parse(req, locale).orElse(null);
@@ -82,15 +82,15 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         if (timestamp == null) {
             throw new WebSecretException("Lack of timestamp.");
         } else {
-            WebSecretHolder.timestampHolder.set(timestamp);
+            WebSecretHolder.setTimestamp(timestamp);
         }
 
         String signature = signatureParser.parse(req, locale).orElse(null);
-        log.debug("create: {}", signature);
+        log.debug("signature: {}", signature);
         if (signature == null) {
-            throw new WebSecretException("Lack of create.");
+            throw new WebSecretException("Lack of signature.");
         } else {
-            WebSecretHolder.signatureHolder.set(signature);
+            WebSecretHolder.setSignature(signature);
         }
 
         String clientId = clientIdParser.parse(req, locale).orElse(null);
@@ -98,7 +98,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         if (clientId == null) {
             throw new WebSecretException("Lack of ApplicationId");
         } else {
-            WebSecretHolder.clientIdHolder.set(clientId);
+            WebSecretHolder.setSignature(clientId);
         }
 
         String secret = secretLoader.load(clientId);
@@ -106,10 +106,12 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         if (secret == null) {
             final String msg = String.format("Cannot load secret for clientId (%s)", clientId);
             throw new WebSecretException(msg);
+        } else {
+            WebSecretHolder.setSecret(secret);
         }
 
         if (!signatureMatcher.matches(signature, secret, nonce, timestamp)) {
-            throw new WebSecretException("Invalid create.");
+            throw new WebSecretException("Invalid signature.");
         }
 
         return true;

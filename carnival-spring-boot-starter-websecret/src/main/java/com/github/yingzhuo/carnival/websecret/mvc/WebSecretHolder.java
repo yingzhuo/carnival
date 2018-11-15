@@ -9,30 +9,60 @@
  */
 package com.github.yingzhuo.carnival.websecret.mvc;
 
+import com.github.yingzhuo.carnival.websecret.WebSecretContext;
+
 /**
  * @author 应卓
  */
 public final class WebSecretHolder {
 
-    static final ThreadLocal<String> nonceHolder = ThreadLocal.withInitial(() -> null);
-    static final ThreadLocal<String> clientIdHolder = ThreadLocal.withInitial(() -> null);
-    static final ThreadLocal<String> signatureHolder = ThreadLocal.withInitial(() -> null);
-    static final ThreadLocal<String> timestampHolder = ThreadLocal.withInitial(() -> null);
+    private WebSecretHolder() {
+    }
+
+    static final ThreadLocal<WebSecretContext> holder = ThreadLocal.withInitial(WebSecretContext.Impl::new);
+
+    public static WebSecretContext get() {
+        return holder.get();
+    }
 
     public static String getNonce() {
-        return nonceHolder.get();
+        return get().getNonce();
     }
 
     public static String getClientId() {
-        return clientIdHolder.get();
+        return get().getClientId();
     }
 
     public static String getSignature() {
-        return signatureHolder.get();
+        return get().getSignature();
     }
 
     public static String getTimestamp() {
-        return timestampHolder.get();
+        return get().getTimestamp();
+    }
+
+    public static String getSecret() {
+        return get().getSecret();
+    }
+
+    static void setNonce(String v) {
+        ((WebSecretContext.Impl)holder.get()).setNonce(v);
+    }
+
+    static void setClientId(String v) {
+        ((WebSecretContext.Impl)holder.get()).setClientId(v);
+    }
+
+    static void setSignature(String v) {
+        ((WebSecretContext.Impl)holder.get()).setSignature(v);
+    }
+
+    static void setTimestamp(String v) {
+        ((WebSecretContext.Impl)holder.get()).setTimestamp(v);
+    }
+
+    static void setSecret(String v) {
+        ((WebSecretContext.Impl)holder.get()).setSecret(v);
     }
 
 }

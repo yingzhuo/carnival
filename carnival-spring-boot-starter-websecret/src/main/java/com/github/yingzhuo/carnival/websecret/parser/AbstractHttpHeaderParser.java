@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public class AbstractHttpHeaderParser implements Parser<WebRequest, String> {
+public abstract class AbstractHttpHeaderParser implements Parser<WebRequest, String> {
 
     private String headerName;
 

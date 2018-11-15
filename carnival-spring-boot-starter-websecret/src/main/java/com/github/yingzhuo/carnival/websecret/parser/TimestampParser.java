@@ -10,11 +10,28 @@
 package com.github.yingzhuo.carnival.websecret.parser;
 
 import com.github.yingzhuo.carnival.common.parser.Parser;
+import lombok.val;
 import org.springframework.web.context.request.WebRequest;
+
+import java.util.Objects;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
+@SuppressWarnings("ALL")
 public interface TimestampParser extends Parser<WebRequest, String> {
+
+    public default TimestampParser or(TimestampParser that) {
+        return (webRequest, locale) -> {
+            val thisOp = this.parse(webRequest, locale);
+
+            if (thisOp.isPresent()) {
+                return thisOp;
+            } else {
+                return Objects.requireNonNull(that).parse(webRequest, locale);
+            }
+        };
+    }
+
 }

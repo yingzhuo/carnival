@@ -12,14 +12,12 @@ package com.github.yingzhuo.carnival.websecret.autoconfig;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
 import com.github.yingzhuo.carnival.websecret.EnableWebSecret;
 import com.github.yingzhuo.carnival.websecret.ValidationStrategy;
-import com.github.yingzhuo.carnival.websecret.annotation.ClientIdHandlerMethodArgResolver;
-import com.github.yingzhuo.carnival.websecret.annotation.NonceHandlerMethodArgResolver;
-import com.github.yingzhuo.carnival.websecret.annotation.SignatureMethodArgResolver;
-import com.github.yingzhuo.carnival.websecret.annotation.TimestampMethodArgResolver;
+import com.github.yingzhuo.carnival.websecret.WebSecretContext;
 import com.github.yingzhuo.carnival.websecret.dao.PropertiesSecretLoader;
 import com.github.yingzhuo.carnival.websecret.dao.SecretLoader;
 import com.github.yingzhuo.carnival.websecret.matcher.DefaultSignatureMatcher;
 import com.github.yingzhuo.carnival.websecret.matcher.SignatureMatcher;
+import com.github.yingzhuo.carnival.websecret.mvc.WebSecretHolder;
 import com.github.yingzhuo.carnival.websecret.mvc.WebSecretInterceptor;
 import com.github.yingzhuo.carnival.websecret.parser.*;
 import lombok.val;
@@ -27,7 +25,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -90,8 +92,11 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
     @ConditionalOnMissingBean
     @ConditionalOnAnyResource(resources = {
             "file:./websecret.properties",
+            "file:./web-secret.properties",
             "classpath:/websecret.properties",
-            "classpath:/META-INF/websecret.properties"
+            "classpath:/web-secret.properties",
+            "classpath:/META-INF/websecret.properties",
+            "classpath:/META-INF/web-secret.properties"
     })
     public SecretLoader secretLoader() {
         return new PropertiesSecretLoader();
@@ -126,10 +131,18 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new ClientIdHandlerMethodArgResolver());
-        resolvers.add(new NonceHandlerMethodArgResolver());
-        resolvers.add(new TimestampMethodArgResolver());
-        resolvers.add(new SignatureMethodArgResolver());
+        resolvers.add(new HandlerMethodArgumentResolver() {
+
+            @Override
+            public boolean supportsParameter(MethodParameter parameter) {
+                return parameter.getParameterType() == WebSecretContext.class;
+            }
+
+            @Override
+            public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+                return WebSecretHolder.get();
+            }
+        });
     }
 
 }
