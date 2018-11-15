@@ -24,7 +24,7 @@ public class DefaultSignatureMatcher implements SignatureMatcher {
         Objects.requireNonNull(secret);
         Objects.requireNonNull(nonce);
         Objects.requireNonNull(timestamp);
-        return signature.equals(SignatureUtils.signature(secret, nonce, timestamp));
+        return signature.equals(SignatureUtils.create(secret, nonce, timestamp));
     }
 
 }

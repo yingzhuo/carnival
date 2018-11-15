@@ -54,7 +54,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
     private ValidationStrategy validationStrategy = ValidationStrategy.ANNOTATED;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -86,9 +86,9 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         }
 
         String signature = signatureParser.parse(req, locale).orElse(null);
-        log.debug("signature: {}", signature);
+        log.debug("create: {}", signature);
         if (signature == null) {
-            throw new WebSecretException("Lack of signature.");
+            throw new WebSecretException("Lack of create.");
         } else {
             WebSecretHolder.signatureHolder.set(signature);
         }
@@ -109,7 +109,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         }
 
         if (!signatureMatcher.matches(signature, secret, nonce, timestamp)) {
-            throw new WebSecretException("Invalid signature.");
+            throw new WebSecretException("Invalid create.");
         }
 
         return true;
