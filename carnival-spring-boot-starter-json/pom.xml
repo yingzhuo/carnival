@@ -68,6 +68,10 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-guava</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-scala_2.12</artifactId>
             <scope>provided</scope>
@@ -78,4 +82,5 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
 </project>

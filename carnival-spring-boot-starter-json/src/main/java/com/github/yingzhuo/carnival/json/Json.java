@@ -20,7 +20,12 @@ import java.util.function.Supplier;
  */
 public class Json implements Serializable {
 
+    @Deprecated     // 这个方法名容易使人误会是一个单例
     public static Json instance() {
+        return new Json();
+    }
+
+    public static Json newInstance() {
         return new Json();
     }
 

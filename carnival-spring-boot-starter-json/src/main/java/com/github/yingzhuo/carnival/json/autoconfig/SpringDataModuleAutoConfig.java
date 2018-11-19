@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.json.autoconfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yingzhuo.carnival.json.module.SpringDataJacksonModule;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
@@ -20,9 +19,8 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@Slf4j
 @ConditionalOnClass(name = "org.springframework.data.domain.Page")
-public class JacksonModuleAutoConfig {
+public class SpringDataModuleAutoConfig {
 
     @Autowired(required = false)
     public void config(ObjectMapper om) {
