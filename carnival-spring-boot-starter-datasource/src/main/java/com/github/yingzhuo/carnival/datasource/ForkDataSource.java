@@ -113,7 +113,7 @@ public class ForkDataSource implements DataSource, InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.isTrue(!cachedDataSources.isEmpty(), "Cached datasource is empty.");
         Assert.isTrue(cachedDataSources.get(defaultDataSourceName) != null, "Invalid default datasource name: " + defaultDataSourceName + ".");
     }

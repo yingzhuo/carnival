@@ -35,9 +35,7 @@ public class ForkDataSourceSwitchInterceptor extends HandlerInterceptorSupport {
                 val dataSourceName = annotation.value();
                 ForkDataSource datasource = SpringUtils.getBean(ForkDataSource.class);
                 datasource.getRemote().setName(dataSourceName);
-
-                log.info("DataSource switch ({})", dataSourceName);
-
+                log.info("DataSource switch -> ({})", dataSourceName);
             } catch (NoSuchBeanDefinitionException e) {
                 // NOP
             }
