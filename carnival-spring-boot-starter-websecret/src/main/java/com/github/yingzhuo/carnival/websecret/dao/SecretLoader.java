@@ -9,11 +9,13 @@
  */
 package com.github.yingzhuo.carnival.websecret.dao;
 
+import java.util.Optional;
+
 /**
  * @author 应卓
  */
 public interface SecretLoader {
 
-    public String load(String clientId);
+    public Optional<String> load(String clientId);
 
 }

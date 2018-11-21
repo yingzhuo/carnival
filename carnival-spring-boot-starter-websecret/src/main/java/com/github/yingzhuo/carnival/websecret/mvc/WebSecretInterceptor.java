@@ -101,7 +101,7 @@ public class WebSecretInterceptor implements HandlerInterceptor {
             WebSecretHolder.setSignature(clientId);
         }
 
-        String secret = secretLoader.load(clientId);
+        String secret = secretLoader.load(clientId).orElse(null);
         log.debug("secret: {}", secret);
         if (secret == null) {
             final String msg = String.format("Cannot load secret for clientId (%s)", clientId);

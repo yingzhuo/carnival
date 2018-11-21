@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.websecret.dao;
 
+import java.util.Objects;
+import java.util.Optional;
+
 /**
  * @author 应卓
  */
@@ -17,12 +20,12 @@ public class FixedSecretLoader implements SecretLoader {
     private final String secret;
 
     public FixedSecretLoader(String secret) {
-        this.secret = secret;
+        this.secret = Objects.requireNonNull(secret);
     }
 
     @Override
-    public String load(String clientId) {
-        return this.secret;
+    public Optional<String> load(String clientId) {
+        return Optional.of(secret);
     }
 
     public String getSecret() {

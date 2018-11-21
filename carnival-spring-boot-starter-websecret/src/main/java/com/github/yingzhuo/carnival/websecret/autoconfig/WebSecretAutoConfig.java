@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.websecret.autoconfig;
 
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
+import com.github.yingzhuo.carnival.common.io.ResourceOption;
 import com.github.yingzhuo.carnival.websecret.EnableWebSecret;
 import com.github.yingzhuo.carnival.websecret.ValidationStrategy;
 import com.github.yingzhuo.carnival.websecret.WebSecretContext;
@@ -99,7 +100,15 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
             "classpath:/META-INF/web-secret.properties"
     })
     public SecretLoader secretLoader() {
-        return new PropertiesSecretLoader();
+        val rp = ResourceOption.of(
+                "file:./websecret.properties",
+                "file:./web-secret.properties",
+                "classpath:/websecret.properties",
+                "classpath:/web-secret.properties",
+                "classpath:/META-INF/websecret.properties",
+                "classpath:/META-INF/web-secret.properties");
+
+        return new PropertiesSecretLoader(rp.get());
     }
 
     @Bean

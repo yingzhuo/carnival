@@ -9,13 +9,14 @@
  */
 package com.github.yingzhuo.carnival.websecret.dao;
 
-import com.github.yingzhuo.carnival.common.io.ResourceOption;
-import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Properties;
 
 /**
@@ -25,30 +26,28 @@ public class PropertiesSecretLoader implements SecretLoader, InitializingBean {
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
     private final Properties properties = new Properties();
+    private final Resource resource;
+
+    public PropertiesSecretLoader(Resource resource) {
+        this.resource = Objects.requireNonNull(resource);
+    }
 
     @Override
-    public String load(String clientId) {
-        return properties.getProperty(clientId);
+    public Optional<String> load(String clientId) {
+        return Optional.ofNullable(properties.getProperty(clientId, null));
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        val resourceOp = ResourceOption.of(
-                "file:./websecret.properties",
-                "classpath:/websecret.properties",
-                "classpath:/META-INF/websecret.properties");
 
-        if (resourceOp.isPresent()) {
+        try {
+            properties.load(resource.getInputStream());
+        } finally {
 
             try {
-                properties.load(resourceOp.get().getInputStream());
-            } finally {
-
-                try {
-                    resourceOp.get().getInputStream().close();
-                } catch (IOException e) {
-                    // NOP
-                }
+                resource.getInputStream().close();
+            } catch (IOException e) {
+                // NOP
             }
         }
     }
