@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.1.14-SNAPSHOT</version>
+    <version>1.1.17-SNAPSHOT</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-beanmapper</module>
@@ -29,6 +29,8 @@
         <module>carnival-spring-boot-starter-scala</module>
         <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-zxing</module>
+        <module>carnival-spring-boot-starter-alipay</module>
+        <module>carnival-spring-boot-starter-wechatpay</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -291,6 +293,13 @@
                 <version>2.9.0</version>
             </dependency>
 
+            <!-- aplipay sdk -->
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>3.4.27.ALL</version>
+            </dependency>
+
             <!-- jackson -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -396,6 +405,13 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>3.4.0</version>
+            </dependency>
+
+            <!-- http-utils -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpasyncclient</artifactId>
+                <version>4.1.4</version>
             </dependency>
 
             <!-- easy-mapper -->
