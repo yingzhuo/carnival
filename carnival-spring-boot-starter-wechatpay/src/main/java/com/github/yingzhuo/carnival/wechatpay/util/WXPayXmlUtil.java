@@ -1,3 +1,12 @@
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
 package com.github.yingzhuo.carnival.wechatpay.util;
 
 import org.w3c.dom.Document;
@@ -27,4 +36,5 @@ public final class WXPayXmlUtil {
     public static Document newDocument() throws ParserConfigurationException {
         return newDocumentBuilder().newDocument();
     }
+
 }

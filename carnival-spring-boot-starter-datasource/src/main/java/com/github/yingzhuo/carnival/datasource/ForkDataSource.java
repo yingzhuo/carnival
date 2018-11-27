@@ -129,7 +129,7 @@ public class ForkDataSource implements DataSource, InitializingBean {
             super();
         }
 
-        public Builder defaultDataSourceName(String defaultDataSourceName) {
+        public Builder defaultName(String defaultDataSourceName) {
             this.defaultDataSourceName = defaultDataSourceName;
             return this;
         }

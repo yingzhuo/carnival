@@ -41,7 +41,6 @@ public class WechatPayAutoConfig {
         return bean;
     }
 
-
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.wechat-pay")
