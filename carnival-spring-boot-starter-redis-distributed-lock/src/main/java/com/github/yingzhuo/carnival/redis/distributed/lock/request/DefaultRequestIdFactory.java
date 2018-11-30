@@ -25,8 +25,6 @@ public class DefaultRequestIdFactory implements RequestIdFactory {
         build.append(Objects.requireNonNull(springId));
         build.append(".");
         build.append(threadId);
-        build.append(".");
-        build.append(UUID.randomUUID().toString());
         return build.toString();
     }
 

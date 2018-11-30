@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.redis.distributed.lock;
 import com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockAutoCnf;
 import com.github.yingzhuo.carnival.redis.distributed.lock.request.RequestIdFactory;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -25,6 +27,8 @@ import java.util.Objects;
  * @author 应卓
  */
 public final class DistributedLock {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DistributedLock.class);
 
     private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
@@ -44,6 +48,10 @@ public final class DistributedLock {
         final RequestIdFactory requestIdFactory = SpringUtils.getBean(RequestIdFactory.class);
         final String effKey = props.getKeyScope() + key;
         final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
+
+        LOGGER.trace("LOCK ");
+        LOGGER.trace("key: {}", effKey);
+        LOGGER.trace("value: {}", requestId);
 
         try (Jedis jedis = jedisPool.getResource()) {
             String result = jedis.set(
@@ -66,6 +74,10 @@ public final class DistributedLock {
         final RequestIdFactory requestIdFactory = SpringUtils.getBean(RequestIdFactory.class);
         final String effKey = props.getKeyScope() + key;
         final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
+
+        LOGGER.trace("RELEASE ");
+        LOGGER.trace("key: {}", effKey);
+        LOGGER.trace("value: {}", requestId);
 
         try (Jedis jedis = jedisPool.getResource()) {
             String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
