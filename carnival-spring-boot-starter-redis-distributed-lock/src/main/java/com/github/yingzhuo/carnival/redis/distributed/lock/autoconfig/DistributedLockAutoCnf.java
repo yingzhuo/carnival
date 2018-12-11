@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.aop.DistributedLockAdvice;
-import com.github.yingzhuo.carnival.redis.distributed.lock.request.DefaultRequestIdFactory;
 import com.github.yingzhuo.carnival.redis.distributed.lock.request.RequestIdFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +20,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.JedisSentinelPool;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -37,29 +39,37 @@ public class DistributedLockAutoCnf {
         // config 配置暂且只用默认值
         JedisPoolConfig config = new JedisPoolConfig();
 
-        log.debug("jedis host: {}", props.getJedis().getHost());
-        log.debug("jedis port: {}", props.getJedis().getPort());
-        log.debug("jedis password: {}", "***");
-        log.debug("jedis timeout: {}", props.getJedis().getTimeout());
+        if (props.getMode() == Mode.SINGLE) {
+            return new JedisPool(
+                    config,
+                    props.getJedis().getHost(),
+                    props.getJedis().getPort(),
+                    props.getJedis().getTimeout(),
+                    props.getJedis().getPassword());
+        } else {
+            return null;
+        }
+    }
 
-        return new JedisPool(
-                config,
-                props.getJedis().getHost(),
-                props.getJedis().getPort(),
-                props.getJedis().getTimeout(),
-                props.getJedis().getPassword());
+    @Bean
+    @ConditionalOnMissingBean
+    public JedisSentinelPool jedisSentinelPool(DistributedLockProps props) {
+
+        if (props.getMode() == Mode.SENTINEL) {
+            return new JedisSentinelPool(
+                    props.getJedis().getMasterName(),
+                    Arrays.stream(props.getJedis().getSentinels()).collect(Collectors.toSet()),
+                    props.getJedis().getPassword()
+            );
+        } else {
+            return null;
+        }
     }
 
     @Bean
     @ConditionalOnMissingBean
     public RequestIdFactory requestIdFactory() {
-        return new DefaultRequestIdFactory();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public DistributedLockAdvice distributedLockAdvice() {
-        return new DistributedLockAdvice();
+        return RequestIdFactory.DEFAULT;
     }
 
     // ---------------------------------------------------------------------------------------------------------------
@@ -70,6 +80,7 @@ public class DistributedLockAutoCnf {
     public static class DistributedLockProps {
 
         private boolean enabled = true;
+        private Mode mode = Mode.SINGLE;
         private String keyScope = "";
         private JedisConfig jedis = new JedisConfig();
 
@@ -80,9 +91,24 @@ public class DistributedLockAutoCnf {
         public static class JedisConfig {
             private String host = "localhost";
             private int port = 6379;
-            private String password = "";
             private int timeout = 3000;
+            private String password = "";
+
+            private String masterName = "master";
+            private String[] sentinels;
         }
     }
 
+    public enum Mode {
+
+        /**
+         * 单节点模式
+         */
+        SINGLE,
+
+        /**
+         * 哨兵模式
+         */
+        SENTINEL,
+    }
 }

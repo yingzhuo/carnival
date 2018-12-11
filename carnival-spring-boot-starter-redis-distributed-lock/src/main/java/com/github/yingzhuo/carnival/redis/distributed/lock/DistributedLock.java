@@ -49,7 +49,7 @@ public final class DistributedLock {
         final String effKey = props.getKeyScope() + key;
         final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        LOGGER.trace("LOCK ");
+        LOGGER.trace("try to LOCK");
         LOGGER.trace("key: {}", effKey);
         LOGGER.trace("value: {}", requestId);
 
@@ -75,7 +75,7 @@ public final class DistributedLock {
         final String effKey = props.getKeyScope() + key;
         final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        LOGGER.trace("RELEASE ");
+        LOGGER.trace("try to RELEASE");
         LOGGER.trace("key: {}", effKey);
         LOGGER.trace("value: {}", requestId);
 
