@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.json.module.jackson;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lombok.val;
 import org.springframework.data.domain.*;
 
 import java.util.Iterator;
@@ -26,13 +27,18 @@ public interface PageMixIn {
 
     public static class SimplePageImpl<T> implements Page<T> {
         private final Page<T> delegate;
+        private final int pageNumber;
+        private final int pageSize;
 
         public SimplePageImpl(
                 @JsonProperty("content") List<T> content,
                 @JsonProperty("page") int number,
                 @JsonProperty("size") int size,
                 @JsonProperty("totalElements") long totalElements) {
-            delegate = new PageImpl<>(content, PageRequest.of(number, size), totalElements);
+
+            this.pageNumber = number;
+            this.pageSize = size;
+            this.delegate = new PageImpl<>(content, PageRequest.of(number, size), totalElements);
         }
 
         @Override
@@ -130,5 +136,16 @@ public interface PageMixIn {
         public Iterator<T> iterator() {
             return delegate.iterator();
         }
+
+        @Override
+        public Pageable getPageable() {
+            val pageable = delegate.getPageable();
+            if ("org.springframework.data.domain.Unpaged".equals(pageable.getClass().getName())) {
+                return PageRequest.of(pageNumber, pageSize);
+            }
+            return pageable;
+        }
+
     }
+
 }

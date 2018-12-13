@@ -13,11 +13,13 @@ import com.github.yingzhuo.carnival.redis.distributed.lock.request.RequestIdFact
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.Assert;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisSentinelPool;
@@ -77,12 +79,33 @@ public class DistributedLockAutoCnf {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.redis-distributed-lock")
-    public static class DistributedLockProps {
+    public static class DistributedLockProps implements InitializingBean {
 
         private boolean enabled = true;
         private Mode mode = Mode.SINGLE;
         private String keyScope = "";
         private JedisConfig jedis = new JedisConfig();
+
+        @Override
+        public void afterPropertiesSet() {
+            if (enabled) {
+                Assert.notNull(this.mode, "'carnival.redis-distributed-lock.mode' is null.");
+                Assert.notNull(this.jedis, "'carnival.redis-distributed-lock.jedis' is null.");
+
+                if (this.mode == Mode.SINGLE) {
+                    Assert.hasText(jedis.getHost(), "'carnival.redis-distributed-lock.jedis.host' is null or empty.");
+                }
+
+                if (this.mode == Mode.SENTINEL) {
+                    Assert.notNull(jedis.getSentinels(), "'carnival.redis-distributed-lock.jedis.sentinels' is null.");
+                    Assert.noNullElements(jedis.getSentinels(), "'carnival.redis-distributed-lock.jedis' has null element.");
+                }
+
+                if (null == keyScope) {
+                    keyScope = "";
+                }
+            }
+        }
 
         // ----------------------------------------------------------------------------------------------------------------
 
@@ -92,7 +115,7 @@ public class DistributedLockAutoCnf {
             private String host = "localhost";
             private int port = 6379;
             private int timeout = 3000;
-            private String password = "";
+            private String password = null;
 
             private String masterName = "master";
             private String[] sentinels;
