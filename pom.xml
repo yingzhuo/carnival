@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.1.22-SNAPSHOT</version>
+    <version>1.1.23-SNAPSHOT</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-beanmapper</module>
@@ -69,7 +69,7 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <scala.version>2.12.8</scala.version>
-        <kotlin.version>1.3.10</kotlin.version>
+        <kotlin.version>1.3.11</kotlin.version>
         <springboot.version>2.0.6.RELEASE</springboot.version>
         <springcloud.version>Finchley.RELEASE</springcloud.version>
         <spring.version>5.1.2.RELEASE</spring.version>
