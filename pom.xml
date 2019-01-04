@@ -56,12 +56,12 @@
         <repository>
             <id>ccae-releases</id>
             <name>Nexus Release Repository</name>
-            <url>http://192.168.0.108:8081/repository/maven-releases/</url>
+            <url>http://192.168.0.115:8081/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>ccae-snapshots</id>
             <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.0.108:8081/repository/maven-snapshots/</url>
+            <url>http://192.168.0.115:8081/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -409,7 +409,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
             </dependency>
 
             <!-- http-utils -->

@@ -20,6 +20,7 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -37,6 +38,7 @@ import java.util.*;
 /**
  * @author 应卓
  */
+@Slf4j
 public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     private Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
@@ -54,7 +56,9 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
+        RestfulSecurityContext.clean();
 
         if (!initialized) {
             this.initCache(SpringUtils.getBean(RequestMappingHandlerMapping.class).getHandlerMethods().values());
@@ -101,6 +105,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
+                log.debug("ac type = {}", ac.getClass());
                 ac.authenticate(RestfulSecurityContext.getUserDetails().orElse(null), annotation);
             });
 
