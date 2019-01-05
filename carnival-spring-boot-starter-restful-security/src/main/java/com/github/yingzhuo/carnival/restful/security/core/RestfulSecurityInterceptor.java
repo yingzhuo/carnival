@@ -114,6 +114,11 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        RestfulSecurityContext.clean();
+    }
+
     private Method getMethod(Object handler) {
         return ((HandlerMethod) handler).getMethod();
     }
