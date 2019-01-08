@@ -183,11 +183,11 @@ public interface UserDetails extends Serializable {
         }
 
         public Builder payload(String name, Object value) {
-            ud.putPayload(
-                    Objects.requireNonNull(name),
-                    Objects.requireNonNull(value)
-            );
+            if (value == null || name == null) {
+                return this;
+            }
 
+            ud.putPayload(name, value);
             return this;
         }
 

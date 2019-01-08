@@ -66,22 +66,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
 
             Algorithm algorithm = InternalUtils.toAlgorithm(signatureAlgorithm, secret);
             JWTVerifier verifier = JWT.require(algorithm).build();
-
-            try {
-                DecodedJWT jwt = verifier.verify(tokenValue);
-                JwtContext.setJwt(jwt);
-                return Optional.ofNullable(getUserDetails(jwt));
-            } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
-                throw new AlgorithmMismatchException(ex.getMessage(), ex);
-            } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {
-                throw new TokenExpiredException(ex.getMessage(), ex);
-            } catch (com.auth0.jwt.exceptions.SignatureVerificationException ex) {
-                throw new SignatureVerificationException(ex.getMessage(), ex);
-            } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
-                throw new InvalidClaimException(ex.getMessage(), ex);
-            } catch (com.auth0.jwt.exceptions.JWTDecodeException ex) {
-                throw new JwtDecodeException(ex.getMessage(), ex);
-            }
+            return doLoadUserDetails(algorithm, tokenValue);
         }
 
         return Optional.empty();
@@ -97,4 +82,23 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
         this.signatureAlgorithm = signatureAlgorithm;
     }
 
+    protected Optional<UserDetails> doLoadUserDetails(Algorithm algorithm, String tokenValue) {
+
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        try {
+            DecodedJWT jwt = verifier.verify(tokenValue);
+            JwtContext.setJwt(jwt);
+            return Optional.ofNullable(getUserDetails(jwt));
+        } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
+            throw new AlgorithmMismatchException(ex.getMessage(), ex);
+        } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {
+            throw new TokenExpiredException(ex.getMessage(), ex);
+        } catch (com.auth0.jwt.exceptions.SignatureVerificationException ex) {
+            throw new SignatureVerificationException(ex.getMessage(), ex);
+        } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
+            throw new InvalidClaimException(ex.getMessage(), ex);
+        } catch (com.auth0.jwt.exceptions.JWTDecodeException ex) {
+            throw new JwtDecodeException(ex.getMessage(), ex);
+        }
+    }
 }
