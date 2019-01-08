@@ -117,6 +117,11 @@ public class WebSecretInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        WebSecretHolder.clean();
+    }
+
     public void setLocaleResolver(LocaleResolver localeResolver) {
         this.localeResolver = localeResolver;
     }

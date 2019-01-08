@@ -65,4 +65,8 @@ public final class WebSecretHolder {
         ((WebSecretContext.Impl)holder.get()).setSecret(v);
     }
 
+    static void clean() {
+        holder.set(new WebSecretContext.Impl());
+    }
+
 }

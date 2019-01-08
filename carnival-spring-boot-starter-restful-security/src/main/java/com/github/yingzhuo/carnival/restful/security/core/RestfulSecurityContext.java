@@ -51,7 +51,7 @@ public final class RestfulSecurityContext {
         }
     }
 
-    public static void clean() {
+    static void clean() {
         tokenHolder.set(null);
         userDetailsHolder.set(null);
     }
