@@ -14,6 +14,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 /**
  * @author 应卓
  */
+@Deprecated
 public final class JwtContext {
 
     private static final ThreadLocal<DecodedJWT> HOLDER = ThreadLocal.withInitial(() -> null);
