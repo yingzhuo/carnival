@@ -24,6 +24,8 @@ public @interface LimitedMultipartFile {
 
     public String[] allowedExtensions();
 
+    public boolean caseSensitive() default false;
+
     public String message() default "Invalid file";
 
     public Class<?>[] groups() default {};

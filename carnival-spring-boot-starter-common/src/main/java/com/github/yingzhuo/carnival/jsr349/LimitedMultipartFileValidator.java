@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 public class LimitedMultipartFileValidator implements ConstraintValidator<LimitedMultipartFile, MultipartFile> {
 
     private Stream<String> allowedExtensions = null;
+    private boolean caseSensitive = false;
 
     @Override
     public boolean isValid(MultipartFile value, ConstraintValidatorContext context) {
@@ -39,12 +40,18 @@ public class LimitedMultipartFileValidator implements ConstraintValidator<Limite
         }
 
         val extension = getExtension(filename);
-        return allowedExtensions.anyMatch(e -> e.equalsIgnoreCase(extension));
+        if (this.caseSensitive) {
+            return allowedExtensions.anyMatch(e -> e.equals(extension));
+        } else {
+            return allowedExtensions.anyMatch(e -> e.equalsIgnoreCase(extension));
+        }
+
     }
 
     @Override
     public void initialize(LimitedMultipartFile annotation) {
         this.allowedExtensions = Arrays.stream(annotation.allowedExtensions());
+        this.caseSensitive = annotation.caseSensitive();
     }
 
     private String getExtension(String filename) {
