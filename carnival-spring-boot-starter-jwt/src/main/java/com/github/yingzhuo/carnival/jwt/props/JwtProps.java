@@ -28,7 +28,7 @@ public class JwtProps implements InitializingBean {
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         Assert.notNull(secret, (String) null);
         Assert.notNull(signatureAlgorithm, (String) null);
         log.info("carnival.jwt.secret = {}", this.secret);

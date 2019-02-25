@@ -18,14 +18,15 @@ public final class Null implements Serializable, DisplayNamed {
 
     private static final long serialVersionUID = -4469168606541063401L;
 
-    public static Null INSTANCE = new Null();
+    public static final Null INSTANCE = new Null();
 
     private Null() {
         super();
     }
 
+    @Override
     public String toString() {
-        return "Null";
+        return "null";
     }
 
     @Override
