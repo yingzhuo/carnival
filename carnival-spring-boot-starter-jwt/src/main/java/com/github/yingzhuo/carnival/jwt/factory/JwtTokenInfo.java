@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
@@ -124,13 +125,12 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
-        public Builder expiresAtFuture(int duration, TimeUnit timeUnit) {
+        public Builder expiresAtFuture(long duration, TimeUnit timeUnit) {
             return expiresAt(DateUtils.afterNow(duration, timeUnit));
         }
 
-        @Deprecated
-        public Builder expiresAtPast(int duration, TimeUnit timeUnit) {
-            return expiresAt(DateUtils.beforeNow(duration, timeUnit));
+        public Builder expiresAtFuture(Duration duration) {
+            return expiresAtFuture(duration.toMillis(), TimeUnit.MILLISECONDS);
         }
 
         public Builder notBefore(Date notBefore) {
@@ -138,13 +138,12 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
-        public Builder notBeforeFuture(int duration, TimeUnit timeUnit) {
+        public Builder notBeforeFuture(long duration, TimeUnit timeUnit) {
             return notBefore(DateUtils.afterNow(duration, timeUnit));
         }
 
-        @Deprecated
-        public Builder notBeforePast(int duration, TimeUnit timeUnit) {
-            return notBefore(DateUtils.beforeNow(duration, timeUnit));
+        public Builder notBeforeFuture(Duration duration) {
+            return notBeforeFuture(duration.toMillis(), TimeUnit.MILLISECONDS);
         }
 
         public Builder issuedAt(Date issuedAt) {
