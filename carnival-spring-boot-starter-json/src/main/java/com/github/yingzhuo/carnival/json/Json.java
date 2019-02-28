@@ -9,9 +9,11 @@
  */
 package com.github.yingzhuo.carnival.json;
 
+import org.apache.commons.beanutils.BeanMap;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -58,6 +60,31 @@ public class Json implements Serializable {
 
     public Json payload(String key, Object value) {
         payload.put(key, value);
+        return this;
+    }
+
+    public Json payloadPutAll(Map<String, ?> map) {
+        payload.putAll(map);
+        return this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Json payloadPutAllProperties(Object vo, boolean includeClassProperty) {
+        payloadPutAll((Map) new BeanMap(vo));
+
+        if (!includeClassProperty) {
+            payload.remove("class");
+        }
+
+        return this;
+    }
+
+    public Json payloadPutAllProperties(Object vo) {
+        return payloadPutAllProperties(vo, false);
+    }
+
+    public Json payloadClear() {
+        payload.clear();
         return this;
     }
 
