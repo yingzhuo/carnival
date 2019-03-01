@@ -9,11 +9,21 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
-/**
- * @author 应卓
- */
-public interface CaptchaFactory {
+import lombok.*;
 
-    public Captcha create(int length);
+import java.io.Serializable;
+
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+public class Captcha implements Serializable {
+
+    private String id;
+
+    private String value;
+
+    private String images;
 
 }

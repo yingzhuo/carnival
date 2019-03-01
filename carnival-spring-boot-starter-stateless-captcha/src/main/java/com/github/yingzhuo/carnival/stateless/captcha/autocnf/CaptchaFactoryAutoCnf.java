@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.stateless.captcha.autocnf;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.NopCaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.SimpleCaptchaFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,12 @@ public class CaptchaFactoryAutoCnf {
         factory.setHeight(props.getHeight());
         factory.setWidth(props.getWidth());
         return factory;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CaptchaDao captchaDao() {
+        return new NopCaptchaDao();
     }
 
     @Getter

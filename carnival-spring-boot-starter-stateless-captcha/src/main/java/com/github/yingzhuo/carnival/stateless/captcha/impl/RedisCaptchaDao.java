@@ -10,9 +10,9 @@
 package com.github.yingzhuo.carnival.stateless.captcha.impl;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
-import com.github.yingzhuo.carnival.stateless.captcha.CaptchaId;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,22 +29,22 @@ public class RedisCaptchaDao implements CaptchaDao {
         this.redisTemplate = redisTemplate;
     }
 
-    private String getKey(CaptchaId id) {
-        return this.redisKeyPrefix + id.getId();
+    private String getKey(String id) {
+        return this.redisKeyPrefix + id;
     }
 
     @Override
-    public void save(CaptchaId id, String value) {
+    public void save(String id, String value) {
         redisTemplate.opsForValue().set(getKey(id), value, timeout, timeoutTimeUnit);
     }
 
     @Override
-    public String load(CaptchaId id) {
-        return redisTemplate.opsForValue().get(getKey(id));
+    public Optional<String> load(String id) {
+        return Optional.ofNullable(redisTemplate.opsForValue().get(getKey(id)));
     }
 
     @Override
-    public void delete(CaptchaId id) {
+    public void delete(String id) {
         redisTemplate.delete(getKey(id));
     }
 

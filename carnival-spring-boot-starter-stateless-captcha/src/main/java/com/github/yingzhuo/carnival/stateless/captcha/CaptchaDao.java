@@ -9,15 +9,17 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
+import java.util.Optional;
+
 /**
  * @author 应卓
  */
 public interface CaptchaDao {
 
-    public void save(CaptchaId id, String value);
+    public void save(String id, String value);
 
-    public String load(CaptchaId id);
+    public Optional<String> load(String id);
 
-    public void delete(CaptchaId id);
+    public void delete(String id);
 
 }

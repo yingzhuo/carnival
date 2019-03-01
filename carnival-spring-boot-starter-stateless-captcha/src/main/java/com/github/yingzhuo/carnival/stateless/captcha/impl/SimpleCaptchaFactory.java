@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha.impl;
 
-import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
-import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
-import com.github.yingzhuo.carnival.stateless.captcha.CaptchaId;
-import com.github.yingzhuo.carnival.stateless.captcha.HashedImage;
+import com.github.yingzhuo.carnival.stateless.captcha.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -43,7 +40,7 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
     }
 
     @Override
-    public Pair<CaptchaId, HashedImage> create(int length) {
+    public Captcha create(int length) {
 
         try {
             BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -90,12 +87,11 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
             String imageStr = Base64.getEncoder().encodeToString(data);
             String id = UUID.randomUUID().toString();
 
-            final CaptchaId captchaId = CaptchaId.of(id);
-            captchaDao.save(captchaId, captchaValue.toString());
+            captchaDao.save(id, captchaValue.toString());
 
             log.info("CAPTCHA: '{}'", captchaValue.toString());
 
-            return Pair.of(captchaId, HashedImage.of(imageStr));
+            return new Captcha(id, captchaValue.toString(), imageStr);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
