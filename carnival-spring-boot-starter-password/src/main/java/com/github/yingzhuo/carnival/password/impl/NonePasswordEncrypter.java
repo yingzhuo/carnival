@@ -20,6 +20,7 @@ public class NonePasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String password) {
+        Objects.requireNonNull(password);
         return password;
     }
 

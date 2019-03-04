@@ -26,12 +26,12 @@ public class DefaultGravatarFactory implements GravatarFactory {
     }
 
     @Override
-    public String create(final String email) {
+    public String create(String email) {
         return create(email, 120);
     }
 
     @Override
-    public String create(final String email, int size) {
+    public String create(String email, int size) {
         validate(email);
         return scope.getPrefix() + md5(email.toLowerCase()) +
                 "?s=" + size +
@@ -76,4 +76,5 @@ public class DefaultGravatarFactory implements GravatarFactory {
     public void setScope(Scope scope) {
         this.scope = scope;
     }
+
 }

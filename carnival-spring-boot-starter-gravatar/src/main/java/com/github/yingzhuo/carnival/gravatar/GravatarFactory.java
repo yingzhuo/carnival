@@ -14,7 +14,7 @@ package com.github.yingzhuo.carnival.gravatar;
  */
 public interface GravatarFactory {
 
-    public String create(final String email, int size);
+    public String create(String email, int size);
 
     public default String create(final String email) {
         return create(email, 120);

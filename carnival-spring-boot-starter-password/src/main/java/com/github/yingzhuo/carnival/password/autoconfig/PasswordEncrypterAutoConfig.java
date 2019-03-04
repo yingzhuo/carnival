@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.password.impl.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  */
 @EnableConfigurationProperties(PasswordEncrypterAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class PasswordEncrypterAutoConfig {
 
     @Bean
@@ -52,6 +54,7 @@ public class PasswordEncrypterAutoConfig {
     @Setter
     @ConfigurationProperties("carnival.password")
     static class Props {
+        private boolean enabled = true;
         private Algorithm algorithm = Algorithm.MD5;
         private String md2Salt = "";
         private String md5Salt = "";

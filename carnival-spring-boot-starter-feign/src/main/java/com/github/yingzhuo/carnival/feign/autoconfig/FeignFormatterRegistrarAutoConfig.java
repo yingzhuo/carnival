@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.feign.formatter.FeignDate2StringConverter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.FeignFormatterRegistrar;
@@ -23,10 +24,11 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  */
 @EnableConfigurationProperties({
+        FeignFormatterRegistrarAutoConfig.FeignProps.class,
         FeignFormatterRegistrarAutoConfig.DateProps.class,
         FeignFormatterRegistrarAutoConfig.CalendarProps.class
 })
-@SuppressWarnings("SpellCheckingInspection")       // 消除IDEA警告
+@ConditionalOnProperty(prefix = "carnival.feign", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistrar {
 
     private static final String DEFAULT_DATE_FORMATTER = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";  // iso: datetime
@@ -44,6 +46,13 @@ public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistra
     }
 
     // -------------------------------------------------------------------------------------
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.feign")
+    public static class FeignProps {
+        private boolean enabled = true;
+    }
 
     @Getter
     @Setter

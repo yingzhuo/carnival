@@ -28,11 +28,12 @@ public enum DefaultImage {
 
     private final String key;
 
-    private DefaultImage(String key) {
+    DefaultImage(String key) {
         this.key = key;
     }
 
     public String getKey() {
         return key;
     }
+
 }

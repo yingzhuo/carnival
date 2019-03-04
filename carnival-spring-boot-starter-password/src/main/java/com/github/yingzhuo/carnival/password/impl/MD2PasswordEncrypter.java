@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.password.impl;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -29,6 +31,7 @@ public class MD2PasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String password) {
+        Objects.requireNonNull(password);
         return DigestUtils.md2Hex(salt + password);
     }
 

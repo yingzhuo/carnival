@@ -24,7 +24,7 @@ public enum Rating {
 
     private final String key;
 
-    private Rating(String key) {
+    Rating(String key) {
         this.key = key;
     }
 

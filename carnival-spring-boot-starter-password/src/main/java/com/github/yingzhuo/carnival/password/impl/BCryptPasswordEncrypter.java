@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.password.impl;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.password.support.BCrypt;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -19,6 +21,7 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String password) {
+        Objects.requireNonNull(password);
         return BCrypt.hashpw(password, BCrypt.gensalt(13));
     }
 
