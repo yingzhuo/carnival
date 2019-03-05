@@ -10,9 +10,9 @@
 package com.github.yingzhuo.carnival.spring;
 
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * Spring相关通用工具
@@ -47,32 +47,27 @@ public final class ProfileUtils {
     }
 
     public static boolean allActive(String... profiles) {
+        return allActive(Profiles.of(profiles));
+    }
+
+    public static boolean allActive(Profiles... profiles) {
         return Arrays.stream(profiles).allMatch(getEnvironment()::acceptsProfiles);
     }
 
     public static boolean anyActive(String... profiles) {
+        return anyActive(Profiles.of(profiles));
+    }
+
+    public static boolean anyActive(Profiles... profiles) {
         return Arrays.stream(profiles).anyMatch(getEnvironment()::acceptsProfiles);
     }
 
     public static boolean noneActive(String... profiles) {
+        return noneActive(Profiles.of(profiles));
+    }
+
+    public static boolean noneActive(Profiles... profiles) {
         return Arrays.stream(profiles).noneMatch(getEnvironment()::acceptsProfiles);
-    }
-
-    public static void ifActive(String profileName, Consumer<String> ifTrue) {
-        if (getEnvironment().acceptsProfiles(profileName)) {
-            ifTrue.accept(profileName);
-        }
-    }
-
-    public static void ifActive(String profileName, Consumer<String> ifTrue, Consumer<String> ifFalse) {
-
-        Objects.requireNonNull(profileName);
-
-        if (getEnvironment().acceptsProfiles(profileName)) {
-            Objects.requireNonNull(ifTrue).accept(profileName);
-        } else {
-            Objects.requireNonNull(ifFalse).accept(profileName);
-        }
     }
 
 }

@@ -36,7 +36,7 @@ public class ForkDataSourceWebAutoConfig implements WebMvcConfigurer {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.fork-datasource")
-    public static class Props {
+    static class Props {
         private boolean enabled = true;
     }
 

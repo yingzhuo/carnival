@@ -9,25 +9,26 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
-import com.github.yingzhuo.carnival.common.io.ini.Ini;
 import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.InitializingBean;
+import org.ini4j.Wini;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.PostConstruct;
 
 /**
  * @author 应卓
  */
 @Slf4j
-public class IniBusinessExceptionFactory implements BusinessExceptionFactory, InitializingBean {
+public class IniBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private final ResourceLoader resourceLoader = new DefaultResourceLoader();
     private final String location;
-    private Ini ini = null;
+    private Wini ini;
 
     public IniBusinessExceptionFactory(String iniLocation) {
         this.location = iniLocation;
@@ -40,7 +41,13 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        final String message = ini.get(code);
+        final String[] sectionNameAndKey = code.split(".");
+
+        if (sectionNameAndKey.length != 2) {
+            throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
+        }
+
+        final String message = ini.get(sectionNameAndKey[0], sectionNameAndKey[1]);
 
         if (!StringUtils.hasText(message)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
@@ -49,15 +56,11 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory, In
         return new BusinessException(code, message);
     }
 
-    @Override
+    @PostConstruct
     public void afterPropertiesSet() throws Exception {
         log.debug("ini-location: {}", location);
         val resource = resourceLoader.getResource(location);
-        this.ini = new Ini(resource);
-    }
-
-    public Ini getIni() {
-        return ini;
+        this.ini = new Wini(resource.getInputStream());
     }
 
 }

@@ -15,11 +15,10 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 /**
  * @author 应卓
  */
-@Deprecated
 @SuppressWarnings("unchecked")
-public final class IdUtils {
+public final class IdGeneratorUtils {
 
-    private IdUtils() {
+    private IdGeneratorUtils() {
         super();
     }
 

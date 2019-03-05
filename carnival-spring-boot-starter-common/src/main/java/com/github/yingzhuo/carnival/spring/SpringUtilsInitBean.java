@@ -49,12 +49,12 @@ public class SpringUtilsInitBean implements Ordered, ApplicationContextAware, En
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         SpringUtils.APP_ARGS = args;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (args == null) {
             args = new String[0];
         }

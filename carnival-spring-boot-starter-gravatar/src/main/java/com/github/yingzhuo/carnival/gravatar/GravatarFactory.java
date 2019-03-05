@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.gravatar;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface GravatarFactory {
 
     public String create(String email, int size);

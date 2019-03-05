@@ -27,7 +27,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.mvc.i18n", name = "enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "carnival.mvc.i18n", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcI18nAutoConfig.MvcI18nProps.class)
 public class MvcI18nAutoConfig implements WebMvcConfigurer {
 

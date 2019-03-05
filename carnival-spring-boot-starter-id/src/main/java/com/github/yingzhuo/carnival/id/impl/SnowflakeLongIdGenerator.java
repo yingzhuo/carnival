@@ -14,7 +14,7 @@ import com.github.yingzhuo.carnival.id.LongIdGenerator;
 /**
  * @author 应卓
  */
-public class SnowflakeIdGenerator implements LongIdGenerator {
+public class SnowflakeLongIdGenerator implements LongIdGenerator {
 
     /**
      * 开始时间截 (2015-01-01)
@@ -92,7 +92,7 @@ public class SnowflakeIdGenerator implements LongIdGenerator {
      * @param workerId     工作ID (0~31)
      * @param dataCenterId 数据中心ID (0~31)
      */
-    public SnowflakeIdGenerator(long workerId, long dataCenterId) {
+    public SnowflakeLongIdGenerator(long workerId, long dataCenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
         }

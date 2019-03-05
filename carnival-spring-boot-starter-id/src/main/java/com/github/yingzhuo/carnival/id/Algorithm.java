@@ -21,4 +21,5 @@ public enum Algorithm {
     SNOWFLAKE,
 
     SNOWFLAKE_STRING
+
 }

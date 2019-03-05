@@ -46,7 +46,7 @@ public class PasswordEncrypterAutoConfig {
             case NONE:
                 return new NonePasswordEncrypter();
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException();  // 不可能运行到此处
         }
     }
 

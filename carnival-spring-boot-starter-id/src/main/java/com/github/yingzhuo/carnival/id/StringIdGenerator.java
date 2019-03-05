@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.id;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface StringIdGenerator extends IdGenerator<String> {
 
     @Override

@@ -9,14 +9,19 @@
  */
 package com.github.yingzhuo.carnival.password;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface PasswordEncrypter {
 
     public String encrypt(String password);
 
     public default boolean matches(String password, String encrypted) {
+        Objects.requireNonNull(password);
+        Objects.requireNonNull(encrypted);
         return encrypt(password).equals(encrypted);
     }
 

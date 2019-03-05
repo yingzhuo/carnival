@@ -16,12 +16,12 @@ import com.github.yingzhuo.carnival.id.IdGenerator;
  */
 public class SnowflakeStringIdGenerator implements IdGenerator<String> {
 
-    private final SnowflakeIdGenerator delegate;
+    private final SnowflakeLongIdGenerator delegate;
     private final int length;
     private final char padCharacter;
 
     public SnowflakeStringIdGenerator(long workerId, long dataCenterId, int length, char padCharacter) {
-        this.delegate = new SnowflakeIdGenerator(workerId, dataCenterId);
+        this.delegate = new SnowflakeLongIdGenerator(workerId, dataCenterId);
         this.length = length;
         this.padCharacter = padCharacter;
     }

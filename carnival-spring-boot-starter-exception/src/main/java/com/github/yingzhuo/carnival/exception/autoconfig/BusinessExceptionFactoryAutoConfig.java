@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.exception.business.impl.IniBusinessException
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +27,7 @@ import java.util.Map;
  * @author 应卓
  */
 @EnableConfigurationProperties(BusinessExceptionFactoryAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionFactoryAutoConfig {
 
     @Bean
@@ -42,6 +44,7 @@ public class BusinessExceptionFactoryAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.business-exception")
     static final class Props {
+        private boolean enabled = true;
         private String iniLocation = null;
         private Map<String, String> messages = null;
     }

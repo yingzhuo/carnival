@@ -39,7 +39,7 @@ public class GravatarFunctionAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.gravatar")
-    public static class Props {
+    static class Props {
         private boolean enabled = true;
         private DefaultImage defaultImage = DefaultImage.IDENTICON;
         private Rating rating = Rating.GENERAL_AUDIENCE;

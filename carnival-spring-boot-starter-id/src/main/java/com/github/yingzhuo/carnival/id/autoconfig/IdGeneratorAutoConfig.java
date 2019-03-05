@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
-import com.github.yingzhuo.carnival.id.impl.SnowflakeIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
@@ -42,7 +42,7 @@ public class IdGeneratorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public IdGenerator<?> stringIdGenerator() {
+    public IdGenerator<?> idGenerator() {
 
         switch (props.getAlgorithm()) {
             case UUID_32:
@@ -68,7 +68,7 @@ public class IdGeneratorAutoConfig {
                 log.info("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
-                    return new SnowflakeIdGenerator(workerId, dataCenterId);
+                    return new SnowflakeLongIdGenerator(workerId, dataCenterId);
                 } else {
                     return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
                 }

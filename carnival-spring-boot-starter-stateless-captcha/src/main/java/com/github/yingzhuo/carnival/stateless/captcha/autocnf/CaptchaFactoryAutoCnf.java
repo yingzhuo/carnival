@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  */
 @EnableConfigurationProperties(CaptchaFactoryAutoCnf.Props.class)
-@ConditionalOnProperty(prefix = "carnival.stateless-captcha", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "carnival.stateless-captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class CaptchaFactoryAutoCnf {
 
     @Bean
@@ -48,7 +48,7 @@ public class CaptchaFactoryAutoCnf {
     @Setter
     @ConfigurationProperties(prefix = "carnival.stateless-captcha")
     static class Props {
-        private boolean enabled = false;
+        private boolean enabled = true;
         private int width = 100;
         private int height = 18;
     }

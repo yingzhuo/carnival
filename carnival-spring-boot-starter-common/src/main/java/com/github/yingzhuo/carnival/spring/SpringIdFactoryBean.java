@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SpringIdFactoryBean implements FactoryBean<String> {
 
     @Override
-    public String getObject() throws Exception {
+    public String getObject() {
         return UUID.randomUUID().toString();
     }
 

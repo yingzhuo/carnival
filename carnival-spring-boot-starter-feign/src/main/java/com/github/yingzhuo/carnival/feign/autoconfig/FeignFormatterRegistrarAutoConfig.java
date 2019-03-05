@@ -50,21 +50,21 @@ public class FeignFormatterRegistrarAutoConfig implements FeignFormatterRegistra
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign")
-    public static class FeignProps {
+    static class FeignProps {
         private boolean enabled = true;
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.date-formatter")
-    public static class DateProps {
+    static class DateProps {
         private String pattern = FeignFormatterRegistrarAutoConfig.DEFAULT_DATE_FORMATTER;
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.feign.calendar-formatter")
-    public static class CalendarProps {
+    static class CalendarProps {
         private String pattern = FeignFormatterRegistrarAutoConfig.DEFAULT_DATE_FORMATTER;
     }
 
