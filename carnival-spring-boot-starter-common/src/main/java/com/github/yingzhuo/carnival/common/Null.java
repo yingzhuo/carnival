@@ -14,7 +14,7 @@ import java.io.Serializable;
 /**
  * @author 应卓
  */
-public final class Null implements Serializable, DisplayNamed {
+public final class Null implements Serializable {
 
     private static final long serialVersionUID = -4469168606541063401L;
 
@@ -27,11 +27,6 @@ public final class Null implements Serializable, DisplayNamed {
     @Override
     public String toString() {
         return "null";
-    }
-
-    @Override
-    public String getDisplayName() {
-        return toString();
     }
 
 }

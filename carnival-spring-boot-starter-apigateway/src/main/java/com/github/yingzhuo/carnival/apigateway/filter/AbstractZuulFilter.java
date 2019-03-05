@@ -44,7 +44,9 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
         return Null.INSTANCE;
     }
 
-    protected abstract boolean doShouldFilter(RequestContext requestContext);
+    protected boolean doShouldFilter(RequestContext requestContext) {
+        return true;
+    }
 
     protected abstract void doRun(RequestContext requestContext) throws ZuulException;
 
@@ -58,13 +60,13 @@ public abstract class AbstractZuulFilter extends ZuulFilter {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    public static enum FilterType {
+    public enum FilterType {
 
         PRE("pre"), POST("post");   // 暂时不支持其他类型
 
         private final String value;
 
-        private FilterType(String value) {
+        FilterType(String value) {
             this.value = value;
         }
 

@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.apigateway.filter;
 
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,19 +20,12 @@ import java.util.Enumeration;
 public class LoggingFilter extends AbstractZuulFilter {
 
     @Override
-    protected boolean doShouldFilter(RequestContext requestContext) {
-        return true;
-    }
-
-    @Override
-    protected void doRun(RequestContext requestContext) throws ZuulException {
-
+    protected void doRun(RequestContext requestContext) {
         try {
             doLog(requestContext.getRequest());
         } catch (Exception e) {
             // NOP
         }
-
     }
 
     private void doLog(HttpServletRequest request) {

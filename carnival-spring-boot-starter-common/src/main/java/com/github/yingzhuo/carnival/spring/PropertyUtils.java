@@ -46,9 +46,7 @@ public final class PropertyUtils {
         if (value == null) {
             return Collections.emptyList();
         } else {
-            return Collections.unmodifiableList(
-                    Arrays.asList(StringUtils.commaDelimitedListToStringArray(value))
-            );
+            return Collections.unmodifiableList(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value)));
         }
     }
 

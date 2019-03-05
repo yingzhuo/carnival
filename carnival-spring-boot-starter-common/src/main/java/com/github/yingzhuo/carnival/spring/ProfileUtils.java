@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 
 import java.util.*;
@@ -26,12 +25,8 @@ public final class ProfileUtils {
         super();
     }
 
-    public static Environment getEnvironment() {
-        return SpringUtils.ENV;
-    }
-
     public static List<String> getActiveProfiles() {
-        return Collections.unmodifiableList(Arrays.asList(getEnvironment().getActiveProfiles()));
+        return Collections.unmodifiableList(Arrays.asList(SpringUtils.getEnvironment().getActiveProfiles()));
     }
 
     public static SortedSet<String> getActiveProfilesAsSet() {
@@ -39,7 +34,7 @@ public final class ProfileUtils {
     }
 
     public static List<String> getDefaultProfiles() {
-        return Collections.unmodifiableList(Arrays.asList(getEnvironment().getDefaultProfiles()));
+        return Collections.unmodifiableList(Arrays.asList(SpringUtils.getEnvironment().getDefaultProfiles()));
     }
 
     public static SortedSet<String> getDefaultProfilesAsSet() {
@@ -51,7 +46,7 @@ public final class ProfileUtils {
     }
 
     public static boolean allActive(Profiles... profiles) {
-        return Arrays.stream(profiles).allMatch(getEnvironment()::acceptsProfiles);
+        return Arrays.stream(profiles).allMatch(SpringUtils.getEnvironment()::acceptsProfiles);
     }
 
     public static boolean anyActive(String... profiles) {
@@ -59,7 +54,7 @@ public final class ProfileUtils {
     }
 
     public static boolean anyActive(Profiles... profiles) {
-        return Arrays.stream(profiles).anyMatch(getEnvironment()::acceptsProfiles);
+        return Arrays.stream(profiles).anyMatch(SpringUtils.getEnvironment()::acceptsProfiles);
     }
 
     public static boolean noneActive(String... profiles) {
@@ -67,7 +62,7 @@ public final class ProfileUtils {
     }
 
     public static boolean noneActive(Profiles... profiles) {
-        return Arrays.stream(profiles).noneMatch(getEnvironment()::acceptsProfiles);
+        return Arrays.stream(profiles).noneMatch(SpringUtils.getEnvironment()::acceptsProfiles);
     }
 
 }

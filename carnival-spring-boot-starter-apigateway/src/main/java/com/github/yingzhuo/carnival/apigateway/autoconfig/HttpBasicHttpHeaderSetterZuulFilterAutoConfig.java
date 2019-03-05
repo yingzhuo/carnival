@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.apigateway.autoconfig;
 
-import com.github.yingzhuo.carnival.apigateway.filter.ContentTypeHttpHeaderSetterFilter;
+import com.github.yingzhuo.carnival.apigateway.filter.HttpBasicHttpHeaderSetterZuulFilter;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -21,21 +20,20 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(ContentTypeHttpHeaderSetterFilterAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.api-gateway.content-type", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class ContentTypeHttpHeaderSetterFilterAutoConfig {
+@ConditionalOnProperty(prefix = "carnival.api-gateway.http-basic", name = "enabled", havingValue = "true")
+@EnableConfigurationProperties(HttpBasicHttpHeaderSetterZuulFilterAutoConfig.Props.class)
+public class HttpBasicHttpHeaderSetterZuulFilterAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean
-    public ContentTypeHttpHeaderSetterFilter contentTypeHttpHeaderSetterFilter() {
-        return new ContentTypeHttpHeaderSetterFilter();
+    public HttpBasicHttpHeaderSetterZuulFilter httpBasicHttpHeaderSetterZuulFilter(Props props) {
+        return new HttpBasicHttpHeaderSetterZuulFilter(props.getUsername(), props.getPassword());
     }
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.api-gateway.content-type")
+    @ConfigurationProperties(prefix = "carnival.api-gateway.http-basic")
     static final class Props {
-        private boolean enabled = true;
+        private boolean enabled = false;
         private String username;
         private String password;
     }

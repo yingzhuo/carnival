@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.apigateway.filter;
 
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.exception.ZuulException;
 import org.springframework.core.Ordered;
 
 /**
@@ -29,11 +28,11 @@ public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
     @Override
     protected boolean doShouldFilter(RequestContext requestContext) {
         // 除了GET请求外，其他请求都设置请求头
-        return !"get".equalsIgnoreCase(requestContext.getRequest().getMethod());
+        return !"GET".equalsIgnoreCase(requestContext.getRequest().getMethod());
     }
 
     @Override
-    protected void doRun(RequestContext requestContext) throws ZuulException {
+    protected void doRun(RequestContext requestContext) {
         requestContext.addZuulRequestHeader(CONTENT_TYPE, APPLICATION_JSON);
     }
 

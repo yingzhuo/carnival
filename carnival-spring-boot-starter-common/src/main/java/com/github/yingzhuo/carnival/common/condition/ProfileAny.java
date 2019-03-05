@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import java.lang.annotation.*;
@@ -39,7 +40,7 @@ public @interface ProfileAny {
             val value = aas.getStringArray("value");
 
             for (String v : value) {
-                if (context.getEnvironment().acceptsProfiles(v)) {
+                if (context.getEnvironment().acceptsProfiles(Profiles.of(v))) {
                     return true;
                 }
             }

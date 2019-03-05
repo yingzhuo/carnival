@@ -11,7 +11,7 @@ import static com.github.yingzhuo.carnival.spring.SpringUtils.CMD_ARGS;
  * @author 应卓
  * @see SpringUtils
  */
-final public class ArgumentUtils {
+public final class ArgumentUtils {
 
     private ArgumentUtils() {
         super();
