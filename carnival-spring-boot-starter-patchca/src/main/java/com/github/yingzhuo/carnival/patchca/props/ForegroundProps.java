@@ -9,7 +9,8 @@
  */
 package com.github.yingzhuo.carnival.patchca.props;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.patchca.color.ColorFactory;
 import org.patchca.color.RandomColorFactory;
 import org.patchca.color.SingleColorFactory;
@@ -17,7 +18,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.awt.*;
 
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "carnival.patchca.foreground")
 public class ForegroundProps {
 
@@ -32,4 +34,5 @@ public class ForegroundProps {
             return new SingleColorFactory(new Color(r, g, b));
         }
     }
+
 }

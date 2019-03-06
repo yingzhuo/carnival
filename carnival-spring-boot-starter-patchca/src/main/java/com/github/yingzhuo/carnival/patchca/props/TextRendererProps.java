@@ -9,10 +9,12 @@
  */
 package com.github.yingzhuo.carnival.patchca.props;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@Data
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "carnival.patchca.text-renderer")
 public class TextRendererProps {
 
@@ -20,4 +22,5 @@ public class TextRendererProps {
     private int rightMargin = 10;
     private int topMargin = 5;
     private int bottomMargin = 5;
+
 }

@@ -10,38 +10,31 @@
 package com.github.yingzhuo.carnival.patchca.autoconfig;
 
 import com.github.yingzhuo.carnival.patchca.PatchcaFilter;
-import com.github.yingzhuo.carnival.patchca.props.*;
+import com.github.yingzhuo.carnival.patchca.props.PatchcaFilterProps;
 import com.github.yingzhuo.carnival.patchca.support.SessionPatchcaHandlerMethodArgumentResolver;
-import org.patchca.background.SingleColorBackgroundFactory;
+import org.patchca.background.BackgroundFactory;
 import org.patchca.color.ColorFactory;
 import org.patchca.filter.FilterFactory;
-import org.patchca.filter.predefined.*;
-import org.patchca.font.RandomFontFactory;
+import org.patchca.font.FontFactory;
 import org.patchca.service.ConfigurableCaptchaService;
-import org.patchca.text.renderer.BestFitTextRenderer;
-import org.patchca.word.AdaptiveRandomWordFactory;
+import org.patchca.text.renderer.TextRenderer;
+import org.patchca.word.WordFactory;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
 import java.util.List;
 
-@EnableConfigurationProperties({
-        SwitchProps.class,
-        PatchcaFilterProps.class,
-        BackgroundProps.class,
-        ForegroundProps.class,
-        FontProps.class,
-        WordProps.class,
-        TextRendererProps.class
-})
+/**
+ * @author 应卓
+ */
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnWebApplication
+@AutoConfigureAfter(PatchcaBeanAutoConfig.class)
 public class PatchcaAutoConfig implements WebMvcConfigurer {
 
     private final PatchcaFilterProps filterProps;
@@ -51,41 +44,15 @@ public class PatchcaAutoConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public FilterRegistrationBean patchcaFilter(
+    public FilterRegistrationBean<PatchcaFilter> patchcaFilter(
             PatchcaFilterProps filterProps,
-            BackgroundProps backgroundProps,
-            ForegroundProps foregroundProps,
-            FontProps fontProps,
-            WordProps wordProps,
-            TextRendererProps textRendererProps
+            WordFactory wordFactory,
+            BackgroundFactory backgroundFactory,
+            ColorFactory colorFactory,
+            FontFactory fontFactory,
+            FilterFactory filterFactory,
+            TextRenderer textRenderer
     ) {
-        // 文本内容
-        AdaptiveRandomWordFactory wordFactory = new AdaptiveRandomWordFactory();
-        wordFactory.setWideCharacters(wordProps.getWideCharacters());
-        wordFactory.setCharacters(wordProps.getCharacters());
-        wordFactory.setMaxLength(wordProps.getMaxLength());
-        wordFactory.setMinLength(wordProps.getMinLength());
-
-        // 字体
-        RandomFontFactory fontFactory = new RandomFontFactory();
-        fontFactory.setFamilies(Arrays.asList(fontProps.getFamilies()));
-        fontFactory.setMaxSize(fontProps.getMaxSize());
-        fontFactory.setMinSize(fontProps.getMinSize());
-
-        // 效果
-        BestFitTextRenderer textRenderer = new BestFitTextRenderer();
-        textRenderer.setBottomMargin(textRendererProps.getBottomMargin());
-        textRenderer.setTopMargin(textRendererProps.getTopMargin());
-        textRenderer.setLeftMargin(textRendererProps.getLeftMargin());
-        textRenderer.setRightMargin(textRendererProps.getRightMargin());
-
-        // 背景
-        SingleColorBackgroundFactory backgroundFactory = new SingleColorBackgroundFactory();
-        backgroundFactory.setColorFactory(backgroundProps.createColorFactory());
-
-        // 字体
-        ColorFactory colorFactory = foregroundProps.createColorFactory();
-
         ConfigurableCaptchaService cs = new ConfigurableCaptchaService();
         cs.setBackgroundFactory(backgroundFactory);
         cs.setFontFactory(fontFactory);
@@ -94,35 +61,13 @@ public class PatchcaAutoConfig implements WebMvcConfigurer {
         cs.setWordFactory(wordFactory);
         cs.setWidth(filterProps.getWidth());
         cs.setHeight(filterProps.getHeight());
-
-        // 滤镜
-        FilterFactory filterFactory;
-        switch (filterProps.getFilterType()) {
-            case CURVES:
-                filterFactory = new CurvesAbstractRippleFilterFactory(colorFactory);
-                break;
-            case DIFFUSE:
-                filterFactory = new DiffuseAbstractRippleFilterFactory();
-                break;
-            case DOUBLE:
-                filterFactory = new DoubleRippleFilterFactory();
-                break;
-            case MARBLE:
-                filterFactory = new MarbleAbstractRippleFilterFactory();
-                break;
-            case WOBBLE:
-                filterFactory = new WobbleAbstractRippleFilterFactory();
-                break;
-            default:
-                throw new AssertionError(); // 代码不可能运行到此处
-        }
         cs.setFilterFactory(filterFactory);
 
         PatchcaFilter patchcaFilter = new PatchcaFilter();
         patchcaFilter.setCaptchaService(cs);
         patchcaFilter.setPatchcaSessionAttributeName(filterProps.getSessionAttributeName());
 
-        FilterRegistrationBean bean = new FilterRegistrationBean();
+        final FilterRegistrationBean<PatchcaFilter> bean = new FilterRegistrationBean<>();
         bean.setEnabled(true);
         bean.setFilter(patchcaFilter);
         bean.addUrlPatterns(filterProps.getUrlPatterns());

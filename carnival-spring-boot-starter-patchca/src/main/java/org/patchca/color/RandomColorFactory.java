@@ -25,7 +25,6 @@ public class RandomColorFactory implements ColorFactory {
 
     private Color min;
     private Color max;
-    private Color color;
 
     public RandomColorFactory() {
         min = new Color(0, 0, 0);
@@ -42,12 +41,10 @@ public class RandomColorFactory implements ColorFactory {
 
     @Override
     public Color getColor(int index) {
-        if (color == null) {
-            Random r = new Random();
-            color = new Color(min.getRed() + r.nextInt((max.getRed() - min.getRed())),
-                    min.getGreen() + r.nextInt((max.getGreen() - min.getGreen())),
-                    min.getBlue() + r.nextInt((max.getBlue() - min.getBlue())));
-        }
-        return color;
+        Random r = new Random();
+        return new Color(min.getRed() + r.nextInt((max.getRed() - min.getRed())),
+                min.getGreen() + r.nextInt((max.getGreen() - min.getGreen())),
+                min.getBlue() + r.nextInt((max.getBlue() - min.getBlue())));
     }
+
 }

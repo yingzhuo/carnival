@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class SessionPatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+
     private final String sessionAttributeName;
 
     public SessionPatchcaHandlerMethodArgumentResolver(String sessionAttributeName) {
@@ -35,7 +36,7 @@ public class SessionPatchcaHandlerMethodArgumentResolver implements HandlerMetho
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpSession session = webRequest.getNativeRequest(HttpServletRequest.class).getSession();
         String patchca = (String) session.getAttribute(this.sessionAttributeName);
 

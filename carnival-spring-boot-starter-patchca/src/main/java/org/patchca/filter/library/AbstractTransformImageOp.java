@@ -18,7 +18,6 @@
  */
 package org.patchca.filter.library;
 
-
 public abstract class AbstractTransformImageOp extends AbstractImageOp {
 
     private boolean initialized;
