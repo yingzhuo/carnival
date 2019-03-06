@@ -41,7 +41,7 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        final String[] sectionNameAndKey = code.split(".");
+        final String[] sectionNameAndKey = code.split("\\.");
 
         if (sectionNameAndKey.length != 2) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
