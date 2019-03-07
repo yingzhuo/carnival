@@ -91,7 +91,7 @@ public class WebSecretAutoConfig implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnAnyResource(resources = {
+    @ConditionalOnAnyResource(locations = {
             "file:./websecret.properties",
             "file:./web-secret.properties",
             "classpath:/websecret.properties",
