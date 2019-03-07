@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.filter;
+package com.github.yingzhuo.carnival.mvc.support;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
@@ -67,7 +67,6 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
             failureHandler.handle(request, response);
             return;
         }
-
 
         String usernameAndPassword = header.substring(BASIC.length());
         usernameAndPassword = new String(Base64.getUrlDecoder().decode(usernameAndPassword.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);

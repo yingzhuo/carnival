@@ -23,7 +23,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcWebrootAutoConfig.Props.class)
 public class MvcWebrootAutoConfig implements WebMvcConfigurer {
 

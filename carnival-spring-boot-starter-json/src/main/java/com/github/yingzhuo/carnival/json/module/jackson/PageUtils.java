@@ -16,7 +16,7 @@ import java.util.Collections;
 /**
  * @author 应卓
  */
-@SuppressWarnings("all")
+@SuppressWarnings("unchecked")
 public final class PageUtils {
 
     private PageUtils() {

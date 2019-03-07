@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.3.3-SNAPSHOT</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -23,7 +23,6 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis-distributed-lock</module>
         <module>carnival-spring-boot-starter-restful-security</module>
-        <module>carnival-spring-boot-starter-sentinel</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-scala</module>
         <module>carnival-spring-boot-starter-websecret</module>

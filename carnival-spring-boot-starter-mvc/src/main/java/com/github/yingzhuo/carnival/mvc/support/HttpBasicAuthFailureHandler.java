@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.filter;
+package com.github.yingzhuo.carnival.mvc.support;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
@@ -59,6 +59,6 @@ public interface HttpBasicAuthFailureHandler {
                 objectMapper = new ObjectMapper();
             }
         }
-
     }
+
 }

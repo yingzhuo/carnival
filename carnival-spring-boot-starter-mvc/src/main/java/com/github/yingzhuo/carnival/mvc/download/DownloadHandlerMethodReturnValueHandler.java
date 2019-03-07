@@ -22,7 +22,7 @@ public class DownloadHandlerMethodReturnValueHandler implements HandlerMethodRet
     }
 
     @Override
-    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
+    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) {
         DownloadEntity entity = (DownloadEntity) returnValue;
         mavContainer.setView(new DownloadView(entity.getFilename(), entity.getFilenameEncoding(), entity.getHttpStatus(), entity.getInputStream()));
     }

@@ -43,11 +43,11 @@ public class XssProtectingRequest extends HttpServletRequestWrapper {
         String[] values = super.getParameterValues(name);
         if (values != null) {
             int length = values.length;
-            String[] escapseValues = new String[length];
+            String[] escapeValues = new String[length];
             for (int i = 0; i < length; i++) {
-                escapseValues[i] = StringEscapeUtils.escapeHtml4(values[i]);
+                escapeValues[i] = StringEscapeUtils.escapeHtml4(values[i]);
             }
-            return escapseValues;
+            return escapeValues;
         }
         return super.getParameterValues(name);
     }

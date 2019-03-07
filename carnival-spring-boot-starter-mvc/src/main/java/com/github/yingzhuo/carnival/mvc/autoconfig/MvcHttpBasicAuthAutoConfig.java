@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.filter.HttpBasicAuthFailureHandler;
-import com.github.yingzhuo.carnival.mvc.filter.HttpBasicAuthFilter;
+import com.github.yingzhuo.carnival.mvc.support.HttpBasicAuthFailureHandler;
+import com.github.yingzhuo.carnival.mvc.support.HttpBasicAuthFilter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -58,7 +58,7 @@ public class MvcHttpBasicAuthAutoConfig {
     static class Props {
         private boolean enabled = false;
         private Map<String, String> users;
-        private String[] antPatterns = new String[] {"/", "/**"};
+        private String[] antPatterns = new String[]{"/", "/**"};
     }
 
 }

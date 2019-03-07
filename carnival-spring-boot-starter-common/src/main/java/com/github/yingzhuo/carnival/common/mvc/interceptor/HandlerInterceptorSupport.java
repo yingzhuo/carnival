@@ -21,9 +21,6 @@ import java.util.Optional;
  */
 public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
 
-    /**
-     * 获取方法上的元注释
-     */
     protected final <A extends Annotation> Optional<A> getMethodAnnotation(Class<A> annotationType, Object handler) {
 
         Objects.requireNonNull(handler);
