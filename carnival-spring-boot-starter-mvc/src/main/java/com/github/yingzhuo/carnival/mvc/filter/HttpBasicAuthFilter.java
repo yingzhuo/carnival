@@ -47,7 +47,6 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
         if (Arrays.stream(antPatterns).noneMatch(it -> pathMatcher.match(it, request.getRequestURI()))) {
-            System.out.println("没有匹配到任何pattern");
             filterChain.doFilter(request, response);
             return;
         }

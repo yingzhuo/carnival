@@ -24,15 +24,15 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnScala.OnScala.class)
-public @interface ConditionalOnScala {
+@Conditional(ConditionalOnKotlin.OnKotlin.class)
+public @interface ConditionalOnKotlin {
 
-    static class OnScala implements Condition {
+    static class OnKotlin implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             try {
-                ClassUtils.getClass("scala.Option");
+                ClassUtils.getClass("kotlin.KotlinVersion");
                 return true;
             } catch (ClassNotFoundException e) {
                 return false;

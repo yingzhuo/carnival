@@ -11,8 +11,7 @@ package com.github.yingzhuo.carnival.common.condition;
 
 import com.github.yingzhuo.carnival.common.io.ResourceOption;
 import lombok.val;
-import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
+import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -30,27 +29,22 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnNoneResource.OnNoneResource.class)
 public @interface ConditionalOnNoneResource {
 
-    public String[] resources();
+    public String[] locations();
 
-    static final class OnNoneResource extends SpringBootCondition {
+    static final class OnNoneResource implements Condition {
 
         @Override
-        public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            val resources = getResource(metadata);
-            val resourceOption = ResourceOption.of(resources);
-
-            if (resourceOption.isAbsent()) {
-                return ConditionOutcome.match();
-            } else {
-                return ConditionOutcome.noMatch("Resource found.");
-            }
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            val locations = getLocations(metadata);
+            val resourceOption = ResourceOption.of(locations);
+            return resourceOption.isAbsent();
         }
 
-        private String[] getResource(AnnotatedTypeMetadata metadata) {
+        private String[] getLocations(AnnotatedTypeMetadata metadata) {
             try {
                 val aas = AnnotationAttributes.fromMap(
                         metadata.getAnnotationAttributes(ConditionalOnNoneResource.class.getName()));
-                return aas.getStringArray("resources");
+                return aas.getStringArray("locations");
             } catch (Exception e) {
                 return new String[0];
             }

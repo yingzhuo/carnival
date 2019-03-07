@@ -10,11 +10,11 @@
 package com.github.yingzhuo.carnival.common.condition;
 
 import lombok.val;
-import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
+import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.env.Profiles;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import java.lang.annotation.*;
@@ -31,22 +31,15 @@ public @interface ConditionalOnDebugMode {
 
     public String debugProfile() default "debug";
 
-    static final class OnDebugMode extends SpringBootCondition {
+    static final class OnDebugMode implements Condition {
 
         @Override
-        public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val aas = AnnotationAttributes.fromMap(
                     metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName()));
             val value = aas.getString("debugProfile");
 
-            val match = context.getEnvironment().acceptsProfiles(value);
-
-            if (match) {
-                return ConditionOutcome.match();
-            } else {
-                return ConditionOutcome.noMatch("'debug' mode is not enabled.");
-            }
+            return context.getEnvironment().acceptsProfiles(Profiles.of(value));
         }
     }
 

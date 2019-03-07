@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.filter.DefaultHttpBasicAuthFailureHandler;
 import com.github.yingzhuo.carnival.mvc.filter.HttpBasicAuthFailureHandler;
 import com.github.yingzhuo.carnival.mvc.filter.HttpBasicAuthFilter;
 import lombok.Getter;
@@ -37,7 +36,7 @@ public class MvcHttpBasicAuthAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public HttpBasicAuthFailureHandler httpBasicAuthFailureHandler() {
-        return new DefaultHttpBasicAuthFailureHandler();
+        return new HttpBasicAuthFailureHandler.DefaultHttpBasicAuthFailureHandler();
     }
 
     @Bean
