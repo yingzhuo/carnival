@@ -33,7 +33,7 @@ public class HttpBasicHttpHeaderSetterZuulFilter extends AbstractZuulFilter {
 
     @Override
     protected void doRun(RequestContext requestContext) {
-        val value = username + ":" +password;
+        val value = username + ":" + password;
         requestContext.addZuulRequestHeader(AUTHORIZATION, BASIC + Base64.encodeBase64URLSafeString(value.getBytes(StandardCharsets.UTF_8)));
     }
 

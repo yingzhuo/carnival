@@ -9,9 +9,10 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha.impl;
 
-import com.github.yingzhuo.carnival.stateless.captcha.*;
+import com.github.yingzhuo.carnival.stateless.captcha.Captcha;
+import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

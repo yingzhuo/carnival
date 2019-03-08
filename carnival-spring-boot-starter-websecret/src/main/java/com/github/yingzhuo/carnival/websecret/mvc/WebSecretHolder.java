@@ -46,23 +46,23 @@ public final class WebSecretHolder {
     }
 
     static void setNonce(String v) {
-        ((WebSecretContext.Impl)holder.get()).setNonce(v);
+        ((WebSecretContext.Impl) holder.get()).setNonce(v);
     }
 
     static void setClientId(String v) {
-        ((WebSecretContext.Impl)holder.get()).setClientId(v);
+        ((WebSecretContext.Impl) holder.get()).setClientId(v);
     }
 
     static void setSignature(String v) {
-        ((WebSecretContext.Impl)holder.get()).setSignature(v);
+        ((WebSecretContext.Impl) holder.get()).setSignature(v);
     }
 
     static void setTimestamp(String v) {
-        ((WebSecretContext.Impl)holder.get()).setTimestamp(v);
+        ((WebSecretContext.Impl) holder.get()).setTimestamp(v);
     }
 
     static void setSecret(String v) {
-        ((WebSecretContext.Impl)holder.get()).setSecret(v);
+        ((WebSecretContext.Impl) holder.get()).setSecret(v);
     }
 
     static void clean() {
