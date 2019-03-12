@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.support;
+package com.github.yingzhuo.carnival.httpbasic.autoconfig.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
@@ -31,9 +31,6 @@ public interface HttpBasicAuthFailureHandler {
 
     // ---------------------------------------------------------------------------------------------------------------
 
-    /**
-     * @author 应卓
-     */
     public static class DefaultHttpBasicAuthFailureHandler implements HttpBasicAuthFailureHandler, InitializingBean {
 
         @Autowired(required = false)

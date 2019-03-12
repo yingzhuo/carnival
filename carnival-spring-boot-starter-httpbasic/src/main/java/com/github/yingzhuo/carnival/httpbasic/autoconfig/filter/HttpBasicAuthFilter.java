@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.support;
+package com.github.yingzhuo.carnival.httpbasic.autoconfig.filter;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Base64;
-import java.util.Map;
 
 /**
  * @author 应卓
@@ -34,12 +33,14 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
 
     private final PathMatcher pathMatcher = new AntPathMatcher();
     private final HttpBasicAuthFailureHandler failureHandler;
-    private final Map<String, String> users;
+    private final String username;
+    private final String password;
     private final String[] antPatterns;
 
-    public HttpBasicAuthFilter(HttpBasicAuthFailureHandler failureHandler, Map<String, String> users, String[] antPatterns) {
+    public HttpBasicAuthFilter(HttpBasicAuthFailureHandler failureHandler, String username, String password, String[] antPatterns) {
         this.failureHandler = failureHandler;
-        this.users = users;
+        this.username = username;
+        this.password = password;
         this.antPatterns = antPatterns;
     }
 
@@ -48,11 +49,6 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
 
         if (Arrays.stream(antPatterns).noneMatch(it -> pathMatcher.match(it, request.getRequestURI()))) {
             filterChain.doFilter(request, response);
-            return;
-        }
-
-        if (users == null || users.isEmpty()) {
-            failureHandler.handle(request, response);
             return;
         }
 
@@ -78,13 +74,9 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        for (String username : users.keySet()) {
-            String password = users.get(username);
-
-            if (StringUtils.equals(username, up[0]) && StringUtils.equals(password, up[1])) {
-                doFilter(request, response, filterChain);
-                return;
-            }
+        if (StringUtils.equals(username, up[0]) && StringUtils.equals(password, up[1])) {
+            doFilter(request, response, filterChain);
+            return;
         }
 
         failureHandler.handle(request, response);

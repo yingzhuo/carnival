@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.autoconfig;
+package com.github.yingzhuo.carnival.httpbasic.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.support.HttpBasicAuthFailureHandler;
-import com.github.yingzhuo.carnival.mvc.support.HttpBasicAuthFilter;
+import com.github.yingzhuo.carnival.httpbasic.autoconfig.filter.HttpBasicAuthFailureHandler;
+import com.github.yingzhuo.carnival.httpbasic.autoconfig.filter.HttpBasicAuthFilter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -23,15 +23,13 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 
-import java.util.Map;
-
 /**
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(MvcHttpBasicAuthAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.http-basic", name = "enabled", havingValue = "true")
-public class MvcHttpBasicAuthAutoConfig {
+@EnableConfigurationProperties(HttpBasicAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.http-basic", name = "enabled", havingValue = "true")
+public class HttpBasicAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -41,7 +39,7 @@ public class MvcHttpBasicAuthAutoConfig {
 
     @Bean
     public FilterRegistrationBean<HttpBasicAuthFilter> httpBasicAuthFilterFilterRegistrationBean(Props props, HttpBasicAuthFailureHandler failureHandler) {
-        val filter = new HttpBasicAuthFilter(failureHandler, props.getUsers(), props.getAntPatterns());
+        val filter = new HttpBasicAuthFilter(failureHandler, props.getUsername(), props.getPassword(), props.getAntPatterns());
 
         val bean = new FilterRegistrationBean<HttpBasicAuthFilter>();
         bean.setEnabled(props.isEnabled());
@@ -54,10 +52,11 @@ public class MvcHttpBasicAuthAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties("carnival.mvc.http-basic")
+    @ConfigurationProperties("carnival.http-basic")
     static class Props {
         private boolean enabled = false;
-        private Map<String, String> users;
+        private String username = "admin";
+        private String password = "admin";
         private String[] antPatterns = new String[]{"/", "/**"};
     }
 
