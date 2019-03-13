@@ -23,19 +23,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 @Slf4j
-public class PatchcaFilter extends OncePerRequestFilter {
+public class PatchcaServletFilter extends OncePerRequestFilter {
 
     private String patchcaSessionAttributeName = "PATCHCA_SESSION_ATTRIBUTE_NAME";
     private CaptchaService captchaService = new ConfigurableCaptchaService();
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException {
         response.setContentType("image/png");
         response.setHeader("cache", "no-cache");
 
         HttpSession session = request.getSession(true);
         OutputStream outputStream = response.getOutputStream();
-        String patchca = EncoderHelper.getChallangeAndWriteImage(captchaService, "png", outputStream);
+        String patchca = EncoderHelper.write(captchaService, "png", outputStream);
         session.setAttribute(patchcaSessionAttributeName, patchca);
         log.info("SessionAttribute: {}={}", patchcaSessionAttributeName, patchca);
 
@@ -50,4 +50,5 @@ public class PatchcaFilter extends OncePerRequestFilter {
     public void setPatchcaSessionAttributeName(String patchcaSessionAttributeName) {
         this.patchcaSessionAttributeName = patchcaSessionAttributeName;
     }
+
 }

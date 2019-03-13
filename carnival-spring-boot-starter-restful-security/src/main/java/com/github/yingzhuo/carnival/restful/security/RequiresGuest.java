@@ -29,11 +29,11 @@ public @interface RequiresGuest {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresGuest> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-            CheckUtils.check((RequiresGuest) annotation);
+        public void authenticate(UserDetails userDetails, RequiresGuest annotation) throws RestfulSecurityException {
+            CheckUtils.check(annotation);
         }
     }
 

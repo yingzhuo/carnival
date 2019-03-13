@@ -7,13 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.patchca;
+package com.github.yingzhuo.carnival.patchca.annotation;
 
-/**
- * 滤镜类型
- */
-public enum FilterType {
+import java.lang.annotation.*;
 
-    CURVES, DIFFUSE, DOUBLE, MARBLE, WOBBLE
-
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.PARAMETER)
+public @interface SessionPatchca {
 }

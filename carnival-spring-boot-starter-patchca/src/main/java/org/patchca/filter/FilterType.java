@@ -7,17 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.patchca.props;
+package org.patchca.filter;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+/**
+ * 滤镜类型
+ */
+public enum FilterType {
 
-@Getter
-@Setter
-@ConfigurationProperties(prefix = "carnival.patchca")
-public class SwitchProps {
-
-    private boolean enabled = true;
+    CURVES, DIFFUSE, DOUBLE, MARBLE, WOBBLE
 
 }

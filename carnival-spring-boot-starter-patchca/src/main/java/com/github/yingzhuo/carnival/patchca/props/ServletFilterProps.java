@@ -9,24 +9,25 @@
  */
 package com.github.yingzhuo.carnival.patchca.props;
 
-import com.github.yingzhuo.carnival.patchca.FilterType;
-import com.github.yingzhuo.carnival.patchca.PatchcaFilter;
+import com.github.yingzhuo.carnival.patchca.PatchcaServletFilter;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.Ordered;
 
+/**
+ * @author 应卓
+ */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "carnival.patchca.filter")
-public class PatchcaFilterProps {
+@ConfigurationProperties(prefix = "carnival.patchca.servlet-filter")
+public class ServletFilterProps {
 
-    private String name = PatchcaFilter.class.getSimpleName();
+    private String name = PatchcaServletFilter.class.getSimpleName();
     private int order = Ordered.LOWEST_PRECEDENCE;
+    private String sessionAttributeName = "PATCHCA_SESSION_ATTRIBUTE_NAME";
     private String[] urlPatterns = new String[]{"/patchca.png", "/patchca"};
     private int width = 160;
     private int height = 70;
-    private FilterType filterType = FilterType.CURVES;
-    private String sessionAttributeName = "PATCHCA_SESSION_ATTRIBUTE_NAME";
 
 }

@@ -11,7 +11,7 @@ package carnival
 
 import java.util.UUID
 
-import org.apache.commons.lang3.RandomStringUtils
+import org.apache.commons.lang3._
 
 object Random {
 
@@ -32,5 +32,17 @@ object Random {
   def randomNumeric(count: Int): String = RandomStringUtils.randomNumeric(count)
 
   def randomPrint(count: Int): String = RandomStringUtils.randomPrint(count)
+
+  def randomInt(startInclusive: Int, endExclusive: Int): Int = RandomUtils.nextInt(startInclusive, endExclusive)
+
+  def randomLong(startInclusive: Long, endExclusive: Long): Long = RandomUtils.nextLong(startInclusive, endExclusive)
+
+  def randomFloat(startInclusive: Float, endExclusive: Float): Float = RandomUtils.nextFloat(startInclusive, endExclusive)
+
+  def randomDouble(startInclusive: Double, endExclusive: Double): Double = RandomUtils.nextDouble(startInclusive, endExclusive)
+
+  def randomBoolean(): Boolean = RandomUtils.nextBoolean()
+
+  def randomBytes(count: Int): Array[Byte]= RandomUtils.nextBytes(count)
 
 }

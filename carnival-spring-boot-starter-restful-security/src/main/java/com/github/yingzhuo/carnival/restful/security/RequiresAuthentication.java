@@ -29,11 +29,11 @@ public @interface RequiresAuthentication {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresAuthentication> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-            CheckUtils.check((RequiresAuthentication) annotation);
+        public void authenticate(UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
+            CheckUtils.check(annotation);
         }
     }
 

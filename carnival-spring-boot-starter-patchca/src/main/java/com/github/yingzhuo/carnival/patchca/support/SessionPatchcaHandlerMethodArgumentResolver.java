@@ -9,7 +9,8 @@
  */
 package com.github.yingzhuo.carnival.patchca.support;
 
-import com.github.yingzhuo.carnival.patchca.SessionPatchca;
+import com.github.yingzhuo.carnival.patchca.annotation.SessionPatchca;
+import lombok.val;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -17,7 +18,6 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 public class SessionPatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
@@ -37,8 +37,8 @@ public class SessionPatchcaHandlerMethodArgumentResolver implements HandlerMetho
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        HttpSession session = webRequest.getNativeRequest(HttpServletRequest.class).getSession();
-        String patchca = (String) session.getAttribute(this.sessionAttributeName);
+        val session = webRequest.getNativeRequest(HttpServletRequest.class).getSession(true);
+        String patchca = (String) session.getAttribute(sessionAttributeName);
 
         boolean c1 = parameter.hasParameterAnnotation(SessionPatchca.class) && parameter.getParameterType() == String.class;
         if (c1) {
@@ -52,4 +52,5 @@ public class SessionPatchcaHandlerMethodArgumentResolver implements HandlerMetho
 
         return null;
     }
+
 }

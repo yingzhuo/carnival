@@ -37,7 +37,7 @@ public @interface EnableRestfulSecurity {
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 
-            AnnotationAttributes aas = super.getAnnotationAttributes(importingClassMetadata, EnableRestfulSecurity.class);
+            AnnotationAttributes aas = getAnnotationAttributes(importingClassMetadata, EnableRestfulSecurity.class);
 
             Integer interceptorOrder = aas.getNumber("interceptorOrder");
             AuthenticationStrategy authenticationStrategy = aas.getEnum("authenticationStrategy");

@@ -33,11 +33,11 @@ public @interface RequiresRoles {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresRoles> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-            CheckUtils.check((RequiresRoles) annotation);
+        public void authenticate(UserDetails userDetails, RequiresRoles annotation) throws RestfulSecurityException {
+            CheckUtils.check(annotation);
         }
     }
 

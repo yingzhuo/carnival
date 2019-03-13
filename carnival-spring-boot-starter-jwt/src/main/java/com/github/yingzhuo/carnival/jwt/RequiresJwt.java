@@ -29,10 +29,10 @@ public @interface RequiresJwt {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresJwt> {
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-            CheckUtils.check((RequiresJwt) annotation);
+        public void authenticate(UserDetails userDetails, RequiresJwt annotation) throws RestfulSecurityException {
+            CheckUtils.check(annotation);
         }
     }
 

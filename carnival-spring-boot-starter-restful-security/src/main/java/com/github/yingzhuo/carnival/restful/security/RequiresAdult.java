@@ -36,22 +36,20 @@ public @interface RequiresAdult {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresAdult> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-
-            val requiresAdult = (RequiresAdult) annotation;
+        public void authenticate(UserDetails userDetails, RequiresAdult annotation) throws RestfulSecurityException {
 
             if (userDetails == null || userDetails.getDateOfBirth() == null) {
-                throw new LimitedAdultContentException(getMessage(requiresAdult));
+                throw new LimitedAdultContentException(getMessage(annotation));
             }
 
             val t = DateUtils.truncate(new Date(), Calendar.DATE);
-            val a = DateUtils.addYears(userDetails.getDateOfBirth(), requiresAdult.ageOfAdult());
+            val a = DateUtils.addYears(userDetails.getDateOfBirth(), annotation.ageOfAdult());
 
             if (t.before(a)) {
-                throw new LimitedAdultContentException(getMessage(requiresAdult));
+                throw new LimitedAdultContentException(getMessage(annotation));
             }
         }
 

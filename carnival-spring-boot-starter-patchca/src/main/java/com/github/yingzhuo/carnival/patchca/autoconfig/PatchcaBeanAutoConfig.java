@@ -35,8 +35,8 @@ import java.util.Arrays;
  */
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties({
-        SwitchProps.class,
-        PatchcaFilterProps.class,
+        FilterProps.class,
+        ServletFilterProps.class,
         BackgroundProps.class,
         ForegroundProps.class,
         FontProps.class,
@@ -94,9 +94,9 @@ public class PatchcaBeanAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public FilterFactory filterFactory(PatchcaFilterProps filterProps, ColorFactory colorFactory) {
+    public FilterFactory filterFactory(FilterProps filterProps, ColorFactory colorFactory) {
         FilterFactory filterFactory;
-        switch (filterProps.getFilterType()) {
+        switch (filterProps.getType()) {
             case CURVES:
                 filterFactory = new CurvesAbstractRippleFilterFactory(colorFactory);
                 break;

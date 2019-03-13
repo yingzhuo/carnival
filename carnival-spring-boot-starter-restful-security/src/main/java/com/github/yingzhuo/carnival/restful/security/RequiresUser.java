@@ -35,26 +35,25 @@ public @interface RequiresUser {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresUser> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
+        public void authenticate(UserDetails userDetails, RequiresUser annotation) throws RestfulSecurityException {
 
-            val requiresUser = (RequiresUser) annotation;
-            val caseSensitive = requiresUser.caseSensitive();
-            val requiredUsername = requiresUser.value();
+            val caseSensitive = annotation.caseSensitive();
+            val requiredUsername = annotation.value();
 
             if (userDetails == null) {
-                throw new AuthenticationException(getMessage(requiresUser));
+                throw new AuthenticationException(getMessage(annotation));
             }
 
             if (caseSensitive) {
                 if (!requiredUsername.equals(userDetails.getUsername())) {
-                    throw new AuthenticationException(getMessage(requiresUser));
+                    throw new AuthenticationException(getMessage(annotation));
                 }
             } else {
                 if (!requiredUsername.equalsIgnoreCase(userDetails.getUsername())) {
-                    throw new AuthenticationException(getMessage(requiresUser));
+                    throw new AuthenticationException(getMessage(annotation));
                 }
             }
         }

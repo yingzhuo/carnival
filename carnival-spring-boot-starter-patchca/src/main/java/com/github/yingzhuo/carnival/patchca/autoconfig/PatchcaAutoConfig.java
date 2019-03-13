@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.patchca.autoconfig;
 
-import com.github.yingzhuo.carnival.patchca.PatchcaFilter;
-import com.github.yingzhuo.carnival.patchca.props.PatchcaFilterProps;
+import com.github.yingzhuo.carnival.patchca.PatchcaServletFilter;
+import com.github.yingzhuo.carnival.patchca.props.ServletFilterProps;
 import com.github.yingzhuo.carnival.patchca.support.SessionPatchcaHandlerMethodArgumentResolver;
 import org.patchca.background.BackgroundFactory;
 import org.patchca.color.ColorFactory;
@@ -37,16 +37,16 @@ import java.util.List;
 @AutoConfigureAfter(PatchcaBeanAutoConfig.class)
 public class PatchcaAutoConfig implements WebMvcConfigurer {
 
-    private final PatchcaFilterProps filterProps;
+    private final ServletFilterProps servletFilterProps;
 
-    public PatchcaAutoConfig(PatchcaFilterProps filterProps) {
-        this.filterProps = filterProps;
+    public PatchcaAutoConfig(ServletFilterProps servletFilterProps) {
+        this.servletFilterProps = servletFilterProps;
     }
 
     @Bean
-    public FilterRegistrationBean<PatchcaFilter> patchcaFilter(
-            PatchcaFilterProps filterProps,
+    public FilterRegistrationBean<PatchcaServletFilter> patchcaFilter(
             WordFactory wordFactory,
+            ServletFilterProps servletFilterProps,
             BackgroundFactory backgroundFactory,
             ColorFactory colorFactory,
             FontFactory fontFactory,
@@ -59,27 +59,27 @@ public class PatchcaAutoConfig implements WebMvcConfigurer {
         cs.setTextRenderer(textRenderer);
         cs.setColorFactory(colorFactory);
         cs.setWordFactory(wordFactory);
-        cs.setWidth(filterProps.getWidth());
-        cs.setHeight(filterProps.getHeight());
+        cs.setWidth(servletFilterProps.getWidth());
+        cs.setHeight(servletFilterProps.getHeight());
         cs.setFilterFactory(filterFactory);
 
-        PatchcaFilter patchcaFilter = new PatchcaFilter();
+        PatchcaServletFilter patchcaFilter = new PatchcaServletFilter();
         patchcaFilter.setCaptchaService(cs);
-        patchcaFilter.setPatchcaSessionAttributeName(filterProps.getSessionAttributeName());
+        patchcaFilter.setPatchcaSessionAttributeName(servletFilterProps.getSessionAttributeName());
 
-        final FilterRegistrationBean<PatchcaFilter> bean = new FilterRegistrationBean<>();
+        final FilterRegistrationBean<PatchcaServletFilter> bean = new FilterRegistrationBean<>();
         bean.setEnabled(true);
         bean.setFilter(patchcaFilter);
-        bean.addUrlPatterns(filterProps.getUrlPatterns());
-        bean.setName(filterProps.getName());
-        bean.setOrder(filterProps.getOrder());
+        bean.addUrlPatterns(servletFilterProps.getUrlPatterns());
+        bean.setName(servletFilterProps.getName());
+        bean.setOrder(servletFilterProps.getOrder());
 
         return bean;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new SessionPatchcaHandlerMethodArgumentResolver(filterProps.getSessionAttributeName()));
+        argumentResolvers.add(new SessionPatchcaHandlerMethodArgumentResolver(servletFilterProps.getSessionAttributeName()));
     }
 
 }

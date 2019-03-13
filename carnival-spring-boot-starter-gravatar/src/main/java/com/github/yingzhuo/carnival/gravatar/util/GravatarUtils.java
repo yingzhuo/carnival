@@ -27,4 +27,5 @@ public final class GravatarUtils {
     public static String create(String email, int size) {
         return SpringUtils.getBean(GravatarFactory.class).create(email, size);
     }
+
 }

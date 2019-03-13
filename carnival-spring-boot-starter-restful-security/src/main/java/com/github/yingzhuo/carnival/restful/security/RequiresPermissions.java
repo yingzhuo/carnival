@@ -33,11 +33,11 @@ public @interface RequiresPermissions {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent {
+    public static class AuthComponent implements AuthenticationComponent<RequiresPermissions> {
 
         @Override
-        public void authenticate(UserDetails userDetails, Annotation annotation) throws RestfulSecurityException {
-            CheckUtils.check((RequiresPermissions) annotation);
+        public void authenticate(UserDetails userDetails, RequiresPermissions annotation) throws RestfulSecurityException {
+            CheckUtils.check(annotation);
         }
     }
 
