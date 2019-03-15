@@ -45,9 +45,4 @@ public class JwtToken extends StringToken implements Serializable {
         return signature;
     }
 
-    @Override
-    public String toString() {
-        return super.getValue();
-    }
-
 }
