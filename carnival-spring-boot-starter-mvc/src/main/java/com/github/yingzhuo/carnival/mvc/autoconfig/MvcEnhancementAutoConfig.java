@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.mvc.download.DownloadHandlerMethodReturnValu
 import com.github.yingzhuo.carnival.mvc.support.IpHandlerMethodArgumentResolver;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -46,7 +47,7 @@ public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        final UrlPathHelper helper = Optional.ofNullable(configurer.getUrlPathHelper()).orElseGet(UrlPathHelper::new);
+        val helper = Optional.ofNullable(configurer.getUrlPathHelper()).orElseGet(UrlPathHelper::new);
         helper.setDefaultEncoding("UTF-8");
         helper.setRemoveSemicolonContent(false);
         configurer.setUrlPathHelper(helper);

@@ -88,9 +88,6 @@ public interface DownloadEntity {
 
         public DownloadEntity build() {
             return new DownloadEntity() {
-
-                private static final long serialVersionUID = 1L;
-
                 @Override
                 public String getFilename() {
                     return filename;
