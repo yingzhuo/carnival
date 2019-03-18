@@ -1,4 +1,4 @@
-# carnival-spring-boot-starter-password
+# 说明
 
 本插件专门用于加密密码
 
@@ -27,6 +27,7 @@ carnival:
 * sha1
 * sha256
 * base64
+* none
 
 在需要处理password的地方，注入`PasswordEncrypter`对象即可使用。如：
 

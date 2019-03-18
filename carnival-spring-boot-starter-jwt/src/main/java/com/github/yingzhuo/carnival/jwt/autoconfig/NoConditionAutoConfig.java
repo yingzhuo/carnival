@@ -25,7 +25,7 @@ public class NoConditionAutoConfig {
 
     @Bean
     @Primary
-    public RequiresJwt.AuthComponent RequiresJwtAuthenticationComponent() {
+    public RequiresJwt.AuthComponent requiresJwtAuthenticationComponent() {
         return new RequiresJwt.AuthComponent();
     }
 
