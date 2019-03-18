@@ -21,12 +21,14 @@ import java.util.Enumeration;
 
 /**
  * 日志拦截器
+ *
+ * @author 应卓
  */
 @Slf4j
 public class DebugMvcInterceptor implements HandlerInterceptor {
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if (!(handler instanceof HandlerMethod)) {
             return true;

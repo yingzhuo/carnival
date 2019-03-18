@@ -25,7 +25,7 @@ public class SpringAutoConfig {
         return SpringUtilsInitBean.INSTANCE;
     }
 
-    @Bean(name = "springId")
+    @Bean(name = "__spring_id__")
     public SpringIdFactoryBean springIdFactoryBean() {
         return new SpringIdFactoryBean();
     }

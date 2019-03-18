@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * @author 应卓
  */
-public class SpringIdFactoryBean implements FactoryBean<String> {
+public final class SpringIdFactoryBean implements FactoryBean<String> {
 
     @Override
     public String getObject() {

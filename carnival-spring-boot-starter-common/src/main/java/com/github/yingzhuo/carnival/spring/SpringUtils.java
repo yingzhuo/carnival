@@ -64,7 +64,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return getBean("springId", String.class);
+        return getBean("__spring_id__", String.class);
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

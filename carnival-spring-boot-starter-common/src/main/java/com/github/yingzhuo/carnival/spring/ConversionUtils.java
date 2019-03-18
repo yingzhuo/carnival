@@ -26,7 +26,6 @@ public final class ConversionUtils {
         return service.convert(source, targetType);
     }
 
-    @Deprecated
     public static Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         val service = SpringUtils.getConversionService();
         return service.convert(source, sourceType, targetType);

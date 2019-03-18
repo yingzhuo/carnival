@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>carnival</artifactId>
         <groupId>com.github.yingzhuo</groupId>
+        <artifactId>carnival</artifactId>
         <version>1.3.6-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.httpbasic.autoconfig.filter;
 
+import com.github.yingzhuo.carnival.httpbasic.autoconfig.handler.HttpBasicAuthFailureHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
