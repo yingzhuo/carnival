@@ -75,12 +75,12 @@ public class HttpBasicAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        if (StringUtils.equals(username, up[0]) && StringUtils.equals(password, up[1])) {
-            doFilter(request, response, filterChain);
+        if (!StringUtils.equals(username, up[0]) || !StringUtils.equals(password, up[1])) {
+            failureHandler.handle(request, response);
             return;
         }
 
-        failureHandler.handle(request, response);
+        doFilter(request, response, filterChain);
     }
 
 }

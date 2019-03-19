@@ -21,8 +21,9 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
+@Deprecated
 @EnableConfigurationProperties(ContentTypeHttpHeaderSetterFilterAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.api-gateway.content-type", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.api-gateway.content-type", name = "enabled", havingValue = "true")
 public class ContentTypeHttpHeaderSetterFilterAutoConfig {
 
     @Bean
@@ -34,10 +35,9 @@ public class ContentTypeHttpHeaderSetterFilterAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.api-gateway.content-type")
+    @Deprecated
     static final class Props {
-        private boolean enabled = true;
-        private String username;
-        private String password;
+        private boolean enabled = false;
     }
 
 }

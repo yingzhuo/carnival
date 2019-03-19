@@ -21,7 +21,6 @@ mvn -f ./carnival/pom.xml clean install -Dmaven.test.skip=true
 * [carnival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
 * [carnival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
-* [carnival-spring-boot-starter-redis-distributed-lock](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-redis-distributed-lock)
 
 
 联系我

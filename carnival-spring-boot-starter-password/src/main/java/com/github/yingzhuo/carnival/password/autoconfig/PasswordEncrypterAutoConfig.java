@@ -43,6 +43,8 @@ public class PasswordEncrypterAutoConfig {
                 return new SHA256PasswordEncrypter(props.getSha256Salt());
             case BASE64:
                 return new Base64PasswordEncrypter();
+            case REVERSE:
+                return new ReversePasswordEncrypter();
             case NONE:
                 return new NonePasswordEncrypter();
             default:

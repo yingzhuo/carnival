@@ -9,15 +9,16 @@
  */
 package com.github.yingzhuo.carnival.httpbasic.autoconfig;
 
+import com.github.yingzhuo.carnival.httpbasic.autoconfig.filter.HttpBasicAuthFilter;
+import com.github.yingzhuo.carnival.httpbasic.autoconfig.handler.HttpBasicAuthFailureHandler;
 import com.github.yingzhuo.carnival.httpbasic.autoconfig.handler.JsonHttpBasicAuthFailureHandler;
 import com.github.yingzhuo.carnival.httpbasic.autoconfig.handler.SimpleHttpBasicAuthFailureHandler;
-import com.github.yingzhuo.carnival.httpbasic.autoconfig.handler.HttpBasicAuthFailureHandler;
-import com.github.yingzhuo.carnival.httpbasic.autoconfig.filter.HttpBasicAuthFilter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -76,7 +77,7 @@ public class HttpBasicAutoConfig {
 
         @Override
         public void afterPropertiesSet() {
-            if (username != null && password == null) {
+            if (StringUtils.isAnyBlank(username, password)) {
                 password = UUID.randomUUID().toString();
                 log.debug("Http-Basic username: \n\n\t\t{}\n", username);
                 log.debug("Http-Basic password: \n\n\t\t{}\n", password);

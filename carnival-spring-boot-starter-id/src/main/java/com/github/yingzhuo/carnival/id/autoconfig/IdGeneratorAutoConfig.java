@@ -72,6 +72,8 @@ public class IdGeneratorAutoConfig {
                 } else {
                     return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
                 }
+            case ALWAYS_NULL:
+                return () -> null;
             default:
                 throw new UnsupportedOperationException();      // 程序不会运行到此处
         }

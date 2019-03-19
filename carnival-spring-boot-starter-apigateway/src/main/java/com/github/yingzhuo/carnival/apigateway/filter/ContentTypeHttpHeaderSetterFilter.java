@@ -15,6 +15,7 @@ import org.springframework.core.Ordered;
 /**
  * @author 应卓
  */
+@Deprecated
 public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
 
     private final static String CONTENT_TYPE = "Content-Type";
@@ -27,8 +28,7 @@ public class ContentTypeHttpHeaderSetterFilter extends AbstractZuulFilter {
 
     @Override
     protected boolean doShouldFilter(RequestContext requestContext) {
-        // 除了GET请求外，其他请求都设置请求头
-        return !"GET".equalsIgnoreCase(requestContext.getRequest().getMethod());
+        return true;
     }
 
     @Override

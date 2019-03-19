@@ -20,6 +20,8 @@ public enum Algorithm {
 
     SNOWFLAKE,
 
-    SNOWFLAKE_STRING
+    SNOWFLAKE_STRING,
+
+    ALWAYS_NULL;
 
 }

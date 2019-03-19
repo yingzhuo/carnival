@@ -26,6 +26,8 @@ public enum Algorithm {
 
     BASE64,
 
+    REVERSE,
+
     NONE
 
 }

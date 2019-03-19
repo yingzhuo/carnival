@@ -12,10 +12,12 @@ package com.github.yingzhuo.carnival.apigateway.autoconfig;
 import com.github.yingzhuo.carnival.apigateway.filter.HttpBasicHttpHeaderSetterZuulFilter;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.Assert;
 
 /**
  * @author 应卓
@@ -32,10 +34,18 @@ public class HttpBasicHttpHeaderSetterZuulFilterAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.api-gateway.http-basic")
-    static final class Props {
+    static final class Props implements InitializingBean {
         private boolean enabled = false;
         private String username;
         private String password;
+
+        @Override
+        public void afterPropertiesSet() {
+            if (enabled) {
+                Assert.hasText(username, "'carnival.api-gateway.http-basic.username' is null or blank.");
+                Assert.hasText(password, "'carnival.api-gateway.http-basic.password' is null or blank.");
+            }
+        }
     }
 
 }
