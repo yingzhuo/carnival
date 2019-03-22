@@ -19,7 +19,7 @@ import org.springframework.beans.factory.support.GenericBeanDefinition;
  * @author 应卓
  * @see SpringUtils
  */
-final public class BeanUtils {
+public final class BeanUtils {
 
     public static final String SCOPE_SINGLETON = BeanDefinition.SCOPE_SINGLETON;
     public static final String SCOPE_PROTOTYPE = BeanDefinition.SCOPE_PROTOTYPE;
