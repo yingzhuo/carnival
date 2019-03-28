@@ -18,7 +18,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author 应卓
  */
-public class HttpBasicHttpHeaderSetterZuulFilter extends AbstractZuulFilter {
+public class HttpBasicHttpZuulFilter extends AbstractZuulFilter {
 
     private static final String AUTHORIZATION = "Authorization";
     private static final String BASIC = "Basic ";
@@ -26,7 +26,7 @@ public class HttpBasicHttpHeaderSetterZuulFilter extends AbstractZuulFilter {
     private final String username;
     private final String password;
 
-    public HttpBasicHttpHeaderSetterZuulFilter(String username, String password) {
+    public HttpBasicHttpZuulFilter(String username, String password) {
         this.username = username;
         this.password = password;
     }

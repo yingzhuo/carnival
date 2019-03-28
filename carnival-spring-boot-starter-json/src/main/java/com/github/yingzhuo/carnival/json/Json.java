@@ -20,19 +20,18 @@ import java.util.function.Supplier;
 /**
  * @author 应卓
  */
+@SuppressWarnings("unchecked")
 public class Json implements Serializable {
 
     public static Json newInstance() {
         return new Json();
     }
 
-    private static final long serialVersionUID = 3132693907573837391L;
-
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
-    private Payload payload = new Payload();
+    private Payload payload = Payload.newInstance();
 
-    public Json() {
+    private Json() {
         super();
     }
 
@@ -63,14 +62,13 @@ public class Json implements Serializable {
         return this;
     }
 
-    public Json payloadPutAll(Map<String, ?> map) {
+    public Json payload(Map<String, ?> map) {
         payload.putAll(map);
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public Json payloadPutAllProperties(Object vo, boolean includeClassProperty) {
-        payloadPutAll((Map) new BeanMap(vo));
+    public Json payload(Object vo, boolean includeClassProperty) {
+        payload((Map) new BeanMap(vo));
 
         if (!includeClassProperty) {
             payload.remove("class");
@@ -79,11 +77,11 @@ public class Json implements Serializable {
         return this;
     }
 
-    public Json payloadPutAllProperties(Object vo) {
-        return payloadPutAllProperties(vo, false);
+    public Json payload(Object vo) {
+        return payload(vo, false);
     }
 
-    public Json payloadClear() {
+    public Json clear() {
         payload.clear();
         return this;
     }

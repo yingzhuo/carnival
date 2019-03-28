@@ -10,13 +10,20 @@
 package com.github.yingzhuo.carnival.json;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 应卓
  */
-public class Payload extends HashMap<String, Object> implements Map<String, Object> {
+public class Payload extends HashMap<String, Object> {
+
+    public static Payload newInstance() {
+        return new Payload();
+    }
 
     private static final long serialVersionUID = -4761981717718761013L;
+
+    public Payload() {
+        super();
+    }
 
 }

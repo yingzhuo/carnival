@@ -39,6 +39,7 @@ public interface DownloadEntity {
     public static class Builder {
 
         private final static ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
+
         private String filename = null;
         private String filenameEncoding = "UTF-8";
         private HttpStatus httpStatus = HttpStatus.OK;

@@ -51,6 +51,8 @@ public class MvcCorsForAllAutoConfig implements WebMvcConfigurer {
         return new CorsFilter(source);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.mvc.cors-for-all")
