@@ -24,6 +24,11 @@ public @interface IdNumber {
 
     public String message() default "Invalid id number.";
 
+    /**
+     * 兼容旧版15位身份证号
+     */
+    public boolean compatibility15() default true;
+
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
