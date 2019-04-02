@@ -47,7 +47,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return false;
         }
 
-        if (complexity == Password.Complexity.ANY || complexity == Password.Complexity.LEVEL0) {
+        if (complexity == Password.Complexity.ANY) {
             return true;
         }
 
@@ -81,19 +81,16 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
 
         switch (complexity) {
             case NUMERIC:
-            case LEVEL1:
                 return hasNumeric;
             case ALPHABETIC:
-            case LEVEL2:
                 return hasAlphabetic;
             case ALPHABETIC_AND_NUMERIC:
-            case LEVEL3:
                 return hasAlphabetic && hasNumeric;
             case ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS:
-            case LEVEL4:
                 return hasAlphabetic && hasNumeric && hasSpecial;
+            case LOWER_AND_UPPER_AND_NUMERIC:
+                return hasLower && hasUpper && hasNumeric;
             case LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS:
-            case LEVEL5:
                 return hasLower && hasUpper && hasNumeric && hasSpecial;
             default:
                 return true;
