@@ -120,8 +120,9 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
         String year = value.length() == 15 ? getYearOfBirthAsString(value) : value.substring(6, 10);
 
         final int intYear = Integer.parseInt(year);
-        if (intYear < 1900 || intYear > Calendar.getInstance().get(Calendar.YEAR))
+        if (intYear < 1900 || intYear > Calendar.getInstance().get(Calendar.YEAR)) {
             return false;   //1900年的PASS，超过今年的PASS
+        }
 
         //校验月份
         String month = value.length() == 15 ? value.substring(8, 10) : value.substring(10, 12);
@@ -133,19 +134,21 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
         //校验天数
         String day = value.length() == 15 ? value.substring(10, 12) : value.substring(12, 14);
         final int intDay = Integer.parseInt(day);
-        if (intDay < 1 || intDay > 31)
+        if (intDay < 1 || intDay > 31) {
             return false;
+        }
 
         //校验"校验码"
-        if (value.length() == 15)
+        if (value.length() == 15) { // 15位身份证无校检码
             return true;
+        }
 
         return cs[cs.length - 1] == PARITYBIT[power % 11];
     }
 
     private String getYearOfBirthAsString(String certNo) throws Exception {
         String dob = certNo.substring(6, 12);
-        Date date = DateUtils.parseDate(certNo, "yyMMdd");
+        Date date = DateUtils.parseDate(dob, "yyMMdd");
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return String.valueOf(cal.get(Calendar.YEAR));
