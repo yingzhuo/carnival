@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
@@ -69,6 +70,11 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         }
 
         val handlerMethod = (HandlerMethod) handler;
+
+        if (handlerMethod.hasMethodAnnotation(IgnoreToken.class)) {
+            RestfulSecurityContext.setIgnored(true);
+            return true;
+        }
 
         final List<MethodCheckPoint> list = cache.get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
