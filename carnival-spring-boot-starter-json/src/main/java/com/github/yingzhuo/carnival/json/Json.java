@@ -58,6 +58,11 @@ public class Json implements Serializable {
     }
 
     public Json payload(String key, Object value) {
+        if (value.getClass() == boolean.class) {
+            boolean b = (boolean) value;
+            value = Boolean.valueOf(b);
+        }
+
         payload.put(key, value);
         return this;
     }
