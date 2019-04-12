@@ -9,11 +9,9 @@
  */
 package com.github.yingzhuo.carnival.json;
 
-import org.apache.commons.beanutils.BeanMap;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -58,33 +56,34 @@ public class Json implements Serializable {
     }
 
     public Json payload(String key, Object value) {
-        if (value.getClass() == boolean.class) {
+
+        if (value != null && value.getClass() == boolean.class) {
             boolean b = (boolean) value;
-            value = Boolean.valueOf(b);
+            value = b ? Boolean.TRUE : Boolean.FALSE;
         }
 
         payload.put(key, value);
         return this;
     }
 
-    public Json payload(Map<String, ?> map) {
-        payload.putAll(map);
-        return this;
-    }
-
-    public Json payload(Object vo, boolean includeClassProperty) {
-        payload((Map) new BeanMap(vo));
-
-        if (!includeClassProperty) {
-            payload.remove("class");
-        }
-
-        return this;
-    }
-
-    public Json payload(Object vo) {
-        return payload(vo, false);
-    }
+//    public Json payloadImport(Map<String, ?> map) {
+//        payload.putAll(map);
+//        return this;
+//    }
+//
+//    public Json payloadImport(Object vo, boolean includeClassProperty) {
+//        payloadImport((Map) new BeanMap(vo));
+//
+//        if (!includeClassProperty) {
+//            payload.remove("class");
+//        }
+//
+//        return this;
+//    }
+//
+//    public Json payloadImport(Object vo) {
+//        return payloadImport(vo, false);
+//    }
 
     public Json clear() {
         payload.clear();
