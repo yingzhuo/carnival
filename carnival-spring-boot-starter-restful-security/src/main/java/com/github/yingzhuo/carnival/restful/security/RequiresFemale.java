@@ -35,7 +35,7 @@ public @interface RequiresFemale {
 
         @Override
         public void authenticate(UserDetails userDetails, RequiresFemale annotation) throws RestfulSecurityException {
-            if (userDetails.getGender() != Gender.FEMALE) {
+            if (userDetails == null || userDetails.getGender() != Gender.FEMALE) {
                 throw new UserDetailsGenderException(getMessage(annotation));
             }
         }

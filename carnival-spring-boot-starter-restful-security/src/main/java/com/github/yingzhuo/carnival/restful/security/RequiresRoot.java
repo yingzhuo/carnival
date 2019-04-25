@@ -34,7 +34,7 @@ public @interface RequiresRoot {
 
         @Override
         public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
-            if (userDetails.isNotRoot()) {
+            if (userDetails == null || userDetails.isNotRoot()) {
                 throw new UserDetailsIsNotRootException(getMessage(annotation));
             }
         }

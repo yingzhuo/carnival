@@ -33,7 +33,7 @@ public @interface RequiresNotRoot {
     public static class AuthComponent implements AuthenticationComponent<RequiresNotRoot> {
         @Override
         public void authenticate(UserDetails userDetails, RequiresNotRoot annotation) throws RestfulSecurityException {
-            if (userDetails.isRoot()) {
+            if (userDetails == null || userDetails.isRoot()) {
                 throw new UserDetailsIsRootException(getMessage(annotation));
             }
         }
