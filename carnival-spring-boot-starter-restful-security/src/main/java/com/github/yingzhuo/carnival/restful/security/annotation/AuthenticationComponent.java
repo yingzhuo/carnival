@@ -17,6 +17,7 @@ import java.lang.annotation.Annotation;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface AuthenticationComponent<A extends Annotation> {
 
     public void authenticate(UserDetails userDetails, A annotation) throws RestfulSecurityException;

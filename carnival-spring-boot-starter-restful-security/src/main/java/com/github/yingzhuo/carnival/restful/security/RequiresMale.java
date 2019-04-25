@@ -12,7 +12,8 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsIsNotRootException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsGenderException;
+import com.github.yingzhuo.carnival.restful.security.userdetails.Gender;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.var;
 
@@ -25,21 +26,21 @@ import java.lang.annotation.*;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresRoot.AuthComponent.class)
-public @interface RequiresRoot {
+@Requires(RequiresMale.AuthComponent.class)
+public @interface RequiresMale {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent<RequiresRoot> {
+    public static class AuthComponent implements AuthenticationComponent<RequiresMale> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
-            if (userDetails.isNotRoot()) {
-                throw new UserDetailsIsNotRootException(getMessage(annotation));
+        public void authenticate(UserDetails userDetails, RequiresMale annotation) throws RestfulSecurityException {
+            if (userDetails.getGender() != Gender.MALE) {
+                throw new UserDetailsGenderException(getMessage(annotation));
             }
         }
 
-        private String getMessage(RequiresRoot annotation) {
+        private String getMessage(RequiresMale annotation) {
             var msg = annotation.errorMessage();
             if (":::<NO MESSAGE>:::".equals(msg)) {
                 msg = null;
@@ -47,4 +48,5 @@ public @interface RequiresRoot {
             return msg;
         }
     }
+
 }

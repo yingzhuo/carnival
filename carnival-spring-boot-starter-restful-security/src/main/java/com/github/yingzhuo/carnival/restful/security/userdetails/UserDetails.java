@@ -40,9 +40,21 @@ public interface UserDetails extends Serializable {
 
     public boolean isExpired();
 
+    public default boolean isNotExpired() {
+        return !isExpired();
+    }
+
     public boolean isLocked();
 
+    public default boolean isNotLocked() {
+        return !isLocked();
+    }
+
     public boolean isRoot();
+
+    public default boolean isNotRoot() {
+        return !isRoot();
+    }
 
     public Collection<Role> getRoles();
 

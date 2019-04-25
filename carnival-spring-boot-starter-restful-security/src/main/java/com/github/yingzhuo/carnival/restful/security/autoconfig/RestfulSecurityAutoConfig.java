@@ -69,6 +69,12 @@ public class RestfulSecurityAutoConfig {
 
     @Bean
     @Primary
+    public RequiresNotRoot.AuthComponent requiresNotRootAuthenticationComponent() {
+        return new RequiresNotRoot.AuthComponent();
+    }
+
+    @Bean
+    @Primary
     public RequiresAuthentication.AuthComponent requiresAuthenticationAuthenticationComponent() {
         return new RequiresAuthentication.AuthComponent();
     }
@@ -89,6 +95,18 @@ public class RestfulSecurityAutoConfig {
     @Primary
     public RequiresPermissions.AuthComponent requiresPermissionsAuthenticationComponent() {
         return new RequiresPermissions.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresFemale.AuthComponent requiresFemaleAuthenticationComponent() {
+        return new RequiresFemale.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresMale.AuthComponent requiresMaleAuthenticationComponent() {
+        return new RequiresMale.AuthComponent();
     }
 
 }

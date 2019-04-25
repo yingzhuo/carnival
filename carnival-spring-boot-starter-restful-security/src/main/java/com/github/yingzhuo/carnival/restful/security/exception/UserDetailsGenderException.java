@@ -12,13 +12,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 /**
  * @author 应卓
  */
-public class UserDetailsIsNotRootException extends AuthorizationException {
+public class UserDetailsGenderException extends AuthorizationException {
 
-    public UserDetailsIsNotRootException() {
+    public UserDetailsGenderException() {
     }
 
-    public UserDetailsIsNotRootException(String message) {
+    public UserDetailsGenderException(String message) {
         super(message);
     }
-
 }

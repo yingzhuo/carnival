@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsIsNotRootException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsIsRootException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.var;
 
@@ -25,21 +25,20 @@ import java.lang.annotation.*;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresRoot.AuthComponent.class)
-public @interface RequiresRoot {
+@Requires(RequiresNotRoot.AuthComponent.class)
+public @interface RequiresNotRoot {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent<RequiresRoot> {
-
+    public static class AuthComponent implements AuthenticationComponent<RequiresNotRoot> {
         @Override
-        public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
-            if (userDetails.isNotRoot()) {
-                throw new UserDetailsIsNotRootException(getMessage(annotation));
+        public void authenticate(UserDetails userDetails, RequiresNotRoot annotation) throws RestfulSecurityException {
+            if (userDetails.isRoot()) {
+                throw new UserDetailsIsRootException(getMessage(annotation));
             }
         }
 
-        private String getMessage(RequiresRoot annotation) {
+        private String getMessage(RequiresNotRoot annotation) {
             var msg = annotation.errorMessage();
             if (":::<NO MESSAGE>:::".equals(msg)) {
                 msg = null;
