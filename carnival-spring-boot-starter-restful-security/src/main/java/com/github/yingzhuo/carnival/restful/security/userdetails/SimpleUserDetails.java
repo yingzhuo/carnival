@@ -27,7 +27,7 @@ public class SimpleUserDetails implements UserDetails, Serializable {
 
     private static final long serialVersionUID = 7811607048302332880L;
 
-    private final Map<String, Object> payload = new HashMap<>(0);
+    private final Map<String, Object> payload = new HashMap<>();
     private Object id = null;
     private String username = null;
     private String password = null;
@@ -35,6 +35,7 @@ public class SimpleUserDetails implements UserDetails, Serializable {
     private Date dob = null;
     private boolean expired = false;
     private boolean locked = false;
+    private boolean root = false;
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
     private Object nativeUser = null;
@@ -91,6 +92,23 @@ public class SimpleUserDetails implements UserDetails, Serializable {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+//    public Date getDob() {
+//        return dob;
+//    }
+//
+//    public void setDob(Date dob) {
+//        this.dob = dob;
+//    }
+
+    @Override
+    public boolean isRoot() {
+        return root;
+    }
+
+    public void setRoot(boolean root) {
+        this.root = root;
     }
 
     @Override

@@ -40,7 +40,10 @@ public @interface DateTimeFormat {
             "yyMMddHHmmss",
             "yyMMddHHmmssSSS",
             "dd/MM/yy",
-            "dd/MM/yyyy"
+            "dd/MM/yyyy",
+            "yyyy/MM/dd",
+            "yyyy/MM/dd HH:mm:ss",
+            "yyyy/MM/dd HH:mm:ss.SSS",
     };
 
     public static class FormatterFactory implements AnnotationFormatterFactory<DateTimeFormat> {
@@ -61,7 +64,7 @@ public @interface DateTimeFormat {
 
         @Override
         public Printer<?> getPrinter(DateTimeFormat annotation, Class<?> fieldType) {
-            return (date, locale) -> date == null ? "null" : date.toString();
+            return (date, locale) -> date.toString();
         }
 
         @Override

@@ -24,11 +24,11 @@ public class FormatterRegistryAutoConfig {
     public void config(FormatterRegistry registry) {
         Optional.ofNullable(registry).ifPresent(x -> {
             x.addFormatter(new BooleanFormat());
+
             x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
-            x.addFormatterForFieldAnnotation(new TrimFormat.FormatterFactory());
         });
     }
 

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.debug.mvc;
 
+import com.github.yingzhuo.carnival.NoDebugLogging;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -20,7 +21,7 @@ import java.lang.reflect.Method;
 import java.util.Enumeration;
 
 /**
- * 日志拦截器
+ * 日志输出拦截器
  *
  * @author 应卓
  */
@@ -31,6 +32,10 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
+        if (((HandlerMethod) handler).getMethodAnnotation(NoDebugLogging.class) != null) {
             return true;
         }
 

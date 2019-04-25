@@ -7,23 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓
  */
-public enum DateTruncation {
-
-    NONE(-1), YEAR(1), MONTH(2), DAY(5), HOUR(10), MINUTE(12), SECOND(13), MILLISECOND(14);
-
-    private final int value;
-
-    DateTruncation(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
+public class UserDetailsIsNotRootException extends AuthorizationException {
 }

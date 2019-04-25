@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
+import com.github.yingzhuo.carnival.common.time.DateTruncation;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;

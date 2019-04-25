@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.support.BasePathInterceptor;
+import com.github.yingzhuo.carnival.mvc.support.WebrootSettingInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -35,7 +35,7 @@ public class MvcWebrootAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new BasePathInterceptor(props.getAttributeName())).addPathPatterns("/", "/**");
+        registry.addInterceptor(new WebrootSettingInterceptor(props.getAttributeName())).addPathPatterns("/", "/**");
     }
 
     @Getter

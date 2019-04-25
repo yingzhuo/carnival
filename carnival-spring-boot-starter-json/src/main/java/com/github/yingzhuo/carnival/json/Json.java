@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.json;
 
+import com.github.yingzhuo.carnival.common.StringCoded;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ import java.util.function.Supplier;
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
-public class Json implements Serializable {
+public class Json implements Serializable, StringCoded {
 
     public static Json newInstance() {
         return new Json();
@@ -56,34 +57,9 @@ public class Json implements Serializable {
     }
 
     public Json payload(String key, Object value) {
-
-        if (value != null && value.getClass() == boolean.class) {
-            boolean b = (boolean) value;
-            value = b ? Boolean.TRUE : Boolean.FALSE;
-        }
-
         payload.put(key, value);
         return this;
     }
-
-//    public Json payloadImport(Map<String, ?> map) {
-//        payload.putAll(map);
-//        return this;
-//    }
-//
-//    public Json payloadImport(Object vo, boolean includeClassProperty) {
-//        payloadImport((Map) new BeanMap(vo));
-//
-//        if (!includeClassProperty) {
-//            payload.remove("class");
-//        }
-//
-//        return this;
-//    }
-//
-//    public Json payloadImport(Object vo) {
-//        return payloadImport(vo, false);
-//    }
 
     public Json clear() {
         payload.clear();
@@ -104,6 +80,10 @@ public class Json implements Serializable {
 
     public int size() {
         return payload.size();
+    }
+
+    public boolean isEmpty() {
+        return payload.isEmpty();
     }
 
 }

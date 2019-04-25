@@ -16,16 +16,19 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BasePathInterceptor extends HandlerInterceptorAdapter {
+/**
+ * @author 应卓
+ */
+public class WebrootSettingInterceptor extends HandlerInterceptorAdapter {
 
     private final String attributeName;
 
-    public BasePathInterceptor(String attributeName) {
+    public WebrootSettingInterceptor(String attributeName) {
         this.attributeName = attributeName;
     }
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         if (!(handler instanceof HandlerMethod)) {
             return true;

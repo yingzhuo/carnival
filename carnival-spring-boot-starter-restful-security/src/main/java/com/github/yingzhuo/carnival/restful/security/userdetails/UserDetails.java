@@ -42,6 +42,8 @@ public interface UserDetails extends Serializable {
 
     public boolean isLocked();
 
+    public boolean isRoot();
+
     public Collection<Role> getRoles();
 
     public Collection<Permission> getPermissions();
@@ -154,6 +156,16 @@ public interface UserDetails extends Serializable {
 
         public Builder locked(Supplier<Boolean> supplier) {
             ud.setLocked(supplier.get());
+            return this;
+        }
+
+        public Builder root(boolean root) {
+            ud.setRoot(root);
+            return this;
+        }
+
+        public Builder root(Supplier<Boolean> supplier) {
+            ud.setRoot(supplier.get());
             return this;
         }
 

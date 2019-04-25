@@ -35,7 +35,7 @@ public class BooleanFormat implements Formatter<Boolean> {
 
     @Override
     public String print(Boolean object, Locale locale) {
-        return object == null ? "null" : object.toString();
+        return object.toString();
     }
 
 }
