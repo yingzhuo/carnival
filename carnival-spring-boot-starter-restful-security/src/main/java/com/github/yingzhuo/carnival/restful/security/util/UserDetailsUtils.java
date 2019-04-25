@@ -97,6 +97,14 @@ public final class UserDetailsUtils {
     }
 
     /**
+     * 获取是否是根用户标记
+     */
+    public static boolean isRoot() {
+        val userDetails = get();
+        return userDetails != null && userDetails.isRoot();
+    }
+
+    /**
      * 获取权限名称
      */
     public static List<String> getPermissionNames() {
