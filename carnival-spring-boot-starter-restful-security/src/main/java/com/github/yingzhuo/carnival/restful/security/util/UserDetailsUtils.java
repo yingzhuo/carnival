@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.util;
 
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
+import com.github.yingzhuo.carnival.restful.security.userdetails.Gender;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.springframework.beans.BeanWrapperImpl;
@@ -24,7 +25,6 @@ import java.util.*;
 public final class UserDetailsUtils {
 
     private UserDetailsUtils() {
-        super();
     }
 
     /**
@@ -61,6 +61,30 @@ public final class UserDetailsUtils {
     }
 
     /**
+     * 获取出生日期
+     */
+    public static Date getDateOfBirth() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getDateOfBirth() : null;
+    }
+
+    /**
+     * 获取性别
+     */
+    public static Gender getGender() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getGender() : null;
+    }
+
+    /**
+     * 获取是否是根用户标记
+     */
+    public static boolean isRoot() {
+        val userDetails = get();
+        return userDetails != null && userDetails.isRoot();
+    }
+
+    /**
      * 获取本地User对象
      *
      * @param <T> 对象类型
@@ -75,11 +99,9 @@ public final class UserDetailsUtils {
      */
     public static List<String> getRoleNames() {
         val userDetails = get();
-
         if (userDetails == null) {
             return Collections.emptyList();
         }
-
         return Collections.unmodifiableList(new ArrayList<>(userDetails.getRoleNames()));
     }
 
@@ -88,20 +110,10 @@ public final class UserDetailsUtils {
      */
     public static Set<String> getRoleNamesAsSet() {
         val userDetails = get();
-
         if (userDetails == null) {
             return Collections.emptySet();
         }
-
         return Collections.unmodifiableSet(new HashSet<>(userDetails.getRoleNames()));
-    }
-
-    /**
-     * 获取是否是根用户标记
-     */
-    public static boolean isRoot() {
-        val userDetails = get();
-        return userDetails != null && userDetails.isRoot();
     }
 
     /**
@@ -109,11 +121,9 @@ public final class UserDetailsUtils {
      */
     public static List<String> getPermissionNames() {
         val userDetails = get();
-
         if (userDetails == null) {
             return Collections.emptyList();
         }
-
         return Collections.unmodifiableList(new ArrayList<>(userDetails.getPermissionNames()));
     }
 
@@ -122,11 +132,9 @@ public final class UserDetailsUtils {
      */
     public static Set<String> getPermissionNamesAsSet() {
         val userDetails = get();
-
         if (userDetails == null) {
             return Collections.emptySet();
         }
-
         return Collections.unmodifiableSet(new HashSet<>(userDetails.getPermissionNames()));
     }
 
@@ -135,11 +143,9 @@ public final class UserDetailsUtils {
      */
     public static Map<String, Object> getPayload() {
         val userDetails = get();
-
         if (userDetails == null) {
             return Collections.emptyMap();
         }
-
         return Collections.unmodifiableMap(userDetails.getPayload());
     }
 

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.role;
 
+import com.github.yingzhuo.carnival.common.Named;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.ToString;
 
@@ -21,7 +22,7 @@ import java.util.Objects;
  * @author 应卓
  * @see UserDetails
  */
-public interface Role extends Serializable {
+public interface Role extends Serializable, Named {
 
     public static Role of(String name) {
         return new SimpleRole(name);

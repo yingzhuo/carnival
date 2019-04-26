@@ -19,7 +19,6 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 public final class TokenUtils {
 
     private TokenUtils() {
-        super();
     }
 
     /**
