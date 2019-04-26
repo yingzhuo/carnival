@@ -15,8 +15,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class UnsupportedTokenTypeException extends AuthenticationException {
 
-    private static final long serialVersionUID = -3898427217629257270L;
-
     public UnsupportedTokenTypeException() {
         super();
     }

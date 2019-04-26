@@ -11,10 +11,10 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsIsNotRootException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.var;
 
 import java.lang.annotation.*;
 
@@ -35,16 +35,8 @@ public @interface RequiresRoot {
         @Override
         public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
             if (userDetails == null || userDetails.isNotRoot()) {
-                throw new UserDetailsIsNotRootException(getMessage(annotation));
+                throw new UserDetailsIsNotRootException(CheckUtils.getMessage(annotation.errorMessage()));
             }
-        }
-
-        private String getMessage(RequiresRoot annotation) {
-            var msg = annotation.errorMessage();
-            if (":::<NO MESSAGE>:::".equals(msg)) {
-                msg = null;
-            }
-            return msg;
         }
     }
 }

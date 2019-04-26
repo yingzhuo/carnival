@@ -43,6 +43,6 @@ object Random {
 
   def randomBoolean(): Boolean = RandomUtils.nextBoolean()
 
-  def randomBytes(count: Int): Array[Byte]= RandomUtils.nextBytes(count)
+  def randomBytes(count: Int): Array[Byte] = RandomUtils.nextBytes(count)
 
 }

@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class TokenBlacklistedException extends AuthenticationException {
 
-    private static final long serialVersionUID = -4409853136141750731L;
-
     public TokenBlacklistedException() {
         this(null);
     }

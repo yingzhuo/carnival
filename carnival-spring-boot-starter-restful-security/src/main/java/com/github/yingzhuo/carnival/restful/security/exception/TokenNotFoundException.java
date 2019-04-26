@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class TokenNotFoundException extends AuthenticationException {
 
-    private static final long serialVersionUID = 4911243848873045716L;
-
     public TokenNotFoundException() {
         super();
     }

@@ -17,8 +17,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class AuthenticationException extends RestfulSecurityException {
 
-    private static final long serialVersionUID = -6282965303632550788L;
-
     public AuthenticationException() {
         super();
     }

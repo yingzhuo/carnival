@@ -10,26 +10,15 @@
 package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
- * 授权异常
- *
  * @author 应卓
- * @see RestfulSecurityException
  */
-public class AuthorizationException extends RestfulSecurityException {
+public class LimitedJuvenileContentException extends AuthorizationException {
 
-    public AuthorizationException() {
+    public LimitedJuvenileContentException() {
     }
 
-    public AuthorizationException(String message) {
+    public LimitedJuvenileContentException(String message) {
         super(message);
-    }
-
-    public AuthorizationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AuthorizationException(Throwable cause) {
-        super(cause);
     }
 
 }

@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
-import com.github.yingzhuo.carnival.restful.security.exception.LimitedAdultContentException;
+import com.github.yingzhuo.carnival.restful.security.exception.LimitedJuvenileContentException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -29,27 +29,27 @@ import java.util.Date;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresAdult.AuthComponent.class)
-public @interface RequiresAdult {
+@Requires(RequiresJuvenile.AuthComponent.class)
+public @interface RequiresJuvenile {
 
     public int ageOfAdult() default 18;
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent<RequiresAdult> {
+    public static class AuthComponent implements AuthenticationComponent<RequiresJuvenile> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresAdult annotation) throws RestfulSecurityException {
+        public void authenticate(UserDetails userDetails, RequiresJuvenile annotation) throws RestfulSecurityException {
 
             if (userDetails == null || userDetails.getDateOfBirth() == null) {
-                throw new LimitedAdultContentException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new LimitedJuvenileContentException(CheckUtils.getMessage(annotation.errorMessage()));
             }
 
             val t = DateUtils.truncate(new Date(), Calendar.DATE);
             val a = DateUtils.addYears(userDetails.getDateOfBirth(), annotation.ageOfAdult());
 
-            if (t.before(a)) {
-                throw new LimitedAdultContentException(CheckUtils.getMessage(annotation.errorMessage()));
+            if (t.after(a)) {
+                throw new LimitedJuvenileContentException(CheckUtils.getMessage(annotation.errorMessage()));
             }
         }
     }

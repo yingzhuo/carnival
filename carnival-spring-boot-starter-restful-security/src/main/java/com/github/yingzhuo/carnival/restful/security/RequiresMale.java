@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsGenderException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.Gender;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.var;
 
 import java.lang.annotation.*;
 
@@ -36,16 +36,8 @@ public @interface RequiresMale {
         @Override
         public void authenticate(UserDetails userDetails, RequiresMale annotation) throws RestfulSecurityException {
             if (userDetails == null || userDetails.getGender() != Gender.MALE) {
-                throw new UserDetailsGenderException(getMessage(annotation));
+                throw new UserDetailsGenderException(CheckUtils.getMessage(annotation.errorMessage()));
             }
-        }
-
-        private String getMessage(RequiresMale annotation) {
-            var msg = annotation.errorMessage();
-            if (":::<NO MESSAGE>:::".equals(msg)) {
-                msg = null;
-            }
-            return msg;
         }
     }
 

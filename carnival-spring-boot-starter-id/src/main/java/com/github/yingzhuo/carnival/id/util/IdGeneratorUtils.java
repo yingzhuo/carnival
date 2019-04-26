@@ -38,7 +38,7 @@ public final class IdGeneratorUtils {
         }
 
         val list = new ArrayList<T>(count);
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             list.set(i, nextId());
         }
         return Collections.unmodifiableList(list);

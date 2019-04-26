@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class RestfulSecurityException extends RuntimeException {
 
-    private static final long serialVersionUID = -3491211983113582542L;
-
     public RestfulSecurityException() {
         super();
     }

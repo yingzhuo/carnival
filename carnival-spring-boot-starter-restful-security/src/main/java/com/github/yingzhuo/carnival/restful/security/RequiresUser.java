@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
-import lombok.var;
 
 import java.lang.annotation.*;
 
@@ -29,7 +29,7 @@ import java.lang.annotation.*;
 @Requires(RequiresUser.AuthComponent.class)
 public @interface RequiresUser {
 
-    public String value();
+    public String username();
 
     public boolean caseSensitive() default true;
 
@@ -41,30 +41,23 @@ public @interface RequiresUser {
         public void authenticate(UserDetails userDetails, RequiresUser annotation) throws RestfulSecurityException {
 
             val caseSensitive = annotation.caseSensitive();
-            val requiredUsername = annotation.value();
+            val requiredUsername = annotation.username();
 
             if (userDetails == null) {
-                throw new AuthenticationException(getMessage(annotation));
+                throw new AuthenticationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
 
             if (caseSensitive) {
                 if (!requiredUsername.equals(userDetails.getUsername())) {
-                    throw new AuthenticationException(getMessage(annotation));
+                    throw new AuthenticationException(CheckUtils.getMessage(annotation.errorMessage()));
                 }
             } else {
                 if (!requiredUsername.equalsIgnoreCase(userDetails.getUsername())) {
-                    throw new AuthenticationException(getMessage(annotation));
+                    throw new AuthenticationException(CheckUtils.getMessage(annotation.errorMessage()));
                 }
             }
         }
 
-        private String getMessage(RequiresUser annotation) {
-            var msg = annotation.errorMessage();
-            if (":::<NO MESSAGE>:::".equals(msg)) {
-                msg = null;
-            }
-            return msg;
-        }
     }
 
 }

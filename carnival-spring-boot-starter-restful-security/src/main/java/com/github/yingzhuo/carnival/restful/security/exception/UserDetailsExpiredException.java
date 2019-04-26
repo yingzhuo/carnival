@@ -18,10 +18,7 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class UserDetailsExpiredException extends AuthenticationException {
 
-    private static final long serialVersionUID = -5336007015822022159L;
-
     public UserDetailsExpiredException() {
-        this(null);
     }
 
     public UserDetailsExpiredException(String message) {

@@ -30,7 +30,7 @@ public final class CheckUtils {
     private CheckUtils() {
     }
 
-    private static String getMessage(String message) {
+    public static String getMessage(String message) {
         if (!StringUtils.hasText(message) || ":::<NO MESSAGE>:::".equals(message)) {
             return null;
         }
