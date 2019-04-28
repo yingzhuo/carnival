@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.4.4-SNAPSHOT</version>
+    <version>1.4.5-SNAPSHOT</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -28,6 +28,7 @@
         <module>carnival-spring-boot-starter-scala</module>
         <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-zxing</module>
+        <module>carnival-spring-boot-starter-security-jwt</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -397,7 +398,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.7.0</version>
+                <version>3.8.0</version>
             </dependency>
 
             <!-- http-utils -->

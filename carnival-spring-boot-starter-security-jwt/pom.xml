@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>carnival</artifactId>
         <groupId>com.github.yingzhuo</groupId>
+        <artifactId>carnival</artifactId>
         <version>1.4.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>carnival-spring-boot-starter-mvc</artifactId>
+    <artifactId>carnival-spring-boot-starter-security-jwt</artifactId>
 
     <dependencies>
         <!-- carnival -->
@@ -18,7 +18,7 @@
             <artifactId>carnival-spring-boot-starter-common</artifactId>
         </dependency>
 
-        <!-- springboot -->
+        <!-- spring-boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -40,6 +40,10 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
 
         <!-- lombok -->
         <dependency>
@@ -53,14 +57,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- commons -->
+        <!-- jwt -->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-text</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
         </dependency>
     </dependencies>
 
