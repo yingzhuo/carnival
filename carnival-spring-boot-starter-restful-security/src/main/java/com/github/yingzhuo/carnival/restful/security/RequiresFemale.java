@@ -12,8 +12,8 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsGenderException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.Gender;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
@@ -36,7 +36,7 @@ public @interface RequiresFemale {
         @Override
         public void authenticate(UserDetails userDetails, RequiresFemale annotation) throws RestfulSecurityException {
             if (userDetails == null || userDetails.getGender() != Gender.FEMALE) {
-                throw new UserDetailsGenderException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
         }
     }

@@ -51,8 +51,14 @@ public class RestfulSecurityAutoConfig {
 
     @Bean
     @Primary
-    public RequiresUser.AuthComponent requiresUserAuthenticationComponent() {
-        return new RequiresUser.AuthComponent();
+    public RequiresId.AuthComponent requiresIdAuthenticationComponent() {
+        return new RequiresId.AuthComponent();
+    }
+
+    @Bean
+    @Primary
+    public RequiresUsername.AuthComponent requiresUserAuthenticationComponent() {
+        return new RequiresUsername.AuthComponent();
     }
 
     @Bean

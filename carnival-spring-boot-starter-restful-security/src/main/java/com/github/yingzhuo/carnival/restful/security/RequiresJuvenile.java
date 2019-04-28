@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
-import com.github.yingzhuo.carnival.restful.security.exception.LimitedJuvenileContentException;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -42,14 +42,14 @@ public @interface RequiresJuvenile {
         public void authenticate(UserDetails userDetails, RequiresJuvenile annotation) throws RestfulSecurityException {
 
             if (userDetails == null || userDetails.getDateOfBirth() == null) {
-                throw new LimitedJuvenileContentException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
 
             val t = DateUtils.truncate(new Date(), Calendar.DATE);
             val a = DateUtils.addYears(userDetails.getDateOfBirth(), annotation.ageOfAdult());
 
             if (t.after(a)) {
-                throw new LimitedJuvenileContentException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
         }
     }

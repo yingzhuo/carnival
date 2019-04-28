@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
-import com.github.yingzhuo.carnival.restful.security.exception.LimitedAdultContentException;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -42,14 +42,14 @@ public @interface RequiresAdult {
         public void authenticate(UserDetails userDetails, RequiresAdult annotation) throws RestfulSecurityException {
 
             if (userDetails == null || userDetails.getDateOfBirth() == null) {
-                throw new LimitedAdultContentException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
 
             val t = DateUtils.truncate(new Date(), Calendar.DATE);
             val a = DateUtils.addYears(userDetails.getDateOfBirth(), annotation.ageOfAdult());
 
             if (t.before(a)) {
-                throw new LimitedAdultContentException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
         }
     }

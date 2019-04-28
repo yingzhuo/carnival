@@ -26,8 +26,8 @@ import java.lang.annotation.*;
 @Inherited
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresUser.AuthComponent.class)
-public @interface RequiresUser {
+@Requires(RequiresUsername.AuthComponent.class)
+public @interface RequiresUsername {
 
     public String username();
 
@@ -35,10 +35,10 @@ public @interface RequiresUser {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent<RequiresUser> {
+    public static class AuthComponent implements AuthenticationComponent<RequiresUsername> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresUser annotation) throws RestfulSecurityException {
+        public void authenticate(UserDetails userDetails, RequiresUsername annotation) throws RestfulSecurityException {
 
             val caseSensitive = annotation.caseSensitive();
             val requiredUsername = annotation.username();
@@ -57,7 +57,6 @@ public @interface RequiresUser {
                 }
             }
         }
-
     }
 
 }

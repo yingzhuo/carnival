@@ -23,9 +23,8 @@ import java.util.*;
  * @see UserDetails
  */
 @ToString
-public class SimpleUserDetails implements UserDetails, Serializable {
-
-    private static final long serialVersionUID = 7811607048302332880L;
+@SuppressWarnings("unchecked")
+class SimpleUserDetails implements UserDetails, Serializable {
 
     private final Map<String, Object> payload = new HashMap<>();
     private Object id = null;
@@ -94,14 +93,6 @@ public class SimpleUserDetails implements UserDetails, Serializable {
         this.locked = locked;
     }
 
-//    public Date getDob() {
-//        return dob;
-//    }
-//
-//    public void setDob(Date dob) {
-//        this.dob = dob;
-//    }
-
     @Override
     public boolean isRoot() {
         return root;
@@ -139,7 +130,6 @@ public class SimpleUserDetails implements UserDetails, Serializable {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public <U> U getNativeUser() {
         return (U) this.nativeUser;
     }

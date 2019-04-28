@@ -12,8 +12,8 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsIsNotRootException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;
@@ -35,7 +35,7 @@ public @interface RequiresRoot {
         @Override
         public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
             if (userDetails == null || userDetails.isNotRoot()) {
-                throw new UserDetailsIsNotRootException(CheckUtils.getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
             }
         }
     }
