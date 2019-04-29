@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.4.5.1-SNAPSHOT</version>
+    <version>1.4.7-SNAPHOST</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -28,7 +28,6 @@
         <module>carnival-spring-boot-starter-scala</module>
         <module>carnival-spring-boot-starter-websecret</module>
         <module>carnival-spring-boot-starter-zxing</module>
-        <module>carnival-spring-boot-starter-security-jwt</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -487,7 +486,6 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
-            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -517,7 +515,6 @@
                     </execution>
                 </executions>
             </plugin>
-            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
