@@ -27,6 +27,9 @@ public class JwtToken implements Authentication, Serializable {
     private boolean authenticated = false;
     private Set<GrantedAuthority> authorities = new HashSet<>();
     private Object details;
+    private String name;
+    private Object principal;
+    private Object credentials;
 
     public JwtToken(String rawToken) {
         Assert.hasText(rawToken, () -> null);
@@ -55,17 +58,29 @@ public class JwtToken implements Authentication, Serializable {
 
     @Override
     public Object getCredentials() {
-        throw new UnsupportedOperationException();      // jwt 无密码概念
+        return this.credentials;
+    }
+
+    public void setCredentials(Object credentials) {
+        this.credentials = credentials;
     }
 
     @Override
     public Object getPrincipal() {
-        throw new UnsupportedOperationException();      // jwt 无用户名概念
+        return this.principal;
+    }
+
+    public void setPrincipal(Object principal) {
+        this.principal = principal;
     }
 
     @Override
     public String getName() {
-        throw new UnsupportedOperationException();      // jwt 无用户概念
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     // -------------------------------------------------------------------------------------------------------------

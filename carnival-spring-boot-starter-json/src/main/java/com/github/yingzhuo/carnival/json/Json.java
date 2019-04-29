@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.yingzhuo.carnival.common.StringCoded;
 import org.springframework.http.HttpStatus;
 
@@ -20,6 +21,7 @@ import java.util.function.Supplier;
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
+@JsonIgnoreProperties({"empty"})
 public class Json implements Serializable, StringCoded {
 
     public static Json newInstance() {

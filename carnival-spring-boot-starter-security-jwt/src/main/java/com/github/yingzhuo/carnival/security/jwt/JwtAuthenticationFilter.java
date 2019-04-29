@@ -10,7 +10,10 @@
 package com.github.yingzhuo.carnival.security.jwt;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -27,22 +30,43 @@ import java.util.Optional;
 @Slf4j
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JwtTokenParser jwtTokenParser;
-    private final JwtAuthenticationManager jwtAuthenticationManager;
-    private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final JwtTokenParser tokenParser;
+    private final AbstractJwtAuthenticationManager authManager;
+    private final JwtAuthenticationFailedEntryPoint authenticationEntryPoint;
 
-    public JwtAuthenticationFilter(JwtTokenParser jwtTokenParser, JwtAuthenticationManager jwtAuthenticationManager, AuthenticationEntryPoint authenticationEntryPoint) {
-        this.jwtTokenParser = jwtTokenParser;
-        this.jwtAuthenticationManager = jwtAuthenticationManager;
-        this.authenticationEntryPoint = authenticationEntryPoint;
+    public JwtAuthenticationFilter(JwtTokenParser tokenParser, AbstractJwtAuthenticationManager authManager, JwtAuthenticationFailedEntryPoint entryPoint) {
+        this.tokenParser = tokenParser;
+        this.authManager = authManager;
+        this.authenticationEntryPoint = entryPoint;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws ServletException {
+        super.afterPropertiesSet();
+        Assert.notNull(tokenParser, () -> null);
+        Assert.notNull(authManager, () -> null);
+        Assert.notNull(authenticationEntryPoint, () -> null);
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        Optional<JwtToken> jwtTokenOptional = jwtTokenParser.parse(request, Locale.getDefault());
+        log.info("进入Filter");
 
+        Optional<JwtToken> tokenOption = tokenParser.parse(request, Locale.getDefault());
 
+        try {
+            Authentication authResult = authManager.authenticate(tokenOption.orElse(null));
+            SecurityContextHolder.getContext().setAuthentication(authResult);
+            log.debug("认证成功");
+
+        } catch (AuthenticationException failed) {
+
+            log.debug("认证失败");
+            SecurityContextHolder.clearContext();
+            authenticationEntryPoint.commence(request, response, failed);
+            return;
+        }
 
         filterChain.doFilter(request, response);
     }

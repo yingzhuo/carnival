@@ -11,20 +11,18 @@ package com.github.yingzhuo.carnival.security.jwt.exception;
 
 import org.springframework.security.core.AuthenticationException;
 
-/**
- * @author 应卓
- */
-public class TokenNotFoundException extends AuthenticationException {
+public class TokenExpiredException extends AuthenticationException {
 
-    public TokenNotFoundException() {
+    public TokenExpiredException() {
         this(null);
     }
 
-    public TokenNotFoundException(String msg) {
+    public TokenExpiredException(String msg) {
         super(msg);
     }
 
-    public TokenNotFoundException(String msg, Throwable t) {
+    public TokenExpiredException(String msg, Throwable t) {
         super(msg, t);
     }
+
 }
