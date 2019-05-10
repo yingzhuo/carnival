@@ -20,10 +20,6 @@ public class SpringDataJacksonModule extends SimpleModule {
 
     private static final long serialVersionUID = 4571012966222625271L;
 
-    public SpringDataJacksonModule() {
-        super();
-    }
-
     @Override
     public void setupModule(SetupContext context) {
         super.setupModule(context);

@@ -26,19 +26,18 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ProfileAny.OnProfileAnyCondition.class)
-public @interface ProfileAny {
+@Conditional(ConditionalOnDocker.OnConditionalOnDocker.class)
+public @interface ConditionalOnDocker {
 
-    public String[] value();
+    public String[] value() default {"docker"};
 
-    public static class OnProfileAnyCondition implements Condition {
+    public static class OnConditionalOnDocker implements Condition {
 
         @Override
         @SuppressWarnings("ConstantConditions")
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val aas = AnnotationAttributes.fromMap(
-                    metadata.getAnnotationAttributes(ProfileAny.class.getName()));
-
+                    metadata.getAnnotationAttributes(ConditionalOnDocker.class.getName()));
             val value = aas.getStringArray("value");
 
             if (value == null) {

@@ -26,19 +26,18 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ProfileAny.OnProfileAnyCondition.class)
-public @interface ProfileAny {
+@Conditional(ConditionalOnKubernetes.OnConditionalOnKubernetes.class)
+public @interface ConditionalOnKubernetes {
 
-    public String[] value();
+    public String[] value() default {"k8s", "kube", "kubernetes"};
 
-    public static class OnProfileAnyCondition implements Condition {
+    public static class OnConditionalOnKubernetes implements Condition {
 
         @Override
         @SuppressWarnings("ConstantConditions")
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val aas = AnnotationAttributes.fromMap(
-                    metadata.getAnnotationAttributes(ProfileAny.class.getName()));
-
+                    metadata.getAnnotationAttributes(ConditionalOnKubernetes.class.getName()));
             val value = aas.getStringArray("value");
 
             if (value == null) {

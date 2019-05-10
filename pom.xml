@@ -10,12 +10,10 @@
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
-        <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-debug</module>
         <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-gravatar</module>
-        <module>carnival-spring-boot-starter-httpbasic</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-jwt</module>
@@ -26,8 +24,6 @@
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-tool</module>
         <module>carnival-spring-boot-starter-scala</module>
-        <module>carnival-spring-boot-starter-websecret</module>
-        <module>carnival-spring-boot-starter-zxing</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -48,19 +44,6 @@
             </snapshots>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>ccae-releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://192.168.203.2:8081/repository/maven-releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>ccae-snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://192.168.203.2:8081/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <properties>
         <encoding>UTF-8</encoding>
@@ -351,15 +334,8 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.6</version>
+                <version>1.18.8</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <!-- qrcode -->
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>3.3.3</version>
             </dependency>
 
             <!-- kotlin -->
@@ -423,7 +399,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.8.1</version>
+                <version>3.9</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>
@@ -433,7 +409,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-text</artifactId>
-                <version>1.4</version>
+                <version>1.6</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>

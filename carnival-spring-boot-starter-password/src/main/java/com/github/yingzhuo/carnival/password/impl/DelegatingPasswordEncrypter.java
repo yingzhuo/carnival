@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.util.Assert;
 
@@ -21,7 +22,14 @@ import java.util.Objects;
 /**
  * @author 应卓
  */
+@Slf4j
 public class DelegatingPasswordEncrypter implements PasswordEncrypter {
+
+    private static final String DEFAULT_ID = "md5";
+
+    public static PasswordEncrypter getDefault() {
+        return new DelegatingPasswordEncrypter(DEFAULT_ID);
+    }
 
     private String idPrefix = "{";
     private String idSuffix = "}";
@@ -44,13 +52,13 @@ public class DelegatingPasswordEncrypter implements PasswordEncrypter {
         this.idToPasswordEncrypter = Collections.unmodifiableMap(map);
     }
 
-    public DelegatingPasswordEncrypter(String defaultId, Map<String, PasswordEncrypter> idToPasswordEncrypter) {
+    public DelegatingPasswordEncrypter(String defaultId, Map<String, PasswordEncrypter> encrypters) {
         Assert.hasLength(defaultId, () -> null);
-        Assert.notEmpty(idToPasswordEncrypter, () -> null);
-        Assert.state(idToPasswordEncrypter.keySet().contains(defaultId), () -> null);
+        Assert.notEmpty(encrypters, () -> null);
+        Assert.state(encrypters.keySet().contains(defaultId), () -> null);
 
         this.defaultId = defaultId;
-        this.idToPasswordEncrypter = Collections.unmodifiableMap(idToPasswordEncrypter);
+        this.idToPasswordEncrypter = Collections.unmodifiableMap(encrypters);
     }
 
     @Override
@@ -67,6 +75,8 @@ public class DelegatingPasswordEncrypter implements PasswordEncrypter {
                 return s + delegated.encrypt(password.substring(s.length()));
             }
         }
+
+        log.debug("");
 
         delegated = idToPasswordEncrypter.get(defaultId);
         return idPrefix + defaultId + idSuffix + delegated.encrypt(password);

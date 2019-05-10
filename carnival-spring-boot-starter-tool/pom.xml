@@ -11,6 +11,12 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>carnival-spring-boot-starter-tool</artifactId>
 
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <maven.install.skip>true</maven.install.skip>
+        <maven.install.deploy>true</maven.install.deploy>
+    </properties>
+
     <dependencies>
         <!-- carnival -->
         <dependency>

@@ -34,10 +34,15 @@ public @interface ConditionalOnDebugMode {
     static final class OnDebugMode implements Condition {
 
         @Override
+        @SuppressWarnings("ConstantConditions")
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val aas = AnnotationAttributes.fromMap(
                     metadata.getAnnotationAttributes(ConditionalOnDebugMode.class.getName()));
             val value = aas.getString("debugProfile");
+
+            if (value == null) {
+                return false;
+            }
 
             return context.getEnvironment().acceptsProfiles(Profiles.of(value));
         }
