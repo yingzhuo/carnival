@@ -21,7 +21,7 @@ import java.util.function.Supplier;
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
-@JsonIgnoreProperties({"empty"})
+@JsonIgnoreProperties("empty")
 public class Json implements Serializable, StringCoded {
 
     public static Json newInstance() {

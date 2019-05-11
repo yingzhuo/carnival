@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.support;
 
 import com.github.yingzhuo.carnival.mvc.IpAddress;
+import lombok.val;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -33,10 +34,16 @@ public class IpHandlerMethodArgumentResolver implements HandlerMethodArgumentRes
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        String ip = getIpAddress(webRequest.getNativeRequest(HttpServletRequest.class));
-        if (!StringUtils.hasText(ip)) {
-            ip = null;
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+        val request = webRequest.getNativeRequest(HttpServletRequest.class);
+
+        String ip = null;
+
+        if (request != null) {
+            ip = getIpAddress(request);
+            if (!StringUtils.hasText(ip)) {
+                ip = null;
+            }
         }
 
         if (parameter.getParameterType() == String.class) {
