@@ -21,6 +21,7 @@ import java.net.URL;
 /**
  * @author 应卓
  */
+@SuppressWarnings("deprecation")
 public final class JacksonUtils {
 
     private static final ObjectMapper DEFAULT_OBJECT_MAPPER;
@@ -158,8 +159,7 @@ public final class JacksonUtils {
 
     private static ObjectMapper getObjectMapper() {
         try {
-            ObjectMapper om = SpringUtils.getBean(ObjectMapper.class);
-            return om != null ? om : DEFAULT_OBJECT_MAPPER;
+            return SpringUtils.getBean(ObjectMapper.class);
         } catch (Exception e) {
             return DEFAULT_OBJECT_MAPPER;
         }

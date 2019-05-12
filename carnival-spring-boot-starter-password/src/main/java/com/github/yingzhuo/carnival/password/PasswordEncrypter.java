@@ -10,14 +10,20 @@
 package com.github.yingzhuo.carnival.password;
 
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface PasswordEncrypter {
+public interface PasswordEncrypter extends Function<String, String> {
 
     public String encrypt(String password);
+
+    @Override
+    default String apply(String s) {
+        return encrypt(s);
+    }
 
     public default boolean matches(String password, String encrypted) {
         Objects.requireNonNull(password);
