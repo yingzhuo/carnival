@@ -20,6 +20,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ import java.util.List;
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.kubernetes.readiness-probe", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(KubernetesReadinessProbeAutoConfig.Props.class)
-public class KubernetesReadinessProbeAutoConfig {
+public class KubernetesReadinessProbeAutoConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<KubernetesReadinessProbeFilter> kubernetesReadinessProbeFilter(Props props) {
