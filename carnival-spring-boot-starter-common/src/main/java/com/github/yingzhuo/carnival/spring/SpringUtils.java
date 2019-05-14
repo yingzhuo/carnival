@@ -36,7 +36,6 @@ public final class SpringUtils {
     static List<String> CMD_ARGS = null;
 
     private SpringUtils() {
-        super();
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

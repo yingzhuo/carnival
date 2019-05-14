@@ -44,7 +44,6 @@ public final class JacksonUtils {
     }
 
     private JacksonUtils() {
-        super();
     }
 
     public static String writeValueAsString(Object value) {

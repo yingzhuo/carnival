@@ -30,7 +30,6 @@ public class SpringUtilsInitBean implements Ordered, ApplicationContextAware, En
     public static final SpringUtilsInitBean INSTANCE = new SpringUtilsInitBean();
 
     private SpringUtilsInitBean() {
-        super();
     }
 
     @Override

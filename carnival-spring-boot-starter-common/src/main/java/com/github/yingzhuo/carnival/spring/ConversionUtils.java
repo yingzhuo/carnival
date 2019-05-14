@@ -18,7 +18,6 @@ import org.springframework.core.convert.TypeDescriptor;
 public final class ConversionUtils {
 
     private ConversionUtils() {
-        super();
     }
 
     public static <T> T convert(Object source, Class<T> targetType) {

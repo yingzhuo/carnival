@@ -23,7 +23,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = FieldsValueNotMatchValidator.class)
 public @interface FieldsValueNotMatch {
 
-    public String message() default "Fields values match!";
+    public String message() default "Fields values matches!";
 
     public String field();
 

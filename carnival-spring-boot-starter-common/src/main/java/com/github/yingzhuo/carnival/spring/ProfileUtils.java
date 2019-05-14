@@ -22,7 +22,6 @@ import java.util.*;
 public final class ProfileUtils {
 
     private ProfileUtils() {
-        super();
     }
 
     public static List<String> getActiveProfiles() {

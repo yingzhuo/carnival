@@ -23,7 +23,6 @@ import static com.github.yingzhuo.carnival.spring.SpringUtils.CMD_ARGS;
 public final class ArgumentUtils {
 
     private ArgumentUtils() {
-        super();
     }
 
     public static ApplicationArguments getApplicationArguments() {

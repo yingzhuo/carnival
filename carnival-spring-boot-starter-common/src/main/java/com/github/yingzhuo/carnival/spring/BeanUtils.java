@@ -25,7 +25,6 @@ public final class BeanUtils {
     public static final String SCOPE_PROTOTYPE = BeanDefinition.SCOPE_PROTOTYPE;
 
     private BeanUtils() {
-        super();
     }
 
     public static void registerBean(Class<?> beanClass, String beanId) {

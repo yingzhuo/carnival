@@ -24,10 +24,6 @@ public final class PropertyUtils {
     private PropertyUtils() {
     }
 
-    public static boolean hasPropertyValue(String propertyName) {
-        return getPropertyValue(propertyName) != null;
-    }
-
     public static String getPropertyValue(String propertyName) {
         return getPropertyValue(propertyName, String.class);
     }

@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.kubernetes.autoconfig.KubernetesLivenessProbeAutoConfig,\
-com.github.yingzhuo.carnival.kubernetes.autoconfig.KubernetesReadinessProbeAutoConfig
