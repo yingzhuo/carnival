@@ -19,6 +19,7 @@
         <module>carnival-spring-boot-starter-jwt</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
+        <module>carnival-spring-boot-starter-password2</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
@@ -275,6 +276,13 @@
                 <version>${springcloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- spring-security -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-crypto</artifactId>
+                <version>5.1.5.RELEASE</version>
             </dependency>
 
             <!-- slf4j -->
