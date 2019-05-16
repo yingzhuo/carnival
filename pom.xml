@@ -385,6 +385,18 @@
                 <version>0.5.4</version>
             </dependency>
 
+            <!-- bcp -->
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>1.61</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>1.61</version>
+            </dependency>
+
             <!-- commons -->
             <dependency>
                 <groupId>com.google.guava</groupId>
