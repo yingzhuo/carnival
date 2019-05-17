@@ -11,17 +11,20 @@ package com.github.yingzhuo.carnival.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.github.yingzhuo.carnival.common.StringCoded;
+import org.apache.commons.beanutils.BeanMap;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Supplier;
 
 /**
  * @author 应卓
  */
-@SuppressWarnings("unchecked")
-@JsonIgnoreProperties("empty")
+@JsonIgnoreProperties({"empty"})
 public class Json implements Serializable, StringCoded {
 
     public static Json newInstance() {
@@ -33,16 +36,11 @@ public class Json implements Serializable, StringCoded {
     private Payload payload = Payload.newInstance();
 
     private Json() {
-        super();
     }
 
     public Json code(String code) {
         this.code = Objects.requireNonNull(code);
         return this;
-    }
-
-    public Json code(Supplier<String> supplier) {
-        return code(Objects.requireNonNull(supplier).get());
     }
 
     public Json code(HttpStatus httpStatus) {
@@ -60,6 +58,34 @@ public class Json implements Serializable, StringCoded {
 
     public Json payload(String key, Object value) {
         payload.put(key, value);
+        return this;
+    }
+
+    public Json setPayload(Map<String, Object> map) {
+        Objects.requireNonNull(map);
+        payload.clear();
+        payload.putAll(map);
+        return this;
+    }
+
+    public Json addPayload(Map<String, Object> map) {
+        Objects.requireNonNull(map);
+        payload.putAll(map);
+        return this;
+    }
+
+    public Json setBeanToPayload(Object bean) {
+        Objects.requireNonNull(bean);
+        payload.clear();
+        payload.putAll(new BeanMap(bean));
+        payload.remove("class");
+        return this;
+    }
+
+    public Json addBeanToPayload(Object bean) {
+        Objects.requireNonNull(bean);
+        payload.putAll(new BeanMap(bean));
+        payload.remove("class");
         return this;
     }
 
@@ -86,6 +112,24 @@ public class Json implements Serializable, StringCoded {
 
     public boolean isEmpty() {
         return payload.isEmpty();
+    }
+
+    public Set<Object> payloadKeySet() {
+        return payload.keySet();
+    }
+
+    // ---------------------------------------------------------------------------------------------------------
+
+    public static class Payload extends HashMap<Object, Object> {
+
+        public static Payload newInstance() {
+            return new Payload();
+        }
+
+        private static final long serialVersionUID = -4761981717718761013L;
+
+        public Payload() {
+        }
     }
 
 }

@@ -20,4 +20,7 @@ public interface Views {
     public static interface Internal {
     }
 
+    public static interface Private {
+    }
+
 }
