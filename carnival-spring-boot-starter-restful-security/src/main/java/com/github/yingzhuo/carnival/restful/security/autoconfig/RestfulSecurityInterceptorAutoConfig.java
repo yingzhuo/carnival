@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
+import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
@@ -63,8 +64,8 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        val interceptorOrder = EnableRestfulSecurity.ImportSelector.getConfig("interceptorOrder", Integer.class);
-        val authenticationStrategy = EnableRestfulSecurity.ImportSelector.getConfig("authenticationStrategy", AuthenticationStrategy.class);
+        final Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
+        final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         if (userDetailsRealmList.size() > 1 || tokenParserList.size() > 1) {
 

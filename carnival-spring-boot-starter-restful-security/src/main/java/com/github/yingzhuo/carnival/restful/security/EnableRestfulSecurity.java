@@ -9,11 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
-import com.github.yingzhuo.carnival.common.autoconfig.support.AbstractImportSelector;
+import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityAutoConfig;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityInterceptorAutoConfig;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
 import java.lang.annotation.*;
@@ -32,18 +31,12 @@ public @interface EnableRestfulSecurity {
 
     public AuthenticationStrategy authenticationStrategy() default AuthenticationStrategy.ONLY_ANNOTATED;
 
-    public static class ImportSelector extends AbstractImportSelector {
+    public static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
 
-            AnnotationAttributes aas = getAnnotationAttributes(importingClassMetadata, EnableRestfulSecurity.class);
-
-            Integer interceptorOrder = aas.getNumber("interceptorOrder");
-            AuthenticationStrategy authenticationStrategy = aas.getEnum("authenticationStrategy");
-
-            putConfig("interceptorOrder", interceptorOrder);
-            putConfig("authenticationStrategy", authenticationStrategy);
+            AnnotationAttributesHolder.setAnnotationMetadata(EnableRestfulSecurity.class, importingClassMetadata);
 
             return new String[]{
                     RestfulSecurityAutoConfig.class.getName(),
