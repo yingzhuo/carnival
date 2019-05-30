@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password2;
 
+import com.github.yingzhuo.carnival.password2.password.Base64PasswordEncoder;
 import com.github.yingzhuo.carnival.password2.password.ReversePasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
@@ -38,7 +39,9 @@ public enum Algorithm {
 
     BCRYPT("bcrypt", new BCryptPasswordEncoder()),
 
-    REVERSE("reverse", ReversePasswordEncoder.getInstance());
+    REVERSE("reverse", ReversePasswordEncoder.getInstance()),
+
+    BASE_64("base64", Base64PasswordEncoder.INSTANCE);
 
     // ---------------------------------------------------------------------------------------------------------------
 
