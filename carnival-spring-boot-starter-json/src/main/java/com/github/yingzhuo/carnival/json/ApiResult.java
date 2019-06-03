@@ -30,7 +30,6 @@ public class ApiResult<T> implements Serializable {
     private String code = "200";
 
     @Singular
-    @Builder.Default
     private List<String> errorMessages = new ArrayList<>();
 
     private T result;
