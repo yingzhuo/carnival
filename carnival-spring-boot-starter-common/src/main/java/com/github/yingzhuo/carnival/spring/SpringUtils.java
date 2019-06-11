@@ -10,9 +10,12 @@
 package com.github.yingzhuo.carnival.spring;
 
 import lombok.val;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
@@ -60,6 +63,10 @@ public final class SpringUtils {
         return AC;
     }
 
+    public static MessageSource getMessageSource() {
+        return AC;
+    }
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
@@ -79,6 +86,19 @@ public final class SpringUtils {
 
     public static <B> B getBean(String beanName, Class<B> beanType) {
         return getApplicationContext().getBean(beanName, beanType);
+    }
+
+    /* -------------------------------------------------------------------------------------------------------------- */
+
+    public static <B> boolean containsBean(Class<B> beanType) {
+        try {
+            AC.getBean(beanType);
+            return true;
+        } catch (NoUniqueBeanDefinitionException e) {
+            return true;
+        } catch (BeansException e) {
+            return false;
+        }
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
