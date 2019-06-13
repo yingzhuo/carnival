@@ -24,7 +24,6 @@ public class UsernamePasswordToken implements Token, Serializable {
     private String password;
 
     public UsernamePasswordToken() {
-        super();
     }
 
     public UsernamePasswordToken(String username, String password) {

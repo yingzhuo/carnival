@@ -21,7 +21,7 @@ import java.io.Serializable;
 public interface Token extends Serializable {
 
     @Override
-    public boolean equals(Object var1);
+    public boolean equals(Object other);
 
     @Override
     public int hashCode();
