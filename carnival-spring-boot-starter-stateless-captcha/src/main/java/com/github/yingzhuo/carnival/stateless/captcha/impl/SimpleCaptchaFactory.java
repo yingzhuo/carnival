@@ -92,7 +92,11 @@ public class SimpleCaptchaFactory implements CaptchaFactory {
 
             log.info("CAPTCHA: '{}'", captchaValue.toString());
 
-            return new Captcha(id, captchaValue.toString(), imageStr);
+            Captcha captcha = new Captcha();
+            captcha.setId(id);
+            captcha.setValue(captchaValue.toString());
+            captcha.setImage(imageStr);
+            return captcha;
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

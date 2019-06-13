@@ -31,6 +31,10 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
+        if (!log.isDebugEnabled()) {
+            return true;
+        }
+
         if (!(handler instanceof HandlerMethod)) {
             return true;
         }

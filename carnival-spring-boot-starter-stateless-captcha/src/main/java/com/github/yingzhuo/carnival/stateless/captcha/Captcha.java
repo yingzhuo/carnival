@@ -9,21 +9,37 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Objects;
 
+/**
+ * @author 应卓
+ */
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 public class Captcha implements Serializable {
 
     private String id;
 
     private String value;
 
-    private String images;
+    private String image;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Captcha captcha = (Captcha) o;
+        return Objects.equals(id, captcha.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -31,11 +32,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 @EnableConfigurationProperties(MvcI18nAutoConfig.Props.class)
 public class MvcI18nAutoConfig implements WebMvcConfigurer {
 
-    private final Props props;
-
-    public MvcI18nAutoConfig(Props props) {
-        this.props = props;
-    }
+    @Autowired
+    private Props props;
 
     @Bean
     @ConditionalOnMissingBean(LocaleResolver.class)

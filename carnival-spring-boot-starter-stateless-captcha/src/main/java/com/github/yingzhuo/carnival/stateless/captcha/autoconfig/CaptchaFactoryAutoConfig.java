@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.stateless.captcha.autocnf;
+package com.github.yingzhuo.carnival.stateless.captcha.autoconfig;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
-import com.github.yingzhuo.carnival.stateless.captcha.impl.NopCaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.SimpleCaptchaFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +25,9 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(CaptchaFactoryAutoCnf.Props.class)
+@EnableConfigurationProperties(CaptchaFactoryAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.stateless-captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class CaptchaFactoryAutoCnf {
+public class CaptchaFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -41,7 +41,7 @@ public class CaptchaFactoryAutoCnf {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
-        return new NopCaptchaDao();
+        return new MapCaptchaDao();
     }
 
     @Getter
