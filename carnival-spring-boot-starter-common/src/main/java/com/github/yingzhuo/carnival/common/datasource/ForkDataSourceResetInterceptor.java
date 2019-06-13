@@ -21,9 +21,35 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ForkDataSourceResetInterceptor implements HandlerInterceptor {
 
+    private final boolean clearDataSourceKeyBeforeHandle;
+    private final boolean clearDataSourceKeyAfterHandle;
+
+    public ForkDataSourceResetInterceptor() {
+        this(true, true);
+    }
+
+    public ForkDataSourceResetInterceptor(boolean clearDataSourceKeyBeforeHandle, boolean clearDataSourceKeyAfterHandle) {
+        this.clearDataSourceKeyBeforeHandle = clearDataSourceKeyBeforeHandle;
+        this.clearDataSourceKeyAfterHandle = clearDataSourceKeyAfterHandle;
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
+        if (clearDataSourceKeyBeforeHandle) {
+            ForkDataSource.reset();
+        }
+
+        return true;
+    }
+
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        ForkDataSource.clearDataSourceKey();
+
+        if (clearDataSourceKeyAfterHandle) {
+            ForkDataSource.reset();
+        }
+
     }
 
 }

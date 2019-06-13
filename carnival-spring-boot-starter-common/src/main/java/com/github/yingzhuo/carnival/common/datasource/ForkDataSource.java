@@ -32,7 +32,12 @@ public class ForkDataSource extends AbstractRoutingDataSource implements DataSou
         KEY_HOLDER.set(dataSourceKey);
     }
 
+    @Deprecated
     public static void clearDataSourceKey() {
+        KEY_HOLDER.remove();
+    }
+
+    public static void reset() {
         KEY_HOLDER.remove();
     }
 

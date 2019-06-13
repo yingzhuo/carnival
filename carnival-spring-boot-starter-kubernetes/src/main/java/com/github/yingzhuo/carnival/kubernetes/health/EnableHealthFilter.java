@@ -17,12 +17,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import java.lang.annotation.*;
 
 /**
@@ -71,10 +70,10 @@ public @interface EnableHealthFilter {
 
     }
 
-    static class HealthFilter extends OncePerRequestFilter implements Filter {
+    static class HealthFilter implements Filter {
         @Override
-        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-            // NOP
+        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
+            // response status -> 200
         }
     }
 
