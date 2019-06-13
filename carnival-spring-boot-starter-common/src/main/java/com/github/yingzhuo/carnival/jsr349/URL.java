@@ -20,6 +20,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Constraint(validatedBy = URLValidator.class)
+@Deprecated
 public @interface URL {
 
     public String message() default "Invalid URL";

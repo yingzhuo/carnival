@@ -16,16 +16,23 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 public class LoggingFilter extends AbstractZuulFilter {
 
     @Override
     protected void doRun(RequestContext requestContext) {
-        try {
-            doLog(requestContext.getRequest());
-        } catch (Exception e) {
-            // NOP
+
+        if (log.isDebugEnabled()) {
+            try {
+                doLog(requestContext.getRequest());
+            } catch (Exception e) {
+                // NOP
+            }
         }
+
     }
 
     private void doLog(HttpServletRequest request) {

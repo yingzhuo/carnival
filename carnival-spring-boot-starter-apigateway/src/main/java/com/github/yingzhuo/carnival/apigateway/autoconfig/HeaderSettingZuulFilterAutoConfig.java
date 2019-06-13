@@ -45,7 +45,7 @@ public class HeaderSettingZuulFilterAutoConfig {
 
         @Override
         public void afterPropertiesSet() {
-            if (headers.isEmpty() && enabled) {
+            if (enabled && headers.isEmpty()) {
                 headers.put("Content-Type", "application/json;charset=UTF-8");
             }
         }

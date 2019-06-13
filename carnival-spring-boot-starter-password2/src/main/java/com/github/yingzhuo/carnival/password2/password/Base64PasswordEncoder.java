@@ -42,4 +42,9 @@ public class Base64PasswordEncoder implements PasswordEncoder {
         return encodedPassword.equals(s);
     }
 
+    @Override
+    public boolean upgradeEncoding(String encodedPassword) {
+        return true;
+    }
+
 }

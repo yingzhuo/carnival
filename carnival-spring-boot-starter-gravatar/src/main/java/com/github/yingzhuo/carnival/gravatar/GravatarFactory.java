@@ -17,7 +17,7 @@ public interface GravatarFactory {
 
     public String create(String email, int size);
 
-    public default String create(final String email) {
+    public default String create(String email) {
         return create(email, 120);
     }
 

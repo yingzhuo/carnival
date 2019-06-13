@@ -7,7 +7,12 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.gravatar;
+package com.github.yingzhuo.carnival.gravatar.impl;
+
+import com.github.yingzhuo.carnival.gravatar.DefaultImage;
+import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
+import com.github.yingzhuo.carnival.gravatar.Rating;
+import com.github.yingzhuo.carnival.gravatar.Type;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,23 +22,20 @@ import java.security.NoSuchAlgorithmException;
  */
 public class DefaultGravatarFactory implements GravatarFactory {
 
-    private DefaultImage defaultImage = DefaultImage.IDENTICON;
-    private Rating rating = Rating.GENERAL_AUDIENCE;
-    private Scope scope = Scope.CHINA;
+    private DefaultImage defaultImage;
+    private Rating rating;
+    private Type type;
 
-    public DefaultGravatarFactory() {
-        super();
-    }
-
-    @Override
-    public String create(String email) {
-        return create(email, 120);
+    public DefaultGravatarFactory(DefaultImage defaultImage, Rating rating, Type type) {
+        this.defaultImage = defaultImage;
+        this.rating = rating;
+        this.type = type;
     }
 
     @Override
     public String create(String email, int size) {
         validate(email);
-        return scope.getPrefix() + md5(email.toLowerCase()) +
+        return type.getPrefix() + md5(email.toLowerCase()) +
                 "?s=" + size +
                 "&r=" + rating.getKey() +
                 "&d=" + defaultImage.getKey();
@@ -63,18 +65,6 @@ public class DefaultGravatarFactory implements GravatarFactory {
             sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
         }
         return sb.toString();
-    }
-
-    public void setDefaultImage(DefaultImage defaultImage) {
-        this.defaultImage = defaultImage;
-    }
-
-    public void setRating(Rating rating) {
-        this.rating = rating;
-    }
-
-    public void setScope(Scope scope) {
-        this.scope = scope;
     }
 
 }

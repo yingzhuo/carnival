@@ -34,4 +34,9 @@ public class ReversePasswordEncoder implements PasswordEncoder {
         return StringUtils.equals(encode(rawPassword), encodedPassword);
     }
 
+    @Override
+    public boolean upgradeEncoding(String encodedPassword) {
+        return true;
+    }
+
 }

@@ -9,10 +9,13 @@
  */
 package com.github.yingzhuo.carnival.gravatar.autoconfig;
 
-import com.github.yingzhuo.carnival.gravatar.*;
+import com.github.yingzhuo.carnival.gravatar.DefaultImage;
+import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
+import com.github.yingzhuo.carnival.gravatar.Rating;
+import com.github.yingzhuo.carnival.gravatar.Type;
+import com.github.yingzhuo.carnival.gravatar.impl.DefaultGravatarFactory;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,11 +32,7 @@ public class GravatarFunctionAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public GravatarFactory gravatarFactory(Props props) {
-        val bean = new DefaultGravatarFactory();
-        bean.setDefaultImage(props.getDefaultImage());
-        bean.setRating(props.getRating());
-        bean.setScope(props.getScope());
-        return bean;
+        return new DefaultGravatarFactory(props.getDefaultImage(), props.getRating(), props.getType());
     }
 
     @Getter
@@ -43,7 +42,7 @@ public class GravatarFunctionAutoConfig {
         private boolean enabled = true;
         private DefaultImage defaultImage = DefaultImage.IDENTICON;
         private Rating rating = Rating.GENERAL_AUDIENCE;
-        private Scope scope = Scope.CHINA;
+        private Type type = Type.CHINA;
     }
 
 }

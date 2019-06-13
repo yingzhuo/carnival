@@ -35,21 +35,17 @@ public class ForkDataSourceResetInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
         if (clearDataSourceKeyBeforeHandle) {
             ForkDataSource.reset();
         }
-
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-
         if (clearDataSourceKeyAfterHandle) {
             ForkDataSource.reset();
         }
-
     }
 
 }

@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.exception.business;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface BusinessExceptionFactory {
 
     public BusinessException create(String code);

@@ -160,6 +160,11 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
+        public Builder randomPrivateClaim() {
+            this.putPrivateClaim("__random__", UUID.randomUUID().toString());
+            return this;
+        }
+
         public Builder jwtId(Supplier<String> supplier) {
             return jwtId(supplier.get());
         }

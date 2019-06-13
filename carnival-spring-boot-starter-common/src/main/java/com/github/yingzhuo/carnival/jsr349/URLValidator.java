@@ -16,6 +16,7 @@ import java.net.MalformedURLException;
 /**
  * @author 应卓
  */
+@Deprecated
 public class URLValidator implements ConstraintValidator<URL, String> {
 
     @Override

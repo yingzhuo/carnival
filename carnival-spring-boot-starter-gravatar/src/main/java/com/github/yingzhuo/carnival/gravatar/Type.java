@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.gravatar;
 /**
  * @author 应卓
  */
-public enum Scope {
+public enum Type {
 
     INTERNATIONAL("https://wwww.gravatar.com/avatar/"),
 
@@ -20,7 +20,7 @@ public enum Scope {
 
     private final String prefix;
 
-    Scope(String prefix) {
+    Type(String prefix) {
         this.prefix = prefix;
     }
 

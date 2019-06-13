@@ -17,12 +17,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  */
 public final class PasswordEncoderUtils {
 
+    private PasswordEncoderUtils() {
+    }
+
     public static String encode(CharSequence rawPassword) {
         return SpringUtils.getBean(PasswordEncoder.class).encode(rawPassword);
     }
 
     public static boolean matches(CharSequence rawPassword, String encodedPassword) {
         return SpringUtils.getBean(PasswordEncoder.class).matches(rawPassword, encodedPassword);
+    }
+
+    public static boolean notMatches(CharSequence rawPassword, String encodedPassword) {
+        return !matches(rawPassword, encodedPassword);
     }
 
 }

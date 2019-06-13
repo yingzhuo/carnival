@@ -16,7 +16,7 @@
 carnival:
   gravatar:
     enabled: true
-    scope: china
+    type: china
     default-image: monster
     rating: restricted
 ```
