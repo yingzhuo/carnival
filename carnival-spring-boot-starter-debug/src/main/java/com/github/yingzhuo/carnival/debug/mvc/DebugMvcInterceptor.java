@@ -17,7 +17,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 
 /**
@@ -56,7 +58,7 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
         log.debug(StringUtils.repeat('-', 120));
 
         log.debug("[Path]: ");
-        log.debug("\t\t\t{}", request.getRequestURI());
+        log.debug("\t\t\t{}", decode(request.getRequestURI()));
 
         log.debug("[Method]: ");
         log.debug("\t\t\t{}", request.getMethod());
@@ -91,4 +93,11 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
         log.debug(StringUtils.repeat('-', 120));
     }
 
+    private String decode(String path) {
+        try {
+            return URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new AssertionError();
+        }
+    }
 }

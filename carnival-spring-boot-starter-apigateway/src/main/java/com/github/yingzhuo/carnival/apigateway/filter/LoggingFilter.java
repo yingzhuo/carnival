@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 
 /**
@@ -39,7 +41,7 @@ public class LoggingFilter extends AbstractZuulFilter {
         log.debug(StringUtils.repeat('-', 120));
 
         log.debug("[Path]: ");
-        log.debug("\t\t\t{}", request.getRequestURI());
+        log.debug("\t\t\t{}", decode(request.getRequestURI()));
 
         log.debug("[Method]: ");
         log.debug("\t\t\t{}", request.getMethod());
@@ -61,5 +63,13 @@ public class LoggingFilter extends AbstractZuulFilter {
         }
 
         log.debug(StringUtils.repeat('-', 120));
+    }
+
+    private String decode(String path) {
+        try {
+            return URLDecoder.decode(path, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new AssertionError();
+        }
     }
 }
