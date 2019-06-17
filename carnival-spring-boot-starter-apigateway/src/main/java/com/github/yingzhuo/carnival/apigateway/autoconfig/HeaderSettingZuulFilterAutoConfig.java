@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.apigateway.autoconfig;
 import com.github.yingzhuo.carnival.apigateway.filter.HeaderSettingZuulFilter;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -32,7 +33,9 @@ public class HeaderSettingZuulFilterAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public HeaderSettingZuulFilter headerSettingFilter(Props props) {
-        return new HeaderSettingZuulFilter(props.getHeaders());
+        val filter = new HeaderSettingZuulFilter(props.getHeaders());
+        filter.setOrder(props.getOrder());
+        return filter;
     }
 
     @Getter
@@ -41,6 +44,7 @@ public class HeaderSettingZuulFilterAutoConfig {
     static class Props implements InitializingBean {
 
         private boolean enabled = true;
+        private int order = 0;
         private Map<String, String> headers = new HashMap<>(1);
 
         @Override

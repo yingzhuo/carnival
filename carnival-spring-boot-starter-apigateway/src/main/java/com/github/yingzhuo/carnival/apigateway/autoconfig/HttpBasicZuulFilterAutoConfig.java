@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.apigateway.autoconfig;
 import com.github.yingzhuo.carnival.apigateway.filter.HttpBasicHttpZuulFilter;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -30,7 +31,9 @@ public class HttpBasicZuulFilterAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public HttpBasicHttpZuulFilter httpBasicHttpHeaderSetterZuulFilter(Props props) {
-        return new HttpBasicHttpZuulFilter(props.getUsername(), props.getPassword());
+        val filter = new HttpBasicHttpZuulFilter(props.getUsername(), props.getPassword());
+        filter.setOrder(props.getOrder());
+        return filter;
     }
 
     @Getter
@@ -40,6 +43,7 @@ public class HttpBasicZuulFilterAutoConfig {
         private boolean enabled = false;
         private String username;
         private String password;
+        private int order = 0;
 
         @Override
         public void afterPropertiesSet() {
