@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber, String> {
+public class IdentityCardNumberConstraintValidator implements ConstraintValidator<IdentityCardNumber, String> {
 
     private boolean compatibility15 = true;
 
@@ -65,7 +65,7 @@ public class IdNumberConstraintValidator implements ConstraintValidator<IdNumber
     }
 
     @Override
-    public void initialize(IdNumber constraintAnnotation) {
+    public void initialize(IdentityCardNumber constraintAnnotation) {
         this.compatibility15 = constraintAnnotation.compatibility15();
     }
 

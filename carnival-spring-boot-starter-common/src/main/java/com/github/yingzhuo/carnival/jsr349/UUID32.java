@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.jsr349;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+import javax.validation.constraints.Pattern;
 import java.lang.annotation.*;
 
 /**
@@ -20,6 +21,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Constraint(validatedBy = UUID32Validator.class)
+@Pattern(regexp = "^[0-9a-zA-Z]{32}$")
 public @interface UUID32 {
 
     public String message() default "Invalid uuid (32)";

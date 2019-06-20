@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 @Constraint(validatedBy = AroundCurrentTimeMatchValidator.class)
 public @interface AroundCurrentTime {
 
