@@ -10,11 +10,9 @@
 package com.github.yingzhuo.carnival.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.github.yingzhuo.carnival.common.StringCoded;
 import org.apache.commons.beanutils.BeanMap;
 import org.springframework.http.HttpStatus;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -24,8 +22,8 @@ import java.util.function.Supplier;
 /**
  * @author 应卓
  */
-@JsonIgnoreProperties({"empty"})
-public class Json implements Serializable, StringCoded {
+@JsonIgnoreProperties("empty")
+public class Json implements ApiResult<Json.Payload> {
 
     public static Json newInstance() {
         return new Json();
@@ -94,22 +92,27 @@ public class Json implements Serializable, StringCoded {
         return this;
     }
 
+    @Override
     public String getCode() {
         return code;
     }
 
+    @Override
     public String getErrorMessage() {
         return errorMessage;
     }
 
+    @Override
     public Payload getPayload() {
         return payload;
     }
 
+    @Override
     public int size() {
         return payload.size();
     }
 
+    @Override
     public boolean isEmpty() {
         return payload.isEmpty();
     }

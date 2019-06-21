@@ -9,29 +9,22 @@
  */
 package com.github.yingzhuo.carnival.json;
 
-import lombok.*;
+import com.github.yingzhuo.carnival.common.StringCoded;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 应卓
- * @since 1.0.2
+ * @since 1.0.4
  */
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class ApiResult<T> implements Serializable {
+public interface ApiResult<T> extends Serializable, StringCoded {
 
-    @Builder.Default
-    private String code = "200";
+    public String getErrorMessage();
 
-    @Singular
-    private List<String> errorMessages = new ArrayList<>();
+    public T getPayload();
 
-    private T result;
+    public boolean isEmpty();
+
+    public int size();
 
 }
