@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival;
+package com.github.yingzhuo.carnival.mvc;
 
 import java.lang.annotation.*;
 

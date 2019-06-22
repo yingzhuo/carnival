@@ -22,8 +22,13 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = IdentityCardNumberConstraintValidator.class)
 public @interface IdentityCardNumber {
 
-    public String message() default "Invalid id number.";
+    public String message() default "Invalid identity card number.";
 
+    /**
+     * 兼容15位老身份证号码
+     *
+     * @return true表示兼容
+     */
     public boolean compatibility15() default true;
 
     public Class<?>[] groups() default {};

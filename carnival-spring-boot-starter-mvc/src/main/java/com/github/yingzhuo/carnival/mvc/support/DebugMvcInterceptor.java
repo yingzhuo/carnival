@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.debug.mvc;
+package com.github.yingzhuo.carnival.mvc.support;
 
-import com.github.yingzhuo.carnival.NoDebugLogging;
+import com.github.yingzhuo.carnival.mvc.NoDebugLogging;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -100,4 +100,5 @@ public class DebugMvcInterceptor implements HandlerInterceptor {
             throw new AssertionError();
         }
     }
+
 }
