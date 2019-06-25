@@ -7,14 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.distributed.lock;
+package com.github.yingzhuo.carnival.redis.distributed.lock.support;
+
+import java.util.Objects;
 
 /**
  * @author 应卓
  */
-@FunctionalInterface
-public interface RequestIdFactory {
+public class RequestIdCreatorImpl implements RequestIdCreator {
 
-    public String create(String springId, long threadId);
+    @Override
+    public String create(String springId, long threadId) {
+        return Objects.requireNonNull(springId) + "." + threadId;
+    }
 
 }

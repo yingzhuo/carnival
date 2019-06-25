@@ -9,14 +9,12 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.JedisCommandsFinder;
-import com.github.yingzhuo.carnival.redis.distributed.lock.RequestIdFactory;
-import com.github.yingzhuo.carnival.redis.distributed.lock.impl.DefaultRequestIdFactory;
-import com.github.yingzhuo.carnival.redis.distributed.lock.impl.SimpleJedisCommandsFinder;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinderImpl;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreatorImpl;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -32,13 +30,11 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  */
-@Slf4j
 @EnableConfigurationProperties(DistributedLockAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.distributed-lock", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DistributedLockAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean
     public JedisCommandsFinder jedisCommandsFinder(Props props) {
 
         // 单例模式
@@ -49,7 +45,7 @@ public class DistributedLockAutoConfig {
                     props.single.port,
                     props.single.timeout,
                     props.single.password);
-            return new SimpleJedisCommandsFinder(pool);
+            return new JedisCommandsFinderImpl(pool);
         }
 
         // 哨兵模式
@@ -64,7 +60,7 @@ public class DistributedLockAutoConfig {
                     props.sentinel.password
             );
 
-            return new SimpleJedisCommandsFinder(jedisSentinelPool);
+            return new JedisCommandsFinderImpl(jedisSentinelPool);
         }
 
         // 集群模式
@@ -85,7 +81,7 @@ public class DistributedLockAutoConfig {
                     props.cluster.password,
                     config);
 
-            return new SimpleJedisCommandsFinder(jedisCluster);
+            return new JedisCommandsFinderImpl(jedisCluster);
         }
 
         throw new AssertionError();
@@ -116,18 +112,19 @@ public class DistributedLockAutoConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean
-    public RequestIdFactory requestIdFactory() {
-        return new DefaultRequestIdFactory();
+    public RequestIdCreator requestIdFactory() {
+        return new RequestIdCreatorImpl();
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.distributed-lock")
-    static class Props {
+    public static class Props {
 
         private boolean enable = true;
         private Mode mode = Mode.SINGLE;
+        private String keyPrefix = "";
+        private String keySuffix = "";
         private PoolProps pool = new PoolProps();
         private SingleProps single = new SingleProps();
         private SentinelProps sentinel = new SentinelProps();

@@ -9,9 +9,11 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock;
 
+import com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockAutoConfig;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
+import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
@@ -26,9 +28,8 @@ import java.util.Objects;
  *
  * @author 应卓
  */
+@Slf4j
 public final class DistributedLock {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(DistributedLock.class);
 
     private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
@@ -43,13 +44,15 @@ public final class DistributedLock {
 
         Assert.hasText(key, "key is null or blank.");
 
-        final RequestIdFactory requestIdFactory = SpringUtils.getBean(RequestIdFactory.class);
-        final String effKey = key;
-        final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
+        final String prefix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeyPrefix();
+        final String suffix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeySuffix();
+        final RequestIdCreator requestIdCreator = SpringUtils.getBean(RequestIdCreator.class);
+        final String effKey = prefix + key + suffix;
+        final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        LOGGER.trace("try to LOCK");
-        LOGGER.trace("key: {}", effKey);
-        LOGGER.trace("value: {}", requestId);
+        log.debug("try to LOCK");
+        log.debug("key: {}", effKey);
+        log.debug("value: {}", requestId);
 
         JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
@@ -70,24 +73,26 @@ public final class DistributedLock {
     public static boolean release(String key) {
         Assert.hasText(key, "key is null or blank.");
 
-        final RequestIdFactory requestIdFactory = SpringUtils.getBean(RequestIdFactory.class);
-        final String effKey = key;
-        final String requestId = requestIdFactory.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
+        final String prefix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeyPrefix();
+        final String suffix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeySuffix();
+        final RequestIdCreator requestIdCreator = SpringUtils.getBean(RequestIdCreator.class);
+        final String effKey = prefix + key + suffix;
+        final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        LOGGER.trace("try to RELEASE");
-        LOGGER.trace("key: {}", effKey);
-        LOGGER.trace("value: {}", requestId);
+        log.debug("try to RELEASE");
+        log.debug("key: {}", effKey);
+        log.debug("value: {}", requestId);
 
         JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
-        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+        final String lua = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
-        Object result;
+        final Object result;
 
         if (jedisCommands instanceof Jedis) {
-            result = ((Jedis) jedisCommands).eval(script, Collections.singletonList(effKey), Collections.singletonList(requestId));
+            result = ((Jedis) jedisCommands).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
         } else {
-            result = ((JedisCluster) jedisCommands).eval(script, Collections.singletonList(effKey), Collections.singletonList(requestId));
+            result = ((JedisCluster) jedisCommands).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
         }
 
         try {

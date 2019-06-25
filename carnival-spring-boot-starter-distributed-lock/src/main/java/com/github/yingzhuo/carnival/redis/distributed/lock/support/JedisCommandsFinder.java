@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.distributed.lock;
+package com.github.yingzhuo.carnival.redis.distributed.lock.support;
 
 import redis.clients.jedis.JedisCommands;
 

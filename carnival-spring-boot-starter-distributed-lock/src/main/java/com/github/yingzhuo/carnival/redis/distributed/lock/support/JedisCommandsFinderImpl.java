@@ -7,9 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.distributed.lock.impl;
+package com.github.yingzhuo.carnival.redis.distributed.lock.support;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.JedisCommandsFinder;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisCommands;
 import redis.clients.jedis.JedisPool;
@@ -18,25 +17,25 @@ import redis.clients.jedis.JedisSentinelPool;
 /**
  * @author 应卓
  */
-public class SimpleJedisCommandsFinder implements JedisCommandsFinder {
+public class JedisCommandsFinderImpl implements JedisCommandsFinder {
 
     private final JedisPool jedisPool;
     private final JedisSentinelPool jedisSentinelPool;
     private final JedisCluster jedisCluster;
 
-    public SimpleJedisCommandsFinder(JedisPool jedisPool) {
+    public JedisCommandsFinderImpl(JedisPool jedisPool) {
         this.jedisPool = jedisPool;
         this.jedisCluster = null;
         this.jedisSentinelPool = null;
     }
 
-    public SimpleJedisCommandsFinder(JedisCluster jedisCluster) {
+    public JedisCommandsFinderImpl(JedisCluster jedisCluster) {
         this.jedisCluster = jedisCluster;
         this.jedisPool = null;
         this.jedisSentinelPool = null;
     }
 
-    public SimpleJedisCommandsFinder(JedisSentinelPool jedisSentinelPool) {
+    public JedisCommandsFinderImpl(JedisSentinelPool jedisSentinelPool) {
         this.jedisPool = null;
         this.jedisSentinelPool = jedisSentinelPool;
         this.jedisCluster = null;
