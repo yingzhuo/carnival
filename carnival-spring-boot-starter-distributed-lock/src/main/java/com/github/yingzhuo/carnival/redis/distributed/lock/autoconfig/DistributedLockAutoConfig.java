@@ -67,9 +67,9 @@ public class DistributedLockAutoConfig {
         if (props.getMode() == Mode.CLUSTER) {
             JedisPoolConfig config = createPoolConfig(props.pool);
 
-            Set<String> redisSets = Stream.of(props.cluster.nodes.split(",")).collect(Collectors.toSet());
+            Set<String> redisSet = Stream.of(props.cluster.nodes.split(",")).collect(Collectors.toSet());
             Set<HostAndPort> nodes = new HashSet<>();
-            for (String str : redisSets) {
+            for (String str : redisSet) {
                 String[] nodeInfo = str.split(":");
                 nodes.add(new HostAndPort(nodeInfo[0], Integer.parseInt(nodeInfo[1])));
             }

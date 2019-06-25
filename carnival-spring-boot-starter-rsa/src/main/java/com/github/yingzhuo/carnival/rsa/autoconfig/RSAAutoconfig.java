@@ -12,17 +12,19 @@ package com.github.yingzhuo.carnival.rsa.autoconfig;
 import com.github.yingzhuo.carnival.rsa.RSA;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.util.Assert;
 
 /**
  * @author 应卓
  */
+@Slf4j
 @EnableConfigurationProperties(RSAAutoconfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.rsa", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class RSAAutoconfig {
@@ -45,9 +47,11 @@ public class RSAAutoconfig {
 
         @Override
         public void afterPropertiesSet() {
-            if (enabled) {
-                Assert.hasText(publicKey, () -> null);
-                Assert.hasText(privateKey, () -> null);
+            if (StringUtils.isBlank(publicKey)) {
+                log.warn("public-key is blank.");
+            }
+            if (StringUtils.isBlank(privateKey)) {
+                log.warn("private-key is blank.");
             }
         }
     }
