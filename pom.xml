@@ -22,6 +22,7 @@
         <module>carnival-spring-boot-starter-password2</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-restful-security</module>
+        <module>carnival-spring-boot-starter-rsa</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
     </modules>
@@ -525,8 +526,8 @@
             </activation>
             <build>
                 <finalName>${project.artifactId}-${project.version}</finalName>
+
                 <plugins>
-                    <!-- GPG -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
