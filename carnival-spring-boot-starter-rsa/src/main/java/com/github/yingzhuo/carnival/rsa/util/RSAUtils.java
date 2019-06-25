@@ -7,8 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.rsa;
+package com.github.yingzhuo.carnival.rsa.util;
 
+import com.github.yingzhuo.carnival.rsa.exception.RSAException;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.crypto.Cipher;
@@ -20,42 +21,15 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-public class RSATool {
+/**
+ * @author 应卓
+ */
+public final class RSAUtils {
 
-    public static String publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCLNbmKl9/gLn7Bef/xtUkshC1WyrLZLRpXCcFYR1gQi0isWsZBTicC4efBOkkNG3r+1ue0gvtuU/tjREFGf4Y7HaKHGb5tNCOlMNeNjM5YLRwLFqrUSsQyD4rj4eua1ltearr24R0HilnTvnQm6Z/UY0s21vdOUFQBPY0GNAa+0wIDAQAB";
+    private RSAUtils() {
+        super();
+    }
 
-    public static String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIs1uYqX3+AufsF5//G1SSyELVbKstktGlcJwVhHWBCLSKxaxkFOJwLh58E6SQ0bev7W57SC+25T+2NEQUZ/hjsdoocZvm00I6Uw142MzlgtHAsWqtRKxDIPiuPh65rWW15quvbhHQeKWdO+dCbpn9RjSzbW905QVAE9jQY0Br7TAgMBAAECgYBcYhbzpr5no/Nyqmf0G/6nkEAWbQYrogbs5AhvcUk8EXL1DnirNhYlj42hafC4xhflrvCtlo8NNKaLxewbwN1uuzG8A2jd+ROEXlx5HDh2ZluhtHzL/SmNcJXo684xAl2pCNVBjDcW48PcIBijke/sTVHTDsDCukLKDPUOM/mKIQJBAL96k4+jBscazsJiuZ6C3RFDVtRRDpf1dMgLgxcx63bAXkA2Arau0J49IAYmSVJoDXqDoJKWdXJVh9vHSkhN/48CQQC6Hk1/G0Y0nOylf6NOp0oMgc0A+etnwxHKqwtctPKjEYcJx2fzALzTtCoySLYXX7gLnPIQXpQBTUysG5skBKp9AkEAiSQm6fqu0Q4fRlRlc+VwpnufhgPkOuw/z0OHiaZkajJPjxfgC63bl2paNG1ZmJ8UAEqkSDlhNxmRa9UqG+1ZewJASaQxz6gwCCNLM1SkfjuM/hPh1JAOh9jUUleJQF5MXx9RSho/VBQnorB3vbutaOQzw0yPLtDtSPKX8sVdhkveVQJAIDsJP5X8Tey6zXTUISor7PF0TSiKdE4k0IwKoy9y8HmQ+AU8+xyr/iOt5lvaGxKlBK8N/7yCw5H4qHnJaHT+Bg==";
-
-//    public static void main(String[] args) {
-//        Pair<RSAPublicKey, RSAPrivateKey> map = RSATool.init(1024);
-//        System.out.println("公钥：" + RSATool.getPublicKey(map));
-//        System.out.println("私钥：" + RSATool.getPrivateKey(map));
-//        //由前四行代码获得公、私密钥
-//
-//        String str = "123456789";
-//        // 公钥加密，私钥解密
-//        String enStr1 = RSATool.encryptByPublic(str, publicKey);
-//        System.out.println("公钥加密后：" + enStr1);
-//
-//        String deStr1 = RSATool.decryptByPrivate(enStr1, privateKey);
-//        System.out.println("私钥解密后：" + deStr1);
-//
-//        // 私钥加密，公钥解密
-//        String enStr2 = RSATool.encryptByPrivate(str, privateKey);
-//        System.out.println("私钥加密后：" + enStr2);
-//        String deStr2 = RSATool.decryptByPublic(enStr2, publicKey);
-//        System.out.println("公钥解密后：" + deStr2);
-//        // 产生签名
-//        String sign = sign(enStr2, privateKey);
-//        System.out.println("签名:" + sign);
-//        // 验证签名
-//        boolean status = verify(enStr2, publicKey, sign);
-//        System.out.println("状态:" + status);
-//    }
-
-    /**
-     * 生成公私密钥对
-     */
     public static Pair<RSAPublicKey, RSAPrivateKey> init(int keysize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
@@ -65,22 +39,16 @@ public class RSATool {
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
             return Pair.of(publicKey, privateKey);
         } catch (NoSuchAlgorithmException e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
     }
 
-    /**
-     * 获取Base64编码的公钥字符串
-     */
-    public static String getPublicKey(Pair<RSAPublicKey, RSAPrivateKey> pair) {
+    public static String getPublicKeyAsString(Pair<RSAPublicKey, RSAPrivateKey> pair) {
         Key key = pair.getLeft();
         return encryptBase64(key.getEncoded());
     }
 
-    /**
-     * 获取Base64编码的私钥字符串
-     */
-    public static String getPrivateKey(Pair<RSAPublicKey, RSAPrivateKey> pair) {
+    public static String getPrivateKeyAsString(Pair<RSAPublicKey, RSAPrivateKey> pair) {
         Key key = pair.getRight();
         return encryptBase64(key.getEncoded());
     }
@@ -93,7 +61,7 @@ public class RSATool {
         return new String(Base64.getEncoder().encode(key));
     }
 
-    public static String encryptByPublic(String encryptingStr, String publicKeyStr) {
+    public static String encryptByPublicKey(String encryptingStr, String publicKeyStr) {
         try {
             // 将公钥由字符串转为UTF-8格式的字节数组
             byte[] publicKeyBytes = decryptBase64(publicKeyStr);
@@ -110,11 +78,11 @@ public class RSATool {
             // 返回加密后由Base64编码的加密信息
             return encryptBase64(cipher.doFinal(data));
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
     }
 
-    public static String decryptByPrivate(String encryptedStr, String privateKeyStr) {
+    public static String decryptByPrivateKey(String encryptedStr, String privateKeyStr) {
         try {
             // 对私钥解密
             byte[] privateKeyBytes = decryptBase64(privateKeyStr);
@@ -130,11 +98,11 @@ public class RSATool {
             // 返回UTF-8编码的解密信息
             return new String(cipher.doFinal(data), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
     }
 
-    public static String encryptByPrivate(String encryptingStr, String privateKeyStr) {
+    public static String encryptByPrivateKey(String encryptingStr, String privateKeyStr) {
         try {
             byte[] privateKeyBytes = decryptBase64(privateKeyStr);
             // 获得私钥
@@ -149,11 +117,11 @@ public class RSATool {
             // 返回加密后由Base64编码的加密信息
             return encryptBase64(cipher.doFinal(data));
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
     }
 
-    public static String decryptByPublic(String encryptedStr, String publicKeyStr) {
+    public static String decryptByPublicKey(String encryptedStr, String publicKeyStr) {
         try {
             // 对公钥解密
             byte[] publicKeyBytes = decryptBase64(publicKeyStr);
@@ -169,7 +137,7 @@ public class RSATool {
             // 返回UTF-8编码的解密信息
             return new String(cipher.doFinal(data), StandardCharsets.UTF_8);
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
     }
 
@@ -192,7 +160,7 @@ public class RSATool {
             signature.update(data);
             str = encryptBase64(signature.sign());
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
         return str;
     }
@@ -215,9 +183,10 @@ public class RSATool {
             signature.initVerify(key);
             signature.update(data);
             flag = signature.verify(decryptBase64(sign));
+            return flag;
         } catch (Exception e) {
-            throw new AssertionError();
+            throw new RSAException(e);
         }
-        return flag;
     }
+
 }
