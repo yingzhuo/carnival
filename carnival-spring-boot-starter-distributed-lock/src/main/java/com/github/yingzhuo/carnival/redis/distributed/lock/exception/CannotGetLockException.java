@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.redis.distributed.lock.exception;
  */
 public class CannotGetLockException extends RuntimeException {
 
-    private static final long serialVersionUID = 1064277687256783689L;
-
     private final String key;
 
     public CannotGetLockException() {

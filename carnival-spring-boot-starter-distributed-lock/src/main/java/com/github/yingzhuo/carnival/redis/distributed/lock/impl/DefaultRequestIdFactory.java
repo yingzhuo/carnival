@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.redis.distributed.lock.impl;
 
 import com.github.yingzhuo.carnival.redis.distributed.lock.RequestIdFactory;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -18,7 +20,7 @@ public class DefaultRequestIdFactory implements RequestIdFactory {
 
     @Override
     public String create(String springId, long threadId) {
-        return java.util.Objects.requireNonNull(springId) + "." + threadId;
+        return Objects.requireNonNull(springId) + "." + threadId;
     }
 
 }
