@@ -19,7 +19,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisCommands;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -168,14 +167,7 @@ public final class DistributedLock {
             if (jedisCommands instanceof Jedis) {
                 ((Jedis) jedisCommands).close();
             }
-
-            if (jedisCommands instanceof JedisCluster) {
-                try {
-                    ((JedisCluster) jedisCommands).close();
-                } catch (IOException e) {
-                    // NOP
-                }
-            }
         }
     }
+
 }

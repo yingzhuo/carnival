@@ -74,7 +74,8 @@ public class DistributedLockAutoConfig {
                 nodes.add(new HostAndPort(nodeInfo[0], Integer.parseInt(nodeInfo[1])));
             }
 
-            JedisCluster jedisCluster = new JedisCluster(nodes,
+            JedisCluster jedisCluster = new JedisCluster(
+                    nodes,
                     props.cluster.connectionTimeoutMillis,
                     props.cluster.soTimeoutMillis,
                     props.cluster.maxAttempts,
