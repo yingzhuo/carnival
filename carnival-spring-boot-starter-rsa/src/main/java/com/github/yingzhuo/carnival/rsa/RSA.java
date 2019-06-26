@@ -75,4 +75,54 @@ public interface RSA {
         }
     }
 
+    @Documented
+    @Inherited
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+    public @interface EncryptByPublicKey {
+
+        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptByPublicKey> {
+
+            @Override
+            public Set<Class<?>> getFieldTypes() {
+                return Collections.singleton(String.class);
+            }
+
+            @Override
+            public Printer<?> getPrinter(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
+                return (Printer<String>) (o, locale) -> o;
+            }
+
+            @Override
+            public Parser<?> getParser(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPublicKey());
+            }
+        }
+    }
+
+    @Documented
+    @Inherited
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
+    public @interface EncryptByPrivateKey {
+
+        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptByPrivateKey> {
+
+            @Override
+            public Set<Class<?>> getFieldTypes() {
+                return Collections.singleton(String.class);
+            }
+
+            @Override
+            public Printer<?> getPrinter(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
+                return (Printer<String>) (o, locale) -> o;
+            }
+
+            @Override
+            public Parser<?> getParser(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPrivateKey());
+            }
+        }
+    }
+
 }

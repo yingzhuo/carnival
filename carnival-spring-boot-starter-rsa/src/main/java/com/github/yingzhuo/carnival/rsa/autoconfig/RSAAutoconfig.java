@@ -32,6 +32,8 @@ public class RSAAutoconfig {
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
         if (registry != null) {
+            registry.addFormatterForFieldAnnotation(new RSA.EncryptByPrivateKey.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory());
         }
