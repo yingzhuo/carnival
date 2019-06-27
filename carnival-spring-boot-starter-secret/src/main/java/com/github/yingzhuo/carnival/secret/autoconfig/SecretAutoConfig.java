@@ -7,16 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.rsa.autoconfig;
+package com.github.yingzhuo.carnival.secret.autoconfig;
 
-import com.github.yingzhuo.carnival.rsa.RSA;
+import com.github.yingzhuo.carnival.secret.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.format.FormatterRegistry;
@@ -25,9 +24,8 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  */
 @Slf4j
-@EnableConfigurationProperties(RSAAutoconfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.rsa", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class RSAAutoconfig {
+@EnableConfigurationProperties(SecretAutoConfig.Props.class)
+public class SecretAutoConfig {
 
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
@@ -36,6 +34,10 @@ public class RSAAutoconfig {
             registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new MD5.Encrypt.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new MD2.Encrypt.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA1.Encrypt.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA256.Encrypt.FormatterFactory());
         }
     }
 
@@ -43,7 +45,6 @@ public class RSAAutoconfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.rsa")
     public static class Props implements InitializingBean {
-        private boolean enabled = true;
         private String publicKey;
         private String privateKey;
 

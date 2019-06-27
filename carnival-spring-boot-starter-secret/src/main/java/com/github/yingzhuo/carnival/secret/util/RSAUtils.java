@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.rsa.util;
+package com.github.yingzhuo.carnival.secret.util;
 
-import com.github.yingzhuo.carnival.rsa.exception.RSAException;
+import com.github.yingzhuo.carnival.secret.exception.RSAException;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.crypto.Cipher;

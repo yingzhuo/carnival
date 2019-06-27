@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.rsa;
+package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.rsa.autoconfig.RSAAutoconfig;
-import com.github.yingzhuo.carnival.rsa.util.RSAUtils;
+import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
+import com.github.yingzhuo.carnival.secret.util.RSAUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
@@ -45,7 +45,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPrivateKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPrivateKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPrivateKey());
             }
         }
     }
@@ -70,7 +70,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPublicKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPublicKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPublicKey());
             }
         }
     }
@@ -95,7 +95,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPublicKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPublicKey());
             }
         }
     }
@@ -120,7 +120,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(RSAAutoconfig.Props.class).getPrivateKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPrivateKey());
             }
         }
     }
