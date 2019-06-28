@@ -32,11 +32,9 @@ public final class IdGeneratorUtils {
     }
 
     public static <T> List<T> nextIds(int count) {
-
         if (count <= 0) {
             return Collections.emptyList();
         }
-
         val list = new ArrayList<T>(count);
         for (int i = 0; i < count; i++) {
             list.set(i, nextId());

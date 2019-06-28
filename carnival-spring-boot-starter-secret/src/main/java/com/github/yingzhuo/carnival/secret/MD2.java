@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
+import com.github.yingzhuo.carnival.secret.support.StringPrinter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
@@ -37,7 +38,7 @@ public interface MD2 {
 
             @Override
             public Printer<?> getPrinter(Encrypt annotation, Class<?> fieldType) {
-                return (Printer<String>) (o, locale) -> o;
+                return StringPrinter.INSTANCE;
             }
 
             @Override

@@ -11,8 +11,6 @@ package com.github.yingzhuo.carnival.id.impl;
 
 import com.github.yingzhuo.carnival.id.StringIdGenerator;
 
-import java.util.UUID;
-
 /**
  * @author 应卓
  */
@@ -20,7 +18,7 @@ public class UUID36IdGenerator implements StringIdGenerator {
 
     @Override
     public String nextId() {
-        return UUID.randomUUID().toString();
+        return java.util.UUID.randomUUID().toString();
     }
 
 }

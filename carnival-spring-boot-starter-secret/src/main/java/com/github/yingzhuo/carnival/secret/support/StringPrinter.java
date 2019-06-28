@@ -7,18 +7,22 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id.impl;
+package com.github.yingzhuo.carnival.secret.support;
 
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
+import org.springframework.format.Printer;
+
+import java.util.Locale;
 
 /**
  * @author 应卓
  */
-public class UUID32IdGenerator implements StringIdGenerator {
+public class StringPrinter implements Printer<String> {
+
+    public static final Printer<String> INSTANCE = new StringPrinter();
 
     @Override
-    public String nextId() {
-        return java.util.UUID.randomUUID().toString().replaceAll("-", "");
+    public String print(String object, Locale locale) {
+        return object;
     }
 
 }

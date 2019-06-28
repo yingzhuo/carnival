@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.secret;
 
 import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
+import com.github.yingzhuo.carnival.secret.support.StringPrinter;
 import com.github.yingzhuo.carnival.secret.util.RSAUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
@@ -40,7 +41,7 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
-                return (Printer<String>) (o, locale) -> o;
+                return StringPrinter.INSTANCE;
             }
 
             @Override
@@ -65,7 +66,7 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
-                return (Printer<String>) (o, locale) -> o;
+                return StringPrinter.INSTANCE;
             }
 
             @Override
@@ -90,7 +91,7 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
-                return (Printer<String>) (o, locale) -> o;
+                return StringPrinter.INSTANCE;
             }
 
             @Override
@@ -115,7 +116,7 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
-                return (Printer<String>) (o, locale) -> o;
+                return StringPrinter.INSTANCE;
             }
 
             @Override
