@@ -13,12 +13,19 @@ import com.github.yingzhuo.carnival.secret.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.format.FormatterRegistry;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
@@ -45,16 +52,51 @@ public class SecretAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.rsa")
     public static class Props implements InitializingBean {
+
+        private final ResourceLoader resourceLoader = new DefaultResourceLoader();
+
+        @Deprecated
         private String publicKey;
+
+        @Deprecated
         private String privateKey;
+
+        private String publicKeyResource;
+
+        private String privateKeyResource;
 
         @Override
         public void afterPropertiesSet() {
-            if (StringUtils.isBlank(publicKey)) {
+            if (StringUtils.isBlank(publicKey) && StringUtils.isBlank(publicKeyResource)) {
                 log.warn("public-key is blank.");
             }
-            if (StringUtils.isBlank(privateKey)) {
+            if (StringUtils.isBlank(privateKey) && StringUtils.isBlank(privateKeyResource)) {
                 log.warn("private-key is blank.");
+            }
+
+            init();
+        }
+
+        @SuppressWarnings("Duplicates")
+        private void init() {
+            if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyResource)) {
+                try {
+                    val resource = resourceLoader.getResource(publicKeyResource);
+                    val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
+                    publicKey = StringUtils.join(lines, "");
+                    resource.getInputStream().close();
+                } catch (IOException ignored) {
+                }
+            }
+
+            if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyResource)) {
+                try {
+                    val resource = resourceLoader.getResource(privateKeyResource);
+                    val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
+                    privateKey = StringUtils.join(lines, "");
+                    resource.getInputStream().close();
+                } catch (IOException ignored) {
+                }
             }
         }
     }
