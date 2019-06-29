@@ -37,14 +37,18 @@ public class SecretAutoConfig {
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
         if (registry != null) {
+            registry.addFormatterForFieldAnnotation(new Base64.Encoding.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new Base64.Decoding.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.EncryptByPrivateKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory());
-            registry.addFormatterForFieldAnnotation(new MD5.Encrypt.FormatterFactory());
-            registry.addFormatterForFieldAnnotation(new MD2.Encrypt.FormatterFactory());
-            registry.addFormatterForFieldAnnotation(new SHA1.Encrypt.FormatterFactory());
-            registry.addFormatterForFieldAnnotation(new SHA256.Encrypt.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new MD5.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new MD2.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA1.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA256.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA384.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new SHA512.Encrypting.FormatterFactory());
         }
     }
 
@@ -55,48 +59,39 @@ public class SecretAutoConfig {
 
         private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-        @Deprecated
         private String publicKey;
-
-        @Deprecated
         private String privateKey;
-
-        private String publicKeyResource;
-
-        private String privateKeyResource;
+        private String publicKeyLocation;
+        private String privateKeyLocation;
 
         @Override
         public void afterPropertiesSet() {
-            if (StringUtils.isBlank(publicKey) && StringUtils.isBlank(publicKeyResource)) {
-                log.warn("public-key is blank.");
-            }
-            if (StringUtils.isBlank(privateKey) && StringUtils.isBlank(privateKeyResource)) {
-                log.warn("private-key is blank.");
+            if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyLocation)) {
+                this.publicKey = init(publicKeyLocation);
             }
 
-            init();
+            if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyLocation)) {
+                this.privateKey = init(privateKeyLocation);
+            }
+
+            if (publicKey != null) {
+                publicKey = publicKey.trim();
+            }
+
+            if (privateKey != null) {
+                privateKey = privateKey.trim();
+            }
         }
 
-        @SuppressWarnings("Duplicates")
-        private void init() {
-            if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyResource)) {
-                try {
-                    val resource = resourceLoader.getResource(publicKeyResource);
-                    val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
-                    publicKey = StringUtils.join(lines, "");
-                    resource.getInputStream().close();
-                } catch (IOException ignored) {
-                }
-            }
-
-            if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyResource)) {
-                try {
-                    val resource = resourceLoader.getResource(privateKeyResource);
-                    val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
-                    privateKey = StringUtils.join(lines, "");
-                    resource.getInputStream().close();
-                } catch (IOException ignored) {
-                }
+        private String init(String location) {
+            try {
+                val resource = resourceLoader.getResource(publicKeyLocation);
+                val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
+                val result = StringUtils.join(lines, "");
+                resource.getInputStream().close();
+                return result;
+            } catch (IOException ignored) {
+                return null;
             }
         }
     }

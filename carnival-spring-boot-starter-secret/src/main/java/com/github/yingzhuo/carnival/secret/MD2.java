@@ -28,21 +28,21 @@ public interface MD2 {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface Encrypt {
+    public @interface Encrypting {
 
-        public static final class FormatterFactory implements AnnotationFormatterFactory<Encrypt> {
+        public static final class FormatterFactory implements AnnotationFormatterFactory<Encrypting> {
             @Override
             public Set<Class<?>> getFieldTypes() {
                 return Collections.singleton(String.class);
             }
 
             @Override
-            public Printer<?> getPrinter(Encrypt annotation, Class<?> fieldType) {
+            public Printer<?> getPrinter(Encrypting annotation, Class<?> fieldType) {
                 return StringPrinter.INSTANCE;
             }
 
             @Override
-            public Parser<?> getParser(Encrypt annotation, Class<?> fieldType) {
+            public Parser<?> getParser(Encrypting annotation, Class<?> fieldType) {
                 return (Parser<String>) (s, locale) -> DigestUtils.md2Hex(s);
             }
         }

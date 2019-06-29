@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * @author 应卓
  */
-public interface SHA1 {
+public interface SHA512 {
 
     @Documented
     @Inherited
@@ -43,7 +43,7 @@ public interface SHA1 {
 
             @Override
             public Parser<?> getParser(Encrypting annotation, Class<?> fieldType) {
-                return (Parser<String>) (s, locale) -> DigestUtils.sha1Hex(s);
+                return (Parser<String>) (s, locale) -> DigestUtils.sha512Hex(s);
             }
         }
     }
