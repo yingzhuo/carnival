@@ -18,6 +18,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -32,6 +33,7 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 @EnableConfigurationProperties(SecretAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.rsa", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class SecretAutoConfig {
 
     @Autowired(required = false)
@@ -59,6 +61,7 @@ public class SecretAutoConfig {
 
         private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
+        private boolean enabled = true;
         private String publicKey;
         private String privateKey;
         private String publicKeyLocation;
@@ -85,7 +88,7 @@ public class SecretAutoConfig {
 
         private String init(String location) {
             try {
-                val resource = resourceLoader.getResource(publicKeyLocation);
+                val resource = resourceLoader.getResource(location);
                 val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
                 val result = StringUtils.join(lines, "");
                 resource.getInputStream().close();
