@@ -9,12 +9,11 @@
  */
 package com.github.yingzhuo.carnival.secret.autoconfig;
 
+import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.secret.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.format.FormatterRegistry;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
@@ -70,31 +66,11 @@ public class SecretAutoConfig {
         @Override
         public void afterPropertiesSet() {
             if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyLocation)) {
-                this.publicKey = init(publicKeyLocation);
+                this.publicKey = ResourceToLine.apply(publicKeyLocation).trim();
             }
 
             if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyLocation)) {
-                this.privateKey = init(privateKeyLocation);
-            }
-
-            if (publicKey != null) {
-                publicKey = publicKey.trim();
-            }
-
-            if (privateKey != null) {
-                privateKey = privateKey.trim();
-            }
-        }
-
-        private String init(String location) {
-            try {
-                val resource = resourceLoader.getResource(location);
-                val lines = IOUtils.readLines(resource.getInputStream(), StandardCharsets.UTF_8);
-                val result = StringUtils.join(lines, "");
-                resource.getInputStream().close();
-                return result;
-            } catch (IOException ignored) {
-                return null;
+                this.privateKey = ResourceToLine.apply(privateKeyLocation).trim();
             }
         }
     }
