@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Primary;
  */
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(JwtProps.class)
-public class NoConditionAutoConfig {
+public class JwtAutoConfig {
 
     @Bean
     @Primary

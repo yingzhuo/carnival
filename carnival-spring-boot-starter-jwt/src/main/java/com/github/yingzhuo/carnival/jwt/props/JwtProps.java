@@ -9,11 +9,13 @@
  */
 package com.github.yingzhuo.carnival.jwt.props;
 
+import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.jwt.Secret;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
@@ -25,12 +27,17 @@ import org.springframework.util.Assert;
 public class JwtProps implements InitializingBean {
 
     private String secret = Secret.DEFAULT;
+    private String secretLocation = null;
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
 
     @Override
     public void afterPropertiesSet() {
-        Assert.notNull(secret, (String) null);
         Assert.notNull(signatureAlgorithm, (String) null);
+
+        if (StringUtils.isBlank(secret) && StringUtils.isNotBlank(secretLocation)) {
+            this.secret = ResourceToLine.apply(secretLocation).trim();
+        }
+
         log.info("carnival.jwt.secret = {}", this.secret);
         log.info("carnival.jwt.signature-algorithm = {}", this.signatureAlgorithm);
     }
