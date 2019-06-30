@@ -20,8 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.format.FormatterRegistry;
 
 /**
@@ -54,8 +52,6 @@ public class SecretAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.rsa")
     public static class Props implements InitializingBean {
-
-        private final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
         private boolean enabled = true;
         private String publicKey;
