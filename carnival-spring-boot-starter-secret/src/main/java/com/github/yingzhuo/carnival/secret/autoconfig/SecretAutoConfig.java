@@ -83,11 +83,9 @@ public class SecretAutoConfig {
 
         @Override
         public void afterPropertiesSet() {
-
             if (StringUtils.isBlank(passphrase) && StringUtils.isNotBlank(passphraseLocation)) {
-                this.passphrase = ResourceToLine.apply(passphraseLocation);
+                this.passphrase = ResourceToLine.apply(passphraseLocation).trim();
             }
         }
-
     }
 }
