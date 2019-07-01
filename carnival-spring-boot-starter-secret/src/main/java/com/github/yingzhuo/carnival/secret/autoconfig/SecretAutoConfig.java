@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.secret.autoconfig;
 
 import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.secret.*;
-import com.github.yingzhuo.carnival.secret.util.AESUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
