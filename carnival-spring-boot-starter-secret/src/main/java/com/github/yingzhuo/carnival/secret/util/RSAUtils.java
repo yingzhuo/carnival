@@ -23,11 +23,11 @@ import java.util.Base64;
 
 /**
  * @author 应卓
+ * @since 1.0.6
  */
 public final class RSAUtils {
 
     private RSAUtils() {
-        super();
     }
 
     public static Pair<RSAPublicKey, RSAPrivateKey> init(int keysize) {

@@ -46,7 +46,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPrivateKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPrivateKey());
             }
         }
     }
@@ -71,7 +71,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPublicKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.decryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPublicKey());
             }
         }
     }
@@ -96,7 +96,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPublicKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPublicKey());
             }
         }
     }
@@ -121,7 +121,7 @@ public interface RSA {
 
             @Override
             public Parser<?> getParser(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
-                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.Props.class).getPrivateKey());
+                return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPrivateKey());
             }
         }
     }

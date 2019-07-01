@@ -11,13 +11,13 @@ package com.github.yingzhuo.carnival.secret.autoconfig;
 
 import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.secret.*;
+import com.github.yingzhuo.carnival.secret.util.AESUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.format.FormatterRegistry;
@@ -26,8 +26,10 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  */
 @Slf4j
-@EnableConfigurationProperties(SecretAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.rsa", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties({
+        SecretAutoConfig.AESProps.class,
+        SecretAutoConfig.RSAProps.class
+})
 public class SecretAutoConfig {
 
     @Autowired(required = false)
@@ -39,6 +41,8 @@ public class SecretAutoConfig {
             registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new AES.Encrypting.FormatterFactory());
+            registry.addFormatterForFieldAnnotation(new AES.Decrypting.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new MD5.Encrypting.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new MD2.Encrypting.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new SHA1.Encrypting.FormatterFactory());
@@ -51,9 +55,8 @@ public class SecretAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.rsa")
-    public static class Props implements InitializingBean {
+    public static class RSAProps implements InitializingBean {
 
-        private boolean enabled = true;
         private String publicKey;
         private String privateKey;
         private String publicKeyLocation;
@@ -71,4 +74,21 @@ public class SecretAutoConfig {
         }
     }
 
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.aes")
+    public static class AESProps implements InitializingBean {
+
+        private String passphrase = AESUtils.class.getName();
+        private String passphraseLocation = null;
+
+        @Override
+        public void afterPropertiesSet() {
+
+            if (StringUtils.isBlank(passphrase) && StringUtils.isNotBlank(passphraseLocation)) {
+                this.passphrase = ResourceToLine.apply(passphraseLocation);
+            }
+        }
+
+    }
 }
