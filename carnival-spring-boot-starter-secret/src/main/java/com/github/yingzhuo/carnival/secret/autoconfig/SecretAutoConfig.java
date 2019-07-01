@@ -79,7 +79,7 @@ public class SecretAutoConfig {
     @ConfigurationProperties(prefix = "carnival.aes")
     public static class AESProps implements InitializingBean {
 
-        private String passphrase = AESUtils.class.getName();
+        private String passphrase;
         private String passphraseLocation = null;
 
         @Override
