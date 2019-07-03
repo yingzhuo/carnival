@@ -49,8 +49,12 @@ public class IdGeneratorAutoConfig {
                 return new UUID36IdGenerator();
             case SNOWFLAKE:
             case SNOWFLAKE_STRING:
+
+                // 本地配置
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
+
+                // 环境变量
                 val envWorkerId = getEnvWorkId();
                 val envDataCenterId = getEnvDataCenterId();
 
@@ -62,14 +66,15 @@ public class IdGeneratorAutoConfig {
                     dataCenterId = envDataCenterId;
                 }
 
-                log.info("SNOWFLAKE_WORKER_ID: {}", workerId);
-                log.info("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
+                log.debug("SNOWFLAKE_WORKER_ID: {}", workerId);
+                log.debug("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
                     return new SnowflakeLongIdGenerator(workerId, dataCenterId);
                 } else {
                     return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
                 }
+
             default:
                 throw new AssertionError();      // 程序不会运行到此处
         }
@@ -77,7 +82,9 @@ public class IdGeneratorAutoConfig {
 
     private long getEnvWorkId() {
         try {
-            return Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_WORKER_ID"));
+            val value = Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_WORKER_ID"));
+            log.trace("CARNIVAL_SNOWFLAKE_WORKER_ID (environment): {}", value);
+            return value;
         } catch (NumberFormatException e) {
             return -1;
         }
@@ -85,7 +92,9 @@ public class IdGeneratorAutoConfig {
 
     private long getEnvDataCenterId() {
         try {
-            return Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID"));
+            val value = Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID"));
+            log.trace("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID (environment): {}", value);
+            return value;
         } catch (NumberFormatException e) {
             return -1;
         }
