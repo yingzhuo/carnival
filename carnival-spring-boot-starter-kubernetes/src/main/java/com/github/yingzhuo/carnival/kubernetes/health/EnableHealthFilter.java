@@ -36,7 +36,9 @@ public @interface EnableHealthFilter {
 
     public String[] paths = {
             "/health",
-            "/healthz"
+            "/healthz",
+            "/liveness",
+            "/readiness"
     };
 
     class ImportSelector implements org.springframework.context.annotation.ImportSelector {
@@ -58,7 +60,9 @@ public @interface EnableHealthFilter {
             if (paths == null || paths.length == 0) {
                 paths = new String[]{
                         "/health",
-                        "/healthz"
+                        "/healthz",
+                        "/liveness",
+                        "/readiness"
                 };
             }
 
