@@ -24,7 +24,7 @@ import java.net.URL;
 @SuppressWarnings("deprecation")
 public final class JacksonUtils {
 
-    private static final ObjectMapper DEFAULT_OBJECT_MAPPER;
+    public static final ObjectMapper DEFAULT_OBJECT_MAPPER;
 
     static {
         DEFAULT_OBJECT_MAPPER = new ObjectMapper()

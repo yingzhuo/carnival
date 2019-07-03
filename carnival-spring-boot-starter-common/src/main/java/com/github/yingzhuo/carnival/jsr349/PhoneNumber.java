@@ -17,8 +17,8 @@ import java.lang.annotation.*;
  * @author 应卓
  */
 @Documented
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
 @Constraint(validatedBy = PhoneNumberValidator.class)
 public @interface PhoneNumber {
 

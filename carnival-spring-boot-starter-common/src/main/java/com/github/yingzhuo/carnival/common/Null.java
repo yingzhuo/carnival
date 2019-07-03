@@ -16,12 +16,9 @@ import java.io.Serializable;
  */
 public final class Null implements Serializable {
 
-    private static final long serialVersionUID = -4469168606541063401L;
-
     public static final Null INSTANCE = new Null();
 
     private Null() {
-        super();
     }
 
     @Override

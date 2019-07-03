@@ -79,7 +79,7 @@ public class SecretAutoConfig {
     public static class AESProps implements InitializingBean {
 
         private String passphrase;
-        private String passphraseLocation = null;
+        private String passphraseLocation;
 
         @Override
         public void afterPropertiesSet() {

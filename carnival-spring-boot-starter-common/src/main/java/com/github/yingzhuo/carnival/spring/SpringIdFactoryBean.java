@@ -20,7 +20,7 @@ public final class SpringIdFactoryBean implements FactoryBean<String> {
 
     @Override
     public String getObject() {
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().replace("-", "");
     }
 
     @Override
