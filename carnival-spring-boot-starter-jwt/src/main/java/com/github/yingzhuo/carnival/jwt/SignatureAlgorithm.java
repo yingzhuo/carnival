@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.jwt;
  */
 public enum SignatureAlgorithm {
 
-    // 其他算法暂不支持
-
     HMAC256,
 
     HMAC384,
