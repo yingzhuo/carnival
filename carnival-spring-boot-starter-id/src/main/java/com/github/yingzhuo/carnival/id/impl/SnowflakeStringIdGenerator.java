@@ -28,11 +28,11 @@ public class SnowflakeStringIdGenerator implements IdGenerator<String> {
 
     @Override
     public String nextId() {
-        String id = String.valueOf(delegate.nextId());
+        StringBuilder id = new StringBuilder(String.valueOf(delegate.nextId()));
         while (id.length() < this.length) {
-            id = padCharacter + id;
+            id.insert(0, padCharacter);
         }
-        return id;
+        return id.toString();
     }
 
 }
