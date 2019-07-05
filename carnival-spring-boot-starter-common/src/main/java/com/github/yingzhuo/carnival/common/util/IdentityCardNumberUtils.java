@@ -36,9 +36,9 @@ public final class IdentityCardNumberUtils {
         return n % 2 == 0;
     }
 
-    public static int getYearOfBirth(String certNo) {
+    public static int getYearOfBirth(String number) {
         try {
-            String dob = certNo.substring(6, 14);
+            String dob = number.substring(6, 14);
             System.out.println(dob);
             Date date = DateUtils.parseDate(dob, "yyyyMMdd");
             Calendar cal = Calendar.getInstance();
@@ -49,8 +49,8 @@ public final class IdentityCardNumberUtils {
         }
     }
 
-    public static int getAge(String certNo) {
-        String dob = certNo.substring(6, 14);
+    public static int getAge(String number) {
+        String dob = number.substring(6, 14);
         return Period.between(LocalDate.parse(dob, DateTimeFormatter.ofPattern("yyyyMMdd")), LocalDate.now()).getYears();
     }
 
