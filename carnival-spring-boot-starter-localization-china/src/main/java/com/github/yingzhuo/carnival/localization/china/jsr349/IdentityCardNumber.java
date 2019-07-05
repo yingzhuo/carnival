@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.localization.china.jsr349;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -19,10 +19,17 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = PhoneNumberValidator.class)
-public @interface PhoneNumber {
+@Constraint(validatedBy = IdentityCardNumberConstraintValidator.class)
+public @interface IdentityCardNumber {
 
-    public String message() default "Invalid phone number";
+    public String message() default "Invalid identity card number.";
+
+    /**
+     * 兼容15位老身份证号码
+     *
+     * @return true表示兼容
+     */
+    public boolean compatibility15() default true;
 
     public Class<?>[] groups() default {};
 

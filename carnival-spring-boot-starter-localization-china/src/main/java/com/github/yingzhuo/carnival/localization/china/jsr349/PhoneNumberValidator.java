@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.localization.china.jsr349;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
