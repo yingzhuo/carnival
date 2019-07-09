@@ -9,8 +9,10 @@
  */
 package com.github.yingzhuo.carnival.localization.china.autoconfig;
 
+import com.github.yingzhuo.carnival.localization.china.tool.DefaultQRCodeCreator;
 import com.github.yingzhuo.carnival.localization.china.tool.IdentityCardInfoParser;
 import com.github.yingzhuo.carnival.localization.china.tool.IdentityCardInfoParserImpl;
+import com.github.yingzhuo.carnival.localization.china.tool.QRCodeCreator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
@@ -23,6 +25,12 @@ public class LocalizationChinaAutoConfig {
     @ConditionalOnMissingBean
     public IdentityCardInfoParser identityCardInfoParser() {
         return new IdentityCardInfoParserImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public QRCodeCreator qrCodeCreator() {
+        return new DefaultQRCodeCreator();
     }
 
 }
