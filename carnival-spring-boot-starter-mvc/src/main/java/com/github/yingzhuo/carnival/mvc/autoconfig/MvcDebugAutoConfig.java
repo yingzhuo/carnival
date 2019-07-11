@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
+import com.github.yingzhuo.carnival.common.web.UntouchableFilterRegistrationBean;
 import com.github.yingzhuo.carnival.mvc.EnableMvcDebugLogging;
 import com.github.yingzhuo.carnival.mvc.MvcDebugLoggingImpl;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcFilter;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
-import com.github.yingzhuo.carnival.mvc.support.NOPFilter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
@@ -27,7 +27,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.Filter;
-import java.util.UUID;
 
 /**
  * @author 应卓
@@ -58,11 +57,7 @@ public class MvcDebugAutoConfig implements WebMvcConfigurer, InitializingBean {
             bean.setOrder(Ordered.LOWEST_PRECEDENCE);
             return bean;
         } else {
-            val bean = new FilterRegistrationBean<Filter>(new NOPFilter());
-            bean.addUrlPatterns("/nop/" + UUID.randomUUID().toString());
-            bean.setName(NOPFilter.class.getName());
-            bean.setOrder(Ordered.LOWEST_PRECEDENCE);
-            return bean;
+            return new UntouchableFilterRegistrationBean();
         }
     }
 

@@ -7,10 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.support;
+package com.github.yingzhuo.carnival.common.web;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,13 @@ import java.io.IOException;
 /**
  * @author 应卓
  */
-public class NOPFilter extends OncePerRequestFilter {
+public class NopFilter extends OncePerRequestFilter implements Filter {
+
+    public static final NopFilter INSTANCE = new NopFilter();
+
+    private NopFilter() {
+        super();
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

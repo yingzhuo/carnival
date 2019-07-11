@@ -26,7 +26,6 @@ import java.util.Enumeration;
  * @author 应卓
  */
 @Slf4j
-@SuppressWarnings("Duplicates")
 public class DebugMvcFilter extends OncePerRequestFilter {
 
     @Override
