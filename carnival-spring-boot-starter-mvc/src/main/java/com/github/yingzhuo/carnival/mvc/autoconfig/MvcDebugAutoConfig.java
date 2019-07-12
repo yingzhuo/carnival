@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
-import com.github.yingzhuo.carnival.common.web.UntouchableFilterRegistrationBean;
+import com.github.yingzhuo.carnival.common.web.UnreachableFilterRegistrationBean;
 import com.github.yingzhuo.carnival.mvc.EnableMvcDebugLogging;
 import com.github.yingzhuo.carnival.mvc.MvcDebugLoggingImpl;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcFilter;
@@ -57,7 +57,7 @@ public class MvcDebugAutoConfig implements WebMvcConfigurer, InitializingBean {
             bean.setOrder(Ordered.LOWEST_PRECEDENCE);
             return bean;
         } else {
-            return new UntouchableFilterRegistrationBean();
+            return new UnreachableFilterRegistrationBean();
         }
     }
 

@@ -20,6 +20,9 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 @Getter
 @Setter

@@ -23,15 +23,17 @@ import java.io.IOException;
  */
 public class NopFilter extends OncePerRequestFilter implements Filter {
 
-    public static final NopFilter INSTANCE = new NopFilter();
+    private final boolean next;
 
-    private NopFilter() {
-        super();
+    public NopFilter(boolean next) {
+        this.next = next;
     }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        filterChain.doFilter(request, response);
+        if (next) {
+            filterChain.doFilter(request, response);
+        }
     }
 
 }

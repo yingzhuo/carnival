@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.kubernetes.health;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
+import com.github.yingzhuo.carnival.common.web.NopFilter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -19,9 +20,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.type.AnnotationMetadata;
 
 import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import java.lang.annotation.*;
 
 /**
@@ -34,12 +32,7 @@ import java.lang.annotation.*;
 @Import(EnableHealthFilter.ImportSelector.class)
 public @interface EnableHealthFilter {
 
-    public String[] paths = {
-            "/health",
-            "/healthz",
-            "/liveness",
-            "/readiness"
-    };
+    public String[] paths() default {};
 
     class ImportSelector implements org.springframework.context.annotation.ImportSelector {
         @Override
@@ -54,7 +47,7 @@ public @interface EnableHealthFilter {
 
         @Bean
         @ConditionalOnMissingBean
-        public FilterRegistrationBean<HealthFilter> healthFilterFilterRegistrationBean() {
+        public FilterRegistrationBean<Filter> healthFilterFilterRegistrationBean() {
             String[] paths = AnnotationAttributesHolder.getValue(EnableHealthFilter.class, "paths");
 
             if (paths == null || paths.length == 0) {
@@ -66,18 +59,10 @@ public @interface EnableHealthFilter {
                 };
             }
 
-            FilterRegistrationBean<HealthFilter> bean = new FilterRegistrationBean<>(new HealthFilter());
+            FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>(new NopFilter(false));
             bean.addUrlPatterns(paths);
             bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
             return bean;
-        }
-
-    }
-
-    static class HealthFilter implements Filter {
-        @Override
-        public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) {
-            // response status -> 200
         }
     }
 

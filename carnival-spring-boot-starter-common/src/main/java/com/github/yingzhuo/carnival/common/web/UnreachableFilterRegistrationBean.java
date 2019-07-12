@@ -15,10 +15,10 @@ import org.springframework.core.Ordered;
 /**
  * @author 应卓
  */
-public class UntouchableFilterRegistrationBean extends FilterRegistrationBean<javax.servlet.Filter> {
+public class UnreachableFilterRegistrationBean extends FilterRegistrationBean<javax.servlet.Filter> {
 
-    public UntouchableFilterRegistrationBean() {
-        super.setFilter(NopFilter.INSTANCE);
+    public UnreachableFilterRegistrationBean() {
+        super.setFilter(new NopFilter(false));
         super.setOrder(Ordered.LOWEST_PRECEDENCE);
         super.addUrlPatterns("/" + java.util.UUID.randomUUID().toString());
         super.setName("UntouchableFilter");
