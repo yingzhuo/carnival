@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * @author 应卓
  */
-public class NopFilter extends OncePerRequestFilter implements Filter {
+public final class NopFilter extends OncePerRequestFilter implements Filter {
 
     private final boolean next;
 
