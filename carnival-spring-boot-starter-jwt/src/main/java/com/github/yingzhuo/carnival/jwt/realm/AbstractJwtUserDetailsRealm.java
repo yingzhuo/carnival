@@ -21,7 +21,7 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -29,8 +29,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@Slf4j
-public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
+public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private String secret;
     private SignatureAlgorithm signatureAlgorithm;
@@ -39,6 +38,18 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
     private JwtProps jwtProps;
 
     public AbstractJwtUserDetailsRealm() {
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+
+        if (secret == null) {
+            this.secret = jwtProps.getSecret();
+        }
+
+        if (signatureAlgorithm == null) {
+            this.signatureAlgorithm = jwtProps.getSignatureAlgorithm();
+        }
     }
 
     @Override

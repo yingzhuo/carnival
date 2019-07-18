@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Locale;
@@ -31,7 +32,7 @@ public class HttpParameterTokenParser implements TokenParser {
     public Optional<Token> parse(NativeWebRequest request, Locale locale) {
         final String tokenValue = request.getParameter(parameterName);
 
-        if (tokenValue == null) {
+        if (StringUtils.isEmpty(tokenValue)) {
             return Optional.empty();
         } else {
             return Optional.of(StringToken.of(tokenValue));

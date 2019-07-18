@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import javax.swing.text.html.Option;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -52,7 +53,12 @@ public class HttpHeaderTokenParser implements TokenParser {
             return Optional.empty();
         }
 
-        String tokenValue = headerValue.substring(prefixLen, headerValue.length());
+        String tokenValue = headerValue.substring(prefixLen);
+
+        if (StringUtils.isEmpty(tokenValue)) {
+            return Optional.empty();
+        }
+
         return Optional.of(StringToken.of(tokenValue));
     }
 
