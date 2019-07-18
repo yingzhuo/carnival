@@ -11,17 +11,13 @@ package com.github.yingzhuo.carnival.jwt.realm;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.exception.*;
 import com.github.yingzhuo.carnival.jwt.props.JwtProps;
-import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Optional;
@@ -29,28 +25,10 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, InitializingBean {
-
-    private String secret;
-    private SignatureAlgorithm signatureAlgorithm;
+public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
     @Autowired
     private JwtProps jwtProps;
-
-    public AbstractJwtUserDetailsRealm() {
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-
-        if (secret == null) {
-            this.secret = jwtProps.getSecret();
-        }
-
-        if (signatureAlgorithm == null) {
-            this.signatureAlgorithm = jwtProps.getSignatureAlgorithm();
-        }
-    }
 
     @Override
     public final Optional<UserDetails> loadUserDetails(Token token) {
@@ -58,8 +36,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
 
-            Algorithm algorithm = InternalUtils.toAlgorithm(signatureAlgorithm, secret);
-            JWTVerifier verifier = JWT.require(algorithm).build();
+            JWTVerifier verifier = JWT.require(jwtProps.getAlgorithm()).build();
             try {
                 DecodedJWT jwt = verifier.verify(tokenValue);
                 return Optional.ofNullable(getUserDetails(jwt));
@@ -80,13 +57,5 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, I
     }
 
     protected abstract UserDetails getUserDetails(DecodedJWT jwt);
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public void setSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
-        this.signatureAlgorithm = signatureAlgorithm;
-    }
 
 }

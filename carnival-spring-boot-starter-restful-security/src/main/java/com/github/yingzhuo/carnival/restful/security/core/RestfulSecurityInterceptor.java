@@ -111,7 +111,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
-                log.debug("ac type = {}", ac.getClass());
+                log.debug("AuthenticationComponent = {}", ac.getClass());
                 ac.authenticate(RestfulSecurityContext.getUserDetails().orElse(null), annotation);
             });
 

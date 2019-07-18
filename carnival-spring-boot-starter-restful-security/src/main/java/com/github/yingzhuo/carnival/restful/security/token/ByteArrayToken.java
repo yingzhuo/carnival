@@ -16,8 +16,6 @@ import java.util.Arrays;
  */
 public class ByteArrayToken implements Token {
 
-    private static final long serialVersionUID = -3437998578950787013L;
-
     private final byte[] data;
 
     public ByteArrayToken(byte[] data) {

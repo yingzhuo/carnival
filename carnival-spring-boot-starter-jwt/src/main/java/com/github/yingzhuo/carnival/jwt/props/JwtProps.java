@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.jwt.props;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.jwt.Secret;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
-import lombok.Getter;
-import lombok.Setter;
+import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -24,14 +24,13 @@ import org.springframework.util.Assert;
  * @author 应卓
  */
 @Slf4j
-@Getter
-@Setter
 @ConfigurationProperties(prefix = "carnival.jwt")
 public class JwtProps implements InitializingBean {
 
     private String secret = Secret.DEFAULT;
     private String secretLocation = null;
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
+    private Algorithm algorithm;
 
     @Override
     public void afterPropertiesSet() {
@@ -42,7 +41,38 @@ public class JwtProps implements InitializingBean {
         }
 
         log.info("carnival.jwt.secret = {}", this.secret);
+        log.info("carnival.jwt.secret-location = {}", this.secret);
         log.info("carnival.jwt.signature-algorithm = {}", this.signatureAlgorithm);
+
+        this.algorithm = InternalUtils.toAlgorithm(this.signatureAlgorithm, this.secret);
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getSecretLocation() {
+        return secretLocation;
+    }
+
+    public void setSecretLocation(String secretLocation) {
+        this.secretLocation = secretLocation;
+    }
+
+    public SignatureAlgorithm getSignatureAlgorithm() {
+        return signatureAlgorithm;
+    }
+
+    public void setSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
+        this.signatureAlgorithm = signatureAlgorithm;
+    }
+
+    public Algorithm getAlgorithm() {
+        return algorithm;
     }
 
 }

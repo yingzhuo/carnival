@@ -9,13 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-public class StringToken implements Token, Serializable {
+public class StringToken implements Token {
 
     private static final long serialVersionUID = 5201948233147060904L;
     private final String value;

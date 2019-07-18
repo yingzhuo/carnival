@@ -16,9 +16,7 @@ import java.io.Serializable;
 /**
  * @author 应卓
  */
-public class UsernamePasswordToken implements Token, Serializable {
-
-    private static final long serialVersionUID = 3217442894344389575L;
+public class UsernamePasswordToken implements Token {
 
     private String username;
     private String password;

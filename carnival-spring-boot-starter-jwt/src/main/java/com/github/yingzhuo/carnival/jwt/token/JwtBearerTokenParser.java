@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.jwt.token;
 
 import com.github.yingzhuo.carnival.restful.security.parser.BearerTokenParser;
+import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -27,7 +28,7 @@ public class JwtBearerTokenParser extends BearerTokenParser {
 
     @Override
     public Optional<Token> parse(NativeWebRequest request, Locale locale) {
-        return super.parse(request, locale).map(st -> new JwtToken(st.toString()));
+        return super.parse(request, locale).map(st -> new StringToken(st.toString()));
     }
 
 }
