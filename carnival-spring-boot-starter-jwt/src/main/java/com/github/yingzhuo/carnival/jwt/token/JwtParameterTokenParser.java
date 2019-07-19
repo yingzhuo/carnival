@@ -24,6 +24,7 @@ import java.util.Optional;
  * @see com.github.yingzhuo.carnival.restful.security.parser.HttpParameterTokenParser
  * @since 1.0.3
  */
+@Deprecated
 public class JwtParameterTokenParser extends HttpParameterTokenParser {
 
     public JwtParameterTokenParser(String parameterName) {

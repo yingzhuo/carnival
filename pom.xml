@@ -10,6 +10,7 @@
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
+        <module>carnival-spring-boot-starter-distributed-lock</module>
         <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-gravatar</module>
@@ -25,7 +26,6 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-secret</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
-        <module>carnival-spring-boot-starter-distributed-lock</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -418,7 +418,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>27.1-jre</version>
+                <version>28.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
