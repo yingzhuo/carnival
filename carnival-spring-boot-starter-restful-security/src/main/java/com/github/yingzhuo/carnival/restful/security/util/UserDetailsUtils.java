@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.util;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
-import com.github.yingzhuo.carnival.restful.security.userdetails.Gender;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.springframework.beans.BeanWrapperImpl;

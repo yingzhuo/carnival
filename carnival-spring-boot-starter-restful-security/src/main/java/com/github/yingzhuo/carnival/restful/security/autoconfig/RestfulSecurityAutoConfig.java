@@ -69,12 +69,6 @@ public class RestfulSecurityAutoConfig {
 
     @Bean
     @Primary
-    public RequiresJuvenile.AuthComponent requiresJuvenileAuthenticationComponent() {
-        return new RequiresJuvenile.AuthComponent();
-    }
-
-    @Bean
-    @Primary
     public RequiresRoot.AuthComponent requiresRootAuthenticationComponent() {
         return new RequiresRoot.AuthComponent();
     }

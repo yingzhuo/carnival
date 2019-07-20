@@ -36,7 +36,6 @@ public final class DistributedLock {
     private static final Long RELEASE_SUCCESS = 1L;
 
     private DistributedLock() {
-        super();
     }
 
     public static boolean lock(String key, long expireInMillis) {
@@ -49,9 +48,11 @@ public final class DistributedLock {
         final String effKey = prefix + key + suffix;
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        log.debug("try to LOCK");
-        log.debug("key: {}", effKey);
-        log.debug("value: {}", requestId);
+        if (log.isTraceEnabled()) {
+            log.trace("try to LOCK");
+            log.trace("key: {}", effKey);
+            log.trace("value: {}", requestId);
+        }
 
         JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
@@ -78,9 +79,11 @@ public final class DistributedLock {
         final String effKey = prefix + key + suffix;
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
-        log.debug("try to RELEASE");
-        log.debug("key: {}", effKey);
-        log.debug("value: {}", requestId);
+        if (log.isTraceEnabled()) {
+            log.trace("try to RELEASE");
+            log.trace("key: {}", effKey);
+            log.trace("value: {}", requestId);
+        }
 
         JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
