@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.common.autoconfig.ExpressionParserAutoConfig,\
 com.github.yingzhuo.carnival.common.autoconfig.FormatterRegistryAutoConfig,\
 com.github.yingzhuo.carnival.common.autoconfig.SpringAutoConfig

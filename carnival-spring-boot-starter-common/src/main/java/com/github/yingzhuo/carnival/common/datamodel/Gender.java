@@ -14,6 +14,19 @@ package com.github.yingzhuo.carnival.common.datamodel;
  */
 public enum Gender {
 
-    FEMALE, MALE
+    /**
+     * 女性
+     */
+    FEMALE,
+
+    /**
+     * 男性
+     */
+    MALE,
+
+    /**
+     * 未知
+     */
+    UNKNOWN
 
 }

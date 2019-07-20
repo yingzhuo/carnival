@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.datamodel.*;
+import com.github.yingzhuo.carnival.common.datamodel.BooleanFormat;
+import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
+import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
+import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
 
@@ -25,7 +28,6 @@ public class FormatterRegistryAutoConfig {
         Optional.ofNullable(registry).ifPresent(x -> {
             x.addFormatter(new BooleanFormat());
             x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
-            x.addFormatterForFieldAnnotation(new PhoneNumberFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
         });
