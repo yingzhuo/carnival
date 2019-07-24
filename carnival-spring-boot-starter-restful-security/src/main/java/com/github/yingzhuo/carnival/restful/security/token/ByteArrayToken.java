@@ -26,6 +26,11 @@ public class ByteArrayToken implements Token {
         }
     }
 
+    @Override
+    public String asString() {
+        return javax.xml.bind.DatatypeConverter.printHexBinary(data);
+    }
+
     public byte[] getData() {
         return data;
     }

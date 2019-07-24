@@ -19,19 +19,24 @@ public class StringToken implements Token {
     private static final long serialVersionUID = 5201948233147060904L;
     private final String value;
 
-    public StringToken(String value) {
-        this.value = Objects.requireNonNull(value);
-    }
-
     public static StringToken of(String value) {
         return new StringToken(value);
     }
 
-    public final String getValue() {
+    public StringToken(String value) {
+        this.value = Objects.requireNonNull(value);
+    }
+
+    @Override
+    public String asString() {
+        return getValue();
+    }
+
+    public String getValue() {
         return value;
     }
 
-    public final int length() {
+    public int length() {
         return value.length();
     }
 

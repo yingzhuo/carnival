@@ -18,7 +18,10 @@ import java.io.Serializable;
  * @see UsernamePasswordToken
  * @see StringToken
  */
+@FunctionalInterface
 public interface Token extends Serializable {
+
+    public String asString();
 
     @Override
     public boolean equals(Object other);

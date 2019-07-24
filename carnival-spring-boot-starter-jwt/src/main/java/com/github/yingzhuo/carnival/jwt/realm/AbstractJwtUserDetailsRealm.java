@@ -37,9 +37,10 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
             final String tokenValue = ((StringToken) token).getValue();
 
             JWTVerifier verifier = JWT.require(jwtProps.getAlgorithm()).build();
+
             try {
                 DecodedJWT jwt = verifier.verify(tokenValue);
-                return Optional.ofNullable(getUserDetails(jwt));
+                return Optional.ofNullable(this.getUserDetails(token, jwt));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
                 throw new AlgorithmMismatchException(ex.getMessage(), ex);
             } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {
@@ -56,6 +57,6 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
         return Optional.empty();
     }
 
-    protected abstract UserDetails getUserDetails(DecodedJWT jwt);
+    protected abstract UserDetails getUserDetails(Token token, DecodedJWT jwt);
 
 }

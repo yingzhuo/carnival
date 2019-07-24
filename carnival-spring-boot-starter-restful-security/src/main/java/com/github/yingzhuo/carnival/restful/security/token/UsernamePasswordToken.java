@@ -11,8 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.token;
 
 import lombok.val;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  */
@@ -27,6 +25,11 @@ public class UsernamePasswordToken implements Token {
     public UsernamePasswordToken(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public String asString() {
+        return username + ":" + password;
     }
 
     public String getUsername() {
