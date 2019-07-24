@@ -9,17 +9,8 @@
  */
 package com.github.yingzhuo.carnival.kubernetes.health;
 
-import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
-import com.github.yingzhuo.carnival.common.web.NopFilter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.Ordered;
-import org.springframework.core.type.AnnotationMetadata;
 
-import javax.servlet.Filter;
 import java.lang.annotation.*;
 
 /**
@@ -29,41 +20,9 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(EnableHealthFilter.ImportSelector.class)
+@Import(HealthFilterImportSelector.class)
 public @interface EnableHealthFilter {
 
-    public String[] paths() default {};
-
-    class ImportSelector implements org.springframework.context.annotation.ImportSelector {
-        @Override
-        public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-            AnnotationAttributesHolder.setAnnotationMetadata(EnableHealthFilter.class, importingClassMetadata);
-            return new String[]{HealthFilterAutoConfig.class.getName()};
-        }
-    }
-
-    @ConditionalOnWebApplication
-    class HealthFilterAutoConfig {
-
-        @Bean
-        @ConditionalOnMissingBean
-        public FilterRegistrationBean<Filter> healthFilterFilterRegistrationBean() {
-            String[] paths = AnnotationAttributesHolder.getValue(EnableHealthFilter.class, "paths");
-
-            if (paths == null || paths.length == 0) {
-                paths = new String[]{
-                        "/health",
-                        "/healthz",
-                        "/liveness",
-                        "/readiness"
-                };
-            }
-
-            FilterRegistrationBean<Filter> bean = new FilterRegistrationBean<>(new NopFilter(false));
-            bean.addUrlPatterns(paths);
-            bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-            return bean;
-        }
-    }
+    public String path() default "/healthz";
 
 }
