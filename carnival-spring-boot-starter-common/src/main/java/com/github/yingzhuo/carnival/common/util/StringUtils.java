@@ -19,8 +19,9 @@ import java.util.stream.Stream;
 public final class StringUtils {
 
     private StringUtils() {
-        super();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static boolean isBlank(String string) {
         if (string == null) return true;
@@ -43,6 +44,8 @@ public final class StringUtils {
         return !isEmpty(string);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static String nullToEmpty(String string) {
         return string == null ? "" : string;
     }
@@ -55,6 +58,8 @@ public final class StringUtils {
         return isBlank(string) ? null : string;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static boolean containsSpace(String string) {
         Validate.notNull(string);
         return toCharStream(string).anyMatch(ch -> ch == ' ');
@@ -64,6 +69,8 @@ public final class StringUtils {
         Validate.notNull(string);
         return toCharStream(string).anyMatch(Character::isWhitespace);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static Stream<Character> toCharStream(String string) {
         if (string == null) {
@@ -90,10 +97,15 @@ public final class StringUtils {
         );
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static String reverse(String string) {
         return new StringBuilder(Validate.notNull(string))
                 .reverse()
                 .toString();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
 
 }

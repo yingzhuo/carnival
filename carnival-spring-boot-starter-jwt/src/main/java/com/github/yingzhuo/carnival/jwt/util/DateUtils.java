@@ -19,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 public final class DateUtils {
 
     private DateUtils() {
-        super();
     }
 
     public static Date afterNow(long millis) {

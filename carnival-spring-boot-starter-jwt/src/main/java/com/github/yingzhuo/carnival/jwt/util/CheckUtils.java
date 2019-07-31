@@ -22,7 +22,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-final public class CheckUtils {
+public final class CheckUtils {
 
     private CheckUtils() {
     }

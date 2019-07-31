@@ -26,7 +26,7 @@ public class ReversePasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return new StringBuilder(rawPassword).reverse().toString();
+        return com.github.yingzhuo.carnival.common.util.StringUtils.reverse(rawPassword.toString());
     }
 
     @Override

@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.jwt.props;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceToLine;
-import com.github.yingzhuo.carnival.jwt.Secret;
 import com.github.yingzhuo.carnival.jwt.SignatureAlgorithm;
 import com.github.yingzhuo.carnival.jwt.util.InternalUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,7 @@ import org.springframework.util.Assert;
 @ConfigurationProperties(prefix = "carnival.jwt")
 public class JwtProps implements InitializingBean {
 
-    private String secret = Secret.DEFAULT;
+    private String secret = "com.github.yingzhuo.carnival.jwt.Secret";
     private String secretLocation = null;
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
     private Algorithm algorithm;
