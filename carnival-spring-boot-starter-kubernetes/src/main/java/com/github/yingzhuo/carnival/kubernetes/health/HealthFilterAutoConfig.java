@@ -22,7 +22,7 @@ public class HealthFilterAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        String path = AnnotationAttributesHolder.getValue(EnableHealthFilter.class, "path");
+        String path = AnnotationAttributesHolder.getValue(EnableHealthController.class, "path");
 
         if (StringUtils.isBlank(path)) {
             path = "/healthz";

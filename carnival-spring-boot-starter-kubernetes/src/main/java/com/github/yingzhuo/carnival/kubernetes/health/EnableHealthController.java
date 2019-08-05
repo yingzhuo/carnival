@@ -21,7 +21,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import(HealthFilterImportSelector.class)
-public @interface EnableHealthFilter {
+public @interface EnableHealthController {
 
     public String path() default "/healthz";
 

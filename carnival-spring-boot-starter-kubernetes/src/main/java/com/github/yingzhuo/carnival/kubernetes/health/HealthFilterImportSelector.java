@@ -20,7 +20,7 @@ public class HealthFilterImportSelector implements ImportSelector {
 
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        AnnotationAttributesHolder.setAnnotationMetadata(EnableHealthFilter.class, importingClassMetadata);
+        AnnotationAttributesHolder.setAnnotationMetadata(EnableHealthController.class, importingClassMetadata);
         return new String[]{HealthFilterAutoConfig.class.getName()};
     }
 
