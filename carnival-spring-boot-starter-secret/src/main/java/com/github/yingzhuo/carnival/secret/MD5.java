@@ -9,8 +9,12 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.secret.support.StringPrinter;
+import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
+import com.github.yingzhuo.carnival.secret.support.NopStringFormatter;
+import com.github.yingzhuo.carnival.spring.ProfileUtils;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
@@ -38,11 +42,17 @@ public interface MD5 {
 
             @Override
             public Printer<?> getPrinter(Encrypting annotation, Class<?> fieldType) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(Encrypting annotation, Class<?> fieldType) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> DigestUtils.md5Hex(s);
             }
         }

@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "server.http", name = "enabled", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "server.http", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcBothPortAutoConfig.Props.class)
 public class MvcBothPortAutoConfig {
 

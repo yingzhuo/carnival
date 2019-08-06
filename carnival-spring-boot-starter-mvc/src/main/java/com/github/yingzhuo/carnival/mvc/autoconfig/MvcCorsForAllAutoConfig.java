@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcCorsForAllAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.cors-for-all", name = "enabled")
+@ConditionalOnProperty(prefix = "carnival.mvc.cors-for-all", name = "enabled", havingValue = "true")
 public class MvcCorsForAllAutoConfig implements WebMvcConfigurer {
 
     @Bean

@@ -10,9 +10,11 @@
 package com.github.yingzhuo.carnival.secret;
 
 import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
-import com.github.yingzhuo.carnival.secret.support.StringPrinter;
+import com.github.yingzhuo.carnival.secret.support.NopStringFormatter;
 import com.github.yingzhuo.carnival.secret.util.RSAUtils;
+import com.github.yingzhuo.carnival.spring.ProfileUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
@@ -41,11 +43,17 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> RSAUtils.decryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPrivateKey());
             }
         }
@@ -66,11 +74,17 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> RSAUtils.decryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPublicKey());
             }
         }
@@ -91,11 +105,17 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> RSAUtils.encryptByPublicKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPublicKey());
             }
         }
@@ -116,11 +136,17 @@ public interface RSA {
 
             @Override
             public Printer<?> getPrinter(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> RSAUtils.encryptByPrivateKey(s, SpringUtils.getBean(SecretAutoConfig.RSAProps.class).getPrivateKey());
             }
         }

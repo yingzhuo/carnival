@@ -9,16 +9,24 @@
  */
 package com.github.yingzhuo.carnival.secret.support;
 
-import org.springframework.format.Printer;
+import org.springframework.format.Formatter;
 
 import java.util.Locale;
 
 /**
  * @author 应卓
  */
-public class StringPrinter implements Printer<String> {
+public final class NopStringFormatter implements Formatter<String> {
 
-    public static final Printer<String> INSTANCE = new StringPrinter();
+    public static final Formatter<String> INSTANCE = new NopStringFormatter();
+
+    private NopStringFormatter() {
+    }
+
+    @Override
+    public String parse(String text, Locale locale) {
+        return text;
+    }
 
     @Override
     public String print(String object, Locale locale) {

@@ -26,6 +26,7 @@ import org.springframework.format.FormatterRegistry;
  */
 @Slf4j
 @EnableConfigurationProperties({
+        SecretAutoConfig.SecretProps.class,
         SecretAutoConfig.AESProps.class,
         SecretAutoConfig.RSAProps.class
 })
@@ -53,7 +54,14 @@ public class SecretAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.rsa")
+    @ConfigurationProperties(prefix = "carnival.secret")
+    public static class SecretProps {
+        private String disabledInProfile = "";
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.secret.rsa")
     public static class RSAProps implements InitializingBean {
 
         private String publicKey;
@@ -75,7 +83,7 @@ public class SecretAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.aes")
+    @ConfigurationProperties(prefix = "carnival.secret.aes")
     public static class AESProps implements InitializingBean {
 
         private String passphrase;

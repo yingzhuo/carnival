@@ -9,7 +9,11 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.secret.support.StringPrinter;
+import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
+import com.github.yingzhuo.carnival.secret.support.NopStringFormatter;
+import com.github.yingzhuo.carnival.spring.ProfileUtils;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;
@@ -38,11 +42,17 @@ public interface Base64 {
 
             @Override
             public Printer<?> getPrinter(Encoding annotation, Class<?> fieldType) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(Encoding annotation, Class<?> fieldType) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> java.util.Base64.getEncoder().encodeToString(s.getBytes(StandardCharsets.UTF_8));
             }
         }
@@ -62,11 +72,17 @@ public interface Base64 {
 
             @Override
             public Printer<?> getPrinter(Decoding annotation, Class<?> fieldType) {
-                return StringPrinter.INSTANCE;
+                return NopStringFormatter.INSTANCE;
             }
 
             @Override
             public Parser<?> getParser(Decoding annotation, Class<?> fieldType) {
+
+                String disabledInProfile = SpringUtils.getBean(SecretAutoConfig.SecretProps.class).getDisabledInProfile();
+                if (StringUtils.isNotBlank(disabledInProfile) && ProfileUtils.anyActive(disabledInProfile)) {
+                    return NopStringFormatter.INSTANCE;
+                }
+
                 return (Parser<String>) (s, locale) -> new String(java.util.Base64.getUrlDecoder().decode(s.getBytes(StandardCharsets.UTF_8)));
             }
         }

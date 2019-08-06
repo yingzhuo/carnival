@@ -40,6 +40,7 @@ public class CaptchaFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
+    @SuppressWarnings("deprecation")
     public CaptchaDao captchaDao() {
         return new MapCaptchaDao();
     }

@@ -24,8 +24,12 @@ public interface CaptchaDao {
 
     public void delete(String captchaId);
 
-    public default boolean validate(String submittedCaptcha, String captchaId) {
+    public default boolean matches(String submittedCaptcha, String captchaId) {
         return load(captchaId).filter(s -> StringUtils.equalsIgnoreCase(s, submittedCaptcha)).isPresent();
+    }
+
+    public default boolean notMatches(String submittedCaptcha, String captchaId) {
+        return !matches(submittedCaptcha, captchaId);
     }
 
 }
