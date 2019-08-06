@@ -34,18 +34,18 @@ public class RedisCaptchaDao implements CaptchaDao {
     }
 
     @Override
-    public void save(String id, String value) {
-        redisTemplate.opsForValue().set(getKey(id), value, timeout, timeoutTimeUnit);
+    public void save(String captchaId, String captchaValue) {
+        redisTemplate.opsForValue().set(getKey(captchaId), captchaValue, timeout, timeoutTimeUnit);
     }
 
     @Override
-    public Optional<String> load(String id) {
-        return Optional.ofNullable(redisTemplate.opsForValue().get(getKey(id)));
+    public Optional<String> load(String captchaId) {
+        return Optional.ofNullable(redisTemplate.opsForValue().get(getKey(captchaId)));
     }
 
     @Override
-    public void delete(String id) {
-        redisTemplate.delete(getKey(id));
+    public void delete(String captchaId) {
+        redisTemplate.delete(getKey(captchaId));
     }
 
     public void setRedisKeyPrefix(String redisKeyPrefix) {

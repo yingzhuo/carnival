@@ -23,18 +23,18 @@ public class MapCaptchaDao implements CaptchaDao {
     private final Map<String, String> map = new ConcurrentHashMap<>();
 
     @Override
-    public void save(String id, String value) {
-        map.put(id, value);
+    public void save(String captchaId, String captchaValue) {
+        map.put(captchaId, captchaValue);
     }
 
     @Override
-    public Optional<String> load(String id) {
-        return Optional.ofNullable(map.get(id));
+    public Optional<String> load(String captchaId) {
+        return Optional.ofNullable(map.get(captchaId));
     }
 
     @Override
-    public void delete(String id) {
-        map.remove(id);
+    public void delete(String captchaId) {
+        map.remove(captchaId);
     }
 
 }

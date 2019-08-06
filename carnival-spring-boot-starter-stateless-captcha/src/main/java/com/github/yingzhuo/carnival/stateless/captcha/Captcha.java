@@ -9,9 +9,7 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,6 +20,9 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Captcha implements Serializable {
 
     private String id;
@@ -42,4 +43,5 @@ public class Captcha implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Optional;
 
 /**
@@ -16,10 +18,14 @@ import java.util.Optional;
  */
 public interface CaptchaDao {
 
-    public void save(String id, String value);
+    public void save(String captchaId, String captchaValue);
 
-    public Optional<String> load(String id);
+    public Optional<String> load(String captchaId);
 
-    public void delete(String id);
+    public void delete(String captchaId);
+
+    public default boolean validate(String submittedCaptcha, String captchaId) {
+        return load(captchaId).filter(s -> StringUtils.equalsIgnoreCase(s, submittedCaptcha)).isPresent();
+    }
 
 }
