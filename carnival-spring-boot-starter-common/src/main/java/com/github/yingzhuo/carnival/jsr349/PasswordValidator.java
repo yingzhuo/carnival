@@ -58,24 +58,34 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         var hasLower = false;
         var hasSpecial = false;
 
+        int point = 0;
+
         for (int ch : chars) {
 
             if ('a' <= ch && ch <= 'z') {
                 hasAlphabetic = true;
                 hasLower = true;
+                point += 1;
+                continue;
             }
 
             if ('A' <= ch && ch <= 'Z') {
                 hasAlphabetic = true;
                 hasUpper = true;
+                point += 1;
+                continue;
             }
 
             if ('0' <= ch && ch <= '9') {
                 hasNumeric = true;
+                point += 1;
+                continue;
             }
 
             if (specialChars.stream().anyMatch(i -> i == ch)) {
                 hasSpecial = true;
+                point += 1;
+                continue;
             }
         }
 
@@ -92,6 +102,8 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
                 return hasLower && hasUpper && hasNumeric;
             case LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS:
                 return hasLower && hasUpper && hasNumeric && hasSpecial;
+            case AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND__NUMERIC_AND_SPECIAL_CHARS:
+                return point >= 2;
             default:
                 return true;
         }

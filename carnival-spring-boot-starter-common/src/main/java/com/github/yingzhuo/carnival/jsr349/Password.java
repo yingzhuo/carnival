@@ -24,7 +24,7 @@ public @interface Password {
 
     public Complexity complexity() default Complexity.ANY;
 
-    public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~ ";
+    public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~";
 
     public int minLength() default Integer.MIN_VALUE;
 
@@ -77,6 +77,11 @@ public @interface Password {
          * 小写字母 + 大写字母 + 数字 + 特殊字符
          */
         LOWER_AND_UPPER_AND_NUMERIC_AND_SPECIAL_CHARS,
+
+        /**
+         * 字母 数字 特殊字符 中至少两种
+         */
+        AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND__NUMERIC_AND_SPECIAL_CHARS
     }
 
 }
