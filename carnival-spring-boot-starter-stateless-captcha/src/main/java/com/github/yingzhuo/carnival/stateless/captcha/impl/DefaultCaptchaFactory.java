@@ -29,14 +29,14 @@ import java.util.UUID;
  * @author 应卓
  */
 @Slf4j
-public class SimpleCaptchaFactory implements CaptchaFactory {
+public class DefaultCaptchaFactory implements CaptchaFactory {
 
     private static final Random RANDOM = new Random();
     private final CaptchaDao captchaDao;
     private int width = 100;
     private int height = 18;
 
-    public SimpleCaptchaFactory(CaptchaDao captchaDao) {
+    public DefaultCaptchaFactory(CaptchaDao captchaDao) {
         this.captchaDao = Objects.requireNonNull(captchaDao);
     }
 

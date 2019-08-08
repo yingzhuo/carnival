@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.stateless.captcha.autoconfig;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
-import com.github.yingzhuo.carnival.stateless.captcha.impl.SimpleCaptchaFactory;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.DefaultCaptchaFactory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -32,7 +32,7 @@ public class CaptchaFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaFactory captchaFactory(CaptchaDao dao, Props props) {
-        val factory = new SimpleCaptchaFactory(dao);
+        val factory = new DefaultCaptchaFactory(dao);
         factory.setHeight(props.getHeight());
         factory.setWidth(props.getWidth());
         return factory;
@@ -40,7 +40,6 @@ public class CaptchaFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    @SuppressWarnings("deprecation")
     public CaptchaDao captchaDao() {
         return new MapCaptchaDao();
     }
