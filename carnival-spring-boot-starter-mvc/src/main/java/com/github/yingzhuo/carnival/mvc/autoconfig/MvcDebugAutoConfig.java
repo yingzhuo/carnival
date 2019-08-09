@@ -18,7 +18,6 @@ import com.github.yingzhuo.carnival.mvc.support.DebugMvcFilter;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +33,7 @@ import javax.servlet.Filter;
 @Slf4j
 @ConditionalOnDebugMode
 @ConditionalOnWebApplication
-public class MvcDebugAutoConfig implements WebMvcConfigurer, InitializingBean {
+public class MvcDebugAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -59,11 +58,6 @@ public class MvcDebugAutoConfig implements WebMvcConfigurer, InitializingBean {
         } else {
             return new UnreachableFilterRegistrationBean();
         }
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        log.warn("Spring MVC debug-plugin enabled! DO NOT use this plugin in production environment.");
     }
 
 }

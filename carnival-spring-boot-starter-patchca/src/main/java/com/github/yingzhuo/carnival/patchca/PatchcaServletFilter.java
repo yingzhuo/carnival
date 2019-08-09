@@ -22,6 +22,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.OutputStream;
 
+/**
+ * @author 应卓
+ */
 @Slf4j
 public class PatchcaServletFilter extends OncePerRequestFilter {
 
