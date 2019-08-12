@@ -11,11 +11,12 @@ package com.github.yingzhuo.carnival.stateless.captcha.autoconfig;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
-import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.CaptchaIdGenerator;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.DefaultCaptchaFactory;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.UUIDCaptchaIdGenerator;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,8 +32,8 @@ public class CaptchaFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public CaptchaFactory captchaFactory(CaptchaDao dao, Props props) {
-        val factory = new DefaultCaptchaFactory(dao);
+    public CaptchaFactory captchaFactory(CaptchaDao dao, CaptchaIdGenerator idGenerator, Props props) {
+        final DefaultCaptchaFactory factory = new DefaultCaptchaFactory(dao, idGenerator);
         factory.setHeight(props.getHeight());
         factory.setWidth(props.getWidth());
         return factory;
@@ -42,6 +43,12 @@ public class CaptchaFactoryAutoConfig {
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
         return new MapCaptchaDao();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CaptchaIdGenerator captchaIdGenerator() {
+        return new UUIDCaptchaIdGenerator();
     }
 
     @Getter

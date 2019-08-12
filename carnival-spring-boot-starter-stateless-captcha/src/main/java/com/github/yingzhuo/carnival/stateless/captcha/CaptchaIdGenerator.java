@@ -7,20 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id.impl;
-
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
-
-import java.util.UUID;
+package com.github.yingzhuo.carnival.stateless.captcha;
 
 /**
  * @author 应卓
  */
-public class UUID36IdGenerator implements StringIdGenerator {
+@FunctionalInterface
+public interface CaptchaIdGenerator {
 
-    @Override
-    public String nextId() {
-        return UUID.randomUUID().toString();
-    }
+    public String create();
 
 }

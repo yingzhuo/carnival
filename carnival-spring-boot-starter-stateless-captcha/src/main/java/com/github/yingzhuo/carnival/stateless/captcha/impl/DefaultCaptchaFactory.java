@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.stateless.captcha.impl;
 import com.github.yingzhuo.carnival.stateless.captcha.Captcha;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
+import com.github.yingzhuo.carnival.stateless.captcha.CaptchaIdGenerator;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
@@ -23,7 +24,6 @@ import java.io.UncheckedIOException;
 import java.util.Base64;
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * @author 应卓
@@ -33,11 +33,13 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
 
     private static final Random RANDOM = new Random();
     private final CaptchaDao captchaDao;
+    private final CaptchaIdGenerator captchaIdGenerator;
     private int width = 100;
     private int height = 18;
 
-    public DefaultCaptchaFactory(CaptchaDao captchaDao) {
+    public DefaultCaptchaFactory(CaptchaDao captchaDao, CaptchaIdGenerator captchaIdGenerator) {
         this.captchaDao = Objects.requireNonNull(captchaDao);
+        this.captchaIdGenerator = Objects.requireNonNull(captchaIdGenerator);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
             byte[] data = out.toByteArray();
 
             String imageStr = Base64.getEncoder().encodeToString(data);
-            String id = UUID.randomUUID().toString();
+            String id = captchaIdGenerator.create();
 
             captchaDao.save(id, captchaValue.toString());
 
