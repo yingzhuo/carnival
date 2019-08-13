@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.secret.support;
+package com.github.yingzhuo.carnival.common.datamodel.support;
 
 import org.springframework.format.Formatter;
 

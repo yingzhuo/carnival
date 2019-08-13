@@ -82,10 +82,10 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <springcloud.version>Greenwich.RELEASE</springcloud.version>
-        <springboot.version>2.1.6.RELEASE</springboot.version>
-        <spring.version>5.1.8.RELEASE</spring.version>
+        <springboot.version>2.1.7.RELEASE</springboot.version>
+        <spring.version>5.1.9.RELEASE</spring.version>
         <jackson.version>2.9.9</jackson.version>
-        <slf4j.version>1.7.26</slf4j.version>
+        <slf4j.version>1.7.27</slf4j.version>
     </properties>
 
     <dependencyManagement>
@@ -284,7 +284,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-crypto</artifactId>
-                <version>5.1.5.RELEASE</version>
+                <version>5.1.6.RELEASE</version>
             </dependency>
 
             <!-- slf4j -->
