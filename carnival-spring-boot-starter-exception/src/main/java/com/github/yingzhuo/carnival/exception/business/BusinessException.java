@@ -22,7 +22,6 @@ import java.util.Map;
  */
 public class BusinessException extends CarnivalStandardException implements StringCoded {
 
-    private static final long serialVersionUID = 9128655481919572535L;
     private String code;
 
     public static BusinessException of(String code) {

@@ -14,8 +14,7 @@ import com.github.yingzhuo.carnival.gravatar.GravatarFactory;
 import com.github.yingzhuo.carnival.gravatar.Rating;
 import com.github.yingzhuo.carnival.gravatar.Type;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import static org.apache.commons.codec.digest.DigestUtils.md5Hex;
 
 /**
  * @author 应卓
@@ -35,7 +34,7 @@ public class DefaultGravatarFactory implements GravatarFactory {
     @Override
     public String create(String email, int size) {
         validate(email);
-        return type.getPrefix() + md5(email.toLowerCase()) +
+        return type.getPrefix() + md5Hex(email.toLowerCase()) +
                 "?s=" + size +
                 "&r=" + rating.getKey() +
                 "&d=" + defaultImage.getKey();
@@ -49,22 +48,6 @@ public class DefaultGravatarFactory implements GravatarFactory {
         if (length == 0) {
             throw new IllegalArgumentException("'email' should NOT be blank.");
         }
-    }
-
-    private String md5(String string) {
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException ignored) {
-            // 不会抛出此异常
-        }
-        md.update(string.getBytes());
-        byte byteData[] = md.digest();
-        StringBuilder sb = new StringBuilder();
-        for (byte aByteData : byteData) {
-            sb.append(Integer.toString((aByteData & 0xff) + 0x100, 16).substring(1));
-        }
-        return sb.toString();
     }
 
 }

@@ -18,8 +18,6 @@ import org.springframework.data.domain.Page;
  */
 public class SpringDataJacksonModule extends SimpleModule {
 
-    private static final long serialVersionUID = 4571012966222625271L;
-
     @Override
     public void setupModule(SetupContext context) {
         super.setupModule(context);

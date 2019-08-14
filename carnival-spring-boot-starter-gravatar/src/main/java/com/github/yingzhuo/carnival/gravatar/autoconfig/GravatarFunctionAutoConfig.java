@@ -42,7 +42,7 @@ public class GravatarFunctionAutoConfig {
         private boolean enabled = true;
         private DefaultImage defaultImage = DefaultImage.IDENTICON;
         private Rating rating = Rating.GENERAL_AUDIENCE;
-        private Type type = Type.CHINA;
+        private Type type = Type.INTERNATIONAL;
     }
 
 }
