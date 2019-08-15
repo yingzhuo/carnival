@@ -15,7 +15,6 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 /**
  * @author 应卓
  */
-@SuppressWarnings("unchecked")
 public final class TokenUtils {
 
     private TokenUtils() {

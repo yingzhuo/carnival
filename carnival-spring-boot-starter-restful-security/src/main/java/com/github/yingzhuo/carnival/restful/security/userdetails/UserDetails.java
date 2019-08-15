@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.Serializable;
 import java.util.*;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -36,8 +34,6 @@ public interface UserDetails extends Serializable {
     public Date getDateOfBirth();
 
     public String getPassword();
-
-    public Gender getGender();
 
     public boolean isExpired();
 
@@ -101,18 +97,8 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder id(Supplier<String> idSupplier) {
-            ud.setId(idSupplier.get());
-            return this;
-        }
-
         public Builder username(String username) {
             ud.setUsername(username);
-            return this;
-        }
-
-        public Builder username(Supplier<String> supplier) {
-            ud.setUsername(supplier.get());
             return this;
         }
 
@@ -121,27 +107,9 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder password(Supplier<String> supplier) {
-            ud.setPassword(supplier.get());
-            return this;
-        }
-
-        public Builder gender(Gender gender) {
-            ud.setGender(gender);
-            return this;
-        }
-
-        public Builder gender(Supplier<Gender> supplier) {
-            return gender(supplier.get());
-        }
-
         public Builder dateOfBirth(Date date) {
             ud.setDateOfBirth(date);
             return this;
-        }
-
-        public Builder dateOfBirth(Supplier<Date> supplier) {
-            return dateOfBirth(supplier.get());
         }
 
         public Builder dateOfBirth(int year, int month, int day) {
@@ -157,28 +125,13 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder expired(Supplier<Boolean> supplier) {
-            ud.setExpired(supplier.get());
-            return this;
-        }
-
         public Builder locked(boolean locked) {
             ud.setLocked(locked);
             return this;
         }
 
-        public Builder locked(Supplier<Boolean> supplier) {
-            ud.setLocked(supplier.get());
-            return this;
-        }
-
         public Builder root(boolean root) {
             ud.setRoot(root);
-            return this;
-        }
-
-        public Builder root(Supplier<Boolean> supplier) {
-            ud.setRoot(supplier.get());
             return this;
         }
 

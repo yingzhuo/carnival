@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken
 import lombok.var;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,7 +33,7 @@ public class SimpleUsernamePasswordTokenParser implements TokenParser {
     }
 
     @Override
-    public Optional<Token> parse(NativeWebRequest webRequest, Locale locale) {
+    public Optional<Token> parse(NativeWebRequest webRequest) {
         var username = webRequest.getParameter(usernameParameterName);
         var password = webRequest.getParameter(passwordParameterName);
 

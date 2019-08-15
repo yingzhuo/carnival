@@ -24,7 +24,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public class IpHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class IpAddressHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {

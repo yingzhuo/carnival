@@ -63,7 +63,7 @@ public class BusinessException extends CarnivalStandardException implements Stri
     }
 
     public Map<String, Object> asMap(boolean includeType) {
-        Map<String, Object> map = new HashMap<>();
+        final Map<String, Object> map = new HashMap<>();
 
         if (includeType) {
             map.put("type", BusinessException.class.getName());

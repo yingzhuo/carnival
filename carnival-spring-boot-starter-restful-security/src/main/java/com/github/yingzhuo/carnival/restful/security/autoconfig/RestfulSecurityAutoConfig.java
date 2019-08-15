@@ -14,8 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlackList
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
-import com.github.yingzhuo.carnival.restful.security.voter.FirstSuccessUserDetailsVoter;
-import com.github.yingzhuo.carnival.restful.security.voter.UserDetailsVoter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -39,12 +37,6 @@ public class RestfulSecurityAutoConfig {
     @ConditionalOnMissingBean
     public TokenBlackList tokenBlackList() {
         return new NopTokenBlackList();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public UserDetailsVoter userDetailsVoter() {
-        return new FirstSuccessUserDetailsVoter();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -101,18 +93,6 @@ public class RestfulSecurityAutoConfig {
     @Primary
     public RequiresPermissions.AuthComponent requiresPermissionsAuthenticationComponent() {
         return new RequiresPermissions.AuthComponent();
-    }
-
-    @Bean
-    @Primary
-    public RequiresFemale.AuthComponent requiresFemaleAuthenticationComponent() {
-        return new RequiresFemale.AuthComponent();
-    }
-
-    @Bean
-    @Primary
-    public RequiresMale.AuthComponent requiresMaleAuthenticationComponent() {
-        return new RequiresMale.AuthComponent();
     }
 
 }

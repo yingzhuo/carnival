@@ -9,12 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
-import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -23,15 +20,13 @@ import java.util.*;
  * @author 应卓
  * @see UserDetails
  */
-@ToString
 @SuppressWarnings("unchecked")
-class SimpleUserDetails implements UserDetails, Serializable {
+class SimpleUserDetails implements UserDetails {
 
     private final Map<String, Object> payload = new HashMap<>();
     private Object id = null;
     private String username = null;
     private String password = null;
-    private Gender gender = null;
     private Date dob = null;
     private boolean expired = false;
     private boolean locked = false;
@@ -65,15 +60,6 @@ class SimpleUserDetails implements UserDetails, Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     @Override

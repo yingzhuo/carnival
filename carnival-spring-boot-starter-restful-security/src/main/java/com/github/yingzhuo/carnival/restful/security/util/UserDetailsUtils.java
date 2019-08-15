@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.util;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -66,14 +65,6 @@ public final class UserDetailsUtils {
     public static Date getDateOfBirth() {
         val userDetails = get();
         return userDetails != null ? userDetails.getDateOfBirth() : null;
-    }
-
-    /**
-     * 获取性别
-     */
-    public static Gender getGender() {
-        val userDetails = get();
-        return userDetails != null ? userDetails.getGender() : null;
     }
 
     /**

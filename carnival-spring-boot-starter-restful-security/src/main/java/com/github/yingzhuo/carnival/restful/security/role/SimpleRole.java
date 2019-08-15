@@ -7,15 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc;
+package com.github.yingzhuo.carnival.restful.security.role;
 
 /**
  * @author 应卓
  */
-public enum MvcDebugLoggingImpl {
+public class SimpleRole implements Role {
 
-    INTERCEPTOR,
+    private final String name;
 
-    FILTER
+    public SimpleRole(String name) {
+        this.name = name;
+    }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

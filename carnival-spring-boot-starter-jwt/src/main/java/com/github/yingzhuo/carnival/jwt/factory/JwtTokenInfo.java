@@ -41,28 +41,6 @@ public class JwtTokenInfo implements Serializable {
     private Map<String, Object> privateClaims = new HashMap<>(0);
 
     private JwtTokenInfo() {
-        super();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        JwtTokenInfo that = (JwtTokenInfo) o;
-        return Objects.equals(keyId, that.keyId) &&
-                Objects.equals(issuer, that.issuer) &&
-                Objects.equals(subject, that.subject) &&
-                Objects.equals(audience, that.audience) &&
-                Objects.equals(expiresAt, that.expiresAt) &&
-                Objects.equals(notBefore, that.notBefore) &&
-                Objects.equals(issuedAt, that.issuedAt) &&
-                Objects.equals(jwtId, that.jwtId) &&
-                Objects.equals(privateClaims, that.privateClaims);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(keyId, issuer, subject, audience, expiresAt, notBefore, issuedAt, jwtId, privateClaims);
     }
 
     public static Builder builder() {

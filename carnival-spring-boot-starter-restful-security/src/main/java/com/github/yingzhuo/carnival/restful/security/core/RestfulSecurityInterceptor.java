@@ -26,8 +26,6 @@ import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +45,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private CacheManager cacheManager;
-    private LocaleResolver localeResolver = new FixedLocaleResolver();
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlackList tokenBlackList;
     private boolean initialized = false;
@@ -81,8 +78,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        val locale = localeResolver.resolveLocale(request);
-        val tokenOp = tokenParser.parse(new ServletWebRequest(request, response), locale);
+        val tokenOp = tokenParser.parse(new ServletWebRequest(request, response));
 
         if (tokenOp.isPresent()) {
 
@@ -159,36 +155,16 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         }
     }
 
-    public TokenParser getTokenParser() {
-        return tokenParser;
-    }
-
     public void setTokenParser(TokenParser tokenParser) {
         this.tokenParser = tokenParser;
-    }
-
-    public UserDetailsRealm getUserDetailsRealm() {
-        return userDetailsRealm;
     }
 
     public void setUserDetailsRealm(UserDetailsRealm userDetailsRealm) {
         this.userDetailsRealm = userDetailsRealm;
     }
 
-    public CacheManager getCacheManager() {
-        return cacheManager;
-    }
-
     public void setCacheManager(CacheManager cacheManager) {
         this.cacheManager = cacheManager;
-    }
-
-    public LocaleResolver getLocaleResolver() {
-        return localeResolver;
-    }
-
-    public void setLocaleResolver(LocaleResolver localeResolver) {
-        this.localeResolver = localeResolver;
     }
 
     public void setAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {

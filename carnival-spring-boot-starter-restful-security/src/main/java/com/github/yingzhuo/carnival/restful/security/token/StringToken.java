@@ -27,11 +27,6 @@ public class StringToken implements Token {
         this.value = Objects.requireNonNull(value);
     }
 
-    @Override
-    public String asString() {
-        return getValue();
-    }
-
     public String getValue() {
         return value;
     }
@@ -43,19 +38,6 @@ public class StringToken implements Token {
     @Override
     public String toString() {
         return getValue();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        StringToken that = (StringToken) o;
-        return value.equals(that.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return value.hashCode();
     }
 
 }

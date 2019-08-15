@@ -29,7 +29,7 @@ public class HttpBasicTokenParser implements TokenParser {
     private static final String BASIC = "Basic ";
 
     @Override
-    public Optional<Token> parse(NativeWebRequest webRequest, Locale locale) {
+    public Optional<Token> parse(NativeWebRequest webRequest) {
         final String header = webRequest.getHeader(AUTHORIZATION);
 
         if (header == null) {

@@ -7,18 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.voter;
-
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-
-import java.util.List;
-import java.util.Optional;
+package com.github.yingzhuo.carnival.restful.security.role;
 
 /**
  * @author 应卓
  */
-public interface UserDetailsVoter {
+public class SimplePermission implements Permission {
 
-    public Optional<UserDetails> vote(List<AuthenticationResult> authenticationResults);
+    private final String name;
 
+    public SimplePermission(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
 }

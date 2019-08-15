@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.download.DownloadHandlerMethodReturnValueHandler;
-import com.github.yingzhuo.carnival.mvc.support.IpHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -55,7 +55,7 @@ public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new IpHandlerMethodArgumentResolver());
+        argumentResolvers.add(new IpAddressHandlerMethodArgumentResolver());
     }
 
     @Override
