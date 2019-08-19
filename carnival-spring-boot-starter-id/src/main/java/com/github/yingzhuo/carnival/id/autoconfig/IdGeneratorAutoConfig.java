@@ -76,7 +76,7 @@ public class IdGeneratorAutoConfig {
                 }
 
             default:
-                throw new AssertionError();      // 程序不会运行到此处
+                throw new AssertionError();
         }
     }
 
