@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.StringUtils;
+import com.github.yingzhuo.carnival.common.util.Strings;
 import lombok.val;
 import lombok.var;
 
@@ -32,7 +32,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         this.complexity = annotation.complexity();
         this.minLength = annotation.minLength();
         this.maxLength = annotation.maxLength();
-        this.specialChars = StringUtils.toCharSet(annotation.specialChars());
+        this.specialChars = Strings.toCharSet(annotation.specialChars());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return true;
         }
 
-        val chars = StringUtils.toCharSet(password);
+        val chars = Strings.toCharSet(password);
         var hasNumeric = false;
         var hasAlphabetic = false;
         var hasUpper = false;
@@ -85,7 +85,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             if (specialChars.stream().anyMatch(i -> i == ch)) {
                 hasSpecial = true;
                 point += 1;
-                continue;
+                //continue;
             }
         }
 

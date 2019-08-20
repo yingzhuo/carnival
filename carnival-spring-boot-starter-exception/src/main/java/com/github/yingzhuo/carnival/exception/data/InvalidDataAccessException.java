@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.data;
 
-import com.github.yingzhuo.carnival.common.util.StringUtils;
+import com.github.yingzhuo.carnival.common.util.Strings;
 import com.github.yingzhuo.carnival.exception.CarnivalStandardException;
 
 import java.util.*;
@@ -96,11 +96,11 @@ public class InvalidDataAccessException extends CarnivalStandardException {
     }
 
     public static void notBlank(String string, String format) {
-        state(StringUtils.isNotBlank(string));
+        state(Strings.isNotBlank(string));
     }
 
     public static void notBlank(String string, String format, Object... args) {
-        state(StringUtils.isNotBlank(string));
+        state(Strings.isNotBlank(string));
     }
 
     public static <T> void notEmpty(Collection<T> collection) {

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password2.password;
 
+import com.github.yingzhuo.carnival.common.util.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -26,7 +27,7 @@ public class ReversePasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return com.github.yingzhuo.carnival.common.util.StringUtils.reverse(rawPassword.toString());
+        return Strings.reverse(rawPassword.toString());
     }
 
     @Override

@@ -16,9 +16,9 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  */
-public final class StringUtils {
+public final class Strings {
 
-    private StringUtils() {
+    private Strings() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -104,8 +104,5 @@ public final class StringUtils {
                 .reverse()
                 .toString();
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
 
 }

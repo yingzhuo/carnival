@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.StringUtils;
+import com.github.yingzhuo.carnival.common.util.Strings;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -24,7 +24,7 @@ public class NotContainsSpecialCharsValidator implements ConstraintValidator<Not
 
     @Override
     public void initialize(NotContainsSpecialChars annotation) {
-        this.specialChars = StringUtils.toCharSet(annotation.specialChars());
+        this.specialChars = Strings.toCharSet(annotation.specialChars());
     }
 
     @Override

@@ -18,7 +18,6 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 public final class PasswordEncrypterUtils {
 
     private PasswordEncrypterUtils() {
-        super();
     }
 
     public static String encrypt(String password) {

@@ -37,6 +37,7 @@ public class JwtTokenInfo implements Serializable {
     private Date notBefore;
     private Date issuedAt;
     private String jwtId;
+
     // Private Claims
     private Map<String, Object> privateClaims = new HashMap<>(0);
 

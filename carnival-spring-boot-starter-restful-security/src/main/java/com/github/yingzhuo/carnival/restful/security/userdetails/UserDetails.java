@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.restful.security.role.Permission;
+import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
-import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.Serializable;
 import java.util.*;
@@ -110,14 +109,6 @@ public interface UserDetails extends Serializable {
         public Builder dateOfBirth(Date date) {
             ud.setDateOfBirth(date);
             return this;
-        }
-
-        public Builder dateOfBirth(int year, int month, int day) {
-            Date date = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-            date = DateUtils.setYears(date, year);
-            date = DateUtils.setMonths(date, month);
-            date = DateUtils.setDays(date, day);
-            return dateOfBirth(date);
         }
 
         public Builder expired(boolean expired) {

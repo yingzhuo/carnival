@@ -9,10 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt;
 
-import com.github.yingzhuo.carnival.restful.security.jwt.util.CheckUtils;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.jwt.util.CheckUtils;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt;
 
-import com.github.yingzhuo.carnival.restful.security.jwt.autoconfig.TokenFactoryAutoConfig;
+import com.github.yingzhuo.carnival.restful.security.jwt.autoconfig.JwtTokenFactoryAutoConfig;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -21,6 +21,6 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(TokenFactoryAutoConfig.class)
+@Import(JwtTokenFactoryAutoConfig.class)
 public @interface EnableJwtTokenFactory {
 }

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.StringUtils;
+import com.github.yingzhuo.carnival.common.util.Strings;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -23,7 +23,7 @@ public class NotContainsSpaceValidator implements ConstraintValidator<NotContain
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) return true;
 
-        return StringUtils.toCharStream(value).noneMatch(ch -> ' ' == ch);
+        return Strings.toCharStream(value).noneMatch(ch -> ' ' == ch);
     }
 
 }

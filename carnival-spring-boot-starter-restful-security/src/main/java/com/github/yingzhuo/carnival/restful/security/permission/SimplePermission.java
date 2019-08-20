@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.role;
+package com.github.yingzhuo.carnival.restful.security.permission;
 
 /**
  * @author 应卓

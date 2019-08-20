@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
 import com.github.yingzhuo.carnival.common.datamodel.support.NopStringFormatter;
+import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
 import com.github.yingzhuo.carnival.spring.ProfileUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.apache.commons.lang3.StringUtils;

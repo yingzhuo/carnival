@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.parser;
+package com.github.yingzhuo.carnival.common;
 
 import java.util.Locale;
 import java.util.Optional;

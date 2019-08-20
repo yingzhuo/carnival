@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.localization.china.tool;
 
-import com.github.yingzhuo.carnival.common.parser.Parser;
+import com.github.yingzhuo.carnival.common.Parser;
 
 /**
  * @author 应卓
