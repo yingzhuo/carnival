@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.autoconfig;
 import com.github.yingzhuo.carnival.restful.security.jwt.factory.DefaultJwtTokenFactory;
 import com.github.yingzhuo.carnival.restful.security.jwt.factory.JwtTokenFactory;
 import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
-import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
@@ -24,10 +23,7 @@ public class JwtTokenFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public JwtTokenFactory tokenFactory(JwtProps props) {
-        val factory = new DefaultJwtTokenFactory();
-        factory.setSecret(props.getSecret());
-        factory.setSignatureAlgorithm(props.getSignatureAlgorithm());
-        return factory;
+        return new DefaultJwtTokenFactory(props.getAlgorithm());
     }
 
 }

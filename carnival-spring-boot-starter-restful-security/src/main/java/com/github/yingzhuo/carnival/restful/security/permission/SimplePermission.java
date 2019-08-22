@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.permission;
 /**
  * @author 应卓
  */
-public class SimplePermission implements Permission {
+class SimplePermission implements Permission {
 
     private final String name;
 

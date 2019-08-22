@@ -18,7 +18,7 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.util.Optional;
 
@@ -27,16 +27,13 @@ import java.util.Optional;
  */
 public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
-    @Autowired
-    private JwtProps jwtProps;
-
     @Override
     public final Optional<UserDetails> loadUserDetails(Token token) {
 
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
 
-            JWTVerifier verifier = JWT.require(jwtProps.getAlgorithm()).build();
+            final JWTVerifier verifier = JWT.require(SpringUtils.getBean(JwtProps.class).getAlgorithm()).build();
 
             try {
                 DecodedJWT jwt = verifier.verify(tokenValue);

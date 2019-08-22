@@ -12,12 +12,12 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 /**
  * @author 应卓
  */
-public class BearerTokenParser extends HttpHeaderTokenParser {
+public class BearerStringTokenParser extends HttpHeaderTokenParser {
 
     private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
 
-    public BearerTokenParser() {
+    public BearerStringTokenParser() {
         super(AUTHORIZATION, BEARER);
     }
 

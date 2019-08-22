@@ -9,6 +9,14 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt;
 
+import com.auth0.jwt.algorithms.Algorithm;
+
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 /**
  * @author 应卓
  */
@@ -24,6 +32,50 @@ public enum SignatureAlgorithm {
 
     RSA384,
 
-    RSA512
+    RSA512;
+
+    /* 内部使用 */
+    public Algorithm toJwtAlgorithm(String secret) {
+        KeyPairGenerator generator;
+        KeyPair keyPair;
+        RSAPublicKey publicKey;
+        RSAPrivateKey privateKey;
+
+        try {
+            switch (this) {
+                case HMAC256:
+                    return Algorithm.HMAC256(secret);
+                case HMAC384:
+                    return Algorithm.HMAC384(secret);
+                case HMAC512:
+                    return Algorithm.HMAC512(secret);
+                case RSA256:
+                    generator = KeyPairGenerator.getInstance("RSA");
+                    generator.initialize(1024);
+                    keyPair = generator.generateKeyPair();
+                    publicKey = (RSAPublicKey) keyPair.getPublic();
+                    privateKey = (RSAPrivateKey) keyPair.getPrivate();
+                    return Algorithm.RSA256(publicKey, privateKey);
+                case RSA384:
+                    generator = KeyPairGenerator.getInstance("RSA");
+                    generator.initialize(1024);
+                    keyPair = generator.generateKeyPair();
+                    publicKey = (RSAPublicKey) keyPair.getPublic();
+                    privateKey = (RSAPrivateKey) keyPair.getPrivate();
+                    return Algorithm.RSA384(publicKey, privateKey);
+                case RSA512:
+                    generator = KeyPairGenerator.getInstance("RSA");
+                    generator.initialize(1024);
+                    keyPair = generator.generateKeyPair();
+                    publicKey = (RSAPublicKey) keyPair.getPublic();
+                    privateKey = (RSAPrivateKey) keyPair.getPrivate();
+                    return Algorithm.RSA512(publicKey, privateKey);
+                default:
+                    throw new IllegalArgumentException();
+            }
+        } catch (NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
 
 }

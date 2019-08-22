@@ -18,7 +18,6 @@ public class NopTokenBlackList implements TokenBlackList {
 
     @Override
     public void save(Token token) {
-        // NOP
     }
 
     @Override

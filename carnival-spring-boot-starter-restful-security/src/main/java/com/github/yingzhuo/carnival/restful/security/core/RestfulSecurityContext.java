@@ -21,9 +21,9 @@ import java.util.Optional;
  */
 public final class RestfulSecurityContext {
 
-    private static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
-    private static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
-    private static ThreadLocal<Boolean> ignored = ThreadLocal.withInitial(() -> Boolean.FALSE);
+    private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
+    private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
+    private final static ThreadLocal<Boolean> ignored = ThreadLocal.withInitial(() -> false);
 
     private RestfulSecurityContext() {
     }
@@ -59,7 +59,7 @@ public final class RestfulSecurityContext {
     static void clean() {
         tokenHolder.set(null);
         userDetailsHolder.set(null);
-        ignored.set(Boolean.FALSE);
+        ignored.set(false);
     }
 
 }

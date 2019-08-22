@@ -26,7 +26,6 @@ public class NopCacheManager implements CacheManager {
 
     @Override
     public void saveUserDetails(Token token, UserDetails userDetails) {
-        // NOP
     }
 
 }

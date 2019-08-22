@@ -19,4 +19,8 @@ import java.io.Serializable;
  * @see StringToken
  */
 public interface Token extends Serializable {
+
+    @Override
+    public String toString();
+
 }

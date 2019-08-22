@@ -22,4 +22,6 @@ public @interface UserDetailsProperty {
 
     public String value() default "";
 
+    public boolean ignoreExceptions() default false;
+
 }

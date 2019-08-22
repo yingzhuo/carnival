@@ -11,8 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
-import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.restful.security.jwt.util.InternalUtils;
+import com.auth0.jwt.algorithms.Algorithm;
 
 import java.util.Date;
 import java.util.Objects;
@@ -24,11 +23,10 @@ import java.util.Set;
  */
 public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
-    private String secret;
-    private SignatureAlgorithm signatureAlgorithm;
+    private final Algorithm algorithm;
 
-    public DefaultJwtTokenFactory() {
-        super();
+    public DefaultJwtTokenFactory(Algorithm algorithm) {
+        this.algorithm = algorithm;
     }
 
     @Override
@@ -101,20 +99,11 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
                 if (value instanceof Long[]) {
                     builder.withArrayClaim(name, (Long[]) value);
-//                    continue;
                 }
             }
         });
 
-        return builder.sign(InternalUtils.toAlgorithm(signatureAlgorithm, secret));
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public void setSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
-        this.signatureAlgorithm = signatureAlgorithm;
+        return builder.sign(algorithm);
     }
 
 }

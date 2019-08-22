@@ -43,4 +43,5 @@ class SimpleUserDetails implements UserDetails {
     public void putPayload(String name, Object value) {
         this.payload.put(name, value);
     }
+
 }

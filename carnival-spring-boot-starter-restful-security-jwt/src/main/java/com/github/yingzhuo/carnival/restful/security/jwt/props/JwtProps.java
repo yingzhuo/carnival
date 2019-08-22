@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.props;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceToLine;
 import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
-import com.github.yingzhuo.carnival.restful.security.jwt.util.InternalUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -43,7 +42,7 @@ public class JwtProps implements InitializingBean {
         log.info("carnival.jwt.secret-location = {}", this.secret);
         log.info("carnival.jwt.signature-algorithm = {}", this.signatureAlgorithm);
 
-        this.algorithm = InternalUtils.toAlgorithm(this.signatureAlgorithm, this.secret);
+        this.algorithm = signatureAlgorithm.toJwtAlgorithm(this.secret);
     }
 
     public String getSecret() {

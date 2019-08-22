@@ -9,34 +9,28 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 /**
  * @author 应卓
  */
-public class StringToken implements Token {
+public class ByteArrayToken implements Token {
 
-    private final String value;
+    private final byte[] data;
 
-    public static StringToken of(String value) {
-        return new StringToken(value);
+    public ByteArrayToken(byte[] data) {
+        this.data = data;
     }
 
-    public StringToken(String value) {
-        this.value = Objects.requireNonNull(value);
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public int length() {
-        return value.length();
+    public byte[] getData() {
+        return data;
     }
 
     @Override
     public String toString() {
-        return getValue();
+        return "ByteArrayToken{" +
+                "data=" + Arrays.toString(data) +
+                '}';
     }
 
 }

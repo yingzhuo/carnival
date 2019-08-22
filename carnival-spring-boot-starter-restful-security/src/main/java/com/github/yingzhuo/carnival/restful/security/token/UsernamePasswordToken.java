@@ -41,4 +41,12 @@ public class UsernamePasswordToken implements Token {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "UsernamePasswordToken(" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ')';
+    }
+
 }
