@@ -62,7 +62,7 @@ public class SecretAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.secret.rsa")
-    static class RSAProps implements InitializingBean {
+    public static class RSAProps implements InitializingBean {
 
         private String publicKey;
         private String privateKey;
@@ -84,7 +84,7 @@ public class SecretAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.secret.aes")
-    static class AESProps implements InitializingBean {
+    public static class AESProps implements InitializingBean {
 
         private String passphrase;
         private String passphraseLocation;
