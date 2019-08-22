@@ -18,7 +18,6 @@ import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterce
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -53,7 +52,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         final Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
-        val interceptor = new RestfulSecurityInterceptor();
+        final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
         interceptor.setTokenBlackList(tokenBlackList);
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);

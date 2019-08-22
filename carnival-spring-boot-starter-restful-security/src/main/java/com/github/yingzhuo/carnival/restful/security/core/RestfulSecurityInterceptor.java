@@ -40,7 +40,7 @@ import java.util.*;
 @Slf4j
 public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
-    private Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
+    private final Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
 
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
@@ -48,10 +48,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlackList tokenBlackList;
     private boolean initialized = false;
-
-    public RestfulSecurityInterceptor() {
-        super();
-    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

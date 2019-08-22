@@ -33,7 +33,7 @@ public class Json implements ApiResult<Json.Payload> {
     private String errorMessage = null;
     private Payload payload = Payload.newInstance();
 
-    private Json() {
+    public Json() {
     }
 
     public Json code(String code) {
@@ -129,10 +129,9 @@ public class Json implements ApiResult<Json.Payload> {
             return new Payload();
         }
 
-        private static final long serialVersionUID = -4761981717718761013L;
-
         public Payload() {
         }
+
     }
 
 }

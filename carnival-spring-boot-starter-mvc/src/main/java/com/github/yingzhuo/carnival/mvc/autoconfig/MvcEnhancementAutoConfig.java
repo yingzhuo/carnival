@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.download.DownloadHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
@@ -56,11 +54,6 @@ public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new IpAddressHandlerMethodArgumentResolver());
-    }
-
-    @Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        handlers.add(new DownloadHandlerMethodReturnValueHandler());
     }
 
     @Getter

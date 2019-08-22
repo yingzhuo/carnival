@@ -22,7 +22,6 @@ import java.util.Optional;
 public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
 
     protected final <A extends Annotation> Optional<A> getMethodAnnotation(Class<A> annotationType, Object handler) {
-
         Objects.requireNonNull(handler);
         Objects.requireNonNull(annotationType);
 
@@ -33,6 +32,19 @@ public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         final A annotation = ((HandlerMethod) handler).getMethodAnnotation(annotationType);
         return Optional.ofNullable(annotation);
+    }
+
+    protected final <A extends Annotation> Optional<A> getClassAnnotation(Class<A> annotationType, Object handler) {
+        Objects.requireNonNull(handler);
+        Objects.requireNonNull(annotationType);
+
+        if (!(handler instanceof HandlerMethod)) {
+            return Optional.empty();
+        }
+
+        final HandlerMethod handlerMethod = (HandlerMethod) handler;
+        return Optional.ofNullable(handlerMethod
+                .getBeanType().getAnnotation(annotationType));
     }
 
 }
