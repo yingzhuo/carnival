@@ -37,4 +37,12 @@ public class HttpBasicHttpZuulFilter extends AbstractZuulFilter {
         requestContext.addZuulRequestHeader(AUTHORIZATION, BASIC + Base64.encodeBase64URLSafeString(value.getBytes(StandardCharsets.UTF_8)));
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 }
