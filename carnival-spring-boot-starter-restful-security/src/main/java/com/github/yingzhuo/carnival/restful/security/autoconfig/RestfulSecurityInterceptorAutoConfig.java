@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
-import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackListManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
@@ -44,7 +44,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     private CacheManager cacheManager;
 
     @Autowired
-    private TokenBlackList tokenBlackList;
+    private TokenBlackListManager tokenBlackListManager;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -53,7 +53,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        interceptor.setTokenBlackList(tokenBlackList);
+        interceptor.setTokenBlackListManager(tokenBlackListManager);
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setCacheManager(cacheManager);

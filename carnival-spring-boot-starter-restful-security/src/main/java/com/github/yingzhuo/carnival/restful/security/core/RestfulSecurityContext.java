@@ -33,9 +33,7 @@ public final class RestfulSecurityContext {
     }
 
     public static void setToken(Token token) {
-        if (token != null) {
-            tokenHolder.set(token);
-        }
+        tokenHolder.set(token);
     }
 
     public static Optional<UserDetails> getUserDetails() {
@@ -43,9 +41,7 @@ public final class RestfulSecurityContext {
     }
 
     public static void setUserDetails(UserDetails userDetails) {
-        if (userDetails != null) {
-            userDetailsHolder.set(userDetails);
-        }
+        userDetailsHolder.set(userDetails);
     }
 
     public static boolean getIgnored() {

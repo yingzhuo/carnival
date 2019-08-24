@@ -70,10 +70,6 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
-        public Builder keyId(Supplier<String> supplier) {
-            return keyId(supplier.get());
-        }
-
         public Builder issuer(String issuer) {
             this.issuer = issuer;
             return this;

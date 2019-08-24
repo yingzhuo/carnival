@@ -14,7 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 /**
  * @author 应卓
  */
-public interface TokenBlackList {
+public interface TokenBlackListManager {
 
     public void save(Token token);
 

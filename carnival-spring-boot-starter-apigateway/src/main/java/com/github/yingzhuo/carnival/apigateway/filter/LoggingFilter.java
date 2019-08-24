@@ -26,7 +26,6 @@ public class LoggingFilter extends AbstractZuulFilter {
 
     @Override
     protected void doRun(RequestContext requestContext) {
-
         if (log.isDebugEnabled()) {
             try {
                 doLog(requestContext.getRequest());
@@ -34,7 +33,6 @@ public class LoggingFilter extends AbstractZuulFilter {
                 // NOP
             }
         }
-
     }
 
     private void doLog(HttpServletRequest request) {

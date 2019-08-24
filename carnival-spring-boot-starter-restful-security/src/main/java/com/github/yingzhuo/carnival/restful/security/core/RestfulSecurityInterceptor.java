@@ -13,7 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackList;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackListManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -46,7 +46,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private UserDetailsRealm userDetailsRealm;
     private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
-    private TokenBlackList tokenBlackList;
+    private TokenBlackListManager tokenBlackListManager;
     private boolean initialized = false;
 
     @Override
@@ -81,7 +81,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             Token token = tokenOp.get();
             RestfulSecurityContext.setToken(token);
 
-            if (tokenBlackList.isBlacklisted(token)) {
+            if (tokenBlackListManager.isBlacklisted(token)) {
                 throw new TokenBlacklistedException();
             }
 
@@ -167,8 +167,8 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         this.authenticationStrategy = authenticationStrategy;
     }
 
-    public void setTokenBlackList(TokenBlackList tokenBlackList) {
-        this.tokenBlackList = tokenBlackList;
+    public void setTokenBlackListManager(TokenBlackListManager tokenBlackListManager) {
+        this.tokenBlackListManager = tokenBlackListManager;
     }
 
 }

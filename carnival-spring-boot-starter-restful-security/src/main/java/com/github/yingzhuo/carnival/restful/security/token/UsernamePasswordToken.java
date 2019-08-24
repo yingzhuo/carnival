@@ -9,36 +9,26 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
+import lombok.Getter;
+
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
+@Getter
 public class UsernamePasswordToken implements Token {
 
-    private String username;
-    private String password;
-
-    public UsernamePasswordToken() {
+    public static UsernamePasswordToken of(String username, String password) {
+        return new UsernamePasswordToken(username, password);
     }
+
+    private final String username;
+    private final String password;
 
     public UsernamePasswordToken(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        this.username = Objects.requireNonNull(username);
+        this.password = Objects.requireNonNull(password);
     }
 
     @Override

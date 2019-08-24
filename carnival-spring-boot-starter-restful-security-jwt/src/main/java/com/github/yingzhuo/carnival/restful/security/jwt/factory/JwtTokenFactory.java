@@ -18,4 +18,8 @@ public interface JwtTokenFactory extends TokenFactory<JwtTokenInfo, String> {
     @Override
     public String create(JwtTokenInfo entity);
 
+    public default String create(JwtTokenInfo.Builder builder) {
+        return create(builder.build());
+    }
+
 }

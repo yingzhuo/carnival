@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -41,13 +40,9 @@ public class LoggingFilterAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.api-gateway.logging")
-    static class Props implements InitializingBean {
+    static class Props {
         private boolean enabled = true;
         private int order = Ordered.LOWEST_PRECEDENCE;
-
-        @Override
-        public void afterPropertiesSet() {
-        }
     }
 
 }
