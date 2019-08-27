@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.*;
-import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlackListManager;
-import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackListManager;
+import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
 import lombok.extern.slf4j.Slf4j;
@@ -35,8 +35,8 @@ public class RestfulSecurityAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public TokenBlackListManager tokenBlackListManager() {
-        return new NopTokenBlackListManager();
+    public TokenBlacklistManager tokenBlackListManager() {
+        return new NopTokenBlacklistManager();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

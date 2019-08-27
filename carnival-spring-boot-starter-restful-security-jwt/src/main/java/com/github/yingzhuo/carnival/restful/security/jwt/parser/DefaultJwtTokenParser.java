@@ -7,17 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.blacklist;
+package com.github.yingzhuo.carnival.restful.security.jwt.parser;
 
-import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.parser.BearerStringTokenParser;
 
 /**
  * @author 应卓
+ * @since 1.1.4
  */
-public interface TokenBlackListManager {
-
-    public void save(Token token);
-
-    public boolean isBlacklisted(Token token);
-
+public class DefaultJwtTokenParser extends BearerStringTokenParser {
 }

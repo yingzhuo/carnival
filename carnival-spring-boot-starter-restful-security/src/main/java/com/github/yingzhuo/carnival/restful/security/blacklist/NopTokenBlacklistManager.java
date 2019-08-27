@@ -14,7 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 /**
  * @author 应卓
  */
-public class NopTokenBlackListManager implements TokenBlackListManager {
+public class NopTokenBlacklistManager implements TokenBlacklistManager {
 
     @Override
     public void save(Token token) {

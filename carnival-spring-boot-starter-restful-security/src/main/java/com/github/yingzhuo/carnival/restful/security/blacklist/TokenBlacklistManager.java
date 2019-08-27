@@ -7,21 +7,17 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.token;
+package com.github.yingzhuo.carnival.restful.security.blacklist;
 
-import java.io.Serializable;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 
 /**
- * 用户令牌
- *
  * @author 应卓
- * @see ByteArrayToken
- * @see StringToken
- * @see UsernamePasswordToken
  */
-public interface Token extends Serializable {
+public interface TokenBlacklistManager {
 
-    @Override
-    public String toString();
+    public void save(Token token);
+
+    public boolean isBlacklisted(Token token);
 
 }
