@@ -20,13 +20,13 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,7 +55,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         RestfulSecurityContext.clean();
 
         if (!initialized) {
-            this.initCache(SpringUtils.getBean(RequestMappingHandlerMapping.class).getHandlerMethods().values());
+            this.initCache(RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values());
         }
 
         if (!(handler instanceof HandlerMethod)) {
@@ -132,13 +132,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
                 for (Annotation annotation : method.getDeclaredAnnotations()) {
                     Requires requires = annotation.annotationType().getAnnotation(Requires.class);
                     if (requires != null) {
-
-                        final MethodCheckPoint checkPoint = new MethodCheckPoint(
-                                annotation,
-                                SpringUtils.getBean(requires.value())
-                        );
-
-                        list.add(checkPoint);
+                        list.add(new MethodCheckPoint(annotation, SpringUtils.getBean(requires.value())));
                     }
                 }
 
@@ -170,5 +164,4 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     public void setTokenBlacklistManager(TokenBlacklistManager tokenBlacklistManager) {
         this.tokenBlacklistManager = tokenBlacklistManager;
     }
-
 }

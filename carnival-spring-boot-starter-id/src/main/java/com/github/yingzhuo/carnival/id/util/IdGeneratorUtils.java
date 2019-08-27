@@ -24,7 +24,6 @@ import java.util.List;
 public final class IdGeneratorUtils {
 
     private IdGeneratorUtils() {
-        super();
     }
 
     public static <T> T nextId() {
