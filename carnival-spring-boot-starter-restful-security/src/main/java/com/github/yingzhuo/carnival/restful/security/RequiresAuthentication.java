@@ -11,11 +11,15 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
+import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
+import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;
+
+import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -33,7 +37,17 @@ public @interface RequiresAuthentication {
 
         @Override
         public void authenticate(UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
-            CheckUtils.check(annotation);
+            if (userDetails == null) {
+                throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isLocked()) {
+                throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            }
         }
     }
 

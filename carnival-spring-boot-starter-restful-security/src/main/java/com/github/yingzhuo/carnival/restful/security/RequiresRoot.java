@@ -11,12 +11,12 @@ package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.core.CheckUtils;
-import com.github.yingzhuo.carnival.restful.security.exception.AuthorizationException;
-import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.exception.*;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;
+
+import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -34,9 +34,22 @@ public @interface RequiresRoot {
 
         @Override
         public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
-            if (userDetails == null || userDetails.isNotRoot()) {
-                throw new AuthorizationException(CheckUtils.getMessage(annotation.errorMessage()));
+            if (userDetails == null) {
+                throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isLocked()) {
+                throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isNotRoot()) {
+                throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }
         }
     }
+
 }

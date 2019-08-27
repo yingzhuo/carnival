@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
-import com.github.yingzhuo.carnival.restful.security.jwt.util.DateUtils;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -101,7 +100,7 @@ public class JwtTokenInfo implements Serializable {
         }
 
         public Builder expiresAtFuture(long duration, TimeUnit timeUnit) {
-            return expiresAt(DateUtils.afterNow(duration, timeUnit));
+            return expiresAt(afterNow(duration, timeUnit));
         }
 
         public Builder expiresAtFuture(Duration duration) {
@@ -114,7 +113,7 @@ public class JwtTokenInfo implements Serializable {
         }
 
         public Builder notBeforeFuture(long duration, TimeUnit timeUnit) {
-            return notBefore(DateUtils.afterNow(duration, timeUnit));
+            return notBefore(afterNow(duration, timeUnit));
         }
 
         public Builder notBeforeFuture(Duration duration) {
@@ -183,6 +182,16 @@ public class JwtTokenInfo implements Serializable {
         private Builder putPrivateClaim(String key, Object value) {
             this.privateClaims.put(key, value);
             return this;
+        }
+
+        private Date afterNow(long duration, TimeUnit timeUnit) {
+            Objects.requireNonNull(timeUnit);
+            return new Date(System.currentTimeMillis() + timeUnit.toMillis(duration));
+        }
+
+        private Date beforeNow(long duration, TimeUnit timeUnit) {
+            Objects.requireNonNull(timeUnit);
+            return new Date(System.currentTimeMillis() - timeUnit.toMillis(duration));
         }
 
         public JwtTokenInfo build() {

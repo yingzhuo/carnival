@@ -43,8 +43,7 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
 
         if (parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == UsernamePasswordToken.class ||
-                parameter.getParameterType() == StringToken.class)
-        {
+                parameter.getParameterType() == StringToken.class) {
             return RestfulSecurityContext.getToken().orElse(null);
         }
 

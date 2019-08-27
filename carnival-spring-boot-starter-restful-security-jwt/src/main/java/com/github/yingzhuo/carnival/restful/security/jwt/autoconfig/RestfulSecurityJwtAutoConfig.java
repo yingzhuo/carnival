@@ -9,12 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.jwt.RequiresJwt;
 import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 
 /**
  * @author 应卓
@@ -22,11 +19,4 @@ import org.springframework.context.annotation.Primary;
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(JwtProps.class)
 public class RestfulSecurityJwtAutoConfig {
-
-    @Bean
-    @Primary
-    public RequiresJwt.AuthComponent requiresJwtAuthenticationComponent() {
-        return new RequiresJwt.AuthComponent();
-    }
-
 }
