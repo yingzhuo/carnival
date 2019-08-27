@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.realm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
+import org.springframework.core.Ordered;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -20,7 +21,7 @@ import java.util.Optional;
  * @author 应卓
  */
 @FunctionalInterface
-public interface UserDetailsRealm {
+public interface UserDetailsRealm extends Ordered {
 
     public Optional<UserDetails> loadUserDetails(Token token);
 
@@ -34,6 +35,11 @@ public interface UserDetailsRealm {
                 return Objects.requireNonNull(that).loadUserDetails(token);
             }
         };
+    }
+
+    @Override
+    public default int getOrder() {
+        return 0;
     }
 
 }

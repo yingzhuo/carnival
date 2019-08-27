@@ -16,11 +16,14 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlackListMan
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.parser.AlwaysEmptyTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.realm.AlwaysEmptyUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.core.OrderComparator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -35,10 +38,10 @@ import java.util.List;
 public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
-    private TokenParser tokenParser;
+    private List<TokenParser> tokenParsers;
 
     @Autowired
-    private UserDetailsRealm userDetailsRealm;
+    private List<UserDetailsRealm> userDetailsRealms;
 
     @Autowired
     private CacheManager cacheManager;
@@ -49,13 +52,30 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
+        TokenParser tp;
+        UserDetailsRealm udr;
+
+        if (tokenParsers.size() == 1) {
+            tp = tokenParsers.get(0);
+        } else {
+            OrderComparator.sort(tokenParsers);
+            tp = tokenParsers.stream().reduce(new AlwaysEmptyTokenParser(), TokenParser::or);
+        }
+
+        if (userDetailsRealms.size() == 1) {
+            udr = userDetailsRealms.get(0);
+        } else {
+            OrderComparator.sort(userDetailsRealms);
+            udr = userDetailsRealms.stream().reduce(new AlwaysEmptyUserDetailsRealm(), UserDetailsRealm::or);
+        }
+
         final Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
         interceptor.setTokenBlackListManager(tokenBlackListManager);
-        interceptor.setTokenParser(tokenParser);
-        interceptor.setUserDetailsRealm(userDetailsRealm);
+        interceptor.setTokenParser(tp);
+        interceptor.setUserDetailsRealm(udr);
         interceptor.setCacheManager(cacheManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);

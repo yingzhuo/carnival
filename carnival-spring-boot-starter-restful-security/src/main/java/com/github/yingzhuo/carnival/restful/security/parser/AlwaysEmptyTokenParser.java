@@ -9,16 +9,20 @@
  */
 package com.github.yingzhuo.carnival.restful.security.parser;
 
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+import org.springframework.web.context.request.NativeWebRequest;
+
+import java.util.Optional;
+
 /**
  * @author 应卓
+ * @since 1.1.4
  */
-public class BearerStringTokenParser extends HttpHeaderTokenParser implements TokenParser {
+public class AlwaysEmptyTokenParser implements TokenParser {
 
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String BEARER = "Bearer ";
-
-    public BearerStringTokenParser() {
-        super(AUTHORIZATION, BEARER);
+    @Override
+    public Optional<Token> parse(NativeWebRequest webRequest) {
+        return Optional.empty();
     }
 
 }

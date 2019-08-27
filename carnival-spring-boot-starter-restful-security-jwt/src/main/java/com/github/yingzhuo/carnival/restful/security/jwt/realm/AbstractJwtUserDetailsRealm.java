@@ -27,6 +27,8 @@ import java.util.Optional;
  */
 public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
+    private int order = 0;
+
     @Override
     public final Optional<UserDetails> loadUserDetails(Token token) {
 
@@ -56,4 +58,12 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
     protected abstract UserDetails getUserDetails(Token token, DecodedJWT jwt);
 
+    @Override
+    public int getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
 }

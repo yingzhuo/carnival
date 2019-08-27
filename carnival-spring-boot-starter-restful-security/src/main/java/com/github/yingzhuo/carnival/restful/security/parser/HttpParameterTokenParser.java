@@ -23,6 +23,7 @@ import java.util.Optional;
 public class HttpParameterTokenParser implements TokenParser {
 
     private final String parameterName;
+    private int order = 0;
 
     public HttpParameterTokenParser(String parameterName) {
         this.parameterName = Objects.requireNonNull(parameterName);
@@ -41,6 +42,15 @@ public class HttpParameterTokenParser implements TokenParser {
 
     public String getParameterName() {
         return parameterName;
+    }
+
+    @Override
+    public int getOrder() {
+        return this.order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
 }

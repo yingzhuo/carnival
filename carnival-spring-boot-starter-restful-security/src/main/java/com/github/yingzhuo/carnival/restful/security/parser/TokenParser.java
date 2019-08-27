@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.val;
+import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Objects;
@@ -24,7 +25,7 @@ import java.util.Optional;
  * @see Token
  */
 @FunctionalInterface
-public interface TokenParser {
+public interface TokenParser extends Ordered {
 
     public Optional<Token> parse(NativeWebRequest webRequest);
 
@@ -38,6 +39,11 @@ public interface TokenParser {
                 return Objects.requireNonNull(that).parse(webRequest);
             }
         };
+    }
+
+    @Override
+    public default int getOrder() {
+        return 0;
     }
 
 }
