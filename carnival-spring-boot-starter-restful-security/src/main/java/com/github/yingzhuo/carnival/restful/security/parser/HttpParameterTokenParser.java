@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -24,7 +25,7 @@ public class HttpParameterTokenParser implements TokenParser {
     private final String parameterName;
 
     public HttpParameterTokenParser(String parameterName) {
-        this.parameterName = parameterName;
+        this.parameterName = Objects.requireNonNull(parameterName);
     }
 
     @Override

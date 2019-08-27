@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,10 +27,17 @@ public class HttpHeaderTokenParser implements TokenParser {
     private final int prefixLen;
 
     public HttpHeaderTokenParser(String headerName) {
-        this(headerName, "");
+        this(headerName, null);
     }
 
     public HttpHeaderTokenParser(String headerName, String prefix) {
+
+        Objects.requireNonNull(headerName);
+
+        if (prefix == null) {
+            prefix = "";
+        }
+
         this.headerName = headerName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();
