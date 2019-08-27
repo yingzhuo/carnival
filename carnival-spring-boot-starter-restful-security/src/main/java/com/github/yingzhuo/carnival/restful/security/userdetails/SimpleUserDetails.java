@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.Null;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.Getter;
@@ -38,7 +37,7 @@ class SimpleUserDetails implements UserDetails {
     private boolean root = false;
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
-    private Object nativeUser = Null.INSTANCE;
+    private Object nativeUser = null;
 
     public void putPayload(String name, Object value) {
         this.payload.put(name, value);

@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -24,8 +23,6 @@ import java.util.function.Supplier;
 @Getter
 @Setter
 public class JwtTokenInfo implements Serializable {
-
-    private static final long serialVersionUID = -846791671276090816L;
 
     // Public Claims (Header)
     private String keyId;
@@ -137,10 +134,6 @@ public class JwtTokenInfo implements Serializable {
         public Builder randomPrivateClaim() {
             this.putPrivateClaim("__random__", UUID.randomUUID().toString());
             return this;
-        }
-
-        public Builder jwtId(Supplier<String> supplier) {
-            return jwtId(supplier.get());
         }
 
         public Builder putPrivateClaim(String key, Boolean value) {
