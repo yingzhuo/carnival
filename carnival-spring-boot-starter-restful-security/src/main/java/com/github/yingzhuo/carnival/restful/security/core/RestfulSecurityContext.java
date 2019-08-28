@@ -23,7 +23,7 @@ public final class RestfulSecurityContext {
 
     private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<Boolean> ignored = ThreadLocal.withInitial(() -> false);
+    private final static ThreadLocal<Boolean> ignored = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
     private RestfulSecurityContext() {
     }

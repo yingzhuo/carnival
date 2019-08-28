@@ -1,0 +1,83 @@
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
+package com.github.yingzhuo.carnival.restful.security.core;
+
+import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
+import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.web.method.HandlerMethod;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.*;
+
+/**
+ * @author 应卓
+ * @since 1.1.5
+ */
+final class ReflectCache {
+
+    private static boolean initialized = false;
+    private static Map<Method, List<MethodCheckPoint>> cache = new HashMap<>(); // lazy init
+
+    public synchronized static void init() {
+        if (!initialized) {
+
+            final Collection<HandlerMethod> handlerMethods = RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values();
+
+            for (HandlerMethod hm : handlerMethods) {
+                final List<MethodCheckPoint> list = new LinkedList<>();
+
+                for (Annotation typeAnnotation : hm.getBeanType().getDeclaredAnnotations()) {
+                    Requires requires = typeAnnotation.annotationType().getAnnotation(Requires.class);
+                    if (requires != null) {
+                        list.add(new MethodCheckPoint(typeAnnotation, SpringUtils.getBean(requires.value())));
+                    }
+                }
+
+                final Method method = hm.getMethod();
+                for (Annotation methodAnnotation : method.getDeclaredAnnotations()) {
+                    Requires requires = methodAnnotation.annotationType().getAnnotation(Requires.class);
+                    if (requires != null) {
+
+                        Iterator<MethodCheckPoint> iterator = list.iterator();
+                        while (iterator.hasNext()) {
+                            Class<?> cachedAnnotationClz = iterator.next().getAnnotation().getClass();
+                            if (methodAnnotation.getClass() == cachedAnnotationClz) {
+                                iterator.remove();
+                            }
+                        }
+
+                        list.add(new MethodCheckPoint(methodAnnotation, SpringUtils.getBean(requires.value())));
+                    }
+                }
+
+                if (!list.isEmpty()) {
+                    cache.put(method, list);
+                }
+            }
+
+            cache = Collections.unmodifiableMap(cache);
+            initialized = true;
+        }
+    }
+
+    public static boolean isNotInitialized() {
+        return !initialized;
+    }
+
+    public static Map<Method, List<MethodCheckPoint>> get() {
+        return cache; // unmodifiable map
+    }
+
+    private ReflectCache() {
+    }
+
+}

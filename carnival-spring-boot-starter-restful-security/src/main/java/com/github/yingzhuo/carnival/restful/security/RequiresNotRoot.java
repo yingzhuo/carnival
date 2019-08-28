@@ -23,7 +23,7 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
  */
 @Documented
 @Inherited
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresNotRoot.AuthComponent.class)
 public @interface RequiresNotRoot {
@@ -38,12 +38,12 @@ public @interface RequiresNotRoot {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
 
-            if (userDetails.isExpired()) {
-                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
-            }
-
             if (userDetails.isLocked()) {
                 throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
             }
 
             if (userDetails.isRoot()) {

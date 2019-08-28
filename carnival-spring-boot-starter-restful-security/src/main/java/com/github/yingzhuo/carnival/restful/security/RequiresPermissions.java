@@ -27,7 +27,7 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
  */
 @Documented
 @Inherited
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresPermissions.AuthComponent.class)
 public @interface RequiresPermissions {
@@ -46,12 +46,12 @@ public @interface RequiresPermissions {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
 
-            if (userDetails.isExpired()) {
-                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
-            }
-
             if (userDetails.isLocked()) {
                 throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
             }
 
             List<String> require = Arrays.asList(annotation.value());

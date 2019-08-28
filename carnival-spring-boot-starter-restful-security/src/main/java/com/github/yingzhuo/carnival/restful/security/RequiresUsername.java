@@ -27,12 +27,12 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
  */
 @Documented
 @Inherited
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresUsername.AuthComponent.class)
 public @interface RequiresUsername {
 
-    public String username();
+    public String value();
 
     public boolean caseSensitive() default true;
 
@@ -47,16 +47,16 @@ public @interface RequiresUsername {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
 
-            if (userDetails.isExpired()) {
-                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
-            }
-
             if (userDetails.isLocked()) {
                 throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
             }
 
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
+            }
+
             val caseSensitive = annotation.caseSensitive();
-            val requiredUsername = annotation.username();
+            val requiredUsername = annotation.value();
 
             if (caseSensitive) {
                 if (!requiredUsername.equals(userDetails.getUsername())) {

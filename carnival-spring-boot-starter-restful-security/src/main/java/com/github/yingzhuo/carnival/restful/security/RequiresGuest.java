@@ -24,7 +24,7 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
  */
 @Documented
 @Inherited
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresGuest.AuthComponent.class)
 public @interface RequiresGuest {

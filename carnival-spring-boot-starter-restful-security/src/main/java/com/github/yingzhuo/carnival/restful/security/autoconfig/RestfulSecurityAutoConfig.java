@@ -55,6 +55,12 @@ public class RestfulSecurityAutoConfig {
 
     @Bean
     @Primary
+    public RequiresEmailAddress.AuthComponent requiresEmailAddressAuthenticationComponent() {
+        return new RequiresEmailAddress.AuthComponent();
+    }
+
+    @Bean
+    @Primary
     public RequiresAdult.AuthComponent requiresAdultAuthenticationComponent() {
         return new RequiresAdult.AuthComponent();
     }

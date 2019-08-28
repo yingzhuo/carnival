@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.core;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
-import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
@@ -20,8 +19,6 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -32,7 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -40,22 +38,19 @@ import java.util.*;
 @Slf4j
 public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
-    private final Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
-
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlacklistManager tokenBlacklistManager;
-    private boolean initialized = false;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         RestfulSecurityContext.clean();
 
-        if (!initialized) {
-            this.initCache(RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values());
+        if (ReflectCache.isNotInitialized()) {
+            ReflectCache.init();
         }
 
         if (!(handler instanceof HandlerMethod)) {
@@ -69,7 +64,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        final List<MethodCheckPoint> list = cache.get(handlerMethod.getMethod());
+        final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
             return true;
         }
@@ -98,7 +93,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
         }
 
-        if (list != null && !list.isEmpty()) {
+        if (list != null) {
 
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
@@ -119,30 +114,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     private Method getMethod(Object handler) {
         return ((HandlerMethod) handler).getMethod();
-    }
-
-    // lazy
-    private synchronized void initCache(Collection<HandlerMethod> handlerMethods) {
-        if (!initialized) {
-
-            for (HandlerMethod hm : handlerMethods) {
-                final Method method = hm.getMethod();
-                final List<MethodCheckPoint> list = new LinkedList<>();
-
-                for (Annotation annotation : method.getDeclaredAnnotations()) {
-                    Requires requires = annotation.annotationType().getAnnotation(Requires.class);
-                    if (requires != null) {
-                        list.add(new MethodCheckPoint(annotation, SpringUtils.getBean(requires.value())));
-                    }
-                }
-
-                if (!list.isEmpty()) {
-                    cache.put(method, list);
-                }
-            }
-
-            this.initialized = true;
-        }
     }
 
     public void setTokenParser(TokenParser tokenParser) {

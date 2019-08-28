@@ -30,6 +30,7 @@ class SimpleUserDetails implements UserDetails {
     private final Map<String, Object> payload = new HashMap<>();
     private Object id = null;
     private String username = null;
+    private String emailAddress = null;
     private String password = null;
     private Date dateOfBirth = null;
     private boolean expired = false;

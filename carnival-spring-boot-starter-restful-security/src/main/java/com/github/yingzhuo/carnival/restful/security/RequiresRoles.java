@@ -27,7 +27,7 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
  */
 @Documented
 @Inherited
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresRoles.AuthComponent.class)
 public @interface RequiresRoles {
@@ -46,23 +46,23 @@ public @interface RequiresRoles {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
 
-            if (userDetails.isExpired()) {
-                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
-            }
-
             if (userDetails.isLocked()) {
                 throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            }
+
+            if (userDetails.isExpired()) {
+                throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
             }
 
             List<String> require = Arrays.asList(annotation.value());
             Set<String> actual = new HashSet<>(userDetails.getRoleNames());
 
-            if (annotation.logical() == Logical.AND) {
-                if (!actual.containsAll(require)) {
+            if (annotation.logical() == Logical.OR) {
+                if (require.stream().noneMatch(actual::contains)) {
                     throw new AuthorizationException(getMessage(annotation.errorMessage()));
                 }
             } else {
-                if (require.stream().noneMatch(actual::contains)) {
+                if (!actual.containsAll(require)) {
                     throw new AuthorizationException(getMessage(annotation.errorMessage()));
                 }
             }
