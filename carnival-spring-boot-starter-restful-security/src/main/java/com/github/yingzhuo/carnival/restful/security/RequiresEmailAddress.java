@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationExc
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
@@ -39,8 +40,9 @@ public @interface RequiresEmailAddress {
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
     public static class AuthComponent implements AuthenticationComponent<RequiresEmailAddress> {
+
         @Override
-        public void authenticate(UserDetails userDetails, RequiresEmailAddress annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresEmailAddress annotation) throws RestfulSecurityException {
 
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));

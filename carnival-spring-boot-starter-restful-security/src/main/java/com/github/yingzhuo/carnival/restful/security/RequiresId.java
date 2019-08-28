@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 
@@ -37,7 +38,7 @@ public @interface RequiresId {
     public static class AuthComponent implements AuthenticationComponent<RequiresId> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresId annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresId annotation) throws RestfulSecurityException {
             val expect = annotation.value();
 
             if (userDetails == null) {

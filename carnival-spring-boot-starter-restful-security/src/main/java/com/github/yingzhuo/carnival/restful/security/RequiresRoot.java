@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;
@@ -33,7 +34,7 @@ public @interface RequiresRoot {
     public static class AuthComponent implements AuthenticationComponent<RequiresRoot> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresRoot annotation) throws RestfulSecurityException {
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }

@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.apache.commons.lang3.time.DateUtils;
@@ -39,7 +40,7 @@ public @interface RequiresAdult {
     public static class AuthComponent implements AuthenticationComponent<RequiresAdult> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresAdult annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresAdult annotation) throws RestfulSecurityException {
 
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));

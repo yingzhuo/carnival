@@ -99,7 +99,11 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
                 log.debug("AuthenticationComponent = {}", ac.getClass());
-                ac.authenticate(RestfulSecurityContext.getUserDetails().orElse(null), annotation);
+
+                ac.authenticate(
+                        RestfulSecurityContext.getToken().orElse(null),
+                        RestfulSecurityContext.getUserDetails().orElse(null),
+                        annotation);
             });
 
         }

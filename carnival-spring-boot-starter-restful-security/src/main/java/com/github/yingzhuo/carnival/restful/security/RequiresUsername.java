@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationExc
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 
@@ -41,7 +42,7 @@ public @interface RequiresUsername {
     public static class AuthComponent implements AuthenticationComponent<RequiresUsername> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresUsername annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresUsername annotation) throws RestfulSecurityException {
 
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));

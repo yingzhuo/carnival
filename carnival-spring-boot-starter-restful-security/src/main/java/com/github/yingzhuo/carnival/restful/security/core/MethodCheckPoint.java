@@ -10,22 +10,28 @@
 package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.lang.annotation.Annotation;
 
 /**
  * @author 应卓
  */
-@Getter
-@Setter
-@AllArgsConstructor
 public final class MethodCheckPoint {
 
-    private Annotation annotation;
+    private final Annotation annotation;
+    private final AuthenticationComponent authenticationComponent;
 
-    private AuthenticationComponent authenticationComponent;
+    public MethodCheckPoint(Annotation annotation, AuthenticationComponent authenticationComponent) {
+        this.annotation = annotation;
+        this.authenticationComponent = authenticationComponent;
+    }
+
+    public Annotation getAnnotation() {
+        return annotation;
+    }
+
+    public AuthenticationComponent getAuthenticationComponent() {
+        return authenticationComponent;
+    }
 
 }

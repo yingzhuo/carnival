@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationExc
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.*;
@@ -36,7 +37,7 @@ public @interface RequiresAuthentication {
     public static class AuthComponent implements AuthenticationComponent<RequiresAuthentication> {
 
         @Override
-        public void authenticate(UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }

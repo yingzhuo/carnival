@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.annotation;
 
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.lang.annotation.Annotation;
@@ -20,6 +21,6 @@ import java.lang.annotation.Annotation;
 @FunctionalInterface
 public interface AuthenticationComponent<A extends Annotation> {
 
-    public void authenticate(UserDetails userDetails, A annotation) throws RestfulSecurityException;
+    public void authenticate(Token token, UserDetails userDetails, A annotation) throws RestfulSecurityException;
 
 }
