@@ -18,7 +18,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 public class AuthenticationException extends RestfulSecurityException {
 
     public AuthenticationException() {
-        super();
     }
 
     public AuthenticationException(String message) {

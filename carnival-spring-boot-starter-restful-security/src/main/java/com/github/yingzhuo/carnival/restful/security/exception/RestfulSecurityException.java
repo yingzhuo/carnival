@@ -15,7 +15,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 public class RestfulSecurityException extends RuntimeException {
 
     public RestfulSecurityException() {
-        super();
     }
 
     public RestfulSecurityException(String message) {

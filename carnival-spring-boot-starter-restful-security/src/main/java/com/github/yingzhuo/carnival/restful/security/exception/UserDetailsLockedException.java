@@ -17,8 +17,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class UserDetailsLockedException extends AuthorizationException {
 
-    private static final long serialVersionUID = 3640426498330580934L;
-
     public UserDetailsLockedException() {
     }
 

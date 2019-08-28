@@ -30,7 +30,7 @@ public interface UserDetails extends Serializable {
 
     public String getUsername();
 
-    public String getEmailAddress();
+    public String getEmail();
 
     public Date getDateOfBirth();
 
@@ -103,8 +103,8 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
-        public Builder emailAddress(String emailAddress) {
-            ud.setEmailAddress(emailAddress);
+        public Builder email(String emailAddress) {
+            ud.setEmail(emailAddress);
             return this;
         }
 

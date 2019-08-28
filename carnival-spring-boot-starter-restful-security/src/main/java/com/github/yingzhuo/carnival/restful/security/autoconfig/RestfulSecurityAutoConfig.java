@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 
 /**
  * @author 应卓
@@ -42,61 +41,56 @@ public class RestfulSecurityAutoConfig {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Bean
-    @Primary
+    public RequiresToken.AuthComponent requiresTokenAuthenticationComponent() {
+        return new RequiresToken.AuthComponent();
+    }
+
+    @Bean
     public RequiresId.AuthComponent requiresIdAuthenticationComponent() {
         return new RequiresId.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresUsername.AuthComponent requiresUserAuthenticationComponent() {
         return new RequiresUsername.AuthComponent();
     }
 
     @Bean
-    @Primary
-    public RequiresEmailAddress.AuthComponent requiresEmailAddressAuthenticationComponent() {
-        return new RequiresEmailAddress.AuthComponent();
+    public RequiresEmail.AuthComponent requiresEmailAuthenticationComponent() {
+        return new RequiresEmail.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresAdult.AuthComponent requiresAdultAuthenticationComponent() {
         return new RequiresAdult.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresRoot.AuthComponent requiresRootAuthenticationComponent() {
         return new RequiresRoot.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresNotRoot.AuthComponent requiresNotRootAuthenticationComponent() {
         return new RequiresNotRoot.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresAuthentication.AuthComponent requiresAuthenticationAuthenticationComponent() {
         return new RequiresAuthentication.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresGuest.AuthComponent requiresGuestAuthenticationComponent() {
         return new RequiresGuest.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresRoles.AuthComponent requiresRolesAuthenticationComponent() {
         return new RequiresRoles.AuthComponent();
     }
 
     @Bean
-    @Primary
     public RequiresPermissions.AuthComponent requiresPermissionsAuthenticationComponent() {
         return new RequiresPermissions.AuthComponent();
     }

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
+import com.github.yingzhuo.carnival.restful.security.token.ByteArrayToken;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
@@ -35,6 +36,7 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
                 parameter.getParameterType() == UsernamePasswordToken.class ||
                 parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == StringToken.class ||
+                parameter.getParameterType() == ByteArrayToken.class ||
                 parameter.getParameterType() == UserDetails.class;
     }
 
@@ -43,6 +45,7 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
 
         if (parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == UsernamePasswordToken.class ||
+                parameter.getParameterType() == ByteArrayToken.class ||
                 parameter.getParameterType() == StringToken.class) {
             return RestfulSecurityContext.getToken().orElse(null);
         }

@@ -16,7 +16,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 public class UnsupportedTokenTypeException extends AuthenticationException {
 
     public UnsupportedTokenTypeException() {
-        super();
     }
 
     public UnsupportedTokenTypeException(String message) {

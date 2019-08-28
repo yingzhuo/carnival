@@ -15,7 +15,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 public class TokenNotFoundException extends AuthenticationException {
 
     public TokenNotFoundException() {
-        super();
     }
 
     public TokenNotFoundException(String message) {

@@ -15,7 +15,6 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 public class TokenBlacklistedException extends AuthenticationException {
 
     public TokenBlacklistedException() {
-        this(null);
     }
 
     public TokenBlacklistedException(String message) {

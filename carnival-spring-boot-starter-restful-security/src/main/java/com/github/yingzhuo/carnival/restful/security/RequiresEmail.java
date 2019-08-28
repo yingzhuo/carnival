@@ -33,16 +33,16 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresUsername.AuthComponent.class)
-public @interface RequiresEmailAddress {
+public @interface RequiresEmail {
 
     public String value();
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
-    public static class AuthComponent implements AuthenticationComponent<RequiresEmailAddress> {
+    public static class AuthComponent implements AuthenticationComponent<RequiresEmail> {
 
         @Override
-        public void authenticate(Token token, UserDetails userDetails, RequiresEmailAddress annotation) throws RestfulSecurityException {
+        public void authenticate(Token token, UserDetails userDetails, RequiresEmail annotation) throws RestfulSecurityException {
 
             if (userDetails == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
@@ -56,12 +56,12 @@ public @interface RequiresEmailAddress {
                 throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
             }
 
-            if (userDetails.getEmailAddress() == null) {
+            if (userDetails.getEmail() == null) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
 
             val required = annotation.value();
-            val actual = userDetails.getEmailAddress();
+            val actual = userDetails.getEmail();
             if (!StringUtils.equalsIgnoreCase(required, actual)) {
                 throw new AuthenticationException(getMessage(annotation.errorMessage()));
             }
