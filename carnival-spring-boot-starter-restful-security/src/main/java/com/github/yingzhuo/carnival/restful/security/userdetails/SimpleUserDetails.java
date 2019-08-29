@@ -35,7 +35,6 @@ class SimpleUserDetails implements UserDetails {
     private Date dateOfBirth = null;
     private boolean expired = false;
     private boolean locked = false;
-    private boolean root = false;
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
     private Object nativeUser = null;

@@ -9,16 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
-import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.TokenNotFoundException;
-import com.github.yingzhuo.carnival.restful.security.token.Token;
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import com.github.yingzhuo.carnival.restful.security.auth.RequiresTokenAuthComponent;
 
 import java.lang.annotation.*;
-
-import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -28,21 +22,9 @@ import static com.github.yingzhuo.carnival.restful.security.MessageUtils.getMess
 @Inherited
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresToken.AuthComponent.class)
+@Requires(RequiresTokenAuthComponent.class)
 public @interface RequiresToken {
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
-
-    public static class AuthComponent implements AuthenticationComponent<RequiresToken> {
-
-        @Override
-        public void authenticate(Token token, UserDetails userDetails, RequiresToken annotation) throws RestfulSecurityException {
-
-            if (token == null) {
-                throw new TokenNotFoundException(getMessage(annotation.errorMessage()));
-            }
-
-        }
-    }
 
 }

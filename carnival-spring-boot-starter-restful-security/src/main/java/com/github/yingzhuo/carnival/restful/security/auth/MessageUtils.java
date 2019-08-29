@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security;
+package com.github.yingzhuo.carnival.restful.security.auth;
 
 import org.springframework.util.StringUtils;
 
@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
  * @author 应卓
  * @since 1.1.4
  */
-public final class MessageUtils {
+final class MessageUtils {
 
     private MessageUtils() {
     }

@@ -48,12 +48,6 @@ public interface UserDetails extends Serializable {
         return !isLocked();
     }
 
-    public boolean isRoot();
-
-    public default boolean isNotRoot() {
-        return !isRoot();
-    }
-
     public Collection<Role> getRoles();
 
     public Collection<Permission> getPermissions();
@@ -125,11 +119,6 @@ public interface UserDetails extends Serializable {
 
         public Builder locked(boolean locked) {
             ud.setLocked(locked);
-            return this;
-        }
-
-        public Builder root(boolean root) {
-            ud.setRoot(root);
             return this;
         }
 

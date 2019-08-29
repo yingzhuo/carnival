@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.*;
+import com.github.yingzhuo.carnival.restful.security.auth.*;
 import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
@@ -41,58 +41,47 @@ public class RestfulSecurityAutoConfig {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Bean
-    public RequiresToken.AuthComponent requiresTokenAuthenticationComponent() {
-        return new RequiresToken.AuthComponent();
+    public RequiresAuthenticationAuthComponent requiresAuthenticationAuthComponent() {
+        return new RequiresAuthenticationAuthComponent();
     }
 
     @Bean
-    public RequiresId.AuthComponent requiresIdAuthenticationComponent() {
-        return new RequiresId.AuthComponent();
+    public RequiresRolesAuthComponent requiresRolesAuthComponent() {
+        return new RequiresRolesAuthComponent();
     }
 
     @Bean
-    public RequiresUsername.AuthComponent requiresUserAuthenticationComponent() {
-        return new RequiresUsername.AuthComponent();
+    public RequiresPermissionsAuthComponent requiresPermissionsAuthComponent() {
+        return new RequiresPermissionsAuthComponent();
     }
 
     @Bean
-    public RequiresEmail.AuthComponent requiresEmailAuthenticationComponent() {
-        return new RequiresEmail.AuthComponent();
+    public RequiresGuestAuthComponent requiresGuestAuthComponent() {
+        return new RequiresGuestAuthComponent();
     }
 
     @Bean
-    public RequiresAdult.AuthComponent requiresAdultAuthenticationComponent() {
-        return new RequiresAdult.AuthComponent();
+    public RequiresTokenAuthComponent requiresTokenAuthenticationComponent() {
+        return new RequiresTokenAuthComponent();
     }
 
     @Bean
-    public RequiresRoot.AuthComponent requiresRootAuthenticationComponent() {
-        return new RequiresRoot.AuthComponent();
+    public RequiresIdAuthComponent requiresIdAuthenticationComponent() {
+        return new RequiresIdAuthComponent();
     }
 
     @Bean
-    public RequiresNotRoot.AuthComponent requiresNotRootAuthenticationComponent() {
-        return new RequiresNotRoot.AuthComponent();
+    public RequiresUsernameAuthComponent requiresUserAuthenticationComponent() {
+        return new RequiresUsernameAuthComponent();
     }
 
     @Bean
-    public RequiresAuthentication.AuthComponent requiresAuthenticationAuthenticationComponent() {
-        return new RequiresAuthentication.AuthComponent();
+    public RequiresEmailAuthComponent requiresEmailAuthenticationComponent() {
+        return new RequiresEmailAuthComponent();
     }
 
     @Bean
-    public RequiresGuest.AuthComponent requiresGuestAuthenticationComponent() {
-        return new RequiresGuest.AuthComponent();
+    public RequiresAdultAuthComponent requiresAdultAuthenticationComponent() {
+        return new RequiresAdultAuthComponent();
     }
-
-    @Bean
-    public RequiresRoles.AuthComponent requiresRolesAuthenticationComponent() {
-        return new RequiresRoles.AuthComponent();
-    }
-
-    @Bean
-    public RequiresPermissions.AuthComponent requiresPermissionsAuthenticationComponent() {
-        return new RequiresPermissions.AuthComponent();
-    }
-
 }

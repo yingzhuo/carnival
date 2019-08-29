@@ -26,68 +26,40 @@ public final class UserDetailsUtils {
     private UserDetailsUtils() {
     }
 
-    /**
-     * 获取令牌UserDetails实例
-     */
     public static UserDetails get() {
         return RestfulSecurityContext.getUserDetails().orElse(null);
     }
 
-    /**
-     * 获取ID实例
-     *
-     * @param <I> ID类型
-     */
     public static <I> I getId() {
         val userDetails = get();
         return (I) (userDetails != null ? userDetails.getId() : null);
     }
 
-    /**
-     * 获取用户名
-     */
     public static String getUsername() {
         val userDetails = get();
         return userDetails != null ? userDetails.getUsername() : null;
     }
 
-    /**
-     * 获取口令
-     */
+    public static String getEmail() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getEmail() : null;
+    }
+
     public static String getPassword() {
         val userDetails = get();
         return userDetails != null ? userDetails.getPassword() : null;
     }
 
-    /**
-     * 获取出生日期
-     */
     public static Date getDateOfBirth() {
         val userDetails = get();
         return userDetails != null ? userDetails.getDateOfBirth() : null;
     }
 
-    /**
-     * 获取是否是根用户标记
-     */
-    public static boolean isRoot() {
-        val userDetails = get();
-        return userDetails != null && userDetails.isRoot();
-    }
-
-    /**
-     * 获取本地User对象
-     *
-     * @param <T> 对象类型
-     */
     public static <T> T getNativeUser() {
         val userDetails = get();
         return (T) (userDetails != null ? userDetails.getNativeUser() : null);
     }
 
-    /**
-     * 获取角色名称
-     */
     public static List<String> getRoleNames() {
         val userDetails = get();
         if (userDetails == null) {
@@ -96,9 +68,6 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableList(new ArrayList<>(userDetails.getRoleNames()));
     }
 
-    /**
-     * 获取角色名称
-     */
     public static Set<String> getRoleNamesAsSet() {
         val userDetails = get();
         if (userDetails == null) {
@@ -107,9 +76,6 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableSet(new HashSet<>(userDetails.getRoleNames()));
     }
 
-    /**
-     * 获取权限名称
-     */
     public static List<String> getPermissionNames() {
         val userDetails = get();
         if (userDetails == null) {
@@ -118,9 +84,6 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableList(new ArrayList<>(userDetails.getPermissionNames()));
     }
 
-    /**
-     * 获取权限名称
-     */
     public static Set<String> getPermissionNamesAsSet() {
         val userDetails = get();
         if (userDetails == null) {
@@ -129,9 +92,6 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableSet(new HashSet<>(userDetails.getPermissionNames()));
     }
 
-    /**
-     * 获取用户负载
-     */
     public static Map<String, Object> getPayload() {
         val userDetails = get();
         if (userDetails == null) {
@@ -140,57 +100,24 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableMap(userDetails.getPayload());
     }
 
-    /**
-     * 获取负载尺寸
-     */
     public static int getPayloadSize() {
         val userDetails = get();
         return userDetails != null ? userDetails.getPayloadSize() : 0;
     }
 
-    /**
-     * 获取负载中的数据
-     *
-     * @param name 名称
-     * @param <T>  数据类型
-     * @return 数据
-     */
     public static <T> T getPayloadItem(String name) {
         return (T) getPayload().get(name);
     }
 
-    /**
-     * 获取负载中的数据
-     *
-     * @param name         名称
-     * @param <T>          数据类型
-     * @param defaultValue 默认值
-     * @return 数据
-     */
     public static <T> T getPayloadItem(String name, T defaultValue) {
         final T t = getPayloadItem(name);
         return t != null ? t : defaultValue;
     }
 
-    /**
-     * 通过表达式获取UserDetails中的对象
-     *
-     * @param propertyName 表达式
-     * @param <T>          数据类型
-     * @return 数据
-     */
     public static <T> T getProperty(String propertyName) {
         return getProperty(propertyName, null);
     }
 
-    /**
-     * 通过表达式获取UserDetails中的对象
-     *
-     * @param propertyName 表达式
-     * @param defaultValue 默认值
-     * @param <T>          数据类型
-     * @return 数据
-     */
     public static <T> T getProperty(String propertyName, T defaultValue) {
         final UserDetails userDetails = get();
 
