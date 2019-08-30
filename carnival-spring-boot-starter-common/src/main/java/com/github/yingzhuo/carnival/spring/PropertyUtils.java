@@ -33,7 +33,8 @@ public final class PropertyUtils {
     }
 
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType, T defaultIfNull) {
-        return SpringUtils.getEnvironment().getProperty(propertyName, targetType, defaultIfNull);
+        T result = SpringUtils.getEnvironment().getProperty(propertyName, targetType);
+        return result != null ? result : defaultIfNull;
     }
 
     public static List<String> getCommaDelimitedPropertyValue(String propertyName) {

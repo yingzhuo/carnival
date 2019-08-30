@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.spring;
 
 import lombok.val;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
@@ -33,6 +33,7 @@ import java.util.TimeZone;
  *
  * @author 应卓
  */
+@SuppressWarnings("unchecked")
 public final class SpringUtils {
 
     static ApplicationContext AC = null;
@@ -61,18 +62,18 @@ public final class SpringUtils {
         return AC;
     }
 
-    public static BeanFactory getBeanFactory() {
+    public static MessageSource getMessageSource() {
         return AC;
     }
 
-    public static MessageSource getMessageSource() {
+    public static ApplicationEventPublisher getApplicationEventPublisher() {
         return AC;
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return AC.getId();
+        return AC.getId() + "-" + AC.getBean("__identity__", String.class);
     }
 
     public static String getDisplayName() {
@@ -99,7 +100,6 @@ public final class SpringUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <B> B getBean(String beanName) {
         return (B) getApplicationContext().getBean(beanName);
     }
