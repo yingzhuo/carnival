@@ -13,7 +13,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.springframework.core.io.Resource;
 
 import java.io.*;
 import java.net.URL;
@@ -21,7 +20,6 @@ import java.net.URL;
 /**
  * @author 应卓
  */
-@SuppressWarnings("deprecation")
 public final class JacksonUtils {
 
     public static final ObjectMapper DEFAULT_OBJECT_MAPPER;
@@ -50,7 +48,7 @@ public final class JacksonUtils {
         try {
             return getObjectMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -58,7 +56,7 @@ public final class JacksonUtils {
         try {
             return getObjectMapper().writeValueAsBytes(value);
         } catch (JsonProcessingException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -66,7 +64,7 @@ public final class JacksonUtils {
         try {
             getObjectMapper().writeValue(dest, value);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -74,7 +72,7 @@ public final class JacksonUtils {
         try {
             getObjectMapper().writeValue(dest, value);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -82,7 +80,7 @@ public final class JacksonUtils {
         try {
             getObjectMapper().writeValue(dest, value);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -90,7 +88,7 @@ public final class JacksonUtils {
         try {
             getObjectMapper().writeValue(dest, value);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
@@ -98,70 +96,48 @@ public final class JacksonUtils {
 
     public static <T> T readValue(File src, Class<T> type) {
         try {
-            return SpringUtils.getBean(ObjectMapper.class).readValue(src, type);
+            return getObjectMapper().readValue(src, type);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
     public static <T> T readValue(InputStream src, Class<T> type) {
         try {
-            return SpringUtils.getBean(ObjectMapper.class).readValue(src, type);
+            return getObjectMapper().readValue(src, type);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
     public static <T> T readValue(Reader src, Class<T> type) {
         try {
-            return SpringUtils.getBean(ObjectMapper.class).readValue(src, type);
+            return getObjectMapper().readValue(src, type);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
     public static <T> T readValue(String src, Class<T> type) {
         try {
-            return SpringUtils.getBean(ObjectMapper.class).readValue(src, type);
+            return getObjectMapper().readValue(src, type);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
     public static <T> T readValue(URL src, Class<T> type) {
         try {
-            return SpringUtils.getBean(ObjectMapper.class).readValue(src, type);
+            return getObjectMapper().readValue(src, type);
         } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
-        }
-    }
-
-    public static <T> T readResource(String location, Class<T> type) {
-        Resource resource = null;
-        try {
-            resource = SpringUtils.getResourceLoader().getResource(location);
-            return readValue(resource.getInputStream(), type);
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
-        } finally {
-            if (resource != null) {
-                try {
-                    resource.getInputStream().close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            throw new UncheckedIOException(e.getMessage(), e);
         }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     private static ObjectMapper getObjectMapper() {
-        try {
-            return SpringUtils.getBean(ObjectMapper.class);
-        } catch (Exception e) {
-            return DEFAULT_OBJECT_MAPPER;
-        }
+        return SpringUtils.getBean(ObjectMapper.class, DEFAULT_OBJECT_MAPPER);
     }
 
 }

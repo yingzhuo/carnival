@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.spring;
 import lombok.val;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
@@ -22,6 +23,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -70,7 +72,17 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return getBean("__spring_id__", String.class);
+        return AC.getId();
+    }
+
+    public static String getDisplayName() {
+        return AC.getDisplayName();
+    }
+
+    public static Date getSpringStartupDate() {
+        final Date date = new Date();
+        date.setTime(AC.getStartupDate());
+        return date;
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -79,13 +91,37 @@ public final class SpringUtils {
         return getApplicationContext().getBean(beanType);
     }
 
+    public static <B> B getBean(Class<B> beanType, B defaultIfNotFound) {
+        try {
+            return getBean(beanType);
+        } catch (NoSuchBeanDefinitionException e) {
+            return defaultIfNotFound;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public static <B> B getBean(String beanName) {
         return (B) getApplicationContext().getBean(beanName);
     }
 
+    public static <B> B getBean(String beanName, B defaultIfNotFound) {
+        try {
+            return getBean(beanName);
+        } catch (NoSuchBeanDefinitionException e) {
+            return defaultIfNotFound;
+        }
+    }
+
     public static <B> B getBean(String beanName, Class<B> beanType) {
         return getApplicationContext().getBean(beanName, beanType);
+    }
+
+    public static <B> B getBean(String beanName, Class<B> beanType, B defaultIfNotFound) {
+        try {
+            return getBean(beanName, beanType);
+        } catch (NoSuchBeanDefinitionException e) {
+            return defaultIfNotFound;
+        }
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
