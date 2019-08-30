@@ -1,14 +1,7 @@
 [![JDK](http://img.shields.io/badge/JDK-v8.0-yellow.svg)](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 [![Build](http://img.shields.io/badge/Build-Maven_2-green.svg)](https://maven.apache.org/)
 [![License](http://img.shields.io/badge/License-Apache_2-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
-
-文档
----
-
-* [carnival-spring-boot-starter-gravatar](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-gravatar)
-* [carnival-spring-boot-starter-id](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-id)
-* [carnival-spring-boot-starter-password](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-password)
-* [carnival-spring-boot-starter-restful-security](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-security)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.yingzhuo/carnival.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.yingzhuo%22%20AND%20a:%22carnival%22)
 
 联系我
 ----
