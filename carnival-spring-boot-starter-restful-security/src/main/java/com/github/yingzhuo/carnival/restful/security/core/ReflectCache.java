@@ -33,12 +33,12 @@ final class ReflectCache {
             final Collection<HandlerMethod> handlerMethods = RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values();
 
             for (HandlerMethod hm : handlerMethods) {
-                final List<MethodCheckPoint> list = new LinkedList<>();
+                final LinkedList<MethodCheckPoint> list = new LinkedList<>();
 
                 for (Annotation typeAnnotation : hm.getBeanType().getDeclaredAnnotations()) {
                     Requires requires = typeAnnotation.annotationType().getAnnotation(Requires.class);
                     if (requires != null) {
-                        list.add(new MethodCheckPoint(typeAnnotation, SpringUtils.getBean(requires.value())));
+                        list.addFirst(new MethodCheckPoint(typeAnnotation, SpringUtils.getBean(requires.value())));
                     }
                 }
 
@@ -55,7 +55,7 @@ final class ReflectCache {
                             }
                         }
 
-                        list.add(new MethodCheckPoint(methodAnnotation, SpringUtils.getBean(requires.value())));
+                        list.addFirst(new MethodCheckPoint(methodAnnotation, SpringUtils.getBean(requires.value())));
                     }
                 }
 
