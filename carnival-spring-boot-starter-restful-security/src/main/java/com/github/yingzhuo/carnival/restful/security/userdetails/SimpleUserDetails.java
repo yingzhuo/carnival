@@ -37,6 +37,7 @@ class SimpleUserDetails implements UserDetails {
     private boolean locked = false;
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
+    private boolean admin = false;
     private Object nativeUser = null;
 
     public void putPayload(String name, Object value) {

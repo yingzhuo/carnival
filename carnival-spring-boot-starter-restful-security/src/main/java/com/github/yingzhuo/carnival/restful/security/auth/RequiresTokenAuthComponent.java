@@ -26,10 +26,9 @@ public class RequiresTokenAuthComponent implements AuthenticationComponent<Requi
 
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresToken annotation) throws RestfulSecurityException {
-
         if (token == null) {
             throw new TokenNotFoundException(getMessage(annotation.errorMessage()));
         }
-
     }
+
 }

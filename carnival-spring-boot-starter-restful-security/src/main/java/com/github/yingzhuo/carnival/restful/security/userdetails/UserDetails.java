@@ -52,6 +52,12 @@ public interface UserDetails extends Serializable {
 
     public Collection<Permission> getPermissions();
 
+    public boolean isAdmin();
+
+    public default boolean isNotAdmin() {
+        return !isAdmin();
+    }
+
     public <U> U getNativeUser();
 
     public Map<String, Object> getPayload();
@@ -139,6 +145,11 @@ public interface UserDetails extends Serializable {
 
         public Builder permissions(String... permissionNames) {
             ud.setPermissions(Arrays.stream(permissionNames).map(Permission::of).collect(Collectors.toList()));
+            return this;
+        }
+
+        public Builder admin(boolean admin) {
+            ud.setAdmin(admin);
             return this;
         }
 

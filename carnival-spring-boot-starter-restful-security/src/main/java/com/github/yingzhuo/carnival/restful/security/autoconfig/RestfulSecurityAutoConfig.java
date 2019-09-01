@@ -92,4 +92,10 @@ public class RestfulSecurityAutoConfig {
     public RequiresAdultAuthComponent requiresAdultAuthenticationComponent() {
         return new RequiresAdultAuthComponent();
     }
+
+    @Bean
+    public RequiresAdminAuthComponent requiresAdminAuthComponent() {
+        return new RequiresAdminAuthComponent();
+    }
+
 }

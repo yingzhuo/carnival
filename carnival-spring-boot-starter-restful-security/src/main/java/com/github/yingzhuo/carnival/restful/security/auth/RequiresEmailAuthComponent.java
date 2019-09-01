@@ -11,10 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.auth;
 
 import com.github.yingzhuo.carnival.restful.security.RequiresEmail;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
-import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
-import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
-import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
+import com.github.yingzhuo.carnival.restful.security.exception.*;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -50,7 +47,8 @@ public class RequiresEmailAuthComponent implements AuthenticationComponent<Requi
         val required = annotation.value();
         val actual = userDetails.getEmail();
         if (!StringUtils.equalsIgnoreCase(required, actual)) {
-            throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            throw new AuthorizationException(getMessage(annotation.errorMessage()));
         }
     }
+
 }

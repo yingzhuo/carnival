@@ -9,24 +9,22 @@
  */
 package com.github.yingzhuo.carnival.restful.security.auth;
 
-import com.github.yingzhuo.carnival.restful.security.RequiresUsername;
+import com.github.yingzhuo.carnival.restful.security.RequiresAdmin;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.val;
 
 import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.getMessage;
 
 /**
  * @author 应卓
- * @since 1.1.5
+ * @since 1.1.6
  */
-public class RequiresUsernameAuthComponent implements AuthenticationComponent<RequiresUsername> {
+public class RequiresAdminAuthComponent implements AuthenticationComponent<RequiresAdmin> {
 
     @Override
-    public void authenticate(Token token, UserDetails userDetails, RequiresUsername annotation) throws RestfulSecurityException {
-
+    public void authenticate(Token token, UserDetails userDetails, RequiresAdmin annotation) throws RestfulSecurityException {
         if (userDetails == null) {
             throw new AuthenticationException(getMessage(annotation.errorMessage()));
         }
@@ -39,17 +37,8 @@ public class RequiresUsernameAuthComponent implements AuthenticationComponent<Re
             throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
         }
 
-        val caseSensitive = annotation.caseSensitive();
-        val requiredUsername = annotation.value();
-
-        if (caseSensitive) {
-            if (!requiredUsername.equals(userDetails.getUsername())) {
-                throw new AuthorizationException(getMessage(annotation.errorMessage()));
-            }
-        } else {
-            if (!requiredUsername.equalsIgnoreCase(userDetails.getUsername())) {
-                throw new AuthorizationException(getMessage(annotation.errorMessage()));
-            }
+        if (!userDetails.isAdmin()) {
+            throw new AuthorizationException(getMessage(annotation.errorMessage()));
         }
     }
 
