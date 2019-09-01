@@ -20,6 +20,7 @@ import com.github.yingzhuo.carnival.restful.security.parser.AlwaysEmptyTokenPars
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.AlwaysEmptyUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.refuse.RefuseManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -48,6 +49,9 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private TokenBlacklistManager tokenBlackListManager;
+
+    @Autowired
+    private RefuseManager refuseManager;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -78,6 +82,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         interceptor.setUserDetailsRealm(udr);
         interceptor.setCacheManager(cacheManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
+        interceptor.setRefuseManager(refuseManager);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 

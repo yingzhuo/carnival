@@ -7,21 +7,19 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.permission;
+package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓
+ * @since 1.1.6
  */
-public class SimplePermission implements Permission {
+public class AccessRefusedException extends RestfulSecurityException {
 
-    private final String name;
-
-    public SimplePermission(String name) {
-        this.name = name;
+    public AccessRefusedException() {
     }
 
-    @Override
-    public String getName() {
-        return this.name;
+    public AccessRefusedException(String message) {
+        super(message);
     }
+
 }
