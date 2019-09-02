@@ -126,6 +126,10 @@ public interface UserDetails extends Serializable {
             return this;
         }
 
+        public Builder dateOfBirth(int year, int month, int day) {
+            return dateOfBirth(new GregorianCalendar(year, month - 1, day).getTime());
+        }
+
         public Builder expired(boolean expired) {
             ud.setExpired(expired);
             return this;
