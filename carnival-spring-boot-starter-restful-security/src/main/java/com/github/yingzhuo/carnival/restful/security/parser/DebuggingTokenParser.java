@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
+import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
@@ -26,6 +27,13 @@ public class DebuggingTokenParser implements TokenParser {
     public Optional<Token> parse(NativeWebRequest webRequest) {
         return Optional.of(new EmptyToken());
     }
+
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     private static class EmptyToken implements Token {
         @Override

@@ -37,8 +37,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
             final JWTVerifier verifier = JWT.require(SpringUtils.getBean(JwtProps.class).getAlgorithm()).build();
 
             try {
-                final DecodedJWT jwt = verifier.verify(tokenValue);
-                return Optional.ofNullable(this.getUserDetails(token, jwt));
+                return Optional.ofNullable(getUserDetails(token, verifier.verify(tokenValue)));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
                 throw new AlgorithmMismatchException(ex.getMessage(), ex);
             } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {

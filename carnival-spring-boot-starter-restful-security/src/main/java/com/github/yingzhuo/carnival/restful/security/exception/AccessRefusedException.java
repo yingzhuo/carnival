@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 
 /**
  * @author 应卓
+ * @see com.github.yingzhuo.carnival.restful.security.refuse.RefuseManager
  * @since 1.1.6
  */
 public class AccessRefusedException extends RestfulSecurityException {

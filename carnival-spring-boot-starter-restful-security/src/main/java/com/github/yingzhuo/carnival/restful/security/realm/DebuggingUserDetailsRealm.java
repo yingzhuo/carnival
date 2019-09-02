@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.realm;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import org.springframework.core.Ordered;
 
 import java.util.Optional;
 
@@ -31,6 +32,11 @@ public class DebuggingUserDetailsRealm implements UserDetailsRealm {
     @Override
     public Optional<UserDetails> loadUserDetails(Token token) {
         return builder != null ? Optional.of(builder.build()) : Optional.empty();
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.LOWEST_PRECEDENCE;
     }
 
 }
