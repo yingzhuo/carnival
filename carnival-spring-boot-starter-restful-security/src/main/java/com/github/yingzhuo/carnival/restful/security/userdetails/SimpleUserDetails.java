@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.Getter;
@@ -33,6 +34,7 @@ class SimpleUserDetails implements UserDetails {
     private String email = null;
     private String password = null;
     private Date dateOfBirth = null;
+    private Gender gender = null;
     private boolean expired = false;
     private boolean locked = false;
     private Collection<Role> roles = Collections.emptyList();

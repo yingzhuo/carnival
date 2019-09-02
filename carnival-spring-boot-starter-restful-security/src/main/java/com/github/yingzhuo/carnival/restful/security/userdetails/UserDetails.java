@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
@@ -35,6 +36,8 @@ public interface UserDetails extends Serializable {
     public Date getDateOfBirth();
 
     public String getPassword();
+
+    public Gender getGender();
 
     public boolean isExpired();
 
@@ -87,7 +90,7 @@ public interface UserDetails extends Serializable {
 
     public static class Builder {
 
-        private SimpleUserDetails ud = new SimpleUserDetails();
+        private final SimpleUserDetails ud = new SimpleUserDetails();
 
         private Builder() {
             super();
@@ -110,6 +113,11 @@ public interface UserDetails extends Serializable {
 
         public Builder password(String password) {
             ud.setPassword(password);
+            return this;
+        }
+
+        public Builder gender(Gender gender) {
+            ud.setGender(gender);
             return this;
         }
 

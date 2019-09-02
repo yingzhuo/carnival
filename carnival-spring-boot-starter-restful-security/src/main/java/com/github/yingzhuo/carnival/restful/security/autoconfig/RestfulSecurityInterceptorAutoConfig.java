@@ -56,8 +56,8 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        TokenParser tp;
-        UserDetailsRealm udr;
+        final TokenParser tp;
+        final UserDetailsRealm udr;
 
         if (tokenParsers.size() == 1) {
             tp = tokenParsers.get(0);

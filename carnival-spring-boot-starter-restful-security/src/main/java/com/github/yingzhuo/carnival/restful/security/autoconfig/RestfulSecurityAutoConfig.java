@@ -98,4 +98,9 @@ public class RestfulSecurityAutoConfig {
         return new RequiresAdminAuthComponent();
     }
 
+    @Bean
+    public RequiresGenderAuthComponent requiresGenderAuthComponent() {
+        return new RequiresGenderAuthComponent();
+    }
+
 }

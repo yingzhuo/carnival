@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
  * @author 应卓
  * @since 1.1.4
  */
-final class MessageUtils {
+public final class MessageUtils {
 
     private MessageUtils() {
     }

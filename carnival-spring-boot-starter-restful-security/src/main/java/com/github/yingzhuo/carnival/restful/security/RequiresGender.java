@@ -9,8 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.annotation.Requires;
-import com.github.yingzhuo.carnival.restful.security.auth.RequiresAdminAuthComponent;
+import com.github.yingzhuo.carnival.restful.security.auth.RequiresGenderAuthComponent;
 
 import java.lang.annotation.*;
 
@@ -22,8 +23,10 @@ import java.lang.annotation.*;
 @Inherited
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Requires(RequiresAdminAuthComponent.class)
-public @interface RequiresAdmin {
+@Requires(RequiresGenderAuthComponent.class)
+public @interface RequiresGender {
+
+    public Gender value();
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 

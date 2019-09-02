@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.util;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -25,6 +26,8 @@ public final class UserDetailsUtils {
 
     private UserDetailsUtils() {
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static UserDetails get() {
         return RestfulSecurityContext.getUserDetails().orElse(null);
@@ -53,6 +56,21 @@ public final class UserDetailsUtils {
     public static Date getDateOfBirth() {
         val userDetails = get();
         return userDetails != null ? userDetails.getDateOfBirth() : null;
+    }
+
+    public static boolean isAdmin() {
+        val userDetails = get();
+        return userDetails != null && userDetails.isAdmin();
+    }
+
+    public static boolean isNotAdmin() {
+        val userDetails = get();
+        return userDetails != null && userDetails.isNotAdmin();
+    }
+
+    public static Gender getGender() {
+        val userDetails = get();
+        return userDetails != null ? userDetails.getGender() : null;
     }
 
     public static <T> T getNativeUser() {
