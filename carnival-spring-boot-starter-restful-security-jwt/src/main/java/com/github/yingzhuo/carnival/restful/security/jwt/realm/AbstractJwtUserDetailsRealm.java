@@ -34,11 +34,10 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
-
             final JWTVerifier verifier = JWT.require(SpringUtils.getBean(JwtProps.class).getAlgorithm()).build();
 
             try {
-                DecodedJWT jwt = verifier.verify(tokenValue);
+                final DecodedJWT jwt = verifier.verify(tokenValue);
                 return Optional.ofNullable(this.getUserDetails(token, jwt));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
                 throw new AlgorithmMismatchException(ex.getMessage(), ex);
@@ -66,4 +65,5 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
     public void setOrder(int order) {
         this.order = order;
     }
+
 }

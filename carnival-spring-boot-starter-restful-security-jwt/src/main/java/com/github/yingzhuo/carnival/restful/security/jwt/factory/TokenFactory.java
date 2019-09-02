@@ -9,18 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
-import java.util.function.Function;
-
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface TokenFactory<S, T> extends Function<S, T> {
+public interface TokenFactory<S, T> {
 
     public T create(S s);
-
-    public default T apply(S s) {
-        return create(s);
-    }
 
 }
