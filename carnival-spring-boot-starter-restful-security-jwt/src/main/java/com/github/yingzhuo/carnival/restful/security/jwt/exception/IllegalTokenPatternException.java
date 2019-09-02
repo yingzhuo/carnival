@@ -7,13 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.parser;
-
-import com.github.yingzhuo.carnival.restful.security.parser.BearerStringTokenParser;
+package com.github.yingzhuo.carnival.restful.security.jwt.exception;
 
 /**
  * @author 应卓
- * @since 1.1.4
+ * @since 1.1.6
  */
-public class DefaultJwtTokenParser extends BearerStringTokenParser {
+public class IllegalTokenPatternException extends IllegalArgumentException {
+
+    public IllegalTokenPatternException() {
+    }
+
 }
