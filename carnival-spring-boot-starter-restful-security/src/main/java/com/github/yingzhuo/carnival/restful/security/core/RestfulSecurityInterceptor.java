@@ -14,14 +14,12 @@ import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationCo
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
-import com.github.yingzhuo.carnival.restful.security.exception.AccessRefusedException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.refuse.RefuseManager;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -37,7 +35,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@Slf4j
+@SuppressWarnings({"unchecked"})
 public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     private TokenParser tokenParser;
@@ -105,7 +103,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
-                log.debug("AuthenticationComponent = {}", ac.getClass());
 
                 ac.authenticate(
                         RestfulSecurityContext.getToken().orElse(null),
