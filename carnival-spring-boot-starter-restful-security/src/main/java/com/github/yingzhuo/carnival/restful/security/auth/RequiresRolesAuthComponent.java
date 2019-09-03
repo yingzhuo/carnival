@@ -46,7 +46,7 @@ public class RequiresRolesAuthComponent implements AuthenticationComponent<Requi
         final List<String> require = Arrays.asList(annotation.value());
         final Set<String> actual = new HashSet<>(userDetails.getRoleNames());
 
-        if (annotation.logical() == Logical.OR) {
+        if (annotation.logical() == Logical.ANY) {
             if (require.stream().noneMatch(actual::contains)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }

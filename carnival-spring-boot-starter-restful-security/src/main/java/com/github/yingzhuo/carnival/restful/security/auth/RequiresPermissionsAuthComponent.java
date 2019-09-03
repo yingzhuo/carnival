@@ -45,7 +45,7 @@ public class RequiresPermissionsAuthComponent implements AuthenticationComponent
 
         List<String> require = Arrays.asList(annotation.value());
         Set<String> actual = new HashSet<>(userDetails.getPermissionNames());
-        if (annotation.logical() == Logical.AND) {
+        if (annotation.logical() == Logical.ALL) {
             if (!actual.containsAll(require)) {
                 throw new AuthorizationException(getMessage(annotation.errorMessage()));
             }

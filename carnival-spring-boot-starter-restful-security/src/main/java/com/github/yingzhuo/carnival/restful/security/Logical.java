@@ -19,11 +19,11 @@ public enum Logical {
     /**
      * 或
      */
-    OR,
+    ANY,
 
     /**
      * 与
      */
-    AND
+    ALL
 
 }

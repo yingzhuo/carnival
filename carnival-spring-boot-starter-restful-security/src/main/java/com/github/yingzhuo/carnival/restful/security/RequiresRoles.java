@@ -26,7 +26,7 @@ public @interface RequiresRoles {
 
     public String[] value();
 
-    public Logical logical() default Logical.OR;
+    public Logical logical() default Logical.ANY;
 
     public String errorMessage() default ":::<NO MESSAGE>:::";
 
