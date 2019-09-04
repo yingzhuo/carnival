@@ -23,13 +23,14 @@ import java.util.Arrays;
 
 /**
  * @author 应卓
- * @since 0.0.1
+ * @see SpringUtils
+ * @since 1.0.0
  */
-public class SpringUtilsInitBean implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
+public class ApplicationContextProvider implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
 
-    public static final SpringUtilsInitBean INSTANCE = new SpringUtilsInitBean();
+    public static final ApplicationContextProvider INSTANCE = new ApplicationContextProvider();
 
-    private SpringUtilsInitBean() {
+    private ApplicationContextProvider() {
     }
 
     @Override

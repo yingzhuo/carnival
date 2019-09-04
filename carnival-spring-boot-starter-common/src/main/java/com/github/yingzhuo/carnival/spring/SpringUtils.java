@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.spring;
 
 import lombok.val;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -36,10 +37,13 @@ import java.util.TimeZone;
 @SuppressWarnings("unchecked")
 public final class SpringUtils {
 
+    public static final String __identity__ = "__identity__";
+
     static ApplicationContext AC = null;
     static Environment ENV = null;
     static ApplicationArguments APP_ARGS = null;
     static List<String> CMD_ARGS = null;
+
 
     private SpringUtils() {
     }
@@ -73,7 +77,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return AC.getId() + "-" + AC.getBean("__identity__", String.class);
+        return AC.getId() + "-" + getSpringStartupDateAsString("yyyyMMddHHmmssSSS") + "-" + AC.getBean(__identity__, String.class);
     }
 
     public static String getDisplayName() {
@@ -84,6 +88,10 @@ public final class SpringUtils {
         final Date date = new Date();
         date.setTime(AC.getStartupDate());
         return date;
+    }
+
+    public static String getSpringStartupDateAsString(String pattern) {
+        return DateFormatUtils.format(getSpringStartupDate(), pattern);
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

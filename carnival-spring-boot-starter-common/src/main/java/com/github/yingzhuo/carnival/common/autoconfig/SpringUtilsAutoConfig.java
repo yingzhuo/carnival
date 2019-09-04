@@ -9,7 +9,8 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.spring.SpringUtilsInitBean;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
+import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -24,11 +25,11 @@ public class SpringUtilsAutoConfig implements Ordered {
 
     @Bean
     @ConditionalOnMissingBean
-    public SpringUtilsInitBean springUtilsInitBean() {
-        return SpringUtilsInitBean.INSTANCE;
+    public ApplicationContextProvider applicationContextProvider() {
+        return ApplicationContextProvider.INSTANCE;
     }
 
-    @Bean(name = "__identity__")
+    @Bean(name = SpringUtils.__identity__)
     public IdentityFactoryBean identity() {
         return new IdentityFactoryBean();
     }
