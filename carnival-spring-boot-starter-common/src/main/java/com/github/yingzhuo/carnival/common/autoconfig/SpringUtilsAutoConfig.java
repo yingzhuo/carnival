@@ -13,13 +13,14 @@ import com.github.yingzhuo.carnival.spring.SpringUtilsInitBean;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
 
 import java.util.UUID;
 
 /**
  * @author 应卓
  */
-public class SpringUtilsAutoConfig {
+public class SpringUtilsAutoConfig implements Ordered {
 
     @Bean
     @ConditionalOnMissingBean
@@ -30,6 +31,11 @@ public class SpringUtilsAutoConfig {
     @Bean(name = "__identity__")
     public IdentityFactoryBean identity() {
         return new IdentityFactoryBean();
+    }
+
+    @Override
+    public int getOrder() {
+        return Ordered.HIGHEST_PRECEDENCE;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
