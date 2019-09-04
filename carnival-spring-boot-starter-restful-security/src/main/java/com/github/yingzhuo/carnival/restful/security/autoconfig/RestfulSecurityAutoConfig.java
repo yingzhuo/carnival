@@ -103,4 +103,24 @@ public class RestfulSecurityAutoConfig {
         return new RequiresGenderAuthComponent();
     }
 
+    @Bean
+    public RequiresAnyRoleAuthComponent requiresAnyRoleAuthComponent() {
+        return new RequiresAnyRoleAuthComponent();
+    }
+
+    @Bean
+    public RequiresAllRolesAuthComponent requiresAllRolesAuthComponent() {
+        return new RequiresAllRolesAuthComponent();
+    }
+
+    @Bean
+    public RequiresAnyPermissionAuthComponent requiresAnyPermissionAuthComponent() {
+        return new RequiresAnyPermissionAuthComponent();
+    }
+
+    @Bean
+    public RequiresAllPermissionsAuthComponent requiresAllPermissionsAuthComponent() {
+        return new RequiresAllPermissionsAuthComponent();
+    }
+
 }
