@@ -30,7 +30,7 @@ public class JwtToken extends StringToken {
     public JwtToken(String value) {
         super(value);
 
-        val parts = value.split(".");
+        val parts = value.split("\\.");
 
         if (parts.length != 3) {
             throw new IllegalTokenPatternException();
