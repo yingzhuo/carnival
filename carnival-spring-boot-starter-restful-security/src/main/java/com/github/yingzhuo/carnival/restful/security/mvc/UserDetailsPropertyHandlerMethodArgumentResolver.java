@@ -11,10 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
-import com.github.yingzhuo.carnival.restful.security.token.ByteArrayToken;
-import com.github.yingzhuo.carnival.restful.security.token.StringToken;
-import com.github.yingzhuo.carnival.restful.security.token.Token;
-import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
@@ -33,22 +29,11 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(UserDetailsProperty.class) ||
-                parameter.getParameterType() == UsernamePasswordToken.class ||
-                parameter.getParameterType() == Token.class ||
-                parameter.getParameterType() == StringToken.class ||
-                parameter.getParameterType() == ByteArrayToken.class ||
                 parameter.getParameterType() == UserDetails.class;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-
-        if (parameter.getParameterType() == Token.class ||
-                parameter.getParameterType() == UsernamePasswordToken.class ||
-                parameter.getParameterType() == ByteArrayToken.class ||
-                parameter.getParameterType() == StringToken.class) {
-            return RestfulSecurityContext.getToken().orElse(null);
-        }
 
         if (parameter.getParameterType() == UserDetails.class) {
             return RestfulSecurityContext.getUserDetails().orElse(null);

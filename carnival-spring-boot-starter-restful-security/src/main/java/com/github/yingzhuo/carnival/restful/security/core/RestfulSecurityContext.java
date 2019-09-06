@@ -32,23 +32,25 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(tokenHolder.get());
     }
 
-    public static void setToken(Token token) {
-        tokenHolder.set(token);
-    }
-
     public static Optional<UserDetails> getUserDetails() {
         return Optional.ofNullable(userDetailsHolder.get());
-    }
-
-    public static void setUserDetails(UserDetails userDetails) {
-        userDetailsHolder.set(userDetails);
     }
 
     public static boolean getIgnored() {
         return ignored.get();
     }
 
-    public static void setIgnored(boolean ignore) {
+    // -----------------------------------------------------------------------------------------------------------------
+
+    static void setUserDetails(UserDetails userDetails) {
+        userDetailsHolder.set(userDetails);
+    }
+
+    static void setToken(Token token) {
+        tokenHolder.set(token);
+    }
+
+    static void setIgnored(boolean ignore) {
         ignored.set(ignore);
     }
 

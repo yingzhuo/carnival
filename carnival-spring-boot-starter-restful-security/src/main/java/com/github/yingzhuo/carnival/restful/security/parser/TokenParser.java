@@ -29,6 +29,11 @@ public interface TokenParser extends Ordered {
 
     public Optional<Token> parse(NativeWebRequest webRequest);
 
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
+
     public default TokenParser or(TokenParser that) {
         return (webRequest) -> {
             val thisOp = this.parse(webRequest);
@@ -39,11 +44,6 @@ public interface TokenParser extends Ordered {
                 return Objects.requireNonNull(that).parse(webRequest);
             }
         };
-    }
-
-    @Override
-    public default int getOrder() {
-        return 0;
     }
 
 }

@@ -25,6 +25,11 @@ public interface UserDetailsRealm extends Ordered {
 
     public Optional<UserDetails> loadUserDetails(Token token);
 
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
+
     public default UserDetailsRealm or(UserDetailsRealm that) {
         return token -> {
             val thisOp = this.loadUserDetails(token);
@@ -35,11 +40,6 @@ public interface UserDetailsRealm extends Ordered {
                 return Objects.requireNonNull(that).loadUserDetails(token);
             }
         };
-    }
-
-    @Override
-    public default int getOrder() {
-        return 0;
     }
 
 }
