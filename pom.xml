@@ -17,6 +17,7 @@
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
+        <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-password2</module>
@@ -364,6 +365,13 @@
                 <artifactId>lombok</artifactId>
                 <version>1.18.8</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!-- mustache -->
+            <dependency>
+                <groupId>com.github.spullara.mustache.java</groupId>
+                <artifactId>compiler</artifactId>
+                <version>0.9.6</version>
             </dependency>
 
             <!-- jwt -->
