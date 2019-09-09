@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
