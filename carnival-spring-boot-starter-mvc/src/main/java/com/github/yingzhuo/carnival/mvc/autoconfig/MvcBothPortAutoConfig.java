@@ -27,6 +27,7 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "server.http", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcBothPortAutoConfig.Props.class)
+@Deprecated // 将在1.2.0版本中删除 定义十分混乱
 public class MvcBothPortAutoConfig {
 
     @Autowired
@@ -49,8 +50,11 @@ public class MvcBothPortAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "server.http")
+    @Deprecated
     static class Props {
+        @Deprecated
         private boolean enabled = false;
+        @Deprecated
         private int port = -1;
     }
 
