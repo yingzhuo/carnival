@@ -102,7 +102,7 @@ public class IdGeneratorAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties("carnival.id")
+    @ConfigurationProperties(prefix = "carnival.id")
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.SNOWFLAKE;
