@@ -362,15 +362,8 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.8</version>
+                <version>1.18.10</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <!-- mustache -->
-            <dependency>
-                <groupId>com.github.spullara.mustache.java</groupId>
-                <artifactId>compiler</artifactId>
-                <version>0.9.6</version>
             </dependency>
 
             <!-- jwt -->
