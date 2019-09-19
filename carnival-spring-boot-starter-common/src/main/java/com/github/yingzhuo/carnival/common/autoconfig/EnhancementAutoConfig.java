@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
+ * @since 1.1.9
  */
 public class EnhancementAutoConfig {
 
