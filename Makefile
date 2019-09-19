@@ -29,7 +29,7 @@ version:
 	@mvn -f $(CURDIR)/pom.xml -N versions:update-child-modules
 	@mvn -f $(CURDIR)/pom.xml versions:commit
 
-push-code:
+push-code: clean
 	@git add .
 	@git commit -m "$(timestamp)"
 	@git push
