@@ -143,4 +143,27 @@ public class InvalidDataAccessException extends CarnivalStandardException {
         state(map != null && !map.isEmpty(), format, args);
     }
 
+    public static <T> void noNullElement(Collection<T> collection) {
+        notEmpty(collection);
+        boolean noNull = collection.stream().noneMatch(Objects::isNull);
+        state(noNull);
+    }
+
+    public static <T> void noNullElement(Collection<T> collection, String format, Objects... args) {
+        notEmpty(collection, format, args);
+        boolean noNull = collection.stream().noneMatch(Objects::isNull);
+        state(noNull, format, args);
+    }
+
+    public static <T> void noNullElement(T[] array) {
+        notEmpty(array);
+        boolean noNull = Arrays.stream(array).noneMatch(Objects::isNull);
+        state(noNull);
+    }
+
+    public static <T> void noNullElement(T[] array, String format, Objects... args) {
+        notEmpty(array, format, args);
+        boolean noNull = Arrays.stream(array).noneMatch(Objects::isNull);
+        state(noNull, format, args);
+    }
 }
