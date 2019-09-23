@@ -131,7 +131,6 @@ public class Json implements ApiResult<Json.Payload> {
 
         public Payload() {
         }
-
     }
 
 }

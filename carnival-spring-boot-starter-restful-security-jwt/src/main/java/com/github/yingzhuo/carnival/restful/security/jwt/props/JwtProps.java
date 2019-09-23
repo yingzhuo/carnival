@@ -18,12 +18,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  */
 @Slf4j
 @ConfigurationProperties(prefix = "carnival.jwt")
-public class JwtProps implements InitializingBean {
+public class JwtProps implements Serializable, InitializingBean {
 
     private String secret = JwtProps.class.getName();
     private String secretLocation = null;

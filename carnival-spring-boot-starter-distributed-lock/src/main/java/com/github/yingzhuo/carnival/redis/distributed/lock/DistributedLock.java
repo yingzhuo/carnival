@@ -169,34 +169,6 @@ public final class DistributedLock implements Constant {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static boolean lockMultiple(List<String> keys, long expireInMillis) {
-        final Stack<String> stack = new Stack<>();
-
-        for (String key : keys) {
-            if (lock(key, expireInMillis)) {
-                stack.push(key);
-            } else {
-                while (!stack.isEmpty()) {
-                    final String locked = stack.pop();
-                    release(locked);
-                }
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean lockMultiple(List<String> keys) {
-        for (String key : keys) {
-            if (!release(key)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
     private DistributedLock() {
     }
 

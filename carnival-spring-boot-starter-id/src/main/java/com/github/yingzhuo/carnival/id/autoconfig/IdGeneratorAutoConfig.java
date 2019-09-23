@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.id.autoconfig;
 
+import com.github.yingzhuo.carnival.common.util.EnvironmentUtils;
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
@@ -39,26 +40,22 @@ public class IdGeneratorAutoConfig {
     public IdGenerator<?> idGenerator(Props props) {
 
         switch (props.getAlgorithm()) {
-            case UUID_32:
-                return new UUID32IdGenerator();
-            case UUID_36:
-                return new UUID36IdGenerator();
             case SNOWFLAKE:
             case SNOWFLAKE_STRING:
 
-                // 本地配置
+                // property配置
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
 
                 // 环境变量
-                val envWorkerId = getEnvWorkId();
-                val envDataCenterId = getEnvDataCenterId();
+                val envWorkerId = EnvironmentUtils.getLongOrDefault("CARNIVAL_SNOWFLAKE_WORKER_ID", -1L);
+                val envDataCenterId = EnvironmentUtils.getLongOrDefault("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID", -1L);
 
-                if (envWorkerId != -1) {
+                if (envWorkerId != -1L) {
                     workerId = envWorkerId;
                 }
 
-                if (envDataCenterId != -1) {
+                if (envDataCenterId != -1L) {
                     dataCenterId = envDataCenterId;
                 }
 
@@ -70,29 +67,13 @@ public class IdGeneratorAutoConfig {
                 } else {
                     return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
                 }
+            case UUID_32:
+                return new UUID32IdGenerator();
+            case UUID_36:
+                return new UUID36IdGenerator();
 
             default:
                 throw new AssertionError();
-        }
-    }
-
-    private long getEnvWorkId() {
-        try {
-            val value = Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_WORKER_ID"));
-            log.trace("CARNIVAL_SNOWFLAKE_WORKER_ID (environment): {}", value);
-            return value;
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    private long getEnvDataCenterId() {
-        try {
-            val value = Long.parseLong(System.getenv("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID"));
-            log.trace("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID (environment): {}", value);
-            return value;
-        } catch (NumberFormatException e) {
-            return -1;
         }
     }
 

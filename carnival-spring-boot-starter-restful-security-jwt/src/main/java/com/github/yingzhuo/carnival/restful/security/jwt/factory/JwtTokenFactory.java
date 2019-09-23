@@ -13,9 +13,8 @@ package com.github.yingzhuo.carnival.restful.security.jwt.factory;
  * @author 应卓
  */
 @FunctionalInterface
-public interface JwtTokenFactory extends TokenFactory<JwtTokenInfo, String> {
+public interface JwtTokenFactory {
 
-    @Override
     public String create(JwtTokenInfo entity);
 
     public default String create(JwtTokenInfo.Builder builder) {
