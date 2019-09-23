@@ -10,20 +10,13 @@
 package com.github.yingzhuo.carnival.password;
 
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * @author 应卓
  */
-@FunctionalInterface
-public interface PasswordEncrypter extends Function<String, String> {
+public interface PasswordEncrypter {
 
     public String encrypt(String password);
-
-    @Override
-    default String apply(String s) {
-        return encrypt(s);
-    }
 
     public default boolean matches(String password, String encrypted) {
         Objects.requireNonNull(password);
@@ -33,6 +26,16 @@ public interface PasswordEncrypter extends Function<String, String> {
 
     public default boolean notMatches(String password, String encrypted) {
         return !matches(password, encrypted);
+    }
+
+    public default boolean matchesIgnoreCases(String password, String encrypted) {
+        Objects.requireNonNull(password);
+        Objects.requireNonNull(encrypted);
+        return encrypt(password).equalsIgnoreCase(encrypted);
+    }
+
+    public default boolean notMatchesIgnoreCases(String password, String encrypted) {
+        return !matchesIgnoreCases(password, encrypted);
     }
 
 }

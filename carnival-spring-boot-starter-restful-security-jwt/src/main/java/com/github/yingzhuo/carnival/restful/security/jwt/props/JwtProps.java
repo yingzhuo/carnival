@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.jwt.props;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.github.yingzhuo.carnival.common.io.ResourceToLine;
+import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +35,7 @@ public class JwtProps implements InitializingBean {
         Assert.notNull(signatureAlgorithm, (String) null);
 
         if (StringUtils.isBlank(secret) && StringUtils.isNotBlank(secretLocation)) {
-            this.secret = ResourceToLine.apply(secretLocation).trim();
+            this.secret = ResourceText.apply(secretLocation).trim();
         }
 
         log.info("carnival.jwt.secret = {}", this.secret);

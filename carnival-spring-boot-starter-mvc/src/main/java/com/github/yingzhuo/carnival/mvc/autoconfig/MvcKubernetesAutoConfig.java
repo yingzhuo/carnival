@@ -51,5 +51,4 @@ public class MvcKubernetesAutoConfig implements WebMvcConfigurer {
         private String livenessProbePath = "/liveness-probe";
         private String readinessProbePath = "/readiness-probe";
     }
-
 }

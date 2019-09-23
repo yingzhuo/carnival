@@ -7,14 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id;
+package com.github.yingzhuo.carnival.redis.distributed.lock;
 
 /**
  * @author 应卓
+ * @since 1.1.10
  */
-@FunctionalInterface
-public interface IdGenerator<ID> {
-
-    public ID nextId();
-
+interface Constant {
+    static final String LOCK_SUCCESS = "OK";
+    static final String SET_IF_NOT_EXIST = "NX";
+    static final String SET_WITH_EXPIRE_TIME = "PX";
+    static final Long RELEASE_SUCCESS = 1L;
 }

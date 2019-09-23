@@ -17,15 +17,14 @@ import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
- * @since 1.0.6
+ * @since 1.1.10
  */
-public final class ResourceToLine implements Serializable {
+public final class ResourceText implements Serializable {
 
     private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
 
@@ -34,24 +33,6 @@ public final class ResourceToLine implements Serializable {
     }
 
     public static String apply(String location, Charset charset) {
-        return new ResourceToLine(location, charset).getContent();
-    }
-
-    private final String location;
-    private final String content;
-    private final Charset charset;
-
-    public ResourceToLine(String location) {
-        this(location, StandardCharsets.UTF_8);
-    }
-
-    public ResourceToLine(String location, Charset charset) {
-        this.location = location;
-        this.charset = charset;
-        this.content = init(this.location);
-    }
-
-    private String init(String location) {
         try {
             val resource = RESOURCE_LOADER.getResource(location);
             val lines = IOUtils.readLines(resource.getInputStream(), charset);
@@ -59,25 +40,13 @@ public final class ResourceToLine implements Serializable {
             resource.getInputStream().close();
             return result;
         } catch (IOException e) {
-            throw new UncheckedIOException(e);
+            throw new UnsupportedOperationException(e);
         }
     }
 
-    @Override
-    public String toString() {
-        return this.content;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public String getLocation() {
-        return this.location;
-    }
-
-    public String getContent() {
-        return this.content;
-    }
-
-    public Charset getCharset() {
-        return this.charset;
+    private ResourceText() {
     }
 
 }

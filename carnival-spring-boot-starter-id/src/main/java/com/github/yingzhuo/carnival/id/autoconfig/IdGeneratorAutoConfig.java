@@ -20,7 +20,6 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import lombok.var;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -35,12 +34,9 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class IdGeneratorAutoConfig {
 
-    @Autowired
-    private Props props;
-
     @Bean
     @ConditionalOnMissingBean
-    public IdGenerator<?> idGenerator() {
+    public IdGenerator<?> idGenerator(Props props) {
 
         switch (props.getAlgorithm()) {
             case UUID_32:

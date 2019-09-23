@@ -68,7 +68,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
             return true;
         }
 
-
         final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
             return true;

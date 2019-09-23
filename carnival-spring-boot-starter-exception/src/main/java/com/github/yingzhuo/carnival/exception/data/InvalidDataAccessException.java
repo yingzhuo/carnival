@@ -48,7 +48,6 @@ public class InvalidDataAccessException extends CarnivalStandardException {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-
     public static void state(boolean expression) {
         if (!expression) {
             throw new InvalidDataAccessException(null);

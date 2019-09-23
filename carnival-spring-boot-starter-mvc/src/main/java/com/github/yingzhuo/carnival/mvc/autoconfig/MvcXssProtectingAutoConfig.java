@@ -58,4 +58,5 @@ public class MvcXssProtectingAutoConfig implements WebMvcConfigurer {
             filterChain.doFilter(new XssProtectingRequest(request), response);
         }
     }
+
 }

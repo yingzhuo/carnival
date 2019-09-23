@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.secret.autoconfig;
 
-import com.github.yingzhuo.carnival.common.io.ResourceToLine;
+import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.secret.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -72,11 +72,11 @@ public class SecretAutoConfig {
         @Override
         public void afterPropertiesSet() {
             if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyLocation)) {
-                this.publicKey = ResourceToLine.apply(publicKeyLocation).trim();
+                this.publicKey = ResourceText.apply(publicKeyLocation).trim();
             }
 
             if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyLocation)) {
-                this.privateKey = ResourceToLine.apply(privateKeyLocation).trim();
+                this.privateKey = ResourceText.apply(privateKeyLocation).trim();
             }
         }
     }
@@ -92,7 +92,7 @@ public class SecretAutoConfig {
         @Override
         public void afterPropertiesSet() {
             if (StringUtils.isBlank(passphrase) && StringUtils.isNotBlank(passphraseLocation)) {
-                this.passphrase = ResourceToLine.apply(passphraseLocation).trim();
+                this.passphrase = ResourceText.apply(passphraseLocation).trim();
             }
         }
     }

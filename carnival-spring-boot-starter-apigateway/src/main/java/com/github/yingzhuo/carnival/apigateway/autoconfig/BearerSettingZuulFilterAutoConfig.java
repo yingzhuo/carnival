@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.apigateway.autoconfig;
 
 import com.github.yingzhuo.carnival.apigateway.filter.BearerHttpZuulFilter;
-import com.github.yingzhuo.carnival.common.io.ResourceToLine;
+import com.github.yingzhuo.carnival.common.io.ResourceText;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -49,7 +49,7 @@ public class BearerSettingZuulFilterAutoConfig {
         public void afterPropertiesSet() {
             if (enabled) {
                 if (StringUtils.isNotBlank(valueLocation)) {
-                    this.value = ResourceToLine.apply(valueLocation);
+                    this.value = ResourceText.apply(valueLocation);
                 }
             }
         }

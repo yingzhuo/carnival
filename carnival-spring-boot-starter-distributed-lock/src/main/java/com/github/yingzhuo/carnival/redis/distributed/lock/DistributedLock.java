@@ -20,7 +20,9 @@ import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisCommands;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * Redis实现分布式锁
@@ -28,15 +30,7 @@ import java.util.Objects;
  * @author 应卓
  */
 @Slf4j
-public final class DistributedLock {
-
-    private static final String LOCK_SUCCESS = "OK";
-    private static final String SET_IF_NOT_EXIST = "NX";
-    private static final String SET_WITH_EXPIRE_TIME = "PX";
-    private static final Long RELEASE_SUCCESS = 1L;
-
-    private DistributedLock() {
-    }
+public final class DistributedLock implements Constant {
 
     public static boolean lock(String key, long expireInMillis) {
 
@@ -171,6 +165,39 @@ public final class DistributedLock {
                 ((Jedis) jedisCommands).close();
             }
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public static boolean lockMultiple(List<String> keys, long expireInMillis) {
+        final Stack<String> stack = new Stack<>();
+
+        for (String key : keys) {
+            if (lock(key, expireInMillis)) {
+                stack.push(key);
+            } else {
+                while (!stack.isEmpty()) {
+                    final String locked = stack.pop();
+                    release(locked);
+                }
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean lockMultiple(List<String> keys) {
+        for (String key : keys) {
+            if (!release(key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private DistributedLock() {
     }
 
 }
