@@ -13,13 +13,10 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 
 /**
  * @author 应卓
- * @see SpringUtils
  */
 public final class ServletUtils {
 
@@ -31,9 +28,29 @@ public final class ServletUtils {
         return attributes.getRequest();
     }
 
+    public static HttpServletRequest getUnwrappedRequest() {
+        HttpServletRequest request = getRequest();
+
+        while (request instanceof HttpServletRequestWrapper) {
+            request = (HttpServletRequest) ((HttpServletRequestWrapper) request).getRequest();
+        }
+
+        return request;
+    }
+
     public static HttpServletResponse getResponse() {
         final ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attributes.getResponse();
+    }
+
+    public static HttpServletResponse getUnwrappedResponse() {
+        HttpServletResponse response = getResponse();
+
+        while (response instanceof HttpServletResponseWrapper) {
+            response = (HttpServletResponse) ((HttpServletResponseWrapper) response).getResponse();
+        }
+
+        return response;
     }
 
     public static HttpSession getSession() {
