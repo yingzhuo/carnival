@@ -18,7 +18,7 @@ public final class EnvironmentUtils {
     public static Long getLongOrDefault(String envName, Long defaultValue) {
         try {
             return AtoiUtils.toLong(System.getenv(envName));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return defaultValue;
         }
     }
@@ -26,7 +26,7 @@ public final class EnvironmentUtils {
     public static Integer getIntOrDefault(String envName, Integer defaultValue) {
         try {
             return AtoiUtils.toInt(System.getenv(envName));
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException | NullPointerException e) {
             return defaultValue;
         }
     }
