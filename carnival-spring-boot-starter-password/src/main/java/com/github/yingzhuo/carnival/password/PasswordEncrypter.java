@@ -24,6 +24,12 @@ public interface PasswordEncrypter {
         return encrypt(rawPassword, EMPTY_SALT, EMPTY_SALT);
     }
 
+    public default String encrypt(String rawPassword, String rightSalt) {
+        return encrypt(rawPassword, EMPTY_SALT, rightSalt);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public default boolean matches(String rawPassword, String encryptedPassword) {
         return matches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
     }
@@ -32,8 +38,18 @@ public interface PasswordEncrypter {
         return StringUtils.equals(encrypt(rawPassword, leftSalt, rightSalt), encryptedPassword);
     }
 
+    public default boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return StringUtils.equals(encrypt(rawPassword, EMPTY_SALT, rightSalt), encryptedPassword);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public default boolean notMatches(String rawPassword, String encryptedPassword) {
         return notMatches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
+    }
+
+    public default boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return !matches(rawPassword, EMPTY_SALT, rightSalt, encryptedPassword);
     }
 
     public default boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {

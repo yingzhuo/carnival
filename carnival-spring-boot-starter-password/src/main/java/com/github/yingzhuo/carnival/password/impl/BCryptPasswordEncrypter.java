@@ -26,9 +26,16 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
     }
 
     @Override
+    public String encrypt(String rawPassword, String rightSalt) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
         throw new UnsupportedOperationException();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean matches(String rawPassword, String encryptedPassword) {
@@ -40,9 +47,16 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
     }
 
     @Override
+    public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
         throw new UnsupportedOperationException();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean notMatches(String rawPassword, String encryptedPassword) {
@@ -51,6 +65,11 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
         throw new UnsupportedOperationException();
     }
 

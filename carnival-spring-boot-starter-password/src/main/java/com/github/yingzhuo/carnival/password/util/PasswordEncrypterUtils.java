@@ -21,6 +21,10 @@ public final class PasswordEncrypterUtils {
         return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword);
     }
 
+    public static String encrypt(String rawPassword, String rightSalt) {
+        return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword, rightSalt);
+    }
+
     public static String encrypt(String rawPassword, String leftSalt, String rightSalt) {
         return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword, leftSalt, rightSalt);
     }
@@ -29,12 +33,20 @@ public final class PasswordEncrypterUtils {
         return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, encryptedPassword);
     }
 
+    public static boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, rightSalt, encryptedPassword);
+    }
+
     public static boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
         return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, leftSalt, rightSalt, encryptedPassword);
     }
 
     public static boolean notMatches(String rawPassword, String encryptedPassword) {
         return SpringUtils.getBean(PasswordEncrypter.class).notMatches(rawPassword, encryptedPassword);
+    }
+
+    public static boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return SpringUtils.getBean(PasswordEncrypter.class).notMatches(rawPassword, rightSalt, encryptedPassword);
     }
 
     public static boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {

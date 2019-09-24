@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.beanutils.BeanMap;
 import org.springframework.http.HttpStatus;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -23,7 +22,7 @@ import java.util.function.Supplier;
  * @author 应卓
  */
 @JsonIgnoreProperties("empty")
-public class Json implements ApiResult<Json.Payload> {
+public class Json implements ApiResult<Payload> {
 
     public static Json newInstance() {
         return new Json();
@@ -31,7 +30,7 @@ public class Json implements ApiResult<Json.Payload> {
 
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
-    private Payload payload = Payload.newInstance();
+    private Payload payload = new Payload();
 
     public Json() {
     }
@@ -119,18 +118,6 @@ public class Json implements ApiResult<Json.Payload> {
 
     public Set<Object> payloadKeySet() {
         return payload.keySet();
-    }
-
-    // ---------------------------------------------------------------------------------------------------------
-
-    public static class Payload extends HashMap<Object, Object> {
-
-        public static Payload newInstance() {
-            return new Payload();
-        }
-
-        public Payload() {
-        }
     }
 
 }
