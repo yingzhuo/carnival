@@ -35,7 +35,7 @@ public final class DistributedLockExt implements Constant {
         return true;
     }
 
-    public static boolean lockMultiple(List<String> keys) {
+    public static boolean releaseMultiple(List<String> keys) {
         for (String key : keys) {
             if (!DistributedLock.release(key)) {
                 return false;

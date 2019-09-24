@@ -53,6 +53,7 @@ public final class RestfulSecurityContext {
     static void setIgnored(boolean ignore) {
         ignored.set(ignore);
     }
+
     static void clean() {
         tokenHolder.set(null);
         userDetailsHolder.set(null);

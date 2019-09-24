@@ -18,6 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author 应卓
  */
+@Deprecated
 public class MapCaptchaDao implements CaptchaDao {
 
     private final Map<String, String> map = new ConcurrentHashMap<>();

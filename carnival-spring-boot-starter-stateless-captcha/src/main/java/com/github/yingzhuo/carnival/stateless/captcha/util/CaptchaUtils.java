@@ -22,9 +22,6 @@ import java.util.Optional;
  */
 public class CaptchaUtils {
 
-    private CaptchaUtils() {
-    }
-
     public static Captcha create(int length) {
         return SpringUtils.getBean(CaptchaFactory.class).create(length);
     }
@@ -47,6 +44,11 @@ public class CaptchaUtils {
 
     public static boolean notMatches(String submittedCaptcha, String captchaId) {
         return SpringUtils.getBean(CaptchaDao.class).notMatches(submittedCaptcha, captchaId);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private CaptchaUtils() {
     }
 
 }
