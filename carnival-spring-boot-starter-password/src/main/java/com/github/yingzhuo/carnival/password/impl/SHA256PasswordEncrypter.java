@@ -19,20 +19,19 @@ import java.util.Objects;
  */
 public class SHA256PasswordEncrypter implements PasswordEncrypter {
 
-    private final String salt;
-
-    public SHA256PasswordEncrypter() {
-        this("");
-    }
-
-    public SHA256PasswordEncrypter(String salt) {
-        this.salt = salt;
-    }
-
     @Override
-    public String encrypt(String password) {
-        Objects.requireNonNull(password);
-        return DigestUtils.sha256Hex(salt + password);
+    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
+        Objects.requireNonNull(rawPassword);
+
+        if (leftSalt == null) {
+            leftSalt = EMPTY_SALT;
+        }
+
+        if (rightSalt == null) {
+            rightSalt = EMPTY_SALT;
+        }
+
+        return DigestUtils.sha256Hex(leftSalt + rawPassword + rightSalt);
     }
 
 }

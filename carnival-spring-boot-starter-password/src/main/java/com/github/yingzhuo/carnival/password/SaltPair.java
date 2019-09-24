@@ -9,19 +9,22 @@
  */
 package com.github.yingzhuo.carnival.password;
 
+import java.io.Serializable;
+
 /**
+ * (immutable)
+ *
  * @author 应卓
+ * @since 1.1.12
  */
-public enum Algorithm {
+public class SaltPair implements Serializable {
 
-    MD5,
+    public final String left;
+    public final String right;
 
-    SHA1,
-
-    SHA256,
-
-    BCRYPT,
-
-    NONE
+    public SaltPair(String left, String right) {
+        this.left = left;
+        this.right = right;
+    }
 
 }

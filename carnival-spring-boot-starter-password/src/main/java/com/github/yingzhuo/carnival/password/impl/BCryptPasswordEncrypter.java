@@ -20,18 +20,38 @@ import java.util.Objects;
 public class BCryptPasswordEncrypter implements PasswordEncrypter {
 
     @Override
-    public String encrypt(String password) {
-        Objects.requireNonNull(password);
-        return BCrypt.hashpw(password, BCrypt.gensalt(13));
+    public String encrypt(String rawPassword) {
+        Objects.requireNonNull(rawPassword);
+        return BCrypt.hashpw(rawPassword, BCrypt.gensalt(13));
     }
 
     @Override
-    public boolean matches(String password, String encrypted) {
+    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean matches(String rawPassword, String encryptedPassword) {
         try {
-            return BCrypt.checkpw(password, encrypted);
+            return BCrypt.checkpw(rawPassword, encryptedPassword);
         } catch (Exception e) {
             return false;
         }
+    }
+
+    @Override
+    public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String encryptedPassword) {
+        return !matches(rawPassword, encryptedPassword);
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        throw new UnsupportedOperationException();
     }
 
 }

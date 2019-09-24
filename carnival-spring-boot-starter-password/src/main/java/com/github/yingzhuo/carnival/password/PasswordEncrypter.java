@@ -9,33 +9,35 @@
  */
 package com.github.yingzhuo.carnival.password;
 
-import java.util.Objects;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author 应卓
  */
 public interface PasswordEncrypter {
 
-    public String encrypt(String password);
+    public static final String EMPTY_SALT = "";
 
-    public default boolean matches(String password, String encrypted) {
-        Objects.requireNonNull(password);
-        Objects.requireNonNull(encrypted);
-        return encrypt(password).equals(encrypted);
+    public String encrypt(String rawPassword, String leftSalt, String rightSalt);
+
+    public default String encrypt(String rawPassword) {
+        return encrypt(rawPassword, EMPTY_SALT, EMPTY_SALT);
     }
 
-    public default boolean notMatches(String password, String encrypted) {
-        return !matches(password, encrypted);
+    public default boolean matches(String rawPassword, String encryptedPassword) {
+        return matches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
     }
 
-    public default boolean matchesIgnoreCases(String password, String encrypted) {
-        Objects.requireNonNull(password);
-        Objects.requireNonNull(encrypted);
-        return encrypt(password).equalsIgnoreCase(encrypted);
+    public default boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return StringUtils.equals(encrypt(rawPassword, leftSalt, rightSalt), encryptedPassword);
     }
 
-    public default boolean notMatchesIgnoreCases(String password, String encrypted) {
-        return !matchesIgnoreCases(password, encrypted);
+    public default boolean notMatches(String rawPassword, String encryptedPassword) {
+        return notMatches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
+    }
+
+    public default boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return !matches(rawPassword, leftSalt, rightSalt, encryptedPassword);
     }
 
 }

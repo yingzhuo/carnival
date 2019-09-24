@@ -32,24 +32,17 @@ public class PasswordEncrypterAutoConfig {
     public PasswordEncrypter passwordEncrypter(Props props) {
         switch (props.getAlgorithm()) {
             case MD5:
-                return new MD5PasswordEncrypter(props.getMd5Salt());
+                return new MD5PasswordEncrypter();
             case BCRYPT:
                 return new BCryptPasswordEncrypter();
-            case MD2:
-                return new MD2PasswordEncrypter(props.getMd2Salt());
             case SHA1:
-                return new SHA1PasswordEncrypter(props.getSha1Salt());
+                return new SHA1PasswordEncrypter();
             case SHA256:
-                return new SHA256PasswordEncrypter(props.getSha256Salt());
-            case BASE64:
-                return new Base64PasswordEncrypter();
-            case REVERSE:
-                return new ReversePasswordEncrypter();
+                return new SHA256PasswordEncrypter();
             case NONE:
                 return new NonePasswordEncrypter();
-            default:
-                throw new AssertionError();  // 不可能运行到此处
         }
+        throw new AssertionError();
     }
 
     @Getter
@@ -58,10 +51,6 @@ public class PasswordEncrypterAutoConfig {
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.MD5;
-        private String md2Salt = "";
-        private String md5Salt = "";
-        private String sha1Salt = "";
-        private String sha256Salt = "";
     }
 
 }

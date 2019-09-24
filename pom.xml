@@ -19,7 +19,6 @@
         <module>carnival-spring-boot-starter-localization-china</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
-        <module>carnival-spring-boot-starter-password2</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-jwt</module>

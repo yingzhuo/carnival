@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
@@ -19,14 +20,14 @@ import java.util.Objects;
 public class NonePasswordEncrypter implements PasswordEncrypter {
 
     @Override
-    public String encrypt(String password) {
-        Objects.requireNonNull(password);
-        return password;
+    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
+        Objects.requireNonNull(rawPassword);
+        return rawPassword;
     }
 
     @Override
-    public boolean matches(String password, String encrypted) {
-        return Objects.equals(password, encrypted);
+    public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return StringUtils.equals(rawPassword, encryptedPassword);
     }
 
 }
