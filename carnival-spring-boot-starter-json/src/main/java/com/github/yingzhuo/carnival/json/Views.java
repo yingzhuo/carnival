@@ -11,16 +11,15 @@ package com.github.yingzhuo.carnival.json;
 
 /**
  * @author 应卓
+ * @see com.fasterxml.jackson.annotation.JsonView
+ * @since 1.1.12
  */
 public interface Views {
 
-    public static interface Public {
+    public static interface Normal {
     }
 
-    public static interface Internal {
-    }
-
-    public static interface Private {
+    public static interface Secret extends Normal {
     }
 
 }

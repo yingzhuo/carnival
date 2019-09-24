@@ -16,10 +16,6 @@ import java.util.*;
  */
 public final class Validate {
 
-    private Validate() {
-        super();
-    }
-
     public static <T> T notNull(T obj) {
         if (obj == null) {
             throw new NullPointerException();
@@ -105,6 +101,11 @@ public final class Validate {
             throw new IllegalArgumentException();
         }
         return chars;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private Validate() {
     }
 
 }

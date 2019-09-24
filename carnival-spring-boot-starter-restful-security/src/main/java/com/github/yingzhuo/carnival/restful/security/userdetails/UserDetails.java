@@ -9,7 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.github.yingzhuo.carnival.common.datamodel.Gender;
+import com.github.yingzhuo.carnival.json.Views;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.val;
@@ -21,6 +23,7 @@ import java.util.stream.Collectors;
 /**
  * @author 应卓
  */
+@JsonView(Views.Normal.class)
 public interface UserDetails extends Serializable {
 
     public static Builder builder() {
@@ -35,6 +38,7 @@ public interface UserDetails extends Serializable {
 
     public Date getDateOfBirth();
 
+    @JsonView(Views.Secret.class)
     public String getPassword();
 
     public Gender getGender();
