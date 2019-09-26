@@ -35,10 +35,10 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
         JWTCreator.Builder builder = JWT.create();
 
-        // Public Claims (Public)
+        // Normal Claims (Normal)
         Optional.ofNullable(info.getKeyId()).ifPresent(builder::withKeyId);
 
-        // Public Claims (Payload)
+        // Normal Claims (Payload)
         Optional.ofNullable(info.getIssuer()).ifPresent(builder::withIssuer);
         Optional.ofNullable(info.getSubject()).ifPresent(builder::withSubject);
         Optional.ofNullable(info.getExpiresAt()).ifPresent(builder::withExpiresAt);

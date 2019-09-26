@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 @Setter
 public class JwtTokenInfo implements Serializable {
 
-    // Public Claims (Header)
+    // Normal Claims (Header)
     private String keyId;
     private String issuer;
     private String subject;
