@@ -11,13 +11,11 @@ package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
-import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.refuse.RefuseManager;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -43,7 +41,6 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlacklistManager tokenBlacklistManager;
-    private RefuseManager refuseManager;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -59,14 +56,8 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         }
 
         val servletWebRequest = new ServletWebRequest(request, response);
-        refuseManager.apply(servletWebRequest);
 
         val handlerMethod = (HandlerMethod) handler;
-
-        if (handlerMethod.hasMethodAnnotation(IgnoreToken.class)) {
-            RestfulSecurityContext.setIgnored(true);
-            return true;
-        }
 
         final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
@@ -143,7 +134,4 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         this.tokenBlacklistManager = tokenBlacklistManager;
     }
 
-    public void setRefuseManager(RefuseManager refuseManager) {
-        this.refuseManager = refuseManager;
-    }
 }

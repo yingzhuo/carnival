@@ -23,7 +23,6 @@ public final class RestfulSecurityContext {
 
     private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<Boolean> ignored = ThreadLocal.withInitial(() -> Boolean.FALSE);
 
     private RestfulSecurityContext() {
     }
@@ -36,10 +35,6 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(userDetailsHolder.get());
     }
 
-    public static boolean getIgnored() {
-        return ignored.get();
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     static void setUserDetails(UserDetails userDetails) {
@@ -50,14 +45,9 @@ public final class RestfulSecurityContext {
         tokenHolder.set(token);
     }
 
-    static void setIgnored(boolean ignore) {
-        ignored.set(ignore);
-    }
-
     static void clean() {
         tokenHolder.set(null);
         userDetailsHolder.set(null);
-        ignored.set(false);
     }
 
 }

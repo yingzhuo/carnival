@@ -19,15 +19,17 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public final class JwtTokenFactoryUtils {
 
-    private JwtTokenFactoryUtils() {
-    }
-
     public static String create(JwtTokenInfo jwtTokenInfo) {
         return SpringUtils.getBean(JwtTokenFactory.class).create(jwtTokenInfo);
     }
 
     public static String create(JwtTokenInfo.Builder builder) {
         return SpringUtils.getBean(JwtTokenFactory.class).create(builder);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private JwtTokenFactoryUtils() {
     }
 
 }

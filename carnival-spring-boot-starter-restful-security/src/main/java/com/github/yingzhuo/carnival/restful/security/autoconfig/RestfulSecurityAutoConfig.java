@@ -14,8 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlacklist
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
-import com.github.yingzhuo.carnival.restful.security.refuse.NopRefuseManager;
-import com.github.yingzhuo.carnival.restful.security.refuse.RefuseManager;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -28,9 +26,9 @@ import org.springframework.context.annotation.Bean;
 @ConditionalOnWebApplication
 public class RestfulSecurityAutoConfig {
 
+    @Bean
     @ConditionalOnMissingBean
-    @Bean(name = "restfulSecurityCacheManager")
-    public CacheManager cacheManager() {
+    public CacheManager restfulSecurityCacheManager() {
         return new NopCacheManager();
     }
 
@@ -38,12 +36,6 @@ public class RestfulSecurityAutoConfig {
     @ConditionalOnMissingBean
     public TokenBlacklistManager tokenBlackListManager() {
         return new NopTokenBlacklistManager();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public RefuseManager refuseManager() {
-        return new NopRefuseManager();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.parser;
 
+import com.github.yingzhuo.carnival.restful.security.jwt.exception.IllegalTokenPatternException;
 import com.github.yingzhuo.carnival.restful.security.jwt.token.JwtToken;
 import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
@@ -32,7 +33,11 @@ public class JwtTokenParser extends HttpHeaderTokenParser {
 
     @Override
     public Optional<Token> parse(NativeWebRequest request) {
-        return super.parse(request).map(t -> JwtToken.of(((StringToken) t).getValue()));
+        try {
+            return super.parse(request).map(t -> JwtToken.of(((StringToken) t).getValue()));
+        } catch (IllegalTokenPatternException e) {
+            return Optional.empty();
+        }
     }
 
 }

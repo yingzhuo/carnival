@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -18,7 +20,7 @@ public interface JwtTokenFactory {
     public String create(JwtTokenInfo entity);
 
     public default String create(JwtTokenInfo.Builder builder) {
-        return create(builder.build());
+        return create(Objects.requireNonNull(builder).build());
     }
 
 }
