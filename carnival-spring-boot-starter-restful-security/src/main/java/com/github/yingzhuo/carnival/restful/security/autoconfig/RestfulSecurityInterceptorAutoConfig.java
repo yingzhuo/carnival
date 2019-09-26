@@ -68,7 +68,11 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             udr = userDetailsRealms.stream().reduce(token -> Optional.empty(), UserDetailsRealm::or);
         }
 
-        final Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
+        Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
+        if (interceptorOrder == null) {
+            interceptorOrder = 0;
+        }
+
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
