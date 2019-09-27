@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.permission;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
@@ -24,4 +26,18 @@ public class SimplePermission implements Permission {
     public String getName() {
         return this.name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimplePermission that = (SimplePermission) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+
 }

@@ -14,10 +14,11 @@ import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.json.Views;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
-import lombok.val;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.stream.Collectors;
 
 /**
@@ -26,8 +27,8 @@ import java.util.stream.Collectors;
 @JsonView(Views.Normal.class)
 public interface UserDetails extends Serializable {
 
-    public static Builder builder() {
-        return new Builder();
+    public static UserDetailsBuilder builder() {
+        return new UserDetailsBuilder();
     }
 
     public Object getId();
@@ -45,15 +46,7 @@ public interface UserDetails extends Serializable {
 
     public boolean isExpired();
 
-    public default boolean isNotExpired() {
-        return !isExpired();
-    }
-
     public boolean isLocked();
-
-    public default boolean isNotLocked() {
-        return !isLocked();
-    }
 
     public Collection<Role> getRoles();
 
@@ -61,18 +54,7 @@ public interface UserDetails extends Serializable {
 
     public boolean isAdmin();
 
-    public default boolean isNotAdmin() {
-        return !isAdmin();
-    }
-
     public <U> U getNativeUser();
-
-    public Map<String, Object> getPayload();
-
-    public default int getPayloadSize() {
-        val payload = getPayload();
-        return payload != null ? payload.size() : 0;
-    }
 
     public default Collection<String> getRoleNames() {
         if (getRoles() == null) {
@@ -88,102 +70,4 @@ public interface UserDetails extends Serializable {
         }
         return Collections.unmodifiableList(getPermissions().stream().map(Permission::getName).collect(Collectors.toList()));
     }
-
-    // Builder
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public static class Builder {
-
-        private final SimpleUserDetails ud = new SimpleUserDetails();
-
-        private Builder() {
-            super();
-        }
-
-        public Builder id(Object id) {
-            ud.setId(id);
-            return this;
-        }
-
-        public Builder username(String username) {
-            ud.setUsername(username);
-            return this;
-        }
-
-        public Builder email(String emailAddress) {
-            ud.setEmail(emailAddress);
-            return this;
-        }
-
-        public Builder password(String password) {
-            ud.setPassword(password);
-            return this;
-        }
-
-        public Builder gender(Gender gender) {
-            ud.setGender(gender);
-            return this;
-        }
-
-        public Builder dateOfBirth(Date date) {
-            ud.setDateOfBirth(date);
-            return this;
-        }
-
-        public Builder dateOfBirth(int year, int month, int day) {
-            return dateOfBirth(new GregorianCalendar(year, month - 1, day).getTime());
-        }
-
-        public Builder expired(boolean expired) {
-            ud.setExpired(expired);
-            return this;
-        }
-
-        public Builder locked(boolean locked) {
-            ud.setLocked(locked);
-            return this;
-        }
-
-        public Builder roles(Role... roles) {
-            ud.setRoles(Arrays.asList(roles));
-            return this;
-        }
-
-        public Builder roles(String... roleNames) {
-            ud.setRoles(Arrays.stream(roleNames).map(Role::of).collect(Collectors.toList()));
-            return this;
-        }
-
-        public Builder permissions(Permission... permissions) {
-            ud.setPermissions(Arrays.asList(permissions));
-            return this;
-        }
-
-        public Builder permissions(String... permissionNames) {
-            ud.setPermissions(Arrays.stream(permissionNames).map(Permission::of).collect(Collectors.toList()));
-            return this;
-        }
-
-        public Builder admin(boolean admin) {
-            ud.setAdmin(admin);
-            return this;
-        }
-
-        public Builder nativeUser(Object nativeUser) {
-            ud.setNativeUser(nativeUser);
-            return this;
-        }
-
-        public Builder payload(String name, Object value) {
-            Objects.requireNonNull(name);
-            Objects.requireNonNull(value);
-            ud.putPayload(name, value);
-            return this;
-        }
-
-        public UserDetails build() {
-            return ud;
-        }
-    }
-
 }

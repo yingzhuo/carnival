@@ -37,4 +37,5 @@ public class LocalizationChinaMvcAutoConfig implements WebMvcConfigurer {
         handlers.add(new StringQRCodeHandlerMethodReturnValueHandler(creator));
         handlers.add(new JsonQRCodeHandlerMethodReturnValueHandler(creator, om != null ? om : new ObjectMapper()));
     }
+
 }

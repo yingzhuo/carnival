@@ -16,9 +16,15 @@ package com.github.yingzhuo.carnival.json;
  */
 public interface Views {
 
+    /**
+     * 普通
+     */
     public static interface Normal {
     }
 
+    /**
+     * 敏感信息
+     */
     public static interface Secret extends Normal {
     }
 

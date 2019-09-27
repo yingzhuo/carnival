@@ -36,7 +36,7 @@ public class JwtProps implements Serializable, InitializingBean {
     public void afterPropertiesSet() {
         Assert.notNull(signatureAlgorithm, (String) null);
 
-        if (StringUtils.isBlank(secret) && StringUtils.isNotBlank(secretLocation)) {
+        if (StringUtils.isNotBlank(secretLocation)) {
             this.secret = ResourceText.apply(secretLocation).trim();
         }
 
