@@ -24,11 +24,6 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public final class UserDetailsUtils {
 
-    private UserDetailsUtils() {
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static UserDetails get() {
         return RestfulSecurityContext.getUserDetails().orElse(null);
     }
@@ -63,10 +58,6 @@ public final class UserDetailsUtils {
         return userDetails != null && userDetails.isAdmin();
     }
 
-    public static boolean isNotAdmin() {
-        val userDetails = get();
-        return userDetails != null && userDetails.isNotAdmin();
-    }
 
     public static Gender getGender() {
         val userDetails = get();
@@ -110,28 +101,6 @@ public final class UserDetailsUtils {
         return Collections.unmodifiableSet(new HashSet<>(userDetails.getPermissionNames()));
     }
 
-    public static Map<String, Object> getPayload() {
-        val userDetails = get();
-        if (userDetails == null) {
-            return Collections.emptyMap();
-        }
-        return Collections.unmodifiableMap(userDetails.getPayload());
-    }
-
-    public static int getPayloadSize() {
-        val userDetails = get();
-        return userDetails != null ? userDetails.getPayloadSize() : 0;
-    }
-
-    public static <T> T getPayloadItem(String name) {
-        return (T) getPayload().get(name);
-    }
-
-    public static <T> T getPayloadItem(String name, T defaultValue) {
-        final T t = getPayloadItem(name);
-        return t != null ? t : defaultValue;
-    }
-
     public static <T> T getProperty(String propertyName) {
         return getProperty(propertyName, null);
     }
@@ -149,6 +118,11 @@ public final class UserDetailsUtils {
         } catch (BeansException e) {
             return defaultValue;
         }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private UserDetailsUtils() {
     }
 
 }

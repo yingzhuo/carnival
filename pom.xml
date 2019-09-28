@@ -87,7 +87,7 @@
         <springcloud.version>Greenwich.RELEASE</springcloud.version>
         <springboot.version>2.1.8.RELEASE</springboot.version>
         <spring.version>5.1.9.RELEASE</spring.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.9.10</jackson.version>
         <slf4j.version>1.7.28</slf4j.version>
     </properties>
 
@@ -283,13 +283,6 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- spring-security -->
-            <dependency>
-                <groupId>org.springframework.security</groupId>
-                <artifactId>spring-security-crypto</artifactId>
-                <version>5.1.6.RELEASE</version>
-            </dependency>
-
             <!-- slf4j -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -326,7 +319,7 @@
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
-                <version>2.9.9.3</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -373,7 +366,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.8.2</version>
+                <version>3.8.3</version>
             </dependency>
 
             <!-- zxing -->
