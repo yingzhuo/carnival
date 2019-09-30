@@ -10,7 +10,7 @@ usage:
 	@echo " install          | 安装"
 	@echo " deploy           | 部署到Maven中央仓库"
 	@echo " version          | 更改版本号"
-	@echo " push-code        | 推送代码到Github"
+	@echo " github           | 推送代码到Github"
 	@echo "------------------|---------------------------------"
 
 clean:
@@ -33,9 +33,9 @@ version:
 	@mvn -f $(CURDIR)/pom.xml -N versions:update-child-modules
 	@mvn -f $(CURDIR)/pom.xml versions:commit
 
-push-code: clean
+github: clean
 	@git add .
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage clean compile package install deploy push-code change-version
+.PHONY: usage clean compile package install deploy version github

@@ -31,5 +31,4 @@ public interface CaptchaDao {
     public default boolean notMatches(String submittedCaptcha, String captchaId) {
         return !matches(submittedCaptcha, captchaId);
     }
-
 }
