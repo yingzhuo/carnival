@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationCo
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
+import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -33,7 +34,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings("unchecked")
 public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     private TokenParser tokenParser;
@@ -41,6 +42,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlacklistManager tokenBlacklistManager;
+    private AfterHook afterHook;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -102,6 +104,11 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
         }
 
+        afterHook.execute(
+                RestfulSecurityContext.getToken().orElse(null),
+                RestfulSecurityContext.getUserDetails().orElse(null)
+        );
+
         return true;
     }
 
@@ -132,6 +139,10 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     public void setTokenBlacklistManager(TokenBlacklistManager tokenBlacklistManager) {
         this.tokenBlacklistManager = tokenBlacklistManager;
+    }
+
+    public void setAfterHook(AfterHook afterHook) {
+        this.afterHook = afterHook;
     }
 
 }

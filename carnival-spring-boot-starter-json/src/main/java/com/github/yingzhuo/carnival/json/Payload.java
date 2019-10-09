@@ -9,12 +9,19 @@
  */
 package com.github.yingzhuo.carnival.json;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.HashMap;
 
 /**
  * @author 应卓
  */
+@JsonView(Views.Normal.class)
 public class Payload extends HashMap<Object, Object> {
+
+    public static Payload empty() {
+        return new Payload();
+    }
 
     public static Payload of(String k, Object v) {
         final Payload payload = new Payload();

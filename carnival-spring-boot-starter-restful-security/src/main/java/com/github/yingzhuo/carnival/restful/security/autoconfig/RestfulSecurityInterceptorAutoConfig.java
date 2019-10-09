@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
+import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -48,11 +49,15 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Autowired
     private TokenBlacklistManager tokenBlackListManager;
 
+    @Autowired
+    private List<AfterHook> afterHooks;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
         final TokenParser tp;
         final UserDetailsRealm udr;
+        final AfterHook ah;
 
         if (tokenParsers.size() == 1) {
             tp = tokenParsers.get(0);
@@ -68,6 +73,14 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             udr = userDetailsRealms.stream().reduce(token -> Optional.empty(), UserDetailsRealm::or);
         }
 
+        if (afterHooks.size() == 1) {
+            ah = afterHooks.get(0);
+        } else {
+            OrderComparator.sort(afterHooks);
+            ah = afterHooks.stream().reduce((token, userDetails) -> {
+            }, AfterHook::link);
+        }
+
         Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         if (interceptorOrder == null) {
             interceptorOrder = 0;
@@ -81,6 +94,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         interceptor.setUserDetailsRealm(udr);
         interceptor.setCacheManager(cacheManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
+        interceptor.setAfterHook(ah);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 

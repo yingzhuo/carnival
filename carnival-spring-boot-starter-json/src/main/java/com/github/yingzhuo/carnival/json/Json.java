@@ -106,12 +106,10 @@ public class Json implements ApiResult<Payload> {
         return payload;
     }
 
-    @Override
     public int size() {
         return payload.size();
     }
 
-    @Override
     public boolean isEmpty() {
         return payload.isEmpty();
     }
