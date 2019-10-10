@@ -50,14 +50,15 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory {
 
         var message = ini.get(sectionNameAndKey[0], sectionNameAndKey[1]);
 
-        for (val param : params) {
-            message = message.replaceFirst("\\{}", param.toString());
-        }
-
         if (!StringUtils.hasText(message)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
+        for (val param : params) {
+            message = message.replaceFirst("\\{}", param.toString());
+        }
+
+        message = message.replaceAll("\\{}", "");
         return new BusinessException(code, message);
     }
 

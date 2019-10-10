@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.val;
 import lombok.var;
+import org.springframework.util.StringUtils;
 
 import java.util.Map;
 import java.util.Objects;
@@ -32,11 +33,17 @@ public class DefaultBusinessExceptionFactory implements BusinessExceptionFactory
     public BusinessException create(String code, Object... params) {
         var message = messages.get(Objects.requireNonNull(code));
 
+        if (!StringUtils.hasText(message)) {
+            throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
+        }
+
         for (val param : params) {
             message = message.replaceFirst("\\{}", param.toString());
         }
 
-        return new BusinessException(code, Objects.requireNonNull(message));
+        message = message.replaceAll("\\{}", "");
+
+        return new BusinessException(code, message);
     }
 
 }

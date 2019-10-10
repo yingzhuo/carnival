@@ -73,6 +73,7 @@ public class BusinessException extends CarnivalStandardException implements Stri
         for (val param : params) {
             message = message.replaceFirst("\\{}", param.toString());
         }
-        return message;
+        return message.replaceAll("\\{}", "");
     }
+
 }
