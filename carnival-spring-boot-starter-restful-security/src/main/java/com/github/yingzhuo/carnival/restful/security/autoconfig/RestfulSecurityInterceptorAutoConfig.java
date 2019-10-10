@@ -77,7 +77,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             ah = afterHooks.get(0);
         } else {
             OrderComparator.sort(afterHooks);
-            ah = afterHooks.stream().reduce((token, userDetails) -> {
+            ah = afterHooks.stream().reduce((request, token, userDetails) -> {
             }, AfterHook::link);
         }
 

@@ -42,8 +42,7 @@ public class RestfulSecurityAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public AfterHook afterHook() {
-        return (token, userDetails) -> {
-        };
+        return (request, token, userDetails) -> {};
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -122,5 +121,4 @@ public class RestfulSecurityAutoConfig {
     public RequiresAllPermissionsAuthComponent requiresAllPermissionsAuthComponent() {
         return new RequiresAllPermissionsAuthComponent();
     }
-
 }

@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.hook;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import org.springframework.core.Ordered;
+import org.springframework.web.context.request.NativeWebRequest;
 
 /**
  * @author 应卓
@@ -19,7 +20,7 @@ import org.springframework.core.Ordered;
  */
 public interface AfterHook extends Ordered {
 
-    public void execute(Token token, UserDetails userDetails);
+    public void execute(NativeWebRequest webRequest, Token token, UserDetails userDetails);
 
     @Override
     public default int getOrder() {
@@ -27,9 +28,9 @@ public interface AfterHook extends Ordered {
     }
 
     public default AfterHook link(AfterHook that) {
-        return (token, userDetails) -> {
-            this.execute(token, userDetails);
-            that.execute(token, userDetails);
+        return (request, token, userDetails) -> {
+            this.execute(request, token, userDetails);
+            that.execute(request, token, userDetails);
         };
     }
 

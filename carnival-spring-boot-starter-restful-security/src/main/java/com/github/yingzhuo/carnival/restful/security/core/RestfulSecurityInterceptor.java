@@ -105,6 +105,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         }
 
         afterHook.execute(
+                servletWebRequest,
                 RestfulSecurityContext.getToken().orElse(null),
                 RestfulSecurityContext.getUserDetails().orElse(null)
         );
