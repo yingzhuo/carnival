@@ -59,8 +59,8 @@ public class IdGeneratorAutoConfig {
                     dataCenterId = envDataCenterId;
                 }
 
-                log.debug("SNOWFLAKE_WORKER_ID: {}", workerId);
-                log.debug("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
+                log.info("SNOWFLAKE_WORKER_ID: {}", workerId);
+                log.info("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
                     return new SnowflakeLongIdGenerator(workerId, dataCenterId);

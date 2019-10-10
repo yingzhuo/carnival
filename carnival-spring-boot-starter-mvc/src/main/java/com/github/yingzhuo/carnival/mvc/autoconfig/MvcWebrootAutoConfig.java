@@ -33,7 +33,7 @@ public class MvcWebrootAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new WebrootSettingInterceptor(props.getAttributeName())).addPathPatterns("/", "/**");
+        registry.addInterceptor(new WebrootSettingInterceptor(props.getRequestAttributeName())).addPathPatterns("/", "/**");
     }
 
     @Getter
@@ -41,7 +41,7 @@ public class MvcWebrootAutoConfig implements WebMvcConfigurer {
     @ConfigurationProperties("carnival.mvc.webroot")
     static class Props {
         private boolean enabled = false;
-        private String attributeName = "WEBROOT";
+        private String requestAttributeName = "WEBROOT";
     }
 
 }

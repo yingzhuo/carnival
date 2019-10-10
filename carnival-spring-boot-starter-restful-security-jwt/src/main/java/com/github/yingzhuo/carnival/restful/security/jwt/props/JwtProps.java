@@ -37,7 +37,7 @@ public class JwtProps implements Serializable, InitializingBean {
         Assert.notNull(signatureAlgorithm, (String) null);
 
         if (StringUtils.isNotBlank(secretLocation)) {
-            this.secret = ResourceText.apply(secretLocation).trim();
+            this.secret = ResourceText.load(secretLocation).trim();
         }
 
         log.info("carnival.jwt.secret = {}", this.secret);

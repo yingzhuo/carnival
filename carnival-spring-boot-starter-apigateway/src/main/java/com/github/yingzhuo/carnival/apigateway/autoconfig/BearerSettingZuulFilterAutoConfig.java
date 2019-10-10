@@ -49,7 +49,7 @@ public class BearerSettingZuulFilterAutoConfig {
         public void afterPropertiesSet() {
             if (enabled) {
                 if (StringUtils.isNotBlank(valueLocation)) {
-                    this.value = ResourceText.apply(valueLocation);
+                    this.value = ResourceText.load(valueLocation);
                 }
             }
         }

@@ -28,11 +28,11 @@ public final class ResourceText implements Serializable {
 
     private static final ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
 
-    public static String apply(String location) {
-        return apply(location, StandardCharsets.UTF_8);
+    public static String load(String location) {
+        return load(location, StandardCharsets.UTF_8);
     }
 
-    public static String apply(String location, Charset charset) {
+    public static String load(String location, Charset charset) {
         try {
             val resource = RESOURCE_LOADER.getResource(location);
             val lines = IOUtils.readLines(resource.getInputStream(), charset);

@@ -72,11 +72,11 @@ public class SecretAutoConfig {
         @Override
         public void afterPropertiesSet() {
             if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyLocation)) {
-                this.publicKey = ResourceText.apply(publicKeyLocation).trim();
+                this.publicKey = ResourceText.load(publicKeyLocation).trim();
             }
 
             if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyLocation)) {
-                this.privateKey = ResourceText.apply(privateKeyLocation).trim();
+                this.privateKey = ResourceText.load(privateKeyLocation).trim();
             }
         }
     }
@@ -92,7 +92,7 @@ public class SecretAutoConfig {
         @Override
         public void afterPropertiesSet() {
             if (StringUtils.isBlank(passphrase) && StringUtils.isNotBlank(passphraseLocation)) {
-                this.passphrase = ResourceText.apply(passphraseLocation).trim();
+                this.passphrase = ResourceText.load(passphraseLocation).trim();
             }
         }
     }
