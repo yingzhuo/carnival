@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.exception.business.impl;
 import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.val;
+import lombok.var;
 
 import java.util.Map;
 import java.util.Objects;
@@ -28,8 +29,13 @@ public class DefaultBusinessExceptionFactory implements BusinessExceptionFactory
     }
 
     @Override
-    public BusinessException create(String code) {
-        val message = messages.get(Objects.requireNonNull(code));
+    public BusinessException create(String code, Object... params) {
+        var message = messages.get(Objects.requireNonNull(code));
+
+        for (val param : params) {
+            message = message.replaceFirst("\\{}", param.toString());
+        }
+
         return new BusinessException(code, Objects.requireNonNull(message));
     }
 

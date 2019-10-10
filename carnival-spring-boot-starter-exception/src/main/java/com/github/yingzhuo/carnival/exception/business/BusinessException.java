@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.exception.business;
 import com.github.yingzhuo.carnival.common.StringCoded;
 import com.github.yingzhuo.carnival.exception.CarnivalStandardException;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import lombok.val;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -24,16 +25,15 @@ public class BusinessException extends CarnivalStandardException implements Stri
 
     private String code;
 
-    public static BusinessException of(String code) {
-        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code);
+    public static BusinessException of(String code, Object... params) {
+        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code, params);
     }
 
     public BusinessException() {
-        super();
     }
 
-    public BusinessException(String code, String message) {
-        super(message);
+    public BusinessException(String code, String message, Object... params) {
+        super(getMessage(message, params));
         this.code = code;
     }
 
@@ -41,15 +41,6 @@ public class BusinessException extends CarnivalStandardException implements Stri
         super(message);
     }
 
-    public BusinessException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public BusinessException(Throwable cause) {
-        super(cause);
-    }
-
-    @Override
     public String getCode() {
         return this.code;
     }
@@ -57,6 +48,8 @@ public class BusinessException extends CarnivalStandardException implements Stri
     public void setCode(String code) {
         this.code = code;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public Map<String, Object> asMap() {
         return asMap(true);
@@ -74,4 +67,12 @@ public class BusinessException extends CarnivalStandardException implements Stri
         return Collections.unmodifiableMap(map);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static String getMessage(String message, Object... params) {
+        for (val param : params) {
+            message = message.replaceFirst("\\{}", param.toString());
+        }
+        return message;
+    }
 }

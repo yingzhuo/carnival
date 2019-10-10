@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import lombok.var;
 import org.ini4j.Wini;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
@@ -35,7 +36,7 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory {
     }
 
     @Override
-    public BusinessException create(String code) {
+    public BusinessException create(String code, Object... params) {
 
         if (!StringUtils.hasText(code)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
@@ -47,7 +48,11 @@ public class IniBusinessExceptionFactory implements BusinessExceptionFactory {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        final String message = ini.get(sectionNameAndKey[0], sectionNameAndKey[1]);
+        var message = ini.get(sectionNameAndKey[0], sectionNameAndKey[1]);
+
+        for (val param : params) {
+            message = message.replaceFirst("\\{}", param.toString());
+        }
 
         if (!StringUtils.hasText(message)) {
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
