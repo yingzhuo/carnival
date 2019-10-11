@@ -24,4 +24,10 @@ public interface Token extends Serializable {
     @Override
     public String toString();
 
+    @Override
+    public boolean equals(Object other);
+
+    @Override
+    public int hashCode();
+
 }

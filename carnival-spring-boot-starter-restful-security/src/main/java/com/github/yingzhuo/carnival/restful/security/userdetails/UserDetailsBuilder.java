@@ -12,10 +12,10 @@ package com.github.yingzhuo.carnival.restful.security.userdetails;
 import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
-import lombok.Getter;
-import lombok.Setter;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.stream.Collectors;
 
 /**
@@ -106,24 +106,5 @@ public final class UserDetailsBuilder {
     public UserDetails build() {
         return ud;
     }
-
-}
-
-@Getter
-@Setter
-class SimpleUserDetails implements UserDetails {
-
-    private Object id = null;
-    private String username = null;
-    private String email = null;
-    private String password = null;
-    private Date dateOfBirth = null;
-    private Gender gender = null;
-    private boolean expired = false;
-    private boolean locked = false;
-    private Collection<Role> roles = Collections.emptyList();
-    private Collection<Permission> permissions = Collections.emptyList();
-    private boolean admin = false;
-    private Object nativeUser = null;
 
 }

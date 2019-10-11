@@ -39,4 +39,18 @@ public class UsernamePasswordToken implements Token {
                 ')';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UsernamePasswordToken that = (UsernamePasswordToken) o;
+        return Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
+    }
+
 }

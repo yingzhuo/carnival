@@ -44,13 +44,13 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     private List<UserDetailsRealm> userDetailsRealms;
 
     @Autowired
+    private List<AfterHook> afterHooks;
+
+    @Autowired
     private CacheManager cacheManager;
 
     @Autowired
     private TokenBlacklistManager tokenBlackListManager;
-
-    @Autowired
-    private List<AfterHook> afterHooks;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

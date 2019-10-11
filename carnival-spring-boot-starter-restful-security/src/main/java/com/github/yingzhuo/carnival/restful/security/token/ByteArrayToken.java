@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
+import java.util.Arrays;
+
 /**
  * @author 应卓
  */
@@ -42,6 +44,19 @@ public class ByteArrayToken implements Token {
             hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
         }
         return new String(hexChars);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ByteArrayToken that = (ByteArrayToken) o;
+        return Arrays.equals(data, that.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(data);
     }
 
 }

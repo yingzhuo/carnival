@@ -42,7 +42,8 @@ public class RestfulSecurityAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public AfterHook afterHook() {
-        return (request, token, userDetails) -> {};
+        return (request, token, userDetails) -> {
+        };
     }
 
     // -----------------------------------------------------------------------------------------------------------------
