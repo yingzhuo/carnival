@@ -70,4 +70,5 @@ public interface UserDetails extends Serializable {
         }
         return Collections.unmodifiableList(getPermissions().stream().map(Permission::getName).collect(Collectors.toList()));
     }
+
 }

@@ -1,4 +1,4 @@
-timestamp             = $(shell /bin/date "+%F %T")
+timestamp := $(shell /bin/date "+%F %T")
 
 usage:
 	@echo " target           | 功能"

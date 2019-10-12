@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -24,6 +25,7 @@ import java.util.Date;
  */
 @Getter
 @Setter
+@ToString
 public class SimpleUserDetails implements UserDetails {
 
     private Object id = null;
