@@ -20,7 +20,7 @@ import org.springframework.web.context.request.NativeWebRequest;
  */
 public interface AfterHook extends Ordered {
 
-    public void execute(NativeWebRequest webRequest, Token token, UserDetails userDetails);
+    public void execute(NativeWebRequest request, Token token, UserDetails userDetails);
 
     @Override
     public default int getOrder() {

@@ -24,7 +24,15 @@ import javax.servlet.http.HttpServletRequest;
 public class LoggingAfterHook implements AfterHook {
 
     @Override
-    public void execute(NativeWebRequest webRequest, Token token, UserDetails userDetails) {
+    public void execute(NativeWebRequest request, Token token, UserDetails userDetails) {
+        try {
+            doLog(request, token, userDetails);
+        } catch (Exception e) {
+            // NOP
+        }
+    }
+
+    private void doLog(NativeWebRequest webRequest, Token token, UserDetails userDetails) {
         if (!log.isDebugEnabled()) {
             return;
         }
@@ -34,5 +42,4 @@ public class LoggingAfterHook implements AfterHook {
         log.debug("[restful-security] token: {}", token);
         log.debug("[restful-security] user-details: {}", userDetails);
     }
-
 }
