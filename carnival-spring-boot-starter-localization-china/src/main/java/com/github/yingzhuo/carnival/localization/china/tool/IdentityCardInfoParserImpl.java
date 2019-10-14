@@ -33,7 +33,7 @@ public class IdentityCardInfoParserImpl implements IdentityCardInfoParser {
             val info = new IdentityCardInfo();
             info.setAge(IdentityCardNumberUtils.getAge(obj));
             info.setDob(IdentityCardNumberUtils.getDateOfBirth(obj));
-            info.setGender(IdentityCardNumberUtils.isFemale(obj) ? Gender.MALE : Gender.FEMALE);
+            info.setGender(IdentityCardNumberUtils.isFemale(obj) ? Gender.FEMALE : Gender.MALE);
             info.setProvince(IdentityCardNumberUtils.getProvince(obj));
             return Optional.of(info);
         } catch (Exception e) {
