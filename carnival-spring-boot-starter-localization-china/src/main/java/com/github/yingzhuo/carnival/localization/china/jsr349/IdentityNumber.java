@@ -19,8 +19,8 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = IdentityCardNumberConstraintValidator.class)
-public @interface IdentityCardNumber {
+@Constraint(validatedBy = IdentityNumberConstraintValidator.class)
+public @interface IdentityNumber {
 
     public String message() default "Invalid identity card number.";
 

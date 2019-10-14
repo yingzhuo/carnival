@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.localization.china.jsr349;
 
-import com.github.yingzhuo.carnival.localization.china.util.IdentityCardNumberUtils;
+import com.github.yingzhuo.carnival.localization.china.util.IdentityUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import javax.validation.ConstraintValidator;
@@ -20,12 +20,12 @@ import java.util.Date;
 /**
  * @author 应卓
  */
-public class IdentityCardNumberConstraintValidator implements ConstraintValidator<IdentityCardNumber, String> {
+public class IdentityNumberConstraintValidator implements ConstraintValidator<IdentityNumber, String> {
 
     private boolean compatibility15 = true;
 
     @Override
-    public void initialize(IdentityCardNumber constraintAnnotation) {
+    public void initialize(IdentityNumber constraintAnnotation) {
         this.compatibility15 = constraintAnnotation.compatibility15();
     }
 
@@ -72,7 +72,7 @@ public class IdentityCardNumberConstraintValidator implements ConstraintValidato
         }
 
         //校验区位码
-        if (IdentityCardNumberUtils.getProvince(value) == null) {
+        if (IdentityUtils.getProvince(value) == null) {
             return false;
         }
 

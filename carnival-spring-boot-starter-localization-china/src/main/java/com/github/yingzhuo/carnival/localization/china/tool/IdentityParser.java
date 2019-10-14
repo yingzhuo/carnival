@@ -9,11 +9,14 @@
  */
 package com.github.yingzhuo.carnival.localization.china.tool;
 
-import com.github.yingzhuo.carnival.common.Parser;
+import java.util.Optional;
 
 /**
  * @author 应卓
  */
 @FunctionalInterface
-public interface IdentityCardInfoParser extends Parser<String, IdentityCardInfo> {
+public interface IdentityParser {
+
+    public Optional<IdentityDescriptor> parse(String number);
+
 }

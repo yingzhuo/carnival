@@ -19,8 +19,6 @@ import java.io.Serializable;
  */
 public final class JsonQRCode extends AbstractQRCode implements Serializable {
 
-    private static final long serialVersionUID = -1445605445274578702L;
-
     public static JsonQRCode create() {
         return JsonQRCode.builder().build();
     }

@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.localization.china.util;
 
+import com.github.yingzhuo.carnival.localization.china.tool.IdentityDescriptor;
+import com.github.yingzhuo.carnival.localization.china.tool.IdentityParser;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 
 import java.text.ParseException;
@@ -23,7 +26,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public final class IdentityCardNumberUtils {
+public final class IdentityUtils {
 
     private final static Map<Integer, String> ZONE_NUM = new HashMap<>();
 
@@ -64,7 +67,8 @@ public final class IdentityCardNumberUtils {
         ZONE_NUM.put(91, "外国");
     }
 
-    private IdentityCardNumberUtils() {
+    public static IdentityDescriptor parse(String number) {
+        return SpringUtils.getBean(IdentityParser.class).parse(number).orElse(null);
     }
 
     public static boolean isMale(String number) {
@@ -86,7 +90,7 @@ public final class IdentityCardNumberUtils {
         }
     }
 
-    public static int getYearOfBirth(String number) {
+    private static int getYearOfBirth(String number) {
         try {
             String dob = number.length() == 18 ? number.substring(6, 14) : "19" + number.substring(6, 12);
             Date date = DateUtils.parseDate(dob, "yyyyMMdd");
@@ -105,6 +109,11 @@ public final class IdentityCardNumberUtils {
 
     public static String getProvince(String number) {
         return ZONE_NUM.get(Integer.parseInt(number.substring(0, 2)));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private IdentityUtils() {
     }
 
 }
