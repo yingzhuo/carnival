@@ -15,7 +15,6 @@ import java.io.Serializable;
  * 用户令牌
  *
  * @author 应卓
- * @see ByteArrayToken
  * @see StringToken
  * @see UsernamePasswordToken
  */
