@@ -33,10 +33,7 @@ public class UsernamePasswordToken implements Token {
 
     @Override
     public String toString() {
-        return "UsernamePasswordToken(" +
-                "value='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ')';
+        return String.format("%s:%s", username, password);
     }
 
     @Override
