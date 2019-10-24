@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistMan
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
+import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -42,6 +43,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
     private TokenBlacklistManager tokenBlacklistManager;
+    private BeforeHook beforeHook;
     private AfterHook afterHook;
 
     @Override
@@ -65,6 +67,8 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
             return true;
         }
+
+        beforeHook.execute(servletWebRequest);
 
         val tokenOp = tokenParser.parse(servletWebRequest);
 
@@ -142,8 +146,11 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         this.tokenBlacklistManager = tokenBlacklistManager;
     }
 
+    public void setBeforeHook(BeforeHook beforeHook) {
+        this.beforeHook = beforeHook;
+    }
+
     public void setAfterHook(AfterHook afterHook) {
         this.afterHook = afterHook;
     }
-
 }
