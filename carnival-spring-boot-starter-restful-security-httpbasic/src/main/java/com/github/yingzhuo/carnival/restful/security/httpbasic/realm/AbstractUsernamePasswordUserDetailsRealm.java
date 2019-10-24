@@ -7,8 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.realm;
+package com.github.yingzhuo.carnival.restful.security.httpbasic.realm;
 
+import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;

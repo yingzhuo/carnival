@@ -22,6 +22,7 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-protobuf</module>
         <module>carnival-spring-boot-starter-restful-security</module>
+        <module>carnival-spring-boot-starter-restful-security-httpbasic</module>
         <module>carnival-spring-boot-starter-restful-security-jwt</module>
         <module>carnival-spring-boot-starter-secret</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>

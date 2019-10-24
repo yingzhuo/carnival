@@ -21,7 +21,6 @@ import java.util.Optional;
  * 令牌解析器
  *
  * @author 应卓
- * @see HttpBasicTokenParser
  * @see Token
  */
 @FunctionalInterface

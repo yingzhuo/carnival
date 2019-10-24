@@ -7,8 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.parser;
+package com.github.yingzhuo.carnival.restful.security.httpbasic.parser;
 
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
 import org.springframework.web.context.request.NativeWebRequest;
