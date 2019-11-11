@@ -9,8 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
-import lombok.var;
-import org.ini4j.Wini;
+import com.moandjiezana.toml.Toml;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
@@ -18,15 +17,15 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @since 1.2.3
  */
-@Deprecated
-public class IniBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
+public class TomlBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
 
-    private final Wini ini;
+    private final Toml toml = new Toml();
 
-    public IniBusinessExceptionFactory(Resource resource) {
+    public TomlBusinessExceptionFactory(Resource tomlResource) {
         try {
-            this.ini = new Wini(resource.getInputStream());
+            toml.read(tomlResource.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -34,16 +33,7 @@ public class IniBusinessExceptionFactory extends AbstractBusinessExceptionFactor
 
     @Override
     protected Optional<String> getMessage(String code) {
-
-        final String[] sectionNameAndKey = code.split("\\.");
-
-        if (sectionNameAndKey.length != 2) {
-            return Optional.empty();
-        }
-
-        var message = ini.get(sectionNameAndKey[0], sectionNameAndKey[1]);
-
-        return Optional.ofNullable(message);
+        return Optional.ofNullable(toml.getString(code));
     }
 
 }
