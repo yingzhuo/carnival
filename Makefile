@@ -1,17 +1,7 @@
 timestamp := $(shell /bin/date "+%F %T")
 
-usage:
-	@echo " target           | 功能"
-	@echo "------------------|---------------------------------"
-	@echo " usage            | 显示本菜单"
-	@echo " clean            | 清理"
-	@echo " compile          | 编译"
-	@echo " package          | 打包"
-	@echo " install          | 安装"
-	@echo " deploy           | 部署到Maven中央仓库"
-	@echo " version          | 更改版本号"
-	@echo " github           | 推送代码到Github"
-	@echo "------------------|---------------------------------"
+no_default:
+	@echo "no default target"
 
 clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
@@ -38,4 +28,4 @@ github: clean
 	@git commit -m "$(timestamp)"
 	@git push
 
-.PHONY: usage clean compile package install deploy version github
+.PHONY: no_default clean compile package install deploy version github
