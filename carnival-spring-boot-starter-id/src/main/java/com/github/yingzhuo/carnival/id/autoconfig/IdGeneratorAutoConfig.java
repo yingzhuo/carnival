@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.id.autoconfig;
 
-import com.github.yingzhuo.carnival.common.util.EnvironmentUtils;
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
@@ -19,7 +18,6 @@ import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import lombok.var;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -43,24 +41,11 @@ public class IdGeneratorAutoConfig {
             case SNOWFLAKE:
             case SNOWFLAKE_STRING:
 
-                // property配置
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
 
-                // 环境变量
-                val envWorkerId = EnvironmentUtils.getLongOrDefault("CARNIVAL_SNOWFLAKE_WORKER_ID", -1L);
-                val envDataCenterId = EnvironmentUtils.getLongOrDefault("CARNIVAL_SNOWFLAKE_DATA_CENTER_ID", -1L);
-
-                if (envWorkerId != -1L) {
-                    workerId = envWorkerId;
-                }
-
-                if (envDataCenterId != -1L) {
-                    dataCenterId = envDataCenterId;
-                }
-
-                log.info("SNOWFLAKE_WORKER_ID: {}", workerId);
-                log.info("SNOWFLAKE_DATA_CENTER_ID: {}", dataCenterId);
+                log.info("snowflake worker-id: {}", workerId);
+                log.info("snowflake data-center-id: {}", dataCenterId);
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
                     return new SnowflakeLongIdGenerator(workerId, dataCenterId);
