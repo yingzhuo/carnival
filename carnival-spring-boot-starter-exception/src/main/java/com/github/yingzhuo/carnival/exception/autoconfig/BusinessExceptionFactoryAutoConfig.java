@@ -15,6 +15,8 @@ import com.github.yingzhuo.carnival.exception.business.impl.IniBusinessException
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,6 +29,7 @@ import java.util.Map;
 /**
  * @author 应卓
  */
+@Slf4j
 @EnableConfigurationProperties(BusinessExceptionFactoryAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionFactoryAutoConfig {
@@ -49,15 +52,26 @@ public class BusinessExceptionFactoryAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.business-exception")
-    static final class Props {
+    static final class Props implements InitializingBean {
         private boolean enabled = true;
 
         private Resource tomlLocation = null;
 
-        private Map<String, String> messages = null;
-
         @Deprecated
         private Resource iniLocation = null;
+
+        private Map<String, String> messages = null;
+
+        @Override
+        public void afterPropertiesSet() {
+            if (iniLocation != null) {
+                log.warn("[carnival][starter-exception] ini config for business exception is deprecated.");
+            }
+
+            if (tomlLocation != null && iniLocation != null) {
+                log.warn("[carnival][starter-exception] ini config for business exception will be ignored.");
+            }
+        }
     }
 
 }

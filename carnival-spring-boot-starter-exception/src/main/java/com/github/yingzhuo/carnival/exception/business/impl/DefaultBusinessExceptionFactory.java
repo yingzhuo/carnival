@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class DefaultBusinessExceptionFactory extends AbstractBusinessExceptionFa
     private final Map<String, String> messages;
 
     public DefaultBusinessExceptionFactory(Map<String, String> messages) {
-        this.messages = messages;
+        this.messages = Collections.unmodifiableMap(messages);
     }
 
     @Override
