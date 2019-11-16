@@ -24,9 +24,9 @@ import org.springframework.core.Ordered;
 /**
  * @author 应卓
  */
-@ConditionalOnProperty(prefix = "carnival.api-gateway.logging", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ConditionalOnDebugMode
 @EnableConfigurationProperties(LoggingFilterAutoConfig.Props.class)
+@ConditionalOnDebugMode
+@ConditionalOnProperty(prefix = "carnival.api-gateway.logging", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class LoggingFilterAutoConfig {
 
     @Bean

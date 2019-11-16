@@ -16,17 +16,21 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public class DefaultBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
+public class InMemoryBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
 
     private final Map<String, String> messages;
 
-    public DefaultBusinessExceptionFactory(Map<String, String> messages) {
+    public InMemoryBusinessExceptionFactory(Map<String, String> messages) {
         this.messages = Collections.unmodifiableMap(messages);
     }
 
     @Override
     protected Optional<String> getMessage(String code) {
         return Optional.ofNullable(messages.get(code));
+    }
+
+    public boolean isEmpty() {
+        return messages.isEmpty();
     }
 
 }

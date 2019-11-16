@@ -10,13 +10,12 @@
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.business.impl.DefaultBusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.IniBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -46,13 +45,13 @@ public class BusinessExceptionFactoryAutoConfig {
             return new IniBusinessExceptionFactory(props.getIniLocation());
         }
 
-        return new DefaultBusinessExceptionFactory(props.getMessages());
+        return new InMemoryBusinessExceptionFactory(props.getMessages());
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.business-exception")
-    static final class Props implements InitializingBean {
+    static final class Props {
         private boolean enabled = true;
 
         private Resource tomlLocation = null;
@@ -61,17 +60,6 @@ public class BusinessExceptionFactoryAutoConfig {
         private Resource iniLocation = null;
 
         private Map<String, String> messages = null;
-
-        @Override
-        public void afterPropertiesSet() {
-            if (iniLocation != null) {
-                log.warn("[carnival][starter-exception] ini config for business exception is deprecated.");
-            }
-
-            if (tomlLocation != null && iniLocation != null) {
-                log.warn("[carnival][starter-exception] ini config for business exception will be ignored.");
-            }
-        }
     }
 
 }
