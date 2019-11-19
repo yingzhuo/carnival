@@ -28,20 +28,13 @@ public class HttpHeaderTokenParser implements TokenParser {
     private int order = 0;
 
     public HttpHeaderTokenParser(String headerName) {
-        this(headerName, null);
+        this(headerName, "");
     }
 
     public HttpHeaderTokenParser(String headerName, String prefix) {
-
-        Objects.requireNonNull(headerName);
-
-        if (prefix == null) {
-            prefix = "";
-        }
-
-        this.headerName = headerName;
-        this.prefix = prefix;
-        this.prefixLen = prefix.length();
+        this.headerName = Objects.requireNonNull(headerName);
+        this.prefix = prefix != null ? prefix : "";
+        this.prefixLen = this.prefix.length();
     }
 
     @Override

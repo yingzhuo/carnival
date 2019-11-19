@@ -58,7 +58,6 @@ public final class UserDetailsUtils {
         return userDetails != null && userDetails.isAdmin();
     }
 
-
     public static Gender getGender() {
         val userDetails = get();
         return userDetails != null ? userDetails.getGender() : null;

@@ -98,7 +98,7 @@ public final class UserDetailsBuilder {
         return this;
     }
 
-    public UserDetailsBuilder nativeUser(Object nativeUser) {
+    public <T> UserDetailsBuilder nativeUser(T nativeUser) {
         ud.setNativeUser(nativeUser);
         return this;
     }
