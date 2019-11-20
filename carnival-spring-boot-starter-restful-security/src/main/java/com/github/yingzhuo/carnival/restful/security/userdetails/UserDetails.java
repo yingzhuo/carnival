@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -55,6 +56,8 @@ public interface UserDetails extends Serializable {
     public boolean isAdmin();
 
     public <U> U getNativeUser();
+
+    public Map<String, Object> getPayload();
 
     public default Collection<String> getRoleNames() {
         if (getRoles() == null) {

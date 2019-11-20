@@ -16,9 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @author 应卓
@@ -40,5 +38,6 @@ public class SimpleUserDetails implements UserDetails {
     private Collection<Permission> permissions = Collections.emptyList();
     private boolean admin = false;
     private Object nativeUser = null;
+    private Map<String, Object> payload = new HashMap<>();
 
 }

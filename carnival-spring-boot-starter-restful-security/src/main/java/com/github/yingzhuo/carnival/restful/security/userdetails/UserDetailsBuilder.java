@@ -13,9 +13,7 @@ import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.permission.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -100,6 +98,18 @@ public final class UserDetailsBuilder {
 
     public <T> UserDetailsBuilder nativeUser(T nativeUser) {
         ud.setNativeUser(nativeUser);
+        return this;
+    }
+
+    public UserDetailsBuilder payload(String key, Object value) {
+        Objects.requireNonNull(key);
+        Objects.requireNonNull(value);
+
+        if (ud.getPayload() == null) {
+            ud.setPayload(new HashMap<>());
+        }
+
+        ud.getPayload().put(key, value);
         return this;
     }
 
