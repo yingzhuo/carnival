@@ -18,39 +18,43 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 public final class PasswordEncrypterUtils {
 
     public static String encrypt(String rawPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword);
+        return passwordEncrypter().encrypt(rawPassword);
     }
 
     public static String encrypt(String rawPassword, String rightSalt) {
-        return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword, rightSalt);
+        return passwordEncrypter().encrypt(rawPassword, rightSalt);
     }
 
     public static String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        return SpringUtils.getBean(PasswordEncrypter.class).encrypt(rawPassword, leftSalt, rightSalt);
+        return passwordEncrypter().encrypt(rawPassword, leftSalt, rightSalt);
     }
 
     public static boolean matches(String rawPassword, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, encryptedPassword);
+        return passwordEncrypter().matches(rawPassword, encryptedPassword);
     }
 
     public static boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, rightSalt, encryptedPassword);
+        return passwordEncrypter().matches(rawPassword, rightSalt, encryptedPassword);
     }
 
     public static boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).matches(rawPassword, leftSalt, rightSalt, encryptedPassword);
+        return passwordEncrypter().matches(rawPassword, leftSalt, rightSalt, encryptedPassword);
     }
 
     public static boolean notMatches(String rawPassword, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).notMatches(rawPassword, encryptedPassword);
+        return passwordEncrypter().notMatches(rawPassword, encryptedPassword);
     }
 
     public static boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).notMatches(rawPassword, rightSalt, encryptedPassword);
+        return passwordEncrypter().notMatches(rawPassword, rightSalt, encryptedPassword);
     }
 
     public static boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        return SpringUtils.getBean(PasswordEncrypter.class).notMatches(rawPassword, leftSalt, rightSalt, encryptedPassword);
+        return passwordEncrypter().notMatches(rawPassword, leftSalt, rightSalt, encryptedPassword);
+    }
+
+    private static PasswordEncrypter passwordEncrypter() {
+        return SpringUtils.getBean(PasswordEncrypter.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

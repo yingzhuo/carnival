@@ -14,6 +14,7 @@ import org.ini4j.Wini;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Optional;
 
 /**
@@ -28,7 +29,7 @@ public class IniBusinessExceptionFactory extends AbstractBusinessExceptionFactor
         try {
             this.ini = new Wini(resource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

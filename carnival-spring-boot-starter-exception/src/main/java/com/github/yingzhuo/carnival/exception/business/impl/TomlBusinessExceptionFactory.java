@@ -13,6 +13,7 @@ import com.moandjiezana.toml.Toml;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.Optional;
 
 /**
@@ -23,11 +24,11 @@ public class TomlBusinessExceptionFactory extends AbstractBusinessExceptionFacto
 
     private final Toml toml = new Toml();
 
-    public TomlBusinessExceptionFactory(Resource tomlResource) {
+    public TomlBusinessExceptionFactory(Resource resource) {
         try {
-            toml.read(tomlResource.getInputStream());
+            toml.read(resource.getInputStream());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

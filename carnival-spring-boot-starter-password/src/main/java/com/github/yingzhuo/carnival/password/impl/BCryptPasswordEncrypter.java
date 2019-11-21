@@ -47,16 +47,22 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
     }
 
     @Override
-    public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        throw new UnsupportedOperationException();
+    public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        try {
+            return BCrypt.checkpw(rawPassword, encryptedPassword);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        throw new UnsupportedOperationException();
+    public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
+        try {
+            return BCrypt.checkpw(rawPassword, encryptedPassword);
+        } catch (Exception e) {
+            return false;
+        }
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Override
     public boolean notMatches(String rawPassword, String encryptedPassword) {
@@ -64,13 +70,13 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
     }
 
     @Override
-    public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        throw new UnsupportedOperationException();
+    public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return !matches(rawPassword, encryptedPassword);
     }
 
     @Override
-    public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
-        throw new UnsupportedOperationException();
+    public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return !matches(rawPassword, encryptedPassword);
     }
 
 }

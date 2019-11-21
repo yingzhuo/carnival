@@ -30,4 +30,39 @@ public class NonePasswordEncrypter implements PasswordEncrypter {
         return StringUtils.equals(rawPassword, encryptedPassword);
     }
 
+    @Override
+    public String encrypt(String rawPassword) {
+        return rawPassword;
+    }
+
+    @Override
+    public String encrypt(String rawPassword, String rightSalt) {
+        return rawPassword;
+    }
+
+    @Override
+    public boolean matches(String rawPassword, String encryptedPassword) {
+        return StringUtils.equals(rawPassword, encryptedPassword);
+    }
+
+    @Override
+    public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return StringUtils.equals(rawPassword, encryptedPassword);
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String encryptedPassword) {
+        return !StringUtils.equals(rawPassword, encryptedPassword);
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
+        return !StringUtils.equals(rawPassword, encryptedPassword);
+    }
+
+    @Override
+    public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return !StringUtils.equals(rawPassword, encryptedPassword);
+    }
+
 }

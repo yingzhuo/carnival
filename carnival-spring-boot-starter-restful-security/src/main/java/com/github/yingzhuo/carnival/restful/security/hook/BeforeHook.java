@@ -14,6 +14,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 /**
  * @author 应卓
+ * @since 1.2.1
  */
 public interface BeforeHook extends Ordered {
 
