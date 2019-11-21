@@ -18,15 +18,12 @@ import org.apache.commons.lang3.RandomStringUtils;
  */
 public final class SaltUtils {
 
-    public static String gen(int length) {
-        return RandomStringUtils.randomAlphabetic(length);
+    public static String gen(int len) {
+        return RandomStringUtils.randomAlphabetic(len);
     }
 
-    public static SaltPair genPair(int length) {
-        return new SaltPair(
-                RandomStringUtils.randomAlphabetic(length),
-                RandomStringUtils.randomAlphabetic(length)
-        );
+    public static SaltPair genPair(int len) {
+        return SaltPair.of(RandomStringUtils.randomAlphabetic(len), RandomStringUtils.randomAlphabetic(len));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -20,17 +20,35 @@ import java.util.Objects;
  */
 public final class SaltPair implements Serializable {
 
+    public static SaltPair of(String left, String right) {
+        return new SaltPair(left, right);
+    }
+
     public final String left;
     public final String right;
 
     public SaltPair(String left, String right) {
-        this.left = Objects.requireNonNull(left);
-        this.right = Objects.requireNonNull(right);
+        this.left = left != null ? left : "";
+        this.right = right != null ? right : "";
     }
 
     @Override
     public String toString() {
         return String.format("%s:%s", left, right);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SaltPair saltPair = (SaltPair) o;
+        return Objects.equals(left, saltPair.left) &&
+                Objects.equals(right, saltPair.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(left, right);
     }
 
 }
