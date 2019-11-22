@@ -9,13 +9,12 @@
  */
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
+import com.github.yingzhuo.carnival.common.io.ResourceOption;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.business.impl.IniBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -28,7 +27,6 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-@Slf4j
 @EnableConfigurationProperties(BusinessExceptionFactoryAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionFactoryAutoConfig {
@@ -37,12 +35,21 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory(Props props) {
 
-        if (props.getTomlLocation() != null && props.getTomlLocation().isReadable()) {
+        if (props.getTomlLocation() != null && props.getTomlLocation().exists()) {
             return new TomlBusinessExceptionFactory(props.getTomlLocation());
         }
 
-        if (props.getIniLocation() != null && props.getIniLocation().isReadable()) {
-            return new IniBusinessExceptionFactory(props.getIniLocation());
+        ResourceOption option = ResourceOption.of(
+                "classpath:/business-exception.toml",
+                "classpath:/business-exceptions.toml",
+                "classpath:/META-INF/business-exception.toml",
+                "classpath:/META-INF/business-exceptions.toml",
+                "file:./business-exception.toml",
+                "file:./business-exceptions.toml"
+        );
+
+        if (option.isPresent()) {
+            return new TomlBusinessExceptionFactory(option.get());
         }
 
         return new InMemoryBusinessExceptionFactory(props.getMessages());
@@ -53,13 +60,8 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConfigurationProperties(prefix = "carnival.business-exception")
     static final class Props {
         private boolean enabled = true;
-
         private Resource tomlLocation = null;
-
-        @Deprecated
-        private Resource iniLocation = null;
-
-        private Map<String, String> messages = null;
+        private Map<String, String> messages;
     }
 
 }

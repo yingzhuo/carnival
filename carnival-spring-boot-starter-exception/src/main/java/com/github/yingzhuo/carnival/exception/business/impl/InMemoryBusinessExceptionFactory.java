@@ -21,7 +21,8 @@ public class InMemoryBusinessExceptionFactory extends AbstractBusinessExceptionF
     private final Map<String, String> messages;
 
     public InMemoryBusinessExceptionFactory(Map<String, String> messages) {
-        this.messages = Collections.unmodifiableMap(messages);
+        this.messages = messages != null ?
+                Collections.unmodifiableMap(messages) : Collections.emptyMap();
     }
 
     @Override

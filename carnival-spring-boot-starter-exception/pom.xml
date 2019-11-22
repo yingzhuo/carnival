@@ -41,12 +41,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ini4j -->
-        <dependency>
-            <groupId>org.ini4j</groupId>
-            <artifactId>ini4j</artifactId>
-        </dependency>
-
         <!-- toml4j -->
         <dependency>
             <groupId>com.moandjiezana.toml</groupId>

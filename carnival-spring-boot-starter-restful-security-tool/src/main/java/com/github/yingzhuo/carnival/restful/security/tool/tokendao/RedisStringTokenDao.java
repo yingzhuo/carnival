@@ -22,6 +22,7 @@ public class RedisStringTokenDao implements StringTokenDao {
     private final StringRedisTemplate stringRedisTemplate;
     private final long timeout;
     private final TimeUnit timeUnit;
+    private String redisKeyPrefix = "";
 
     public RedisStringTokenDao(StringRedisTemplate stringRedisTemplate) {
         this(stringRedisTemplate, 0, TimeUnit.DAYS);
@@ -35,16 +36,22 @@ public class RedisStringTokenDao implements StringTokenDao {
 
     @Override
     public void save(String key, String token) {
+        final String redisStringKey = this.redisKeyPrefix + key;
+
         if (this.timeout >= 0) {
-            stringRedisTemplate.opsForValue().set(key, token, this.timeout, this.timeUnit);
+            stringRedisTemplate.opsForValue().set(redisStringKey, token, this.timeout, this.timeUnit);
         } else {
-            stringRedisTemplate.opsForValue().set(key, token);
+            stringRedisTemplate.opsForValue().set(redisStringKey, token);
         }
     }
 
     @Override
     public String find(String key) {
         return stringRedisTemplate.opsForValue().get(key);
+    }
+
+    public void setRedisKeyPrefix(String redisKeyPrefix) {
+        this.redisKeyPrefix = redisKeyPrefix != null ? redisKeyPrefix : "";
     }
 
 }
