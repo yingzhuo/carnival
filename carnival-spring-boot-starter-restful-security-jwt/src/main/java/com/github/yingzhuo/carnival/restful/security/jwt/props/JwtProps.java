@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.props;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,7 +22,6 @@ import java.io.Serializable;
 /**
  * @author 应卓
  */
-@Slf4j
 @ConfigurationProperties(prefix = "carnival.jwt")
 public class JwtProps implements Serializable, InitializingBean {
 
@@ -39,10 +37,6 @@ public class JwtProps implements Serializable, InitializingBean {
         if (StringUtils.isNotBlank(secretLocation)) {
             this.secret = ResourceText.load(secretLocation).trim();
         }
-
-        log.info("carnival.jwt.secret = {}", this.secret);
-        log.info("carnival.jwt.secret-location = {}", this.secret);
-        log.info("carnival.jwt.signature-algorithm = {}", this.signatureAlgorithm);
 
         this.algorithm = signatureAlgorithm.toJwtAlgorithm(this.secret);
     }
