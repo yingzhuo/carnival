@@ -29,8 +29,8 @@ public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework
     private final CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
 
     private String connectString;
-    private int sessionTimeoutMs = 60000;
-    private int connectionTimeoutMs = 60000;
+    private int sessionTimeoutMs;
+    private int connectionTimeoutMs;
     private String namespace;
     private RetryPolicy retryPolicy;
 
