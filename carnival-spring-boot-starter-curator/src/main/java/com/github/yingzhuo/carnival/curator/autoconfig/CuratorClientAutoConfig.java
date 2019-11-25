@@ -58,13 +58,15 @@ public class CuratorClientAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.curator")
-    class CuratorClientProps implements InitializingBean {
+    public class CuratorClientProps implements InitializingBean {
         private boolean enabled = true;
         private String connectString;
         private int sessionTimeoutMs = 60000;
         private int connectionTimeoutMs = 60000;
         private String namespace;
+
         private RetryProps retry = new RetryProps();
+        private DistributedLockProps distributedLock = new DistributedLockProps();
 
         @Override
         public void afterPropertiesSet() {
@@ -79,7 +81,7 @@ public class CuratorClientAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.curator.retry")
-    static class RetryProps {
+    public static class RetryProps {
         private int baseSleepTimeMs = 1000;
         private int maxRetries = 3;
         private int maxSleepMs = Integer.MAX_VALUE;
@@ -90,6 +92,13 @@ public class CuratorClientAutoConfig {
                     maxRetries,
                     maxSleepMs);
         }
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.curator.distributed-newLock")
+    public static class DistributedLockProps {
+        private String keyPrefix = "";
     }
 
 }
