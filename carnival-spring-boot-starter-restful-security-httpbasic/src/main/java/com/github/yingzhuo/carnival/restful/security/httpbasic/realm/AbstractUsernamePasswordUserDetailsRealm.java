@@ -9,7 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.httpbasic.realm;
 
+import com.github.yingzhuo.carnival.restful.security.exception.UnsupportedTokenTypeException;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
@@ -33,7 +35,18 @@ public abstract class AbstractUsernamePasswordUserDetailsRealm implements UserDe
             return Optional.ofNullable(doLoadUserDetails(username, password));
         }
 
-        return Optional.empty();
+        // 兼容性提升
+        if (token instanceof StringToken) {
+            String tokenValue = ((StringToken) token).getValue();
+            String[] parts = tokenValue.split(":");
+            if (parts.length == 2) {
+                return Optional.ofNullable(doLoadUserDetails(parts[0], parts[1]));
+            } else {
+                return Optional.empty();
+            }
+        }
+
+        throw new UnsupportedTokenTypeException();
     }
 
     protected abstract UserDetails doLoadUserDetails(String username, String password);
