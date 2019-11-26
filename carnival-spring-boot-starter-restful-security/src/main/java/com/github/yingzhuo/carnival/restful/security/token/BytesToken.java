@@ -7,42 +7,48 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.role;
+package com.github.yingzhuo.carnival.restful.security.token;
 
-import java.util.Objects;
+import java.util.Arrays;
 
 /**
  * @author 应卓
+ * @since 1.3.0
  */
-public class SimpleRole implements Role {
+public class BytesToken implements Token {
 
-    private final String name;
+    private final byte[] data;
 
-    public SimpleRole(String name) {
-        this.name = name;
+    public static BytesToken of(byte[] data) {
+        return new BytesToken(data);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
+    public BytesToken(byte[] data) {
+        this.data = data;
+    }
+
+    public byte[] getData() {
+        return data;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SimpleRole that = (SimpleRole) o;
-        return Objects.equals(name, that.name);
+        BytesToken that = (BytesToken) o;
+        return Arrays.equals(data, that.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name);
+        return Arrays.hashCode(data);
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return "BytesToken{" +
+                "data=" + Arrays.toString(data) +
+                '}';
     }
 
 }

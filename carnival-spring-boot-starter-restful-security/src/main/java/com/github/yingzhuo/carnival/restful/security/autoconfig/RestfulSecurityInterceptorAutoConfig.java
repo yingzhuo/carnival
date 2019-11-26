@@ -14,7 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
-import com.github.yingzhuo.carnival.restful.security.converter.StringToUserDetailsConverter;
+import com.github.yingzhuo.carnival.restful.security.mvc.StringToUserDetailsConverter;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;

@@ -15,13 +15,13 @@ package com.github.yingzhuo.carnival.restful.security;
 public enum AuthenticationStrategy {
 
     /**
-     * 所有请求
+     * 仅尝试认证被标注的请求 (默认)
      */
-    ALL,
+    ANNOTATED_REQUESTS,
 
     /**
-     * 仅仅尝试认证被标注的请求
+     * 所有请求
      */
-    ONLY_ANNOTATED
+    ALL_REQUESTS,
 
 }

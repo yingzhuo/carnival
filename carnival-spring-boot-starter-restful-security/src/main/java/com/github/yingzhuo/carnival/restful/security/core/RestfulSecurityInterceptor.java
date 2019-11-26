@@ -42,7 +42,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private CacheManager cacheManager;
-    private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ONLY_ANNOTATED;
+    private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
     private TokenBlacklistManager tokenBlacklistManager;
     private BeforeHook beforeHook;
     private AfterHook afterHook;
@@ -70,7 +70,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         }
 
         final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
-        if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ONLY_ANNOTATED) {
+        if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ANNOTATED_REQUESTS) {
             return true;
         }
 

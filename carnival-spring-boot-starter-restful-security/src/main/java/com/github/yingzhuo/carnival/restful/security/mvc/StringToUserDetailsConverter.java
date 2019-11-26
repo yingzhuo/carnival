@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.converter;
+package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.UnsupportedTokenTypeException;
@@ -32,7 +32,7 @@ public class StringToUserDetailsConverter implements Converter<String, UserDetai
             return null;
         }
 
-        final UserDetailsRealm realm = getUserDetails();
+        final UserDetailsRealm realm = RestfulSecurityContext.getFinalUserDetailsRealm();
 
         if (realm == null) {
             return null;
@@ -42,15 +42,11 @@ public class StringToUserDetailsConverter implements Converter<String, UserDetai
             Token token = StringToken.of(tokenString);
             return realm.loadUserDetails(token).orElse(null);
         } catch (UnsupportedTokenTypeException e) {
-            log.warn("string token is NOT support");
+            log.warn("string token is NOT supported.");
             return null;
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private UserDetailsRealm getUserDetails() {
-        return RestfulSecurityContext.getFinalUserDetailsRealm();
     }
 
 }
