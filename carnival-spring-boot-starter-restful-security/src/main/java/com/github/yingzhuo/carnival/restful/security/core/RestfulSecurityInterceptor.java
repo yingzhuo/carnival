@@ -65,6 +65,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
         val handlerMethod = (HandlerMethod) handler;
 
         if (handlerMethod.hasMethodAnnotation(IgnoreToken.class)) {
+            RestfulSecurityContext.setTokenIgnored(true);
             return true;
         }
 
