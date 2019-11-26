@@ -18,6 +18,7 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  * @author 应卓
  * @since 1.1.7
  */
+@Deprecated
 public final class JwtTokenUtils {
 
     private JwtTokenUtils() {

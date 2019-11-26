@@ -134,10 +134,12 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
     public void setTokenParser(TokenParser tokenParser) {
         this.tokenParser = tokenParser;
+        RestfulSecurityContext.finalTokenParser = tokenParser;  // 偷渡行为很不优雅，暂且这样
     }
 
     public void setUserDetailsRealm(UserDetailsRealm userDetailsRealm) {
         this.userDetailsRealm = userDetailsRealm;
+        RestfulSecurityContext.finalUserDetailsRealm = userDetailsRealm; // 偷渡行为很不优雅，暂且这样
     }
 
     public void setCacheManager(CacheManager cacheManager) {

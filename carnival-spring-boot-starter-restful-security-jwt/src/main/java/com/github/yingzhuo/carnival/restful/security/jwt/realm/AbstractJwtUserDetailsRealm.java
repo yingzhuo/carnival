@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.jwt.realm;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.github.yingzhuo.carnival.restful.security.exception.UnsupportedTokenTypeException;
 import com.github.yingzhuo.carnival.restful.security.jwt.exception.*;
 import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -51,7 +52,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
             }
         }
 
-        return Optional.empty();
+        throw new UnsupportedTokenTypeException();
     }
 
     protected abstract UserDetails getUserDetails(Token token, DecodedJWT jwt);

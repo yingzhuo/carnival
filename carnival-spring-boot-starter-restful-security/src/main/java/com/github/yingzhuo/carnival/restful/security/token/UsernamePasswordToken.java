@@ -9,15 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
-import lombok.Getter;
-
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-@Getter
-public class UsernamePasswordToken implements Token {
+public class UsernamePasswordToken extends StringToken {
 
     public static UsernamePasswordToken of(String username, String password) {
         return new UsernamePasswordToken(username, password);
@@ -27,13 +24,9 @@ public class UsernamePasswordToken implements Token {
     private final String password;
 
     public UsernamePasswordToken(String username, String password) {
+        super(String.format("%s:%s", username, password));
         this.username = Objects.requireNonNull(username);
         this.password = Objects.requireNonNull(password);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s:%s", username, password);
     }
 
     @Override
@@ -48,6 +41,14 @@ public class UsernamePasswordToken implements Token {
     @Override
     public int hashCode() {
         return Objects.hash(username, password);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
 }
