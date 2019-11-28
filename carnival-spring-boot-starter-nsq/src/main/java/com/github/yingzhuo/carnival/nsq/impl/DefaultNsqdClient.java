@@ -28,6 +28,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -59,6 +60,29 @@ public class DefaultNsqdClient implements NsqdClient {
     public DefaultNsqdClient(Set<NsqdNode> nsqdNodes, NsqdNodeSelector selector) {
         this.nsqdNodes = nsqdNodes;
         this.selector = selector;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean health() {
+        final NsqdNode node = selector.select(nsqdNodes);
+
+        final String url = UriComponentsBuilder.newInstance()
+                .scheme(node.getProtocol().getValue())
+                .host(node.getNsqdHost())
+                .port(node.getNsqdPort())
+                .path("/stats")
+                .queryParam("format", "json")
+                .toUriString();
+
+        ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.GET, DEFAULT_HTTP_ENTITY, Map.class);
+
+        Map<Object, Object> body = response.getBody();
+        if (body == null) {
+            return false;
+        }
+
+        return response.getStatusCodeValue() == 200 && Objects.equals("OK", body.get("health"));
     }
 
     @Override

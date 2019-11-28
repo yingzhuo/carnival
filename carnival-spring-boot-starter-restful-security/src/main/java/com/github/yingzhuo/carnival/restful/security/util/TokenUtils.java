@@ -25,6 +25,7 @@ public final class TokenUtils {
      * 获取令牌
      *
      * @param <T> 令牌类型
+     * @return 令牌
      */
     public static <T extends Token> T get() {
         return (T) RestfulSecurityContext.getToken().orElse(null);

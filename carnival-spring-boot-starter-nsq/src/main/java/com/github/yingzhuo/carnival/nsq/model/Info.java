@@ -14,8 +14,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 1.3.1
@@ -23,7 +21,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class Info implements Serializable {
+public class Info {
 
     @JsonProperty("version")
     private String version;

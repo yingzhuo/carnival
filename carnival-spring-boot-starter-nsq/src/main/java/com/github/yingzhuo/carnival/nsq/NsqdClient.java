@@ -21,6 +21,13 @@ import java.util.concurrent.TimeUnit;
 public interface NsqdClient {
 
     /**
+     * Check Nsqd Node is check
+     *
+     * @return true if health
+     */
+    public boolean health();
+
+    /**
      * Version information
      *
      * @return the information

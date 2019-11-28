@@ -25,16 +25,16 @@ import java.util.Objects;
 public class NsqdNode {
 
     private Protocol protocol = Protocol.HTTP;
-    private String nsqdHost;
-    private int nsqdPort = 4151;
+    private String host;
+    private int port = 4151;
 
     public NsqdNode() {
     }
 
-    public NsqdNode(Protocol protocol, String nsqdHost, int nsqdPort) {
+    public NsqdNode(Protocol protocol, String host, int port) {
         this.protocol = protocol;
-        this.nsqdHost = nsqdHost;
-        this.nsqdPort = nsqdPort;
+        this.host = host;
+        this.port = port;
     }
 
     @Override
@@ -42,14 +42,13 @@ public class NsqdNode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NsqdNode nsqdNode = (NsqdNode) o;
-        return nsqdPort == nsqdNode.nsqdPort &&
+        return port == nsqdNode.port &&
                 protocol == nsqdNode.protocol &&
-                Objects.equals(nsqdHost, nsqdNode.nsqdHost);
+                Objects.equals(host, nsqdNode.host);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(protocol, nsqdHost, nsqdPort);
+        return Objects.hash(protocol, host, port);
     }
-
 }
