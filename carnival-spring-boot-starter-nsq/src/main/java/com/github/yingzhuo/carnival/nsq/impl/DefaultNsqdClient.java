@@ -69,8 +69,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         final String url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/stats")
                 .queryParam("format", "json")
                 .toUriString();
@@ -91,8 +91,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         final String url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/info")
                 .toUriString();
 
@@ -106,8 +106,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         final String url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/ping")
                 .toUriString();
 
@@ -121,8 +121,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val urlBuilder = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/pub")
                 .queryParam("topic", topic);
 
@@ -146,8 +146,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/mpub")
                 .queryParam("topic", topic)
                 .queryParam("binary", binary)
@@ -168,8 +168,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/topic/create")
                 .queryParam("topic", topic)
                 .toUriString();
@@ -185,8 +185,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/topic/delete")
                 .queryParam("topic", topic)
                 .toUriString();
@@ -201,8 +201,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/channel/create")
                 .queryParam("topic", topic)
                 .queryParam("channel", channel)
@@ -218,8 +218,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/channel/delete")
                 .queryParam("topic", topic)
                 .queryParam("channel", channel)
@@ -235,8 +235,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/topic/empty")
                 .queryParam("topic", topic)
                 .toUriString();
@@ -251,8 +251,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/channel/empty")
                 .queryParam("topic", topic)
                 .queryParam("channel", channel)
@@ -268,8 +268,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/topic/pause")
                 .queryParam("topic", topic)
                 .toUriString();
@@ -284,8 +284,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/topic/unpause")
                 .queryParam("topic", topic)
                 .toUriString();
@@ -300,8 +300,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/channel/pause")
                 .queryParam("topic", topic)
                 .queryParam("channel", channel)
@@ -317,8 +317,8 @@ public class DefaultNsqdClient implements NsqdClient {
 
         val url = UriComponentsBuilder.newInstance()
                 .scheme(node.getProtocol().getValue())
-                .host(node.getNsqdHost())
-                .port(node.getNsqdPort())
+                .host(node.getHost())
+                .port(node.getPort())
                 .path("/channel/unpause")
                 .queryParam("topic", topic)
                 .queryParam("channel", channel)
