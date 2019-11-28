@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.nsq.props;
 
 import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
+import com.github.yingzhuo.carnival.nsq.node.NsqlookupdNode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -28,5 +29,6 @@ public class NsqProps {
 
     private boolean enabled = true;
     private List<NsqdNode> nsqdNodes = new ArrayList<>();
+    private List<NsqlookupdNode> nsqlookupdNodes = new ArrayList<>();
 
 }

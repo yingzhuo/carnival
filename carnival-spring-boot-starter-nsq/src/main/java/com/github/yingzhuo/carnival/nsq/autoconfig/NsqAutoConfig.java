@@ -11,7 +11,9 @@ package com.github.yingzhuo.carnival.nsq.autoconfig;
 
 import com.github.yingzhuo.carnival.nsq.NsqdClient;
 import com.github.yingzhuo.carnival.nsq.NsqdNodeSelector;
+import com.github.yingzhuo.carnival.nsq.NsqlookupdClient;
 import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqdClient;
+import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqlookupdClient;
 import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
 import com.github.yingzhuo.carnival.nsq.props.NsqProps;
 import com.github.yingzhuo.carnival.nsq.selector.RandomNsqdNodeSelector;
@@ -42,6 +44,12 @@ public class NsqAutoConfig {
     public NsqdClient nsqdClient(NsqProps props, NsqdNodeSelector selector) {
         Set<NsqdNode> nodes = props.getNsqdNodes().parallelStream().collect(Collectors.toSet());
         return new DefaultNsqdClient(nodes, selector);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NsqlookupdClient nsqlookupdClient(NsqProps props) {
+        return new DefaultNsqlookupdClient(props.getNsqlookupdNodes().get(0));
     }
 
 }
