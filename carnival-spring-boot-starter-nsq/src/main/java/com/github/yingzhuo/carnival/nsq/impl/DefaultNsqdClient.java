@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.nsq.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yingzhuo.carnival.nsq.NsqdClient;
-import com.github.yingzhuo.carnival.nsq.NsqdNodeSelector;
+import com.github.yingzhuo.carnival.nsq.selector.NsqdNodeSelector;
 import com.github.yingzhuo.carnival.nsq.exception.NsqdException;
 import com.github.yingzhuo.carnival.nsq.exception.NsqdResourceNotFoundException;
 import com.github.yingzhuo.carnival.nsq.model.Info;

@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.nsq.selector;
 
-import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
+import com.github.yingzhuo.carnival.nsq.node.NsqlookupdNode;
 
 /**
  * @author 应卓
  * @since 1.3.1
  */
-public class RandomNsqdNodeSelector extends AbstractRandomNodeSelector<NsqdNode> implements NsqdNodeSelector {
+public class RandomNsqlookupdNodeSelector extends AbstractRandomNodeSelector<NsqlookupdNode> implements NsqlookupdNodeSelector {
 }

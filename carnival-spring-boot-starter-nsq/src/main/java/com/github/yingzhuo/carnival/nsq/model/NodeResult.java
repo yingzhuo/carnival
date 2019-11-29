@@ -10,11 +10,9 @@
 package com.github.yingzhuo.carnival.nsq.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,11 +21,12 @@ import java.util.List;
  */
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class NodeResult {
 
     @JsonProperty("producers")
-    private List<Producer> producers;
+    private List<Producer> producers = new ArrayList<>();
 
 }

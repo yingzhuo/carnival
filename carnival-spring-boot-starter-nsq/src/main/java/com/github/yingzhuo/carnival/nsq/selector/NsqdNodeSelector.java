@@ -11,9 +11,14 @@ package com.github.yingzhuo.carnival.nsq.selector;
 
 import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
 
+import java.util.Set;
+
 /**
  * @author 应卓
  * @since 1.3.1
  */
-public class RandomNsqdNodeSelector extends AbstractRandomNodeSelector<NsqdNode> implements NsqdNodeSelector {
+public interface NsqdNodeSelector extends NodeSelector<NsqdNode> {
+
+    public NsqdNode select(Set<NsqdNode> set);
+
 }

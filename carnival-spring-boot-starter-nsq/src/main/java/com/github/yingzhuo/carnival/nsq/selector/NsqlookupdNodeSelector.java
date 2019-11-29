@@ -7,9 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.nsq;
+package com.github.yingzhuo.carnival.nsq.selector;
 
-import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
+import com.github.yingzhuo.carnival.nsq.node.NsqlookupdNode;
 
 import java.util.Set;
 
@@ -17,8 +17,8 @@ import java.util.Set;
  * @author 应卓
  * @since 1.3.1
  */
-public interface NsqdNodeSelector {
+public interface NsqlookupdNodeSelector extends NodeSelector<NsqlookupdNode> {
 
-    public NsqdNode select(Set<NsqdNode> set);
+    public NsqlookupdNode select(Set<NsqlookupdNode> set);
 
 }

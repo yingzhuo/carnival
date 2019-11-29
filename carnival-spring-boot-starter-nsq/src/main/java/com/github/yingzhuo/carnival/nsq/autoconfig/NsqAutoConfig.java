@@ -10,20 +10,20 @@
 package com.github.yingzhuo.carnival.nsq.autoconfig;
 
 import com.github.yingzhuo.carnival.nsq.NsqdClient;
-import com.github.yingzhuo.carnival.nsq.NsqdNodeSelector;
 import com.github.yingzhuo.carnival.nsq.NsqlookupdClient;
 import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqdClient;
 import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqlookupdClient;
-import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
 import com.github.yingzhuo.carnival.nsq.props.NsqProps;
+import com.github.yingzhuo.carnival.nsq.selector.NsqdNodeSelector;
+import com.github.yingzhuo.carnival.nsq.selector.NsqlookupdNodeSelector;
 import com.github.yingzhuo.carnival.nsq.selector.RandomNsqdNodeSelector;
+import com.github.yingzhuo.carnival.nsq.selector.RandomNsqlookupdNodeSelector;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.HashSet;
 
 /**
  * @author 应卓
@@ -42,14 +42,21 @@ public class NsqAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public NsqdClient nsqdClient(NsqProps props, NsqdNodeSelector selector) {
-        Set<NsqdNode> nodes = props.getNsqdNodes().parallelStream().collect(Collectors.toSet());
-        return new DefaultNsqdClient(nodes, selector);
+        return new DefaultNsqdClient(new HashSet<>(props.getNsqdNodes()), selector);
+    }
+
+    // -------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public NsqlookupdNodeSelector nsqlookupdNodeSelector() {
+        return new RandomNsqlookupdNodeSelector();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public NsqlookupdClient nsqlookupdClient(NsqProps props) {
-        return new DefaultNsqlookupdClient(props.getNsqlookupdNodes().get(0));
+    public NsqlookupdClient nsqlookupdClient(NsqProps props, NsqlookupdNodeSelector selector) {
+        return new DefaultNsqlookupdClient(new HashSet<>(props.getNsqlookupdNodes()), selector);
     }
 
 }
