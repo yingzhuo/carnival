@@ -15,9 +15,7 @@ import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqdClient;
 import com.github.yingzhuo.carnival.nsq.impl.DefaultNsqlookupdClient;
 import com.github.yingzhuo.carnival.nsq.props.NsqProps;
 import com.github.yingzhuo.carnival.nsq.selector.NsqdNodeSelector;
-import com.github.yingzhuo.carnival.nsq.selector.NsqlookupdNodeSelector;
 import com.github.yingzhuo.carnival.nsq.selector.RandomNsqdNodeSelector;
-import com.github.yingzhuo.carnival.nsq.selector.RandomNsqlookupdNodeSelector;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -49,14 +47,8 @@ public class NsqAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public NsqlookupdNodeSelector nsqlookupdNodeSelector() {
-        return new RandomNsqlookupdNodeSelector();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public NsqlookupdClient nsqlookupdClient(NsqProps props, NsqlookupdNodeSelector selector) {
-        return new DefaultNsqlookupdClient(new HashSet<>(props.getNsqlookupdNodes()), selector);
+    public NsqlookupdClient nsqlookupdClient(NsqProps props) {
+        return new DefaultNsqlookupdClient(new HashSet<>(props.getNsqlookupdNodes()));
     }
 
 }

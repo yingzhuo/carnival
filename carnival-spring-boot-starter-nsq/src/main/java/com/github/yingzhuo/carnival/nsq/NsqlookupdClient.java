@@ -9,7 +9,9 @@
  */
 package com.github.yingzhuo.carnival.nsq;
 
-import com.github.yingzhuo.carnival.nsq.model.NodeResult;
+import com.github.yingzhuo.carnival.nsq.model.Producer;
+
+import java.util.List;
 
 /**
  * @author 应卓
@@ -17,6 +19,6 @@ import com.github.yingzhuo.carnival.nsq.model.NodeResult;
  */
 public interface NsqlookupdClient {
 
-    public NodeResult nodes();
+    public List<Producer> lookup(String topic);
 
 }

@@ -9,16 +9,11 @@
  */
 package com.github.yingzhuo.carnival.nsq.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yingzhuo.carnival.nsq.NsqdClient;
-import com.github.yingzhuo.carnival.nsq.selector.NsqdNodeSelector;
-import com.github.yingzhuo.carnival.nsq.exception.NsqdException;
-import com.github.yingzhuo.carnival.nsq.exception.NsqdResourceNotFoundException;
 import com.github.yingzhuo.carnival.nsq.model.Info;
 import com.github.yingzhuo.carnival.nsq.node.NsqdNode;
+import com.github.yingzhuo.carnival.nsq.selector.NsqdNodeSelector;
 import lombok.val;
-import lombok.var;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpResponse;
@@ -26,7 +21,6 @@ import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -35,11 +29,9 @@ import java.util.Set;
  * @author 应卓
  * @since 1.3.1
  */
-public class DefaultNsqdClient implements NsqdClient {
+public class DefaultNsqdClient extends AbstractClient implements NsqdClient {
 
     private static final HttpEntity DEFAULT_HTTP_ENTITY;
-
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     private final Set<NsqdNode> nsqdNodes;
     private final NsqdNodeSelector selector;
@@ -326,47 +318,6 @@ public class DefaultNsqdClient implements NsqdClient {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, DEFAULT_HTTP_ENTITY, String.class);
         checkResponse(response);
-    }
-
-    private void checkResponse(ResponseEntity<String> response) {
-        final int code = response.getStatusCodeValue();
-        String msg = response.getBody();
-        msg = getInnerMessage(msg, response);
-
-        if (code == 404) {
-            throw new NsqdResourceNotFoundException(msg);
-        }
-
-        if (code < 200 || code >= 300) {
-            throw new NsqdException(msg);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    private String getInnerMessage(String rawMsg, ResponseEntity<String> response) {
-        MediaType contentType = response.getHeaders().getContentType();
-        if (contentType != null && contentType.isCompatibleWith(MediaType.parseMediaType("application/json"))) {
-
-            Map<String, Object> map;
-
-            try {
-                map = OBJECT_MAPPER.readValue(rawMsg, Map.class);
-            } catch (JsonProcessingException e) {
-                map = new HashMap<>();
-            }
-
-            var m = map.get("message");
-            if (m != null) {
-                return m.toString();
-            }
-
-            m = map.get("msg");
-            if (m != null) {
-                return m.toString();
-            }
-        }
-
-        return rawMsg;
     }
 
 }

@@ -17,6 +17,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.3.1
  */
+@Deprecated
 public interface NsqlookupdNodeSelector extends NodeSelector<NsqlookupdNode> {
 
     public NsqlookupdNode select(Set<NsqlookupdNode> set);
