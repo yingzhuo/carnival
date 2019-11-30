@@ -16,7 +16,7 @@ deploy:
 	@mvn -f $(CURDIR)/pom.xml clean deploy -Psonar -Dmaven.test.skip=true
 
 install:
-	@mvn -f $(CURDIR)/pom.xml clean install
+	@mvn -f $(CURDIR)/pom.xml clean install -Dmaven.test.skip=true
 
 version:
 	@mvn -f $(CURDIR)/pom.xml versions:set

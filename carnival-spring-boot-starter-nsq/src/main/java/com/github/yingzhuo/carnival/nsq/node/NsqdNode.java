@@ -9,10 +9,12 @@
  */
 package com.github.yingzhuo.carnival.nsq.node;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -22,33 +24,29 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-public class NsqdNode {
+public class NsqdNode implements Serializable {
 
-    private Protocol protocol = Protocol.HTTP;
+    @JsonProperty("broadcast_address")
     private String host;
-    private int port = 4151;
 
-    public NsqdNode() {
-    }
+    @JsonProperty("http_port")
+    private int httpPort;
 
-    public NsqdNode(Protocol protocol, String host, int port) {
-        this.protocol = protocol;
-        this.host = host;
-        this.port = port;
-    }
+    @JsonProperty("tcp_port")
+    private int tcpPort;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         NsqdNode nsqdNode = (NsqdNode) o;
-        return port == nsqdNode.port &&
-                protocol == nsqdNode.protocol &&
+        return httpPort == nsqdNode.httpPort &&
+                tcpPort == nsqdNode.tcpPort &&
                 Objects.equals(host, nsqdNode.host);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(protocol, host, port);
+        return Objects.hash(host, httpPort, tcpPort);
     }
 }
