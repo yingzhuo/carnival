@@ -151,7 +151,6 @@ public class DefaultNsqdClient extends AbstractClient implements NsqdClient {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, httpEntity, String.class);
         checkResponse(response);
-
     }
 
     @Override

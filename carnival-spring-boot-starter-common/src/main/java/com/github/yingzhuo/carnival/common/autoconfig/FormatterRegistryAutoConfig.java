@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.datamodel.BooleanFormat;
-import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
-import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
-import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
+import com.github.yingzhuo.carnival.common.datamodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
 
@@ -30,6 +27,7 @@ public class FormatterRegistryAutoConfig {
             x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
             x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
+            x.addConverter(new HostAndPortConverter());
         });
     }
 
