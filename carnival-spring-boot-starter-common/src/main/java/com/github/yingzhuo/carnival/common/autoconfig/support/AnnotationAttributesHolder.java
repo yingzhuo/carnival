@@ -19,13 +19,14 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * carnival内部工具
+ *
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
 public final class AnnotationAttributesHolder {
 
     private AnnotationAttributesHolder() {
-        super();
     }
 
     private static final ThreadLocal<Map<String, AnnotationAttributes>> HOLDER = ThreadLocal.withInitial(HashMap::new);
