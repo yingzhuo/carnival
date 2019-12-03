@@ -15,9 +15,10 @@ import org.springframework.core.Ordered;
  * @author 应卓
  * @since 1.3.1
  */
+@FunctionalInterface
 public interface GracefulShutdownHook extends Ordered {
 
-    public abstract void onShutdown() throws Throwable;
+    public void onShutdown() throws Exception;
 
     public default int getOrder() {
         return 0;

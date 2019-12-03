@@ -100,8 +100,7 @@ public class GracefulShutdownAutoConfig {
             }
         }
 
-
-        public void setHooks(List<GracefulShutdownHook> hooks) {
+        void setHooks(List<GracefulShutdownHook> hooks) {
             this.hooks = hooks;
         }
 
@@ -111,11 +110,12 @@ public class GracefulShutdownAutoConfig {
                 for (GracefulShutdownHook hook : hooks) {
                     try {
                         hook.onShutdown();
-                    } catch (Throwable e) {
+                    } catch (Exception e) {
                         log.error(e.getMessage(), e);
                     }
                 }
             }
         }
     }
+
 }

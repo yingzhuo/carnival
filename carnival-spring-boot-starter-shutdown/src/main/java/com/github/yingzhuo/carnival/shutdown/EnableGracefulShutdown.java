@@ -32,7 +32,7 @@ public @interface EnableGracefulShutdown {
 
     public TimeUnit timeoutTimeUnit() default TimeUnit.SECONDS;
 
-    public static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
+    static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {
