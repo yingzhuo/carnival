@@ -9,8 +9,10 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
+import com.github.yingzhuo.carnival.common.datamodel.HostAndPortConverter;
 import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -36,6 +38,13 @@ public class EnhancementAutoConfig {
             }
         }
         return bean;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public HostAndPortConverter hostAndPortConverter() {
+        return new HostAndPortConverter();
     }
 
 }

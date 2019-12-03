@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
-import com.google.common.net.HostAndPort;
 import org.springframework.core.convert.converter.Converter;
 
 /**
@@ -20,11 +19,6 @@ public class HostAndPortConverter implements Converter<String, HostAndPort> {
 
     @Override
     public HostAndPort convert(String source) {
-
-        if (source == null) {
-            return null;
-        }
-
         return HostAndPort.fromString(source);
     }
 
