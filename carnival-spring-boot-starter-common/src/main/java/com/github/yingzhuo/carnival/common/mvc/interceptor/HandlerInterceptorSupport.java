@@ -34,6 +34,10 @@ public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
         return Optional.ofNullable(annotation);
     }
 
+    protected final <A extends Annotation> boolean hasMethodAnnotation(Class<A> annotationType, Object handler) {
+        return getMethodAnnotation(annotationType, handler).isPresent();
+    }
+
     protected final <A extends Annotation> Optional<A> getClassAnnotation(Class<A> annotationType, Object handler) {
         Objects.requireNonNull(handler);
         Objects.requireNonNull(annotationType);
@@ -45,6 +49,10 @@ public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
         return Optional.ofNullable(handlerMethod
                 .getBeanType().getAnnotation(annotationType));
+    }
+
+    protected final <A extends Annotation> boolean hasClassAnnotation(Class<A> annotationType, Object handler) {
+        return getClassAnnotation(annotationType, handler).isPresent();
     }
 
 }

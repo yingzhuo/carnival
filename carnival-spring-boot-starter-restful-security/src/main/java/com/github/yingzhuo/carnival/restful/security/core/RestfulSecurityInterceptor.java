@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
+import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
@@ -24,7 +25,6 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +37,7 @@ import java.util.Optional;
  * @author 应卓
  */
 @SuppressWarnings("unchecked")
-public class RestfulSecurityInterceptor implements HandlerInterceptor {
+public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
@@ -64,7 +64,7 @@ public class RestfulSecurityInterceptor implements HandlerInterceptor {
 
         val handlerMethod = (HandlerMethod) handler;
 
-        if (handlerMethod.hasMethodAnnotation(IgnoreToken.class)) {
+        if (super.hasMethodAnnotation(IgnoreToken.class, handler) || super.hasClassAnnotation(IgnoreToken.class, handler)) {
             RestfulSecurityContext.setTokenIgnored(true);
             return true;
         }

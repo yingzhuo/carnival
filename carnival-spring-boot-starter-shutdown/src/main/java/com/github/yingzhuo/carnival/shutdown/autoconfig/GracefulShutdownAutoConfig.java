@@ -41,7 +41,7 @@ public class GracefulShutdownAutoConfig {
 
     @Bean
     public ConfigurableServletWebServerFactory webServerFactory(GracefulShutdown gracefulShutdown) {
-        TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
+        final TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
         factory.addConnectorCustomizers(gracefulShutdown);
         return factory;
     }
