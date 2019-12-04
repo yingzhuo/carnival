@@ -45,6 +45,16 @@ public final class AtoiUtils {
         return Integer.parseInt(s, 10);
     }
 
+    public static Double toDouble(String s) {
+        Objects.requireNonNull(s);
+        try {
+            Long n = toLong(s);
+            return new Double(n);
+        } catch (Exception e) {
+            return Double.parseDouble(s);
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     private AtoiUtils() {

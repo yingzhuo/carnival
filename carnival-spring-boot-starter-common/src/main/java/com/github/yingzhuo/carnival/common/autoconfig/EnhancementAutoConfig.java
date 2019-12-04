@@ -9,8 +9,49 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
+import com.github.yingzhuo.carnival.common.datamodel.*;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
+import org.springframework.context.annotation.Bean;
+
 /**
  * @author 应卓
  */
 public class EnhancementAutoConfig {
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public BooleanFormatter booleanFormatter() {
+        return new BooleanFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public IntFormatter intFormatter() {
+        return new IntFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public LongFormatter longFormatter() {
+        return new LongFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public DoubleFormatter doubleFormatter() {
+        return new DoubleFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public GenderFormatter genderFormatter() {
+        return new GenderFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public HostAndPortFormatter hostAndPortFormatter() {
+        return new HostAndPortFormatter();
+    }
+
 }

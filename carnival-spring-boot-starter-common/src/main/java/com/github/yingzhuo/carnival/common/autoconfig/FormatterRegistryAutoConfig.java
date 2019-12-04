@@ -9,15 +9,17 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.datamodel.*;
+import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
+import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
+import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
-import org.springframework.context.annotation.Bean;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.format.FormatterRegistry;
 
 /**
  * @author 应卓
  */
+@AutoConfigureAfter(EnhancementAutoConfig.class)
 public class FormatterRegistryAutoConfig {
 
     @Autowired(required = false)
@@ -27,24 +29,6 @@ public class FormatterRegistryAutoConfig {
             registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
             registry.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
         }
-    }
-
-    @Bean
-    @ConfigurationPropertiesBinding
-    public BooleanFormatter booleanFormatter() {
-        return new BooleanFormatter();
-    }
-
-    @Bean
-    @ConfigurationPropertiesBinding
-    public GenderFormatter genderFormatter() {
-        return new GenderFormatter();
-    }
-
-    @Bean
-    @ConfigurationPropertiesBinding
-    public HostAndPortFormatter hostAndPortFormatter() {
-        return new HostAndPortFormatter();
     }
 
 }
