@@ -9,13 +9,13 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.Strings;
 import lombok.val;
 import lombok.var;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -23,16 +23,23 @@ import java.util.Set;
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     private Password.Complexity complexity;
-    private Set<Character> specialChars;
+    private Stream<Character> specialChars;
     private int minLength;
     private int maxLength;
+
+    private Stream<Character> toCharStream(String string) {
+        if (string == null) {
+            return Stream.empty();
+        }
+        return string.chars().mapToObj(ch -> (char) ch);
+    }
 
     @Override
     public void initialize(Password annotation) {
         this.complexity = annotation.complexity();
         this.minLength = annotation.minLength();
         this.maxLength = annotation.maxLength();
-        this.specialChars = Strings.toCharSet(annotation.specialChars());
+        this.specialChars = toCharStream(annotation.specialChars());
     }
 
     @Override
@@ -51,7 +58,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return true;
         }
 
-        val chars = Strings.toCharSet(password);
+        val chars = toCharStream(password).collect(Collectors.toSet());
         var hasNumeric = false;
         var hasAlphabetic = false;
         var hasUpper = false;
@@ -82,7 +89,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
                 continue;
             }
 
-            if (specialChars.stream().anyMatch(i -> i == ch)) {
+            if (specialChars.anyMatch(i -> i == ch)) {
                 hasSpecial = true;
                 point += 1;
                 //continue;

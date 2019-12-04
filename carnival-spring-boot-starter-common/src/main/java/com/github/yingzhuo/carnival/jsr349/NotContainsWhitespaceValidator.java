@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.Strings;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -23,7 +22,14 @@ public class NotContainsWhitespaceValidator implements ConstraintValidator<NotCo
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) return true;
 
-        return Strings.toCharStream(value).noneMatch((Character::isWhitespace));
+        return toCharStream(value).noneMatch((Character::isWhitespace));
+    }
+
+    private Stream<Character> toCharStream(String string) {
+        if (string == null) {
+            return Stream.empty();
+        }
+        return string.chars().mapToObj(ch -> (char) ch);
     }
 
 }

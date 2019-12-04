@@ -9,29 +9,34 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import com.github.yingzhuo.carnival.common.util.Strings;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
  */
 public class NotContainsSpecialCharsValidator implements ConstraintValidator<NotContainsSpecialChars, String> {
 
-    private Set<Character> specialChars;
+    private Stream<Character> specialChars;
 
     @Override
     public void initialize(NotContainsSpecialChars annotation) {
-        this.specialChars = Strings.toCharSet(annotation.specialChars());
+        this.specialChars = toCharStream(annotation.specialChars());
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
         if (value == null) return true;
 
-        return specialChars.stream().noneMatch(ch -> value.contains(String.valueOf(ch)));
+        return specialChars.noneMatch(ch -> value.contains(String.valueOf(ch)));
+    }
+
+    private Stream<Character> toCharStream(String string) {
+        if (string == null) {
+            return Stream.empty();
+        }
+        return string.chars().mapToObj(ch -> (char) ch);
     }
 
 }
