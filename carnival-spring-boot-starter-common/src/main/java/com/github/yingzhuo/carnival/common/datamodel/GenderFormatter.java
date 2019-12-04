@@ -9,16 +9,13 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.format.Formatter;
-
 import java.util.Locale;
 
 /**
  * @author 应卓
  * @since 1.3.2
  */
-public class GenderFormatter implements Formatter<Gender>, Converter<String, Gender> {
+public class GenderFormatter extends AbstractObjectFormatter<Gender> {
 
     @Override
     public Gender parse(String text, Locale locale) {
@@ -32,16 +29,6 @@ public class GenderFormatter implements Formatter<Gender>, Converter<String, Gen
         }
 
         return Gender.UNKNOWN;
-    }
-
-    @Override
-    public String print(Gender object, Locale locale) {
-        return object.toString();
-    }
-
-    @Override
-    public Gender convert(String source) {
-        return parse(source, Locale.getDefault());
     }
 
 }

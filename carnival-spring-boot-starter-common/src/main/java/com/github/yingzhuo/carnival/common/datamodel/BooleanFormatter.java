@@ -9,16 +9,13 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.format.Formatter;
-
 import java.text.ParseException;
 import java.util.Locale;
 
 /**
  * @author 应卓
  */
-public class BooleanFormatter implements Formatter<Boolean>, Converter<String, Boolean> {
+public class BooleanFormatter extends AbstractObjectFormatter<Boolean> {
 
     @Override
     public Boolean parse(String text, Locale locale) throws ParseException {
@@ -32,20 +29,6 @@ public class BooleanFormatter implements Formatter<Boolean>, Converter<String, B
         }
 
         throw new ParseException("invalid format", 0);
-    }
-
-    @Override
-    public String print(Boolean object, Locale locale) {
-        return object.toString();
-    }
-
-    @Override
-    public Boolean convert(String text) {
-        try {
-            return parse(text, Locale.getDefault());
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
     }
 
 }

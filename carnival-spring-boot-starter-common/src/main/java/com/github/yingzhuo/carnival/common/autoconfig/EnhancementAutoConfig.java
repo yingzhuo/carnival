@@ -44,6 +44,18 @@ public class EnhancementAutoConfig {
 
     @Bean
     @ConfigurationPropertiesBinding
+    public DateFormatter dateFormatter() {
+        return new DateFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public CalendarFormatter calendarFormatter() {
+        return new CalendarFormatter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
     public GenderFormatter genderFormatter() {
         return new GenderFormatter();
     }

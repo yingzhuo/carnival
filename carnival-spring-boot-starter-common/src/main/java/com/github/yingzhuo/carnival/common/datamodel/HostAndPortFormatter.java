@@ -10,8 +10,6 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import com.google.common.net.HostAndPort;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.format.Formatter;
 
 import java.text.ParseException;
 import java.util.Locale;
@@ -20,7 +18,7 @@ import java.util.Locale;
  * @author 应卓
  * @since 1.3.2
  */
-public class HostAndPortFormatter implements Formatter<HostAndPort>, Converter<String, HostAndPort> {
+public class HostAndPortFormatter extends AbstractObjectFormatter<HostAndPort> {
 
     @Override
     public HostAndPort parse(String text, Locale locale) throws ParseException {
@@ -28,20 +26,6 @@ public class HostAndPortFormatter implements Formatter<HostAndPort>, Converter<S
             return HostAndPort.fromString(text);
         } catch (Exception e) {
             throw new ParseException("invalid formatter", 0);
-        }
-    }
-
-    @Override
-    public String print(HostAndPort object, Locale locale) {
-        return object.toString();
-    }
-
-    @Override
-    public HostAndPort convert(String hostPortString) {
-        try {
-            return parse(hostPortString, Locale.getDefault());
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
         }
     }
 
