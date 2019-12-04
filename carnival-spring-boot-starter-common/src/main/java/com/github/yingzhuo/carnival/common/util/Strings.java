@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  */
+@Deprecated
 public final class Strings {
 
     private Strings() {

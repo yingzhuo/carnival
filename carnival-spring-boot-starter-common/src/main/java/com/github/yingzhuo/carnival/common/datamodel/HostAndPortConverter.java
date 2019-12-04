@@ -9,17 +9,18 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
+import com.google.common.net.HostAndPort;
 import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author 应卓
- * @since 1.3.1
+ * @since 1.3.2
  */
 public class HostAndPortConverter implements Converter<String, HostAndPort> {
 
     @Override
-    public HostAndPort convert(String source) {
-        return HostAndPort.fromString(source);
+    public HostAndPort convert(String hostPortString) {
+        return HostAndPort.fromString(hostPortString);
     }
 
 }

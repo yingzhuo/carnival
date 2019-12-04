@@ -14,6 +14,7 @@ import java.util.*;
 /**
  * @author 应卓
  */
+@Deprecated
 public final class Validate {
 
     public static <T> T notNull(T obj) {

@@ -9,11 +9,13 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.datamodel.*;
+import com.github.yingzhuo.carnival.common.datamodel.BooleanFormat;
+import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
+import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
+import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
+import com.github.yingzhuo.carnival.common.datamodel.HostAndPortConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.FormatterRegistry;
-
-import java.util.Optional;
 
 /**
  * @author 应卓
@@ -22,13 +24,16 @@ public class FormatterRegistryAutoConfig {
 
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
-        Optional.ofNullable(registry).ifPresent(x -> {
-            x.addFormatter(new BooleanFormat());
-            x.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
-            x.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
-            x.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
-            x.addConverter(new HostAndPortConverter());
-        });
+
+        if (registry == null) {
+            return;
+        }
+
+        registry.addFormatter(new BooleanFormat());
+        registry.addFormatterForFieldAnnotation(new DateTimeFormat.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new IntCurrencyFormat.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new LongCurrencyFormat.FormatterFactory());
+        registry.addConverter(new HostAndPortConverter());
     }
 
 }
