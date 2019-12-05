@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.curator.lock;
+package com.github.yingzhuo.carnival.curator.util;
 
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.apache.curator.framework.CuratorFramework;

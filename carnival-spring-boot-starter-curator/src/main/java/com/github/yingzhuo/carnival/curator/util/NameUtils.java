@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.curator.lock;
+package com.github.yingzhuo.carnival.curator.util;
 
 import lombok.val;
 import org.apache.curator.framework.CuratorFramework;
@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
  */
 public final class NameUtils extends AbstractUtils {
 
-    public String getName(String path) {
+    public static String getName(String path) {
         try {
 
             if (!path.startsWith("/")) {
