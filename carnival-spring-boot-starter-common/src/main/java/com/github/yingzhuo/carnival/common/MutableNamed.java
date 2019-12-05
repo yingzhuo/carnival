@@ -7,18 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id.impl;
-
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
+package com.github.yingzhuo.carnival.common;
 
 /**
- *
+ * @author 应卓
+ * @since 1.3.3
  */
-public class CuratorIdStringIdGenerator implements StringIdGenerator {
+public interface MutableNamed extends Named {
 
-    @Override
-    public String nextId() {
-        return null;
-    }
+    public void setName(String name);
 
 }

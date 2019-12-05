@@ -96,7 +96,7 @@ public class CuratorClientAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.curator.distributed-newLock")
+    @ConfigurationProperties(prefix = "carnival.curator.distributed-lock")
     public static class DistributedLockProps {
         private String keyPrefix = "";
     }

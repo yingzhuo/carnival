@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.curator.lock;
 import com.github.yingzhuo.carnival.curator.autoconfig.CuratorClientAutoConfig;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.var;
-import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  * @author 应卓
  * @since 1.3.0
  */
-public final class DistributedLockUtils {
+public final class DistributedLockUtils extends AbstractUtils {
 
     public static InterProcessMutex createMutex(String key) {
 
@@ -57,10 +56,6 @@ public final class DistributedLockUtils {
     }
 
     // ------------------------------------------------------------------------------------------------------------
-
-    private static CuratorFramework getClient() {
-        return SpringUtils.getBean(CuratorFramework.class);
-    }
 
     private static String getKeyPrefix() {
         try {
