@@ -22,6 +22,10 @@ import java.nio.charset.StandardCharsets;
 public final class NameUtils extends AbstractUtils {
 
     public static String getName(String path) {
+        return getName(path, true);
+    }
+
+    public static String getName(String path, boolean removePath) {
         try {
 
             if (!path.startsWith("/")) {
@@ -35,9 +39,8 @@ public final class NameUtils extends AbstractUtils {
                     .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
                     .forPath(path);
 
-            return new String(result.getBytes(StandardCharsets.UTF_8))
-                    .substring(path.length());
-
+            String name = new String(result.getBytes(StandardCharsets.UTF_8));
+            return removePath ? name.substring(path.length()) : name;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
