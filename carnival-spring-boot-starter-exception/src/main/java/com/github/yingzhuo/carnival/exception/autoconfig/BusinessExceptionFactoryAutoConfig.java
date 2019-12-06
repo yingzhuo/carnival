@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
-import com.github.yingzhuo.carnival.common.io.ResourceOption;
+import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
@@ -39,7 +39,7 @@ public class BusinessExceptionFactoryAutoConfig {
             return new TomlBusinessExceptionFactory(props.getTomlLocation());
         }
 
-        ResourceOption option = ResourceOption.of(
+        ResourceOptional option = ResourceOptional.of(
                 "classpath:/business-exception.toml",
                 "classpath:/business-exceptions.toml",
                 "classpath:/META-INF/business-exception.toml",

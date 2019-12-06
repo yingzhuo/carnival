@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.condition;
 
-import com.github.yingzhuo.carnival.common.io.ResourceOption;
+import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import lombok.val;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -36,7 +36,7 @@ public @interface ConditionalOnNoneResource {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val locations = getLocations(metadata);
-            val resourceOption = ResourceOption.of(locations);
+            val resourceOption = ResourceOptional.of(locations);
             return resourceOption.isAbsent();
         }
 
