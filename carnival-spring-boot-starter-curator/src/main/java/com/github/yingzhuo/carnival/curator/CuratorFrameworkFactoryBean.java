@@ -9,19 +9,20 @@
  */
 package com.github.yingzhuo.carnival.curator;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.FactoryBean;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author 应卓
  * @since 1.3.0
  */
-public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework> {
+@Slf4j
+public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework>, InitializingBean, DisposableBean {
 
     private CuratorFramework bean = null;
 
@@ -47,7 +48,7 @@ public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework
         return bean;
     }
 
-    @PostConstruct
+    @Override
     public void afterPropertiesSet() {
 
         builder.connectString(this.connectString);
@@ -67,8 +68,8 @@ public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework
         bean.start();
     }
 
-    @PreDestroy
-    protected void close() {
+    @Override
+    public void destroy() {
         if (bean != null) {
             bean.close();
         }

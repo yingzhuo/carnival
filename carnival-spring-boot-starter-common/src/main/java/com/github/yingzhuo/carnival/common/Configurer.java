@@ -7,19 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.curator.util;
-
-import com.github.yingzhuo.carnival.spring.SpringUtils;
-import org.apache.curator.framework.CuratorFramework;
+package com.github.yingzhuo.carnival.common;
 
 /**
  * @author 应卓
  * @since 1.3.3
  */
-abstract class AbstractUtils {
+@FunctionalInterface
+public interface Configurer<T> {
 
-    protected static CuratorFramework getClient() {
-        return SpringUtils.getBean(CuratorFramework.class);
-    }
+    public void config(T bean);
 
 }

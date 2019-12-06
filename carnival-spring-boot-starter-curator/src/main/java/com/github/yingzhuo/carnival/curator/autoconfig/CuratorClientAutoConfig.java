@@ -66,7 +66,6 @@ public class CuratorClientAutoConfig {
         private String namespace;
 
         private RetryProps retry = new RetryProps();
-        private DistributedLockProps distributedLock = new DistributedLockProps();
 
         @Override
         public void afterPropertiesSet() {
@@ -92,13 +91,6 @@ public class CuratorClientAutoConfig {
                     maxRetries,
                     maxSleepMs);
         }
-    }
-
-    @Getter
-    @Setter
-    @ConfigurationProperties(prefix = "carnival.curator.distributed-lock")
-    public static class DistributedLockProps {
-        private String keyPrefix = "";
     }
 
 }

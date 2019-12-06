@@ -9,9 +9,6 @@
  */
 package com.github.yingzhuo.carnival.curator.util;
 
-import com.github.yingzhuo.carnival.curator.autoconfig.CuratorClientAutoConfig;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
-import lombok.var;
 import org.apache.curator.framework.recipes.locks.InterProcessMutex;
 
 import java.util.concurrent.TimeUnit;
@@ -22,18 +19,11 @@ import java.util.concurrent.TimeUnit;
  */
 public final class DistributedLockUtils extends AbstractUtils {
 
-    public static InterProcessMutex createMutex(String key) {
-
-        var prefix = getKeyPrefix();
-        if (!prefix.endsWith("/")) {
-            prefix = prefix + "/";
+    public static InterProcessMutex createInterProcessMutex(String path) {
+        if (!path.startsWith("/")) {
+            path = "/" + path;
         }
-
-        if (key.startsWith("/")) {
-            key = key.substring(1);
-        }
-
-        return new InterProcessMutex(getClient(), prefix + key);
+        return new InterProcessMutex(getClient(), path);
     }
 
     public static boolean lock(InterProcessMutex mutex) {
@@ -52,16 +42,6 @@ public final class DistributedLockUtils extends AbstractUtils {
         try {
             mutex.release();
         } catch (Exception ignore) {
-        }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------
-
-    private static String getKeyPrefix() {
-        try {
-            return SpringUtils.getBean(CuratorClientAutoConfig.CuratorClientProps.class).getDistributedLock().getKeyPrefix();
-        } catch (Exception e) {
-            return "";
         }
     }
 

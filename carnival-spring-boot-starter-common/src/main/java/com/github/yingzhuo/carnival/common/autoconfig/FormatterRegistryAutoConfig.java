@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
+import com.github.yingzhuo.carnival.common.Configurer;
 import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
 import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
 import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
@@ -20,7 +21,7 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  */
 @AutoConfigureAfter(EnhancementAutoConfig.class)
-public class FormatterRegistryAutoConfig {
+public class FormatterRegistryAutoConfig implements Configurer<FormatterRegistry> {
 
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
