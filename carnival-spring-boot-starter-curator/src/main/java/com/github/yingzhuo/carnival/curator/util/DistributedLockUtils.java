@@ -20,9 +20,7 @@ import java.util.concurrent.TimeUnit;
 public final class DistributedLockUtils extends AbstractUtils {
 
     public static InterProcessMutex createInterProcessMutex(String path) {
-        if (!path.startsWith("/")) {
-            path = "/" + path;
-        }
+        path = betterPath(path);
         return new InterProcessMutex(getClient(), path);
     }
 

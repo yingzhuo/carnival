@@ -46,10 +46,7 @@ public final class NameUtils extends AbstractUtils {
         Preconditions.checkArgument(path != null);
 
         try {
-
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
+            path = betterPath(path);
 
             CuratorFramework cli = getClient();
 

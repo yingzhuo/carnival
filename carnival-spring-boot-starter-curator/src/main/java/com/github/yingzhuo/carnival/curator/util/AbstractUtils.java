@@ -10,6 +10,8 @@
 package com.github.yingzhuo.carnival.curator.util;
 
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import org.apache.curator.framework.CuratorFramework;
 
 /**
@@ -20,6 +22,11 @@ abstract class AbstractUtils {
 
     protected static CuratorFramework getClient() {
         return SpringUtils.getBean(CuratorFramework.class);
+    }
+
+    protected static String betterPath(String path) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(path), "path mut not be null or empty");
+        return path.startsWith("/") ? path : "/" + path;
     }
 
 }
