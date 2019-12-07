@@ -9,7 +9,9 @@
  */
 package com.github.yingzhuo.carnival.curator.util;
 
+import com.google.common.base.Preconditions;
 import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 
@@ -21,11 +23,28 @@ import java.nio.charset.StandardCharsets;
  */
 public final class NameUtils extends AbstractUtils {
 
+    public static Long getNameAsLong(Class<?> entityType) {
+        String name = getName(entityType);
+        return Long.parseLong(StringUtils.stripStart(name, "0"));
+    }
+
+    public static String getName(Class<?> entityType) {
+        Preconditions.checkArgument(entityType != null);
+        return getName(entityType.getName(), true);
+    }
+
     public static String getName(String path) {
         return getName(path, true);
     }
 
+    public static long getNameAsLong(String path) {
+        String name = getName(path, true);
+        return Long.parseLong(StringUtils.stripStart(name, "0"));
+    }
+
     public static String getName(String path, boolean removePath) {
+        Preconditions.checkArgument(path != null);
+
         try {
 
             if (!path.startsWith("/")) {
