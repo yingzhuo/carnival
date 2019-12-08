@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.props;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
@@ -26,7 +25,7 @@ import java.io.Serializable;
 public class JwtProps implements Serializable, InitializingBean {
 
     private String secret = JwtProps.class.getName();
-    private String secretLocation = null;
+    private ResourceText secretLocation = null;
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
     private Algorithm algorithm;
 
@@ -34,8 +33,8 @@ public class JwtProps implements Serializable, InitializingBean {
     public void afterPropertiesSet() {
         Assert.notNull(signatureAlgorithm, (String) null);
 
-        if (StringUtils.isNotBlank(secretLocation)) {
-            this.secret = ResourceText.load(secretLocation).trim();
+        if (secretLocation != null) {
+            this.secret = this.secretLocation.getTextAsOneLine().trim();
         }
 
         this.algorithm = signatureAlgorithm.toJwtAlgorithm(this.secret);
@@ -49,11 +48,11 @@ public class JwtProps implements Serializable, InitializingBean {
         this.secret = secret;
     }
 
-    public String getSecretLocation() {
+    public ResourceText getSecretLocation() {
         return secretLocation;
     }
 
-    public void setSecretLocation(String secretLocation) {
+    public void setSecretLocation(ResourceText secretLocation) {
         this.secretLocation = secretLocation;
     }
 

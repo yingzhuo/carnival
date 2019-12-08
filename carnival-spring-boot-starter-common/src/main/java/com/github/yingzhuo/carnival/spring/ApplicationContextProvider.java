@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import java.util.Arrays;
  * @see SpringUtils
  * @since 1.0.0
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ApplicationContextProvider implements Ordered, ApplicationContextAware, EnvironmentAware, ApplicationRunner, CommandLineRunner {
 
     public static final ApplicationContextProvider INSTANCE = new ApplicationContextProvider();

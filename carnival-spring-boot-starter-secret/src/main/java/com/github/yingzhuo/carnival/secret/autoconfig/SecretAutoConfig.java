@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.secret.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -66,17 +65,17 @@ public class SecretAutoConfig {
 
         private String publicKey;
         private String privateKey;
-        private String publicKeyLocation;
-        private String privateKeyLocation;
+        private ResourceText publicKeyLocation;
+        private ResourceText privateKeyLocation;
 
         @Override
         public void afterPropertiesSet() {
-            if (StringUtils.isBlank(publicKey) && StringUtils.isNotBlank(publicKeyLocation)) {
-                this.publicKey = ResourceText.load(publicKeyLocation).trim();
+            if (publicKeyLocation != null) {
+                this.publicKey = publicKeyLocation.getTextAsOneLine().trim();
             }
 
-            if (StringUtils.isBlank(privateKey) && StringUtils.isNotBlank(privateKeyLocation)) {
-                this.privateKey = ResourceText.load(privateKeyLocation).trim();
+            if (privateKeyLocation != null) {
+                this.privateKey = privateKeyLocation.getTextAsOneLine().trim();
             }
         }
     }
@@ -87,13 +86,14 @@ public class SecretAutoConfig {
     public static class AESProps implements InitializingBean {
 
         private String passphrase;
-        private String passphraseLocation;
+        private ResourceText passphraseLocation;
 
         @Override
         public void afterPropertiesSet() {
-            if (StringUtils.isBlank(passphrase) && StringUtils.isNotBlank(passphraseLocation)) {
-                this.passphrase = ResourceText.load(passphraseLocation).trim();
+            if (passphraseLocation != null) {
+                this.passphrase = passphraseLocation.getTextAsOneLine().trim();
             }
         }
     }
+
 }

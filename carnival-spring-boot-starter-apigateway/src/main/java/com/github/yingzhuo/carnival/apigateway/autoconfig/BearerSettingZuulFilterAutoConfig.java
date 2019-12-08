@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.common.io.ResourceText;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -42,14 +41,14 @@ public class BearerSettingZuulFilterAutoConfig {
     static final class Props implements InitializingBean {
         private boolean enabled = false;
         private String value = null;
-        private String valueLocation = null;
+        private ResourceText valueLocation = null;
         private int order = 0;
 
         @Override
         public void afterPropertiesSet() {
             if (enabled) {
-                if (StringUtils.isNotBlank(valueLocation)) {
-                    this.value = ResourceText.load(valueLocation);
+                if (valueLocation != null) {
+                    this.value = valueLocation.getTextAsOneLine().trim();
                 }
             }
         }

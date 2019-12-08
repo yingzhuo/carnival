@@ -9,42 +9,67 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.google.common.base.Preconditions;
-import lombok.val;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.google.common.base.Joiner;
+import com.google.common.io.CharStreams;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
- * @since 1.1.10
+ * @since 1.3.3
  */
-public final class ResourceText {
+public interface ResourceText extends Serializable {
 
-    public static String load(String location) {
-        return load(location, StandardCharsets.UTF_8);
+    public static ResourceText of(String location) {
+        return new SimpleResourceText(location, StandardCharsets.UTF_8);
     }
 
-    public static String load(String location, Charset charset) {
-        try {
-            Preconditions.checkArgument(location != null);
-            val option = ResourceOptional.of(location);
-            val lines = IOUtils.readLines(option.getInputStream(), charset);
-            val result = StringUtils.join(lines, "");
-            option.closeResource();
-            return result;
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
+    public static ResourceText of(String location, Charset charset) {
+        return new SimpleResourceText(location, charset);
+    }
+
+    public String getText();
+
+    public default String getTextAsOneLine() {
+        return Joiner.on("")
+                .skipNulls()
+                .join(getText().split("\n"));
+    }
+
+    public static class SimpleResourceText implements ResourceText {
+
+        private static final ResourceLoader LOADER = new DefaultResourceLoader();
+
+        private final String text;
+
+        public SimpleResourceText(String location, Charset charset) {
+            try {
+                Resource resource = LOADER.getResource(location);
+
+                if (!resource.exists() || !resource.isReadable()) {
+                    throw new IOException();
+                }
+
+                Reader reader = new InputStreamReader(resource.getInputStream(), charset);
+
+                this.text = CharStreams.toString(new InputStreamReader(resource.getInputStream(), charset));
+
+                reader.close();
+                resource.getInputStream().close();
+            } catch (IOException e) {
+                throw new UncheckedIOException(e);
+            }
         }
-    }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private ResourceText() {
+        @Override
+        public String getText() {
+            return this.text;
+        }
     }
 
 }
