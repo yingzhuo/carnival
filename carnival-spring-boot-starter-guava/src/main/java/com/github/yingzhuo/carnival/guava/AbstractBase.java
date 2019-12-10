@@ -18,6 +18,10 @@ import org.springframework.core.io.ResourceLoader;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @author 应卓
+ * @since 1.3.4
+ */
 abstract class AbstractBase {
 
     private static final ResourceLoader DEFAULT_RESOURCE_LOADER = new DefaultResourceLoader();

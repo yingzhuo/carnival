@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.guava.autoconfig;
 
+import com.github.yingzhuo.carnival.guava.ByteSourceConverter;
 import com.github.yingzhuo.carnival.guava.CharSourceConverter;
 import com.github.yingzhuo.carnival.guava.HostAndPortConverter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -40,5 +41,12 @@ public class GuavaAutoConfig {
         return new CharSourceConverter();
     }
 
+    @Bean
+    @Primary
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public ByteSourceConverter byteSourceConverter() {
+        return new ByteSourceConverter();
+    }
 
 }

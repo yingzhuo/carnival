@@ -14,6 +14,7 @@ import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author 应卓
+ * @since 1.3.4
  */
 public class HostAndPortConverter implements Converter<String, HostAndPort> {
 
