@@ -45,7 +45,7 @@ public class HttpBasicTokenParser implements TokenParser {
             String usernameAndPassword = header.substring(BASIC.length());
             usernameAndPassword = new String(Base64.getUrlDecoder().decode(usernameAndPassword.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
 
-            final String[] up = usernameAndPassword.split(":");
+            final String[] up = usernameAndPassword.split(":", 2);
 
             if (up.length != 2) {
                 return Optional.empty();
