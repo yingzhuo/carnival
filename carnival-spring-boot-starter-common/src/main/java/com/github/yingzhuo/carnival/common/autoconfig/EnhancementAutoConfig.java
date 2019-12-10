@@ -82,11 +82,4 @@ public class EnhancementAutoConfig {
         return new ResourceTextFormatter();
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    @ConfigurationPropertiesBinding
-    public HostAndPortFormatter hostAndPortFormatter() {
-        return new HostAndPortFormatter();
-    }
-
 }
