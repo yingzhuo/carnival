@@ -4,11 +4,46 @@
 
 # Carnival
 
-这是一组`spring-boot`插件。
+### Download
+
+* [maven](https://search.maven.org/search?q=carnival) is highly recommended.
 
 ### Wiki
 
-- [TODO]
+* [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
+* [carnival-spring-boot-starter-apigateway](./carnival-spring-boot-starter-apigateway)
+* [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
+* [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
+* [carnival-spring-boot-starter-exception](./carnival-spring-boot-starter-exception)
+* [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
+* [carnival-spring-boot-starter-gravatar](./carnival-spring-boot-starter-gravatar)
+* [carnival-spring-boot-starter-guava](./carnival-spring-boot-starter-guava)
+* [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
+* [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
+* [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)
+* [carnival-spring-boot-starter-mvc](./carnival-spring-boot-starter-mvc)
+* [carnival-spring-boot-starter-password](./carnival-spring-boot-starter-password)
+* [carnival-spring-boot-starter-patchca](./carnival-spring-boot-starter-patchca)
+* [carnival-spring-boot-starter-protobuf](./carnival-spring-boot-starter-protobuf)
+* [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
+* [carnival-spring-boot-starter-restful-security-httpbasic](./carnival-spring-boot-starter-restful-security-httpbasic)
+* [carnival-spring-boot-starter-restful-security-jwt](./carnival-spring-boot-starter-restful-security-jwt)
+* [carnival-spring-boot-starter-restful-security-tool](./carnival-spring-boot-starter-restful-security-tool)
+* [carnival-spring-boot-starter-secret](./carnival-spring-boot-starter-secret)
+* [carnival-spring-boot-starter-shutdown](./carnival-spring-boot-starter-shutdown)
+* [carnival-spring-boot-starter-stateless-captcha](./carnival-spring-boot-starter-stateless-captcha)
+
+### Contributing
+
+* Fork it
+* Create your feature branch (git checkout -b my-new-feature)
+* Commit your changes (git commit -am 'add some feature')
+* Push to the branch (git push origin my-new-feature)
+* Create new Pull Request
+
+### Authors
+
+* 应卓 - [github](https://github.com/yingzhuo)
 
 ### License
 
