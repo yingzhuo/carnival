@@ -31,14 +31,14 @@ public interface ResourceOptional {
 
     public static ResourceOptional of(String... locations) {
         if (locations == null || locations.length == 0) {
-            return new EmptyResourceOptional();
+            return new AbsentResourceOptional();
         } else {
             return new SimpleResourceOptional(locations);
         }
     }
 
     public static ResourceOptional empty() {
-        return new EmptyResourceOptional();
+        return new AbsentResourceOptional();
     }
 
     public default Optional<Resource> toOptional() {
@@ -108,9 +108,11 @@ public interface ResourceOptional {
         }
     }
 
+    public String getLocation();
+
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static final class EmptyResourceOptional implements ResourceOptional {
+    public static final class AbsentResourceOptional implements ResourceOptional {
         @Override
         public Resource get() {
             throw new NoSuchElementException("ResourceOptional is absent");
@@ -120,6 +122,11 @@ public interface ResourceOptional {
         public boolean isPresent() {
             return false;
         }
+
+        @Override
+        public String getLocation() {
+            throw new NoSuchElementException("ResourceOptional is absent");
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -128,12 +135,14 @@ public interface ResourceOptional {
 
         private final static ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
         private Resource resource;
+        private String location;
 
         public SimpleResourceOptional(String... locations) {
             for (String location : locations) {
                 Resource r = RESOURCE_LOADER.getResource(location);
                 if (r.exists() && r.isReadable()) {
                     this.resource = r;
+                    this.location = location;
                     return;
                 }
             }
@@ -143,7 +152,7 @@ public interface ResourceOptional {
 
         @Override
         public Resource get() {
-            if (isPresent()) {
+            if (isAbsent()) {
                 throw new NoSuchElementException("ResourceOptional is absent");
             }
             return resource;
@@ -153,5 +162,14 @@ public interface ResourceOptional {
         public boolean isPresent() {
             return resource != null;
         }
+
+        @Override
+        public String getLocation() {
+            if (isAbsent()) {
+                throw new NoSuchElementException("ResourceOptional is absent");
+            }
+            return this.location;
+        }
     }
+
 }

@@ -38,7 +38,7 @@ public abstract class AbstractUsernamePasswordUserDetailsRealm implements UserDe
         // 兼容性提升
         if (token instanceof StringToken) {
             String tokenValue = ((StringToken) token).getValue();
-            String[] parts = tokenValue.split(":");
+            String[] parts = tokenValue.split(":", 2);
             if (parts.length == 2) {
                 return Optional.ofNullable(doLoadUserDetails(parts[0], parts[1]));
             } else {
