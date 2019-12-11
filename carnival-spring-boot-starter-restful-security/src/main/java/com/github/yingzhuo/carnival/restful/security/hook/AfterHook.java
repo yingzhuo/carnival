@@ -18,6 +18,7 @@ import org.springframework.web.context.request.NativeWebRequest;
  * @author 应卓
  * @since 1.2.0
  */
+@FunctionalInterface
 public interface AfterHook extends Ordered {
 
     public void execute(NativeWebRequest request, Token token, UserDetails userDetails);

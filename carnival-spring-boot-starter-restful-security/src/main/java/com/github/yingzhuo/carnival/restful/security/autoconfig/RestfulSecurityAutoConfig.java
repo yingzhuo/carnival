@@ -16,6 +16,7 @@ import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
+import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -51,6 +52,13 @@ public class RestfulSecurityAutoConfig {
     @ConditionalOnMissingBean
     public AfterHook afterHook() {
         return (request, token, userDetails) -> {
+        };
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ExceptionHook exceptionHook() {
+        return (request, token, ex) -> {
         };
     }
 

@@ -15,9 +15,11 @@ import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationCo
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
+import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -46,6 +48,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     private TokenBlacklistManager tokenBlacklistManager;
     private BeforeHook beforeHook;
     private AfterHook afterHook;
+    private ExceptionHook exceptionHook;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -106,12 +109,20 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
 
-                ac.authenticate(
-                        RestfulSecurityContext.getToken().orElse(null),
-                        RestfulSecurityContext.getUserDetails().orElse(null),
-                        annotation);
+                try {
+                    ac.authenticate(
+                            RestfulSecurityContext.getToken().orElse(null),
+                            RestfulSecurityContext.getUserDetails().orElse(null),
+                            annotation);
+                } catch (RestfulSecurityException e) {
+                    try {
+                        exceptionHook.execute(servletWebRequest, RestfulSecurityContext.getToken().orElse(null), e);
+                    } catch (Exception ignored) {
+                        // NOP
+                    }
+                    throw e;
+                }
             });
-
         }
 
         afterHook.execute(
@@ -161,4 +172,9 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     public void setAfterHook(AfterHook afterHook) {
         this.afterHook = afterHook;
     }
+
+    public void setExceptionHook(ExceptionHook exceptionHook) {
+        this.exceptionHook = exceptionHook;
+    }
+
 }

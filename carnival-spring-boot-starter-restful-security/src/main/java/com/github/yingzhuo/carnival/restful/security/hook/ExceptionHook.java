@@ -9,28 +9,17 @@
  */
 package com.github.yingzhuo.carnival.restful.security.hook;
 
-import org.springframework.core.Ordered;
+import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
 /**
  * @author 应卓
- * @since 1.2.1
+ * @since 1.3.5
  */
 @FunctionalInterface
-public interface BeforeHook extends Ordered {
+public interface ExceptionHook {
 
-    public void execute(NativeWebRequest request);
-
-    @Override
-    public default int getOrder() {
-        return 0;
-    }
-
-    public default BeforeHook link(BeforeHook that) {
-        return (request) -> {
-            this.execute(request);
-            that.execute(request);
-        };
-    }
+    public void execute(NativeWebRequest request, Token token, RestfulSecurityException ex);
 
 }

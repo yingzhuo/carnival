@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 import com.github.yingzhuo.carnival.mvc.autoconfig.filter.HttpBasicSecurityFilter;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -21,6 +22,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,11 +51,19 @@ public class MvcBasicSecurityAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties("carnival.mvc.http-basic")
-    static class Props {
+    static class Props implements InitializingBean {
         private boolean enabled = false;
         private String[] urlPattern;
         private Map<String, String> usernameAndPassword;
         private int order = Ordered.HIGHEST_PRECEDENCE;
+
+        @Override
+        public void afterPropertiesSet() {
+            if (usernameAndPassword == null || usernameAndPassword.isEmpty()) {
+                usernameAndPassword = new HashMap<>();
+                usernameAndPassword.put("carnival", "carnival");
+            }
+        }
     }
 
 }

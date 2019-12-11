@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
+import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import com.github.yingzhuo.carnival.restful.security.mvc.StringToUserDetailsConverter;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
@@ -51,6 +52,9 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private List<AfterHook> afterHooks;
+
+    @Autowired
+    private ExceptionHook exceptionHook;
 
     @Autowired
     private CacheManager cacheManager;
@@ -111,6 +115,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         interceptor.setAuthenticationStrategy(authenticationStrategy);
         interceptor.setBeforeHook(bh);
         interceptor.setAfterHook(ah);
+        interceptor.setExceptionHook(exceptionHook);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 
