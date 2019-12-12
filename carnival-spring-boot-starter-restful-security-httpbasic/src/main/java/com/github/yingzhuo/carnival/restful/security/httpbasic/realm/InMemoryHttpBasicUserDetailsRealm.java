@@ -21,19 +21,19 @@ import java.util.Properties;
  * @author 应卓
  * @since 1.3.5
  */
-public class InMemoryUsernamePasswordUserDetailsRealm extends AbstractUsernamePasswordUserDetailsRealm {
+public class InMemoryHttpBasicUserDetailsRealm extends AbstractHttpBasicUserDetailsRealm {
 
     private Properties properties;
 
-    public InMemoryUsernamePasswordUserDetailsRealm() {
+    public InMemoryHttpBasicUserDetailsRealm() {
         this(new Properties());
     }
 
-    public InMemoryUsernamePasswordUserDetailsRealm(Properties properties) {
+    public InMemoryHttpBasicUserDetailsRealm(Properties properties) {
         this.properties = properties;
     }
 
-    public InMemoryUsernamePasswordUserDetailsRealm(String username, String password) {
+    public InMemoryHttpBasicUserDetailsRealm(String username, String password) {
         this(new Properties());
         properties.put(username, password);
     }

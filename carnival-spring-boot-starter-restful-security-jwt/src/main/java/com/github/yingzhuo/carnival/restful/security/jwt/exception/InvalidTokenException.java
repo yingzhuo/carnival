@@ -16,8 +16,6 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationExc
  */
 public class InvalidTokenException extends AuthenticationException {
 
-    private static final long serialVersionUID = 1413183217830493676L;
-
     public InvalidTokenException() {
         super();
     }

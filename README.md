@@ -2,11 +2,11 @@
 [![Build](http://img.shields.io/badge/Build-Maven_2-green.svg)](https://maven.apache.org/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.yingzhuo/carnival.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.yingzhuo%22%20AND%20a:%22carnival%22)
 
-# Carnival
+# carnival
 
 ### Download
 
-* [maven](https://search.maven.org/search?q=carnival) is highly recommended.
+* [maven / gradle](https://search.maven.org/search?q=carnival) is highly recommended.
 
 ### Wiki
 

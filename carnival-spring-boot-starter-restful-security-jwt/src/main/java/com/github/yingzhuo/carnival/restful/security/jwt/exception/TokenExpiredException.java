@@ -17,8 +17,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.exception;
  */
 public class TokenExpiredException extends InvalidTokenException {
 
-    private static final long serialVersionUID = -352484774992036785L;
-
     public TokenExpiredException() {
         super();
     }

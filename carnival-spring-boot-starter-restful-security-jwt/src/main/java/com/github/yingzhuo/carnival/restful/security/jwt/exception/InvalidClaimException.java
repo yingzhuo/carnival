@@ -17,8 +17,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.exception;
  */
 public class InvalidClaimException extends InvalidTokenException {
 
-    private static final long serialVersionUID = 4939573324253135524L;
-
     public InvalidClaimException() {
         super();
     }

@@ -17,8 +17,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.exception;
  */
 public class SignatureVerificationException extends InvalidTokenException {
 
-    private static final long serialVersionUID = 8879716562937300490L;
-
     public SignatureVerificationException() {
         super();
     }

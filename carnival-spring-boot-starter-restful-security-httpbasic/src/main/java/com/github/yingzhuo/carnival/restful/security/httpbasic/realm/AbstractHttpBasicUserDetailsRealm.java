@@ -17,12 +17,14 @@ import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Optional;
 
 /**
  * @author 应卓
  */
-public abstract class AbstractUsernamePasswordUserDetailsRealm implements UserDetailsRealm {
+public abstract class AbstractHttpBasicUserDetailsRealm implements UserDetailsRealm {
 
     private int order = 0;
 
@@ -38,6 +40,7 @@ public abstract class AbstractUsernamePasswordUserDetailsRealm implements UserDe
         // 兼容性提升
         if (token instanceof StringToken) {
             String tokenValue = ((StringToken) token).getValue();
+            tokenValue = new String(Base64.getDecoder().decode(tokenValue.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
             String[] parts = tokenValue.split(":", 2);
             if (parts.length == 2) {
                 return Optional.ofNullable(doLoadUserDetails(parts[0], parts[1]));

@@ -14,8 +14,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.exception;
  */
 public class JwtDecodeException extends InvalidTokenException {
 
-    private static final long serialVersionUID = 1232483943103042944L;
-
     public JwtDecodeException() {
         super();
     }

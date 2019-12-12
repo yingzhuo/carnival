@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.httpbasic.autoconfig;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import com.github.yingzhuo.carnival.restful.security.httpbasic.parser.HttpBasicTokenParser;
-import com.github.yingzhuo.carnival.restful.security.httpbasic.realm.InMemoryUsernamePasswordUserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.httpbasic.realm.InMemoryHttpBasicUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -51,7 +51,7 @@ public class RestfulSecurityHttpBasicAutoConfig {
             "classpath:/META-INF/httpbasic.xml"
     })
     public UserDetailsRealm userDetailsRealm() {
-        final InMemoryUsernamePasswordUserDetailsRealm realm = new InMemoryUsernamePasswordUserDetailsRealm();
+        final InMemoryHttpBasicUserDetailsRealm realm = new InMemoryHttpBasicUserDetailsRealm();
 
         ResourceOptional option = ResourceOptional.of(DEFAULT_LOCATION);
 

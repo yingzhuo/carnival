@@ -9,19 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
-import java.util.Objects;
-
 /**
  * @author 应卓
+ * @since 1.3.5
  */
-public interface JwtTokenFactory {
+public interface JwtTokenFactoryHook {
 
-    public String create(JwtTokenInfo entity);
-
-    public default String create(JwtTokenInfo.Builder builder) {
-        return create(Objects.requireNonNull(builder).build());
-    }
-
-    public void setJwtTokenFactoryHook(JwtTokenFactoryHook hook);
+    public void afterTokenCreated(String jwtToken);
 
 }

@@ -24,6 +24,7 @@ import java.util.Set;
 public class DefaultJwtTokenFactory implements JwtTokenFactory {
 
     private final Algorithm algorithm;
+    private JwtTokenFactoryHook factoryHook;
 
     public DefaultJwtTokenFactory(Algorithm algorithm) {
         this.algorithm = algorithm;
@@ -103,7 +104,18 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
             }
         });
 
-        return builder.sign(algorithm);
+        String token = builder.sign(algorithm);
+
+        if (this.factoryHook != null) {
+            factoryHook.afterTokenCreated(token);
+        }
+
+        return token;
+    }
+
+    @Override
+    public void setJwtTokenFactoryHook(JwtTokenFactoryHook hook) {
+        this.factoryHook = hook;
     }
 
 }
