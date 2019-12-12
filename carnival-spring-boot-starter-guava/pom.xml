@@ -45,6 +45,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <!-- jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-guava</artifactId>
+        </dependency>
+
         <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>

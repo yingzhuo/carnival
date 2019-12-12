@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 
-import java.text.ParseException;
 import java.util.Locale;
 
 /**
@@ -34,7 +33,7 @@ public class ResourceOptionalFormatter extends AbstractObjectFormatter<ResourceO
     }
 
     @Override
-    public ResourceOptional parse(String text, Locale locale) throws ParseException {
+    public ResourceOptional parse(String text, Locale locale) {
         return ResourceOptional.of(text.split(text));
     }
 

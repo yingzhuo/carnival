@@ -7,21 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.json.autoconfig;
+package com.github.yingzhuo.carnival.guava.autoconfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.guava.GuavaModule;
-import com.github.yingzhuo.carnival.common.Configurer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 
 import java.util.Optional;
 
 /**
  * @author 应卓
  */
-@ConditionalOnClass(name = "com.google.common.collect.BiMap")
-public class GuavaModuleAutoConfig implements Configurer<ObjectMapper> {
+public class GuavaModuleAutoConfig {
 
     @Autowired(required = false)
     public void config(ObjectMapper om) {
