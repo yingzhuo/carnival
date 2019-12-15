@@ -27,28 +27,34 @@ public class MeterLabelConfig implements EnvironmentAware, InitializingBean {
     private String application;
     private String layer;
     private String version;
+    private String primaryProfile;
 
-    public MeterLabelConfig(String project, String application, String layer, String version) {
+    public MeterLabelConfig(String project, String application, String layer, String version, String primaryProfile) {
         this.project = project;
         this.application = application;
         this.layer = layer;
         this.version = version;
+        this.primaryProfile = primaryProfile;
     }
 
     public String getProject() {
-        return project;
+        return this.project;
     }
 
     public String getApplication() {
-        return application;
+        return this.application;
     }
 
     public String getLayer() {
-        return layer;
+        return this.layer;
     }
 
     public String getVersion() {
-        return version;
+        return this.version;
+    }
+
+    public String getPrimaryProfile() {
+        return this.primaryProfile;
     }
 
     @Override

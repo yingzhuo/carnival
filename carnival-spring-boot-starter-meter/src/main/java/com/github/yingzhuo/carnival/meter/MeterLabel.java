@@ -32,4 +32,6 @@ public @interface MeterLabel {
 
     public String version() default "";
 
+    public String primaryProfile() default "";
+
 }

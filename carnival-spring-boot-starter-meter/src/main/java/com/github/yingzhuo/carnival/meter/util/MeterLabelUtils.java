@@ -19,20 +19,46 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 public final class MeterLabelUtils {
 
     public static String getLabelProject() {
-        return SpringUtils.getBean(MeterLabelConfig.class).getProject();
+        try {
+            return SpringUtils.getBean(MeterLabelConfig.class).getProject();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static String getLabelApplication() {
-        return SpringUtils.getBean(MeterLabelConfig.class).getApplication();
+        try {
+            return SpringUtils.getBean(MeterLabelConfig.class).getApplication();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static String getLabelLayer() {
-        return SpringUtils.getBean(MeterLabelConfig.class).getLayer();
+        try {
+            return SpringUtils.getBean(MeterLabelConfig.class).getLayer();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static String getLabelVersion() {
-        return SpringUtils.getBean(MeterLabelConfig.class).getVersion();
+        try {
+            return SpringUtils.getBean(MeterLabelConfig.class).getVersion();
+        } catch (Exception e) {
+            return null;
+        }
     }
+
+    public static String getLabelPrimaryProfile() {
+        try {
+            return SpringUtils.getBean(MeterLabelConfig.class).getPrimaryProfile();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // ------------------------------------------------------------------------------------------------------------
 
     private MeterLabelUtils() {
     }

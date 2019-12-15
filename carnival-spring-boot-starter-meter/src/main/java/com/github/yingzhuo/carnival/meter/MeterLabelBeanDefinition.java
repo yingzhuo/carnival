@@ -29,7 +29,10 @@ class MeterLabelBeanDefinition implements ImportBeanDefinitionRegistrar {
         final String application = (String) map.getFirst("application");
         final String layer = (String) map.getFirst("layer");
         final String version = (String) map.getFirst("version");
-        registry.registerBeanDefinition("meterLabel", new RootBeanDefinition(MeterLabelConfig.class, () -> new MeterLabelConfig(project, application, layer, version)));
+        final String primaryProfile = (String) map.getFirst("primaryProfile");
+        registry.registerBeanDefinition("meterLabel", new RootBeanDefinition(MeterLabelConfig.class, () ->
+                new MeterLabelConfig(project, application, layer, version, primaryProfile))
+        );
     }
 
 }
