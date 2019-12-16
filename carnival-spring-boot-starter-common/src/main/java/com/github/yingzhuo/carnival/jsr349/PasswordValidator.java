@@ -14,6 +14,7 @@ import lombok.var;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,7 +24,7 @@ import java.util.stream.Stream;
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
     private Password.Complexity complexity;
-    private Stream<Character> specialChars;
+    private Set<Character> specialChars;
     private int minLength;
     private int maxLength;
 
@@ -39,7 +40,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
         this.complexity = annotation.complexity();
         this.minLength = annotation.minLength();
         this.maxLength = annotation.maxLength();
-        this.specialChars = toCharStream(annotation.specialChars());
+        this.specialChars = toCharStream(annotation.specialChars()).collect(Collectors.toSet());
     }
 
     @Override
@@ -89,7 +90,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
                 continue;
             }
 
-            if (specialChars.anyMatch(i -> i == ch)) {
+            if (specialChars.stream().anyMatch(i -> i == ch)) {
                 hasSpecial = true;
                 point += 1;
                 //continue;

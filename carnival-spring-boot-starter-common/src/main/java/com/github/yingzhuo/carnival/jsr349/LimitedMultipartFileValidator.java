@@ -15,14 +15,15 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
  */
 public class LimitedMultipartFileValidator implements ConstraintValidator<LimitedMultipartFile, MultipartFile> {
 
-    private Stream<String> allowedExtensions = null;
+    private Set<String> allowedExtensions = null;
     private boolean caseSensitive = false;
 
     @Override
@@ -41,16 +42,15 @@ public class LimitedMultipartFileValidator implements ConstraintValidator<Limite
 
         val extension = getExtension(filename);
         if (this.caseSensitive) {
-            return allowedExtensions.anyMatch(e -> e.equals(extension));
+            return allowedExtensions.stream().anyMatch(e -> e.equals(extension));
         } else {
-            return allowedExtensions.anyMatch(e -> e.equalsIgnoreCase(extension));
+            return allowedExtensions.stream().anyMatch(e -> e.equalsIgnoreCase(extension));
         }
-
     }
 
     @Override
     public void initialize(LimitedMultipartFile annotation) {
-        this.allowedExtensions = Arrays.stream(annotation.allowedExtensions());
+        this.allowedExtensions = Arrays.stream(annotation.allowedExtensions()).collect(Collectors.toSet());
         this.caseSensitive = annotation.caseSensitive();
     }
 
