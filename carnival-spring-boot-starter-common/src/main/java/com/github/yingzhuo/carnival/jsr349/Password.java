@@ -83,7 +83,7 @@ public @interface Password {
         /**
          * 字母 数字 特殊字符 中至少两种
          */
-        AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND__NUMERIC_AND_SPECIAL_CHARS
+        AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS
     }
 
 }
