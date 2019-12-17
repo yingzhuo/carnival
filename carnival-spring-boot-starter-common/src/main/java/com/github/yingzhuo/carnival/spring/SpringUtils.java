@@ -38,13 +38,12 @@ import java.util.TimeZone;
 @SuppressWarnings("unchecked")
 public final class SpringUtils {
 
-    public static final String __identity__ = "__identity__";
+    public static final String __IDENTITY__ = "__identity__";
 
     static ApplicationContext AC = null;
     static Environment ENV = null;
     static ApplicationArguments APP_ARGS = null;
     static List<String> CMD_ARGS = null;
-
 
     private SpringUtils() {
     }
@@ -78,7 +77,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return AC.getId() + "-" + getSpringStartupDateAsString("yyyyMMddHHmmssSSS") + "-" + AC.getBean(__identity__, String.class);
+        return AC.getBean(__IDENTITY__, String.class);
     }
 
     public static String getDisplayName() {

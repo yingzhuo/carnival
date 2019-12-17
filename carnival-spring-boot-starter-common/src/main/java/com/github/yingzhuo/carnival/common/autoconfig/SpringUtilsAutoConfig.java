@@ -10,11 +10,13 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
+import com.github.yingzhuo.carnival.spring.SpringIdFactoryBean;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
 import java.util.UUID;
 
@@ -22,6 +24,7 @@ import java.util.UUID;
  * @author 应卓
  * @since 1.0.0
  */
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class SpringUtilsAutoConfig implements Ordered {
 
     @Bean
@@ -30,29 +33,15 @@ public class SpringUtilsAutoConfig implements Ordered {
         return ApplicationContextProvider.INSTANCE;
     }
 
-    @Bean(name = SpringUtils.__identity__)
-    public IdentityFactoryBean identity() {
-        return new IdentityFactoryBean();
+    @Primary
+    @Bean(name = SpringUtils.__IDENTITY__)
+    public SpringIdFactoryBean identity() {
+        return () -> UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     @Override
     public int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    static final class IdentityFactoryBean implements FactoryBean<String> {
-
-        @Override
-        public String getObject() {
-            return UUID.randomUUID().toString();
-        }
-
-        @Override
-        public Class<?> getObjectType() {
-            return String.class;
-        }
     }
 
 }
