@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.yingzhuo.carnival.restful.flow.autoconfig.RequestFlowBeanAutoConfig,\
+com.github.yingzhuo.carnival.restful.flow.autoconfig.RequestFlowAutoConfig
