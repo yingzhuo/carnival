@@ -43,12 +43,6 @@ public enum SignatureAlgorithm {
 
         try {
             switch (this) {
-                case HMAC256:
-                    return Algorithm.HMAC256(secret);
-                case HMAC384:
-                    return Algorithm.HMAC384(secret);
-                case HMAC512:
-                    return Algorithm.HMAC512(secret);
                 case RSA256:
                     generator = KeyPairGenerator.getInstance("RSA");
                     generator.initialize(1024);
@@ -70,11 +64,17 @@ public enum SignatureAlgorithm {
                     publicKey = (RSAPublicKey) keyPair.getPublic();
                     privateKey = (RSAPrivateKey) keyPair.getPrivate();
                     return Algorithm.RSA512(publicKey, privateKey);
+                case HMAC256:
+                    return Algorithm.HMAC256(secret);
+                case HMAC384:
+                    return Algorithm.HMAC384(secret);
+                case HMAC512:
+                    return Algorithm.HMAC512(secret);
                 default:
                     throw new IllegalArgumentException();
             }
         } catch (NoSuchAlgorithmException e) {
-            return null;
+            throw new AssertionError();
         }
     }
 

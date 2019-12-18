@@ -74,7 +74,7 @@ public enum SignatureAlgorithm {
                     throw new IllegalArgumentException();
             }
         } catch (NoSuchAlgorithmException e) {
-            return null;
+            throw new AssertionError();
         }
     }
 
