@@ -25,10 +25,6 @@ public class InMemoryHttpBasicUserDetailsRealm extends AbstractHttpBasicUserDeta
 
     private Properties properties;
 
-    public InMemoryHttpBasicUserDetailsRealm() {
-        this(new Properties());
-    }
-
     public InMemoryHttpBasicUserDetailsRealm(Properties properties) {
         this.properties = properties;
     }

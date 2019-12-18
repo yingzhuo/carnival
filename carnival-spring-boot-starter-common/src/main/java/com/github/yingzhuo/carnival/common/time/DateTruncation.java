@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.common.time;
 /**
  * @author 应卓
  */
-@Deprecated
 public enum DateTruncation {
 
     NONE(-1), YEAR(1), MONTH(2), DAY(5), HOUR(10), MINUTE(12), SECOND(13), MILLISECOND(14);

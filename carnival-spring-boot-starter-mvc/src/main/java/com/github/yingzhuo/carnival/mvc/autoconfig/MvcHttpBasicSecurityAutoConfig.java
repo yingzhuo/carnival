@@ -31,8 +31,8 @@ import java.util.Map;
  */
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.http-basic", name = "enabled", havingValue = "true")
-@EnableConfigurationProperties(MvcBasicSecurityAutoConfig.Props.class)
-public class MvcBasicSecurityAutoConfig {
+@EnableConfigurationProperties(MvcHttpBasicSecurityAutoConfig.Props.class)
+public class MvcHttpBasicSecurityAutoConfig {
 
     @Autowired(required = false)
     private HttpBasicSecurityFilter.AccessDeniedHandler accessDeniedHandler;
@@ -59,9 +59,8 @@ public class MvcBasicSecurityAutoConfig {
 
         @Override
         public void afterPropertiesSet() {
-            if (usernameAndPassword == null || usernameAndPassword.isEmpty()) {
+            if (usernameAndPassword == null) {
                 usernameAndPassword = new HashMap<>();
-                usernameAndPassword.put("carnival", "carnival");
             }
         }
     }

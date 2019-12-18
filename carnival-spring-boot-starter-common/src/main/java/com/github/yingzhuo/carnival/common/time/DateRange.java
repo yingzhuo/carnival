@@ -21,7 +21,6 @@ import java.util.*;
 /**
  * @author 应卓
  */
-@Deprecated
 public class DateRange implements Serializable, Iterable<Date> {
 
     public static DateRange of(Date start, Date end) {

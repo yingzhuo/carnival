@@ -4,4 +4,4 @@ com.github.yingzhuo.carnival.mvc.autoconfig.MvcCorsForAllAutoConfig,\
 com.github.yingzhuo.carnival.mvc.autoconfig.MvcWebrootAutoConfig,\
 com.github.yingzhuo.carnival.mvc.autoconfig.MvcXssProtectingAutoConfig,\
 com.github.yingzhuo.carnival.mvc.autoconfig.MvcKubernetesAutoConfig,\
-com.github.yingzhuo.carnival.mvc.autoconfig.MvcBasicSecurityAutoConfig
+com.github.yingzhuo.carnival.mvc.autoconfig.MvcHttpBasicSecurityAutoConfig

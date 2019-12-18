@@ -25,6 +25,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author 应卓
  * @since 1.1.8
  */
+@Deprecated
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.kubernetes", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcKubernetesAutoConfig.Props.class)
@@ -46,9 +47,11 @@ public class MvcKubernetesAutoConfig implements WebMvcConfigurer {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.mvc.kubernetes")
+    @Deprecated
     static class Props {
         private boolean enabled = false;
         private String livenessProbePath = "/liveness-probe";
         private String readinessProbePath = "/readiness-probe";
     }
+
 }
