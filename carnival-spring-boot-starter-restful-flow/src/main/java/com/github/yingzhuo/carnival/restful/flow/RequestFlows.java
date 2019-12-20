@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.restful.flow;
 
 import com.auth0.jwt.JWT;
-import com.github.yingzhuo.carnival.restful.flow.props.JwtProps;
+import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.text.DateFormat;
@@ -30,7 +30,7 @@ public final class RequestFlows {
                 .withClaim("name", name)
                 .withClaim("step", step)
                 .withClaim("timestamp", DATE_FORMAT.format(new Date()))
-                .sign(SpringUtils.getBean(JwtProps.class).getAlgorithm());
+                .sign(SpringUtils.getBean(FlowProps.class).calcAlgorithm());
     }
 
     private RequestFlows() {

@@ -19,6 +19,6 @@ public @interface RequestFlow {
 
     public String name();
 
-    public int prevStep() default Integer.MIN_VALUE;
+    public int[] prevStep() default {};
 
 }

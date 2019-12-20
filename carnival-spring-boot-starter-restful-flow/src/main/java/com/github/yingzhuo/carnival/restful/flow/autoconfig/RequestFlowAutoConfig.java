@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowCoreInterceptor;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
-import com.github.yingzhuo.carnival.restful.flow.props.JwtProps;
+import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -26,19 +26,20 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.flow", name = "enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties(JwtProps.class)
+@EnableConfigurationProperties(FlowProps.class)
 @AutoConfigureAfter(RequestFlowBeanAutoConfig.class)
 public class RequestFlowAutoConfig implements WebMvcConfigurer {
 
     @Autowired
-    private JwtProps jwtprops;
+    private FlowProps flowProps;
 
     @Autowired
     private StepTokenParser stepTokenParser;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestFlowCoreInterceptor(jwtprops.getAlgorithm(), stepTokenParser)).addPathPatterns("/", "/**");
+        registry.addInterceptor(new RequestFlowCoreInterceptor(flowProps.calcAlgorithm(), stepTokenParser))
+                .addPathPatterns(flowProps.getInterceptorPatterns());
     }
 
 }

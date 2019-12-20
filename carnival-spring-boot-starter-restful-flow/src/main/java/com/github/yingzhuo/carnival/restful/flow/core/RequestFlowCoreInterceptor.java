@@ -23,7 +23,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author 应卓
@@ -51,7 +53,7 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             return true;
         }
 
-        if (annotation.prevStep() < 0) {
+        if (annotation.prevStep().length == 0) {
             return true;
         }
 
@@ -66,15 +68,22 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             final String nameInToken = jwt.getClaim("name").asString();
             final Integer stepInToken = jwt.getClaim("step").asInt();
 
+            Set<Integer> prevSet = new HashSet<>();
+            for (int i : annotation.prevStep()) {
+                prevSet.add(i);
+            }
+
             log.debug("nameInToken={}", nameInToken);
             log.debug("stepInToken={}", stepInToken);
             log.debug("nameInAnnotation={}", annotation.name());
             log.debug("stepInAnnotation={}", annotation.prevStep());
 
-            if (!Objects.equals(nameInToken, annotation.name()) || !Objects.equals(stepInToken, annotation.prevStep())) {
+            if (!Objects.equals(nameInToken, annotation.name()) || !prevSet.contains(stepInToken)) {
                 throw new RequestFlowException();
             }
+
         } catch (AlgorithmMismatchException | TokenExpiredException | SignatureVerificationException | InvalidClaimException | JWTDecodeException ex) {
+            log.warn(ex.getMessage(), ex);
             throw new RequestFlowException(ex.getMessage());
         }
 

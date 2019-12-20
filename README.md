@@ -25,6 +25,7 @@
 * [carnival-spring-boot-starter-password](./carnival-spring-boot-starter-password)
 * [carnival-spring-boot-starter-patchca](./carnival-spring-boot-starter-patchca)
 * [carnival-spring-boot-starter-protobuf](./carnival-spring-boot-starter-protobuf)
+* [carnival-spring-boot-starter-restful-flow](./carnival-spring-boot-starter-restful-flow)
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 * [carnival-spring-boot-starter-restful-security-httpbasic](./carnival-spring-boot-starter-restful-security-httpbasic)
 * [carnival-spring-boot-starter-restful-security-jwt](./carnival-spring-boot-starter-restful-security-jwt)
