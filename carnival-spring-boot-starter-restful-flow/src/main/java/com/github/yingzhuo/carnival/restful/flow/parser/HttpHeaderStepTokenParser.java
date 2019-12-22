@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.parser;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
@@ -21,6 +22,7 @@ public class HttpHeaderStepTokenParser implements StepTokenParser {
 
     private final String headerName;
     private final String prefix;
+    private final int prefixLen;
 
     public HttpHeaderStepTokenParser(String headerName) {
         this(headerName, "");
@@ -29,17 +31,32 @@ public class HttpHeaderStepTokenParser implements StepTokenParser {
     public HttpHeaderStepTokenParser(String headerName, String prefix) {
         this.headerName = headerName;
         this.prefix = prefix;
+        this.prefixLen = prefix.length();
     }
 
     @Override
     public Optional<String> parser(NativeWebRequest request) {
-        String value = request.getHeader(this.headerName);
+        String headerValue = request.getHeader(headerName);
 
-        if (value == null) {
+        if (!StringUtils.hasText(headerValue)) {
             return Optional.empty();
-        } else {
-            return Optional.of(value.substring(prefix.length()));
         }
+
+        if (headerValue.length() <= prefixLen) {
+            return Optional.empty();
+        }
+
+        if (!headerValue.startsWith(prefix)) {
+            return Optional.empty();
+        }
+
+        String tokenValue = headerValue.substring(prefixLen);
+
+        if (StringUtils.isEmpty(tokenValue)) {
+            return Optional.empty();
+        }
+
+        return Optional.of(tokenValue);
     }
 
 }

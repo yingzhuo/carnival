@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.flow.parser.HttpParameterStepTokenParser;
+import com.github.yingzhuo.carnival.restful.flow.parser.DefaultStepTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -27,7 +27,7 @@ public class RequestFlowBeanAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public StepTokenParser stepTokenParser() {
-        return new HttpParameterStepTokenParser();
+        return new DefaultStepTokenParser();
     }
 
 }
