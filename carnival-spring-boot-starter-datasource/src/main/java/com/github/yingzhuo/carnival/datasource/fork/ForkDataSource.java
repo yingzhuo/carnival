@@ -32,8 +32,8 @@ public class ForkDataSource implements DataSource, InitializingBean {
     private String defaultDataSourceName;
     private final Lookup lookup;
 
-    public ForkDataSource() {
-        this.lookup = new Lookup();
+    public ForkDataSource(String defaultDataSourceName) {
+        this.lookup = new Lookup(defaultDataSourceName);
     }
 
     public Lookup getLookup() {
@@ -42,10 +42,6 @@ public class ForkDataSource implements DataSource, InitializingBean {
 
     public void addDataSource(String dataSourceName, DataSource dataSource) {
         this.dataSourceMap.put(dataSourceName, dataSource);
-    }
-
-    public void setDefaultDataSourceName(String defaultDataSourceName) {
-        this.defaultDataSourceName = defaultDataSourceName;
     }
 
     @Override
@@ -109,13 +105,20 @@ public class ForkDataSource implements DataSource, InitializingBean {
     // ----------------------------------------------------------------------------------------------------------------
 
     public static final class Lookup {
-        private final ThreadLocal<String> holder = ThreadLocal.withInitial(() -> null);
+        private final ThreadLocal<String> holder;
+        private final String defaultDataSourceName;
 
-        private Lookup() {
+        public Lookup(String defaultDataSourceName) {
+            this.defaultDataSourceName = defaultDataSourceName;
+            this.holder = ThreadLocal.withInitial(() -> defaultDataSourceName);
         }
 
         public void set(String dataSourceName) {
             holder.set(dataSourceName);
+        }
+
+        public void reset() {
+            holder.set(defaultDataSourceName);
         }
     }
 
