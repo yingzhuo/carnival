@@ -34,7 +34,13 @@ public class ForkDataSourceAspect implements ApplicationContextAware {
             forkDataSource.getLookup().set(annotation.value());
         }
 
-        return pjp.proceed();
+        try {
+            return pjp.proceed();
+        } finally {
+            if (annotation != null && forkDataSource != null) {
+                forkDataSource.getLookup().reset();
+            }
+        }
     }
 
     @Override
