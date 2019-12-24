@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 应卓
  * @since 1.0.3
  */
+@Deprecated
 public class ForkDataSourceResetInterceptor implements HandlerInterceptor {
 
     private final boolean clearDataSourceKeyBeforeHandle;

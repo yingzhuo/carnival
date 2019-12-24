@@ -21,6 +21,7 @@ import java.io.IOException;
  * @author 应卓
  * @since 1.0.3
  */
+@Deprecated
 public class ForkDataSourceResetFilter extends OncePerRequestFilter implements javax.servlet.Filter {
 
     private final boolean clearDataSourceKeyBeforeHandle;

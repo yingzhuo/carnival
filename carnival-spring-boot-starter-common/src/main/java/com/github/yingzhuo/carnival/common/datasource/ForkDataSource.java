@@ -20,6 +20,7 @@ import java.util.Map;
  * @author 应卓
  * @since 1.0.2
  */
+@Deprecated
 public class ForkDataSource extends AbstractRoutingDataSource implements DataSource, InitializingBean {
 
     public static Builder builder() {

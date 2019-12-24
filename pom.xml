@@ -31,6 +31,7 @@
         <module>carnival-spring-boot-starter-secret</module>
         <module>carnival-spring-boot-starter-shutdown</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
+        <module>carnival-spring-boot-starter-datasource</module>
     </modules>
     <packaging>pom</packaging>
 
