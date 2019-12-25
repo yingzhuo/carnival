@@ -30,7 +30,7 @@ public class HttpParameterStepTokenParser implements StepTokenParser {
     }
 
     @Override
-    public Optional<String> parser(NativeWebRequest request) {
+    public Optional<String> parse(NativeWebRequest request) {
         return Optional.ofNullable(request.getParameter(parameterName));
     }
 

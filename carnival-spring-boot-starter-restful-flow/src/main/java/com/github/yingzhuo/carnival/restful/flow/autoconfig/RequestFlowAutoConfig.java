@@ -17,8 +17,12 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.core.OrderComparator;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -34,11 +38,21 @@ public class RequestFlowAutoConfig implements WebMvcConfigurer {
     private FlowProps flowProps;
 
     @Autowired
-    private StepTokenParser stepTokenParser;
+    private List<StepTokenParser> stepTokenParsers;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestFlowCoreInterceptor(flowProps.calcAlgorithm(), stepTokenParser))
+
+        StepTokenParser p;
+
+        if (stepTokenParsers.size() == 1) {
+            p = stepTokenParsers.get(0);
+        } else {
+            OrderComparator.sort(stepTokenParsers);
+            p = stepTokenParsers.stream().reduce(token -> Optional.empty(), StepTokenParser::or);
+        }
+
+        registry.addInterceptor(new RequestFlowCoreInterceptor(flowProps.calcAlgorithm(), p))
                 .addPathPatterns(flowProps.getInterceptorPatterns());
     }
 

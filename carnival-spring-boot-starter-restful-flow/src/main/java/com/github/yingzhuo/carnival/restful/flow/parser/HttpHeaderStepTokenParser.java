@@ -35,7 +35,7 @@ public class HttpHeaderStepTokenParser implements StepTokenParser {
     }
 
     @Override
-    public Optional<String> parser(NativeWebRequest request) {
+    public Optional<String> parse(NativeWebRequest request) {
         String headerValue = request.getHeader(headerName);
 
         if (!StringUtils.hasText(headerValue)) {

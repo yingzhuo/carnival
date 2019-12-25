@@ -57,7 +57,7 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             return true;
         }
 
-        final String stepToken = stepTokenParser.parser(new ServletWebRequest(request, response)).orElse(null);
+        final String stepToken = stepTokenParser.parse(new ServletWebRequest(request, response)).orElse(null);
         if (stepToken == null) {
             throw new RequestFlowException();
         }
