@@ -29,15 +29,17 @@ public class YamlEnvLoadingPostProcess implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        ResourceOptional op = ResourceOptional.of(
-                "file:config/custom.yml",
-                "file:config/custom.yaml",
-                "classpath:/config/custom.yml",
-                "classpath:/config/custom.yaml",
-                "classpath:/custom.yml",
-                "classpath:/custom.yaml",
-                "classpath:/META-INF/custom.yml",
-                "classpath:/META-INF/custom.yaml"
+        final ResourceOptional op = ResourceOptional.of(
+                "file:config/property-source.yml",
+                "file:config/property-source.yaml",
+                "file:property-source.yml",
+                "file:property-source.yaml",
+                "classpath:/config/property-source.yml",
+                "classpath:/config/property-source.yaml",
+                "classpath:/property-source.yml",
+                "classpath:/property-source.yaml",
+                "classpath:/META-INF/property-source.yml",
+                "classpath:/META-INF/property-source.yaml"
         );
 
         if (op.isAbsent()) {
@@ -45,10 +47,10 @@ public class YamlEnvLoadingPostProcess implements EnvironmentPostProcessor {
         }
 
         try {
-            List<PropertySource<?>> propertySources = loader.load("custom-yaml", op.get());
+            List<PropertySource<?>> propertySources = loader.load("yaml-property-source", op.get());
             environment.getPropertySources().addLast(propertySources.get(0));
         } catch (IOException ignored) {
-
+            // NOP
         }
     }
 
