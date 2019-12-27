@@ -18,14 +18,15 @@ import org.springframework.boot.env.PropertiesPropertySourceLoader;
 public class OnBuildPropertiesEnvironmentPostProcessor extends AbstractOnBuildEnvironmentPostProcessor {
 
     private static final String[] ONBUILD_PROPERTIES_LOCATIONS = new String[]{
-            "file:config/property-source.properties",
-            "file:property-source.properties",
-            "classpath:/config/property-source.properties",
-            "classpath:/property-source.properties",
-            "classpath:/META-INF/property-source.properties",
+            "file:config/property-source",
+            "file:property-source",
+            "classpath:/config/property-source",
+            "classpath:/property-source",
+            "classpath:/META-INF/property-source",
     };
 
     public OnBuildPropertiesEnvironmentPostProcessor() {
-        super(ONBUILD_PROPERTIES_LOCATIONS, new PropertiesPropertySourceLoader());
+        super(ONBUILD_PROPERTIES_LOCATIONS, new String[]{".properties"}, new PropertiesPropertySourceLoader());
     }
+
 }
