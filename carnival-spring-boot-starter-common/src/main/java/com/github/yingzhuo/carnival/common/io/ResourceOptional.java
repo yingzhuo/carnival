@@ -22,6 +22,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -47,14 +48,26 @@ public interface ResourceOptional {
 
     public Resource get();
 
+    public default Resource orElse(Resource defaultResource) {
+        return isPresent() ? get() : defaultResource;
+    }
+
+    public default Resource orElseGet(Supplier<Resource> supplier) {
+        return isPresent() ? get() : supplier.get();
+    }
+
+    public default <X extends Throwable> Resource orElseThrow(Supplier<X> supplier) throws X {
+        if (isPresent()) {
+            return get();
+        } else {
+            throw supplier.get();
+        }
+    }
+
     public boolean isPresent();
 
     public default boolean isAbsent() {
         return !isPresent();
-    }
-
-    public default int size() {
-        return isPresent() ? 1 : 0;
     }
 
     public default InputStream getInputStream() {
@@ -171,5 +184,4 @@ public interface ResourceOptional {
             return this.location;
         }
     }
-
 }
