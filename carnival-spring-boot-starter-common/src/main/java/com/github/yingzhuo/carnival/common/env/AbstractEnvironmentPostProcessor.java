@@ -27,13 +27,13 @@ import java.util.UUID;
  * @author 应卓
  * @since 1.3.7
  */
-public abstract class AbstractOnBuildEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public abstract class AbstractEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     private final String[] locations;
     private final String[] exts;
     private final PropertySourceLoader propertySourceLoader;
 
-    public AbstractOnBuildEnvironmentPostProcessor(String[] locations, String[] exts, PropertySourceLoader propertySourceLoader) {
+    public AbstractEnvironmentPostProcessor(String[] locations, String[] exts, PropertySourceLoader propertySourceLoader) {
         this.locations = locations;
         this.exts = exts;
         this.propertySourceLoader = propertySourceLoader;

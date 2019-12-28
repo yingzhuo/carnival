@@ -9,15 +9,15 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
-import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.boot.env.PropertiesPropertySourceLoader;
 
 /**
  * @author 应卓
  * @since 1.3.7
  */
-public class OnBuildYamlEnvironmentPostProcessor extends AbstractOnBuildEnvironmentPostProcessor {
+public class PropertiesEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor {
 
-    private static final String[] ONBUILD_YAML_LOCATIONS = new String[]{
+    private static final String[] ONBUILD_PROPERTIES_LOCATIONS = new String[]{
             "file:config/property-source",
             "file:property-source",
             "classpath:/config/property-source",
@@ -25,8 +25,8 @@ public class OnBuildYamlEnvironmentPostProcessor extends AbstractOnBuildEnvironm
             "classpath:/META-INF/property-source",
     };
 
-    public OnBuildYamlEnvironmentPostProcessor() {
-        super(ONBUILD_YAML_LOCATIONS, new String[]{".yml", ".yaml"}, new YamlPropertySourceLoader());
+    public PropertiesEnvironmentPostProcessor() {
+        super(ONBUILD_PROPERTIES_LOCATIONS, new String[]{".properties"}, new PropertiesPropertySourceLoader());
     }
 
 }
