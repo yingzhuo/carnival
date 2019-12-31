@@ -14,20 +14,24 @@ import org.springframework.boot.env.YamlPropertySourceLoader;
 
 /**
  * @author 应卓
- * @since 1.3.8
+ * @since 1.4.0
  */
-public class DataSourceYamlEnvPostProcessor extends AbstractEnvironmentPostProcessor {
+public class DataSourceExtendEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor {
 
-    private static final String[] ONBUILD_PROPERTIES_LOCATIONS = new String[]{
+    private static final String[] prefix = new String[]{
             "file:config/datasource",
             "file:datasource",
-            "classpath:/config/datasource",
-            "classpath:/datasource",
-            "classpath:/META-INF/datasource",
+            "classpath:config/datasource",
+            "classpath:datasource",
+            "classpath:META-INF/datasource",
     };
 
-    public DataSourceYamlEnvPostProcessor() {
-        super(ONBUILD_PROPERTIES_LOCATIONS, new String[]{".yml", ".yaml"}, new YamlPropertySourceLoader());
-    }
+    private static final String[] suffix = new String[]{
+            ".yml",
+            ".yaml",
+    };
 
+    public DataSourceExtendEnvironmentPostProcessor() {
+        super(prefix,  suffix,"carnival-datasource", new YamlPropertySourceLoader());
+    }
 }

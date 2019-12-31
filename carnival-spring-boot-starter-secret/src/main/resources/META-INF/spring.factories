@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig
+    com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig

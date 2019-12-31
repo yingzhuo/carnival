@@ -1,3 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaBeanAutoConfig,\
-com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaAutoConfig
+    com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaBeanAutoConfig,\
+    com.github.yingzhuo.carnival.patchca.autoconfig.PatchcaAutoConfig

@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.common.env;
 
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
+import lombok.val;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.boot.env.PropertySourceLoader;
@@ -18,81 +19,78 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Stack;
 import java.util.UUID;
 
 /**
  * @author 应卓
- * @since 1.3.7
+ * @since 1.4.0
  */
 public abstract class AbstractEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
-    private final String[] locations;
-    private final String[] exts;
+    private final String[] locationsPrefix;
+    private final String[] locationsSuffix;
+    private final String name;
+    private final Stack<PropertySource<?>> stack = new Stack<>();
     private final PropertySourceLoader propertySourceLoader;
 
-    public AbstractEnvironmentPostProcessor(String[] locations, String[] exts, PropertySourceLoader propertySourceLoader) {
-        this.locations = locations;
-        this.exts = exts;
+    public AbstractEnvironmentPostProcessor(String[] locationsPrefix, String[] locationsSuffix, String name, PropertySourceLoader propertySourceLoader) {
+        this.locationsPrefix = locationsPrefix;
+        this.locationsSuffix = locationsSuffix;
+        this.name = name;
         this.propertySourceLoader = propertySourceLoader;
     }
 
     @Override
-    public final void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        val defaultResource = ResourceOptional.of(cross()).orElse(null);
+        push(defaultResource);
 
-        final String name = UUID.randomUUID().toString().replaceAll("-", "");
-        final List<PropertySource<?>> pss = new LinkedList<>();
-
-        final Resource baseResource = this.loadFirstResource(cross(locations, exts));
-        if (baseResource != null) {
-            try {
-                List<PropertySource<?>> propertySources = propertySourceLoader.load(name, baseResource);
-                pss.addAll(propertySources);
-            } catch (IOException ignored) {
-                // NOP
-            }
+        for (val profile : environment.getActiveProfiles()) {
+            val profileResource = ResourceOptional.of(cross(profile)).orElse(null);
+            push(profileResource);
         }
 
-        for (String profile : environment.getActiveProfiles()) {
-            final Resource profileResource = this.loadFirstResource(cross(locations, profile, exts));
-
-            if (profileResource != null) {
-                try {
-                    List<PropertySource<?>> propertySources = propertySourceLoader.load(name, profileResource);
-                    pss.addAll(propertySources);
-                } catch (IOException ignored) {
-                    // NOP
-                }
-            }
+        while (!stack.isEmpty()) {
+            environment.getPropertySources().addLast(stack.pop());
         }
-
-        pss.forEach(ps -> environment.getPropertySources().addLast(ps));
     }
 
-    private Resource loadFirstResource(String[] locations) {
-        return ResourceOptional.of(locations).orElse(null);
+    private void push(Resource resource) {
+        if (resource == null) return;
+
+        try {
+            val list = propertySourceLoader.load(name + "-" + UUID.randomUUID(), resource);
+            if (list.size() != 1) {
+                throw new IllegalStateException("multiple document yaml is NOT supported.");
+            }
+            stack.push(list.get(0));
+        } catch (IOException ignore) {
+            // NOP
+        }
     }
 
-    private String[] cross(String[] locations, String[] exts) {
-        final List<String> list = new ArrayList<>();
-        for (String location : locations) {
-            for (String ext : exts) {
-                list.add(location + ext);
+    private String[] cross() {
+        val list = new LinkedList<String>();
+        for (val prefix : locationsPrefix) {
+            for (val suffix : locationsSuffix) {
+                list.add(prefix + suffix);
             }
         }
-        return list.toArray(new String[]{});
+        return list.toArray(new String[0]);
     }
 
-    private String[] cross(String[] locations, String profile, String[] exts) {
-        final List<String> list = new ArrayList<>();
-        for (String location : locations) {
-            for (String ext : exts) {
-                list.add(location + "-" + profile + ext);
+    private String[] cross(String profile) {
+        val list = new LinkedList<String>();
+
+        for (val prefix : locationsPrefix) {
+            for (val suffix : locationsSuffix) {
+                list.add(prefix + "-" + profile + suffix);
             }
         }
-        return list.toArray(new String[]{});
+
+        return list.toArray(new String[0]);
     }
 
 }

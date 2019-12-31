@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.3.8</version>
+    <version>1.4.0</version>
     <modules>
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -27,7 +27,6 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-httpbasic</module>
         <module>carnival-spring-boot-starter-restful-security-jwt</module>
-        <module>carnival-spring-boot-starter-restful-security-tool</module>
         <module>carnival-spring-boot-starter-secret</module>
         <module>carnival-spring-boot-starter-shutdown</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
@@ -92,12 +91,12 @@
     <properties>
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
-        <springcloud.version>Greenwich.RELEASE</springcloud.version>
-        <springboot.version>2.1.11.RELEASE</springboot.version>
-        <spring.version>5.1.12.RELEASE</spring.version>
+        <springcloud.version>Hoxton.RELEASE</springcloud.version>
+        <springboot.version>2.2.2.RELEASE</springboot.version>
+        <spring.version>5.2.2.RELEASE</spring.version>
         <jackson.version>2.10.1</jackson.version>
-        <slf4j.version>1.7.29</slf4j.version>
-        <netty.version>4.1.43.Final</netty.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <netty.version>4.1.44.Final</netty.version>
     </properties>
 
     <dependencyManagement>

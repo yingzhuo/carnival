@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.protobuf.autoconfig.ProtobufAutoConfig
+    com.github.yingzhuo.carnival.protobuf.autoconfig.ProtobufAutoConfig

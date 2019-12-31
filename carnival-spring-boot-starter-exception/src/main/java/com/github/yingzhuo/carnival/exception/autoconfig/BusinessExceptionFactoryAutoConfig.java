@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.exception.autoconfig;
 
-import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
@@ -37,19 +36,6 @@ public class BusinessExceptionFactoryAutoConfig {
 
         if (props.getTomlLocation() != null && props.getTomlLocation().exists()) {
             return new TomlBusinessExceptionFactory(props.getTomlLocation());
-        }
-
-        ResourceOptional option = ResourceOptional.of(
-                "classpath:/business-exception.toml",
-                "classpath:/business-exceptions.toml",
-                "classpath:/META-INF/business-exception.toml",
-                "classpath:/META-INF/business-exceptions.toml",
-                "file:./business-exception.toml",
-                "file:./business-exceptions.toml"
-        );
-
-        if (option.isPresent()) {
-            return new TomlBusinessExceptionFactory(option.get());
         }
 
         return new InMemoryBusinessExceptionFactory(props.getMessages());

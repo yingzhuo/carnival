@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.github.yingzhuo.carnival.guava.autoconfig.GuavaAutoConfig
+    com.github.yingzhuo.carnival.guava.autoconfig.GuavaAutoConfig
