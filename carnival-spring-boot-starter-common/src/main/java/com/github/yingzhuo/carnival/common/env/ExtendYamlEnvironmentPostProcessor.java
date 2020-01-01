@@ -10,12 +10,13 @@
 package com.github.yingzhuo.carnival.common.env;
 
 import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
  * @since 1.4.0
  */
-public class ExtendYamlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor {
+public class ExtendYamlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
 
     private static final String[] prefix = new String[]{
             "file:config/property-source",
@@ -32,6 +33,11 @@ public class ExtendYamlEnvironmentPostProcessor extends AbstractEnvironmentPostP
 
     public ExtendYamlEnvironmentPostProcessor() {
         super(prefix, suffix, "carnival-extend", new YamlPropertySourceLoader());
+    }
+
+    @Override
+    public int getOrder() {
+        return 0;
     }
 
 }
