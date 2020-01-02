@@ -25,7 +25,7 @@ public class ExtendCommonEnvironmentPostProcessor implements EnvironmentPostProc
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         environment.getPropertySources()
-                .addFirst(new RandomInstanceIdPropertySource("randomInstanceId"));
+                .addFirst(new RandomInstanceIdPropertySource());
     }
 
     @Override
@@ -34,8 +34,8 @@ public class ExtendCommonEnvironmentPostProcessor implements EnvironmentPostProc
     }
 
     private static class RandomInstanceIdPropertySource extends PropertySource<Object> {
-        public RandomInstanceIdPropertySource(String name) {
-            super(name, new Object());
+        public RandomInstanceIdPropertySource() {
+            super("randomInstanceId", new Object());
         }
 
         @Override

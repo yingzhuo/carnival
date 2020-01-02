@@ -68,6 +68,7 @@ public abstract class AbstractEnvironmentPostProcessor implements EnvironmentPos
                     return;
                 case 1:
                     stack.push(list.get(0));
+                    return;
                 default:
                     throw new IllegalStateException("multiple document is NOT supported.");
             }

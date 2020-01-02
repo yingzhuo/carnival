@@ -3,8 +3,9 @@ org.springframework.boot.env.PropertySourceLoader=\
 
 org.springframework.boot.env.EnvironmentPostProcessor=\
     com.github.yingzhuo.carnival.common.env.ExtendCommonEnvironmentPostProcessor,\
+    com.github.yingzhuo.carnival.common.env.ExtendTomlEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.ExtendYamlEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.common.env.ExtendTomlEnvironmentPostProcessor
+    com.github.yingzhuo.carnival.common.env.ExtendPropertiesEnvironmentPostProcessor
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.common.autoconfig.SpringUtilsAutoConfig,\
