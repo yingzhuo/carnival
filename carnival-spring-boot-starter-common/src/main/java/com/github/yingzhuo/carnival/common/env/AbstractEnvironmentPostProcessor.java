@@ -62,10 +62,16 @@ public abstract class AbstractEnvironmentPostProcessor implements EnvironmentPos
 
         try {
             val list = propertySourceLoader.load(name + "-" + UUID.randomUUID(), resource);
-            if (list.size() != 1) {
-                throw new IllegalStateException("multiple document yaml is NOT supported.");
+
+            switch (list.size()) {
+                case 0:
+                    return;
+                case 1:
+                    stack.push(list.get(0));
+                default:
+                    throw new IllegalStateException("multiple document is NOT supported.");
             }
-            stack.push(list.get(0));
+
         } catch (IOException ignore) {
             // NOP
         }

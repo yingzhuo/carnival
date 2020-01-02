@@ -22,12 +22,10 @@ import org.springframework.core.env.PropertySource;
  */
 public class ExtendCommonEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    private static final String PROPERTY_SOURCE_NAME = "randomInstanceId";
-
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
         environment.getPropertySources()
-                .addFirst(new RandomInstanceIdPropertySource(PROPERTY_SOURCE_NAME));
+                .addFirst(new RandomInstanceIdPropertySource("randomInstanceId"));
     }
 
     @Override
@@ -37,7 +35,7 @@ public class ExtendCommonEnvironmentPostProcessor implements EnvironmentPostProc
 
     private static class RandomInstanceIdPropertySource extends PropertySource<Object> {
         public RandomInstanceIdPropertySource(String name) {
-            super(name);
+            super(name, new Object());
         }
 
         @Override
@@ -48,7 +46,7 @@ public class ExtendCommonEnvironmentPostProcessor implements EnvironmentPostProc
         @Override
         public Object getProperty(String name) {
             if ("random.instance-id".equals(name)) {
-                String id = RandomStringUtils.randomAlphabetic(3) + RandomStringUtils.randomNumeric(10);
+                String id = RandomStringUtils.randomAlphabetic(3) + RandomStringUtils.randomNumeric(15);
                 return id.toUpperCase();
             }
             return null;

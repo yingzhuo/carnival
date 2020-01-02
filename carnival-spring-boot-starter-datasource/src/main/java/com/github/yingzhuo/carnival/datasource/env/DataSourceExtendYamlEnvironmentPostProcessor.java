@@ -17,7 +17,7 @@ import org.springframework.core.Ordered;
  * @author 应卓
  * @since 1.4.0
  */
-public class DataSourceExtendEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
+public class DataSourceExtendYamlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
 
     private static final String[] prefix = new String[]{
             "file:config/datasource",
@@ -32,13 +32,13 @@ public class DataSourceExtendEnvironmentPostProcessor extends AbstractEnvironmen
             ".yaml",
     };
 
-    public DataSourceExtendEnvironmentPostProcessor() {
+    public DataSourceExtendYamlEnvironmentPostProcessor() {
         super(prefix,  suffix,"carnival-datasource", new YamlPropertySourceLoader());
     }
 
     @Override
     public int getOrder() {
-        return 10;
+        return 100;
     }
 
 }
