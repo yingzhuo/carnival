@@ -11,6 +11,7 @@
         <module>carnival-spring-boot-starter-apigateway</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
+        <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
         <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-feign</module>
@@ -30,7 +31,6 @@
         <module>carnival-spring-boot-starter-secret</module>
         <module>carnival-spring-boot-starter-shutdown</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
-        <module>carnival-spring-boot-starter-datasource</module>
     </modules>
     <packaging>pom</packaging>
 
