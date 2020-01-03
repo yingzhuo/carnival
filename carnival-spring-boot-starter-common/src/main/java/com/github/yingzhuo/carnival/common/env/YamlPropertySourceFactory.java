@@ -16,6 +16,7 @@ import org.springframework.core.io.support.PropertySourceFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 应卓
@@ -27,10 +28,14 @@ public class YamlPropertySourceFactory implements PropertySourceFactory {
 
     @Override
     public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
+        if (name == null || name.isEmpty()) {
+            name = UUID.randomUUID().toString();
+        }
+
         List<PropertySource<?>> list = loader.load(name, resource.getResource());
 
         if (list.isEmpty()) {
-            return new EmptyPropertySource(name);
+            return new EmptyPropertySource();
         } else if (list.size() == 1) {
             return list.get(0);
         } else {
@@ -39,8 +44,8 @@ public class YamlPropertySourceFactory implements PropertySourceFactory {
     }
 
     private static class EmptyPropertySource extends PropertySource<Object> {
-        public EmptyPropertySource(String name) {
-            super(name, new Object());
+        public EmptyPropertySource() {
+            super("empty", new Object());
         }
 
         @Override

@@ -14,6 +14,7 @@ import org.springframework.core.io.support.EncodedResource;
 import org.springframework.core.io.support.PropertySourceFactory;
 
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @author 应卓
@@ -25,6 +26,9 @@ public class TomlPropertySourceFactory implements PropertySourceFactory {
 
     @Override
     public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
+        if (name == null || name.isEmpty()) {
+            name = UUID.randomUUID().toString();
+        }
         return loader.load(name, resource.getResource()).get(0);
     }
 
