@@ -34,7 +34,7 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory(Props props) {
 
-        if (props.getTomlLocation() != null && props.getTomlLocation().exists()) {
+        if (props.getTomlLocation() != null && props.getTomlLocation().isReadable()) {
             return new TomlBusinessExceptionFactory(props.getTomlLocation());
         }
 

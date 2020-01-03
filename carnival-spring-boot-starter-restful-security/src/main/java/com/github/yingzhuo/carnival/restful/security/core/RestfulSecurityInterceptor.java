@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
@@ -38,12 +37,11 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
-    private CacheManager cacheManager;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
     private TokenBlacklistManager tokenBlacklistManager;
     private BeforeHook beforeHook;
@@ -90,16 +88,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
                 throw new TokenBlacklistedException();
             }
 
-            Optional<UserDetails> userDetailsOp;
-            Optional<UserDetails> cached = cacheManager.getUserDetails(token);
-
-            if (cached.isPresent()) {
-                userDetailsOp = cached;
-            } else {
-                userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
-                userDetailsOp.ifPresent(ud -> cacheManager.saveUserDetails(token, ud));
-            }
-
+            Optional<UserDetails> userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
             RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
         }
 
@@ -145,16 +134,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     public void setTokenParser(TokenParser tokenParser) {
         this.tokenParser = tokenParser;
-        RestfulSecurityContext.finalTokenParser = tokenParser;  // 偷渡行为很不优雅，暂且这样
     }
 
     public void setUserDetailsRealm(UserDetailsRealm userDetailsRealm) {
         this.userDetailsRealm = userDetailsRealm;
-        RestfulSecurityContext.finalUserDetailsRealm = userDetailsRealm; // 偷渡行为很不优雅，暂且这样
-    }
-
-    public void setCacheManager(CacheManager cacheManager) {
-        this.cacheManager = cacheManager;
     }
 
     public void setAuthenticationStrategy(AuthenticationStrategy authenticationStrategy) {
@@ -176,5 +159,4 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     public void setExceptionHook(ExceptionHook exceptionHook) {
         this.exceptionHook = exceptionHook;
     }
-
 }

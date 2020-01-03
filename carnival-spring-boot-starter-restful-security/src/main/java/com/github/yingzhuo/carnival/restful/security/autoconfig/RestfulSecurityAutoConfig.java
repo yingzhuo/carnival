@@ -12,8 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 import com.github.yingzhuo.carnival.restful.security.auth.*;
 import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
-import com.github.yingzhuo.carnival.restful.security.cache.NopCacheManager;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
 import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
@@ -28,12 +26,6 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 @ConditionalOnWebApplication
 public class RestfulSecurityAutoConfig {
-
-    @Bean
-    @ConditionalOnMissingBean
-    public CacheManager restfulSecurityCacheManager() {
-        return new NopCacheManager();
-    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -118,5 +110,4 @@ public class RestfulSecurityAutoConfig {
     public RequiresGenderAuthComponent requiresGenderAuthComponent() {
         return new RequiresGenderAuthComponent();
     }
-
 }

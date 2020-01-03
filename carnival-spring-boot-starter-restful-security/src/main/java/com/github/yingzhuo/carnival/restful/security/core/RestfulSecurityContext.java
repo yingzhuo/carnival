@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
-import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
@@ -27,9 +25,6 @@ public final class RestfulSecurityContext {
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<Boolean> tokenIgnoredHolder = ThreadLocal.withInitial(() -> false);
 
-    static TokenParser finalTokenParser = null;
-    static UserDetailsRealm finalUserDetailsRealm = null;
-
     private RestfulSecurityContext() {
     }
 
@@ -43,14 +38,6 @@ public final class RestfulSecurityContext {
 
     public static boolean isTokenIgnored() {
         return tokenIgnoredHolder.get();
-    }
-
-    public static TokenParser getFinalTokenParser() {
-        return finalTokenParser;
-    }
-
-    public static UserDetailsRealm getFinalUserDetailsRealm() {
-        return finalUserDetailsRealm;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -72,5 +59,4 @@ public final class RestfulSecurityContext {
         userDetailsHolder.set(null);
         tokenIgnoredHolder.set(false);
     }
-
 }

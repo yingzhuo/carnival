@@ -63,4 +63,5 @@
             <artifactId>java-jwt</artifactId>
         </dependency>
     </dependencies>
+
 </project>

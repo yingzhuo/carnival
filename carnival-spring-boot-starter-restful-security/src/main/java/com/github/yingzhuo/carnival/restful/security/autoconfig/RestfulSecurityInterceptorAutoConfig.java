@@ -13,12 +13,10 @@ import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttribut
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.cache.CacheManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
 import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
-import com.github.yingzhuo.carnival.restful.security.mvc.StringToUserDetailsConverter;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -26,11 +24,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.OrderComparator;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,48 +55,18 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     private ExceptionHook exceptionHook;
 
     @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired
     private TokenBlacklistManager tokenBlackListManager;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        final TokenParser tp;
-        final UserDetailsRealm udr;
-        final BeforeHook bh;
-        final AfterHook ah;
+        final TokenParser tokenParser = getFinalTokenParser();
+        final UserDetailsRealm userDetailsRealm = getFinalUserDetailsRealm();
+        final BeforeHook beforeHook = getFinalBeforeHook();
+        final AfterHook afterHook = getFinalAfterHook();
 
-        if (tokenParsers.size() == 1) {
-            tp = tokenParsers.get(0);
-        } else {
-            OrderComparator.sort(tokenParsers);
-            tp = tokenParsers.stream().reduce(request -> Optional.empty(), TokenParser::or);
-        }
-
-        if (userDetailsRealms.size() == 1) {
-            udr = userDetailsRealms.get(0);
-        } else {
-            OrderComparator.sort(userDetailsRealms);
-            udr = userDetailsRealms.stream().reduce(token -> Optional.empty(), UserDetailsRealm::or);
-        }
-
-        if (beforeHooks.size() == 1) {
-            bh = beforeHooks.get(0);
-        } else {
-            OrderComparator.sort(beforeHooks);
-            bh = beforeHooks.stream().reduce(request -> {
-            }, BeforeHook::link);
-        }
-
-        if (afterHooks.size() == 1) {
-            ah = afterHooks.get(0);
-        } else {
-            OrderComparator.sort(afterHooks);
-            ah = afterHooks.stream().reduce((request, token, userDetails) -> {
-            }, AfterHook::link);
-        }
+        TokenParserHolder.tokenParser = tokenParser;
+        UserDetailsRealmHolder.userDetailsRealm = userDetailsRealm;
 
         Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         if (interceptorOrder == null) {
@@ -108,25 +76,61 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        interceptor.setTokenParser(tp);
-        interceptor.setUserDetailsRealm(udr);
+        interceptor.setTokenParser(tokenParser);
+        interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setTokenBlacklistManager(tokenBlackListManager);
-        interceptor.setCacheManager(cacheManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
-        interceptor.setBeforeHook(bh);
-        interceptor.setAfterHook(ah);
+        interceptor.setBeforeHook(beforeHook);
+        interceptor.setAfterHook(afterHook);
         interceptor.setExceptionHook(exceptionHook);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
+    }
+
+    private TokenParser getFinalTokenParser() {
+        if (this.tokenParsers.size() == 1) {
+            return tokenParsers.get(0);
+        } else {
+            List<TokenParser> list = new LinkedList<>(tokenParsers);
+            OrderComparator.sort(list);
+            return list.stream().reduce(request -> Optional.empty(), TokenParser::or);
+        }
+    }
+
+    private UserDetailsRealm getFinalUserDetailsRealm() {
+        if (this.userDetailsRealms.size() == 1) {
+            return userDetailsRealms.get(0);
+        } else {
+            List<UserDetailsRealm> list = new LinkedList<>(userDetailsRealms);
+            OrderComparator.sort(list);
+            return list.stream().reduce(token -> Optional.empty(), UserDetailsRealm::or);
+        }
+    }
+
+    private BeforeHook getFinalBeforeHook() {
+        if (beforeHooks.size() == 1) {
+            return beforeHooks.get(0);
+        } else {
+            List<BeforeHook> list = new LinkedList<>(beforeHooks);
+            OrderComparator.sort(list);
+            return list.stream().reduce(request -> {
+            }, BeforeHook::link);
+        }
+    }
+
+    private AfterHook getFinalAfterHook() {
+        if (afterHooks.size() == 1) {
+            return afterHooks.get(0);
+        } else {
+            List<AfterHook> list = new LinkedList<>(afterHooks);
+            OrderComparator.sort(list);
+            return list.stream().reduce((request, token, userDetails) -> {
+            }, AfterHook::link);
+        }
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new UserDetailsPropertyHandlerMethodArgumentResolver());
-    }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToUserDetailsConverter());
     }
 
 }

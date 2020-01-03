@@ -16,6 +16,7 @@ import java.lang.annotation.Annotation;
 /**
  * @author 应卓
  */
+@SuppressWarnings("rawtypes")
 public final class MethodCheckPoint {
 
     private final Annotation annotation;

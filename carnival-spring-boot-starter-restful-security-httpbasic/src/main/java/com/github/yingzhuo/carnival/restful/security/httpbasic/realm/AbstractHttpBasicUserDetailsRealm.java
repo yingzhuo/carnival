@@ -37,7 +37,7 @@ public abstract class AbstractHttpBasicUserDetailsRealm implements UserDetailsRe
             return Optional.ofNullable(doLoadUserDetails(username, password));
         }
 
-        // 兼容性提升
+        // 兼容
         if (token instanceof StringToken) {
             String tokenValue = ((StringToken) token).getValue();
             tokenValue = new String(Base64.getDecoder().decode(tokenValue.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
