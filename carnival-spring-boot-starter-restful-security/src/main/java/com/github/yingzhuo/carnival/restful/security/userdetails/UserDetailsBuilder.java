@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
 import com.github.yingzhuo.carnival.common.datamodel.Gender;
-import com.github.yingzhuo.carnival.restful.security.permission.Permission;
+import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
 import java.util.*;

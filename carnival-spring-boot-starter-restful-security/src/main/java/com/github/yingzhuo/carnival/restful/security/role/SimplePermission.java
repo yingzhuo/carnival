@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.permission;
+package com.github.yingzhuo.carnival.restful.security.role;
 
 import java.util.Objects;
 

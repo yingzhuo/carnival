@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.userdetails;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.json.Views;
-import com.github.yingzhuo.carnival.restful.security.permission.Permission;
+import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
 import java.io.Serializable;

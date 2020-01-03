@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.permission;
+package com.github.yingzhuo.carnival.restful.security.role;
 
 import com.github.yingzhuo.carnival.common.Named;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
