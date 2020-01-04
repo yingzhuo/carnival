@@ -30,20 +30,16 @@ public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
         ForkDataSourceSwitch annotation = super.getMethodAnnotation(ForkDataSourceSwitch.class, handler).orElse(null);
-
         if (annotation != null && forkDataSource != null) {
             log.debug("datasource switch to {}", annotation.value());
             forkDataSource.getLookup().set(annotation.value());
         }
-
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
         if (forkDataSource != null) {
             forkDataSource.getLookup().reset();
         }

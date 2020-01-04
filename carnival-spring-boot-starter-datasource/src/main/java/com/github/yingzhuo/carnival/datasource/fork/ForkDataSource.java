@@ -129,5 +129,4 @@ public class ForkDataSource implements DataSource, InitializingBean {
             holder.set(defaultDataSourceName);
         }
     }
-
 }
