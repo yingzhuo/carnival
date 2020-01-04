@@ -32,16 +32,20 @@ public class ForkDataSource implements DataSource, InitializingBean {
     private String defaultDataSourceName;
     private final Lookup lookup;
 
-    public ForkDataSource(String defaultDataSourceName) {
+    public static ForkDataSourceBuilder builder() {
+        return new ForkDataSourceBuilder();
+    }
+
+    ForkDataSource(String defaultDataSourceName) {
         this.lookup = new Lookup(defaultDataSourceName);
+    }
+
+    void addDataSource(String dataSourceName, DataSource dataSource) {
+        this.dataSourceMap.put(dataSourceName, dataSource);
     }
 
     public Lookup getLookup() {
         return this.lookup;
-    }
-
-    public void addDataSource(String dataSourceName, DataSource dataSource) {
-        this.dataSourceMap.put(dataSourceName, dataSource);
     }
 
     @Override
@@ -90,6 +94,10 @@ public class ForkDataSource implements DataSource, InitializingBean {
     }
 
     private DataSource current() {
+        if (dataSourceMap.size() == 1) {
+            return dataSourceMap.values().iterator().next();
+        }
+
         DataSource dataSource = dataSourceMap.getOrDefault(lookup.holder.get(), defaultDataSource);
         Assert.notNull(dataSource, "no datasource found");
         return dataSource;

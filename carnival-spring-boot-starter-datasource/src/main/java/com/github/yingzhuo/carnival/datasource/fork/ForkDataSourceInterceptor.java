@@ -42,7 +42,7 @@ public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 
         if (forkDataSource != null) {
             forkDataSource.getLookup().reset();

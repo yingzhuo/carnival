@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.secret;
 
 import com.github.yingzhuo.carnival.common.datamodel.support.NopStringFormatter;
-import com.github.yingzhuo.carnival.secret.autoconfig.SecretAutoConfig;
-import com.github.yingzhuo.carnival.secret.util.AESUtils;
+import com.github.yingzhuo.carnival.common.autoconfig.SecretAutoConfig;
+import com.github.yingzhuo.carnival.common.util.AESUtils;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
@@ -24,8 +24,10 @@ import java.util.Set;
 /**
  * @author 应卓
  */
+@Deprecated
 public interface AES {
 
+    @Deprecated
     @Documented
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
@@ -50,6 +52,7 @@ public interface AES {
         }
     }
 
+    @Deprecated
     @Documented
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)

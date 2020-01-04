@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.secret.util;
+package com.github.yingzhuo.carnival.common.util;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -24,6 +24,7 @@ import java.security.SecureRandom;
  * @author 应卓
  * @since 1.0.6
  */
+@Deprecated
 public final class AESUtils {
 
     private AESUtils() {

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.secret.exception;
+package com.github.yingzhuo.carnival.secret;
 
 /**
  * @author 应卓
