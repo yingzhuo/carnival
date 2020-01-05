@@ -50,10 +50,10 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- toml4j -->
+        <!-- config -->
         <dependency>
-            <groupId>com.moandjiezana.toml</groupId>
-            <artifactId>toml4j</artifactId>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>spring-boot-stater-env</artifactId>
         </dependency>
 
         <!-- slf4j -->

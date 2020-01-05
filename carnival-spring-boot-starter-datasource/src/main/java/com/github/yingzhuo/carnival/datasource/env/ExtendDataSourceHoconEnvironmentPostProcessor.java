@@ -10,14 +10,14 @@
 package com.github.yingzhuo.carnival.datasource.env;
 
 import com.github.yingzhuo.carnival.common.env.AbstractEnvironmentPostProcessor;
-import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.boot.env.HoconPropertySourceLoader;
 import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
- * @since 1.4.0
+ * @since 1.4.1
  */
-public class ExtendDataSourceYamlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
+public class ExtendDataSourceHoconEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
 
     private static final String[] prefix = new String[]{
             "file:config/datasource",
@@ -27,18 +27,15 @@ public class ExtendDataSourceYamlEnvironmentPostProcessor extends AbstractEnviro
             "classpath:META-INF/datasource",
     };
 
-    private static final String[] suffix = new String[]{
-            ".yml",
-            ".yaml",
-    };
+    private static final String[] suffix = new String[]{".conf"};
 
-    public ExtendDataSourceYamlEnvironmentPostProcessor() {
-        super(prefix, suffix, "carnival-extend-datasource", new YamlPropertySourceLoader());
+    public ExtendDataSourceHoconEnvironmentPostProcessor() {
+        super(prefix, suffix, "carnival-extend-datasource", new HoconPropertySourceLoader());
     }
 
     @Override
     public int getOrder() {
-        return 102;
+        return 104;
     }
 
 }

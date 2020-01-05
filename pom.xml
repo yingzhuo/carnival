@@ -289,6 +289,13 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- property-source-config -->
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>spring-boot-stater-env</artifactId>
+                <version>0.0.3</version>
+            </dependency>
+
             <!-- slf4j -->
             <dependency>
                 <groupId>org.slf4j</groupId>

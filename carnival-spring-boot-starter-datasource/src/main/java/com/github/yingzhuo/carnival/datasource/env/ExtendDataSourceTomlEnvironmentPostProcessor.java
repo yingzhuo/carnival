@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.datasource.env;
 
 import com.github.yingzhuo.carnival.common.env.AbstractEnvironmentPostProcessor;
-import com.github.yingzhuo.carnival.common.env.TomlPropertySourceLoader;
+import org.springframework.boot.env.TomlPropertySourceLoader;
 import org.springframework.core.Ordered;
 
 /**
@@ -30,7 +30,7 @@ public class ExtendDataSourceTomlEnvironmentPostProcessor extends AbstractEnviro
     private static final String[] suffix = new String[]{".toml"};
 
     public ExtendDataSourceTomlEnvironmentPostProcessor() {
-        super(prefix, suffix, "carnival-extend", new TomlPropertySourceLoader());
+        super(prefix, suffix, "carnival-extend-datasource", new TomlPropertySourceLoader());
     }
 
     @Override

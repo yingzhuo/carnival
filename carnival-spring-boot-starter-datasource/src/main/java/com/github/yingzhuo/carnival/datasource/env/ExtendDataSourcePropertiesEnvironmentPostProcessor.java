@@ -30,7 +30,7 @@ public class ExtendDataSourcePropertiesEnvironmentPostProcessor extends Abstract
     private static final String[] suffix = new String[]{".properties", ".xml"};
 
     public ExtendDataSourcePropertiesEnvironmentPostProcessor() {
-        super(prefix, suffix, "carnival-extend", new PropertiesPropertySourceLoader());
+        super(prefix, suffix, "carnival-extend-datasource", new PropertiesPropertySourceLoader());
     }
 
     @Override

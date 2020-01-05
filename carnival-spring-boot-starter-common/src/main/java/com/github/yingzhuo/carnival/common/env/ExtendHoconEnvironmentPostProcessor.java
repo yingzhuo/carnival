@@ -9,14 +9,14 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
-import org.springframework.boot.env.TomlPropertySourceLoader;
+import org.springframework.boot.env.HoconPropertySourceLoader;
 import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
- * @since 1.4.0
+ * @since 1.4.1
  */
-public class ExtendTomlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
+public class ExtendHoconEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
 
     private static final String[] prefix = new String[]{
             "file:config/property-source",
@@ -26,15 +26,15 @@ public class ExtendTomlEnvironmentPostProcessor extends AbstractEnvironmentPostP
             "classpath:META-INF/property-source",
     };
 
-    private static final String[] suffix = new String[]{".toml"};
+    private static final String[] suffix = new String[]{".conf"};
 
-    public ExtendTomlEnvironmentPostProcessor() {
-        super(prefix, suffix, "carnival-extend", new TomlPropertySourceLoader());
+    public ExtendHoconEnvironmentPostProcessor() {
+        super(prefix, suffix, "carnival-extend", new HoconPropertySourceLoader());
     }
 
     @Override
     public int getOrder() {
-        return 1;
+        return 4;
     }
 
 }
