@@ -10,48 +10,15 @@
 package com.github.yingzhuo.carnival.common.env;
 
 import org.springframework.boot.env.YamlPropertySourceLoader;
-import org.springframework.core.env.PropertySource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.core.io.support.PropertySourceFactory;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * @author 应卓
  * @since 1.4.0
  */
-public class YamlPropertySourceFactory implements PropertySourceFactory {
+public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
 
-    private final YamlPropertySourceLoader loader = new YamlPropertySourceLoader();
-
-    @Override
-    public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
-        if (name == null || name.isEmpty()) {
-            name = UUID.randomUUID().toString();
-        }
-
-        List<PropertySource<?>> list = loader.load(name, resource.getResource());
-
-        if (list.isEmpty()) {
-            return new EmptyPropertySource();
-        } else if (list.size() == 1) {
-            return list.get(0);
-        } else {
-            throw new IllegalStateException("multiple document is NOT supported.");
-        }
-    }
-
-    private static class EmptyPropertySource extends PropertySource<Object> {
-        public EmptyPropertySource() {
-            super("empty", new Object());
-        }
-
-        @Override
-        public Object getProperty(String name) {
-            return null;
-        }
+    public YamlPropertySourceFactory() {
+        super(new YamlPropertySourceLoader());
     }
 
 }

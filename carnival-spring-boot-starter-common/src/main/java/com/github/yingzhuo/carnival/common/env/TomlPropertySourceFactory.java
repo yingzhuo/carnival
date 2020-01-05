@@ -9,27 +9,14 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
-import org.springframework.core.env.PropertySource;
-import org.springframework.core.io.support.EncodedResource;
-import org.springframework.core.io.support.PropertySourceFactory;
-
-import java.io.IOException;
-import java.util.UUID;
-
 /**
  * @author 应卓
  * @since 1.4.0
  */
-public class TomlPropertySourceFactory implements PropertySourceFactory {
+public class TomlPropertySourceFactory extends AbstractPropertySourceFactory {
 
-    private final TomlPropertySourceLoader loader = new TomlPropertySourceLoader();
-
-    @Override
-    public PropertySource<?> createPropertySource(String name, EncodedResource resource) throws IOException {
-        if (name == null || name.isEmpty()) {
-            name = UUID.randomUUID().toString();
-        }
-        return loader.load(name, resource.getResource()).get(0);
+    public TomlPropertySourceFactory() {
+        super(new TomlPropertySourceLoader());
     }
 
 }
