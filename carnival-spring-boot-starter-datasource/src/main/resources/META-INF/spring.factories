@@ -1,8 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.datasource.env.ExtendDataSourceTomlEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.datasource.env.ExtendDataSourceYamlEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.datasource.env.ExtendDataSourcePropertiesEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.datasource.env.ExtendDataSourceHoconEnvironmentPostProcessor
+    com.github.yingzhuo.carnival.datasource.env.DataSourceAbstractConventionEnvironmentPostProcessor
 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.datasource.autoconfig.ForkDataSourceAutoConfig,\

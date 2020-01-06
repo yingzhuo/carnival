@@ -9,15 +9,13 @@
  */
 package com.github.yingzhuo.carnival.datasource.env;
 
-import com.github.yingzhuo.carnival.common.env.AbstractEnvironmentPostProcessor;
-import org.springframework.boot.env.YamlPropertySourceLoader;
-import org.springframework.core.Ordered;
+import org.springframework.boot.env.support.AbstractConventionEnvironmentPostProcessor;
 
 /**
  * @author 应卓
- * @since 1.4.0
+ * @since 1.4.1
  */
-public class ExtendDataSourceYamlEnvironmentPostProcessor extends AbstractEnvironmentPostProcessor implements Ordered {
+public class DataSourceAbstractConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
     private static final String[] prefix = new String[]{
             "file:config/datasource",
@@ -27,18 +25,8 @@ public class ExtendDataSourceYamlEnvironmentPostProcessor extends AbstractEnviro
             "classpath:META-INF/datasource",
     };
 
-    private static final String[] suffix = new String[]{
-            ".yml",
-            ".yaml",
-    };
-
-    public ExtendDataSourceYamlEnvironmentPostProcessor() {
-        super(prefix, suffix, "carnival-extend-datasource", new YamlPropertySourceLoader());
-    }
-
-    @Override
-    public int getOrder() {
-        return 102;
+    public DataSourceAbstractConventionEnvironmentPostProcessor() {
+        super(prefix, "datasource");
     }
 
 }

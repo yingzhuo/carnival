@@ -56,7 +56,6 @@ public interface ResourceText extends Serializable {
                 }
 
                 Reader reader = new InputStreamReader(resource.getInputStream(), charset);
-
                 this.text = CharStreams.toString(new InputStreamReader(resource.getInputStream(), charset));
 
                 reader.close();

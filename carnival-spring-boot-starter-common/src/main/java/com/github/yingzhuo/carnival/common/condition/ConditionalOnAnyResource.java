@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
+import java.io.IOException;
 import java.lang.annotation.*;
 
 /**
@@ -36,8 +37,12 @@ public @interface ConditionalOnAnyResource {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val locations = getLocations(metadata);
-            val resourceOption = ResourceOptional.of(locations);
-            return resourceOption.isPresent();
+
+            try (ResourceOptional resourceOption = ResourceOptional.of(locations)) {
+                return resourceOption.isPresent();
+            } catch (IOException e) {
+                return false;
+            }
         }
 
         private String[] getLocations(AnnotatedTypeMetadata metadata) {

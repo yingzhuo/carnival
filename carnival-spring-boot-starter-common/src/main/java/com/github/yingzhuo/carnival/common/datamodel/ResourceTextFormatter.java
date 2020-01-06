@@ -16,13 +16,13 @@ import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 1.3.3
+ * @since 1.4.1
  */
 public class ResourceTextFormatter extends AbstractObjectFormatter<ResourceText> {
 
     @Override
     public ResourceText parse(String text, Locale locale) {
-        return new ResourceText.SimpleResourceText(text, StandardCharsets.UTF_8);
+        return ResourceText.of(text, StandardCharsets.UTF_8);
     }
 
 }

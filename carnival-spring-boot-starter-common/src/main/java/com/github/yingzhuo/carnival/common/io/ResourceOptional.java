@@ -14,10 +14,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UncheckedIOException;
+import java.io.*;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -28,7 +25,7 @@ import java.util.function.Supplier;
  * @author 应卓
  * @since 1.3.3
  */
-public interface ResourceOptional {
+public interface ResourceOptional extends Closeable {
 
     public static ResourceOptional of(String... locations) {
         if (locations == null || locations.length == 0) {
@@ -140,6 +137,11 @@ public interface ResourceOptional {
         public String getLocation() {
             throw new NoSuchElementException("ResourceOptional is absent");
         }
+
+        @Override
+        public void close() {
+            // NOP
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -183,5 +185,13 @@ public interface ResourceOptional {
             }
             return this.location;
         }
+
+        @Override
+        public void close() throws IOException {
+            if (isPresent()) {
+                get().getInputStream().close();
+            }
+        }
     }
+
 }

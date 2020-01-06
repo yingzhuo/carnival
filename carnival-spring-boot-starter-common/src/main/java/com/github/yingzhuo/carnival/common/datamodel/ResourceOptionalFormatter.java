@@ -17,7 +17,7 @@ import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 1.3.3
+ * @since 1.4.1
  */
 public class ResourceOptionalFormatter extends AbstractObjectFormatter<ResourceOptional> {
 
@@ -34,7 +34,7 @@ public class ResourceOptionalFormatter extends AbstractObjectFormatter<ResourceO
 
     @Override
     public ResourceOptional parse(String text, Locale locale) {
-        return ResourceOptional.of(text.split(text));
+        return ResourceOptional.of(text.split(sep));
     }
 
 }
