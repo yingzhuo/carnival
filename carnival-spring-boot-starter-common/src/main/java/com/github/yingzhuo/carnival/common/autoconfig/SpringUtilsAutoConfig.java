@@ -10,15 +10,10 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
-import com.github.yingzhuo.carnival.spring.SpringIdFactoryBean;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-
-import java.util.UUID;
 
 /**
  * @author 应卓
@@ -31,12 +26,6 @@ public class SpringUtilsAutoConfig implements Ordered {
     @ConditionalOnMissingBean
     public ApplicationContextProvider applicationContextProvider() {
         return ApplicationContextProvider.INSTANCE;
-    }
-
-    @Primary
-    @Bean(name = SpringUtils.__IDENTITY__)
-    public SpringIdFactoryBean identity() {
-        return () -> UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     @Override
