@@ -15,9 +15,9 @@ import org.springframework.boot.env.support.AbstractConventionEnvironmentPostPro
  * @author 应卓
  * @since 1.4.1
  */
-public class DataSourceAbstractConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
+public class DataSourceConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final String[] prefix = new String[]{
+    private static final String[] PREFIX = new String[]{
             "file:config/datasource",
             "file:datasource",
             "classpath:config/datasource",
@@ -25,8 +25,8 @@ public class DataSourceAbstractConventionEnvironmentPostProcessor extends Abstra
             "classpath:META-INF/datasource",
     };
 
-    public DataSourceAbstractConventionEnvironmentPostProcessor() {
-        super(prefix, "datasource");
+    public DataSourceConventionEnvironmentPostProcessor() {
+        super(PREFIX, "datasource");
     }
 
 }

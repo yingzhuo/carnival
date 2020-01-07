@@ -1,2 +1,5 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+    com.github.yingzhuo.carnival.feign.env.FeignConventionEnvironmentPostProcessor
+
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.feign.autoconfig.FeignFormatterRegistrarAutoConfig
