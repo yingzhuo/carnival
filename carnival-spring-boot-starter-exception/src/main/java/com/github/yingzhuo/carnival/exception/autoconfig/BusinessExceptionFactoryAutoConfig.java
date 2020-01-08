@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.exception.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.impl.PropertySourceBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,13 +27,21 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(BusinessExceptionFactoryAutoConfig.Props.class)
+@EnableConfigurationProperties({
+        BusinessExceptionFactoryAutoConfig.Props.class,
+        PropertySourceBusinessExceptionFactory.Env.class}
+)
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public BusinessExceptionFactory businessExceptionFactory(Props props) {
+    public BusinessExceptionFactory businessExceptionFactory(Props props, PropertySourceBusinessExceptionFactory.Env env) {
+
+        // since 1.4.1
+        if (env != null && !env.isEmpty()) {
+            return new PropertySourceBusinessExceptionFactory(env);
+        }
 
         if (props.getTomlLocation() != null && props.getTomlLocation().isReadable()) {
             return new TomlBusinessExceptionFactory(props.getTomlLocation());
