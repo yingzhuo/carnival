@@ -11,6 +11,7 @@
 ### Wiki
 
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
+* [carnival-spring-boot-starter-config](./carnival-spring-boot-starter-config)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
 * [carnival-spring-boot-starter-exception](./carnival-spring-boot-starter-exception)

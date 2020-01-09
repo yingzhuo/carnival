@@ -57,10 +57,6 @@ public final class UserDetailsBuilder {
         return this;
     }
 
-    public UserDetailsBuilder dateOfBirth(int year, int month, int day) {
-        return dateOfBirth(new GregorianCalendar(year, month - 1, day).getTime());
-    }
-
     public UserDetailsBuilder expired(boolean expired) {
         ud.setExpired(expired);
         return this;

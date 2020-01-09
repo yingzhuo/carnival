@@ -6,12 +6,18 @@
     <parent>
         <groupId>com.github.yingzhuo</groupId>
         <artifactId>carnival</artifactId>
-        <version>1.4.0-1</version>
+        <version>1.4.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>carnival-spring-boot-starter-common</artifactId>
 
     <dependencies>
+        <!-- carnival -->
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>carnival-spring-boot-starter-config</artifactId>
+        </dependency>
+
         <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -48,12 +54,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-
-        <!-- config -->
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>spring-boot-stater-env</artifactId>
         </dependency>
 
         <!-- slf4j -->
