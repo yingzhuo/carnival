@@ -15,8 +15,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import java.util.Optional;
 
 /**
- * @since 1.3.6
  * @author 应卓
+ * @since 1.3.6
  */
 public class HttpHeaderStepTokenParser implements StepTokenParser {
 
