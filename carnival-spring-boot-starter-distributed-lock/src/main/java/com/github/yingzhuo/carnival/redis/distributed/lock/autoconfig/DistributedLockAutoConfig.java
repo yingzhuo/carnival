@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
 
+import com.github.yingzhuo.carnival.redis.distributed.lock.actuator.DistributedLockHealthIndicator;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinderImpl;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
@@ -115,6 +116,11 @@ public class DistributedLockAutoConfig {
     @Bean
     public RequestIdCreator requestIdFactory() {
         return new RequestIdCreatorImpl();
+    }
+
+    @Bean
+    public DistributedLockHealthIndicator distributedLockHealthIndicator() {
+        return new DistributedLockHealthIndicator();
     }
 
     @Getter
