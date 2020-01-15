@@ -95,7 +95,7 @@
         <spring.version>5.2.2.RELEASE</spring.version>
         <jackson.version>2.10.1</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.44.Final</netty.version>
+        <netty.version>4.1.45.Final</netty.version>
     </properties>
 
     <dependencyManagement>
@@ -523,7 +523,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>28.1-jre</version>
+                <version>28.2-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

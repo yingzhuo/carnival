@@ -12,8 +12,6 @@ package com.github.yingzhuo.carnival.redis.distributed.lock.actuator;
 import com.github.yingzhuo.carnival.redis.distributed.lock.DistributedLock;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
 
 import java.util.UUID;
 
@@ -21,26 +19,22 @@ import java.util.UUID;
  * @author 应卓
  * @since 1.4.2
  */
-public class DistributedLockHealthIndicator extends AbstractHealthIndicator implements HealthIndicator {
+public class DistributedLockHealthIndicator extends AbstractHealthIndicator {
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws Exception {
-
-        final String randomKey = UUID.randomUUID().toString();
+    protected void doHealthCheck(Health.Builder builder) {
+        final String uuid = UUID.randomUUID().toString();
 
         try {
-            if (DistributedLock.lock(randomKey, 100)) {
-                builder
-                        .status(Status.UP)
-                        .withDetail("distributed-lock", "Available");
+            if (DistributedLock.lock(uuid, 200)) {
+                builder.up();
             } else {
-                builder
-                        .status(Status.DOWN)
-                        .withDetail("distributed-lock", "Not Available");
+                builder.down();
             }
-
         } catch (Exception e) {
-            DistributedLock.release(randomKey);
+            builder.down(e);
+        } finally {
+            DistributedLock.release(uuid);
         }
     }
 

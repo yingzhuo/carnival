@@ -20,7 +20,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.1.4
  */
-public class CaptchaUtils {
+public final class CaptchaUtils {
 
     public static Captcha create(int length) {
         return SpringUtils.getBean(CaptchaFactory.class).create(length);

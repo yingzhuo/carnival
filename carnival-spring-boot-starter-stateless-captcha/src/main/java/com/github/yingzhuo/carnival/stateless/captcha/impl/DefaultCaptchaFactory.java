@@ -77,7 +77,7 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
             final StringBuilder captchaValue = new StringBuilder();
             for (int i = 0; i < length; i++) {
                 char ch = (char) (RANDOM.nextInt(26) + 65);
-                captchaValue.append(String.valueOf(ch));
+                captchaValue.append(ch);
                 g.setColor(new Color(20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110)));
                 g.drawString(String.valueOf(ch), 15 * i + 10, 16);
             }

@@ -58,7 +58,7 @@ public class CuratorClientAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.curator")
-    public class CuratorClientProps implements InitializingBean {
+    public static class CuratorClientProps implements InitializingBean {
         private boolean enabled = true;
         private String connectString;
         private int sessionTimeoutMs = 60000;
@@ -79,7 +79,6 @@ public class CuratorClientAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.curator.retry")
     public static class RetryProps {
         private int baseSleepTimeMs = 1000;
         private int maxRetries = 3;
