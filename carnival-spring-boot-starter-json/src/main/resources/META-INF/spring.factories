@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.json.autoconfig.JacksonAutoConfig,\
     com.github.yingzhuo.carnival.json.autoconfig.SpringDataModuleAutoConfig
