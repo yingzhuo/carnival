@@ -15,7 +15,6 @@
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
 * [carnival-spring-boot-starter-exception](./carnival-spring-boot-starter-exception)
-* [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
 * [carnival-spring-boot-starter-gravatar](./carnival-spring-boot-starter-gravatar)
 * [carnival-spring-boot-starter-guava](./carnival-spring-boot-starter-guava)
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
