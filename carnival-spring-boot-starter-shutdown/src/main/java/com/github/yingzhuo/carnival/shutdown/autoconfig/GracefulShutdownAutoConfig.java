@@ -55,7 +55,7 @@ public class GracefulShutdownAutoConfig {
             OrderComparator.sort(hooks);
         }
 
-        GracefulShutdown shutdown = new GracefulShutdown(timeout, timeoutTimeUnit);
+        final GracefulShutdown shutdown = new GracefulShutdown(timeout, timeoutTimeUnit);
         shutdown.setHooks(this.hooks);
         return shutdown;
     }
