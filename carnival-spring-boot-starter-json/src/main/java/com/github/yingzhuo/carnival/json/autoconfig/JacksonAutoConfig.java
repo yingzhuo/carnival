@@ -14,6 +14,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.time.format.DateTimeFormatter;
@@ -22,6 +24,7 @@ import java.time.format.DateTimeFormatter;
  * @author 应卓
  * @since 1.4.3
  */
+@EnableConfigurationProperties(JacksonAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.jackson", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class JacksonAutoConfig {
 
@@ -39,6 +42,7 @@ public class JacksonAutoConfig {
 
     @Getter
     @Setter
+    @ConfigurationProperties(prefix = "carnival.jackson")
     static class Props {
         private boolean enabled = true;
         private String localDatePattern = "yyyy-MM-dd";
