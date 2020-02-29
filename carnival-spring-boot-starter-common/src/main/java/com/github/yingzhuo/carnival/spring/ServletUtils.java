@@ -17,11 +17,14 @@ import javax.servlet.http.*;
 
 /**
  * @author 应卓
+ * @see SpringUtils
  */
 public final class ServletUtils {
 
     private ServletUtils() {
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static HttpServletRequest getRequest() {
         final ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();

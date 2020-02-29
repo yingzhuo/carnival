@@ -16,9 +16,15 @@ import java.io.UncheckedIOException;
 
 /**
  * @author 应卓
+ * @see SpringUtils
  * @since 1.3.3
  */
 public final class ResourceUtils {
+
+    private ResourceUtils() {
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static Resource loadResource(String location) {
         return SpringUtils.getResourcePatternResolver().getResource(location);
@@ -30,9 +36,6 @@ public final class ResourceUtils {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    private ResourceUtils() {
     }
 
 }

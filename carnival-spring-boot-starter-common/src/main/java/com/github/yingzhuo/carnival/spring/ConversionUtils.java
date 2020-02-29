@@ -21,6 +21,8 @@ public final class ConversionUtils {
     private ConversionUtils() {
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static <T> T convert(Object source, Class<T> targetType) {
         val service = SpringUtils.getConversionService();
         return service.convert(source, targetType);

@@ -9,30 +9,26 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import org.springframework.boot.ApplicationArguments;
-
-import java.util.List;
-
-import static com.github.yingzhuo.carnival.spring.SpringUtils.APP_ARGS;
-import static com.github.yingzhuo.carnival.spring.SpringUtils.CMD_ARGS;
+import org.springframework.context.ApplicationEvent;
 
 /**
  * @author 应卓
  * @see SpringUtils
+ * @since 1.4.5
  */
-public final class ArgumentUtils {
+public final class EventUtils {
 
-    private ArgumentUtils() {
+    private EventUtils() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static ApplicationArguments getApplicationArguments() {
-        return APP_ARGS;
+    public static void publish(ApplicationEvent event) {
+        SpringUtils.getApplicationEventPublisher().publishEvent(event);
     }
 
-    public static List<String> getCommandArguments() {
-        return CMD_ARGS;
+    public static void publish(Object event) {
+        SpringUtils.getApplicationEventPublisher().publishEvent(event);
     }
 
 }

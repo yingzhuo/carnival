@@ -25,6 +25,8 @@ public final class PropertyUtils {
     private PropertyUtils() {
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static String getPropertyValue(String propertyName) {
         return getPropertyValue(propertyName, String.class);
     }
