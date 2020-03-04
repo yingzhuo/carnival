@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.exception.data;
 
-import com.github.yingzhuo.carnival.exception.CarnivalStandardException;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -17,9 +16,8 @@ import java.util.*;
 /**
  * @author 应卓
  */
-public class InvalidDataAccessException extends CarnivalStandardException {
-
-    private static final long serialVersionUID = 2102462667651007747L;
+@Deprecated
+public class InvalidDataAccessException extends RuntimeException {
 
     public InvalidDataAccessException() {
         this(null);
