@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.exception;
 
 /**
- * 自洽性错误异常
+ * 自洽性错误
  *
  * @author 应卓
  * @since 1.4.5
