@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 /**
  * @author 应卓
+ * @since 1.0.0
  */
 public final class Null implements Serializable {
 

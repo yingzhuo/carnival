@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import com.github.yingzhuo.carnival.common.formatter.MessageFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
@@ -28,9 +29,9 @@ public final class SelfConsistent {
         return notNull(obj, null);
     }
 
-    public static <T> T notNull(T obj, String message) {
+    public static <T> T notNull(T obj, String message, Object... params) {
         if (obj == null) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return obj;
     }
@@ -39,9 +40,9 @@ public final class SelfConsistent {
         equals(obj1, obj2, null);
     }
 
-    public static <T> void equals(T obj1, T obj2, String message) {
+    public static <T> void equals(T obj1, T obj2, String message, Object... params) {
         if (!Objects.equals(obj1, obj2)) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
     }
 
@@ -49,9 +50,9 @@ public final class SelfConsistent {
         notEquals(obj1, obj2, null);
     }
 
-    public static <T> void notEquals(T obj1, T obj2, String message) {
+    public static <T> void notEquals(T obj1, T obj2, String message, Object... params) {
         if (Objects.equals(obj1, obj2)) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
     }
 
@@ -59,10 +60,10 @@ public final class SelfConsistent {
         return notEmpty(collection, null);
     }
 
-    public static <T> Collection<T> notEmpty(Collection<T> collection, String message) {
-        notNull(collection, message);
+    public static <T> Collection<T> notEmpty(Collection<T> collection, String message, Object... params) {
+        notNull(collection, message, params);
         if (collection.isEmpty()) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return collection;
     }
@@ -71,10 +72,10 @@ public final class SelfConsistent {
         return notEmpty(array, null);
     }
 
-    public static <T> T[] notEmpty(T[] array, String message) {
-        notNull(array, message);
+    public static <T> T[] notEmpty(T[] array, String message, Object... params) {
+        notNull(array, message, params);
         if (array.length == 0) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return array;
     }
@@ -83,10 +84,10 @@ public final class SelfConsistent {
         return notEmpty(map, null);
     }
 
-    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String message) {
-        notNull(map, message);
+    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String message, Object... params) {
+        notNull(map, message, params);
         if (map.isEmpty()) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return map;
     }
@@ -95,9 +96,9 @@ public final class SelfConsistent {
         return notEmpty(string, null);
     }
 
-    public static <T extends CharSequence> T notEmpty(T string, String message) {
+    public static <T extends CharSequence> T notEmpty(T string, String message, Object... params) {
         if (StringUtils.isEmpty(string)) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return string;
     }
@@ -106,9 +107,9 @@ public final class SelfConsistent {
         return notBlank(string, null);
     }
 
-    public static <T extends CharSequence> T notBlank(T string, String message) {
+    public static <T extends CharSequence> T notBlank(T string, String message, Object... params) {
         if (StringUtils.isBlank(string)) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
         return string;
     }
@@ -117,11 +118,11 @@ public final class SelfConsistent {
         noNullElement(collection, null);
     }
 
-    public static <T> void noNullElement(Collection<T> collection, String message) {
-        notNull(collection, message);
+    public static <T> void noNullElement(Collection<T> collection, String message, Object... params) {
+        notNull(collection, message, params);
         boolean noNull = collection.stream().noneMatch(Objects::isNull);
         if (!noNull) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
     }
 
@@ -129,11 +130,11 @@ public final class SelfConsistent {
         notNull(array, null);
     }
 
-    public static <T> void noNullElement(T[] array, String message) {
-        notNull(array, message);
+    public static <T> void noNullElement(T[] array, String message, Object... params) {
+        notNull(array, message, params);
         boolean noNull = Arrays.stream(array).noneMatch(Objects::isNull);
         if (!noNull) {
-            throw new SelfConsistentException(message);
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
         }
     }
 

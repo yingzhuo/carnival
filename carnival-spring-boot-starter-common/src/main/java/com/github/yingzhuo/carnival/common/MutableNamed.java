@@ -15,6 +15,9 @@ package com.github.yingzhuo.carnival.common;
  */
 public interface MutableNamed extends Named {
 
+    @Override
+    public String getName();
+
     public void setName(String name);
 
 }

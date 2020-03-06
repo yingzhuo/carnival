@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
+import com.github.yingzhuo.carnival.common.formatter.MessageFormatter;
 import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
-import lombok.val;
 import lombok.var;
 import org.springframework.util.StringUtils;
 
@@ -42,12 +42,7 @@ public abstract class AbstractBusinessExceptionFactory implements BusinessExcept
             throw new IllegalArgumentException("'" + code + "' is NOT a valid code");
         }
 
-        for (val param : params) {
-            message = message.replaceFirst("\\{}", param.toString());
-        }
-
-        message = message.replaceAll("\\{}", "");
-        return new BusinessException(code, message);
+        return new BusinessException(code, MessageFormatter.format(message, params));
     }
 
     protected abstract Optional<String> getMessage(String code);
