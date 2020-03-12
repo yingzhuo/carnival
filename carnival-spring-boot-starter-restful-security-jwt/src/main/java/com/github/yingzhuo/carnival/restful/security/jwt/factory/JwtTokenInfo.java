@@ -130,7 +130,13 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
+        @Deprecated
         public Builder randomPrivateClaim() {
+            this.putPrivateClaim("__random__", UUID.randomUUID().toString());
+            return this;
+        }
+
+        public Builder putRandomPrivateClaim() {
             this.putPrivateClaim("__random__", UUID.randomUUID().toString());
             return this;
         }
