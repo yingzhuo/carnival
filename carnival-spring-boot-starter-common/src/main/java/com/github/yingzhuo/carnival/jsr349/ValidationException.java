@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 
 import java.util.Objects;
@@ -19,7 +18,6 @@ import java.util.Objects;
  */
 public class ValidationException extends RuntimeException {
 
-    private static final long serialVersionUID = 6980428941250064462L;
     private final Errors errors;
 
     private ValidationException(Errors errors) {
@@ -30,26 +28,16 @@ public class ValidationException extends RuntimeException {
         return new ValidationException(null);
     }
 
-    public static void raiseIfNecessary(BindingResult bindingResult) {
-        raiseIfNecessary((Errors) bindingResult);
-    }
-
     public static void raiseIfNecessary(Errors errors) {
         if (errors.hasErrors()) {
             throw from(errors);
         }
     }
 
-    public static ValidationException from(BindingResult bindingResult) {
-        return from((Errors) bindingResult);
-    }
-
     public static ValidationException from(Errors errors) {
-
         if (!Objects.requireNonNull(errors).hasErrors()) {
             throw new IllegalArgumentException();
         }
-
         return new ValidationException(errors);
     }
 

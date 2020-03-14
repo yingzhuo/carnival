@@ -11,31 +11,26 @@ package com.github.yingzhuo.carnival.stateless.captcha.impl;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 
-import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author 应卓
+ * @since 1.4.6
  */
-@Deprecated
-public class MapCaptchaDao implements CaptchaDao {
-
-    private final Map<String, String> map = new ConcurrentHashMap<>();
+public class NopCaptchaDao implements CaptchaDao {
 
     @Override
     public void save(String captchaId, String captchaValue) {
-        map.put(captchaId, captchaValue);
+        // NOP
     }
 
     @Override
     public Optional<String> load(String captchaId) {
-        return Optional.ofNullable(map.get(captchaId));
+        return Optional.empty();
     }
 
     @Override
     public void delete(String captchaId) {
-        map.remove(captchaId);
+        // NOP
     }
-
 }

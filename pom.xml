@@ -35,6 +35,8 @@
     <name>carnival</name>
     <url>https://github.com/yingzhuo/carnival</url>
 
+    <description>spring-boot starters.</description>
+
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>

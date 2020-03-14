@@ -13,7 +13,7 @@ import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaIdGenerator;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.DefaultCaptchaFactory;
-import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.NopCaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.UUIDCaptchaIdGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -42,7 +42,7 @@ public class CaptchaFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
-        return new MapCaptchaDao();
+        return new NopCaptchaDao();
     }
 
     @Bean
