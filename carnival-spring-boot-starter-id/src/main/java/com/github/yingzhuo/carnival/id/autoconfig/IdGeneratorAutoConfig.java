@@ -11,10 +11,7 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
-import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
-import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
-import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
-import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
+import com.github.yingzhuo.carnival.id.impl.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -56,9 +53,12 @@ public class IdGeneratorAutoConfig {
                 return new UUID32IdGenerator();
             case UUID_36:
                 return new UUID36IdGenerator();
-
+            case TIMESTAMP:
+                return new TimestampLongIdGenerator();
+            case TIMESTAMP_STRING:
+                return new TimestampStringIdGenerator();
             default:
-                throw new AssertionError();
+                throw new AssertionError(); // 程序不会运行到此处
         }
     }
 
@@ -75,7 +75,7 @@ public class IdGeneratorAutoConfig {
         static class Snowflake {
             private long workerId = 0L;
             private long dataCenterId = 0L;
-            private int length = 32;
+            private int length = -1;
             private char padCharacter = '0';
         }
     }

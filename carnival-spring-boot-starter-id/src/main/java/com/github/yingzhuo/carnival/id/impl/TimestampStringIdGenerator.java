@@ -7,23 +7,19 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.id;
+package com.github.yingzhuo.carnival.id.impl;
+
+import com.github.yingzhuo.carnival.id.StringIdGenerator;
 
 /**
  * @author 应卓
+ * @since 1.4.7
  */
-public enum Algorithm {
+public class TimestampStringIdGenerator implements StringIdGenerator {
 
-    UUID_32,
-
-    UUID_36,
-
-    SNOWFLAKE,
-
-    SNOWFLAKE_STRING,
-
-    TIMESTAMP,
-
-    TIMESTAMP_STRING,
+    @Override
+    public String nextId() {
+        return System.currentTimeMillis() + "";
+    }
 
 }
