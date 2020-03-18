@@ -35,7 +35,7 @@ public class JwtTokenInfo implements Serializable {
     private String jwtId;
 
     // Private Claims
-    private Map<String, Object> privateClaims = new HashMap<>(0);
+    private Map<String, Object> privateClaims = new HashMap<>();
 
     private JwtTokenInfo() {
     }
@@ -47,6 +47,7 @@ public class JwtTokenInfo implements Serializable {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
+
         private String keyId;
         private String issuer;
         private String subject;
@@ -130,12 +131,6 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
-        @Deprecated
-        public Builder randomPrivateClaim() {
-            this.putPrivateClaim("__random__", UUID.randomUUID().toString());
-            return this;
-        }
-
         public Builder putRandomPrivateClaim() {
             this.putPrivateClaim("__random__", UUID.randomUUID().toString());
             return this;
@@ -178,7 +173,7 @@ public class JwtTokenInfo implements Serializable {
         }
 
         private Builder putPrivateClaim(String key, Object value) {
-            this.privateClaims.put(key, value);
+            this.privateClaims.put(Objects.requireNonNull(key), Objects.requireNonNull(value));
             return this;
         }
 
