@@ -11,7 +11,10 @@ package com.github.yingzhuo.carnival.restful.security.realm;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +24,8 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.4.7
  */
-public class CombinedUserDetailsRealm implements UserDetailsRealm {
+@Slf4j
+public class CombinedUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private int order = 0;
     private final List<UserDetailsRealm> realms;
@@ -48,6 +52,11 @@ public class CombinedUserDetailsRealm implements UserDetailsRealm {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notEmpty(realms, "No UserDetailsRealm found.");
     }
 
 }

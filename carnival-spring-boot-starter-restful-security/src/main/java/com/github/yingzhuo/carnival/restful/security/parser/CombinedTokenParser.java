@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.val;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.util.Assert;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
@@ -21,7 +23,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.4.7
  */
-public class CombinedTokenParser implements TokenParser {
+public class CombinedTokenParser implements TokenParser, InitializingBean {
 
     private int order = 0;
     private final List<TokenParser> parsers;
@@ -48,6 +50,12 @@ public class CombinedTokenParser implements TokenParser {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notEmpty(parsers, "No TokenParser found.");
     }
 
 }

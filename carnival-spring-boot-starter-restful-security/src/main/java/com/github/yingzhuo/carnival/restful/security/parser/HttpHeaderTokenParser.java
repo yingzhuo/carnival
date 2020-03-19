@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@Slf4j
 public class HttpHeaderTokenParser implements TokenParser {
 
     private final String headerName;
@@ -40,6 +42,8 @@ public class HttpHeaderTokenParser implements TokenParser {
     @Override
     public Optional<Token> parse(NativeWebRequest request) {
         String headerValue = request.getHeader(headerName);
+
+        log.debug("{} = {}", headerName, headerValue);
 
         if (!StringUtils.hasText(headerValue)) {
             return Optional.empty();

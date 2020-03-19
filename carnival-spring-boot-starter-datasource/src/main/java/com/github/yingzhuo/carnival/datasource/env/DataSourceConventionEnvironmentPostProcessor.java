@@ -30,4 +30,5 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
     public DataSourceConventionEnvironmentPostProcessor() {
         super(DEFAULT_PREFIX, NAME);
     }
+
 }
