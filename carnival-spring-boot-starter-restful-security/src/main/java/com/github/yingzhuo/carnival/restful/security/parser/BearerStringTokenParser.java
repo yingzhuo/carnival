@@ -9,16 +9,15 @@
  */
 package com.github.yingzhuo.carnival.restful.security.parser;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * @author 应卓
  */
 public class BearerStringTokenParser extends HttpHeaderTokenParser implements TokenParser {
 
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String BEARER = "Bearer ";
-
     public BearerStringTokenParser() {
-        super(AUTHORIZATION, BEARER);
+        super(HttpHeaders.AUTHORIZATION, "Bearer ");
     }
 
 }

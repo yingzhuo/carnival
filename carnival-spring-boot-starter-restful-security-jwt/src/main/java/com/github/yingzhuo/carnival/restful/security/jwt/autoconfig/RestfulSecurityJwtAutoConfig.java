@@ -10,8 +10,12 @@
 package com.github.yingzhuo.carnival.restful.security.jwt.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
+import com.github.yingzhuo.carnival.restful.security.parser.BearerStringTokenParser;
+import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
@@ -19,4 +23,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(JwtProps.class)
 public class RestfulSecurityJwtAutoConfig {
+
+    @Bean
+    @ConditionalOnMissingBean
+    public TokenParser tokenParser() {
+        return new BearerStringTokenParser();
+    }
+
 }

@@ -28,7 +28,7 @@ public class JwtTokenFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public JwtTokenFactory tokenFactory(JwtProps props) {
-        JwtTokenFactory bean = new DefaultJwtTokenFactory(props.getAlgorithm());
+        final JwtTokenFactory bean = new DefaultJwtTokenFactory(props.getAlgorithm());
         bean.setJwtTokenFactoryHook(hook);
         return bean;
     }
