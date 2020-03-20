@@ -9,6 +9,10 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 自洽性错误
  *
@@ -30,6 +34,19 @@ public class SelfConsistentException extends RuntimeException {
 
     public SelfConsistentException(Throwable cause) {
         super(cause);
+    }
+
+    public Map<String, Object> asMap() {
+        return asMap(true);
+    }
+
+    public Map<String, Object> asMap(boolean includeType) {
+        final Map<String, Object> map = new HashMap<>();
+        map.put("message", getMessage());
+        if (includeType) {
+            map.put("type", getClass().getName());
+        }
+        return Collections.unmodifiableMap(map);
     }
 
 }

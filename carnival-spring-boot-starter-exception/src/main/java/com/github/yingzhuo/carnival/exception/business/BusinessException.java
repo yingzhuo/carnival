@@ -58,7 +58,7 @@ public class BusinessException extends RuntimeException implements StringCoded {
         final Map<String, Object> map = new HashMap<>();
 
         if (includeType) {
-            map.put("type", BusinessException.class.getName());
+            map.put("type", getClass().getName());
         }
 
         map.put("code", getCode());

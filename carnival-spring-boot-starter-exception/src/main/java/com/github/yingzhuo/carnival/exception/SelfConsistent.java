@@ -138,6 +138,16 @@ public final class SelfConsistent {
         }
     }
 
+    public static void isTrue(boolean state) {
+        isTrue(state, null);
+    }
+
+    public static void isTrue(boolean state, String message, Object... params) {
+        if (!state) {
+            throw new SelfConsistentException(MessageFormatter.format(message, params));
+        }
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     private SelfConsistent() {
