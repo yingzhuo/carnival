@@ -22,16 +22,15 @@ import java.util.Optional;
 
 /**
  * @author 应卓
- * @since 1.4.7
+ * @since 1.4.8
  */
 @Slf4j
-@Deprecated
-public class CombinedUserDetailsRealm implements UserDetailsRealm, InitializingBean {
+public class CompositeUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private int order = 0;
     private final List<UserDetailsRealm> realms;
 
-    public CombinedUserDetailsRealm(UserDetailsRealm... realms) {
+    public CompositeUserDetailsRealm(UserDetailsRealm... realms) {
         this.realms = Arrays.asList(realms);
     }
 

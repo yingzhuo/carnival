@@ -7,14 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.realm;
+package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
-import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
+import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,23 +21,21 @@ import java.util.Optional;
 
 /**
  * @author 应卓
- * @since 1.4.7
+ * @since 1.4.8
  */
-@Slf4j
-@Deprecated
-public class CombinedUserDetailsRealm implements UserDetailsRealm, InitializingBean {
+public class CompositeTokenParser implements TokenParser, InitializingBean {
 
     private int order = 0;
-    private final List<UserDetailsRealm> realms;
+    private final List<TokenParser> parsers;
 
-    public CombinedUserDetailsRealm(UserDetailsRealm... realms) {
-        this.realms = Arrays.asList(realms);
+    public CompositeTokenParser(TokenParser... parsers) {
+        this.parsers = Arrays.asList(parsers);
     }
 
     @Override
-    public Optional<UserDetails> loadUserDetails(Token token) {
-        for (val realm : realms) {
-            val op = realm.loadUserDetails(token);
+    public Optional<Token> parse(NativeWebRequest webRequest) {
+        for (val parser : parsers) {
+            val op = parser.parse(webRequest);
             if (op.isPresent()) {
                 return op;
             }
@@ -48,7 +45,7 @@ public class CombinedUserDetailsRealm implements UserDetailsRealm, InitializingB
 
     @Override
     public int getOrder() {
-        return order;
+        return this.order;
     }
 
     public void setOrder(int order) {
@@ -57,7 +54,7 @@ public class CombinedUserDetailsRealm implements UserDetailsRealm, InitializingB
 
     @Override
     public void afterPropertiesSet() {
-        Assert.notEmpty(realms, "No UserDetailsRealm found.");
+        Assert.notEmpty(parsers, "No TokenParser found.");
     }
 
 }

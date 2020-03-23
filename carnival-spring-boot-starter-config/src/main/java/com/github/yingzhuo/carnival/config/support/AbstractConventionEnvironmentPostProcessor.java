@@ -61,7 +61,7 @@ public abstract class AbstractConventionEnvironmentPostProcessor implements Envi
         final CompositePropertySource cps = new CompositePropertySource(name);
 
         // basic
-        List<String> baseLocations = getBaseLocations();
+        final List<String> baseLocations = getBaseLocations();
         ResourceAndLocation resourceAndLocation = findFirstReadable(baseLocations);
         Optional.ofNullable(load(resourceAndLocation)).ifPresent(cps::addFirstPropertySource);
 
@@ -73,7 +73,7 @@ public abstract class AbstractConventionEnvironmentPostProcessor implements Envi
         }
 
         environment.getPropertySources()
-                .addFirst(cps);
+                .addAfter("commandLineArgs", cps);      // 从1.4.8开始cps不再排到最上面
     }
 
     private PropertySource<?> load(ResourceAndLocation resourceAndLocation) {
@@ -81,8 +81,8 @@ public abstract class AbstractConventionEnvironmentPostProcessor implements Envi
             return null;
         }
 
-        try (ResourceAndLocation rl = resourceAndLocation) {
-            Resource resource = rl.resource;
+        try (final ResourceAndLocation rl = resourceAndLocation) {
+            final Resource resource = rl.resource;
             String location = rl.location;
             if (location.endsWith(".conf")) {
                 return doLoad(hocon, resource, location);

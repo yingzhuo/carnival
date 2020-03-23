@@ -23,6 +23,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.4.7
  */
+@Deprecated
 public class CombinedTokenParser implements TokenParser, InitializingBean {
 
     private int order = 0;
@@ -51,7 +52,6 @@ public class CombinedTokenParser implements TokenParser, InitializingBean {
     public void setOrder(int order) {
         this.order = order;
     }
-
 
     @Override
     public void afterPropertiesSet() {
