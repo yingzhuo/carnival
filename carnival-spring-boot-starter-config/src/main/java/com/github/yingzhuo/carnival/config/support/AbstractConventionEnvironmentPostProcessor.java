@@ -72,8 +72,11 @@ public abstract class AbstractConventionEnvironmentPostProcessor implements Envi
             Optional.ofNullable(load(resourceAndLocation)).ifPresent(cps::addFirstPropertySource);
         }
 
-        environment.getPropertySources()
-                .addAfter("commandLineArgs", cps);      // 从1.4.8开始cps不再排到最上面
+        if (environment.getPropertySources().get("commandLineArgs") != null) {
+            environment.getPropertySources().addAfter("commandLineArgs", cps);
+        } else {
+            environment.getPropertySources().addFirst(cps);
+        }
     }
 
     private PropertySource<?> load(ResourceAndLocation resourceAndLocation) {
