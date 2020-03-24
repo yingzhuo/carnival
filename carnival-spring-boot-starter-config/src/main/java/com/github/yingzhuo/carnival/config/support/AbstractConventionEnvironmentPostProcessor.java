@@ -90,11 +90,11 @@ public abstract class AbstractConventionEnvironmentPostProcessor implements Envi
             if (location.endsWith(".conf")) {
                 return doLoad(hocon, resource, location);
             }
-            if (location.endsWith(".yaml") || location.endsWith(".yml")) {
-                return doLoad(yaml, resource, location);
-            }
             if (location.endsWith(".toml")) {
                 return doLoad(toml, resource, location);
+            }
+            if (location.endsWith(".yaml") || location.endsWith(".yml")) {
+                return doLoad(yaml, resource, location);
             }
             if (location.endsWith(".properties") || location.endsWith(".xml")) {
                 return doLoad(prop, resource, location);

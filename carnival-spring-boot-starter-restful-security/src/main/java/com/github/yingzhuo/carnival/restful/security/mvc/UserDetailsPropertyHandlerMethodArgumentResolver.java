@@ -11,9 +11,9 @@ package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -29,7 +29,8 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(UserDetailsProperty.class) ||
-                parameter.getParameterType() == UserDetails.class;
+                parameter.getParameterType() == UserDetails.class ||
+                parameter.getParameterType() == Token.class;
     }
 
     @Override
@@ -39,11 +40,15 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
             return RestfulSecurityContext.getUserDetails().orElse(null);
         }
 
-        val property = parameter.getParameterAnnotation(UserDetailsProperty.class).value();
-        val ignoreExceptions = parameter.getParameterAnnotation(UserDetailsProperty.class).ignoreExceptions();
+        if (parameter.getParameterType() == Token.class) {
+            return RestfulSecurityContext.getToken().orElse(null);
+        }
+
+        val property = getPropertyExp(parameter);
+        val ignoreExceptions = getIgnoreExceptions(parameter);
         val userDetails = RestfulSecurityContext.getUserDetails().orElse(null);
 
-        if (StringUtils.isBlank(property)) {
+        if (property.isEmpty()) {
             return userDetails;
         }
 
@@ -59,4 +64,21 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
         }
         return null;
     }
+
+    private String getPropertyExp(MethodParameter parameter) {
+        val annotation = parameter.getParameterAnnotation(UserDetailsProperty.class);
+        if (annotation == null) {
+            throw new NullPointerException();
+        }
+        return annotation.value();
+    }
+
+    private boolean getIgnoreExceptions(MethodParameter parameter) {
+        val annotation = parameter.getParameterAnnotation(UserDetailsProperty.class);
+        if (annotation == null) {
+            throw new NullPointerException();
+        }
+        return annotation.ignoreExceptions();
+    }
+
 }

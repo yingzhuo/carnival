@@ -10,6 +10,10 @@
 package com.github.yingzhuo.carnival.config;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
+import org.springframework.boot.system.ApplicationHome;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 应卓
@@ -17,38 +21,28 @@ import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironment
  */
 public class ConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final String[] DEFAULT_PREFIX = {
-            "file:config/property",
-            "file:config/property-source",
-            "file:property",
-            "file:property-source",
-            "classpath:config/property",
-            "classpath:config/property-source",
-            "classpath:property",
-            "classpath:property-source",
-            "classpath:META-INF/property",
-            "classpath:META-INF/property-source",
-    };
+    private static final List<String> DEFAULT_PREFIX = new LinkedList<>();
+
+    static {
+        final String deploymentDir = "file:" + new ApplicationHome().getDir() + "/";
+        DEFAULT_PREFIX.add(deploymentDir + "property");
+        DEFAULT_PREFIX.add(deploymentDir + "property-source");
+        DEFAULT_PREFIX.add("file:config/property");
+        DEFAULT_PREFIX.add("file:config/property-source");
+        DEFAULT_PREFIX.add("file:property");
+        DEFAULT_PREFIX.add("file:property-source");
+        DEFAULT_PREFIX.add("classpath:config/property");
+        DEFAULT_PREFIX.add("classpath:config/property-source");
+        DEFAULT_PREFIX.add("classpath:property");
+        DEFAULT_PREFIX.add("classpath:property-source");
+        DEFAULT_PREFIX.add("classpath:META-INF/property");
+        DEFAULT_PREFIX.add("classpath:META-INF/property-source");
+    }
 
     private static final String NAME = "property-source";
 
     public ConventionEnvironmentPostProcessor() {
-        super(getPrefix(), NAME);
-    }
-
-    private static String[] getPrefix() {
-        String envValue = System.getenv("CONVENTION_PROPERTY_SOURCE");
-
-        if (envValue == null || envValue.trim().isEmpty()) {
-            return DEFAULT_PREFIX;
-        }
-
-        String[] prefix = envValue.split(",");
-        for (int i = 0; i < prefix.length; i++) {
-            prefix[i] = prefix[i].trim();
-        }
-
-        return prefix;
+        super(DEFAULT_PREFIX.toArray(new String[0]), NAME);
     }
 
 }

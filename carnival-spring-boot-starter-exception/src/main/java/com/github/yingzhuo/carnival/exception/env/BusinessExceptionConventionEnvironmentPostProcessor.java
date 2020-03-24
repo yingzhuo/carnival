@@ -10,6 +10,10 @@
 package com.github.yingzhuo.carnival.exception.env;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
+import org.springframework.boot.system.ApplicationHome;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 应卓
@@ -17,17 +21,22 @@ import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironment
  */
 public class BusinessExceptionConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final String[] DEFAULT_PREFIX = {
-            "file:config/business-exception",
-            "file:business-exception",
-            "classpath:config/business-exception",
-            "classpath:business-exception",
-            "classpath:META-INF/business-exception",
-    };
+    private static final List<String> DEFAULT_PREFIX = new LinkedList<>();
+
+    static {
+        final String deploymentDir = "file:" + new ApplicationHome().getDir() + "/";
+        DEFAULT_PREFIX.add(deploymentDir + "business-exception");
+        DEFAULT_PREFIX.add("file:config/business-exception");
+        DEFAULT_PREFIX.add("file:business-exception");
+        DEFAULT_PREFIX.add("classpath:config/business-exception");
+        DEFAULT_PREFIX.add("classpath:business-exception");
+        DEFAULT_PREFIX.add("classpath:META-INF/business-exception");
+    }
 
     private static final String NAME = "business-exception";
 
     public BusinessExceptionConventionEnvironmentPostProcessor() {
-        super(DEFAULT_PREFIX, NAME);
+        super(DEFAULT_PREFIX.toArray(new String[0]), NAME);
     }
+
 }
