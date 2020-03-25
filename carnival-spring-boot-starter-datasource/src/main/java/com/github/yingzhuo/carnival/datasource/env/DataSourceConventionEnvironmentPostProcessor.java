@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.datasource.env;
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
 import org.springframework.boot.system.ApplicationHome;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class DataSourceConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final List<String> DEFAULT_PREFIX = new LinkedList<>();
+    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(6);
 
     static {
         final String deploymentDir = "file:" + new ApplicationHome().getDir() + "/";
