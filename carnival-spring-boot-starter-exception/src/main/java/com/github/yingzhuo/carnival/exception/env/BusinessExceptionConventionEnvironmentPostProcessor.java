@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.exception.env;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
+import lombok.val;
 import org.springframework.boot.system.ApplicationHome;
 
 import java.util.ArrayList;
@@ -21,11 +22,12 @@ import java.util.List;
  */
 public class BusinessExceptionConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(6);
+    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(7);
 
     static {
-        final String deploymentDir = "file:" + new ApplicationHome().getDir() + "/";
-        DEFAULT_PREFIX.add(deploymentDir + "business-exception");
+        val home = "file:" + new ApplicationHome().getDir() + "/";
+        DEFAULT_PREFIX.add(home + "config/business-exception");
+        DEFAULT_PREFIX.add(home + "business-exception");
         DEFAULT_PREFIX.add("file:config/business-exception");
         DEFAULT_PREFIX.add("file:business-exception");
         DEFAULT_PREFIX.add("classpath:config/business-exception");

@@ -22,5 +22,4 @@ public class YamlPropertySourceFactory extends AbstractPropertySourceFactory imp
     public YamlPropertySourceFactory() {
         super(new YamlPropertySourceLoader());
     }
-
 }

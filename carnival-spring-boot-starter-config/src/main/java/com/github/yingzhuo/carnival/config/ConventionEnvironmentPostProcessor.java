@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.config;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
+import lombok.val;
 import org.springframework.boot.system.ApplicationHome;
 
 import java.util.ArrayList;
@@ -21,12 +22,14 @@ import java.util.List;
  */
 public class ConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(12);
+    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(14);
 
     static {
-        final String deploymentDir = "file:" + new ApplicationHome().getDir() + "/";
-        DEFAULT_PREFIX.add(deploymentDir + "property");
-        DEFAULT_PREFIX.add(deploymentDir + "property-source");
+        val home = "file:" + new ApplicationHome().getDir() + "/";
+        DEFAULT_PREFIX.add(home + "config/property");
+        DEFAULT_PREFIX.add(home + "config/property-source");
+        DEFAULT_PREFIX.add(home + "property");
+        DEFAULT_PREFIX.add(home + "property-source");
         DEFAULT_PREFIX.add("file:config/property");
         DEFAULT_PREFIX.add("file:config/property-source");
         DEFAULT_PREFIX.add("file:property");

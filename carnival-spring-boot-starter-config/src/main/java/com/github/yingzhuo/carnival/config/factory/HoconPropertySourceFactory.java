@@ -22,5 +22,4 @@ public class HoconPropertySourceFactory extends AbstractPropertySourceFactory im
     public HoconPropertySourceFactory() {
         super(new HoconPropertySourceLoader());
     }
-
 }
