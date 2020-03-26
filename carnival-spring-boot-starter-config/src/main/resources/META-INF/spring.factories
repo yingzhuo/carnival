@@ -2,4 +2,5 @@ org.springframework.boot.env.PropertySourceLoader=\
     com.github.yingzhuo.carnival.config.loader.HoconPropertySourceLoader,\
     com.github.yingzhuo.carnival.config.loader.TomlPropertySourceLoader
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.config.ConventionEnvironmentPostProcessor
+    com.github.yingzhuo.carnival.config.ConventionEnvironmentPostProcessor,\
+    com.github.yingzhuo.carnival.config.GitEnvironmentPostProcessor

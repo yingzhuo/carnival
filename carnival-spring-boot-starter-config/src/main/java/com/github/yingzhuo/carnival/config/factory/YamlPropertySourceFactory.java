@@ -11,13 +11,12 @@ package com.github.yingzhuo.carnival.config.factory;
 
 import com.github.yingzhuo.carnival.config.support.AbstractPropertySourceFactory;
 import org.springframework.boot.env.YamlPropertySourceLoader;
-import org.springframework.core.io.support.PropertySourceFactory;
 
 /**
  * @author 应卓
  * @since 1.4.1
  */
-public class YamlPropertySourceFactory extends AbstractPropertySourceFactory implements PropertySourceFactory {
+public class YamlPropertySourceFactory extends AbstractPropertySourceFactory {
 
     public YamlPropertySourceFactory() {
         super(new YamlPropertySourceLoader());
