@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.datasource.env;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
-import lombok.val;
+import lombok.var;
 import org.springframework.boot.system.ApplicationHome;
 
 import java.util.ArrayList;
@@ -25,7 +25,11 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
     private static final List<String> DEFAULT_PREFIX = new ArrayList<>(7);
 
     static {
-        val home = "file:" + new ApplicationHome().getDir() + "/";
+        var home = "file:" + new ApplicationHome().getDir();
+        if (!home.endsWith("/")) {
+            home += "/";
+        }
+
         DEFAULT_PREFIX.add(home + "config/business-exception");
         DEFAULT_PREFIX.add(home + "business-exception");
         DEFAULT_PREFIX.add("file:config/business-exception");

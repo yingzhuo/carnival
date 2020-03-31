@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.realm;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -24,7 +23,6 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.4.8
  */
-@Slf4j
 public class CompositeUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private int order = 0;

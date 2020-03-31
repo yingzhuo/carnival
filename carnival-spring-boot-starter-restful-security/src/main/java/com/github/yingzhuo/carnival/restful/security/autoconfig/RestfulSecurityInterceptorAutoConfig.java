@@ -18,7 +18,9 @@ import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
 import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
+import com.github.yingzhuo.carnival.restful.security.realm.CompositeUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -30,7 +32,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author 应卓
@@ -92,7 +93,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         } else {
             List<TokenParser> list = new LinkedList<>(tokenParsers);
             OrderComparator.sort(list);
-            return list.stream().reduce(request -> Optional.empty(), TokenParser::or);
+            return new CompositeTokenParser(list.toArray(new TokenParser[0]));
         }
     }
 
@@ -102,7 +103,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         } else {
             List<UserDetailsRealm> list = new LinkedList<>(userDetailsRealms);
             OrderComparator.sort(list);
-            return list.stream().reduce(token -> Optional.empty(), UserDetailsRealm::or);
+            return new CompositeUserDetailsRealm(list.toArray(new UserDetailsRealm[0]));
         }
     }
 

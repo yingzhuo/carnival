@@ -10,11 +10,9 @@
 package com.github.yingzhuo.carnival.restful.security.parser;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
-import lombok.val;
 import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -31,18 +29,6 @@ public interface TokenParser extends Ordered {
     @Override
     public default int getOrder() {
         return 0;
-    }
-
-    public default TokenParser or(TokenParser that) {
-        return (webRequest) -> {
-            val thisOp = this.parse(webRequest);
-
-            if (thisOp.isPresent()) {
-                return thisOp;
-            } else {
-                return Objects.requireNonNull(that).parse(webRequest);
-            }
-        };
     }
 
 }

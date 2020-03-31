@@ -21,8 +21,7 @@ public class NonePasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        Objects.requireNonNull(rawPassword);
-        return rawPassword;
+        return Objects.requireNonNull(rawPassword);
     }
 
     @Override
