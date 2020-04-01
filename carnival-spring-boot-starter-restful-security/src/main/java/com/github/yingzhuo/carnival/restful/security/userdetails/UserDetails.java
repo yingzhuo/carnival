@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.json.Views;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
@@ -18,7 +17,6 @@ import com.github.yingzhuo.carnival.restful.security.role.Role;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -36,14 +34,8 @@ public interface UserDetails extends Serializable {
 
     public String getUsername();
 
-    public String getEmail();
-
-    public Date getDateOfBirth();
-
     @JsonView(Views.Secret.class)
     public String getPassword();
-
-    public Gender getGender();
 
     public boolean isExpired();
 

@@ -25,7 +25,7 @@ public class ConventionEnvironmentPostProcessor extends AbstractConventionEnviro
     private static final List<String> DEFAULT_PREFIX = new ArrayList<>(14);
 
     static {
-        var home = "file:" + new ApplicationHome().getDir();
+        var home = "file:" + new ApplicationHome().getDir().getPath();
         if (!home.endsWith("/")) {
             home += "/";
         }

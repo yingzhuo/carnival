@@ -66,9 +66,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         final BeforeHook beforeHook = getFinalBeforeHook();
         final AfterHook afterHook = getFinalAfterHook();
 
-        TokenParserHolder.tokenParser = tokenParser;
-        UserDetailsRealmHolder.userDetailsRealm = userDetailsRealm;
-
         Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         if (interceptorOrder == null) {
             interceptorOrder = 0;

@@ -10,11 +10,11 @@
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.auth.*;
-import com.github.yingzhuo.carnival.restful.security.blacklist.NopTokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
 import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
 import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
+import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -30,7 +30,17 @@ public class RestfulSecurityAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public TokenBlacklistManager tokenBlackListManager() {
-        return new NopTokenBlacklistManager();
+        return new TokenBlacklistManager() {
+            @Override
+            public void save(Token token) {
+                // NOP
+            }
+
+            @Override
+            public boolean isBlacklisted(Token token) {
+                return false;
+            }
+        };
     }
 
     @Bean
@@ -92,22 +102,8 @@ public class RestfulSecurityAutoConfig {
     }
 
     @Bean
-    public RequiresEmailAuthComponent requiresEmailAuthenticationComponent() {
-        return new RequiresEmailAuthComponent();
-    }
-
-    @Bean
-    public RequiresAdultAuthComponent requiresAdultAuthenticationComponent() {
-        return new RequiresAdultAuthComponent();
-    }
-
-    @Bean
     public RequiresAdminAuthComponent requiresAdminAuthComponent() {
         return new RequiresAdminAuthComponent();
     }
 
-    @Bean
-    public RequiresGenderAuthComponent requiresGenderAuthComponent() {
-        return new RequiresGenderAuthComponent();
-    }
 }
