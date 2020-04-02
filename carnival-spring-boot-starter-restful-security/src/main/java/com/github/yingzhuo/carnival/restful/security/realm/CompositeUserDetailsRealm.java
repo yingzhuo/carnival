@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.Assert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -53,8 +52,12 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
     }
 
     @Override
-    public void afterPropertiesSet() {
-        Assert.notEmpty(realms, "No UserDetailsRealm found.");
+    public void afterPropertiesSet() throws Exception {
+        for (UserDetailsRealm realm : this.realms) {
+            if (realm instanceof InitializingBean) {
+                ((InitializingBean) realm).afterPropertiesSet();
+            }
+        }
     }
 
 }

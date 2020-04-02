@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.parser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.util.Assert;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
@@ -53,8 +52,12 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() {
-        Assert.notEmpty(parsers, "No TokenParser found.");
+    public void afterPropertiesSet() throws Exception {
+        for (TokenParser parser : this.parsers) {
+            if (parser instanceof InitializingBean) {
+                ((InitializingBean) parser).afterPropertiesSet();
+            }
+        }
     }
 
 }
