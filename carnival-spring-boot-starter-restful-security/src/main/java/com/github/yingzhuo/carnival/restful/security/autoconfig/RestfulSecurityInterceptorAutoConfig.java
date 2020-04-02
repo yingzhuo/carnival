@@ -14,9 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
-import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
-import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
-import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -47,15 +44,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     private List<UserDetailsRealm> userDetailsRealms;
 
     @Autowired
-    private List<BeforeHook> beforeHooks;
-
-    @Autowired
-    private List<AfterHook> afterHooks;
-
-    @Autowired
-    private ExceptionHook exceptionHook;
-
-    @Autowired
     private TokenBlacklistManager tokenBlackListManager;
 
     @Override
@@ -63,8 +51,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
 
         final TokenParser tokenParser = getFinalTokenParser();
         final UserDetailsRealm userDetailsRealm = getFinalUserDetailsRealm();
-        final BeforeHook beforeHook = getFinalBeforeHook();
-        final AfterHook afterHook = getFinalAfterHook();
 
         Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         if (interceptorOrder == null) {
@@ -78,9 +64,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setTokenBlacklistManager(tokenBlackListManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
-        interceptor.setBeforeHook(beforeHook);
-        interceptor.setAfterHook(afterHook);
-        interceptor.setExceptionHook(exceptionHook);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 
@@ -101,28 +84,6 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
             List<UserDetailsRealm> list = new LinkedList<>(userDetailsRealms);
             OrderComparator.sort(list);
             return new CompositeUserDetailsRealm(list.toArray(new UserDetailsRealm[0]));
-        }
-    }
-
-    private BeforeHook getFinalBeforeHook() {
-        if (beforeHooks.size() == 1) {
-            return beforeHooks.get(0);
-        } else {
-            List<BeforeHook> list = new LinkedList<>(beforeHooks);
-            OrderComparator.sort(list);
-            return list.stream().reduce(request -> {
-            }, BeforeHook::link);
-        }
-    }
-
-    private AfterHook getFinalAfterHook() {
-        if (afterHooks.size() == 1) {
-            return afterHooks.get(0);
-        } else {
-            List<AfterHook> list = new LinkedList<>(afterHooks);
-            OrderComparator.sort(list);
-            return list.stream().reduce((request, token, userDetails) -> {
-            }, AfterHook::link);
         }
     }
 

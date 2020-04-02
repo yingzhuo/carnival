@@ -33,4 +33,5 @@ public class NopCaptchaDao implements CaptchaDao {
     public void delete(String captchaId) {
         // NOP
     }
+
 }

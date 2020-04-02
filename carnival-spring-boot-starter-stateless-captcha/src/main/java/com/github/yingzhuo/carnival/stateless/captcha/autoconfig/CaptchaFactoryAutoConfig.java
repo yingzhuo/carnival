@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaIdGenerator;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.DefaultCaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.NopCaptchaDao;
-import com.github.yingzhuo.carnival.stateless.captcha.impl.UUIDCaptchaIdGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -33,10 +32,11 @@ public class CaptchaFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaFactory captchaFactory(CaptchaDao dao, CaptchaIdGenerator idGenerator, Props props) {
-        final DefaultCaptchaFactory factory = new DefaultCaptchaFactory(dao, idGenerator);
-        factory.setHeight(props.getHeight());
-        factory.setWidth(props.getWidth());
-        return factory;
+        final DefaultCaptchaFactory bean = new DefaultCaptchaFactory(dao, idGenerator);
+        bean.setHeight(props.getHeight());
+        bean.setWidth(props.getWidth());
+        bean.setCharacters(props.getCharacters());
+        return bean;
     }
 
     @Bean
@@ -48,7 +48,7 @@ public class CaptchaFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public CaptchaIdGenerator captchaIdGenerator() {
-        return new UUIDCaptchaIdGenerator();
+        return CaptchaIdGenerator.DEFAULT;
     }
 
     @Getter
@@ -58,6 +58,7 @@ public class CaptchaFactoryAutoConfig {
         private boolean enabled = true;
         private int width = 100;
         private int height = 18;
+        private String characters = "absdegkmnopwxABSDEGKMNOPWX23456789";
     }
 
 }

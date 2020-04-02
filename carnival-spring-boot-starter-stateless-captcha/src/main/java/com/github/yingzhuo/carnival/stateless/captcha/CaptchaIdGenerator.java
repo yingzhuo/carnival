@@ -9,11 +9,15 @@
  */
 package com.github.yingzhuo.carnival.stateless.captcha;
 
+import java.util.UUID;
+
 /**
  * @author 应卓
  */
 @FunctionalInterface
 public interface CaptchaIdGenerator {
+
+    public static final CaptchaIdGenerator DEFAULT = () -> UUID.randomUUID().toString();
 
     public String create();
 

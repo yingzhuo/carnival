@@ -11,9 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.auth.*;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.hook.AfterHook;
-import com.github.yingzhuo.carnival.restful.security.hook.BeforeHook;
-import com.github.yingzhuo.carnival.restful.security.hook.ExceptionHook;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -40,27 +37,6 @@ public class RestfulSecurityAutoConfig {
             public boolean isBlacklisted(Token token) {
                 return false;
             }
-        };
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public BeforeHook beforeHook() {
-        return request -> {
-        };
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public AfterHook afterHook() {
-        return (request, token, userDetails) -> {
-        };
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public ExceptionHook exceptionHook() {
-        return (request, token, ex) -> {
         };
     }
 

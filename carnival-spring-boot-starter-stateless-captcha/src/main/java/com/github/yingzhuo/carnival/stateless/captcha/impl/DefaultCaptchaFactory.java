@@ -32,10 +32,12 @@ import java.util.Random;
 public class DefaultCaptchaFactory implements CaptchaFactory {
 
     private static final Random RANDOM = new Random();
+
     private final CaptchaDao captchaDao;
     private final CaptchaIdGenerator captchaIdGenerator;
     private int width = 100;
     private int height = 18;
+    private String characters;
 
     public DefaultCaptchaFactory(CaptchaDao captchaDao, CaptchaIdGenerator captchaIdGenerator) {
         this.captchaDao = Objects.requireNonNull(captchaDao);
@@ -76,7 +78,7 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
             // 生成随机数,并将随机数字转换为字母
             final StringBuilder captchaValue = new StringBuilder();
             for (int i = 0; i < length; i++) {
-                char ch = (char) (RANDOM.nextInt(26) + 65);
+                char ch = getRandChar();
                 captchaValue.append(ch);
                 g.setColor(new Color(20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110), 20 + RANDOM.nextInt(110)));
                 g.drawString(String.valueOf(ch), 15 * i + 10, 16);
@@ -105,6 +107,15 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
         }
     }
 
+    private char getRandChar() {
+        if (characters == null || characters.isEmpty()) {
+            return (char) (RANDOM.nextInt(26) + 65);
+        } else {
+            int index = RANDOM.nextInt(characters.length());
+            return characters.charAt(index);
+        }
+    }
+
     private Color getRandColor(int fc, int bc) {
         if (fc > 255)
             fc = 255;
@@ -122,6 +133,10 @@ public class DefaultCaptchaFactory implements CaptchaFactory {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public void setCharacters(String characters) {
+        this.characters = characters;
     }
 
 }
