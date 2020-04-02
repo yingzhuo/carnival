@@ -7,13 +7,12 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.parser;
+package com.github.yingzhuo.carnival.restful.security.realm;
 
-import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
+import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -23,23 +22,23 @@ import java.util.Optional;
  * @since 1.4.10
  */
 @Slf4j
-public class FixedStringTokenParser implements TokenParser, InitializingBean {
+public class FixedUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
-    private final Token token;
+    private final UserDetails userDetails;
     private final int order;
 
-    public FixedStringTokenParser(String token) {
-        this(token, 0);
+    public FixedUserDetailsRealm(UserDetails userDetails) {
+        this(userDetails, 0);
     }
 
-    public FixedStringTokenParser(String token, int order) {
-        this.token = StringToken.of(Objects.requireNonNull(token));
+    public FixedUserDetailsRealm(UserDetails userDetails, int order) {
+        this.userDetails = Objects.requireNonNull(userDetails);
         this.order = order;
     }
 
     @Override
-    public Optional<Token> parse(NativeWebRequest webRequest) {
-        return Optional.of(token);
+    public Optional<UserDetails> loadUserDetails(Token token) {
+        return Optional.of(userDetails);
     }
 
     @Override
