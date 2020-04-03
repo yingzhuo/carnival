@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.4.10</version>
+    <version>1.4.11</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-config</module>
@@ -194,11 +194,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
             <dependency>

@@ -44,7 +44,6 @@ public interface ResourceText extends Serializable {
     public static class SimpleResourceText implements ResourceText {
 
         private static final ResourceLoader LOADER = new DefaultResourceLoader();
-
         private final String text;
 
         public SimpleResourceText(String location, Charset charset) {
