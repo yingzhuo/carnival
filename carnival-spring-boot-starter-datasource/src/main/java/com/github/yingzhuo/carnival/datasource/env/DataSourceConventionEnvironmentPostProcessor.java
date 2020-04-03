@@ -30,13 +30,13 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
             home += "/";
         }
 
-        DEFAULT_PREFIX.add(home + "config/business-exception");
-        DEFAULT_PREFIX.add(home + "business-exception");
-        DEFAULT_PREFIX.add("file:config/business-exception");
-        DEFAULT_PREFIX.add("file:business-exception");
-        DEFAULT_PREFIX.add("classpath:config/business-exception");
-        DEFAULT_PREFIX.add("classpath:business-exception");
-        DEFAULT_PREFIX.add("classpath:META-INF/business-exception");
+        DEFAULT_PREFIX.add(home + "config/datasource");
+        DEFAULT_PREFIX.add(home + "datasource");
+        DEFAULT_PREFIX.add("file:config/datasource");
+        DEFAULT_PREFIX.add("file:datasource");
+        DEFAULT_PREFIX.add("classpath:config/datasource");
+        DEFAULT_PREFIX.add("classpath:datasource");
+        DEFAULT_PREFIX.add("classpath:META-INF/datasource");
     }
 
     private static final String NAME = "datasource";
