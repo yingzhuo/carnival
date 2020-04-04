@@ -24,10 +24,8 @@ import java.util.Set;
 /**
  * @author 应卓
  */
-@Deprecated
 public interface AES {
 
-    @Deprecated
     @Documented
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
@@ -52,7 +50,6 @@ public interface AES {
         }
     }
 
-    @Deprecated
     @Documented
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)

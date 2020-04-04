@@ -42,7 +42,8 @@ public final class SocketUtils {
         return isReachable(hostAndPort.getHost(), hostAndPort.getPort(), timeoutInMilliseconds);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private SocketUtils() {
     }
-
 }

@@ -27,9 +27,6 @@ import java.util.Base64;
  */
 public final class RSAUtils {
 
-    private RSAUtils() {
-    }
-
     public static Pair<RSAPublicKey, RSAPrivateKey> init(int keysize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
@@ -189,4 +186,8 @@ public final class RSAUtils {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private RSAUtils() {
+    }
 }

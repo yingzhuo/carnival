@@ -24,11 +24,7 @@ import java.security.SecureRandom;
  * @author 应卓
  * @since 1.0.6
  */
-@Deprecated
 public final class AESUtils {
-
-    private AESUtils() {
-    }
 
     public static String encrypt(String value, String passphrase) {
         try {
@@ -62,6 +58,11 @@ public final class AESUtils {
 
     private static Cipher getCipher() throws NoSuchPaddingException, NoSuchAlgorithmException {
         return Cipher.getInstance("AES/CBC/PKCS5PADDING");
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private AESUtils() {
     }
 
 }
