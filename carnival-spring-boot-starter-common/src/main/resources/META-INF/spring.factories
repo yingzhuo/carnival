@@ -1,5 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.spring.SpringIdFactory
+    com.github.yingzhuo.carnival.common.env.ExtEnvironmentPostProcessor
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.common.autoconfig.SpringUtilsAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.EnhancementAutoConfig,\

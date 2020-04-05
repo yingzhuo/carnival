@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import com.github.yingzhuo.carnival.common.env.ExtEnvironmentPostProcessor;
 import lombok.val;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeansException;
@@ -75,7 +76,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return getEnvironment().getProperty(SpringIdFactory.SPRING_ID);
+        return getEnvironment().getProperty(ExtEnvironmentPostProcessor.SPRING_ID);
     }
 
     public static String getDisplayName() {
