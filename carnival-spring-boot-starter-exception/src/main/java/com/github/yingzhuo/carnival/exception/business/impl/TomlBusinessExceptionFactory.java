@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.2.3
  */
+@Deprecated
 public class TomlBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
 
     private final Toml toml = new Toml();

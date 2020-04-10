@@ -38,7 +38,6 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory(Props props, PropertySourceBusinessExceptionFactory.Env env) {
 
-        // since 1.4.1
         if (env != null && !env.isEmpty()) {
             return new PropertySourceBusinessExceptionFactory(env);
         }
@@ -55,8 +54,10 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConfigurationProperties(prefix = "carnival.business-exception")
     static final class Props {
         private boolean enabled = true;
-        private Resource tomlLocation = null;
         private Map<String, String> messages;
+
+        @Deprecated
+        private Resource tomlLocation = null;
     }
 
 }

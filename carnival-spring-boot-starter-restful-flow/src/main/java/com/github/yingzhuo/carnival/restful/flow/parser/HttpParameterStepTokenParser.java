@@ -19,10 +19,12 @@ import java.util.Optional;
  */
 public class HttpParameterStepTokenParser implements StepTokenParser {
 
+    private static final String DEFAULT_PARAMETER_NAME = "_step_token";
+
     private final String parameterName;
 
     public HttpParameterStepTokenParser() {
-        this("step_token");
+        this(DEFAULT_PARAMETER_NAME);
     }
 
     public HttpParameterStepTokenParser(String parameterName) {
