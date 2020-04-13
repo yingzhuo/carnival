@@ -9,17 +9,18 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.parser;
 
+import org.springframework.http.HttpHeaders;
+
 /**
  * @author 应卓
  * @since 1.3.6
  */
 public class DefaultStepTokenParser extends HttpHeaderStepTokenParser {
 
-    private static final String AUTHORIZATION = "Authorization";
     private static final String BEARER = "Bearer ";
 
     public DefaultStepTokenParser() {
-        super(AUTHORIZATION, BEARER);
+        super(HttpHeaders.AUTHORIZATION, BEARER);
     }
 
 }

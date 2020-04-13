@@ -22,6 +22,4 @@ public interface JwtTokenFactory {
         return create(Objects.requireNonNull(builder).build());
     }
 
-    public void setJwtTokenFactoryHook(JwtTokenFactoryHook hook);
-
 }

@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.httpbasic.parser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.nio.charset.StandardCharsets;
@@ -25,13 +26,12 @@ import java.util.Optional;
  */
 public class HttpBasicTokenParser implements TokenParser {
 
-    private static final String AUTHORIZATION = "Authorization";
     private static final String BASIC = "Basic ";
     private int order = 0;
 
     @Override
     public Optional<Token> parse(NativeWebRequest webRequest) {
-        final String header = webRequest.getHeader(AUTHORIZATION);
+        final String header = webRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (header == null) {
             return Optional.empty();

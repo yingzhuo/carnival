@@ -43,7 +43,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Autowired
     private List<UserDetailsRealm> userDetailsRealms;
 
-    @Autowired
+    @Autowired(required = false)
     private TokenBlacklistManager tokenBlackListManager;
 
     @Override
@@ -60,9 +60,9 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
+        interceptor.setTokenBlacklistManager(tokenBlackListManager);    // nullable
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);
-        interceptor.setTokenBlacklistManager(tokenBlackListManager);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
