@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.4.11</version>
+    <version>1.4.12</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-config</module>
@@ -35,7 +35,7 @@
     <name>carnival</name>
     <url>https://github.com/yingzhuo/carnival</url>
 
-    <description>spring-boot starters.</description>
+    <description>spring-boot starters</description>
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
