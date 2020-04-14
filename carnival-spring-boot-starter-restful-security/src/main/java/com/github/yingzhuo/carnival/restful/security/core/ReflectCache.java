@@ -22,14 +22,13 @@ import java.util.*;
  * @author 应卓
  * @since 1.1.5
  */
-final class ReflectCache {
+public final class ReflectCache {
 
     private static boolean initialized = false;
-    private static Map<Method, List<MethodCheckPoint>> cache = new HashMap<>(); // lazy init
+    private static Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
 
-    public synchronized static void init() {
+    public static void init() {
         if (!initialized) {
-
             final Collection<HandlerMethod> handlerMethods = RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values();
 
             for (HandlerMethod hm : handlerMethods) {
@@ -69,12 +68,8 @@ final class ReflectCache {
         }
     }
 
-    public static boolean isNotInitialized() {
-        return !initialized;
-    }
-
     public static Map<Method, List<MethodCheckPoint>> get() {
-        return cache; // unmodifiable map
+        return cache;
     }
 
     private ReflectCache() {

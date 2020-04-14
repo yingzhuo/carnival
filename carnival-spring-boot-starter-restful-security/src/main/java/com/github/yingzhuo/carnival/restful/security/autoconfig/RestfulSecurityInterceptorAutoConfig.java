@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttribut
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
@@ -20,9 +21,13 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.CompositeUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.OrderComparator;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -35,7 +40,8 @@ import java.util.List;
  */
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityAutoConfig.class)
-public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
+@Order(Ordered.LOWEST_PRECEDENCE)
+public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired
     private List<TokenParser> tokenParsers;
@@ -90,6 +96,11 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new UserDetailsPropertyHandlerMethodArgumentResolver());
+    }
+
+    @Override
+    public void run(ApplicationArguments args) {
+        ReflectCache.init();
     }
 
 }

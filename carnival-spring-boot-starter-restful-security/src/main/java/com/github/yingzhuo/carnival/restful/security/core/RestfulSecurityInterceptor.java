@@ -33,7 +33,6 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@SuppressWarnings({"unchecked", "rawtypes"})
 public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     private TokenParser tokenParser;
@@ -42,13 +41,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     private TokenBlacklistManager tokenBlacklistManager;
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         RestfulSecurityContext.clean();
-
-        if (ReflectCache.isNotInitialized()) {
-            ReflectCache.init();
-        }
 
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -58,8 +54,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
         val handlerMethod = (HandlerMethod) handler;
 
-        if (super.hasMethodAnnotation(IgnoreToken.class, handler) || super.hasClassAnnotation(IgnoreToken.class, handler)) {
-            RestfulSecurityContext.setTokenIgnored(true);
+        if (hasMethodAnnotation(IgnoreToken.class, handler) || hasClassAnnotation(IgnoreToken.class, handler)) {
             return true;
         }
 
@@ -88,7 +83,6 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
-
                 ac.authenticate(RestfulSecurityContext.getToken().orElse(null), RestfulSecurityContext.getUserDetails().orElse(null), annotation);
             });
         }

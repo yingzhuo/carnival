@@ -65,4 +65,5 @@ public class JwtProps implements InitializingBean {
     public Algorithm getAlgorithm() {
         return algorithm;
     }
+
 }
