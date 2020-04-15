@@ -26,8 +26,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.OrderComparator;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -40,7 +38,6 @@ import java.util.List;
  */
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityAutoConfig.class)
-@Order(Ordered.LOWEST_PRECEDENCE)
 public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired
@@ -66,7 +63,7 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, A
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        interceptor.setTokenBlacklistManager(tokenBlackListManager);    // nullable
+        interceptor.setTokenBlacklistManager(tokenBlackListManager);
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setAuthenticationStrategy(authenticationStrategy);
@@ -102,5 +99,4 @@ public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, A
     public void run(ApplicationArguments args) {
         ReflectCache.init();
     }
-
 }

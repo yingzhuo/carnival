@@ -48,7 +48,7 @@ public final class ReflectCache {
 
                         Iterator<MethodCheckPoint> iterator = list.iterator();
                         while (iterator.hasNext()) {
-                            Class<?> cachedAnnotationClz = iterator.next().getAnnotation().getClass();
+                            final Class<?> cachedAnnotationClz = iterator.next().getAnnotation().getClass();
                             if (methodAnnotation.getClass() == cachedAnnotationClz) {
                                 iterator.remove();
                             }
@@ -70,9 +70,6 @@ public final class ReflectCache {
 
     public static Map<Method, List<MethodCheckPoint>> get() {
         return cache;
-    }
-
-    private ReflectCache() {
     }
 
 }

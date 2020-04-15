@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
+import com.github.yingzhuo.carnival.restful.security.annotation.StringTokenValue;
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
@@ -31,6 +32,7 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(UserDetailsProperty.class) ||
+                (parameter.hasParameterAnnotation(StringTokenValue.class) && parameter.getParameterType() == String.class) ||
                 parameter.getParameterType() == UserDetails.class ||
                 parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == StringToken.class ||
@@ -54,6 +56,15 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
 
         if (parameter.getParameterType() == UsernamePasswordToken.class) {
             return (UsernamePasswordToken) RestfulSecurityContext.getToken().orElse(null);
+        }
+
+        if (parameter.hasParameterAnnotation(StringTokenValue.class) && parameter.getParameterType() == String.class) {
+            final Token token = RestfulSecurityContext.getToken().orElse(null);
+            if (token == null) {
+                return null;
+            } else {
+                return ((StringToken) token).getValue();
+            }
         }
 
         val property = getPropertyExp(parameter);
