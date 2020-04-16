@@ -14,8 +14,6 @@
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
         <module>carnival-spring-boot-starter-exception</module>
-        <module>carnival-spring-boot-starter-gravatar</module>
-        <module>carnival-spring-boot-starter-guava</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>

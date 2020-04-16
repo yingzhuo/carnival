@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.exception.autoconfig;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.InMemoryBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.impl.PropertySourceBusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.business.impl.TomlBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,7 +19,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
 
 import java.util.Map;
 
@@ -42,10 +40,6 @@ public class BusinessExceptionFactoryAutoConfig {
             return new PropertySourceBusinessExceptionFactory(env);
         }
 
-        if (props.getTomlLocation() != null && props.getTomlLocation().isReadable()) {
-            return new TomlBusinessExceptionFactory(props.getTomlLocation());
-        }
-
         return new InMemoryBusinessExceptionFactory(props.getMessages());
     }
 
@@ -55,9 +49,6 @@ public class BusinessExceptionFactoryAutoConfig {
     static final class Props {
         private boolean enabled = true;
         private Map<String, String> messages;
-
-        @Deprecated
-        private Resource tomlLocation = null;
     }
 
 }
