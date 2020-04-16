@@ -21,7 +21,6 @@ public class NopCaptchaDao implements CaptchaDao {
 
     @Override
     public void save(String captchaId, String captchaValue) {
-        // NOP
     }
 
     @Override
@@ -31,7 +30,16 @@ public class NopCaptchaDao implements CaptchaDao {
 
     @Override
     public void delete(String captchaId) {
-        // NOP
+    }
+
+    @Override
+    public boolean matches(String submittedCaptcha, String captchaId) {
+        return false;
+    }
+
+    @Override
+    public boolean notMatches(String submittedCaptcha, String captchaId) {
+        return true;
     }
 
 }

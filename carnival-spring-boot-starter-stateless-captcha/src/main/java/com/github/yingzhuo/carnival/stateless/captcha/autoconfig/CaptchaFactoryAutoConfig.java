@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.stateless.captcha.autoconfig;
 
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.stateless.captcha.CaptchaFactory;
-import com.github.yingzhuo.carnival.stateless.captcha.CaptchaIdGenerator;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.DefaultCaptchaFactory;
 import com.github.yingzhuo.carnival.stateless.captcha.impl.NopCaptchaDao;
 import lombok.Getter;
@@ -31,11 +30,12 @@ public class CaptchaFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public CaptchaFactory captchaFactory(CaptchaDao dao, CaptchaIdGenerator idGenerator, Props props) {
-        final DefaultCaptchaFactory bean = new DefaultCaptchaFactory(dao, idGenerator);
+    public CaptchaFactory captchaFactory(CaptchaDao dao, Props props) {
+        final DefaultCaptchaFactory bean = new DefaultCaptchaFactory();
         bean.setHeight(props.getHeight());
         bean.setWidth(props.getWidth());
         bean.setCharacters(props.getCharacters());
+        bean.setCaptchaDao(dao);
         return bean;
     }
 
@@ -43,12 +43,6 @@ public class CaptchaFactoryAutoConfig {
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
         return new NopCaptchaDao();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public CaptchaIdGenerator captchaIdGenerator() {
-        return CaptchaIdGenerator.DEFAULT;
     }
 
     @Getter

@@ -22,7 +22,6 @@
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
-        <module>carnival-spring-boot-starter-protobuf</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-httpbasic</module>
@@ -502,23 +501,6 @@
                 <version>1.61</version>
             </dependency>
 
-            <!-- protobuf -->
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>3.11.4</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java-util</artifactId>
-                <version>3.11.4</version>
-            </dependency>
-            <dependency>
-                <groupId>com.googlecode.protobuf-java-format</groupId>
-                <artifactId>protobuf-java-format</artifactId>
-                <version>1.4</version>
-            </dependency>
-
             <!-- activation -->
             <dependency>
                 <groupId>jakarta.activation</groupId>
@@ -530,7 +512,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>28.2-jre</version>
+                <version>29.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
