@@ -10,14 +10,9 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -32,9 +27,7 @@ import java.util.Optional;
  * @author 应卓
  */
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(MvcEnhancementAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.enhancement", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
+public class MvcCommonAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)
     public void config(BeanNameViewResolver resolver) {
@@ -54,13 +47,6 @@ public class MvcEnhancementAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new IpAddressHandlerMethodArgumentResolver());
-    }
-
-    @Getter
-    @Setter
-    @ConfigurationProperties("carnival.mvc.enhancement")
-    static class Props {
-        private boolean enabled = true;
     }
 
 }

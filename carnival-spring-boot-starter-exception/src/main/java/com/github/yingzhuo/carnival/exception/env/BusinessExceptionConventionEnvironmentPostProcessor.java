@@ -10,11 +10,7 @@
 package com.github.yingzhuo.carnival.exception.env;
 
 import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
-import lombok.var;
-import org.springframework.boot.system.ApplicationHome;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.github.yingzhuo.carnival.config.util.JarLocation;
 
 /**
  * @author 应卓
@@ -22,27 +18,16 @@ import java.util.List;
  */
 public class BusinessExceptionConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    private static final List<String> DEFAULT_PREFIX = new ArrayList<>(7);
-
-    static {
-        var home = "file:" + new ApplicationHome().getDir().getPath();
-        if (!home.endsWith("/")) {
-            home += "/";
-        }
-
-        DEFAULT_PREFIX.add(home + "config/business-exception");
-        DEFAULT_PREFIX.add(home + "business-exception");
-        DEFAULT_PREFIX.add("file:config/business-exception");
-        DEFAULT_PREFIX.add("file:business-exception");
-        DEFAULT_PREFIX.add("classpath:config/business-exception");
-        DEFAULT_PREFIX.add("classpath:business-exception");
-        DEFAULT_PREFIX.add("classpath:META-INF/business-exception");
-    }
-
-    private static final String NAME = "business-exception";
-
     public BusinessExceptionConventionEnvironmentPostProcessor() {
-        super(DEFAULT_PREFIX.toArray(new String[0]), NAME);
+        super(new String[]{
+                JarLocation.of().getFileAsResourceLocation("config/business-exception"),
+                JarLocation.of().getFileAsResourceLocation("business-exception"),
+                "file:config/business-exception",
+                "file:business-exception",
+                "classpath:config/business-exception",
+                "classpath:business-exception",
+                "classpath:META-INF/business-exception",
+        }, "business-exception");
     }
 
 }
