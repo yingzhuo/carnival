@@ -20,10 +20,6 @@ public enum Algorithm {
 
     SNOWFLAKE,
 
-    SNOWFLAKE_STRING,
-
-    TIMESTAMP,
-
-    TIMESTAMP_STRING,
+    SNOWFLAKE_STRING;
 
 }

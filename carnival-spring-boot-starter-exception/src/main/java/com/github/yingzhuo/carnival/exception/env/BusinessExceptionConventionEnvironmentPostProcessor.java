@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.exception.env;
 
-import com.github.yingzhuo.carnival.config.support.AbstractConventionEnvironmentPostProcessor;
-import com.github.yingzhuo.carnival.config.util.JarLocation;
+import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
+import com.github.yingzhuo.springboot.env.util.JarLocation;
 
 /**
  * @author 应卓
@@ -19,7 +19,7 @@ import com.github.yingzhuo.carnival.config.util.JarLocation;
 public class BusinessExceptionConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
     public BusinessExceptionConventionEnvironmentPostProcessor() {
-        super(new String[]{
+        super("business-exception", new String[]{
                 JarLocation.of().getFileAsResourceLocation("config/business-exception"),
                 JarLocation.of().getFileAsResourceLocation("business-exception"),
                 "file:config/business-exception",
@@ -27,7 +27,7 @@ public class BusinessExceptionConventionEnvironmentPostProcessor extends Abstrac
                 "classpath:config/business-exception",
                 "classpath:business-exception",
                 "classpath:META-INF/business-exception",
-        }, "business-exception");
+        });
     }
 
 }

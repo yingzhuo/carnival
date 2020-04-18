@@ -53,10 +53,6 @@ public class IdGeneratorAutoConfig {
                 return new UUID32IdGenerator();
             case UUID_36:
                 return new UUID36IdGenerator();
-            case TIMESTAMP:
-                return new TimestampLongIdGenerator();
-            case TIMESTAMP_STRING:
-                return new TimestampStringIdGenerator();
             default:
                 throw new AssertionError(); // 程序不会运行到此处
         }

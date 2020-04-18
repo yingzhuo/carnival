@@ -9,7 +9,6 @@
     <version>1.5.0</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
-        <module>carnival-spring-boot-starter-config</module>
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
@@ -24,7 +23,6 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-httpbasic</module>
         <module>carnival-spring-boot-starter-restful-security-jwt</module>
-        <module>carnival-spring-boot-starter-shutdown</module>
         <module>carnival-spring-boot-starter-stateless-captcha</module>
     </modules>
     <packaging>pom</packaging>
@@ -106,11 +104,6 @@
             </dependency>
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-config</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-restful-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -118,6 +111,13 @@
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-json</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <!-- config / env -->
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>spring-boot-stater-env</artifactId>
+                <version>1.1.2</version>
             </dependency>
 
             <!-- spring-boot -->

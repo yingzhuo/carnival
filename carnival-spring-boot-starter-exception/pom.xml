@@ -18,6 +18,12 @@
             <artifactId>carnival-spring-boot-starter-common</artifactId>
         </dependency>
 
+        <!-- config / env -->
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>spring-boot-stater-env</artifactId>
+        </dependency>
+
         <!-- springboot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

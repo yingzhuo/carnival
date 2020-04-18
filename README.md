@@ -11,7 +11,6 @@
 ### Wiki
 
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
-* [carnival-spring-boot-starter-config](./carnival-spring-boot-starter-config)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
 * [carnival-spring-boot-starter-exception](./carnival-spring-boot-starter-exception)
@@ -25,7 +24,6 @@
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 * [carnival-spring-boot-starter-restful-security-httpbasic](./carnival-spring-boot-starter-restful-security-httpbasic)
 * [carnival-spring-boot-starter-restful-security-jwt](./carnival-spring-boot-starter-restful-security-jwt)
-* [carnival-spring-boot-starter-shutdown](./carnival-spring-boot-starter-shutdown)
 * [carnival-spring-boot-starter-stateless-captcha](./carnival-spring-boot-starter-stateless-captcha)
 
 ### Contributing
