@@ -21,6 +21,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * @author 应卓
@@ -43,6 +44,7 @@ public class ApplicationContextProvider implements Ordered, ApplicationContextAw
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         SpringUtils.AC = ctx;
+        SpringUtils.ID = UUID.randomUUID().toString();
     }
 
     @Override

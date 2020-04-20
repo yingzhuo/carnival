@@ -21,7 +21,7 @@ public class ConverterRegistryAutoConfig {
 
     @Bean
     @ConfigurationPropertiesBinding
-    public StringToBooleanConverter stringToBooleanConverter2() {
+    public StringToBooleanConverter stringToBooleanConverter() {
         return new StringToBooleanConverter();
     }
 
@@ -65,6 +65,18 @@ public class ConverterRegistryAutoConfig {
     @ConfigurationPropertiesBinding
     public StringToHostPortConverter stringToHostPortConverter() {
         return new StringToHostPortConverter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public StringToResourceOptionalConverter stringToResourceOptionalConverter() {
+        return new StringToResourceOptionalConverter();
+    }
+
+    @Bean
+    @ConfigurationPropertiesBinding
+    public StringToResourceTextConverter stringToResourceTextConverter() {
+        return new StringToResourceTextConverter();
     }
 
 }

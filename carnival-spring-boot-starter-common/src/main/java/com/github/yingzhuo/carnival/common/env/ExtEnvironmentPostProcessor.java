@@ -9,21 +9,18 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
+import com.github.yingzhuo.carnival.common.Null;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertySource;
 
-import java.util.UUID;
-
 /**
  * @author 应卓
  * @since 1.4.11
  */
 public class ExtEnvironmentPostProcessor implements EnvironmentPostProcessor {
-
-    public static final String SPRING_ID = "spring.id";
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
@@ -36,17 +33,11 @@ public class ExtEnvironmentPostProcessor implements EnvironmentPostProcessor {
         private static final String PREFIX = "random.";
 
         public ExtPropertySource() {
-            super("carnival-ext", new Object());
+            super("carnival-ext", Null.INSTANCE);
         }
 
         @Override
         public Object getProperty(String name) {
-
-            // ${spring.id}
-            if (SPRING_ID.equals(name)) {
-                return UUID.randomUUID().toString().replaceAll("-", "");
-            }
-
             try {
                 return doGetProperty(name);
             } catch (NumberFormatException e) {
