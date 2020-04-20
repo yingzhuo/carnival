@@ -1,7 +1,7 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.common.env.ExtEnvironmentPostProcessor
+    com.github.yingzhuo.carnival.common.env.EnhancedEnvironmentPostProcessor
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.common.autoconfig.ScanAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.SpringUtilsAutoConfig,\
-    com.github.yingzhuo.carnival.common.autoconfig.ConverterRegistryAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.FormatterRegistryAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.SecretAutoConfig

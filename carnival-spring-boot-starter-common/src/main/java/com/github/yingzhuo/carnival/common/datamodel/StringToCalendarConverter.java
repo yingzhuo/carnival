@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.datamodel;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -19,6 +20,7 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.5.1
  */
+@Component
 public class StringToCalendarConverter implements Converter<String, Calendar> {
 
     private StringToDateConverter converter = new StringToDateConverter();

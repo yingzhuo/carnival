@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
-import com.github.yingzhuo.carnival.common.Null;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
@@ -20,20 +19,19 @@ import org.springframework.core.env.PropertySource;
  * @author 应卓
  * @since 1.4.11
  */
-public class ExtEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class EnhancedEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        environment.getPropertySources()
-                .addFirst(new ExtPropertySource());
+        environment.getPropertySources().addFirst(new EnhancedPropertySource());
     }
 
-    private static class ExtPropertySource extends PropertySource<Object> {
+    private static class EnhancedPropertySource extends PropertySource<Object> {
 
         private static final String PREFIX = "random.";
 
-        public ExtPropertySource() {
-            super("carnival-ext", Null.INSTANCE);
+        public EnhancedPropertySource() {
+            super("enhanced", new Object());
         }
 
         @Override

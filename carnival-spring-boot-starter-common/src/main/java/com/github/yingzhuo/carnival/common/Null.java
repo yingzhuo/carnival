@@ -24,7 +24,7 @@ public final class Null implements Serializable {
 
     @Override
     public String toString() {
-        return "null";
+        return "NullObject";
     }
 
 }

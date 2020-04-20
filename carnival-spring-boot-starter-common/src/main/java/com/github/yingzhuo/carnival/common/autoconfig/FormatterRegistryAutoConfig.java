@@ -14,13 +14,11 @@ import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
 import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
 import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.format.FormatterRegistry;
 
 /**
  * @author 应卓
  */
-@AutoConfigureAfter(ConverterRegistryAutoConfig.class)
 public class FormatterRegistryAutoConfig implements Configurer<FormatterRegistry> {
 
     @Override
