@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.curator.autoconfig;
 
 import com.github.yingzhuo.carnival.curator.CuratorFrameworkFactoryBean;
 import com.github.yingzhuo.carnival.curator.CuratorFrameworkFactoryBuilderConfigurer;
+import com.github.yingzhuo.carnival.curator.actuator.CuratorHealthIndicator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -51,6 +52,11 @@ public class CuratorClientAutoConfig {
         factoryBean.setConfigurer(configurer);
         factoryBean.setRetryPolicy(retryPolicy != null ? retryPolicy : props.getRetry().createRetryPolicy());
         return factoryBean;
+    }
+
+    @Bean
+    public CuratorHealthIndicator curatorHealthIndicator() {
+        return new CuratorHealthIndicator();
     }
 
     // --------------------------------------------------------------------------------------------------------------

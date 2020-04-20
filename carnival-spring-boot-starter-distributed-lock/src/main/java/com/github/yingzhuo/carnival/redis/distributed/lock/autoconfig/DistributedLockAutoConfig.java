@@ -127,7 +127,6 @@ public class DistributedLockAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.distributed-lock")
     public static class Props {
-
         private boolean enable = true;
         private Mode mode = Mode.SINGLE;
         private String keyPrefix = "";
