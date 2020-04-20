@@ -4,6 +4,11 @@
 
 # carnival
 
+### Requires
+
+* Java 8+
+* SpringBoot 2.2.0+
+
 ### Download
 
 * [maven / gradle](https://search.maven.org/search?q=carnival) is highly recommended.

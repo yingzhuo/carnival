@@ -26,18 +26,17 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnKubernetes.OnDebugMode.class)
-public @interface ConditionalOnKubernetes {
+@Conditional(ConditionalOnProdMode.OnDebugMode.class)
+public @interface ConditionalOnProdMode {
 
     static final class OnDebugMode implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             final Environment env = context.getEnvironment();
-            final boolean c1 = env.acceptsProfiles(Profiles.of("k8s"));
-            final boolean c2 = env.acceptsProfiles(Profiles.of("kubernetes"));
-            final boolean c3 = env.acceptsProfiles(Profiles.of("kube"));
-            return c1 || c2 || c3;
+            final boolean c1 = env.acceptsProfiles(Profiles.of("prod"));
+            final boolean c2 = env.acceptsProfiles(Profiles.of("production"));
+            return c1 || c2;
         }
     }
 

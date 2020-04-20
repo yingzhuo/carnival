@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.common.condition;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
@@ -26,18 +25,14 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnKubernetes.OnDebugMode.class)
-public @interface ConditionalOnKubernetes {
+@Conditional(ConditionalOnDevMode.OnDebugMode.class)
+public @interface ConditionalOnDevMode {
 
     static final class OnDebugMode implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            final Environment env = context.getEnvironment();
-            final boolean c1 = env.acceptsProfiles(Profiles.of("k8s"));
-            final boolean c2 = env.acceptsProfiles(Profiles.of("kubernetes"));
-            final boolean c3 = env.acceptsProfiles(Profiles.of("kube"));
-            return c1 || c2 || c3;
+            return context.getEnvironment().acceptsProfiles(Profiles.of("dev"));
         }
     }
 
