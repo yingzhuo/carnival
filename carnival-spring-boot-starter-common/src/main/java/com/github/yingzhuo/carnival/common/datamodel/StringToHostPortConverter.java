@@ -9,20 +9,18 @@
  */
 package com.github.yingzhuo.carnival.common.datamodel;
 
-import com.github.yingzhuo.carnival.common.io.ResourceText;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
+import com.google.common.net.HostAndPort;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author 应卓
- * @since 1.4.1
+ * @since 1.5.1
  */
-public class ResourceTextFormatter extends AbstractObjectFormatter<ResourceText> {
+public class StringToHostPortConverter implements Converter<String, HostAndPort> {
 
     @Override
-    public ResourceText parse(String text, Locale locale) {
-        return ResourceText.of(text, StandardCharsets.UTF_8);
+    public HostAndPort convert(String source) {
+        return HostAndPort.fromString(source);
     }
 
 }

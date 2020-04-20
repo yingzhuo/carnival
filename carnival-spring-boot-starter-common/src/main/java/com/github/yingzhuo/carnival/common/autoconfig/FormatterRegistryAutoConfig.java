@@ -20,9 +20,10 @@ import org.springframework.format.FormatterRegistry;
 /**
  * @author 应卓
  */
-@AutoConfigureAfter(EnhancementAutoConfig.class)
+@AutoConfigureAfter(ConverterRegistryAutoConfig.class)
 public class FormatterRegistryAutoConfig implements Configurer<FormatterRegistry> {
 
+    @Override
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {
         if (registry != null) {

@@ -10,16 +10,16 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.springframework.core.convert.converter.Converter;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * @author 应卓
- * @since 1.3.2
+ * @since 1.5.1
  */
-public class DateFormatter extends AbstractObjectFormatter<Date> {
+public class StringToDateConverter implements Converter<String, Date> {
 
     private final static String[] PATTERNS = {
             "yyyy-MM-dd",
@@ -40,8 +40,12 @@ public class DateFormatter extends AbstractObjectFormatter<Date> {
     };
 
     @Override
-    public Date parse(String text, Locale locale) throws ParseException {
-        return DateUtils.parseDate(text, PATTERNS);
+    public Date convert(String source) {
+        try {
+            return DateUtils.parseDateStrictly(source, PATTERNS);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
+        }
     }
 
 }

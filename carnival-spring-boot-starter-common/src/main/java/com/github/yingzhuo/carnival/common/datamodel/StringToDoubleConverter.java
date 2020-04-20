@@ -10,22 +10,20 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import com.github.yingzhuo.carnival.common.util.AtoiUtils;
-
-import java.text.ParseException;
-import java.util.Locale;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * @author 应卓
- * @since 1.3.2
+ * @since 1.5.1
  */
-public class DoubleFormatter extends AbstractObjectFormatter<Double> {
+public class StringToDoubleConverter implements Converter<String, Double> {
 
     @Override
-    public Double parse(String text, Locale locale) throws ParseException {
+    public Double convert(String source) {
         try {
-            return AtoiUtils.toDouble(text);
+            return AtoiUtils.toDouble(source);
         } catch (Exception e) {
-            throw new ParseException("invalid format", 0);
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
