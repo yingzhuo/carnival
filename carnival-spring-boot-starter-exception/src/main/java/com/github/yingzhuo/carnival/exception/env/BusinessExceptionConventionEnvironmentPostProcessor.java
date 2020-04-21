@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.exception.env;
 
 import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
-import com.github.yingzhuo.springboot.env.util.JarLocation;
+import com.github.yingzhuo.springboot.env.util.JarDir;
 
 /**
  * @author 应卓
@@ -20,8 +20,8 @@ public class BusinessExceptionConventionEnvironmentPostProcessor extends Abstrac
 
     public BusinessExceptionConventionEnvironmentPostProcessor() {
         super("business-exception", new String[]{
-                JarLocation.of().getFileAsResourceLocation("config/business-exception"),
-                JarLocation.of().getFileAsResourceLocation("business-exception"),
+                JarDir.of().getDirAsResourceLocation("config/business-exception"),
+                JarDir.of().getDirAsResourceLocation("business-exception"),
                 "file:config/business-exception",
                 "file:business-exception",
                 "classpath:config/business-exception",

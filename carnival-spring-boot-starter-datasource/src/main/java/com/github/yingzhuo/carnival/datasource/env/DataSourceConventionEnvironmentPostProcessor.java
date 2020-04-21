@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.datasource.env;
 
 import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
-import com.github.yingzhuo.springboot.env.util.JarLocation;
+import com.github.yingzhuo.springboot.env.util.JarDir;
 
 /**
  * @author 应卓
@@ -20,8 +20,8 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
 
     public DataSourceConventionEnvironmentPostProcessor() {
         super("datasource", new String[]{
-                JarLocation.of().getFileAsResourceLocation("config/datasource"),
-                JarLocation.of().getFileAsResourceLocation("datasource"),
+                JarDir.of().getDirAsResourceLocation("config/datasource"),
+                JarDir.of().getDirAsResourceLocation("datasource"),
                 "file:config/datasource",
                 "file:datasource",
                 "classpath:config/datasource",
