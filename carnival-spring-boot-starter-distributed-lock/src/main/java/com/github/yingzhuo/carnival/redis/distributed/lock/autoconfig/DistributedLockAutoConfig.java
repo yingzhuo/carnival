@@ -9,13 +9,13 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.actuator.DistributedLockHealthIndicator;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinderImpl;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreatorImpl;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -114,13 +114,9 @@ public class DistributedLockAutoConfig {
     }
 
     @Bean
+    @ConditionalOnMissingBean
     public RequestIdCreator requestIdFactory() {
         return new RequestIdCreatorImpl();
-    }
-
-    @Bean
-    public DistributedLockHealthIndicator distributedLockHealthIndicator() {
-        return new DistributedLockHealthIndicator();
     }
 
     @Getter

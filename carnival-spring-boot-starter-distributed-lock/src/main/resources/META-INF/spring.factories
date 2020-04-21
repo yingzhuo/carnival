@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockActuatorAutoConfig,\
     com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockAutoConfig
