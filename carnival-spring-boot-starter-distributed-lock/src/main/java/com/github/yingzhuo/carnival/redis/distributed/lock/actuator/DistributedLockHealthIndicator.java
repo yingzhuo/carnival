@@ -23,18 +23,19 @@ public class DistributedLockHealthIndicator extends AbstractHealthIndicator {
 
     @Override
     protected void doHealthCheck(Health.Builder builder) {
-        final String uuid = UUID.randomUUID().toString();
+        final String key = UUID.randomUUID().toString();
 
         try {
-            if (DistributedLock.lock(uuid, 200)) {
-                builder.up();
+            if (DistributedLock.lock(key, 200)) {
+                builder.up()
+                        .withDetail("key", key);
             } else {
                 builder.down();
             }
         } catch (Exception e) {
             builder.down(e);
         } finally {
-            DistributedLock.release(uuid);
+            DistributedLock.release(key);
         }
     }
 

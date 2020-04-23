@@ -59,6 +59,11 @@
             <name>应卓</name>
             <email>yingzhor@gmail.com</email>
         </developer>
+        <developer>
+            <id>chth666</id>
+            <name>程泰恒</name>
+            <email>chth668@163.com</email>
+        </developer>
     </developers>
 
     <distributionManagement>
