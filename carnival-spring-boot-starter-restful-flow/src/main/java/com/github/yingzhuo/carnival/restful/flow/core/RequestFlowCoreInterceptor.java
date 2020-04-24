@@ -73,11 +73,6 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
                 prevSet.add(i);
             }
 
-            log.debug("nameInToken={}", nameInToken);
-            log.debug("stepInToken={}", stepInToken);
-            log.debug("nameInAnnotation={}", annotation.name());
-            log.debug("stepInAnnotation={}", annotation.prevStep());
-
             if (!Objects.equals(nameInToken, annotation.name()) || !prevSet.contains(stepInToken)) {
                 throw new RequestFlowException();
             }

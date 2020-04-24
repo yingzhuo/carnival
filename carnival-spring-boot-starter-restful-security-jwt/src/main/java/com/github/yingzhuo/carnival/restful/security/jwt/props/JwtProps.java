@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.restful.security.jwt.props;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.restful.security.jwt.SignatureAlgorithm;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
@@ -19,6 +21,8 @@ import org.springframework.util.Assert;
 /**
  * @author 应卓
  */
+@Getter
+@Setter
 @ConfigurationProperties(prefix = "carnival.jwt")
 public class JwtProps implements InitializingBean {
 
@@ -37,33 +41,4 @@ public class JwtProps implements InitializingBean {
 
         this.algorithm = signatureAlgorithm.toJwtAlgorithm(this.secret);
     }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
-    }
-
-    public ResourceText getSecretLocation() {
-        return secretLocation;
-    }
-
-    public void setSecretLocation(ResourceText secretLocation) {
-        this.secretLocation = secretLocation;
-    }
-
-    public SignatureAlgorithm getSignatureAlgorithm() {
-        return signatureAlgorithm;
-    }
-
-    public void setSignatureAlgorithm(SignatureAlgorithm signatureAlgorithm) {
-        this.signatureAlgorithm = signatureAlgorithm;
-    }
-
-    public Algorithm getAlgorithm() {
-        return algorithm;
-    }
-
 }

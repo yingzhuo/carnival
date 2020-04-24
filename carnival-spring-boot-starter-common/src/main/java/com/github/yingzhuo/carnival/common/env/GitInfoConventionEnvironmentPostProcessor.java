@@ -24,5 +24,4 @@ public class GitInfoConventionEnvironmentPostProcessor extends AbstractConventio
                 "classpath:META-INF/git",
         });
     }
-
 }

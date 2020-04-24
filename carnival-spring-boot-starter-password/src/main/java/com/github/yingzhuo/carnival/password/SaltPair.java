@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.password;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -22,6 +24,14 @@ public final class SaltPair implements Serializable {
 
     public static SaltPair of(String left, String right) {
         return new SaltPair(left, right);
+    }
+
+    public static SaltPair random(int length) {
+        return new SaltPair(RandomStringUtils.randomAlphabetic(length), RandomStringUtils.randomAlphabetic(length));
+    }
+
+    public static SaltPair random(int leftLength, int rightLength) {
+        return new SaltPair(RandomStringUtils.randomAlphabetic(leftLength), RandomStringUtils.randomAlphabetic(rightLength));
     }
 
     public final String left;
@@ -49,6 +59,14 @@ public final class SaltPair implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(left, right);
+    }
+
+    public String getLeft() {
+        return left;
+    }
+
+    public String getRight() {
+        return right;
     }
 
 }

@@ -17,15 +17,12 @@ import org.springframework.context.annotation.Lazy;
  * @author 应卓
  * @since 1.5.1
  */
-@ComponentScan(
-        basePackages = {
-                "com.github.yingzhuo.carnival"
-        })
-@ConfigurationPropertiesScan(
-        basePackages = {
-                "com.github.yingzhuo.carnival"
-        }
-)
+@ComponentScan({
+        "com.github.yingzhuo.carnival"
+})
+@ConfigurationPropertiesScan({
+        "com.github.yingzhuo.carnival"
+})
 @Lazy(false)
-public class ScanAutoConfig {
+public class ScanningAutoConfig {
 }
