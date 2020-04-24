@@ -21,10 +21,16 @@ public class BusinessExceptionConventionEnvironmentPostProcessor extends Abstrac
     public BusinessExceptionConventionEnvironmentPostProcessor() {
         super("business-exception", new String[]{
                 JarDir.of().getDirAsResourceLocation("config/business-exception"),
+                JarDir.of().getDirAsResourceLocation(".config/business-exception"),
+                JarDir.of().getDirAsResourceLocation("_config/business-exception"),
                 JarDir.of().getDirAsResourceLocation("business-exception"),
                 "file:config/business-exception",
+                "file:.config/business-exception",
+                "file:_config/business-exception",
                 "file:business-exception",
                 "classpath:config/business-exception",
+                "classpath:.config/business-exception",
+                "classpath:_config/business-exception",
                 "classpath:business-exception",
                 "classpath:META-INF/business-exception",
         });

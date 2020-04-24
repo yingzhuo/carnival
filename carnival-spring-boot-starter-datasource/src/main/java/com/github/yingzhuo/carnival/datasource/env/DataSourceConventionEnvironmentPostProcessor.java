@@ -21,10 +21,16 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
     public DataSourceConventionEnvironmentPostProcessor() {
         super("datasource", new String[]{
                 JarDir.of().getDirAsResourceLocation("config/datasource"),
+                JarDir.of().getDirAsResourceLocation(".config/datasource"),
+                JarDir.of().getDirAsResourceLocation("_config/datasource"),
                 JarDir.of().getDirAsResourceLocation("datasource"),
                 "file:config/datasource",
+                "file:.config/datasource",
+                "file:_config/datasource",
                 "file:datasource",
                 "classpath:config/datasource",
+                "classpath:.config/datasource",
+                "classpath:_config/datasource",
                 "classpath:datasource",
                 "classpath:META-INF/datasource",
         });

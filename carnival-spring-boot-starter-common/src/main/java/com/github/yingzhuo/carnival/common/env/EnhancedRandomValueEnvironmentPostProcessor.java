@@ -19,7 +19,7 @@ import org.springframework.core.env.PropertySource;
  * @author 应卓
  * @since 1.4.11
  */
-public class EnhancedEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class EnhancedRandomValueEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
