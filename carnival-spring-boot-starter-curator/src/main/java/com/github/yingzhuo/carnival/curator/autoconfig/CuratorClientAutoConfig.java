@@ -23,6 +23,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -30,6 +31,7 @@ import org.springframework.util.StringUtils;
  * @author 应卓
  * @since 1.3.0
  */
+@Lazy(false)
 @EnableConfigurationProperties(CuratorClientAutoConfig.CuratorClientProps.class)
 @ConditionalOnProperty(prefix = "carnival.curator", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class CuratorClientAutoConfig {

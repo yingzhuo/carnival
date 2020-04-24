@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
@@ -25,5 +26,6 @@ import org.springframework.context.annotation.ComponentScan;
                 "com.github.yingzhuo.carnival"
         }
 )
+@Lazy(false)
 public class ScanAutoConfig {
 }

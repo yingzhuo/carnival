@@ -17,12 +17,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author 应卓
  */
+@Lazy(false)
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MvcWebrootAutoConfig.Props.class)

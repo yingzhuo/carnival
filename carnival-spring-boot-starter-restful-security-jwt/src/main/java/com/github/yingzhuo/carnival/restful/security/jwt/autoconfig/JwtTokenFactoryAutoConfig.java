@@ -14,10 +14,12 @@ import com.github.yingzhuo.carnival.restful.security.jwt.factory.JwtTokenFactory
 import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  */
+@Lazy(false)
 public class JwtTokenFactoryAutoConfig {
 
     @Bean

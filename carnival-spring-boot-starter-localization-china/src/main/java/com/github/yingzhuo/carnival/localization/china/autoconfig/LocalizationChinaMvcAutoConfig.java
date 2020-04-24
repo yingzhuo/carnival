@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.localization.china.mvc.StringQRCodeHandlerMe
 import com.github.yingzhuo.carnival.localization.china.tool.QRCodeCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -23,6 +24,7 @@ import java.util.List;
 /**
  * @author 应卓
  */
+@Lazy(false)
 @ConditionalOnWebApplication
 public class LocalizationChinaMvcAutoConfig implements WebMvcConfigurer {
 

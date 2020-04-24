@@ -25,6 +25,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.OrderComparator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -36,6 +37,7 @@ import java.util.List;
 /**
  * @author 应卓
  */
+@Lazy(false)
 @ConditionalOnWebApplication
 @AutoConfigureAfter(RestfulSecurityAutoConfig.class)
 public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, ApplicationRunner {

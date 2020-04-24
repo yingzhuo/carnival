@@ -12,11 +12,13 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  * @since 1.0.0
  */
+@Lazy(false)
 public class SpringUtilsAutoConfig {
 
     @Bean

@@ -13,10 +13,12 @@ import com.github.yingzhuo.carnival.json.module.SpringDataJacksonModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  */
+@Lazy(false)
 @ConditionalOnClass(name = "org.springframework.data.domain.Page")
 public class SpringDataModuleAutoConfig {
 

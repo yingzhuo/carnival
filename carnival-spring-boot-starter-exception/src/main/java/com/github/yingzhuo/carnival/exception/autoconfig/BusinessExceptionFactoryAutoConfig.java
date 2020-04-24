@@ -19,12 +19,14 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.Map;
 
 /**
  * @author 应卓
  */
+@Lazy(false)
 @EnableConfigurationProperties({
         BusinessExceptionFactoryAutoConfig.Props.class,
         PropertySourceBusinessExceptionFactory.Env.class}

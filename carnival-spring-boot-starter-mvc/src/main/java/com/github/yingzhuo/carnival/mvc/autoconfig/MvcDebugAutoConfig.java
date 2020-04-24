@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author 应卓
  */
+@Lazy(false)
 @ConditionalOnDebugMode
 @ConditionalOnWebApplication
 public class MvcDebugAutoConfig implements WebMvcConfigurer {
