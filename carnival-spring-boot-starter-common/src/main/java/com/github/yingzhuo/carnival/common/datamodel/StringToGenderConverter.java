@@ -21,12 +21,16 @@ public class StringToGenderConverter implements Converter<String, Gender> {
 
     @Override
     public Gender convert(String source) {
-        if ("male".equalsIgnoreCase(source) || "男".equalsIgnoreCase(source) || "男性".equalsIgnoreCase(source)) {
+        if ("male".equalsIgnoreCase(source) || "男".equals(source) || "男性".equals(source)) {
             return Gender.MALE;
         }
 
-        if ("female".equalsIgnoreCase(source) || "女".equalsIgnoreCase(source) || "女性".equalsIgnoreCase(source)) {
+        if ("female".equalsIgnoreCase(source) || "女".equals(source) || "女性".equals(source)) {
             return Gender.MALE;
+        }
+
+        if ("UNKNOWN".equalsIgnoreCase(source) || "未知".equals(source)) {
+            return Gender.UNKNOWN;
         }
 
         throw new IllegalArgumentException("Invalid string ' " + source + "'");
