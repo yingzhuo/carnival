@@ -7,29 +7,29 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.flow.autoconfig;
+package com.github.yingzhuo.carnival.stateless.captcha.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.flow.parser.HttpParameterStepTokenParser;
-import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
+import com.github.yingzhuo.carnival.stateless.captcha.CaptchaDao;
+import com.github.yingzhuo.carnival.stateless.captcha.impl.MapCaptchaDao;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
- * @since 1.3.6
+ * @since 1.5.3
  */
 @Lazy(false)
-@ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.flow", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class RequestFlowBeanAutoConfig {
+@ConditionalOnProperty(prefix = "carnival.stateless-captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnMissingClass("org.springframework.data.redis.core.StringRedisTemplate")
+public class CaptchaFactoryBeanAutoConfig1 {
 
     @Bean
     @ConditionalOnMissingBean
-    public StepTokenParser stepTokenParser() {
-        return new HttpParameterStepTokenParser();
+    public CaptchaDao captchaDao() {
+        return new MapCaptchaDao();
     }
 
 }

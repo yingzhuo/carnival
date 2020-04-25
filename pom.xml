@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.3</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
@@ -110,11 +110,6 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-restful-security</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

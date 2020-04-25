@@ -49,9 +49,9 @@ public class FixedStringTokenParser implements TokenParser, InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        log.warn("");
+        log.warn("~~~~~~");
         log.warn("DO NOT use {} in your production environment.", getClass().getName());
-        log.warn("");
+        log.warn("~~~~~~");
     }
 
 }

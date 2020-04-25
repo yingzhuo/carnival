@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.github.yingzhuo.carnival.json.Views;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
@@ -23,7 +21,6 @@ import java.util.stream.Collectors;
 /**
  * @author 应卓
  */
-@JsonView(Views.Normal.class)
 public interface UserDetails extends Serializable {
 
     public static UserDetailsBuilder builder() {
@@ -34,7 +31,6 @@ public interface UserDetails extends Serializable {
 
     public String getUsername();
 
-    @JsonView(Views.Secret.class)
     public String getPassword();
 
     public boolean isExpired();

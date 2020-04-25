@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.stateless.captcha.autoconfig.CaptchaFactoryAutoConfig
+    com.github.yingzhuo.carnival.stateless.captcha.autoconfig.CaptchaFactoryBeanAutoConfig1,\
+    com.github.yingzhuo.carnival.stateless.captcha.autoconfig.CaptchaFactoryBeanAutoConfig2,\
+    com.github.yingzhuo.carnival.stateless.captcha.autoconfig.CaptchaFactoryCoreAutoConfig
