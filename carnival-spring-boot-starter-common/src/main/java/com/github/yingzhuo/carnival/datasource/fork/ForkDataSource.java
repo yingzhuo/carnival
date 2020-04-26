@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 /**
  * @author 应卓
- * @since 1.3.7
+ * @since 1.6.0
  */
 public class ForkDataSource implements DataSource, InitializingBean {
 

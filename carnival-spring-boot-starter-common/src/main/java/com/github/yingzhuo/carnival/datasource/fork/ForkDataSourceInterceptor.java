@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author 应卓
- * @since 1.3.7
+ * @since 1.6.0
  */
 @Slf4j
 public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
@@ -32,7 +32,7 @@ public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         ForkDataSourceSwitch annotation = super.getMethodAnnotation(ForkDataSourceSwitch.class, handler).orElse(null);
         if (annotation != null && forkDataSource != null) {
-            log.debug("datasource switch to {}", annotation.value());
+            log.trace("datasource switch to {}", annotation.value());
             forkDataSource.getLookup().set(annotation.value());
         }
         return true;

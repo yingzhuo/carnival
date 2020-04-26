@@ -6,13 +6,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.5.3</version>
+    <version>1.6.0</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
-        <module>carnival-spring-boot-starter-datasource</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
-        <module>carnival-spring-boot-starter-exception</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>

@@ -1,4 +1,0 @@
-org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.datasource.env.DataSourceConventionEnvironmentPostProcessor
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.datasource.autoconfig.ForkDataSourceMvcAutoConfig

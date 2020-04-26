@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.env;
+package com.github.yingzhuo.carnival.common.env;
 
 import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
 import com.github.yingzhuo.springboot.env.util.JarDir;

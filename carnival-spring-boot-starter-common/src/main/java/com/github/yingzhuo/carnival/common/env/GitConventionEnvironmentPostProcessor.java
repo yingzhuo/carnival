@@ -15,9 +15,9 @@ import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentP
  * @author 应卓
  * @since 1.4.2
  */
-public class GitInfoConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
+public class GitConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    public GitInfoConventionEnvironmentPostProcessor() {
+    public GitConventionEnvironmentPostProcessor() {
         super("git", new String[]{
                 "classpath:config/git",
                 "classpath:git",

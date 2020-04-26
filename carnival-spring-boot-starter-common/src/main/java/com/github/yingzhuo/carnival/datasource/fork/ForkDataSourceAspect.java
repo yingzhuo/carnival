@@ -14,10 +14,14 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+/**
+ * @author 应卓
+ * @since 1.6.0
+ */
 @Slf4j
 @Aspect
 public class ForkDataSourceAspect implements ApplicationContextAware {
@@ -30,7 +34,7 @@ public class ForkDataSourceAspect implements ApplicationContextAware {
         final ForkDataSourceSwitch annotation = ((MethodSignature) pjp.getSignature()).getMethod().getAnnotation(ForkDataSourceSwitch.class);
 
         if (annotation != null && forkDataSource != null) {
-            log.debug("datasource switch to {}", annotation.value());
+            log.trace("datasource switch to {}", annotation.value());
             forkDataSource.getLookup().set(annotation.value());
         }
 
@@ -44,10 +48,10 @@ public class ForkDataSourceAspect implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) throws NoSuchBeanDefinitionException {
         try {
             this.forkDataSource = applicationContext.getBean(ForkDataSource.class);
-        } catch (BeansException e) {
+        } catch (NoSuchBeanDefinitionException e) {
             this.forkDataSource = null;
         }
     }

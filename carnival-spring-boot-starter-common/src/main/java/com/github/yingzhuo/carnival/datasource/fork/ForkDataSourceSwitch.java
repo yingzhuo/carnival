@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.3.7
+ * @since 1.6.0
  */
 @Inherited
 @Documented

@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author 应卓
- * @since 1.4.0
+ * @since 1.6.0
  */
 @Slf4j
 public class ForkDataSourceBuilder {

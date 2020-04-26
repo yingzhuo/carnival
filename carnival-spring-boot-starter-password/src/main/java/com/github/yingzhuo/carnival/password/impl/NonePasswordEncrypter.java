@@ -10,14 +10,24 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-public class NonePasswordEncrypter implements PasswordEncrypter {
+@Slf4j
+public class NonePasswordEncrypter implements PasswordEncrypter, InitializingBean {
+
+    @Override
+    public void afterPropertiesSet() {
+        log.warn("~~~~~~");
+        log.warn("DO NOT use {} in your production environment.", getClass().getName());
+        log.warn("~~~~~~");
+    }
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {

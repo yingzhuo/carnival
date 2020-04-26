@@ -37,9 +37,6 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
     private Algorithm algorithm;
     private StepTokenParser stepTokenParser;
 
-    public RequestFlowCoreInterceptor() {
-    }
-
     public RequestFlowCoreInterceptor(Algorithm algorithm, StepTokenParser stepTokenParser) {
         this.algorithm = algorithm;
         this.stepTokenParser = stepTokenParser;
@@ -85,11 +82,4 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
         return true;
     }
 
-    public void setStepTokenParser(StepTokenParser stepTokenParser) {
-        this.stepTokenParser = stepTokenParser;
-    }
-
-    public void setAlgorithm(Algorithm algorithm) {
-        this.algorithm = algorithm;
-    }
 }
