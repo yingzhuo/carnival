@@ -18,7 +18,7 @@ import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSup
 import com.github.yingzhuo.carnival.restful.flow.RequestFlow;
 import com.github.yingzhuo.carnival.restful.flow.exception.RequestFlowException;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
-import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,21 +31,27 @@ import java.util.Set;
  * @author 应卓
  * @since 1.3.6
  */
-@Slf4j
 public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
 
     private Algorithm algorithm;
-    private StepTokenParser stepTokenParser;
+    private StepTokenParser tokenParser;
 
-    public RequestFlowCoreInterceptor(Algorithm algorithm, StepTokenParser stepTokenParser) {
-        this.algorithm = algorithm;
-        this.stepTokenParser = stepTokenParser;
+    public RequestFlowCoreInterceptor(Algorithm algorithm, StepTokenParser parser) {
+        this.algorithm = Objects.requireNonNull(algorithm);
+        this.tokenParser = Objects.requireNonNull(parser);
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        final RequestFlow annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
+        // method annotation
+        RequestFlow annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
+
+        // class annotation
+        if (annotation == null) {
+            annotation = super.getClassAnnotation(RequestFlow.class, handler).orElse(null);
+        }
+
         if (annotation == null) {
             return true;
         }
@@ -54,9 +60,11 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             return true;
         }
 
-        final String stepToken = stepTokenParser.parse(new ServletWebRequest(request, response)).orElse(null);
+        val msg = getMsg(annotation);
+
+        final String stepToken = tokenParser.parse(new ServletWebRequest(request, response)).orElse(null);
         if (stepToken == null) {
-            throw new RequestFlowException();
+            throw new RequestFlowException(msg);
         }
 
         try {
@@ -65,21 +73,28 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             final String nameInToken = jwt.getClaim("name").asString();
             final Integer stepInToken = jwt.getClaim("step").asInt();
 
-            Set<Integer> prevSet = new HashSet<>();
+            final Set<Integer> prevSet = new HashSet<>();
             for (int i : annotation.prevStep()) {
                 prevSet.add(i);
             }
 
             if (!Objects.equals(nameInToken, annotation.name()) || !prevSet.contains(stepInToken)) {
-                throw new RequestFlowException();
+                throw new RequestFlowException(msg);
             }
 
         } catch (AlgorithmMismatchException | TokenExpiredException | SignatureVerificationException | InvalidClaimException | JWTDecodeException ex) {
-            log.warn(ex.getMessage(), ex);
-            throw new RequestFlowException(ex.getMessage());
+            throw new RequestFlowException(msg);
         }
 
         return true;
+    }
+
+    private String getMsg(RequestFlow annotation) {
+        if ("".equals(annotation.message())) {
+            return null;
+        } else {
+            return annotation.message();
+        }
     }
 
 }

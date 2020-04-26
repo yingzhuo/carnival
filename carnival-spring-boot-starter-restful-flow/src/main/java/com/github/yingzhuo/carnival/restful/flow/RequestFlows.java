@@ -12,6 +12,9 @@ package com.github.yingzhuo.carnival.restful.flow;
 import com.auth0.jwt.JWT;
 import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import lombok.val;
+
+import java.util.Date;
 
 /**
  * @author 应卓
@@ -19,12 +22,15 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public final class RequestFlows {
 
-    public static String newStepToken(String name, int step) {
+    public static String newToken(String name, int step) {
+        val props = SpringUtils.getBean(FlowProps.class);
+        val now = System.currentTimeMillis();
         return JWT.create()
                 .withClaim("name", name)
                 .withClaim("step", step)
-                .withClaim("timestamp", System.currentTimeMillis())
-                .sign(SpringUtils.getBean(FlowProps.class).calcAlgorithm());
+                .withClaim("timestamp", now)
+                .withExpiresAt(new Date(now + props.getTtl().toMillis()))
+                .sign(props.calcAlgorithm());
     }
 
     private RequestFlows() {

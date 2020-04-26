@@ -13,6 +13,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.convert.DurationUnit;
+
+import java.io.Serializable;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 
 /**
  * @author 应卓
@@ -21,12 +26,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.flow")
-public class FlowProps {
+public class FlowProps implements Serializable {
 
     private boolean enabled = true;
+
     private String secret = FlowProps.class.getName();
+
     private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
+
     private String[] interceptorPatterns = new String[]{"/", "/**"};
+
+    @DurationUnit(ChronoUnit.MINUTES)
+    private Duration ttl = Duration.ofMinutes(10L); // 默认10分钟过期
 
     // ------------------------------------------------------------------------------------------------
 

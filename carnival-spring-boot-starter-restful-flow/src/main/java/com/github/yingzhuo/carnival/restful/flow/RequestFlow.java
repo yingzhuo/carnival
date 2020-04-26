@@ -14,11 +14,13 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface RequestFlow {
 
     public String name();
 
     public int[] prevStep() default {};
+
+    public String message() default "";
 
 }

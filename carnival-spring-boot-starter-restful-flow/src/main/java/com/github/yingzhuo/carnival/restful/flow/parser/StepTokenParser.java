@@ -9,11 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.parser;
 
-import lombok.val;
 import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -30,15 +28,4 @@ public interface StepTokenParser extends Ordered {
         return 0;
     }
 
-    public default StepTokenParser or(StepTokenParser that) {
-        return (webRequest) -> {
-            val thisOp = this.parse(webRequest);
-
-            if (thisOp.isPresent()) {
-                return thisOp;
-            } else {
-                return Objects.requireNonNull(that).parse(webRequest);
-            }
-        };
-    }
 }
