@@ -7,26 +7,22 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.feign;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @since 1.6.0
  */
 @Documented
 @Inherited
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = UUID36Validator.class)
-public @interface UUID36 {
+public @interface XRequestHeader {
 
-    public String message() default "Invalid uuid (36)";
+    public String name();
 
-    public Class<?>[] groups() default {};
-
-    public Class<? extends Payload>[] payload() default {};
+    public String value();
 
 }

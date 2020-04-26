@@ -17,6 +17,8 @@ import java.lang.annotation.*;
  * @author 应卓
  */
 @Repeatable(FieldsValueMatch.List.class)
+@Documented
+@Inherited
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldsValueMatchValidator.class)
