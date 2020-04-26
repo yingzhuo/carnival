@@ -10,16 +10,12 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 /**
  * @author 应卓
  * @since 1.5.1
  */
-@Component
-@ConfigurationPropertiesBinding
 public class StringToResourceTextConverter implements Converter<String, ResourceText> {
 
     @Override

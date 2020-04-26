@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.distributed.lock;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockAutoConfig;
+import com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig.DistributedLockCoreAutoConfig;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
 import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
@@ -34,8 +34,8 @@ public final class DistributedLock implements Constant {
 
         Assert.hasText(key, "key is null or blank.");
 
-        final String prefix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeyPrefix();
-        final String suffix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeySuffix();
+        final String prefix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeyPrefix();
+        final String suffix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeySuffix();
         final RequestIdCreator requestIdCreator = SpringUtils.getBean(RequestIdCreator.class);
         final String effKey = prefix + key + suffix;
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
@@ -65,8 +65,8 @@ public final class DistributedLock implements Constant {
     public static boolean release(String key) {
         Assert.hasText(key, "key is null or blank.");
 
-        final String prefix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeyPrefix();
-        final String suffix = SpringUtils.getBean(DistributedLockAutoConfig.Props.class).getKeySuffix();
+        final String prefix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeyPrefix();
+        final String suffix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeySuffix();
         final RequestIdCreator requestIdCreator = SpringUtils.getBean(RequestIdCreator.class);
         final String effKey = prefix + key + suffix;
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());

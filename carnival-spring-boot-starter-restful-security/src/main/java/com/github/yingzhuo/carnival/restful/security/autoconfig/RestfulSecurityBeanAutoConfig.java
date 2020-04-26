@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Lazy;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-public class RestfulSecurityAutoConfig {
+public class RestfulSecurityBeanAutoConfig {
 
     @Bean
     public RequiresAuthenticationAuthComponent requiresAuthenticationAuthComponent() {

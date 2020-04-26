@@ -21,50 +21,55 @@ import org.springframework.core.env.PropertySource;
  */
 public class EnhancedRandomValueEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
+    private static final String PREFIX = "random.";
+
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
-        environment.getPropertySources().addFirst(new EnhancedPropertySource());
-    }
+        environment.getPropertySources().addFirst(new PropertySource<Object>("enhancedRandom") {
 
-    private static class EnhancedPropertySource extends PropertySource<Object> {
+            @Override
+            public Object getProperty(String name) {
+                try {
+                    return doGetProperty(name);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
 
-        private static final String PREFIX = "random.";
+            private Object doGetProperty(String name) {
+                if (!name.startsWith(PREFIX)) {
+                    return null;
+                }
+                name = name.substring(PREFIX.length()).trim();
 
-        public EnhancedPropertySource() {
-            super("enhanced", new Object());
-        }
+                if (name.startsWith("alphabetic(") && name.endsWith(")")) {
+                    name = name.substring("alphabetic(".length(), name.length() - 1);
+                    return RandomStringUtils.randomAlphabetic(Integer.parseInt(name.trim()));
+                }
 
-        @Override
-        public Object getProperty(String name) {
-            try {
-                return doGetProperty(name);
-            } catch (NumberFormatException e) {
+                if (name.startsWith("alphanumeric(") && name.endsWith(")")) {
+                    name = name.substring("alphanumeric(".length(), name.length() - 1);
+                    return RandomStringUtils.randomAlphanumeric(Integer.parseInt(name.trim()));
+                }
+
+                if (name.startsWith("numeric(") && name.endsWith(")")) {
+                    name = name.substring("numeric(".length(), name.length() - 1);
+                    return RandomStringUtils.randomNumeric(Integer.parseInt(name.trim()));
+                }
+
+                if (name.startsWith("ascii(") && name.endsWith(")")) {
+                    name = name.substring("ascii(".length(), name.length() - 1);
+                    return RandomStringUtils.randomAscii(Integer.parseInt(name.trim()));
+                }
+
+                if (name.startsWith("print(") && name.endsWith(")")) {
+                    name = name.substring("print(".length(), name.length() - 1);
+                    return RandomStringUtils.randomPrint(Integer.parseInt(name.trim()));
+                }
+
                 return null;
             }
-        }
-
-        private Object doGetProperty(String name) {
-            if (!name.startsWith(PREFIX)) {
-                return null;
-            }
-            name = name.substring(PREFIX.length()).trim();
-
-            if (name.startsWith("alphabetic(") && name.endsWith(")")) {
-                name = name.substring("alphabetic(".length(), name.length() - 1);
-                return RandomStringUtils.randomAlphabetic(Integer.parseInt(name));
-            }
-
-            if (name.startsWith("alphanumeric(") && name.endsWith(")")) {
-                name = name.substring("alphanumeric(".length(), name.length() - 1);
-                return RandomStringUtils.randomAlphanumeric(Integer.parseInt(name));
-            }
-
-            if (name.startsWith("numeric(") && name.endsWith(")")) {
-                name = name.substring("numeric(".length(), name.length() - 1);
-                return RandomStringUtils.randomNumeric(Integer.parseInt(name));
-            }
-            return null;
-        }
+        });
     }
 
 }

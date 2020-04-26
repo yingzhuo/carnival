@@ -26,9 +26,9 @@ import java.time.format.DateTimeFormatter;
  * @since 1.4.3
  */
 @Lazy(false)
-@EnableConfigurationProperties(JacksonAutoConfig.Props.class)
+@EnableConfigurationProperties(JacksonCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.jackson", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class JacksonAutoConfig {
+public class JacksonCoreAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer(Props props) {

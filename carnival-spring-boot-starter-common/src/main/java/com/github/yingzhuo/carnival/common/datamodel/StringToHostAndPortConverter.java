@@ -10,16 +10,12 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import com.google.common.net.HostAndPort;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 /**
  * @author 应卓
  * @since 1.5.2
  */
-@Component
-@ConfigurationPropertiesBinding
 public class StringToHostAndPortConverter implements Converter<String, HostAndPort> {
 
     @Override

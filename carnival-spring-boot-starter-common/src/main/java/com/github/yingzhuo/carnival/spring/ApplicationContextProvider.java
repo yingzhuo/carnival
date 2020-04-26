@@ -44,7 +44,7 @@ public class ApplicationContextProvider implements Ordered, ApplicationContextAw
     @Override
     public void setApplicationContext(ApplicationContext ctx) throws BeansException {
         SpringUtils.AC = ctx;
-        SpringUtils.ID = UUID.randomUUID().toString();
+        SpringUtils.ID = "s" + UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     @Override

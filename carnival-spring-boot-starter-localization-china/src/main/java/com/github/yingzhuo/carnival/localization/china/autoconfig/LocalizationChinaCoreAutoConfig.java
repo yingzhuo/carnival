@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Lazy;
  * @author 应卓
  */
 @Lazy(false)
-public class LocalizationChinaAutoConfig {
+public class LocalizationChinaCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

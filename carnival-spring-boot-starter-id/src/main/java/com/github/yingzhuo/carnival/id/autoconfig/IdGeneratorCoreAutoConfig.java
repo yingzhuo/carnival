@@ -31,9 +31,9 @@ import org.springframework.context.annotation.Lazy;
  */
 @Slf4j
 @Lazy(false)
-@EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
+@EnableConfigurationProperties(IdGeneratorCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class IdGeneratorAutoConfig {
+public class IdGeneratorCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

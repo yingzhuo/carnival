@@ -32,7 +32,7 @@ public class BusinessExceptionConventionEnvironmentPostProcessor extends Abstrac
                 "classpath:.config/business-exception",
                 "classpath:_config/business-exception",
                 "classpath:business-exception",
-                "classpath:META-INF/business-exception",
+                "classpath:META-INF/business-exception"
         });
     }
 

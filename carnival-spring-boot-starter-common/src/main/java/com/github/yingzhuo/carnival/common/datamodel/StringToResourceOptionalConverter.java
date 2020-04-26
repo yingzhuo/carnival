@@ -11,16 +11,12 @@ package com.github.yingzhuo.carnival.common.datamodel;
 
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 /**
  * @author 应卓
  * @since 1.5.1
  */
-@Component
-@ConfigurationPropertiesBinding
 public class StringToResourceOptionalConverter implements Converter<String, ResourceOptional> {
 
     @Override

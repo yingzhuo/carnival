@@ -39,8 +39,8 @@ import java.util.List;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-@AutoConfigureAfter(RestfulSecurityAutoConfig.class)
-public class RestfulSecurityInterceptorAutoConfig implements WebMvcConfigurer, ApplicationRunner {
+@AutoConfigureAfter(RestfulSecurityBeanAutoConfig.class)
+public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired
     private List<TokenParser> tokenParsers;

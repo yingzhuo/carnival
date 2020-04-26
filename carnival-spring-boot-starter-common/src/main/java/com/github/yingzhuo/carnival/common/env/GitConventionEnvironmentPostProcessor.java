@@ -19,9 +19,8 @@ public class GitConventionEnvironmentPostProcessor extends AbstractConventionEnv
 
     public GitConventionEnvironmentPostProcessor() {
         super("git", new String[]{
-                "classpath:config/git",
                 "classpath:git",
-                "classpath:META-INF/git",
+                "classpath:META-INF/git"
         });
     }
 }

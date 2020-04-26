@@ -21,8 +21,6 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.5.1
  */
-@Component
-@ConfigurationPropertiesBinding
 public class StringToCalendarConverter implements Converter<String, Calendar> {
 
     private StringToDateConverter converter = new StringToDateConverter();

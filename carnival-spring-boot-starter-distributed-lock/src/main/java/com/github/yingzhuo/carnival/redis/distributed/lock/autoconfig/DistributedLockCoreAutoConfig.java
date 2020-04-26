@@ -33,9 +33,9 @@ import java.util.stream.Stream;
  * @author 应卓
  */
 @Lazy(false)
-@EnableConfigurationProperties(DistributedLockAutoConfig.Props.class)
+@EnableConfigurationProperties(DistributedLockCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.distributed-lock", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class DistributedLockAutoConfig {
+public class DistributedLockCoreAutoConfig {
 
     @Bean
     public JedisCommandsFinder jedisCommandsFinder(Props props) {

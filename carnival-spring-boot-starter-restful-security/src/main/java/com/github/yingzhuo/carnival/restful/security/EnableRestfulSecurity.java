@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityAutoConfig;
-import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityInterceptorAutoConfig;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityBeanAutoConfig;
+import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityCoreAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.type.AnnotationMetadata;
 
@@ -39,8 +39,8 @@ public @interface EnableRestfulSecurity {
             AnnotationAttributesHolder.setAnnotationMetadata(EnableRestfulSecurity.class, importingClassMetadata);
 
             return new String[]{
-                    RestfulSecurityAutoConfig.class.getName(),
-                    RestfulSecurityInterceptorAutoConfig.class.getName()
+                    RestfulSecurityBeanAutoConfig.class.getName(),
+                    RestfulSecurityCoreAutoConfig.class.getName()
             };
         }
     }

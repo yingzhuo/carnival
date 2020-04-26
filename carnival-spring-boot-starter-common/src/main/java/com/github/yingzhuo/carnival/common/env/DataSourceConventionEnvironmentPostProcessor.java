@@ -32,7 +32,7 @@ public class DataSourceConventionEnvironmentPostProcessor extends AbstractConven
                 "classpath:.config/datasource",
                 "classpath:_config/datasource",
                 "classpath:datasource",
-                "classpath:META-INF/datasource",
+                "classpath:META-INF/datasource"
         });
     }
 }

@@ -10,9 +10,7 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -21,8 +19,6 @@ import java.util.Date;
  * @author 应卓
  * @since 1.5.1
  */
-@Component
-@ConfigurationPropertiesBinding
 public class StringToDateConverter implements Converter<String, Date> {
 
     private final static String[] PATTERNS = {
