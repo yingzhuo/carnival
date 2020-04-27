@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.feign.XRequestHeader;
 import com.github.yingzhuo.carnival.feign.XRequestHeaderHttpBasic;
 import feign.MethodMetadata;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
-import org.springframework.http.HttpHeaders;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -62,7 +61,7 @@ public class XSpringMvcContract extends SpringMvcContract {
             final String username = a.username();
             final String password = a.password();
             final String value = "Basic " + Base64.getUrlEncoder().encodeToString(String.format("%s:%s", username, password).getBytes(StandardCharsets.UTF_8));
-            data.template().header(HttpHeaders.AUTHORIZATION, value);
+            data.template().header("Authorization", value);
         }
     }
 

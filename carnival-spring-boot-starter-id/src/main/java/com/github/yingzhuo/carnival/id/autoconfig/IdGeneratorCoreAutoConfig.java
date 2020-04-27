@@ -59,7 +59,7 @@ public class IdGeneratorCoreAutoConfig {
             case UUID_36:
                 return new UUID36IdGenerator();
             default:
-                throw new AssertionError(); // 程序不会运行到此处
+                throw new AssertionError();
         }
     }
 

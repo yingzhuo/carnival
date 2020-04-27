@@ -10,9 +10,7 @@
 package com.github.yingzhuo.carnival.common.datamodel;
 
 import org.apache.commons.lang3.time.DateUtils;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Objects;
