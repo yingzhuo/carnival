@@ -9,14 +9,10 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
-import lombok.extern.slf4j.Slf4j;
-import lombok.val;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.util.HashMap;
 import java.util.Optional;
-import java.util.TreeMap;
 
 /**
  * @author 应卓
@@ -35,21 +31,8 @@ public class PropertySourceBusinessExceptionFactory extends AbstractBusinessExce
         return Optional.ofNullable(env.get(code));
     }
 
-    @Slf4j
     @ConfigurationProperties(prefix = "business.exception")
-    public static class Env extends HashMap<String, String> implements InitializingBean {
-
-        @Override
-        public void afterPropertiesSet() {
-            if (log.isDebugEnabled() && !isEmpty()) {
-                val sorted = new TreeMap<>(this);
-                log.debug("business-exception: ");
-                for (String key : sorted.keySet()) {
-                    val value = sorted.get(key);
-                    log.debug("business.exception.{}={}", key, value);
-                }
-            }
-        }
+    public static class Env extends HashMap<String, String> {
     }
 
 }
