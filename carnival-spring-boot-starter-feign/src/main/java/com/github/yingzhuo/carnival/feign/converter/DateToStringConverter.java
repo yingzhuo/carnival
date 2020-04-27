@@ -13,6 +13,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -23,7 +24,7 @@ public class DateToStringConverter implements Converter<Date, String> {
     private final String pattern;
 
     public DateToStringConverter(String pattern) {
-        this.pattern = pattern;
+        this.pattern = Objects.requireNonNull(pattern);
     }
 
     @Override

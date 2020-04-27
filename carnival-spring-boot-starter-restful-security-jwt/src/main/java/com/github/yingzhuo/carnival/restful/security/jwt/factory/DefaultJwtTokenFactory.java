@@ -47,7 +47,7 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
         Optional.ofNullable(info.getJwtId()).ifPresent(builder::withJWTId);
         Optional.ofNullable(info.getAudience()).ifPresent(it -> {
             if (!it.isEmpty()) {
-                builder.withAudience(info.getAudience().toArray(new String[info.getAudience().size()]));
+                builder.withAudience(info.getAudience().toArray(new String[0]));
             }
         });
 

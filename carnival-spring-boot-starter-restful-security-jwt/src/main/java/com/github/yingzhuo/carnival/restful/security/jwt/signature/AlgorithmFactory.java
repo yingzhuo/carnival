@@ -7,20 +7,17 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.factory;
+package com.github.yingzhuo.carnival.restful.security.jwt.signature;
 
-import java.util.Objects;
+import com.auth0.jwt.algorithms.Algorithm;
 
 /**
  * @author 应卓
+ * @since 1.6.0
  */
 @FunctionalInterface
-public interface JwtTokenFactory {
+public interface AlgorithmFactory {
 
-    public String create(JwtTokenInfo entity);
-
-    public default String create(JwtTokenInfo.Builder builder) {
-        return create(Objects.requireNonNull(builder).build());
-    }
+    public Algorithm create();
 
 }

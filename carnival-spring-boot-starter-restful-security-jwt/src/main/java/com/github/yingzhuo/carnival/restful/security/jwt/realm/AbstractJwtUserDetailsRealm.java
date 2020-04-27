@@ -14,7 +14,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.restful.security.exception.UnsupportedTokenTypeException;
 import com.github.yingzhuo.carnival.restful.security.jwt.exception.*;
-import com.github.yingzhuo.carnival.restful.security.jwt.props.JwtProps;
+import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -35,7 +35,7 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
-            final JWTVerifier verifier = JWT.require(SpringUtils.getBean(JwtProps.class).getAlgorithm()).build();
+            final JWTVerifier verifier = JWT.require(SpringUtils.getBean(AlgorithmFactory.class).create()).build();
 
             try {
                 return Optional.ofNullable(getUserDetails(token, verifier.verify(tokenValue)));

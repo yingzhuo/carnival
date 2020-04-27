@@ -43,6 +43,7 @@ public enum SignatureAlgorithm {
 
         try {
             switch (this) {
+                // TODO: RSA 算法在节点多开时有严重问题
                 case RSA256:
                     generator = KeyPairGenerator.getInstance("RSA");
                     generator.initialize(1024);
@@ -50,6 +51,7 @@ public enum SignatureAlgorithm {
                     publicKey = (RSAPublicKey) keyPair.getPublic();
                     privateKey = (RSAPrivateKey) keyPair.getPrivate();
                     return Algorithm.RSA256(publicKey, privateKey);
+                // TODO: RSA 算法在节点多开时有严重问题
                 case RSA384:
                     generator = KeyPairGenerator.getInstance("RSA");
                     generator.initialize(1024);
@@ -57,6 +59,7 @@ public enum SignatureAlgorithm {
                     publicKey = (RSAPublicKey) keyPair.getPublic();
                     privateKey = (RSAPrivateKey) keyPair.getPrivate();
                     return Algorithm.RSA384(publicKey, privateKey);
+                // TODO: RSA 算法在节点多开时有严重问题
                 case RSA512:
                     generator = KeyPairGenerator.getInstance("RSA");
                     generator.initialize(1024);

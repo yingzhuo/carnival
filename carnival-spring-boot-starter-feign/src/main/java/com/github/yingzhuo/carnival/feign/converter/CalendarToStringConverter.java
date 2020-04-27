@@ -13,6 +13,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.core.convert.converter.Converter;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -23,7 +24,7 @@ public class CalendarToStringConverter implements Converter<Calendar, String> {
     private final String pattern;
 
     public CalendarToStringConverter(String pattern) {
-        this.pattern = pattern;
+        this.pattern = Objects.requireNonNull(pattern);
     }
 
     @Override

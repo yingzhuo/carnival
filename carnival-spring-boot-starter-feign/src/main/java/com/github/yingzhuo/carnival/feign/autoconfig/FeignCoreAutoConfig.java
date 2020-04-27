@@ -13,11 +13,13 @@ import com.github.yingzhuo.carnival.feign.contract.XSpringMvcContract;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  * @since 1.6.0
  */
+@Lazy(false)
 @ConditionalOnProperty(prefix = "carnival.feign", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(FeignBeanAutoConfig.class)
 public class FeignCoreAutoConfig {

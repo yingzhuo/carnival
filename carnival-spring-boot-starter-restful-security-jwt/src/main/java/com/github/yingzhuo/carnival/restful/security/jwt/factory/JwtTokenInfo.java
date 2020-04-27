@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -21,7 +20,6 @@ import java.util.concurrent.TimeUnit;
  * @author 应卓
  */
 @Getter
-@Setter
 public class JwtTokenInfo implements Serializable {
 
     // Normal Claims (Header)
@@ -47,7 +45,6 @@ public class JwtTokenInfo implements Serializable {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
-
         private String keyId;
         private String issuer;
         private String subject;
@@ -201,5 +198,4 @@ public class JwtTokenInfo implements Serializable {
             return info;
         }
     }
-
 }
