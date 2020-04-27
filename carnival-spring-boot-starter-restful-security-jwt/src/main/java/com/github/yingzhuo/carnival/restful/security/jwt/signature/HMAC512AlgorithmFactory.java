@@ -31,7 +31,7 @@ public class HMAC512AlgorithmFactory implements AlgorithmFactory {
 
     @Override
     public Algorithm create() {
-        return Algorithm.HMAC384(secret);
+        return Algorithm.HMAC512(secret);
     }
 
 }
