@@ -9,17 +9,14 @@
  */
 package com.github.yingzhuo.carnival.id.impl;
 
-import com.github.yingzhuo.carnival.id.StringIdGenerator;
-import com.github.yingzhuo.carnival.id.util.UUIDUtils;
-
 /**
  * @author 应卓
  */
-public class UUID32IdGenerator implements StringIdGenerator {
+public class UUID32IdGenerator extends UUID36IdGenerator {
 
     @Override
     public String nextId() {
-        return UUIDUtils.uuid32();
+        return super.nextId().replaceAll("-", "");
     }
 
 }

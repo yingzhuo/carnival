@@ -20,6 +20,7 @@ import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.CompositeUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -51,6 +52,9 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Autowired(required = false)
     private TokenBlacklistManager tokenBlackListManager;
 
+    @Autowired(required = false)
+    private ExtraUserDetailsRealm extraUserDetailsRealm;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
@@ -65,10 +69,11 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        interceptor.setTokenBlacklistManager(tokenBlackListManager);
+        interceptor.setAuthenticationStrategy(authenticationStrategy);
         interceptor.setTokenParser(tokenParser);
         interceptor.setUserDetailsRealm(userDetailsRealm);
-        interceptor.setAuthenticationStrategy(authenticationStrategy);
+        interceptor.setTokenBlacklistManager(tokenBlackListManager);
+        interceptor.setExtraUserDetailsRealm(extraUserDetailsRealm);
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 
@@ -101,4 +106,5 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     public void run(ApplicationArguments args) {
         ReflectCache.init();
     }
+
 }

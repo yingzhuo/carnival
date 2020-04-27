@@ -18,6 +18,7 @@
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
+* [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
 * [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)

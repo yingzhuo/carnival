@@ -17,6 +17,7 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistMan
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
@@ -39,6 +40,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     private UserDetailsRealm userDetailsRealm;
     private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
     private TokenBlacklistManager tokenBlacklistManager;
+    private ExtraUserDetailsRealm extraUserDetailsRealm;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -87,6 +89,13 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
             });
         }
 
+        if (extraUserDetailsRealm != null) {
+            extraUserDetailsRealm.execute(
+                    RestfulSecurityContext.getToken().orElse(null),
+                    RestfulSecurityContext.getUserDetails().orElse(null)
+            );
+        }
+
         return true;
     }
 
@@ -113,6 +122,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     public void setTokenBlacklistManager(TokenBlacklistManager tokenBlacklistManager) {
         this.tokenBlacklistManager = tokenBlacklistManager;
+    }
+
+    public void setExtraUserDetailsRealm(ExtraUserDetailsRealm extraUserDetailsRealm) {
+        this.extraUserDetailsRealm = extraUserDetailsRealm;
     }
 
 }
