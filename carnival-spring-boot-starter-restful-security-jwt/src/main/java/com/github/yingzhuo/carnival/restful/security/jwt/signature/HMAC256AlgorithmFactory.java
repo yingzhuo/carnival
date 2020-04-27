@@ -22,7 +22,7 @@ public class HMAC256AlgorithmFactory implements AlgorithmFactory {
     private final String secret;
 
     public HMAC256AlgorithmFactory() {
-        this(HMAC256AlgorithmFactory.class.getName());
+        this(Algorithm.class.getName());
     }
 
     public HMAC256AlgorithmFactory(String secret) {

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.feign.autoconfig;
 
 import com.github.yingzhuo.carnival.feign.contract.XSpringMvcContract;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
@@ -25,6 +26,7 @@ import org.springframework.context.annotation.Lazy;
 public class FeignCoreAutoConfig {
 
     @Bean
+    @ConditionalOnMissingBean
     public XSpringMvcContract xSpringMvcContract() {
         return new XSpringMvcContract();
     }

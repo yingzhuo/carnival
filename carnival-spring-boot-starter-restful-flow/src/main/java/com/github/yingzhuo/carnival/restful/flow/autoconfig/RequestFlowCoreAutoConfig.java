@@ -42,7 +42,8 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestFlowCoreInterceptor(Algorithm.HMAC512(props.getSecret()), parser))
-                .addPathPatterns(props.getInterceptorPatterns());
+                .addPathPatterns(props.getInterceptor().getPatterns())
+                .order(props.getInterceptor().getOrder());
     }
 
 }

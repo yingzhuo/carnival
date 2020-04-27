@@ -7,7 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.signature;
+package com.github.yingzhuo.carnival.restful.security.jwt.signature.support;
+
+import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +28,7 @@ public abstract class AbstractECDSAAlgorithmFactory implements AlgorithmFactory 
 
     private static final String EC = "EC";
 
-    protected final byte[] decryptBase64(String key) {
+    private byte[] decryptBase64(String key) {
         return Base64.getDecoder().decode(key);
     }
 

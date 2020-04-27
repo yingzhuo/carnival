@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.feign")
-public class FeignCoreProperties implements Serializable {
+public class FeignCoreProps implements Serializable {
 
     private boolean enabled = true;
     private String defaultDatePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";

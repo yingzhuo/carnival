@@ -34,6 +34,15 @@ public class FlowProps implements Serializable {
     @DurationUnit(ChronoUnit.MINUTES)
     private Duration ttl = Duration.ofMinutes(10L); // 默认10分钟过期
 
-    private String[] interceptorPatterns = new String[]{"/", "/**"};
+    private Interceptor interceptor = new Interceptor();
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    @Getter
+    @Setter
+    public static class Interceptor implements Serializable {
+        private String[] patterns = new String[]{"/", "/**"};
+        private int order = 0;
+    }
 
 }

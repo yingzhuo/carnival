@@ -7,7 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.signature;
+package com.github.yingzhuo.carnival.restful.security.jwt.signature.support;
+
+import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -24,15 +26,11 @@ import java.util.Base64;
  */
 public abstract class AbstractRSAAlgorithmFactory implements AlgorithmFactory {
 
-    protected final static String RSA = "RSA";
+    private final static String RSA = "RSA";
 
-    protected final byte[] decryptBase64(String key) {
+    private byte[] decryptBase64(String key) {
         return Base64.getDecoder().decode(key);
     }
-
-//    protected final String encryptBase64(byte[] key) {
-//        return new String(Base64.getEncoder().encode(key));
-//    }
 
     protected RSAPublicKey toPublicKey(String key) {
         try {

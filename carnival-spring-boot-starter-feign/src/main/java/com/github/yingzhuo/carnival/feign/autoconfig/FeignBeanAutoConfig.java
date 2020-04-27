@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.feign.autoconfig;
 
 import com.github.yingzhuo.carnival.feign.converter.CalendarToStringConverter;
 import com.github.yingzhuo.carnival.feign.converter.DateToStringConverter;
-import com.github.yingzhuo.carnival.feign.props.FeignCoreProperties;
+import com.github.yingzhuo.carnival.feign.props.FeignCoreProps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -24,17 +24,17 @@ import org.springframework.format.FormatterRegistry;
  * @since 1.6.0
  */
 @Lazy(false)
-@EnableConfigurationProperties(FeignCoreProperties.class)
+@EnableConfigurationProperties(FeignCoreProps.class)
 @ConditionalOnProperty(prefix = "carnival.feign", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class FeignBeanAutoConfig implements FeignFormatterRegistrar {
 
     @Autowired
-    private FeignCoreProperties properties;
+    private FeignCoreProps props;
 
     @Override
     public void registerFormatters(FormatterRegistry registry) {
-        registry.addConverter(new DateToStringConverter(properties.getDefaultDatePattern()));
-        registry.addConverter(new CalendarToStringConverter(properties.getDefaultCalendarPattern()));
+        registry.addConverter(new DateToStringConverter(props.getDefaultDatePattern()));
+        registry.addConverter(new CalendarToStringConverter(props.getDefaultCalendarPattern()));
     }
 
 }

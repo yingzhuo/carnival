@@ -48,9 +48,9 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
         RequestFlow annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
 
         // class annotation
-        if (annotation == null) {
-            annotation = super.getClassAnnotation(RequestFlow.class, handler).orElse(null);
-        }
+//        if (annotation == null) {
+//            annotation = super.getClassAnnotation(RequestFlow.class, handler).orElse(null);
+//        }
 
         if (annotation == null) {
             return true;

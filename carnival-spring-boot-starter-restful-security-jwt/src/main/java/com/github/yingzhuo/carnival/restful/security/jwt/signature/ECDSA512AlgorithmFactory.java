@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.jwt.signature;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
+import com.github.yingzhuo.carnival.restful.security.jwt.signature.support.AbstractECDSAAlgorithmFactory;
 
 import java.util.Objects;
 
@@ -22,6 +23,11 @@ public class ECDSA512AlgorithmFactory extends AbstractECDSAAlgorithmFactory {
 
     private final String publicKey;
     private final String privateKey;
+
+    public ECDSA512AlgorithmFactory(String publicKey, String privateKey) {
+        this.publicKey = Objects.requireNonNull(publicKey);
+        this.privateKey = Objects.requireNonNull(privateKey);
+    }
 
     public ECDSA512AlgorithmFactory(ResourceText publicKey, ResourceText privateKey) {
         this.publicKey = Objects.requireNonNull(publicKey).getTextAsOneLine();

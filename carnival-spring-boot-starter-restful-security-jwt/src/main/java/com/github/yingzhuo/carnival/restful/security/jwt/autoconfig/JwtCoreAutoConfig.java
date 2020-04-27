@@ -28,9 +28,9 @@ import org.springframework.http.HttpHeaders;
 @ConditionalOnWebApplication
 public class JwtCoreAutoConfig {
 
-    @Bean(name = "jwtAlgorithmFactory")
+    @Bean
     @ConditionalOnMissingBean
-    public AlgorithmFactory algorithmFactory() {
+    public AlgorithmFactory jwtAlgorithmFactory() {
         return new HMAC512AlgorithmFactory();
     }
 
