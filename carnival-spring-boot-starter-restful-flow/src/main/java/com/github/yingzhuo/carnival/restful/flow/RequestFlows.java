@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.flow;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.val;
@@ -30,7 +31,7 @@ public final class RequestFlows {
                 .withClaim("step", step)
                 .withClaim("timestamp", now)
                 .withExpiresAt(new Date(now + props.getTtl().toMillis()))
-                .sign(props.calcAlgorithm());
+                .sign(Algorithm.HMAC512(props.getSecret()));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.props;
 
-import com.auth0.jwt.algorithms.Algorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -32,17 +31,9 @@ public class FlowProps implements Serializable {
 
     private String secret = FlowProps.class.getName();
 
-    private SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HMAC512;
-
-    private String[] interceptorPatterns = new String[]{"/", "/**"};
-
     @DurationUnit(ChronoUnit.MINUTES)
     private Duration ttl = Duration.ofMinutes(10L); // 默认10分钟过期
 
-    // ------------------------------------------------------------------------------------------------
-
-    public Algorithm calcAlgorithm() {
-        return signatureAlgorithm.toJwtAlgorithm(this.secret);
-    }
+    private String[] interceptorPatterns = new String[]{"/", "/**"};
 
 }

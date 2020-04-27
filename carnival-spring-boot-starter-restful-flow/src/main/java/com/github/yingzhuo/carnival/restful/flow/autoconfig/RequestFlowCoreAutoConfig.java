@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowCoreInterceptor;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
@@ -30,7 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnProperty(prefix = "carnival.flow", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(FlowProps.class)
 @AutoConfigureAfter(RequestFlowBeanAutoConfig.class)
-public class RequestFlowAutoConfig implements WebMvcConfigurer {
+public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private FlowProps props;
@@ -40,7 +41,7 @@ public class RequestFlowAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestFlowCoreInterceptor(props.calcAlgorithm(), parser))
+        registry.addInterceptor(new RequestFlowCoreInterceptor(Algorithm.HMAC512(props.getSecret()), parser))
                 .addPathPatterns(props.getInterceptorPatterns());
     }
 
