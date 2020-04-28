@@ -11,8 +11,8 @@ package com.github.yingzhuo.carnival.exception.business.impl;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.HashMap;
 import java.util.Optional;
+import java.util.TreeMap;
 
 /**
  * @author 应卓
@@ -32,7 +32,7 @@ public class PropertySourceBusinessExceptionFactory extends AbstractBusinessExce
     }
 
     @ConfigurationProperties(prefix = "business.exception")
-    public static class Env extends HashMap<String, String> {
+    public static class Env extends TreeMap<String, String> {
     }
 
 }

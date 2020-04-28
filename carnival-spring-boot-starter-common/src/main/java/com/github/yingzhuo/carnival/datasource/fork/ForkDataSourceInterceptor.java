@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 /**
  * @author 应卓
@@ -24,8 +25,16 @@ public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
 
     private final ForkDataSource forkDataSource;
 
-    public ForkDataSourceInterceptor(ForkDataSource forkDataSource) {
-        this.forkDataSource = forkDataSource;
+    public ForkDataSourceInterceptor(DataSource dataSource) {
+        if (dataSource instanceof ForkDataSource) {
+            this.forkDataSource = (ForkDataSource) dataSource;
+        } else {
+            throw new IllegalArgumentException("dataSource is not type of " + ForkDataSource.class.getName() + ".");
+        }
+    }
+
+    public ForkDataSourceInterceptor(ForkDataSource dataSource) {
+        this.forkDataSource = dataSource;
     }
 
     @Override

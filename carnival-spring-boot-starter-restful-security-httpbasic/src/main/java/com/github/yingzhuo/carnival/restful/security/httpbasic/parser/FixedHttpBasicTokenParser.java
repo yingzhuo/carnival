@@ -55,4 +55,5 @@ public class FixedHttpBasicTokenParser implements TokenParser, InitializingBean 
         log.warn("DO NOT use {} in your production environment.", getClass().getName());
         log.warn("");
     }
+
 }

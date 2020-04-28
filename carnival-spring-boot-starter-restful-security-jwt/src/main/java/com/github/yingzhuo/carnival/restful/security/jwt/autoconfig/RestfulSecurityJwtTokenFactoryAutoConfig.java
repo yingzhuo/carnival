@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Lazy;
  * @author 应卓
  */
 @Lazy(false)
-public class JwtTokenFactoryAutoConfig {
+public class RestfulSecurityJwtTokenFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

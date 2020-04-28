@@ -26,7 +26,7 @@ import org.springframework.http.HttpHeaders;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-public class JwtCoreAutoConfig {
+public class RestfulSecurityJwtCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -39,6 +39,7 @@ public class JwtCoreAutoConfig {
     public TokenParser tokenParser() {
         return new CompositeTokenParser(
                 new HttpHeaderTokenParser(HttpHeaders.AUTHORIZATION, "Bearer "),
+                new HttpHeaderTokenParser(HttpHeaders.AUTHORIZATION),
                 new HttpParameterTokenParser("_jwt_token")
         );
     }
