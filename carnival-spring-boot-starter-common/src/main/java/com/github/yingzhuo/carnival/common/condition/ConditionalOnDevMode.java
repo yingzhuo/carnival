@@ -25,10 +25,10 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnDevMode.OnDebugMode.class)
+@Conditional(ConditionalOnDevMode.OnDevMode.class)
 public @interface ConditionalOnDevMode {
 
-    static final class OnDebugMode implements Condition {
+    static final class OnDevMode implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

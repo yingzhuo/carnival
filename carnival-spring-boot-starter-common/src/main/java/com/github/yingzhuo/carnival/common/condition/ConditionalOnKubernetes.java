@@ -26,10 +26,10 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnKubernetes.OnDebugMode.class)
+@Conditional(ConditionalOnKubernetes.OnKubernetes.class)
 public @interface ConditionalOnKubernetes {
 
-    static final class OnDebugMode implements Condition {
+    static final class OnKubernetes implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {

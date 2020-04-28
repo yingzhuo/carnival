@@ -25,10 +25,10 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnDocker.OnDebugMode.class)
+@Conditional(ConditionalOnDocker.OnDocker.class)
 public @interface ConditionalOnDocker {
 
-    static final class OnDebugMode implements Condition {
+    static final class OnDocker implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
