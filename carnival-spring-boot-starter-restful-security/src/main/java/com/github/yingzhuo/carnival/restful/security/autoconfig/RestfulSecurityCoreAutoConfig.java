@@ -15,7 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
-import com.github.yingzhuo.carnival.restful.security.mvc.UserDetailsPropertyHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.CompositeUserDetailsRealm;
@@ -99,7 +99,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new UserDetailsPropertyHandlerMethodArgumentResolver());
+        argumentResolvers.add(new RestfulSecurityHandlerMethodArgumentResolver());
     }
 
     @Override

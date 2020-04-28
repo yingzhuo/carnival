@@ -44,13 +44,7 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        // method annotation
-        RequestFlow annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
-
-        // class annotation
-//        if (annotation == null) {
-//            annotation = super.getClassAnnotation(RequestFlow.class, handler).orElse(null);
-//        }
+        val annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
 
         if (annotation == null) {
             return true;

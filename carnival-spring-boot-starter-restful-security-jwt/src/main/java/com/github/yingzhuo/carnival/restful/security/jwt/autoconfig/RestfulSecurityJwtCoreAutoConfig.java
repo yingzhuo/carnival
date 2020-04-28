@@ -30,7 +30,7 @@ public class RestfulSecurityJwtCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public AlgorithmFactory jwtAlgorithmFactory() {
+    public AlgorithmFactory algorithmFactory() {
         return new HMAC512AlgorithmFactory();
     }
 

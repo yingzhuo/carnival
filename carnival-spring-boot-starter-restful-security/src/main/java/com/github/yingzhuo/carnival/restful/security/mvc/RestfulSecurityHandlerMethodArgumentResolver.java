@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.mvc;
 import com.github.yingzhuo.carnival.restful.security.annotation.StringTokenValue;
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
+import com.github.yingzhuo.carnival.restful.security.token.BytesToken;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.token.UsernamePasswordToken;
@@ -27,7 +28,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 /**
  * @author 应卓
  */
-public class UserDetailsPropertyHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -36,7 +37,8 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
                 parameter.getParameterType() == UserDetails.class ||
                 parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == StringToken.class ||
-                parameter.getParameterType() == UsernamePasswordToken.class;
+                parameter.getParameterType() == UsernamePasswordToken.class ||
+                parameter.getParameterType() == BytesToken.class;
     }
 
     @Override
@@ -56,6 +58,10 @@ public class UserDetailsPropertyHandlerMethodArgumentResolver implements Handler
 
         if (parameter.getParameterType() == UsernamePasswordToken.class) {
             return (UsernamePasswordToken) RestfulSecurityContext.getToken().orElse(null);
+        }
+
+        if (parameter.getParameterType() == BytesToken.class) {
+            return (BytesToken) RestfulSecurityContext.getToken().orElse(null);
         }
 
         if (parameter.hasParameterAnnotation(StringTokenValue.class) && parameter.getParameterType() == String.class) {

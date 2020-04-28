@@ -29,8 +29,6 @@ public class FlowProps implements Serializable {
 
     private boolean enabled = true;
 
-    private String secret = FlowProps.class.getName();
-
     @DurationUnit(ChronoUnit.MINUTES)
     private Duration ttl = Duration.ofMinutes(10L); // 默认10分钟过期
 
