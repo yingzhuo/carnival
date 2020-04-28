@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security.jwt.factory;
 
 import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import lombok.val;
 
 import java.util.Date;
 import java.util.Objects;
@@ -33,25 +33,17 @@ public class DefaultJwtTokenFactory implements JwtTokenFactory {
     public String create(JwtTokenInfo info) {
         Objects.requireNonNull(info);
 
-        JWTCreator.Builder builder = JWT.create();
+        val builder = JWT.create();
 
-        // Normal Claims (Normal)
         Optional.ofNullable(info.getKeyId()).ifPresent(builder::withKeyId);
-
-        // Normal Claims (Payload)
         Optional.ofNullable(info.getIssuer()).ifPresent(builder::withIssuer);
         Optional.ofNullable(info.getSubject()).ifPresent(builder::withSubject);
         Optional.ofNullable(info.getExpiresAt()).ifPresent(builder::withExpiresAt);
         Optional.ofNullable(info.getNotBefore()).ifPresent(builder::withNotBefore);
         Optional.ofNullable(info.getIssuedAt()).ifPresent(builder::withIssuedAt);
         Optional.ofNullable(info.getJwtId()).ifPresent(builder::withJWTId);
-        Optional.ofNullable(info.getAudience()).ifPresent(it -> {
-            if (!it.isEmpty()) {
-                builder.withAudience(info.getAudience().toArray(new String[0]));
-            }
-        });
+        Optional.ofNullable(info.getAudience()).ifPresent(builder::withAudience);
 
-        // Private Claims
         Optional.ofNullable(info.getPrivateClaims()).ifPresent(map -> {
             final Set<String> keySet = map.keySet();
             for (String name : keySet) {

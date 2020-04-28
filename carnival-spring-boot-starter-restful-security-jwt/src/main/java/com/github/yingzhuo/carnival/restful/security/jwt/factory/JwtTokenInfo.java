@@ -22,17 +22,14 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class JwtTokenInfo implements Serializable {
 
-    // Normal Claims (Header)
     private String keyId;
     private String issuer;
     private String subject;
-    private List<String> audience = new ArrayList<>();
+    private String[] audience;
     private Date expiresAt;
     private Date notBefore;
     private Date issuedAt;
     private String jwtId;
-
-    // Private Claims
     private Map<String, Object> privateClaims = new HashMap<>();
 
     private JwtTokenInfo() {
@@ -48,7 +45,7 @@ public class JwtTokenInfo implements Serializable {
         private String keyId;
         private String issuer;
         private String subject;
-        private List<String> audience = new ArrayList<>();
+        private String[] audience;
         private Date expiresAt;
         private Date notBefore;
         private Date issuedAt;
@@ -73,19 +70,9 @@ public class JwtTokenInfo implements Serializable {
             return this;
         }
 
-        public Builder audience(List<String> audience) {
+        public Builder audience(String... audience) {
             this.audience = audience;
             return this;
-        }
-
-        public Builder audience(String... audience) {
-            return audience(Arrays.asList(audience));
-        }
-
-        public Builder audience(String audience) {
-            List<String> list = new ArrayList<>(1);
-            list.add(audience);
-            return audience(list);
         }
 
         public Builder expiresAt(Date expiresAt) {
@@ -129,7 +116,7 @@ public class JwtTokenInfo implements Serializable {
         }
 
         public Builder putRandomPrivateClaim() {
-            this.putPrivateClaim("__random__", UUID.randomUUID().toString());
+            this.putPrivateClaim("__random__", UUID.randomUUID().toString().replaceAll("-", ""));
             return this;
         }
 
@@ -170,7 +157,9 @@ public class JwtTokenInfo implements Serializable {
         }
 
         private Builder putPrivateClaim(String key, Object value) {
-            this.privateClaims.put(Objects.requireNonNull(key), Objects.requireNonNull(value));
+            this.privateClaims.put(
+                    Objects.requireNonNull(key),
+                    Objects.requireNonNull(value));
             return this;
         }
 

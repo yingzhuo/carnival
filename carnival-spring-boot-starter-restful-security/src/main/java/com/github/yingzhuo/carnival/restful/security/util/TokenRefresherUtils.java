@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.util;
+package com.github.yingzhuo.carnival.restful.security.util;
 
 import com.github.yingzhuo.carnival.restful.security.refresher.TokenRefresher;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -15,7 +15,7 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 /**
  * @author 应卓
- * @since 1.6.0
+ * @since 1.6.1
  */
 public class TokenRefresherUtils {
 
