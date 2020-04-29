@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -25,25 +24,14 @@ import java.util.Optional;
 public class FixedUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
     private final UserDetails userDetails;
-    private final int order;
 
     public FixedUserDetailsRealm(UserDetails userDetails) {
-        this(userDetails, 0);
-    }
-
-    public FixedUserDetailsRealm(UserDetails userDetails, int order) {
-        this.userDetails = Objects.requireNonNull(userDetails);
-        this.order = order;
+        this.userDetails = userDetails;
     }
 
     @Override
     public Optional<UserDetails> loadUserDetails(Token token) {
         return Optional.of(userDetails);
-    }
-
-    @Override
-    public int getOrder() {
-        return this.order;
     }
 
     @Override

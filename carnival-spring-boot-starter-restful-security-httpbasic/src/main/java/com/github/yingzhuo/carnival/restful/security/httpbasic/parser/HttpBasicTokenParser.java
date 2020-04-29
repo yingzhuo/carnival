@@ -27,7 +27,6 @@ import java.util.Optional;
 public class HttpBasicTokenParser implements TokenParser {
 
     private static final String BASIC = "Basic ";
-    private int order = 0;
 
     @Override
     public Optional<Token> parse(NativeWebRequest webRequest) {
@@ -56,15 +55,6 @@ public class HttpBasicTokenParser implements TokenParser {
         } catch (Exception e) {
             return Optional.empty();
         }
-    }
-
-    @Override
-    public int getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
 }

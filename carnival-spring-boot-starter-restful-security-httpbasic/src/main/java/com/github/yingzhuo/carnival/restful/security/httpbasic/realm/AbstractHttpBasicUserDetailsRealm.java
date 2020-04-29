@@ -23,8 +23,6 @@ import java.util.Optional;
  */
 public abstract class AbstractHttpBasicUserDetailsRealm implements UserDetailsRealm {
 
-    private int order = 0;
-
     @Override
     public final Optional<UserDetails> loadUserDetails(Token token) {
 
@@ -38,14 +36,5 @@ public abstract class AbstractHttpBasicUserDetailsRealm implements UserDetailsRe
     }
 
     protected abstract UserDetails doLoadUserDetails(String username, String password);
-
-    @Override
-    public int getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
 
 }

@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.realm;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import org.springframework.core.Ordered;
 
 import java.util.Optional;
 
@@ -19,13 +18,8 @@ import java.util.Optional;
  * @author 应卓
  */
 @FunctionalInterface
-public interface UserDetailsRealm extends Ordered {
+public interface UserDetailsRealm {
 
     public Optional<UserDetails> loadUserDetails(Token token);
-
-    @Override
-    public default int getOrder() {
-        return 0;
-    }
 
 }

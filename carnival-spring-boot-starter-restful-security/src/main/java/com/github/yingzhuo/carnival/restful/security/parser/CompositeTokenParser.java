@@ -24,7 +24,6 @@ import java.util.Optional;
  */
 public class CompositeTokenParser implements TokenParser, InitializingBean {
 
-    private int order = 0;
     private final List<TokenParser> parsers;
 
     public CompositeTokenParser(TokenParser... parsers) {
@@ -40,15 +39,6 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
             }
         }
         return Optional.empty();
-    }
-
-    @Override
-    public int getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
     @Override

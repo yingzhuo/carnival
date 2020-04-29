@@ -16,9 +16,7 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistMan
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
-import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
-import com.github.yingzhuo.carnival.restful.security.realm.CompositeUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +25,10 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.OrderComparator;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -44,10 +40,10 @@ import java.util.List;
 public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired
-    private List<TokenParser> tokenParsers;
+    private TokenParser tokenParser;
 
     @Autowired
-    private List<UserDetailsRealm> userDetailsRealms;
+    private UserDetailsRealm userDetailsRealm;
 
     @Autowired(required = false)
     private TokenBlacklistManager tokenBlackListManager;
@@ -57,9 +53,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        final TokenParser tokenParser = getFinalTokenParser();
-        final UserDetailsRealm userDetailsRealm = getFinalUserDetailsRealm();
 
         Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
         if (interceptorOrder == null) {
@@ -77,25 +70,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
     }
 
-    private TokenParser getFinalTokenParser() {
-        if (this.tokenParsers.size() == 1) {
-            return tokenParsers.get(0);
-        } else {
-            List<TokenParser> list = new LinkedList<>(tokenParsers);
-            OrderComparator.sort(list);
-            return new CompositeTokenParser(list.toArray(new TokenParser[0]));
-        }
-    }
-
-    private UserDetailsRealm getFinalUserDetailsRealm() {
-        if (this.userDetailsRealms.size() == 1) {
-            return userDetailsRealms.get(0);
-        } else {
-            List<UserDetailsRealm> list = new LinkedList<>(userDetailsRealms);
-            OrderComparator.sort(list);
-            return new CompositeUserDetailsRealm(list.toArray(new UserDetailsRealm[0]));
-        }
-    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

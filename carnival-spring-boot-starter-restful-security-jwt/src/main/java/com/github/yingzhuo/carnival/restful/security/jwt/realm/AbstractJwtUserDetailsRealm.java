@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.jwt.realm;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.restful.security.exception.UnsupportedTokenTypeException;
 import com.github.yingzhuo.carnival.restful.security.jwt.exception.*;
@@ -19,23 +20,25 @@ import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import java.util.Optional;
 
 /**
  * @author 应卓
  */
-public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
+public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, ApplicationContextAware {
 
-    private int order = 0;
+    private Algorithm algorithm;
 
     @Override
     public final Optional<UserDetails> loadUserDetails(Token token) {
 
         if (token instanceof StringToken) {
             final String tokenValue = ((StringToken) token).getValue();
-            final JWTVerifier verifier = JWT.require(SpringUtils.getBean(AlgorithmFactory.class).create()).build();
+            final JWTVerifier verifier = JWT.require(algorithm).build();
 
             try {
                 return Optional.ofNullable(getUserDetails(token, verifier.verify(tokenValue)));
@@ -57,13 +60,17 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm {
 
     protected abstract UserDetails getUserDetails(Token token, DecodedJWT jwt);
 
-    @Override
-    public int getOrder() {
-        return this.order;
+    public Algorithm getAlgorithm() {
+        return algorithm;
     }
 
-    public void setOrder(int order) {
-        this.order = order;
+    public void setAlgorithm(Algorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.setAlgorithm(applicationContext.getBean(AlgorithmFactory.class).create());
     }
 
 }

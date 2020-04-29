@@ -24,7 +24,6 @@ import java.util.Optional;
  */
 public class CompositeUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
-    private int order = 0;
     private final List<UserDetailsRealm> realms;
 
     public CompositeUserDetailsRealm(UserDetailsRealm... realms) {
@@ -40,15 +39,6 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
             }
         }
         return Optional.empty();
-    }
-
-    @Override
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
     }
 
     @Override

@@ -27,21 +27,18 @@ public class FixedHttpBasicTokenParser implements TokenParser, InitializingBean 
 
     private final String username;
     private final String password;
-    private final int order;
 
     public FixedHttpBasicTokenParser(String username, String password) {
-        this(username, password, 0);
-    }
-
-    public FixedHttpBasicTokenParser(String username, String password, int order) {
         this.username = username;
         this.password = password;
-        this.order = order;
     }
 
-    @Override
-    public int getOrder() {
-        return this.order;
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

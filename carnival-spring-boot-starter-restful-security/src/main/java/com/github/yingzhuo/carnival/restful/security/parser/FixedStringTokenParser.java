@@ -9,13 +9,11 @@
  */
 package com.github.yingzhuo.carnival.restful.security.parser;
 
-import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,25 +24,14 @@ import java.util.Optional;
 public class FixedStringTokenParser implements TokenParser, InitializingBean {
 
     private final Token token;
-    private final int order;
 
-    public FixedStringTokenParser(String token) {
-        this(token, 0);
-    }
-
-    public FixedStringTokenParser(String token, int order) {
-        this.token = StringToken.of(Objects.requireNonNull(token));
-        this.order = order;
+    public FixedStringTokenParser(Token token) {
+        this.token = token;
     }
 
     @Override
     public Optional<Token> parse(NativeWebRequest webRequest) {
         return Optional.of(token);
-    }
-
-    @Override
-    public int getOrder() {
-        return this.order;
     }
 
     @Override

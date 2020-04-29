@@ -25,7 +25,6 @@ public class HttpHeaderTokenParser implements TokenParser {
     private final String headerName;
     private final String prefix;
     private final int prefixLen;
-    private int order = 0;
 
     public HttpHeaderTokenParser(String headerName) {
         this(headerName, "");
@@ -70,12 +69,4 @@ public class HttpHeaderTokenParser implements TokenParser {
         return prefix;
     }
 
-    @Override
-    public int getOrder() {
-        return this.order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
 }
