@@ -30,7 +30,7 @@ public class FlowProps implements Serializable {
     private boolean enabled = true;
 
     @DurationUnit(ChronoUnit.MINUTES)
-    private Duration ttl = Duration.ofMinutes(10L); // 默认10分钟过期
+    private Duration ttl = Duration.ofMinutes(5); // 默认5分钟过期
 
     private Interceptor interceptor = new Interceptor();
 

@@ -43,6 +43,7 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        RequestFlowContext.clean();
 
         val annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
 
@@ -67,6 +68,9 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             final String nameInToken = jwt.getClaim("name").asString();
             final Integer stepInToken = jwt.getClaim("step").asInt();
 
+            RequestFlowContext.setName(nameInToken);
+            RequestFlowContext.setStep(stepInToken);
+
             final Set<Integer> prevSet = new HashSet<>();
             for (int i : annotation.prevStep()) {
                 prevSet.add(i);
@@ -81,6 +85,11 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
         }
 
         return true;
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        RequestFlowContext.clean();
     }
 
     private String getMsg(RequestFlow annotation) {

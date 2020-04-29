@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
+import com.github.yingzhuo.carnival.restful.flow.Prev;
+import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowContext;
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowCoreInterceptor;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
@@ -19,8 +21,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.MethodParameter;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * @author 应卓
@@ -47,6 +56,28 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
         registry.addInterceptor(new RequestFlowCoreInterceptor(algFactory.create(), parser))
                 .addPathPatterns(props.getInterceptor().getPatterns())
                 .order(props.getInterceptor().getOrder());
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new RequestFlowHandlerMethodArgumentResolver());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @since 1.6.1
+     */
+    private static class RequestFlowHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            return parameter.getParameterType() == Prev.class;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+            return new Prev(RequestFlowContext.getName(), RequestFlowContext.getStep());
+        }
     }
 
 }
