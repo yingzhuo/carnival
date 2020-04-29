@@ -77,8 +77,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledRsa256(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA256AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
@@ -87,8 +87,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledRsa384(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA384AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
@@ -97,8 +97,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledRsa512(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA512AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
@@ -133,8 +133,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledEcdsa256(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA256AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),
@@ -143,8 +143,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledEcdsa384(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA384AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),
@@ -153,8 +153,8 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator preinstalledEcdsa512(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA512AlgorithmGenerator(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),

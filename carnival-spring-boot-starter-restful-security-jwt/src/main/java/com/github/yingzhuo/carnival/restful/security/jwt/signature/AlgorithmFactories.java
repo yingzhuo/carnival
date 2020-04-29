@@ -77,8 +77,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledRsa256(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new RSA256AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/rsa/pair%d/public", number)),
@@ -87,8 +87,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledRsa384(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new RSA384AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/rsa/pair%d/public", number)),
@@ -97,8 +97,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledRsa512(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new RSA512AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/rsa/pair%d/public", number)),
@@ -133,8 +133,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledEcdsa256(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new ECDSA256AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/ecdsa/pair%d/public", number)),
@@ -143,8 +143,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledEcdsa384(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new ECDSA384AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/ecdsa/pair%d/public", number)),
@@ -153,8 +153,8 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory preinstalledEcdsa512(int number) {
-        if (number < 0 || number > 9) {
-            throw new IllegalArgumentException("number range: [0,10)");
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0, 16]");
         }
         return new ECDSA512AlgorithmFactory(
                 ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-security-jwt/ecdsa/pair%d/public", number)),
