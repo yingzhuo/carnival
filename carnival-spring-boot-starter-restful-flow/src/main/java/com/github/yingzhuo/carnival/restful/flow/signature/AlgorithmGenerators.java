@@ -10,9 +10,6 @@
 package com.github.yingzhuo.carnival.restful.flow.signature;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.SignatureGenerationException;
-import com.auth0.jwt.exceptions.SignatureVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
 
 /**
  * @author 应卓
@@ -21,17 +18,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public final class AlgorithmGenerators {
 
     public static AlgorithmGenerator none() {
-        return () -> new Algorithm("none", "none") {
-            @Override
-            public void verify(DecodedJWT jwt) throws SignatureVerificationException {
-
-            }
-
-            @Override
-            public byte[] sign(byte[] contentBytes) throws SignatureGenerationException {
-                return new byte[0];
-            }
-        };
+        return Algorithm::none;
     }
 
     public static AlgorithmGenerator hmac256(String secret) {

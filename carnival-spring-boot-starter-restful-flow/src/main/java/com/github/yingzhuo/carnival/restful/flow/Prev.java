@@ -11,16 +11,16 @@ package com.github.yingzhuo.carnival.restful.flow;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-import java.io.Serializable;
+import lombok.ToString;
 
 /**
  * @author 应卓
  * @since 1.6.1
  */
 @Getter
+@ToString
 @AllArgsConstructor
-public class Prev implements Serializable {
+public class Prev implements java.io.Serializable {
 
     private final String name;
     private final Integer step;
