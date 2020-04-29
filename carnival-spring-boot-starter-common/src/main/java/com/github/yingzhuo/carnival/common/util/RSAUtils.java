@@ -27,10 +27,10 @@ import java.util.Base64;
  */
 public final class RSAUtils {
 
-    public static Pair<RSAPublicKey, RSAPrivateKey> init(int keysize) {
+    public static Pair<RSAPublicKey, RSAPrivateKey> create(int keySize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
-            generator.initialize(keysize);
+            generator.initialize(keySize);
             KeyPair keyPair = generator.generateKeyPair();
             RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
