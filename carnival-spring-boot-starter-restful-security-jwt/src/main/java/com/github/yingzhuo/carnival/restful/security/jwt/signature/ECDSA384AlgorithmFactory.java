@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.restful.security.jwt.signature;
 
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
-import com.github.yingzhuo.carnival.restful.security.jwt.signature.support.AbstractECDSAAlgorithmFactory;
 
 import java.util.Objects;
 
@@ -19,7 +18,7 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.6.0
  */
-public class ECDSA384AlgorithmFactory extends AbstractECDSAAlgorithmFactory {
+class ECDSA384AlgorithmFactory extends AbstractECDSAAlgorithmFactory {
 
     private final String publicKey;
     private final String privateKey;

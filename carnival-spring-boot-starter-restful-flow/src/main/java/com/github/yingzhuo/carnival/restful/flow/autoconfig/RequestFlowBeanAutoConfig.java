@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
+import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.restful.flow.parser.HttpParameterStepTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerator;
@@ -31,7 +32,7 @@ public class RequestFlowBeanAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public AlgorithmGenerator algorithmGenerator() {
-        return AlgorithmGenerators.hmac512(AlgorithmGenerator.class.getName());
+        return AlgorithmGenerators.hmac512(Algorithm.class.getName());
     }
 
     @Bean

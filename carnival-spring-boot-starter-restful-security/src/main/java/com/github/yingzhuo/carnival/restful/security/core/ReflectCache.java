@@ -72,4 +72,7 @@ public final class ReflectCache {
         return cache;
     }
 
+    private ReflectCache() {
+    }
+
 }

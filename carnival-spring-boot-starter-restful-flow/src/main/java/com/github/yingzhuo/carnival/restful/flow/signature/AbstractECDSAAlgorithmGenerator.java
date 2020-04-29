@@ -7,9 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.jwt.signature.support;
-
-import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
+package com.github.yingzhuo.carnival.restful.flow.signature;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -22,9 +20,9 @@ import java.util.Base64;
 
 /**
  * @author 应卓
- * @since 1.6.0
+ * @since 1.6.1
  */
-public abstract class AbstractECDSAAlgorithmFactory implements AlgorithmFactory {
+abstract class AbstractECDSAAlgorithmGenerator implements AlgorithmGenerator {
 
     private static final String EC = "EC";
 

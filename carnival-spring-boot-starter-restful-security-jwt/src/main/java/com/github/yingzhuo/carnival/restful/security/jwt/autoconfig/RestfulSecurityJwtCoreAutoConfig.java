@@ -9,8 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security.jwt.autoconfig;
 
+import com.auth0.jwt.algorithms.Algorithm;
+import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactories;
 import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
-import com.github.yingzhuo.carnival.restful.security.jwt.signature.HMAC512AlgorithmFactory;
 import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.HttpParameterTokenParser;
@@ -31,7 +32,7 @@ public class RestfulSecurityJwtCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public AlgorithmFactory algorithmFactory() {
-        return new HMAC512AlgorithmFactory();
+        return AlgorithmFactories.hmac512(Algorithm.class.getName());
     }
 
     @Bean
