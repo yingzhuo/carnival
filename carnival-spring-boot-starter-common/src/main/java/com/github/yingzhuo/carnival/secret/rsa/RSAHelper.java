@@ -34,8 +34,8 @@ public final class RSAHelper extends AbstractSecuritySupport {
     }
 
     private RSAHelper(RSAKeyPair pair) {
-        this.base64PublicKey = pair.getPublicKey();
-        this.base64PrivateKey = pair.getPrivateKey();
+        this.base64PublicKey = pair.getBase64PublicKey();
+        this.base64PrivateKey = pair.getBase64PrivateKey();
     }
 
     public String encryptByPublicKey(String encryptingString) {

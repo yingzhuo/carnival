@@ -23,8 +23,8 @@ import java.security.interfaces.RSAPublicKey;
  */
 public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair<String, String> {
 
-    private final String publicKey;
-    private final String privateKey;
+    private final String base64PublicKey;
+    private final String base64PrivateKey;
 
     public static RSAKeyPair createRandom(int keySize) {
         try {
@@ -33,17 +33,14 @@ public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair
             java.security.KeyPair keyPair = generator.generateKeyPair();
             RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-            return fromKeys(publicKey, privateKey);
+
+            return new RSAKeyPair(
+                    encryptBase64(publicKey.getEncoded()),
+                    encryptBase64(privateKey.getEncoded())
+            );
         } catch (NoSuchAlgorithmException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
-    }
-
-    public static RSAKeyPair fromKeys(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
-        return new RSAKeyPair(
-                encryptBase64(publicKey.getEncoded()),
-                encryptBase64(privateKey.getEncoded())
-        );
     }
 
     public static RSAKeyPair fromString(String publicKey, String privateKey) {
@@ -51,18 +48,18 @@ public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair
     }
 
     private RSAKeyPair(String publicKey, String privateKey) {
-        this.publicKey = publicKey;
-        this.privateKey = privateKey;
+        this.base64PublicKey = publicKey;
+        this.base64PrivateKey = privateKey;
     }
 
     @Override
-    public String getPublicKey() {
-        return this.publicKey;
+    public String getBase64PublicKey() {
+        return this.base64PublicKey;
     }
 
     @Override
-    public String getPrivateKey() {
-        return this.privateKey;
+    public String getBase64PrivateKey() {
+        return this.base64PrivateKey;
     }
 
 }

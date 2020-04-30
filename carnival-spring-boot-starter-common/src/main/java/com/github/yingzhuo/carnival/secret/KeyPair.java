@@ -21,8 +21,8 @@ public interface KeyPair<PUBLIC, PRIVATE> extends Serializable {
     public static final int KEY_SIZE_2048 = 2048;
     public static final int KEY_SIZE_4096 = 4096;
 
-    public PUBLIC getPublicKey();
+    public PUBLIC getBase64PublicKey();
 
-    public PRIVATE getPrivateKey();
+    public PRIVATE getBase64PrivateKey();
 
 }
