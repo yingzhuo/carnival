@@ -45,21 +45,36 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
     @Override
     @Autowired
     public void config(FormatterRegistry registry) {
-        val rsaKeyPair = RSAKeyPair.fromString(
-                props.getRsa().getPublicKey(),
-                props.getRsa().getPrivateKey()
-        );
 
-        val rsaHelper = RSAHelper.of(rsaKeyPair);
+        // RSA
+        val rsaProps = props.getRsa();
+        if (rsaProps.isEnabled()) {
+            val rsaKeyPair = RSAKeyPair.fromString(
+                    props.getRsa().getPublicKey(),
+                    props.getRsa().getPrivateKey()
+            );
+            val rsaHelper = RSAHelper.of(rsaKeyPair);
+            registry.addFormatterForFieldAnnotation(new RSA.EncryptingByPrivateKey.FormatterFactory(rsaHelper));
+            registry.addFormatterForFieldAnnotation(new RSA.EncryptingByPublicKey.FormatterFactory(rsaHelper));
+            registry.addFormatterForFieldAnnotation(new RSA.DecryptingByPrivateKey.FormatterFactory(rsaHelper));
+            registry.addFormatterForFieldAnnotation(new RSA.DecryptingByPublicKey.FormatterFactory(rsaHelper));
+        }
 
+        val aesProps = props.getAes();
+        if (aesProps.isEnabled()) {
+            registry.addFormatterForFieldAnnotation(new AES.Encrypting.FormatterFactory(aesProps.getPassphrase()));
+            registry.addFormatterForFieldAnnotation(new AES.Decrypting.FormatterFactory(aesProps.getPassphrase()));
+        }
+
+        // BASE64
         registry.addFormatterForFieldAnnotation(new Base64.Encoding.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new Base64.Decoding.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPrivateKey.FormatterFactory(rsaHelper));
-        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory(rsaHelper));
-        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory(rsaHelper));
-        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory(rsaHelper));
+
+        // MD2, MD5
         registry.addFormatterForFieldAnnotation(new MD5.Encrypting.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new MD2.Encrypting.FormatterFactory());
+
+        // SHA-xxx
         registry.addFormatterForFieldAnnotation(new SHA1.Encrypting.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new SHA256.Encrypting.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new SHA384.Encrypting.FormatterFactory());
@@ -72,11 +87,13 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
     static class SecretProps implements Serializable, InitializingBean {
         private boolean enabled = false;
         private RSAProps rsa = new RSAProps();
+        private AESProps aes = new AESProps();
 
         @Override
         public void afterPropertiesSet() {
-            if (this.enabled) {
-                this.rsa.afterPropertiesSet();
+            if (enabled) {
+                rsa.afterPropertiesSet();
+                aes.afterPropertiesSet();
             }
         }
     }
@@ -89,14 +106,36 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
         private ResourceText publicKeyLocation;
         private ResourceText privateKeyLocation;
 
+        public boolean isEnabled() {
+            return publicKey != null && privateKey != null;
+        }
+
         @Override
         public void afterPropertiesSet() {
-            if (this.publicKeyLocation != null) {
-                this.publicKey = this.publicKeyLocation.getTextAsOneLine().trim();
+            if (publicKeyLocation != null) {
+                publicKey = publicKeyLocation.getTextAsOneLineAndTrim();
             }
 
-            if (this.privateKeyLocation != null) {
-                this.privateKey = this.privateKeyLocation.getTextAsOneLine().trim();
+            if (privateKeyLocation != null) {
+                privateKey = privateKeyLocation.getTextAsOneLineAndTrim();
+            }
+        }
+    }
+
+    @Getter
+    @Setter
+    static class AESProps implements Serializable, InitializingBean {
+        private String passphrase;
+        private ResourceText passphraseLocation;
+
+        public boolean isEnabled() {
+            return passphrase != null;
+        }
+
+        @Override
+        public void afterPropertiesSet() {
+            if (passphraseLocation != null) {
+                passphrase = passphraseLocation.getTextAsOneLineAndTrim();
             }
         }
     }

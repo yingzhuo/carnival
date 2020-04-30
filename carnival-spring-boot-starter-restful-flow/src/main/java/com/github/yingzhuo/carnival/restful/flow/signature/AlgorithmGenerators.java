@@ -31,7 +31,7 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator hmac256(ResourceText secret) {
-        return () -> Algorithm.HMAC256(secret.getTextAsOneLine().trim());
+        return () -> Algorithm.HMAC256(secret.getTextAsOneLineAndTrim());
     }
 
     public static AlgorithmGenerator hmac384(String secret) {
@@ -39,7 +39,7 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator hmac384(ResourceText secret) {
-        return () -> Algorithm.HMAC384(secret.getTextAsOneLine().trim());
+        return () -> Algorithm.HMAC384(secret.getTextAsOneLineAndTrim());
     }
 
     public static AlgorithmGenerator hmac512(String secret) {
@@ -47,7 +47,7 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator hmac512(ResourceText secret) {
-        return () -> Algorithm.HMAC512(secret.getTextAsOneLine().trim());
+        return () -> Algorithm.HMAC512(secret.getTextAsOneLineAndTrim());
     }
 
     // RSA

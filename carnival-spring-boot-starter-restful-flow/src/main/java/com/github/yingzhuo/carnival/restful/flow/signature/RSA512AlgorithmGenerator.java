@@ -29,8 +29,8 @@ class RSA512AlgorithmGenerator extends AbstractRSAAlgorithmGenerator {
     }
 
     public RSA512AlgorithmGenerator(ResourceText publicKey, ResourceText privateKey) {
-        this.publicKey = Objects.requireNonNull(publicKey).getTextAsOneLine().trim();
-        this.privateKey = Objects.requireNonNull(privateKey).getTextAsOneLine().trim();
+        this.publicKey = Objects.requireNonNull(publicKey).getTextAsOneLineAndTrim();
+        this.privateKey = Objects.requireNonNull(privateKey).getTextAsOneLineAndTrim();
     }
 
     @Override

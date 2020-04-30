@@ -28,9 +28,9 @@ public interface RSA {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface DecryptByPrivateKey {
+    public @interface DecryptingByPrivateKey {
 
-        public static final class FormatterFactory implements AnnotationFormatterFactory<DecryptByPrivateKey> {
+        public static final class FormatterFactory implements AnnotationFormatterFactory<DecryptingByPrivateKey> {
             private final RSAHelper helper;
 
             public FormatterFactory(RSAHelper helper) {
@@ -43,12 +43,12 @@ public interface RSA {
             }
 
             @Override
-            public Printer<?> getPrinter(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
+            public Printer<?> getPrinter(DecryptingByPrivateKey decryptByPrivateKey, Class<?> aClass) {
                 return NopStringFormatter.INSTANCE;
             }
 
             @Override
-            public Parser<?> getParser(DecryptByPrivateKey decryptByPrivateKey, Class<?> aClass) {
+            public Parser<?> getParser(DecryptingByPrivateKey decryptByPrivateKey, Class<?> aClass) {
                 return (Parser<String>) (text, locale) -> helper.decryptByPrivateKey(text);
             }
         }
@@ -58,9 +58,9 @@ public interface RSA {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface DecryptByPublicKey {
+    public @interface DecryptingByPublicKey {
 
-        public static final class FormatterFactory implements AnnotationFormatterFactory<DecryptByPublicKey> {
+        public static final class FormatterFactory implements AnnotationFormatterFactory<DecryptingByPublicKey> {
             private final RSAHelper helper;
 
             public FormatterFactory(RSAHelper helper) {
@@ -73,12 +73,12 @@ public interface RSA {
             }
 
             @Override
-            public Printer<?> getPrinter(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
+            public Printer<?> getPrinter(DecryptingByPublicKey decryptByPublicKey, Class<?> aClass) {
                 return NopStringFormatter.INSTANCE;
             }
 
             @Override
-            public Parser<?> getParser(DecryptByPublicKey decryptByPublicKey, Class<?> aClass) {
+            public Parser<?> getParser(DecryptingByPublicKey decryptByPublicKey, Class<?> aClass) {
                 return (Parser<String>) (text, locale) -> helper.decryptByPublicKey(text);
             }
         }
@@ -88,9 +88,9 @@ public interface RSA {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface EncryptByPublicKey {
+    public @interface EncryptingByPublicKey {
 
-        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptByPublicKey> {
+        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptingByPublicKey> {
             private final RSAHelper helper;
 
             public FormatterFactory(RSAHelper helper) {
@@ -103,12 +103,12 @@ public interface RSA {
             }
 
             @Override
-            public Printer<?> getPrinter(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
+            public Printer<?> getPrinter(EncryptingByPublicKey encryptByPublicKey, Class<?> aClass) {
                 return NopStringFormatter.INSTANCE;
             }
 
             @Override
-            public Parser<?> getParser(EncryptByPublicKey encryptByPublicKey, Class<?> aClass) {
+            public Parser<?> getParser(EncryptingByPublicKey encryptByPublicKey, Class<?> aClass) {
                 return (Parser<String>) (text, locale) -> helper.encryptByPublicKey(text);
             }
         }
@@ -118,9 +118,9 @@ public interface RSA {
     @Inherited
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-    public @interface EncryptByPrivateKey {
+    public @interface EncryptingByPrivateKey {
 
-        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptByPrivateKey> {
+        public static final class FormatterFactory implements AnnotationFormatterFactory<EncryptingByPrivateKey> {
             private final RSAHelper helper;
 
             public FormatterFactory(RSAHelper helper) {
@@ -133,12 +133,12 @@ public interface RSA {
             }
 
             @Override
-            public Printer<?> getPrinter(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
+            public Printer<?> getPrinter(EncryptingByPrivateKey encryptByPublicKey, Class<?> aClass) {
                 return NopStringFormatter.INSTANCE;
             }
 
             @Override
-            public Parser<?> getParser(EncryptByPrivateKey encryptByPublicKey, Class<?> aClass) {
+            public Parser<?> getParser(EncryptingByPrivateKey encryptByPublicKey, Class<?> aClass) {
                 return (Parser<String>) (text, locale) -> helper.encryptByPrivateKey(text);
             }
         }

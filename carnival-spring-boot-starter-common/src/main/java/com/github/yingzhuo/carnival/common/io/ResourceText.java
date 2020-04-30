@@ -41,6 +41,10 @@ public interface ResourceText extends Serializable {
                 .join(getText().split("\n"));
     }
 
+    public default String getTextAsOneLineAndTrim() {
+        return getTextAsOneLine().trim();
+    }
+
     public static class SimpleResourceText implements ResourceText {
 
         private static final ResourceLoader LOADER = new DefaultResourceLoader();
