@@ -7,7 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.x;
+package com.github.yingzhuo.carnival.secret.rsa;
+
+import com.github.yingzhuo.carnival.secret.AbstractSecuritySupport;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
@@ -22,18 +24,18 @@ import java.security.spec.X509EncodedKeySpec;
  * @author 应卓
  * @since 1.6.1
  */
-public final class RSAHelper extends Support {
+public final class RSAHelper extends AbstractSecuritySupport {
 
     private final String base64PublicKey;
     private final String base64PrivateKey;
 
-    public RSAHelper(StringRSAKeyPair pair) {
-        this.base64PublicKey = pair.getPublicKey();
-        this.base64PrivateKey = pair.getPrivateKey();
+    public static RSAHelper of(RSAKeyPair pair) {
+        return new RSAHelper(pair);
     }
 
-    public RSAHelper(SecurityRSAPair pair) {
-        this(StringRSAKeyPair.from(pair));
+    private RSAHelper(RSAKeyPair pair) {
+        this.base64PublicKey = pair.getPublicKey();
+        this.base64PrivateKey = pair.getPrivateKey();
     }
 
     public String encryptByPublicKey(String encryptingString) {
@@ -97,9 +99,9 @@ public final class RSAHelper extends Support {
         }
     }
 
-    public String sign(String encryptedStr) {
+    public String sign(String string) {
         try {
-            byte[] data = encryptedStr.getBytes();
+            byte[] data = string.getBytes();
             byte[] bytes = decryptBase64(base64PrivateKey);
             PKCS8EncodedKeySpec pkcs = new PKCS8EncodedKeySpec(bytes);
             KeyFactory factory = KeyFactory.getInstance(RSA);
@@ -113,9 +115,9 @@ public final class RSAHelper extends Support {
         }
     }
 
-    public boolean verify(String encryptedStr, String sign) {
+    public boolean verify(String string, String sign) {
         try {
-            byte[] data = encryptedStr.getBytes();
+            byte[] data = string.getBytes();
             byte[] bytes = decryptBase64(base64PublicKey);
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
             KeyFactory factory = KeyFactory.getInstance(RSA);

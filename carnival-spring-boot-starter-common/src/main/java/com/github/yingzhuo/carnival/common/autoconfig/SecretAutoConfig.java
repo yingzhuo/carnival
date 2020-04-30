@@ -12,9 +12,12 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 import com.github.yingzhuo.carnival.common.Configurer;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.secret.*;
+import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
+import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -23,30 +26,38 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Lazy;
 import org.springframework.format.FormatterRegistry;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  */
 @Slf4j
 @EnableConfigurationProperties({
-        SecretAutoConfig.SecretProps.class,
-        SecretAutoConfig.AESProps.class,
-        SecretAutoConfig.RSAProps.class
+        SecretAutoConfig.SecretProps.class
 })
-@ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true")
 @Lazy(false)
 public class SecretAutoConfig implements Configurer<FormatterRegistry> {
+
+    @Autowired
+    private SecretProps props;
 
     @Override
     @Autowired
     public void config(FormatterRegistry registry) {
+        val rsaKeyPair = RSAKeyPair.fromString(
+                props.getRsa().getPublicKey(),
+                props.getRsa().getPrivateKey()
+        );
+
+        val rsaHelper = RSAHelper.of(rsaKeyPair);
+
         registry.addFormatterForFieldAnnotation(new Base64.Encoding.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new Base64.Decoding.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPrivateKey.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new AES.Encrypting.FormatterFactory());
-        registry.addFormatterForFieldAnnotation(new AES.Decrypting.FormatterFactory());
+        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPrivateKey.FormatterFactory(rsaHelper));
+        registry.addFormatterForFieldAnnotation(new RSA.EncryptByPublicKey.FormatterFactory(rsaHelper));
+        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPrivateKey.FormatterFactory(rsaHelper));
+        registry.addFormatterForFieldAnnotation(new RSA.DecryptByPublicKey.FormatterFactory(rsaHelper));
         registry.addFormatterForFieldAnnotation(new MD5.Encrypting.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new MD2.Encrypting.FormatterFactory());
         registry.addFormatterForFieldAnnotation(new SHA1.Encrypting.FormatterFactory());
@@ -58,15 +69,21 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.secret")
-    static class SecretProps {
-        private boolean enabled = true;
+    static class SecretProps implements Serializable, InitializingBean {
+        private boolean enabled = false;
+        private RSAProps rsa = new RSAProps();
+
+        @Override
+        public void afterPropertiesSet() {
+            if (this.enabled) {
+                this.rsa.afterPropertiesSet();
+            }
+        }
     }
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.secret.rsa")
-    public static class RSAProps implements InitializingBean {
-
+    static class RSAProps implements Serializable, InitializingBean {
         private String publicKey;
         private String privateKey;
         private ResourceText publicKeyLocation;
@@ -74,28 +91,12 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
 
         @Override
         public void afterPropertiesSet() {
-            if (publicKeyLocation != null) {
-                this.publicKey = publicKeyLocation.getTextAsOneLine().trim();
+            if (this.publicKeyLocation != null) {
+                this.publicKey = this.publicKeyLocation.getTextAsOneLine().trim();
             }
 
-            if (privateKeyLocation != null) {
-                this.privateKey = privateKeyLocation.getTextAsOneLine().trim();
-            }
-        }
-    }
-
-    @Getter
-    @Setter
-    @ConfigurationProperties(prefix = "carnival.secret.aes")
-    public static class AESProps implements InitializingBean {
-
-        private String passphrase;
-        private ResourceText passphraseLocation;
-
-        @Override
-        public void afterPropertiesSet() {
-            if (passphraseLocation != null) {
-                this.passphrase = passphraseLocation.getTextAsOneLine().trim();
+            if (this.privateKeyLocation != null) {
+                this.privateKey = this.privateKeyLocation.getTextAsOneLine().trim();
             }
         }
     }

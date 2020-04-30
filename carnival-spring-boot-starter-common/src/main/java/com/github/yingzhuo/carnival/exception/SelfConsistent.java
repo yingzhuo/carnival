@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
-import com.github.yingzhuo.carnival.common.formatter.MessageFormatter;
+import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;

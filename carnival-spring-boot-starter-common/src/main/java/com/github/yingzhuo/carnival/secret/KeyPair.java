@@ -9,13 +9,20 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
+ * @since 1.6.1
  */
-public class RSAException extends RuntimeException {
+public interface KeyPair<PUBLIC, PRIVATE> extends Serializable {
 
-    public RSAException(Throwable cause) {
-        super(cause);
-    }
+    public static final int KEY_SIZE_1024 = 1024;
+    public static final int KEY_SIZE_2048 = 2048;
+    public static final int KEY_SIZE_4096 = 4096;
+
+    public PUBLIC getPublicKey();
+
+    public PRIVATE getPrivateKey();
 
 }

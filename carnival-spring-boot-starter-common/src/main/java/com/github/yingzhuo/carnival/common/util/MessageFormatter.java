@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.formatter;
+package com.github.yingzhuo.carnival.common.util;
 
 import java.util.HashMap;
 import java.util.Map;

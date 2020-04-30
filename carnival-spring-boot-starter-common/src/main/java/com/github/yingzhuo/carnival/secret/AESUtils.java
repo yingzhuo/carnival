@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.util;
+package com.github.yingzhuo.carnival.secret;
 
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
@@ -35,7 +35,7 @@ public final class AESUtils {
             byte[] encrypted = cipher.doFinal(value.getBytes());
             return DatatypeConverter.printBase64Binary(initVector) + DatatypeConverter.printBase64Binary(encrypted);
         } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
@@ -47,7 +47,7 @@ public final class AESUtils {
             byte[] original = cipher.doFinal(DatatypeConverter.parseBase64Binary(encrypted.substring(24)));
             return new String(original);
         } catch (GeneralSecurityException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 

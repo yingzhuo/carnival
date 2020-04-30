@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.business.impl;
 
-import com.github.yingzhuo.carnival.common.formatter.MessageFormatter;
+import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.var;

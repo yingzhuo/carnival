@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.x;
+package com.github.yingzhuo.carnival.secret;
 
 import java.util.Base64;
 
@@ -15,7 +15,7 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.1
  */
-abstract class Support {
+public abstract class AbstractSecuritySupport {
 
     protected static final String RSA = "RSA";
     protected static final String MD5withRSA = "MD5withRSA";

@@ -7,7 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.x;
+package com.github.yingzhuo.carnival.secret.rsa;
+
+import com.github.yingzhuo.carnival.secret.AbstractSecuritySupport;
+import com.github.yingzhuo.carnival.secret.KeyPair;
 
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
@@ -18,12 +21,12 @@ import java.security.interfaces.RSAPublicKey;
  * @author 应卓
  * @since 1.6.1
  */
-public final class StringRSAKeyPair extends Support implements KeyPair<String, String> {
+public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair<String, String> {
 
     private final String publicKey;
     private final String privateKey;
 
-    public static StringRSAKeyPair createRandom(int keySize) {
+    public static RSAKeyPair createRandom(int keySize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance(RSA);
             generator.initialize(keySize);
@@ -32,26 +35,22 @@ public final class StringRSAKeyPair extends Support implements KeyPair<String, S
             RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
             return fromKeys(publicKey, privateKey);
         } catch (NoSuchAlgorithmException e) {
-            throw new AssertionError();
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
     }
 
-    public static StringRSAKeyPair from(SecurityRSAPair pair) {
-        return fromKeys(pair.getPublicKey(), pair.getPrivateKey());
-    }
-
-    public static StringRSAKeyPair fromKeys(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
-        return new StringRSAKeyPair(
+    public static RSAKeyPair fromKeys(RSAPublicKey publicKey, RSAPrivateKey privateKey) {
+        return new RSAKeyPair(
                 encryptBase64(publicKey.getEncoded()),
                 encryptBase64(privateKey.getEncoded())
         );
     }
 
-    public static StringRSAKeyPair fromString(String publicKey, String privateKey) {
-        return new StringRSAKeyPair(publicKey, privateKey);
+    public static RSAKeyPair fromString(String publicKey, String privateKey) {
+        return new RSAKeyPair(publicKey, privateKey);
     }
 
-    private StringRSAKeyPair(String publicKey, String privateKey) {
+    private RSAKeyPair(String publicKey, String privateKey) {
         this.publicKey = publicKey;
         this.privateKey = privateKey;
     }
