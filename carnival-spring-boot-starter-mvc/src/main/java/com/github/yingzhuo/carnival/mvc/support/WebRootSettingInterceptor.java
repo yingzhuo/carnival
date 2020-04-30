@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author 应卓
  */
-public class WebrootSettingInterceptor extends HandlerInterceptorAdapter {
+public class WebRootSettingInterceptor extends HandlerInterceptorAdapter {
 
     private final String attributeName;
 
-    public WebrootSettingInterceptor(String attributeName) {
+    public WebRootSettingInterceptor(String attributeName) {
         this.attributeName = attributeName;
     }
 

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.support.WebrootSettingInterceptor;
+import com.github.yingzhuo.carnival.mvc.support.WebRootSettingInterceptor;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +26,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true", matchIfMissing = false)
-@EnableConfigurationProperties(MvcWebrootAutoConfig.Props.class)
-public class MvcWebrootAutoConfig implements WebMvcConfigurer {
+@ConditionalOnProperty(prefix = "carnival.mvc.webroot", name = "enabled", havingValue = "true")
+@EnableConfigurationProperties(MvcWebRootAutoConfig.Props.class)
+public class MvcWebRootAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private Props props;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new WebrootSettingInterceptor(props.getRequestAttributeName())).addPathPatterns("/", "/**");
+        registry.addInterceptor(new WebRootSettingInterceptor(props.getRequestAttributeName())).addPathPatterns("/", "/**");
     }
 
     @Getter
