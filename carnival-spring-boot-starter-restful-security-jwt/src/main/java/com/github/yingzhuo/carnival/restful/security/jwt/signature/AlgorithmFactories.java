@@ -76,7 +76,7 @@ public final class AlgorithmFactories {
         return new RSA512AlgorithmFactory(publicKey, privateKey);
     }
 
-    public static AlgorithmFactory preinstalledRsa256(int number) {
+    public static AlgorithmFactory predefinedRsa256(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }
@@ -86,7 +86,7 @@ public final class AlgorithmFactories {
         );
     }
 
-    public static AlgorithmFactory preinstalledRsa384(int number) {
+    public static AlgorithmFactory predefinedRsa384(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }
@@ -96,7 +96,7 @@ public final class AlgorithmFactories {
         );
     }
 
-    public static AlgorithmFactory preinstalledRsa512(int number) {
+    public static AlgorithmFactory predefinedRsa512(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }
@@ -132,7 +132,7 @@ public final class AlgorithmFactories {
         return new ECDSA512AlgorithmFactory(publicKey, privateKey);
     }
 
-    public static AlgorithmFactory preinstalledEcdsa256(int number) {
+    public static AlgorithmFactory predefinedEcdsa256(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }
@@ -142,7 +142,7 @@ public final class AlgorithmFactories {
         );
     }
 
-    public static AlgorithmFactory preinstalledEcdsa384(int number) {
+    public static AlgorithmFactory predefinedEcdsa384(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }
@@ -152,7 +152,7 @@ public final class AlgorithmFactories {
         );
     }
 
-    public static AlgorithmFactory preinstalledEcdsa512(int number) {
+    public static AlgorithmFactory predefinedEcdsa512(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0, 16]");
         }

@@ -76,7 +76,7 @@ public final class AlgorithmGenerators {
         return new RSA512AlgorithmGenerator(publicKey, privateKey);
     }
 
-    public static AlgorithmGenerator preinstalledRsa256(int number) {
+    public static AlgorithmGenerator predefinedRsa256(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
@@ -86,7 +86,7 @@ public final class AlgorithmGenerators {
         );
     }
 
-    public static AlgorithmGenerator preinstalledRsa384(int number) {
+    public static AlgorithmGenerator predefinedRsa384(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
@@ -96,7 +96,7 @@ public final class AlgorithmGenerators {
         );
     }
 
-    public static AlgorithmGenerator preinstalledRsa512(int number) {
+    public static AlgorithmGenerator predefinedRsa512(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
@@ -132,7 +132,7 @@ public final class AlgorithmGenerators {
         return new ECDSA512AlgorithmGenerator(publicKey, privateKey);
     }
 
-    public static AlgorithmGenerator preinstalledEcdsa256(int number) {
+    public static AlgorithmGenerator predefinedEcdsa256(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
@@ -142,7 +142,7 @@ public final class AlgorithmGenerators {
         );
     }
 
-    public static AlgorithmGenerator preinstalledEcdsa384(int number) {
+    public static AlgorithmGenerator predefinedEcdsa384(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
@@ -152,7 +152,7 @@ public final class AlgorithmGenerators {
         );
     }
 
-    public static AlgorithmGenerator preinstalledEcdsa512(int number) {
+    public static AlgorithmGenerator predefinedEcdsa512(int number) {
         if (number < 0 || number > 15) {
             throw new IllegalArgumentException("number range: [0,16)");
         }
