@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
+import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
 import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -60,11 +59,10 @@ public interface ResourceText extends Serializable {
 
     public static class SimpleResourceText implements ResourceText {
 
-        private static final ResourceLoader LOADER = new DefaultResourceLoader();
         private final String text;
 
         public SimpleResourceText(String location, Charset charset) {
-            this(LOADER.getResource(location), charset);
+            this(ResourceLoaderUtils.getDefault().getResource(location), charset);
         }
 
         public SimpleResourceText(Resource resource, Charset charset) {

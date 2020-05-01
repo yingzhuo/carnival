@@ -9,13 +9,12 @@
  */
 package com.github.yingzhuo.carnival.common.condition;
 
+import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
 import lombok.val;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import java.lang.annotation.*;
@@ -34,15 +33,13 @@ public @interface ConditionalOnAllResource {
 
     static final class OnAllResource implements Condition {
 
-        private ResourceLoader resourceLoader = new DefaultResourceLoader();
-
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             val locations = getLocations(metadata);
 
             for (String location : locations) {
                 try {
-                    val resource = resourceLoader.getResource(location);
+                    val resource = ResourceLoaderUtils.getDefault().getResource(location);
                     if (!resource.exists()) {
                         return false;
                     }

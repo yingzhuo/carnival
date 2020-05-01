@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import org.springframework.core.io.DefaultResourceLoader;
+import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 import java.io.*;
 import java.util.Arrays;
@@ -149,12 +148,10 @@ public interface ResourceOptional extends Closeable {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static class SimpleResourceOptional implements ResourceOptional {
-
-        private final static ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
         private Resource resource = null;
 
         public SimpleResourceOptional(String... locations) {
-            this(Arrays.stream(locations).map(RESOURCE_LOADER::getResource).toArray(Resource[]::new));
+            this(Arrays.stream(locations).map(ResourceLoaderUtils.getDefault()::getResource).toArray(Resource[]::new));
         }
 
         public SimpleResourceOptional(Resource... resources) {
