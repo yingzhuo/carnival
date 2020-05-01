@@ -9,16 +9,24 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import com.github.yingzhuo.carnival.restful.security.token.Token;
+
+import java.util.Objects;
+
 /**
  * @author 应卓
  */
 public class TokenBlacklistedException extends AuthenticationException {
 
-    public TokenBlacklistedException() {
+    private final Token token;
+
+    public TokenBlacklistedException(Token token) {
+        this.token = Objects.requireNonNull(token);
     }
 
-    public TokenBlacklistedException(String message) {
+    public TokenBlacklistedException(Token token, String message) {
         super(message);
+        this.token = Objects.requireNonNull(token);
     }
 
 }

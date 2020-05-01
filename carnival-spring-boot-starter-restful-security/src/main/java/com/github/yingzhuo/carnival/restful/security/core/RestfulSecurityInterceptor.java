@@ -73,7 +73,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
             RestfulSecurityContext.setToken(token);
 
             if (tokenBlacklistManager != null && tokenBlacklistManager.isBlacklisted(token)) {
-                throw new TokenBlacklistedException();
+                throw new TokenBlacklistedException(token);
             }
 
             Optional<UserDetails> userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
