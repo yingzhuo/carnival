@@ -9,10 +9,13 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
+import com.github.yingzhuo.carnival.mvc.filter.VeryFirstServletFilter;
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -49,6 +52,15 @@ public class MvcCommonAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(new IpAddressHandlerMethodArgumentResolver());
+    }
+
+    @Bean
+    public FilterRegistrationBean<VeryFirstServletFilter> veryFirstServletFilterRegistrationBean() {
+        val bean = new FilterRegistrationBean<VeryFirstServletFilter>(new VeryFirstServletFilter());
+        bean.setName(VeryFirstServletFilter.class.getSimpleName());
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        bean.addUrlPatterns("/*");
+        return bean;
     }
 
 }
