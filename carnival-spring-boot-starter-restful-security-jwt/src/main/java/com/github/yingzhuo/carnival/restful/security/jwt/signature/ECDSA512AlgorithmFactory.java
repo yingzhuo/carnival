@@ -29,8 +29,8 @@ class ECDSA512AlgorithmFactory extends AbstractECDSAAlgorithmFactory {
     }
 
     public ECDSA512AlgorithmFactory(ResourceText publicKey, ResourceText privateKey) {
-        this.publicKey = Objects.requireNonNull(publicKey).getTextAsOneLine();
-        this.privateKey = Objects.requireNonNull(privateKey).getTextAsOneLine();
+        this.publicKey = Objects.requireNonNull(publicKey).getTextAsOneLineAndTrim();
+        this.privateKey = Objects.requireNonNull(privateKey).getTextAsOneLineAndTrim();
     }
 
     @Override

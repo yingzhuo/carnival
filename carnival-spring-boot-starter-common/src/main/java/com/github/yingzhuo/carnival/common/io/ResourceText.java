@@ -9,13 +9,14 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.google.common.base.Joiner;
-import com.google.common.io.CharStreams;
+import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -33,16 +34,28 @@ public interface ResourceText extends Serializable {
         return new SimpleResourceText(location, charset);
     }
 
+    public static ResourceText of(Resource resource) {
+        return new SimpleResourceText(resource, StandardCharsets.UTF_8);
+    }
+
+    public static ResourceText of(Resource resource, Charset charset) {
+        return new SimpleResourceText(resource, charset);
+    }
+
     public String getText();
 
     public default String getTextAsOneLine() {
-        return Joiner.on("")
-                .skipNulls()
-                .join(getText().split("\n"));
+        return getText().replaceAll("\\n", "");
     }
 
+    // since 1.6.2
     public default String getTextAsOneLineAndTrim() {
         return getTextAsOneLine().trim();
+    }
+
+    // since 1.6.2
+    public default String getTextAndStripWriteSpaces() {
+        return getText().replaceAll("\\s", "");
     }
 
     public static class SimpleResourceText implements ResourceText {
@@ -51,17 +64,15 @@ public interface ResourceText extends Serializable {
         private final String text;
 
         public SimpleResourceText(String location, Charset charset) {
+            this(LOADER.getResource(location), charset);
+        }
+
+        public SimpleResourceText(Resource resource, Charset charset) {
             try {
-                Resource resource = LOADER.getResource(location);
-
                 if (!resource.exists() || !resource.isReadable()) {
-                    throw new IOException();
+                    throw new IOException("Cannot open resource.");
                 }
-
-                Reader reader = new InputStreamReader(resource.getInputStream(), charset);
-                this.text = CharStreams.toString(new InputStreamReader(resource.getInputStream(), charset));
-
-                reader.close();
+                this.text = IOUtils.toString(resource.getInputStream(), charset);
                 resource.getInputStream().close();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);

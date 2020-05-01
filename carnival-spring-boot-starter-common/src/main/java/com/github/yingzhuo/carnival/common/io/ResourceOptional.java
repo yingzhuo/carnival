@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -34,12 +35,16 @@ public interface ResourceOptional extends Closeable {
         }
     }
 
+    public static ResourceOptional of(Resource... resources) {
+        return new SimpleResourceOptional(resources);
+    }
+
     public static ResourceOptional empty() {
         return new AbsentResourceOptional();
     }
 
     public default Optional<Resource> toOptional() {
-        return Optional.ofNullable(get());
+        return isPresent() ? Optional.of(get()) : Optional.empty();
     }
 
     public Resource get();
@@ -115,7 +120,12 @@ public interface ResourceOptional extends Closeable {
         }
     }
 
-    public String getLocation();
+    public default ResourceText toResourceText() {
+        if (isAbsent()) {
+            throw new NoSuchElementException("ResourceOptional is absent");
+        }
+        return ResourceText.of(get());
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -131,11 +141,6 @@ public interface ResourceOptional extends Closeable {
         }
 
         @Override
-        public String getLocation() {
-            throw new NoSuchElementException("ResourceOptional is absent");
-        }
-
-        @Override
         public void close() {
             // NOP
         }
@@ -146,20 +151,19 @@ public interface ResourceOptional extends Closeable {
     public static class SimpleResourceOptional implements ResourceOptional {
 
         private final static ResourceLoader RESOURCE_LOADER = new DefaultResourceLoader();
-        private Resource resource;
-        private String location;
+        private Resource resource = null;
 
         public SimpleResourceOptional(String... locations) {
-            for (String location : locations) {
-                Resource r = RESOURCE_LOADER.getResource(location);
-                if (r.exists() && r.isReadable()) {
-                    this.resource = r;
-                    this.location = location;
+            this(Arrays.stream(locations).map(RESOURCE_LOADER::getResource).toArray(Resource[]::new));
+        }
+
+        public SimpleResourceOptional(Resource... resources) {
+            for (Resource resource : resources) {
+                if (resource.exists() && resource.isReadable()) {
+                    this.resource = resource;
                     return;
                 }
             }
-
-            this.resource = null;
         }
 
         @Override
@@ -173,14 +177,6 @@ public interface ResourceOptional extends Closeable {
         @Override
         public boolean isPresent() {
             return resource != null;
-        }
-
-        @Override
-        public String getLocation() {
-            if (isAbsent()) {
-                throw new NoSuchElementException("ResourceOptional is absent");
-            }
-            return this.location;
         }
 
         @Override
