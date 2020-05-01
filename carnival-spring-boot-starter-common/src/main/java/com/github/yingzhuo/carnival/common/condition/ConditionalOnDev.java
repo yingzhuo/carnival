@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.common.condition;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
@@ -26,17 +25,14 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnProdMode.OnProdMode.class)
-public @interface ConditionalOnProdMode {
+@Conditional(ConditionalOnDev.OnDev.class)
+public @interface ConditionalOnDev {
 
-    static final class OnProdMode implements Condition {
+    static final class OnDev implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            final Environment env = context.getEnvironment();
-            final boolean c1 = env.acceptsProfiles(Profiles.of("prod"));
-            final boolean c2 = env.acceptsProfiles(Profiles.of("production"));
-            return c1 || c2;
+            return context.getEnvironment().acceptsProfiles(Profiles.of("dev"));
         }
     }
 

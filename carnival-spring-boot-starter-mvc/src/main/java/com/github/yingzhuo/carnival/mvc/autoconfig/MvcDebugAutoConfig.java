@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebugMode;
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebug;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author 应卓
  */
 @Lazy(false)
-@ConditionalOnDebugMode
+@ConditionalOnDebug
 @ConditionalOnWebApplication
 public class MvcDebugAutoConfig implements WebMvcConfigurer {
 
