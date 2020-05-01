@@ -21,7 +21,7 @@ public final class VeryFirstServletContext {
     private static final ThreadLocal<HttpServletRequest> REQUEST_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<HttpServletResponse> RESPONSE_HOLDER = ThreadLocal.withInitial(() -> null);
 
-    public VeryFirstServletContext() {
+    private VeryFirstServletContext() {
     }
 
     static void setRequest(HttpServletRequest request) {

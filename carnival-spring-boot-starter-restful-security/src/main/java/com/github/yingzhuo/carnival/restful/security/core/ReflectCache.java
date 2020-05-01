@@ -27,7 +27,7 @@ public final class ReflectCache {
     private static boolean initialized = false;
     private static Map<Method, List<MethodCheckPoint>> cache = new HashMap<>();
 
-    public static void init() {
+    public synchronized static void init() {
         if (!initialized) {
             final Collection<HandlerMethod> handlerMethods = RequestMappingUtils.getRequestMappingHandlerMapping().getHandlerMethods().values();
 
