@@ -1,30 +1,24 @@
 /*
- * Copyright (c) 2009 Piotr Piastucki
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
  *
- * This file is part of Patchca CAPTCHA library.
- *
- *  Patchca is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU Lesser General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Patchca is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU Lesser General Public License for more details.
- *
- *  You should have received a copy of the GNU Lesser General Public License
- *  along with Patchca. If not, see <http://www.gnu.org/licenses/>.
+ * https://github.com/yingzhuo/carnival
  */
 package org.patchca.filter.library;
 
 import java.util.Random;
 
+/**
+ * @author Piotr Piastucki
+ */
 public class DiffuseImageOp extends AbstractTransformImageOp {
 
-    double[] tx;
-    double[] ty;
-    double amount;
+    private double[] tx;
+    private double[] ty;
+    private double amount;
 
     public DiffuseImageOp() {
         amount = 1.6;

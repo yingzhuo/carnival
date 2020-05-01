@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.google.common.base.Preconditions;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -99,12 +98,10 @@ public interface ResourceOptional extends Closeable {
     }
 
     public default <U> U map(Function<Resource, U> function) {
-        Preconditions.checkArgument(function != null);
         return function.apply(get());
     }
 
     public default void ifPresent(Consumer<Resource> consumer) {
-        Preconditions.checkArgument(consumer != null);
         consumer.accept(get());
     }
 

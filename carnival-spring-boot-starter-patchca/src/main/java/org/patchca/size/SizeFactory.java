@@ -7,15 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package org.patchca.background;
-
-import java.awt.image.BufferedImage;
+package org.patchca.size;
 
 /**
- * @author Piotr Piastucki
+ * @author 应卓
  */
-public interface BackgroundFactory {
+public interface SizeFactory {
 
-    public void fillBackground(BufferedImage dest);
+    public int getWidth();
+
+    public int getHeight();
 
 }

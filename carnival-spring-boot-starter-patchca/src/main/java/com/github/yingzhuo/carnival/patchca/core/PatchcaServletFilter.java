@@ -7,11 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.patchca;
+package com.github.yingzhuo.carnival.patchca.core;
 
 import lombok.extern.slf4j.Slf4j;
 import org.patchca.service.CaptchaService;
-import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.utils.encoder.EncoderHelper;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,8 +27,13 @@ import java.io.OutputStream;
 @Slf4j
 public class PatchcaServletFilter extends OncePerRequestFilter {
 
-    private String patchcaSessionAttributeName = "PATCHCA_SESSION_ATTRIBUTE_NAME";
-    private CaptchaService captchaService = new ConfigurableCaptchaService();
+    private final CaptchaService captchaService;
+    private final String patchcaSessionAttributeName;
+
+    public PatchcaServletFilter(CaptchaService captchaService, String patchcaSessionAttributeName) {
+        this.captchaService = captchaService;
+        this.patchcaSessionAttributeName = patchcaSessionAttributeName;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException {
@@ -44,14 +48,6 @@ public class PatchcaServletFilter extends OncePerRequestFilter {
 
         outputStream.flush();
         outputStream.close();
-    }
-
-    public void setCaptchaService(CaptchaService captchaService) {
-        this.captchaService = captchaService;
-    }
-
-    public void setPatchcaSessionAttributeName(String patchcaSessionAttributeName) {
-        this.patchcaSessionAttributeName = patchcaSessionAttributeName;
     }
 
 }

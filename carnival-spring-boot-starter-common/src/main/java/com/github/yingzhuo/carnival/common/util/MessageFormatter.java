@@ -32,7 +32,7 @@ public final class MessageFormatter {
         return format(messagePattern, new Object[]{arg});
     }
 
-    public static String format(final String messagePattern, final Object[] argArray) {
+    public static String format(String messagePattern, Object[] argArray) {
         Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(argArray);
         Object[] args = argArray;
         if (throwableCandidate != null) {

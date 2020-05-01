@@ -10,7 +10,7 @@
 package org.patchca.filter;
 
 /**
- * 滤镜类型
+ * @author Piotr Piastucki
  */
 public enum FilterType {
 

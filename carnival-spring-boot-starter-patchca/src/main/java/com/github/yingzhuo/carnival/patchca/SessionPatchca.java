@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.patchca.annotation;
+package com.github.yingzhuo.carnival.patchca;
 
 import java.lang.annotation.*;
 

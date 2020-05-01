@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.patchca.autoconfig;
 
-import com.github.yingzhuo.carnival.patchca.props.*;
+import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
 import lombok.val;
 import org.patchca.background.BackgroundFactory;
 import org.patchca.background.SingleColorBackgroundFactory;
@@ -18,6 +18,8 @@ import org.patchca.filter.FilterFactory;
 import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
+import org.patchca.size.SingleSizeFactory;
+import org.patchca.size.SizeFactory;
 import org.patchca.text.renderer.BestFitTextRenderer;
 import org.patchca.text.renderer.TextRenderer;
 import org.patchca.word.AdaptiveRandomWordFactory;
@@ -36,88 +38,93 @@ import java.util.Arrays;
  */
 @Lazy(false)
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
-@EnableConfigurationProperties({
-        FilterProps.class,
-        ServletFilterProps.class,
-        BackgroundProps.class,
-        ForegroundProps.class,
-        FontProps.class,
-        WordProps.class,
-        TextRendererProps.class
-})
 @ConditionalOnWebApplication
+@EnableConfigurationProperties(PatchcaProps.class)
 public class PatchcaBeanAutoConfig {
 
+    // 文本内容
     @Bean
     @ConditionalOnMissingBean
-    public WordFactory wordFactory(WordProps props) {
+    public WordFactory wordFactory(PatchcaProps props) {
+        val subProps = props.getWord();
         val bean = new AdaptiveRandomWordFactory();
-        bean.setWideCharacters(props.getWideCharacters());
-        bean.setCharacters(props.getCharacters());
-        bean.setMaxLength(props.getMaxLength());
-        bean.setMinLength(props.getMinLength());
+        bean.setWideCharacters(subProps.getWideCharacters());
+        bean.setCharacters(subProps.getCharacters());
+        bean.setMaxLength(subProps.getMaxLength());
+        bean.setMinLength(subProps.getMinLength());
         return bean;
     }
 
+    // 背景
     @Bean
     @ConditionalOnMissingBean
-    public BackgroundFactory backgroundFactory(BackgroundProps props) {
+    public BackgroundFactory backgroundFactory(PatchcaProps props) {
+        val subProps = props.getBackground();
         val bean = new SingleColorBackgroundFactory();
-        bean.setColorFactory(props.createColorFactory());
+        bean.setColorFactory(subProps.createColorFactory());
         return bean;
     }
 
+    // 前景
     @Bean
     @ConditionalOnMissingBean
-    public FontFactory fontFactory(FontProps props) {
+    public ColorFactory colorFactory(PatchcaProps props) {
+        val subProps = props.getForeground();
+        return subProps.createColorFactory();
+    }
+
+    // 字体
+    @Bean
+    @ConditionalOnMissingBean
+    public FontFactory fontFactory(PatchcaProps props) {
+        val subProps = props.getFont();
         val bean = new RandomFontFactory();
-        bean.setFamilies(Arrays.asList(props.getFamilies()));
-        bean.setMaxSize(props.getMaxSize());
-        bean.setMinSize(props.getMinSize());
+        bean.setFamilies(Arrays.asList(subProps.getFamilies()));
+        bean.setMaxSize(subProps.getMaxSize());
+        bean.setMinSize(subProps.getMinSize());
         return bean;
     }
 
+    // 文本渲染
     @Bean
     @ConditionalOnMissingBean
-    public TextRenderer textRenderer(TextRendererProps props) {
+    public TextRenderer textRenderer(PatchcaProps props) {
+        val subProps = props.getTextRenderer();
         val bean = new BestFitTextRenderer();
-        bean.setBottomMargin(props.getBottomMargin());
-        bean.setTopMargin(props.getTopMargin());
-        bean.setLeftMargin(props.getLeftMargin());
-        bean.setRightMargin(props.getRightMargin());
+        bean.setBottomMargin(subProps.getBottomMargin());
+        bean.setTopMargin(subProps.getTopMargin());
+        bean.setLeftMargin(subProps.getLeftMargin());
+        bean.setRightMargin(subProps.getRightMargin());
         return bean;
     }
 
+    // 图片尺寸
     @Bean
     @ConditionalOnMissingBean
-    public ColorFactory colorFactory(ForegroundProps props) {
-        return props.createColorFactory();
+    public SizeFactory sizeFactory(PatchcaProps props) {
+        val subProps = props.getSize();
+        return new SingleSizeFactory(subProps.getWidth(), subProps.getHeight());
     }
 
+    // 滤镜
     @Bean
     @ConditionalOnMissingBean
-    public FilterFactory filterFactory(FilterProps filterProps, ColorFactory colorFactory) {
-        FilterFactory filterFactory;
+    public FilterFactory filterFactory(PatchcaProps props, ColorFactory colorFactory) {
+        val filterProps = props.getFilter();
         switch (filterProps.getType()) {
             case CURVES:
-                filterFactory = new CurvesAbstractRippleFilterFactory(colorFactory);
-                break;
+                return new CurvesAbstractRippleFilterFactory(colorFactory);
             case DIFFUSE:
-                filterFactory = new DiffuseAbstractRippleFilterFactory();
-                break;
+                return new DiffuseAbstractRippleFilterFactory();
             case DOUBLE:
-                filterFactory = new DoubleRippleFilterFactory();
-                break;
+                return new DoubleRippleFilterFactory();
             case MARBLE:
-                filterFactory = new MarbleAbstractRippleFilterFactory();
-                break;
+                return new MarbleAbstractRippleFilterFactory();
             case WOBBLE:
-                filterFactory = new WobbleAbstractRippleFilterFactory();
-                break;
+                return new WobbleAbstractRippleFilterFactory();
             default:
-                throw new AssertionError(); // 代码不可能运行到此处
+                throw new AssertionError();
         }
-        return filterFactory;
     }
 
 }
