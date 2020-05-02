@@ -18,6 +18,7 @@ import java.lang.annotation.*;
  * @author 应卓
  * @since 1.1.6
  */
+@Deprecated
 @Documented
 @Inherited
 @Target({ElementType.METHOD, ElementType.TYPE})

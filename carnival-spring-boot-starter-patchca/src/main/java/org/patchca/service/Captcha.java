@@ -10,34 +10,34 @@
 package org.patchca.service;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * @author Piotr Piastucki
+ * @author 应卓
  */
-public class Captcha {
+public class Captcha implements Serializable {
 
-    private String challenge;
-    private BufferedImage image;
+    private final String accessKey;
+    private final String challenge;
+    private final BufferedImage image;
 
-    public Captcha(String challenge, BufferedImage image) {
+    public Captcha(String accessKey, String challenge, BufferedImage image) {
+        this.accessKey = accessKey;
         this.challenge = challenge;
         this.image = image;
+    }
+
+    public String getAccessKey() {
+        return this.accessKey;
     }
 
     public String getChallenge() {
-        return challenge;
-    }
-
-    public void setChallenge(String challenge) {
-        this.challenge = challenge;
+        return this.challenge;
     }
 
     public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
+        return this.image;
     }
 
 }

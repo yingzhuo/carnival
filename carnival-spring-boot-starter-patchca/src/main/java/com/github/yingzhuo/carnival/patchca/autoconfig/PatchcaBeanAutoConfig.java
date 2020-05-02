@@ -9,6 +9,13 @@
  */
 package com.github.yingzhuo.carnival.patchca.autoconfig;
 
+import com.github.yingzhuo.carnival.patchca.CaptchaDao;
+import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.dao.DefaultStatefulCaptchaDao;
+import com.github.yingzhuo.carnival.patchca.dao.DefaultStatelessCaptchaDao;
+import com.github.yingzhuo.carnival.patchca.handler.DefaultStatefulCaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.handler.DefaultStatelessCaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.props.Mode;
 import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
 import lombok.val;
 import org.patchca.background.BackgroundFactory;
@@ -24,6 +31,7 @@ import org.patchca.text.renderer.BestFitTextRenderer;
 import org.patchca.text.renderer.TextRenderer;
 import org.patchca.word.AdaptiveRandomWordFactory;
 import org.patchca.word.WordFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -41,6 +49,31 @@ import java.util.Arrays;
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(PatchcaProps.class)
 public class PatchcaBeanAutoConfig {
+
+    @Autowired
+    private PatchcaProps props;
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CaptchaDao captchaDao() {
+        final Mode mode = props.getMode();
+        if (mode == Mode.STATEFUL) {
+            return new DefaultStatefulCaptchaDao();
+        } else {
+            return new DefaultStatelessCaptchaDao();
+        }
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CaptchaHandler captchaHandler() {
+        final Mode mode = props.getMode();
+        if (mode == Mode.STATEFUL) {
+            return new DefaultStatefulCaptchaHandler();
+        } else {
+            return new DefaultStatelessCaptchaHandler();
+        }
+    }
 
     // 文本内容
     @Bean

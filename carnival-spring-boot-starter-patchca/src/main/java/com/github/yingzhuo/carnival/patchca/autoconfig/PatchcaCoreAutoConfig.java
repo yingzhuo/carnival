@@ -9,8 +9,11 @@
  */
 package com.github.yingzhuo.carnival.patchca.autoconfig;
 
+import com.github.yingzhuo.carnival.patchca.CaptchaDao;
+import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.CaptchaSessionAttribute;
 import com.github.yingzhuo.carnival.patchca.SessionPatchca;
-import com.github.yingzhuo.carnival.patchca.core.PatchcaServletFilter;
+import com.github.yingzhuo.carnival.patchca.core.PatchcaCoreFilter;
 import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
 import lombok.val;
 import org.patchca.background.BackgroundFactory;
@@ -51,7 +54,9 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
     private PatchcaProps props;
 
     @Bean
-    public FilterRegistrationBean<PatchcaServletFilter> patchcaFilter(
+    public FilterRegistrationBean<PatchcaCoreFilter> patchcaFilter(
+            CaptchaDao captchaDao,
+            CaptchaHandler captchaHandler,
             BackgroundFactory backgroundFactory,
             ColorFactory colorFactory,
             FontFactory fontFactory,
@@ -59,7 +64,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
             FilterFactory filterFactory,
             WordFactory wordFactory,
             SizeFactory sizeFactory
-    ) {
+    ) throws Exception {
 
         // service
         val svc = new ConfigurableCaptchaService();
@@ -74,31 +79,27 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
 
         // servlet-filter
         val servletFilterProps = props.getServletFilter();
-        val coreFilter = new PatchcaServletFilter(svc, servletFilterProps.getSessionAttributeName());
+        val coreFilter = new PatchcaCoreFilter();
+        coreFilter.setCaptchaService(svc);
+        coreFilter.setCaptchaDao(captchaDao);
+        coreFilter.setCaptchaHandler(captchaHandler);
+        coreFilter.afterPropertiesSet();
 
-        val bean = new FilterRegistrationBean<PatchcaServletFilter>();
+        val bean = new FilterRegistrationBean<PatchcaCoreFilter>();
         bean.setFilter(coreFilter);
         bean.addUrlPatterns(servletFilterProps.getUrlPatterns());
-        bean.setName(servletFilterProps.getName());
-        bean.setOrder(servletFilterProps.getOrder());
+        bean.setName(PatchcaCoreFilter.class.getSimpleName());
         return bean;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new PatchcaHandlerMethodArgumentResolver(props.getServletFilter().getSessionAttributeName()));
+        resolvers.add(new PatchcaHandlerMethodArgumentResolver());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static class PatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
-        private final String sessionAttributeName;
-
-        public PatchcaHandlerMethodArgumentResolver(String sessionAttributeName) {
-            this.sessionAttributeName = sessionAttributeName;
-        }
-
+    private static class PatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver, CaptchaSessionAttribute {
         @Override
         public boolean supportsParameter(MethodParameter parameter) {
             return parameter.hasParameterAnnotation(SessionPatchca.class);
@@ -106,7 +107,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
 
         @Override
         public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-            return ((HttpServletRequest) webRequest.getNativeRequest()).getSession(true).getAttribute(sessionAttributeName);
+            return ((HttpServletRequest) webRequest.getNativeRequest()).getSession(true).getAttribute(NAME);
         }
     }
 

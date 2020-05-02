@@ -17,6 +17,7 @@ import org.patchca.text.renderer.TextRenderer;
 import org.patchca.word.WordFactory;
 
 import java.awt.image.BufferedImage;
+import java.util.UUID;
 
 /**
  * @author Piotr Piastucki
@@ -103,7 +104,8 @@ public abstract class AbstractCaptchaService implements CaptchaService {
         String word = wordFactory.getNextWord();
         textRenderer.draw(word, bufImage, fontFactory, colorFactory);
         bufImage = filterFactory.applyFilters(bufImage);
-        return new Captcha(word, bufImage);
+        String accessKey = UUID.randomUUID().toString();
+        return new Captcha(accessKey, word, bufImage);
     }
 
 }

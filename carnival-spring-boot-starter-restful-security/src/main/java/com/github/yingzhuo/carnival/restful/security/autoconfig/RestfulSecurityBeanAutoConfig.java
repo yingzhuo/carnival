@@ -57,6 +57,7 @@ public class RestfulSecurityBeanAutoConfig {
     }
 
     @Bean
+    @Deprecated
     public RequiresAdminAuthComponent requiresAdminAuthComponent() {
         return new RequiresAdminAuthComponent();
     }

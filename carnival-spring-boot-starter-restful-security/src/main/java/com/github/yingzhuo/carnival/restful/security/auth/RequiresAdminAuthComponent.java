@@ -21,6 +21,7 @@ import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.ge
  * @author 应卓
  * @since 1.1.6
  */
+@Deprecated
 public class RequiresAdminAuthComponent implements AuthenticationComponent<RequiresAdmin> {
 
     @Override
