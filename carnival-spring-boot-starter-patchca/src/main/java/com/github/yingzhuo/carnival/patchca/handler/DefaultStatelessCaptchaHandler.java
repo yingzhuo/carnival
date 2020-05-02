@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.patchca.handler;
 
+import org.patchca.service.EncodedCaptcha;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -20,10 +23,13 @@ import java.io.IOException;
 public class DefaultStatelessCaptchaHandler extends AbstractStatelessCaptchaHandler {
 
     @Override
-    protected void doHandle(String accessKey, String captcha, String encodedImage, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getOutputStream().println(String.format("accessKey: %s", accessKey));
-        response.getOutputStream().println(String.format("captcha: %s", captcha));
-        response.getOutputStream().println(String.format("encodedImage: %s", encodedImage));
+    protected void doHandle(EncodedCaptcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        final ServletOutputStream os = response.getOutputStream();
+        os.println(String.format("accessKey: %s", captcha.getAccessKey()));
+        os.println(String.format("captcha: %s", captcha.getCaptcha()));
+        os.println(String.format("encodedImage: %s", captcha.getEncodeImage()));
+        os.flush();
+        os.close();
     }
 
 }

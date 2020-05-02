@@ -11,6 +11,9 @@ package org.patchca.color;
 
 import java.awt.*;
 
+/**
+ * @author Piotr Piastucki
+ */
 public class GradientColorFactory implements ColorFactory {
 
     private Color start;

@@ -13,10 +13,10 @@ import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
 import org.patchca.service.Captcha;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * @author 应卓
@@ -28,10 +28,10 @@ public class DefaultStatefulCaptchaHandler implements CaptchaHandler {
     public void handle(Captcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("image/png");
         response.setHeader("cache", "no-cache");
-        OutputStream outputStream = response.getOutputStream();
-        ImageIO.write(captcha.getImage(), "png", outputStream);
-        outputStream.flush();
-        outputStream.close();
+        final ServletOutputStream os = response.getOutputStream();
+        ImageIO.write(captcha.getImage(), "png", os);
+        os.flush();
+        os.close();
     }
 
 }

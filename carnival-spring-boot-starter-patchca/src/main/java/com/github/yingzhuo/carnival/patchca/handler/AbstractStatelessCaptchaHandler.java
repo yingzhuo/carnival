@@ -11,10 +11,12 @@ package com.github.yingzhuo.carnival.patchca.handler;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
 import org.patchca.service.Captcha;
+import org.patchca.service.EncodedCaptcha;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
@@ -27,19 +29,19 @@ public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler 
 
     @Override
     public final void handle(Captcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ImageIO.write(captcha.getImage(), "png", out);
-        byte[] data = out.toByteArray();
-        String encodedImage = Base64.getEncoder().encodeToString(data);
-
         this.doHandle(
-                captcha.getAccessKey(),
-                captcha.getChallenge(),
-                encodedImage,
+                new EncodedCaptcha(captcha, getEncodedImage(captcha.getImage())),
                 request,
                 response);
     }
 
-    protected abstract void doHandle(String accessKey, String captcha, String encodedImage, HttpServletRequest request, HttpServletResponse response) throws IOException;
+    private String getEncodedImage(BufferedImage image) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", os);
+        byte[] bytes = os.toByteArray();
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    protected abstract void doHandle(EncodedCaptcha encodedCaptcha, HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 }

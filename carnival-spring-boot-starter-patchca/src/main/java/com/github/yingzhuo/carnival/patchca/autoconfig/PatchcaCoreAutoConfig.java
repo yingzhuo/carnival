@@ -16,14 +16,7 @@ import com.github.yingzhuo.carnival.patchca.SessionPatchca;
 import com.github.yingzhuo.carnival.patchca.core.PatchcaCoreFilter;
 import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
 import lombok.val;
-import org.patchca.background.BackgroundFactory;
-import org.patchca.color.ColorFactory;
-import org.patchca.filter.FilterFactory;
-import org.patchca.font.FontFactory;
-import org.patchca.service.ConfigurableCaptchaService;
-import org.patchca.size.SizeFactory;
-import org.patchca.text.renderer.TextRenderer;
-import org.patchca.word.WordFactory;
+import org.patchca.service.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -55,38 +48,20 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<PatchcaCoreFilter> patchcaFilter(
-            CaptchaDao captchaDao,
-            CaptchaHandler captchaHandler,
-            BackgroundFactory backgroundFactory,
-            ColorFactory colorFactory,
-            FontFactory fontFactory,
-            TextRenderer textRenderer,
-            FilterFactory filterFactory,
-            WordFactory wordFactory,
-            SizeFactory sizeFactory
+            CaptchaDao dao,
+            CaptchaHandler handler,
+            CaptchaService service
     ) throws Exception {
 
-        // service
-        val svc = new ConfigurableCaptchaService();
-        svc.setBackgroundFactory(backgroundFactory);
-        svc.setFontFactory(fontFactory);
-        svc.setTextRenderer(textRenderer);
-        svc.setColorFactory(colorFactory);
-        svc.setWordFactory(wordFactory);
-        svc.setWidth(sizeFactory.getWidth());
-        svc.setHeight(sizeFactory.getHeight());
-        svc.setFilterFactory(filterFactory);
-
-        // servlet-filter
         val servletFilterProps = props.getServletFilter();
-        val coreFilter = new PatchcaCoreFilter();
-        coreFilter.setCaptchaService(svc);
-        coreFilter.setCaptchaDao(captchaDao);
-        coreFilter.setCaptchaHandler(captchaHandler);
-        coreFilter.afterPropertiesSet();
+        val filter = new PatchcaCoreFilter();
+        filter.setCaptchaService(service);
+        filter.setCaptchaDao(dao);
+        filter.setCaptchaHandler(handler);
+        filter.afterPropertiesSet();
 
         val bean = new FilterRegistrationBean<PatchcaCoreFilter>();
-        bean.setFilter(coreFilter);
+        bean.setFilter(filter);
         bean.addUrlPatterns(servletFilterProps.getUrlPatterns());
         bean.setName(PatchcaCoreFilter.class.getSimpleName());
         return bean;

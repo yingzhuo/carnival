@@ -37,7 +37,6 @@ public class CurvesImageOp extends AbstractImageOp {
         return strokeMax;
     }
 
-
     public void setStrokeMax(float strokeMax) {
         this.strokeMax = strokeMax;
     }

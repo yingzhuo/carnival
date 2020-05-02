@@ -25,6 +25,8 @@ import org.patchca.filter.FilterFactory;
 import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
+import org.patchca.service.CaptchaService;
+import org.patchca.service.SmartCaptchaService;
 import org.patchca.size.SingleSizeFactory;
 import org.patchca.size.SizeFactory;
 import org.patchca.text.renderer.BestFitTextRenderer;
@@ -158,6 +160,30 @@ public class PatchcaBeanAutoConfig {
             default:
                 throw new AssertionError();
         }
+    }
+
+    // 核心
+    @Bean
+    @ConditionalOnMissingBean
+    public CaptchaService captchaService(
+            BackgroundFactory backgroundFactory,
+            ColorFactory colorFactory,
+            FontFactory fontFactory,
+            TextRenderer textRenderer,
+            FilterFactory filterFactory,
+            WordFactory wordFactory,
+            SizeFactory sizeFactory
+    ) {
+        val bean = new SmartCaptchaService();
+        bean.setBackgroundFactory(backgroundFactory);
+        bean.setFontFactory(fontFactory);
+        bean.setTextRenderer(textRenderer);
+        bean.setColorFactory(colorFactory);
+        bean.setWordFactory(wordFactory);
+        bean.setWidth(sizeFactory.getWidth());
+        bean.setHeight(sizeFactory.getHeight());
+        bean.setFilterFactory(filterFactory);
+        return bean;
     }
 
 }

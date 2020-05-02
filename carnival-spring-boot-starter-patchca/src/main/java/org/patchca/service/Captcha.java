@@ -18,26 +18,41 @@ import java.io.Serializable;
  */
 public class Captcha implements Serializable {
 
-    private final String accessKey;
-    private final String challenge;
-    private final BufferedImage image;
+    private String accessKey;
+    private String captcha;
+    private BufferedImage image;
 
-    public Captcha(String accessKey, String challenge, BufferedImage image) {
+    public Captcha() {
+    }
+
+    public Captcha(String accessKey, String captcha, BufferedImage image) {
         this.accessKey = accessKey;
-        this.challenge = challenge;
+        this.captcha = captcha;
         this.image = image;
     }
 
     public String getAccessKey() {
-        return this.accessKey;
+        return accessKey;
     }
 
-    public String getChallenge() {
-        return this.challenge;
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
+    }
+
+    public String getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(String captcha) {
+        this.captcha = captcha;
     }
 
     public BufferedImage getImage() {
-        return this.image;
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
 }
