@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Lazy;
 @Lazy(false)
 @ConditionalOnProperty(prefix = "carnival.stateless-captcha", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnMissingClass("org.springframework.data.redis.core.StringRedisTemplate")
+@Deprecated
 public class CaptchaFactoryBeanAutoConfig1 {
 
     @Bean

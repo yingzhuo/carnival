@@ -22,6 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
+@Deprecated
 public class Captcha implements Serializable {
 
     private String id;

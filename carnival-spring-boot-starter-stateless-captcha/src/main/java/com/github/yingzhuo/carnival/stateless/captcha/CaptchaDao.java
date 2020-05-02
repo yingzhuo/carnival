@@ -16,6 +16,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@Deprecated
 public interface CaptchaDao {
 
     public void save(String captchaId, String captchaValue);

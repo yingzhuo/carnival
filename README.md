@@ -29,7 +29,7 @@
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 * [carnival-spring-boot-starter-restful-security-httpbasic](./carnival-spring-boot-starter-restful-security-httpbasic)
 * [carnival-spring-boot-starter-restful-security-jwt](./carnival-spring-boot-starter-restful-security-jwt)
-* [carnival-spring-boot-starter-stateless-captcha](./carnival-spring-boot-starter-stateless-captcha)
+* [~~carnival-spring-boot-starter-stateless-captcha~~](./carnival-spring-boot-starter-stateless-captcha)
 
 ### Contributing
 

@@ -35,6 +35,7 @@ import java.util.UUID;
         CaptchaFactoryBeanAutoConfig1.class,
         CaptchaFactoryBeanAutoConfig2.class
 })
+@Deprecated
 public class CaptchaFactoryCoreAutoConfig {
 
     @Bean
@@ -59,9 +60,13 @@ public class CaptchaFactoryCoreAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.stateless-captcha")
     static class Props {
+        @Deprecated
         private boolean enabled = true;
+        @Deprecated
         private int width = 100;
+        @Deprecated
         private int height = 18;
+        @Deprecated
         private String characters = "absdegkmnopwxABSDEGKMNOPWX23456789";
     }
 

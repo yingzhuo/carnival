@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.1.4
  */
+@Deprecated
 public final class CaptchaUtils {
 
     public static Captcha create(int length) {

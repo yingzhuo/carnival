@@ -22,6 +22,7 @@ import java.util.Optional;
  * @since 1.5.3
  */
 @Slf4j
+@Deprecated
 public class MapCaptchaDao implements CaptchaDao, InitializingBean {
 
     private final Map<String, String> map = new HashMap<>();

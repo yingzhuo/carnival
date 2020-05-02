@@ -20,6 +20,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.5.3
  */
+@Deprecated
 public class RedisCaptchaDao implements CaptchaDao {
 
     private static final Duration DEFAULT_TTL = Duration.ofMinutes(10L);

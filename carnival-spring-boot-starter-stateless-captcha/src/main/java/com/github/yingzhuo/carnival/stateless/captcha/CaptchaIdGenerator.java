@@ -13,6 +13,7 @@ package com.github.yingzhuo.carnival.stateless.captcha;
  * @author 应卓
  * @since 1.5.3
  */
+@Deprecated
 @FunctionalInterface
 public interface CaptchaIdGenerator {
 

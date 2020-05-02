@@ -28,6 +28,7 @@ import java.util.Random;
  * @author 应卓
  */
 @Slf4j
+@Deprecated
 public class DefaultCaptchaFactory implements CaptchaFactory {
 
     private static final Random RANDOM = new Random();

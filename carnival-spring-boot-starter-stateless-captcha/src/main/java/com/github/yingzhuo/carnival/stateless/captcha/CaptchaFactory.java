@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.stateless.captcha;
 /**
  * @author 应卓
  */
+@Deprecated
 public interface CaptchaFactory {
 
     public Captcha create(int length);
