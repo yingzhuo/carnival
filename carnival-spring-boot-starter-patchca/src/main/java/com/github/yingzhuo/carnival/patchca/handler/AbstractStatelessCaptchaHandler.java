@@ -27,6 +27,8 @@ import java.util.Base64;
  */
 public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler {
 
+    private static final String FORMAT = "PNG";
+
     @Override
     public final void handle(Captcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.doHandle(
@@ -36,12 +38,12 @@ public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler 
     }
 
     private String getEncodedImage(BufferedImage image) throws IOException {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(image, "png", os);
+        final ByteArrayOutputStream os = new ByteArrayOutputStream();
+        ImageIO.write(image, FORMAT, os);
         byte[] bytes = os.toByteArray();
         return Base64.getEncoder().encodeToString(bytes);
     }
 
-    protected abstract void doHandle(EncodedCaptcha encodedCaptcha, HttpServletRequest request, HttpServletResponse response) throws IOException;
+    protected abstract void doHandle(EncodedCaptcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException;
 
 }

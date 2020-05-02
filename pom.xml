@@ -108,6 +108,11 @@
             </dependency>
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
+                <artifactId>carnival-spring-boot-starter-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-restful-security</artifactId>
                 <version>${project.version}</version>
             </dependency>

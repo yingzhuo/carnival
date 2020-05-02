@@ -35,7 +35,7 @@ public class PatchcaCoreFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         final Captcha captcha = captchaService.getCaptcha();
-        log.debug("accessKey={}, captcha={}", captcha.getAccessKey(), captcha.getCaptcha());
+        log.debug("accessKey='{}', captcha='{}'", captcha.getAccessKey(), captcha.getCaptcha());
         this.captchaDao.save(captcha.getAccessKey(), captcha.getCaptcha());
         this.captchaHandler.handle(captcha, request, response);
     }

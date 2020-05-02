@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.patchca.handler;
 
+import com.github.yingzhuo.carnival.json.Json;
+import com.github.yingzhuo.carnival.spring.JacksonUtils;
 import org.patchca.service.EncodedCaptcha;
+import org.springframework.http.HttpStatus;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -20,30 +23,35 @@ import java.io.IOException;
  * @author 应卓
  * @since 1.6.2
  */
-public class DefaultStatelessCaptchaHandler extends AbstractStatelessCaptchaHandler {
+public class JsonStatelessCaptchaHandler extends AbstractStatelessCaptchaHandler {
 
     private final boolean outputCaptchaValue;
 
-    public DefaultStatelessCaptchaHandler() {
+    public JsonStatelessCaptchaHandler() {
         this(false);
     }
 
-    public DefaultStatelessCaptchaHandler(boolean outputCaptchaValue) {
+    public JsonStatelessCaptchaHandler(boolean outputCaptchaValue) {
         this.outputCaptchaValue = outputCaptchaValue;
     }
 
     @Override
     protected void doHandle(EncodedCaptcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setContentType("text/plain;charset=UTF-8");
-        final ServletOutputStream os = response.getOutputStream();
-        os.println(String.format("accessKey: %s", captcha.getAccessKey()));
+        response.setContentType("application/json;charset=UTF-8");
+
+        final Json json = Json.newInstance()
+                .code(HttpStatus.OK)
+                .payload("accessKey", captcha.getAccessKey())
+                .payload("encodedImage", captcha.getEncodeImage());
 
         if (outputCaptchaValue) {
-            os.println(String.format("captcha: %s", captcha.getCaptcha()));
+            json.payload("captcha", captcha.getCaptcha());
         }
 
-        os.println(String.format("encodedImage: %s", captcha.getEncodeImage()));
+        final String body = JacksonUtils.writeValueAsString(json);
 
+        final ServletOutputStream os = response.getOutputStream();
+        os.print(body);
         os.flush();
         os.close();
     }

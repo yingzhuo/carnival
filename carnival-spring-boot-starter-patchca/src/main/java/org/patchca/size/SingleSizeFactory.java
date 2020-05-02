@@ -11,6 +11,7 @@ package org.patchca.size;
 
 /**
  * @author 应卓
+ * @since 1.6.2
  */
 public class SingleSizeFactory implements SizeFactory {
 
