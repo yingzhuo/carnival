@@ -58,6 +58,7 @@ public class PatchcaBeanAutoConfig {
     @Autowired
     private PatchcaProps props;
 
+    // dao
     @Bean
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
@@ -69,8 +70,10 @@ public class PatchcaBeanAutoConfig {
         }
     }
 
+    // 处理单元
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
     public CaptchaHandler captchaHandler() {
         final Mode mode = props.getMode();
         if (mode == Mode.STATEFUL) {

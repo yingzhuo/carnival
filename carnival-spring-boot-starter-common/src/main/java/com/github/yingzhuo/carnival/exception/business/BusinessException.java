@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.exception.business;
 
 import com.github.yingzhuo.carnival.common.StringCoded;
+import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import lombok.val;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class BusinessException extends RuntimeException implements StringCoded {
     }
 
     public BusinessException(String code, String message, Object... params) {
-        super(getMessage(message, params));
+        super(MessageFormatter.format(message, params));
         this.code = code;
     }
 
@@ -64,15 +64,6 @@ public class BusinessException extends RuntimeException implements StringCoded {
         map.put("code", getCode());
         map.put("message", getMessage());
         return Collections.unmodifiableMap(map);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private static String getMessage(String message, Object... params) {
-        for (val param : params) {
-            message = message.replaceFirst("\\{}", param.toString());
-        }
-        return message.replaceAll("\\{}", "");
     }
 
 }
