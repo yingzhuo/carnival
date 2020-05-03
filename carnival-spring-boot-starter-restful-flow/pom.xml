@@ -17,10 +17,6 @@
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>carnival-spring-boot-starter-predefined</artifactId>
-        </dependency>
 
         <!-- springboot -->
         <dependency>
