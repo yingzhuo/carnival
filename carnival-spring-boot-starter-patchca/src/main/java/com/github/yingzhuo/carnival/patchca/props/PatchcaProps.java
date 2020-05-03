@@ -19,6 +19,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,7 +43,7 @@ public class PatchcaProps implements Serializable {
     @Getter
     @Setter
     public static class FilterProps implements Serializable {
-        private FilterType type = FilterType.CURVES;
+        private List<FilterType> types = Collections.singletonList(FilterType.CURVES);
     }
 
     @Getter

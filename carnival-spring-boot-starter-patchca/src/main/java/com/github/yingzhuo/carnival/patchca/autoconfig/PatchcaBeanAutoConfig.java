@@ -21,7 +21,9 @@ import lombok.val;
 import org.patchca.background.BackgroundFactory;
 import org.patchca.background.SingleColorBackgroundFactory;
 import org.patchca.color.ColorFactory;
+import org.patchca.filter.CompositeFilterFactory;
 import org.patchca.filter.FilterFactory;
+import org.patchca.filter.FilterType;
 import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
@@ -41,6 +43,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -145,22 +148,36 @@ public class PatchcaBeanAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public FilterFactory filterFactory(PatchcaProps props, ColorFactory colorFactory) {
-        val filterProps = props.getFilter();
-        switch (filterProps.getType()) {
-            case CURVES:
-                return new CurvesAbstractRippleFilterFactory(colorFactory);
-            case DIFFUSE:
-                return new DiffuseAbstractRippleFilterFactory();
-            case DOUBLE:
-                return new DoubleRippleFilterFactory();
-            case MARBLE:
-                return new MarbleAbstractRippleFilterFactory();
-            case WOBBLE:
-                return new WobbleAbstractRippleFilterFactory();
-            case NONE:
-                return new NoneFilterFactory();
-            default:
-                throw new AssertionError();
+        val types = props.getFilter().getTypes();
+
+        if (types == null || types.isEmpty()) {
+            return new NoneFilterFactory();
+        } else if (types.size() == 1 && types.get(0) == FilterType.NONE) {
+            return new NoneFilterFactory();
+        } else {
+            val factories = new ArrayList<FilterFactory>();
+
+            for (FilterType type : types) {
+                switch (type) {
+                    case NONE:
+                        continue;
+                    case CURVES:
+                        factories.add(new CurvesAbstractRippleFilterFactory(colorFactory));
+                        continue;
+                    case DIFFUSE:
+                        factories.add(new DiffuseAbstractRippleFilterFactory());
+                        continue;
+                    case DOUBLE:
+                        factories.add(new DoubleRippleFilterFactory());
+                        continue;
+                    case MARBLE:
+                        factories.add(new MarbleAbstractRippleFilterFactory());
+                    case WOBBLE:
+                        factories.add(new WobbleAbstractRippleFilterFactory());
+                }
+            }
+
+            return factories.isEmpty() ? new NoneFilterFactory() : CompositeFilterFactory.of(factories);
         }
     }
 
