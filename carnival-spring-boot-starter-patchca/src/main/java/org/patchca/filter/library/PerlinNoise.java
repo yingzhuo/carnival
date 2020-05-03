@@ -12,7 +12,7 @@ package org.patchca.filter.library;
 /**
  * @author Piotr Piastucki
  */
-public class PerlinNoise {
+class PerlinNoise {
 
     static int p[] = {151, 160, 137, 91, 90, 15,
             131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69,

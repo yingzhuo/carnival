@@ -34,7 +34,7 @@ public class DefaultStatefulCaptchaDao implements CaptchaDao, CaptchaSessionAttr
     }
 
     @Override
-    public void delete(String accessKey) {
+    public void delete(String unused) {
         final HttpSession session = ServletUtils.getSession(true);
         session.removeAttribute(NAME);
     }

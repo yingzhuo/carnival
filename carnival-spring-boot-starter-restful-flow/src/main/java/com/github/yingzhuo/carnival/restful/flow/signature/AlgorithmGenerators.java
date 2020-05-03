@@ -81,8 +81,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA256AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
         );
     }
 
@@ -91,8 +91,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA384AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
         );
     }
 
@@ -101,8 +101,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new RSA512AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/rsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
         );
     }
 
@@ -137,8 +137,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA256AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
         );
     }
 
@@ -147,8 +147,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA384AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
         );
     }
 
@@ -157,8 +157,8 @@ public final class AlgorithmGenerators {
             throw new IllegalArgumentException("number range: [0,16)");
         }
         return new ECDSA512AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/META-INF/carnival-spring-boot-starter-restful-flow/ecdsa/pair%d/private", number))
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
         );
     }
 

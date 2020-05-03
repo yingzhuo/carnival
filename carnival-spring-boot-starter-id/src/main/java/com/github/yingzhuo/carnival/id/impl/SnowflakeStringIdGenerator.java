@@ -9,21 +9,28 @@
  */
 package com.github.yingzhuo.carnival.id.impl;
 
-import com.github.yingzhuo.carnival.id.IdGenerator;
+import com.github.yingzhuo.carnival.id.StringIdGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author 应卓
  */
-public class SnowflakeStringIdGenerator implements IdGenerator<String> {
+@Slf4j
+public class SnowflakeStringIdGenerator implements StringIdGenerator, InitializingBean {
 
     private final SnowflakeLongIdGenerator delegate;
     private final int length;
     private final char padCharacter;
+    private final long workerId;
+    private final long dataCenterId;
 
     public SnowflakeStringIdGenerator(long workerId, long dataCenterId, int length, char padCharacter) {
         this.delegate = new SnowflakeLongIdGenerator(workerId, dataCenterId);
         this.length = length;
         this.padCharacter = padCharacter;
+        this.workerId = workerId;
+        this.dataCenterId = dataCenterId;
     }
 
     @Override
@@ -35,4 +42,9 @@ public class SnowflakeStringIdGenerator implements IdGenerator<String> {
         return id.toString();
     }
 
+    @Override
+    public void afterPropertiesSet() {
+        log.info("snowflake worker-id: {}", workerId);
+        log.info("snowflake data-center-id: {}", dataCenterId);
+    }
 }

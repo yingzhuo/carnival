@@ -7,18 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package org.patchca.service;
+package org.patchca.filter.predefined;
+
+import org.patchca.filter.FilterFactory;
+
+import java.awt.image.BufferedImage;
 
 /**
- * @author Piotr Piastucki
+ * @author 应卓
+ * @since 1.6.3
  */
-@FunctionalInterface
-public interface CaptchaService {
+public class NoneFilterFactory implements FilterFactory {
 
-    public Captcha getCaptcha();
-
-    public default EncodedCaptcha getEncodedCaptcha() {
-        return new EncodedCaptcha(getCaptcha());
+    @Override
+    public BufferedImage apply(BufferedImage source) {
+        return source;
     }
 
 }

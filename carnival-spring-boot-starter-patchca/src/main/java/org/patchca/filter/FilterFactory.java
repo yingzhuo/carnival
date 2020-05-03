@@ -14,8 +14,9 @@ import java.awt.image.BufferedImage;
 /**
  * @author Piotr Piastucki
  */
+@FunctionalInterface
 public interface FilterFactory {
 
-    public BufferedImage applyFilters(BufferedImage source);
+    public BufferedImage apply(BufferedImage source);
 
 }

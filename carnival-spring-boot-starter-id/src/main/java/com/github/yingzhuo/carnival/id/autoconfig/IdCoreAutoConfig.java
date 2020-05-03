@@ -17,7 +17,6 @@ import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -29,11 +28,10 @@ import org.springframework.context.annotation.Lazy;
 /**
  * @author 应卓
  */
-@Slf4j
 @Lazy(false)
-@EnableConfigurationProperties(IdGeneratorCoreAutoConfig.Props.class)
+@EnableConfigurationProperties(IdCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class IdGeneratorCoreAutoConfig {
+public class IdCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -45,9 +43,6 @@ public class IdGeneratorCoreAutoConfig {
 
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
-
-                log.info("snowflake worker-id: {}", workerId);
-                log.info("snowflake data-center-id: {}", dataCenterId);
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
                     return new SnowflakeLongIdGenerator(workerId, dataCenterId);

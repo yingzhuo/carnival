@@ -9,7 +9,13 @@
  */
 package org.patchca.service;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.UncheckedIOException;
+import java.util.Base64;
 
 /**
  * @author Piotr Piastucki
@@ -20,12 +26,22 @@ public class EncodedCaptcha extends Captcha implements Serializable {
 
     private String encodeImage;
 
-    public EncodedCaptcha() {
+    public EncodedCaptcha(Captcha captcha) {
+        super.setAccessKey(captcha.getAccessKey());
+        super.setCaptcha(captcha.getCaptcha());
+        super.setImage(captcha.getImage());
+        this.encodeImage = getEncodedImage(captcha.getImage());
     }
 
-    public EncodedCaptcha(Captcha captcha, String encodedImage) {
-        super(captcha.getAccessKey(), captcha.getCaptcha(), captcha.getImage());
-        this.encodeImage = encodedImage;
+    private String getEncodedImage(BufferedImage image) {
+        try {
+            final ByteArrayOutputStream os = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", os);
+            byte[] bytes = os.toByteArray();
+            return Base64.getEncoder().encodeToString(bytes);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     public String getEncodeImage() {

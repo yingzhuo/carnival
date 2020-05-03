@@ -25,6 +25,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.Ordered;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -47,6 +48,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
     private PatchcaProps props;
 
     @Bean
+    @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
     public FilterRegistrationBean<PatchcaCoreFilter> patchcaFilter(
             CaptchaDao dao,
             CaptchaHandler handler,
@@ -64,6 +66,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
         bean.setFilter(filter);
         bean.addUrlPatterns(servletFilterProps.getUrlPatterns());
         bean.setName(PatchcaCoreFilter.class.getSimpleName());
+        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
         return bean;
     }
 

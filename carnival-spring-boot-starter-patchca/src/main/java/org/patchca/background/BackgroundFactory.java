@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Piotr Piastucki
  */
+@FunctionalInterface
 public interface BackgroundFactory {
 
     public void fillBackground(BufferedImage dest);

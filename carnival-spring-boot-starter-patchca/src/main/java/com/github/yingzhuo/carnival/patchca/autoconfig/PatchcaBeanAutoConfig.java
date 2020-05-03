@@ -21,12 +21,14 @@ import lombok.val;
 import org.patchca.background.BackgroundFactory;
 import org.patchca.background.SingleColorBackgroundFactory;
 import org.patchca.color.ColorFactory;
+import org.patchca.filter.CompositeFilterFactory;
 import org.patchca.filter.FilterFactory;
+import org.patchca.filter.FilterType;
 import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
 import org.patchca.service.CaptchaService;
-import org.patchca.service.SmartCaptchaService;
+import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.size.SingleSizeFactory;
 import org.patchca.size.SizeFactory;
 import org.patchca.text.renderer.BestFitTextRenderer;
@@ -41,6 +43,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -55,6 +58,7 @@ public class PatchcaBeanAutoConfig {
     @Autowired
     private PatchcaProps props;
 
+    // dao
     @Bean
     @ConditionalOnMissingBean
     public CaptchaDao captchaDao() {
@@ -66,8 +70,10 @@ public class PatchcaBeanAutoConfig {
         }
     }
 
+    // 处理单元
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
     public CaptchaHandler captchaHandler() {
         final Mode mode = props.getMode();
         if (mode == Mode.STATEFUL) {
@@ -145,20 +151,36 @@ public class PatchcaBeanAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public FilterFactory filterFactory(PatchcaProps props, ColorFactory colorFactory) {
-        val filterProps = props.getFilter();
-        switch (filterProps.getType()) {
-            case CURVES:
-                return new CurvesAbstractRippleFilterFactory(colorFactory);
-            case DIFFUSE:
-                return new DiffuseAbstractRippleFilterFactory();
-            case DOUBLE:
-                return new DoubleRippleFilterFactory();
-            case MARBLE:
-                return new MarbleAbstractRippleFilterFactory();
-            case WOBBLE:
-                return new WobbleAbstractRippleFilterFactory();
-            default:
-                throw new AssertionError();
+        val types = props.getFilter().getTypes();
+
+        if (types == null || types.isEmpty()) {
+            return new NoneFilterFactory();
+        } else if (types.size() == 1 && types.get(0) == FilterType.NONE) {
+            return new NoneFilterFactory();
+        } else {
+            val factories = new ArrayList<FilterFactory>();
+
+            for (FilterType type : types) {
+                switch (type) {
+                    case NONE:
+                        continue;
+                    case CURVES:
+                        factories.add(new CurvesAbstractRippleFilterFactory(colorFactory));
+                        continue;
+                    case DIFFUSE:
+                        factories.add(new DiffuseAbstractRippleFilterFactory());
+                        continue;
+                    case DOUBLE:
+                        factories.add(new DoubleRippleFilterFactory());
+                        continue;
+                    case MARBLE:
+                        factories.add(new MarbleAbstractRippleFilterFactory());
+                    case WOBBLE:
+                        factories.add(new WobbleAbstractRippleFilterFactory());
+                }
+            }
+
+            return factories.isEmpty() ? new NoneFilterFactory() : CompositeFilterFactory.of(factories);
         }
     }
 
@@ -174,7 +196,7 @@ public class PatchcaBeanAutoConfig {
             WordFactory wordFactory,
             SizeFactory sizeFactory
     ) {
-        val bean = new SmartCaptchaService();
+        val bean = new ConfigurableCaptchaService();
         bean.setBackgroundFactory(backgroundFactory);
         bean.setFontFactory(fontFactory);
         bean.setTextRenderer(textRenderer);
