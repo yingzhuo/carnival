@@ -157,6 +157,8 @@ public class PatchcaBeanAutoConfig {
                 return new MarbleAbstractRippleFilterFactory();
             case WOBBLE:
                 return new WobbleAbstractRippleFilterFactory();
+            case NONE:
+                return new NoneFilterFactory();
             default:
                 throw new AssertionError();
         }

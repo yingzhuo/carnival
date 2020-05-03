@@ -12,6 +12,7 @@ package org.patchca.service;
 /**
  * @author Piotr Piastucki
  */
+@FunctionalInterface
 public interface CaptchaService {
 
     public Captcha getCaptcha();

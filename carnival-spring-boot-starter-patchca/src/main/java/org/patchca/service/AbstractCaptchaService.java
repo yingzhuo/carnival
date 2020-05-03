@@ -103,7 +103,7 @@ public abstract class AbstractCaptchaService implements CaptchaService {
         backgroundFactory.fillBackground(bufImage);
         String word = wordFactory.getNextWord();
         textRenderer.draw(word, bufImage, fontFactory, colorFactory);
-        bufImage = filterFactory.applyFilters(bufImage);
+        bufImage = filterFactory.apply(bufImage);
         String accessKey = UUID.randomUUID().toString();
         return new Captcha(accessKey, word, bufImage);
     }

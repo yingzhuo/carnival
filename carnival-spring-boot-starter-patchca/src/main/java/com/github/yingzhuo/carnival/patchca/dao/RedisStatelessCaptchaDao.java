@@ -21,10 +21,11 @@ import java.util.Objects;
  */
 public class RedisStatelessCaptchaDao implements CaptchaDao {
 
-    private static final String PREFIX = RedisStatelessCaptchaDao.class.getName() + "_";
+    private static final String DEFAULT_REDIS_KEY_PREFIX = RedisStatelessCaptchaDao.class.getName() + "_";
 
     private final StringRedisTemplate redisTemplate;
     private final Duration ttl;
+    private String redisKeyPrefix = DEFAULT_REDIS_KEY_PREFIX;
 
     public RedisStatelessCaptchaDao(StringRedisTemplate redisTemplate) {
         this(redisTemplate, null);
@@ -37,21 +38,21 @@ public class RedisStatelessCaptchaDao implements CaptchaDao {
 
     @Override
     public void save(String accessKey, String patchca) {
-        redisTemplate.opsForValue().set(genKey(accessKey), patchca, ttl);
+        redisTemplate.opsForValue().set(genRedisKey(accessKey), patchca, ttl);
     }
 
     @Override
     public void delete(String accessKey) {
-        redisTemplate.delete(genKey(accessKey));
+        redisTemplate.delete(genRedisKey(accessKey));
     }
 
     @Override
     public String load(String accessKey) {
-        return redisTemplate.opsForValue().get(genKey(accessKey));
+        return redisTemplate.opsForValue().get(genRedisKey(accessKey));
     }
 
-    private String genKey(String accessKey) {
-        return PREFIX + accessKey;
+    private String genRedisKey(String accessKey) {
+        return redisKeyPrefix + accessKey;
     }
 
 }

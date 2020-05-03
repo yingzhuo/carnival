@@ -14,6 +14,7 @@ import java.awt.*;
 /**
  * @author Piotr Piastucki
  */
+@FunctionalInterface
 public interface FontFactory {
 
     public Font getFont(int index);

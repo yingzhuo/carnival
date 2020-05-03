@@ -11,9 +11,10 @@ package org.patchca.filter;
 
 /**
  * @author Piotr Piastucki
+ * @author 应卓
  */
 public enum FilterType {
 
-    CURVES, DIFFUSE, DOUBLE, MARBLE, WOBBLE
+    CURVES, DIFFUSE, DOUBLE, MARBLE, WOBBLE, NONE
 
 }

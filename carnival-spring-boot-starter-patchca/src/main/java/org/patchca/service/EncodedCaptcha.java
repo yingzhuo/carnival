@@ -9,6 +9,7 @@
  */
 package org.patchca.service;
 
+import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 /**
@@ -21,6 +22,11 @@ public class EncodedCaptcha extends Captcha implements Serializable {
     private String encodeImage;
 
     public EncodedCaptcha() {
+    }
+
+    public EncodedCaptcha(String accessKey, String captcha, BufferedImage image, String encodeImage) {
+        super(accessKey, captcha, image);
+        this.encodeImage = encodeImage;
     }
 
     public EncodedCaptcha(Captcha captcha, String encodedImage) {

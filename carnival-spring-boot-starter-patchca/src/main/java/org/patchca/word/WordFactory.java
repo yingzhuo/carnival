@@ -12,6 +12,7 @@ package org.patchca.word;
 /**
  * @author Piotr Piastucki
  */
+@FunctionalInterface
 public interface WordFactory {
 
     public String getNextWord();

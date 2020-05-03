@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.patchca.handler;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
 import org.patchca.service.Captcha;
 import org.patchca.service.EncodedCaptcha;
+import org.springframework.beans.factory.InitializingBean;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,7 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.2
  */
-public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler {
+public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler, InitializingBean {
 
     private static final String FORMAT = "PNG";
 
@@ -45,5 +46,10 @@ public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler 
     }
 
     protected abstract void doHandle(EncodedCaptcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException;
+
+    @Override
+    public void afterPropertiesSet() {
+        // NOP
+    }
 
 }
