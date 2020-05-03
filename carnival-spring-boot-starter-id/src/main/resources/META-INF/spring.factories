@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.id.autoconfig.IdGeneratorCoreAutoConfig
+    com.github.yingzhuo.carnival.id.autoconfig.IdCoreAutoConfig

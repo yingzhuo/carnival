@@ -10,11 +10,14 @@
 package com.github.yingzhuo.carnival.id.impl;
 
 import com.github.yingzhuo.carnival.id.LongIdGenerator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
  * @author 应卓
  */
-public class SnowflakeLongIdGenerator implements LongIdGenerator {
+@Slf4j
+public class SnowflakeLongIdGenerator implements LongIdGenerator, InitializingBean {
 
     /**
      * 开始时间截 (2015-01-01)
@@ -163,4 +166,11 @@ public class SnowflakeLongIdGenerator implements LongIdGenerator {
     private long timeGen() {
         return System.currentTimeMillis();
     }
+
+    @Override
+    public void afterPropertiesSet() {
+        log.info("snowflake worker-id: {}", workerId);
+        log.info("snowflake data-center-id: {}", dataCenterId);
+    }
+
 }
