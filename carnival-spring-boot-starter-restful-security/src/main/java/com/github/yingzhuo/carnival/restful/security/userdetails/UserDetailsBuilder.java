@@ -53,6 +53,7 @@ public final class UserDetailsBuilder {
         return this;
     }
 
+    @Deprecated
     public UserDetailsBuilder admin(boolean admin) {
         ud.setAdmin(admin);
         return this;

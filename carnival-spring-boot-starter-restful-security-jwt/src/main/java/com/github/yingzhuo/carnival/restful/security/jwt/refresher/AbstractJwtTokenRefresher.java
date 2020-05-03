@@ -35,11 +35,11 @@ public abstract class AbstractJwtTokenRefresher implements TokenRefresher {
     }
 
     @Override
-    public final Token refresh(Token oldToken) {
+    public final Token refresh(Token old) {
 
         try {
-            Optional<UserDetails> userDetailsOp = realm.loadUserDetails(oldToken);
-            final String tokenValue = userDetailsOp.map(userDetails -> doRefresh(userDetails, oldToken)).orElse(null);
+            Optional<UserDetails> userDetailsOp = realm.loadUserDetails(old);
+            final String tokenValue = userDetailsOp.map(userDetails -> doRefresh(userDetails, old)).orElse(null);
 
             if (tokenValue == null) {
                 return null;

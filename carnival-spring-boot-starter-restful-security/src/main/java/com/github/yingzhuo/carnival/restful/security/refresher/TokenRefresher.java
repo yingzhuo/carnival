@@ -18,6 +18,6 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 @FunctionalInterface
 public interface TokenRefresher {
 
-    public Token refresh(Token oldToken);
+    public Token refresh(Token old);
 
 }
