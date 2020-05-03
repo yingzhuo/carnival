@@ -20,7 +20,6 @@
         <dependency>
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-predefined</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <!-- springboot -->
