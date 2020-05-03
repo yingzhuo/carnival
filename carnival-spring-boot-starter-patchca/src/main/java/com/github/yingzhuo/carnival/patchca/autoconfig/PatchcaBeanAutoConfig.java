@@ -28,7 +28,7 @@ import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
 import org.patchca.service.CaptchaService;
-import org.patchca.service.SmartCaptchaService;
+import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.size.SingleSizeFactory;
 import org.patchca.size.SizeFactory;
 import org.patchca.text.renderer.BestFitTextRenderer;
@@ -193,7 +193,7 @@ public class PatchcaBeanAutoConfig {
             WordFactory wordFactory,
             SizeFactory sizeFactory
     ) {
-        val bean = new SmartCaptchaService();
+        val bean = new ConfigurableCaptchaService();
         bean.setBackgroundFactory(backgroundFactory);
         bean.setFontFactory(fontFactory);
         bean.setTextRenderer(textRenderer);

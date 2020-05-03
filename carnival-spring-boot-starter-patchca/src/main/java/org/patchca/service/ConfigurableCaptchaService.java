@@ -19,9 +19,9 @@ import org.patchca.word.AdaptiveRandomWordFactory;
 /**
  * @author Piotr Piastucki
  */
-public class SmartCaptchaService extends AbstractCaptchaService {
+public class ConfigurableCaptchaService extends AbstractCaptchaService {
 
-    public SmartCaptchaService() {
+    public ConfigurableCaptchaService() {
         backgroundFactory = new SingleColorBackgroundFactory();
         wordFactory = new AdaptiveRandomWordFactory();
         fontFactory = new RandomFontFactory();

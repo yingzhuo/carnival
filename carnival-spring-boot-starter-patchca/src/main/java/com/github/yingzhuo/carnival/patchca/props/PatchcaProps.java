@@ -114,7 +114,8 @@ public class PatchcaProps implements Serializable {
     @Getter
     @Setter
     public static class ServletFilterProps implements Serializable {
-        private String[] urlPatterns = new String[]{"/patchca.png", "/patchca"};
+        private boolean enabled = true;
+        private String[] urlPatterns = new String[]{"/patchca", "/patchca.png"};
     }
 
 }

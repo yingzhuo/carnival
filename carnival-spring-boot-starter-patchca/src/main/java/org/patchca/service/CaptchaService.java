@@ -17,4 +17,8 @@ public interface CaptchaService {
 
     public Captcha getCaptcha();
 
+    public default EncodedCaptcha getEncodedCaptcha() {
+        return new EncodedCaptcha(getCaptcha());
+    }
+
 }

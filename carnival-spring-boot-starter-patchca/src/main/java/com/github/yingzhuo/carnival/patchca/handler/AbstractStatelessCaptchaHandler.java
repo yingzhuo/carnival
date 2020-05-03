@@ -12,44 +12,22 @@ package com.github.yingzhuo.carnival.patchca.handler;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
 import org.patchca.service.Captcha;
 import org.patchca.service.EncodedCaptcha;
-import org.springframework.beans.factory.InitializingBean;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.Base64;
 
 /**
  * @author 应卓
  * @since 1.6.2
  */
-public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler, InitializingBean {
-
-    private static final String FORMAT = "PNG";
+public abstract class AbstractStatelessCaptchaHandler implements CaptchaHandler {
 
     @Override
     public final void handle(Captcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        this.doHandle(
-                new EncodedCaptcha(captcha, getEncodedImage(captcha.getImage())),
-                request,
-                response);
-    }
-
-    private String getEncodedImage(BufferedImage image) throws IOException {
-        final ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(image, FORMAT, os);
-        byte[] bytes = os.toByteArray();
-        return Base64.getEncoder().encodeToString(bytes);
+        doHandle(new EncodedCaptcha(captcha), request, response);
     }
 
     protected abstract void doHandle(EncodedCaptcha captcha, HttpServletRequest request, HttpServletResponse response) throws IOException;
-
-    @Override
-    public void afterPropertiesSet() {
-        // NOP
-    }
 
 }

@@ -47,6 +47,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
     private PatchcaProps props;
 
     @Bean
+    @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
     public FilterRegistrationBean<PatchcaCoreFilter> patchcaFilter(
             CaptchaDao dao,
             CaptchaHandler handler,
