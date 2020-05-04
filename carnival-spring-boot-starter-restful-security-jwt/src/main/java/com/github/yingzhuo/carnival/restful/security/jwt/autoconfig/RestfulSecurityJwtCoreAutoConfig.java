@@ -12,9 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.jwt.autoconfig;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactories;
 import com.github.yingzhuo.carnival.restful.security.jwt.signature.AlgorithmFactory;
-import com.github.yingzhuo.carnival.restful.security.parser.CompositeTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.HttpHeaderTokenParser;
-import com.github.yingzhuo.carnival.restful.security.parser.HttpParameterTokenParser;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -38,11 +36,7 @@ public class RestfulSecurityJwtCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public TokenParser tokenParser() {
-        return new CompositeTokenParser(
-                new HttpHeaderTokenParser(HttpHeaders.AUTHORIZATION, "Bearer "),
-                new HttpHeaderTokenParser(HttpHeaders.AUTHORIZATION),
-                new HttpParameterTokenParser("_jwt_token")
-        );
+        return new HttpHeaderTokenParser(HttpHeaders.AUTHORIZATION, "Bearer ");
     }
 
 }
