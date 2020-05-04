@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.business.impl;
+package com.github.yingzhuo.carnival.exception.business;
 
 import java.util.Collections;
 import java.util.Map;
@@ -16,11 +16,11 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public class InMemoryBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
+public class MapBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
 
     private final Map<String, String> messages;
 
-    public InMemoryBusinessExceptionFactory(Map<String, String> messages) {
+    public MapBusinessExceptionFactory(Map<String, String> messages) {
         this.messages = messages != null ?
                 Collections.unmodifiableMap(messages) : Collections.emptyMap();
     }

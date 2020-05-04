@@ -29,6 +29,8 @@ public final class AnnotationAttributesHolder {
     private AnnotationAttributesHolder() {
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private static final ThreadLocal<Map<String, AnnotationAttributes>> HOLDER = ThreadLocal.withInitial(HashMap::new);
 
     public static <A extends Annotation> void setAnnotationMetadata(Class<A> annotationType, AnnotationMetadata importingClassMetadata) {

@@ -7,11 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.business.impl;
+package com.github.yingzhuo.carnival.exception.business;
 
 import com.github.yingzhuo.carnival.common.util.MessageFormatter;
-import com.github.yingzhuo.carnival.exception.business.BusinessException;
-import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import lombok.var;
 import org.springframework.util.StringUtils;
 

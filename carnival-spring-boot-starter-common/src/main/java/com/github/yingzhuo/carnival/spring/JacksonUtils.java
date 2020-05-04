@@ -33,8 +33,8 @@ public final class JacksonUtils {
                 .configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, true)
                 .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-                .configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true)
-                .configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
+                //.configure(SerializationFeature.WRITE_NULL_MAP_VALUES, true)
+                //.configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
                 .configure(SerializationFeature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED, false)
                 .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true)
 

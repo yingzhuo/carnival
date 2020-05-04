@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.business.impl;
+package com.github.yingzhuo.carnival.exception.business;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
