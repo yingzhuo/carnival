@@ -40,13 +40,13 @@ public @interface IntCurrencyFormat {
 
         @Override
         public Printer<?> getPrinter(IntCurrencyFormat annotation, Class<?> fieldType) {
-            return (Printer<Integer>) (object, locale) -> object != null ? object.toString() : "null";
+            return (Printer<Integer>) (object, locale) -> object.toString();
         }
 
         @Override
         public Parser<?> getParser(IntCurrencyFormat annotation, Class<?> fieldType) {
             final int v = annotation.value();
-            return (Parser<Integer>) (text, locale) -> (int) (Double.valueOf(text) * (int) Math.pow(10D, (double) v));
+            return (Parser<Integer>) (text, locale) -> (int) (Double.parseDouble(text) * (int) Math.pow(10D, (double) v));
         }
     }
 

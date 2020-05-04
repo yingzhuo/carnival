@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
+import com.github.yingzhuo.carnival.exception.business.BusinessExceptionMap;
 import com.github.yingzhuo.carnival.exception.business.MapBusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.business.PropertySourceBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,21 +28,16 @@ import java.util.Map;
  */
 @Lazy(false)
 @EnableConfigurationProperties({
-        BusinessExceptionFactoryAutoConfig.Props.class,
-        PropertySourceBusinessExceptionFactory.Env.class
+        BusinessExceptionMap.class,
+        BusinessExceptionFactoryAutoConfig.Props.class
 })
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionFactoryAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public BusinessExceptionFactory businessExceptionFactory(Props props, PropertySourceBusinessExceptionFactory.Env env) {
-
-        if (env != null && !env.isEmpty()) {
-            return new PropertySourceBusinessExceptionFactory(env);
-        }
-
-        return new MapBusinessExceptionFactory(props.getMessages());
+    public BusinessExceptionFactory businessExceptionFactory(Props props, BusinessExceptionMap env) {
+        return new MapBusinessExceptionFactory(env.isEmpty() ? props.getMessages() : env);
     }
 
     @Getter

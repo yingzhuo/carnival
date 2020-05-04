@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.datasource.fork;
 
-import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;

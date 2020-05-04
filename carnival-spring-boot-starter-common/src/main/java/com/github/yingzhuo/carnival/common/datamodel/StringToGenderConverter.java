@@ -27,7 +27,7 @@ public class StringToGenderConverter implements Converter<String, Gender> {
             return Gender.MALE;
         }
 
-        if ("UNKNOWN".equalsIgnoreCase(source) || "未知".equals(source)) {
+        if ("unknown".equalsIgnoreCase(source) || "未知".equals(source)) {
             return Gender.UNKNOWN;
         }
 

@@ -31,13 +31,13 @@ public class BusinessException extends RuntimeException implements StringCoded {
     public BusinessException() {
     }
 
+    public BusinessException(String message) {
+        super(message);
+    }
+
     public BusinessException(String code, String message, Object... params) {
         super(MessageFormatter.format(message, params));
         this.code = code;
-    }
-
-    public BusinessException(String message) {
-        super(message);
     }
 
     public String getCode() {
@@ -47,8 +47,6 @@ public class BusinessException extends RuntimeException implements StringCoded {
     public void setCode(String code) {
         this.code = code;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     public Map<String, Object> asMap() {
         return asMap(true);

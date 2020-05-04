@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;

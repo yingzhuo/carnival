@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.support;
 
-import com.github.yingzhuo.carnival.common.mvc.interceptor.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.mvc.NoDebug;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

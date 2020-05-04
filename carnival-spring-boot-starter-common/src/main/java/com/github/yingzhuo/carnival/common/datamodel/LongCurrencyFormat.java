@@ -40,13 +40,13 @@ public @interface LongCurrencyFormat {
 
         @Override
         public Printer<?> getPrinter(LongCurrencyFormat annotation, Class<?> fieldType) {
-            return (Printer<Long>) (object, locale) -> object != null ? object.toString() : "null";
+            return (Printer<Long>) (object, locale) -> object.toString();
         }
 
         @Override
         public Parser<?> getParser(LongCurrencyFormat annotation, Class<?> fieldType) {
             final int v = annotation.value();
-            return (Parser<Long>) (text, locale) -> (long) (Double.valueOf(text) * (int) Math.pow(10D, (double) v));
+            return (Parser<Long>) (text, locale) -> (long) (Double.parseDouble(text) * (int) Math.pow(10D, (double) v));
         }
     }
 

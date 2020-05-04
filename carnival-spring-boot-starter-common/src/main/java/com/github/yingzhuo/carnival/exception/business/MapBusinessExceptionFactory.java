@@ -9,14 +9,19 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
+import com.github.yingzhuo.carnival.common.util.MessageFormatter;
+import lombok.var;
+import org.springframework.util.StringUtils;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
 /**
  * @author 应卓
+ * @since 1.6.3
  */
-public class MapBusinessExceptionFactory extends AbstractBusinessExceptionFactory {
+public class MapBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private final Map<String, String> messages;
 
@@ -26,12 +31,28 @@ public class MapBusinessExceptionFactory extends AbstractBusinessExceptionFactor
     }
 
     @Override
-    protected Optional<String> getMessage(String code) {
-        return Optional.ofNullable(messages.get(code));
+    public BusinessException create(String code, Object... params) {
+        if (!StringUtils.hasText(code)) {
+            throw new IllegalArgumentException("'" + code + "' is not a valid code");
+        }
+
+        final Optional<String> msgOp = getMessage(code);
+
+        if (!msgOp.isPresent()) {
+            throw new IllegalArgumentException("'" + code + "' is not a valid code");
+        }
+
+        var message = msgOp.get();
+
+        if (!StringUtils.hasText(message)) {
+            throw new IllegalArgumentException("'" + code + "' is not a valid code");
+        }
+
+        return new BusinessException(code, MessageFormatter.format(message, params));
     }
 
-    public boolean isEmpty() {
-        return messages.isEmpty();
+    private Optional<String> getMessage(String code) {
+        return Optional.ofNullable(messages.get(code));
     }
 
 }
