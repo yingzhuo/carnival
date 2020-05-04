@@ -27,8 +27,7 @@ public class DistributedLockHealthIndicator extends AbstractHealthIndicator {
 
         try {
             if (DistributedLock.lock(key, 200)) {
-                builder.up()
-                        .withDetail("key", key);
+                builder.up();
             } else {
                 builder.down();
             }
