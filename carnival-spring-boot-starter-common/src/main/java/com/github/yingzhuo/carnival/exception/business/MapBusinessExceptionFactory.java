@@ -15,9 +15,10 @@ import lombok.var;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
-import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.TreeMap;
 
 /**
  * @author 应卓
@@ -29,8 +30,7 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
     private final Map<String, String> messages;
 
     public MapBusinessExceptionFactory(Map<String, String> messages) {
-        this.messages = messages != null ?
-                Collections.unmodifiableMap(messages) : Collections.emptyMap();
+        this.messages = new TreeMap<>(Objects.requireNonNull(messages));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
             log.debug("business exception codes:");
             for (final String key : messages.keySet()) {
                 final String value = messages.get(key);
-                log.debug("\t'{}'='{}'", key, value);
+                log.debug("\t'{}' = '{}'", key, value);
             }
         }
     }

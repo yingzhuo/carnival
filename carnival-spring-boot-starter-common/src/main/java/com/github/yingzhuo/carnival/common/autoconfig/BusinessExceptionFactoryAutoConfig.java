@@ -21,6 +21,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -37,7 +38,15 @@ public class BusinessExceptionFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory(Props props, BusinessExceptionMap env) {
-        return new MapBusinessExceptionFactory(env.isEmpty() ? props.getMessages() : env);
+        final Map<String, String> map = new HashMap<>();
+        map.putAll(props.getMessages());
+        map.putAll(env);
+
+        if (map.isEmpty()) {
+            return BusinessExceptionFactory.newEmptyFactory();
+        } else {
+            return new MapBusinessExceptionFactory(map);
+        }
     }
 
     @Getter
@@ -45,7 +54,7 @@ public class BusinessExceptionFactoryAutoConfig {
     @ConfigurationProperties(prefix = "carnival.business-exception")
     static final class Props {
         private boolean enabled = true;
-        private Map<String, String> messages;
+        private Map<String, String> messages = new HashMap<>();
     }
 
 }
