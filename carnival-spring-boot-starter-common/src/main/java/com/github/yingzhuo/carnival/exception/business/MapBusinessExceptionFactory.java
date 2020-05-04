@@ -10,7 +10,9 @@
 package com.github.yingzhuo.carnival.exception.business;
 
 import com.github.yingzhuo.carnival.common.util.MessageFormatter;
+import lombok.extern.slf4j.Slf4j;
 import lombok.var;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
@@ -21,7 +23,8 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.6.3
  */
-public class MapBusinessExceptionFactory implements BusinessExceptionFactory {
+@Slf4j
+public class MapBusinessExceptionFactory implements BusinessExceptionFactory, InitializingBean {
 
     private final Map<String, String> messages;
 
@@ -53,6 +56,21 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private Optional<String> getMessage(String code) {
         return Optional.ofNullable(messages.get(code));
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        if (log.isDebugEnabled() && !messages.isEmpty()) {
+            log.debug("business exception codes:");
+            for (final String key : messages.keySet()) {
+                final String value = messages.get(key);
+                log.debug("\t'{}'='{}'", key, value);
+            }
+        }
+    }
+
+    public Map<String, String> getMessages() {
+        return messages;
     }
 
 }
