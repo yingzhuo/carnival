@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.feign.env;
 
 import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
 import com.github.yingzhuo.springboot.env.util.JarDir;
+import org.springframework.boot.SpringApplication;
+import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @author 应卓
@@ -18,12 +20,21 @@ import com.github.yingzhuo.springboot.env.util.JarDir;
  */
 public class ServiceConventionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
-    public ServiceConventionEnvironmentPostProcessor() {
-        super("service", new String[]{
-                JarDir.of().getDirAsResourceLocation("config/service"),
-                JarDir.of().getDirAsResourceLocation(".config/service"),
-                JarDir.of().getDirAsResourceLocation("_config/service"),
-                JarDir.of().getDirAsResourceLocation("service"),
+    @Override
+    protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
+        return "service";
+    }
+
+    @Override
+    protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+        final Class<?> mainClass = application.getMainApplicationClass();
+        final String inMainClassPkg = "classpath:" + mainClass.getPackage().getName().replaceAll("\\.", "/") + "/service";
+
+        return new String[]{
+                JarDir.of(mainClass).getDirAsResourceLocation("config/service"),
+                JarDir.of(mainClass).getDirAsResourceLocation(".config/service"),
+                JarDir.of(mainClass).getDirAsResourceLocation("_config/service"),
+                JarDir.of(mainClass).getDirAsResourceLocation("service"),
                 "file:config/service",
                 "file:.config/service",
                 "file:_config/service",
@@ -32,7 +43,9 @@ public class ServiceConventionEnvironmentPostProcessor extends AbstractConventio
                 "classpath:.config/service",
                 "classpath:_config/service",
                 "classpath:service",
-                "classpath:META-INF/service"
-        });
+                "classpath:META-INF/service",
+                inMainClassPkg
+        };
     }
+
 }

@@ -20,25 +20,54 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 public final class ConventionEnvironmentPostProcessors {
 
-    private static String getMainClassPrefix(SpringApplication application, String prefix) {
-        final Class<?> mainClass = application.getMainApplicationClass();
+    private static String getMainClassPrefix(Class<?> mainClass, String prefix) {
         final String packageName = mainClass.getPackage().getName().replaceAll("\\.", "/");
         return "classpath:" + packageName + "/" + prefix;
     }
 
-    public static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
+    public static class PropertySource extends AbstractConventionEnvironmentPostProcessor {
         @Override
-        protected String overwriteName(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
+            return "property-source";
+        }
+
+        @Override
+        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+            final Class<?> mainClass = application.getMainApplicationClass();
+            return new String[]{
+                    JarDir.of(mainClass).getDirAsResourceLocation("config/property"),
+                    JarDir.of(mainClass).getDirAsResourceLocation(".config/property"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("_config/property"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("property"),
+                    "file:config/property",
+                    "file:.config/property",
+                    "file:_config/property",
+                    "file:property",
+                    "classpath:config/property",
+                    "classpath:.config/property",
+                    "classpath:_config/property",
+                    "classpath:property",
+                    "classpath:META-INF/property",
+                    getMainClassPrefix(mainClass, "property")
+            };
+        }
+    }
+
+    public static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
+
+        @Override
+        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "business-exception";
         }
 
         @Override
-        protected String[] overwriteLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+            final Class<?> mainClass = application.getMainApplicationClass();
             return new String[]{
-                    JarDir.of().getDirAsResourceLocation("config/business-exception"),
-                    JarDir.of().getDirAsResourceLocation(".config/business-exception"),
-                    JarDir.of().getDirAsResourceLocation("_config/business-exception"),
-                    JarDir.of().getDirAsResourceLocation("business-exception"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("config/business-exception"),
+                    JarDir.of(mainClass).getDirAsResourceLocation(".config/business-exception"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("_config/business-exception"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("business-exception"),
                     "file:config/business-exception",
                     "file:.config/business-exception",
                     "file:_config/business-exception",
@@ -48,24 +77,25 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:_config/business-exception",
                     "classpath:business-exception",
                     "classpath:META-INF/business-exception",
-                    getMainClassPrefix(application, "business-exception")
+                    getMainClassPrefix(mainClass, "business-exception")
             };
         }
     }
 
     public static class DataSource extends AbstractConventionEnvironmentPostProcessor {
         @Override
-        protected String overwriteName(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "datasource";
         }
 
         @Override
-        protected String[] overwriteLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+            final Class<?> mainClass = application.getMainApplicationClass();
             return new String[]{
-                    JarDir.of().getDirAsResourceLocation("config/datasource"),
-                    JarDir.of().getDirAsResourceLocation(".config/datasource"),
-                    JarDir.of().getDirAsResourceLocation("_config/datasource"),
-                    JarDir.of().getDirAsResourceLocation("datasource"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("config/datasource"),
+                    JarDir.of(mainClass).getDirAsResourceLocation(".config/datasource"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("_config/datasource"),
+                    JarDir.of(mainClass).getDirAsResourceLocation("datasource"),
                     "file:config/datasource",
                     "file:.config/datasource",
                     "file:_config/datasource",
@@ -75,19 +105,20 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:_config/datasource",
                     "classpath:datasource",
                     "classpath:META-INF/datasource",
-                    getMainClassPrefix(application, "datasource")
+                    getMainClassPrefix(mainClass, "datasource")
             };
         }
     }
 
     public static class Git extends AbstractConventionEnvironmentPostProcessor {
+
         @Override
-        protected String overwriteName(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "git";
         }
 
         @Override
-        protected String[] overwriteLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
+        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
             return new String[]{"classpath:git", "classpath:META-INF/git"};
         }
     }
