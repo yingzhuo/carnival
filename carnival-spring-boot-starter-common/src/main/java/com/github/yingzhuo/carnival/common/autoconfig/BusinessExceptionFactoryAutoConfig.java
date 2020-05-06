@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionMap;
+import com.github.yingzhuo.carnival.exception.business.EmptyBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.MapBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,15 +39,10 @@ public class BusinessExceptionFactoryAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public BusinessExceptionFactory businessExceptionFactory(Props props, BusinessExceptionMap env) {
-        final Map<String, String> map = new HashMap<>();
-        map.putAll(props.getMessages());
-        map.putAll(env);
-
-        if (map.isEmpty()) {
-            return BusinessExceptionFactory.newEmptyFactory();
-        } else {
-            return new MapBusinessExceptionFactory(map);
-        }
+        final Map<String, String> merged = new HashMap<>();
+        merged.putAll(props.getMessages());
+        merged.putAll(env);
+        return merged.isEmpty() ? new EmptyBusinessExceptionFactory() : new MapBusinessExceptionFactory(merged);
     }
 
     @Getter

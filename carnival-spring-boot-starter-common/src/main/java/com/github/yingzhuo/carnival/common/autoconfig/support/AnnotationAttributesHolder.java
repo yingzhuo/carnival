@@ -63,4 +63,8 @@ public final class AnnotationAttributesHolder {
         return result != null ? (V) result : defaultIfNull;
     }
 
+    public static <A extends Annotation> void remove(Class<A> annotationType) {
+        HOLDER.get().remove(annotationType.getName());
+    }
+
 }

@@ -27,9 +27,7 @@ import java.lang.annotation.*;
 @Import(EnableRestfulSecurity.ImportSelector.class)
 public @interface EnableRestfulSecurity {
 
-    public int interceptorOrder() default 0;
-
-    public AuthenticationStrategy authenticationStrategy() default AuthenticationStrategy.ANNOTATED_REQUESTS;
+    public AuthenticationStrategy strategy() default AuthenticationStrategy.ANNOTATED_REQUESTS;
 
     public static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
 

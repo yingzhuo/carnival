@@ -25,6 +25,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -53,13 +54,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
-        Integer interceptorOrder = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "interceptorOrder");
-        if (interceptorOrder == null) {
-            interceptorOrder = 0;
-        }
-
-        final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "authenticationStrategy");
+        final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "strategy");
 
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
         interceptor.setAuthenticationStrategy(authenticationStrategy);
@@ -67,9 +62,10 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         interceptor.setUserDetailsRealm(userDetailsRealm);
         interceptor.setTokenBlacklistManager(tokenBlackListManager);
         interceptor.setExtraUserDetailsRealm(extraUserDetailsRealm);
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(interceptorOrder);
-    }
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(Ordered.HIGHEST_PRECEDENCE);
 
+        AnnotationAttributesHolder.remove(EnableRestfulSecurity.class);
+    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

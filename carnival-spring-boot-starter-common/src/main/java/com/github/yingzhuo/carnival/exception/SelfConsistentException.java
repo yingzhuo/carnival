@@ -19,7 +19,7 @@ import java.util.Map;
  * @author 应卓
  * @since 1.4.5
  */
-public class SelfConsistentException extends RuntimeException {
+public class SelfConsistentException extends IllegalArgumentException {
 
     public SelfConsistentException() {
     }

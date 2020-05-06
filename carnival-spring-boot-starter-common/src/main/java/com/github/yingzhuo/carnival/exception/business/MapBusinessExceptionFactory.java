@@ -9,16 +9,14 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.TreeMap;
+import java.util.*;
+
+import static com.github.yingzhuo.carnival.common.util.MessageFormatter.format;
 
 /**
  * @author 应卓
@@ -30,7 +28,7 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
     private final Map<String, String> messages;
 
     public MapBusinessExceptionFactory(Map<String, String> messages) {
-        this.messages = new TreeMap<>(Objects.requireNonNull(messages));
+        this.messages = Collections.unmodifiableMap(new TreeMap<>(Objects.requireNonNull(messages)));
     }
 
     @Override
@@ -51,7 +49,7 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
             throw new IllegalArgumentException("'" + code + "' is not a valid code");
         }
 
-        return new BusinessException(code, MessageFormatter.format(message, params));
+        return new BusinessException(code, format(message, params));
     }
 
     private Optional<String> getMessage(String code) {

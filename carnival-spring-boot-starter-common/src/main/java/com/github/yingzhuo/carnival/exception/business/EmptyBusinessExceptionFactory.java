@@ -9,14 +9,15 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
-import java.util.HashMap;
-
 /**
  * @author 应卓
- * @since 1.6.3
+ * @since 1.6.4
  */
-@ConfigurationProperties(prefix = "business.exception")
-public class BusinessExceptionMap extends HashMap<String, String> {
+public class EmptyBusinessExceptionFactory implements BusinessExceptionFactory {
+
+    @Override
+    public BusinessException create(String code, Object... params) {
+        throw new UnsupportedOperationException("'" + code + "' is not a valid code");
+    }
+
 }

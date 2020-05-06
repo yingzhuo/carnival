@@ -15,12 +15,6 @@ package com.github.yingzhuo.carnival.exception.business;
 @FunctionalInterface
 public interface BusinessExceptionFactory {
 
-    public static BusinessExceptionFactory newEmptyFactory() {
-        return (code, params) -> {
-            throw new UnsupportedOperationException("BusinessExceptionFactory instance is NOT configured.");
-        };
-    }
-
     public BusinessException create(String code, Object... params);
 
 }
