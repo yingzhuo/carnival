@@ -20,7 +20,11 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 public final class ConventionEnvironmentPostProcessors {
 
-    private static String getMainClassPrefix(Class<?> mainClass, String prefix) {
+    private static String getInMainPkgPrefix(Class<?> mainClass, String prefix) {
+        if (mainClass == null) {
+            return null;
+        }
+
         final String packageName = mainClass.getPackage().getName().replaceAll("\\.", "/");
         return "classpath:" + packageName + "/" + prefix;
     }
@@ -48,13 +52,12 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:_config/property",
                     "classpath:property",
                     "classpath:META-INF/property",
-                    getMainClassPrefix(mainClass, "property")
+                    getInMainPkgPrefix(mainClass, "property")
             };
         }
     }
 
     public static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
-
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "business-exception";
@@ -77,7 +80,7 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:_config/business-exception",
                     "classpath:business-exception",
                     "classpath:META-INF/business-exception",
-                    getMainClassPrefix(mainClass, "business-exception")
+                    getInMainPkgPrefix(mainClass, "business-exception")
             };
         }
     }
@@ -105,13 +108,12 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:_config/datasource",
                     "classpath:datasource",
                     "classpath:META-INF/datasource",
-                    getMainClassPrefix(mainClass, "datasource")
+                    getInMainPkgPrefix(mainClass, "datasource")
             };
         }
     }
 
     public static class Git extends AbstractConventionEnvironmentPostProcessor {
-
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "git";
