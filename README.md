@@ -15,6 +15,7 @@
 
 ### Wiki
 
+* [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
@@ -29,7 +30,6 @@
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 * [carnival-spring-boot-starter-restful-security-httpbasic](./carnival-spring-boot-starter-restful-security-httpbasic)
 * [carnival-spring-boot-starter-restful-security-jwt](./carnival-spring-boot-starter-restful-security-jwt)
-* [~~carnival-spring-boot-starter-stateless-captcha~~](./carnival-spring-boot-starter-stateless-captcha)
 
 ### Contributing
 
