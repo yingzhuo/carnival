@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.io.Resource;
 
 import java.io.Serializable;
 
@@ -30,7 +31,7 @@ public class ActuatorCoreConfig {
     @Bean
     @ConditionalOnProperty(prefix = "carnival.actuator.description", name = "enabled", havingValue = "true", matchIfMissing = true)
     public DescriptionEndpoint descriptionEndpoint(Props props) {
-        return new DescriptionEndpoint(props.getDescription().getMarkdownLocation());
+        return new DescriptionEndpoint(props.getDescription().getHtml());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -47,7 +48,7 @@ public class ActuatorCoreConfig {
     @Setter
     static class Description implements Serializable {
         private boolean enabled = true;
-        private String markdownLocation;
+        private Resource html;
     }
 
 }

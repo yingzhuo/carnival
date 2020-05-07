@@ -13,6 +13,7 @@ import com.github.rjeschke.txtmark.Processor;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.core.io.Resource;
 
 /**
  * @author 应卓
@@ -25,13 +26,13 @@ public class DescriptionEndpoint {
 
     private final String text;
 
-    public DescriptionEndpoint(String markdownLocation) {
-        if (markdownLocation == null) {
+    public DescriptionEndpoint(Resource markdown) {
+        if (markdown == null || !markdown.isReadable()) {
             this.text = DEFAULT_TEXT;
             return;
         }
 
-        this.text = Processor.process(ResourceText.of(markdownLocation).getText());
+        this.text = Processor.process(ResourceText.of(markdown).getText());
     }
 
     @ReadOperation(produces = "text/html;charset=UTF-8")
