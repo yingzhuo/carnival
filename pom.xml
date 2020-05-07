@@ -8,6 +8,7 @@
     <artifactId>carnival</artifactId>
     <version>1.6.4</version>
     <modules>
+        <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-distributed-lock</module>
@@ -493,6 +494,13 @@
                 <groupId>com.typesafe</groupId>
                 <artifactId>config</artifactId>
                 <version>1.4.0</version>
+            </dependency>
+
+            <!-- markdown -->
+            <dependency>
+                <groupId>com.github.rjeschke</groupId>
+                <artifactId>txtmark</artifactId>
+                <version>0.13</version>
             </dependency>
 
             <!-- http-utils -->
