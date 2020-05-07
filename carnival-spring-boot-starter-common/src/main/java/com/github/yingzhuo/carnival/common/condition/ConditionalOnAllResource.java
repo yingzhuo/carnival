@@ -29,7 +29,7 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnAllResource.OnAllResource.class)
 public @interface ConditionalOnAllResource {
 
-    public String[] locations();
+    public String[] resources();
 
     static final class OnAllResource implements Condition {
 
@@ -55,7 +55,7 @@ public @interface ConditionalOnAllResource {
             try {
                 val aas = AnnotationAttributes.fromMap(
                         metadata.getAnnotationAttributes(ConditionalOnAllResource.class.getName()));
-                return aas.getStringArray("locations");
+                return aas.getStringArray("resources");
             } catch (Exception e) {
                 return new String[0];
             }

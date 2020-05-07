@@ -30,7 +30,7 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnAnyResource.OnAnyResource.class)
 public @interface ConditionalOnAnyResource {
 
-    public String[] locations();
+    public String[] resources();
 
     static final class OnAnyResource implements Condition {
 
@@ -49,7 +49,7 @@ public @interface ConditionalOnAnyResource {
             try {
                 val aas = AnnotationAttributes.fromMap(
                         metadata.getAnnotationAttributes(ConditionalOnAnyResource.class.getName()));
-                return aas.getStringArray("locations");
+                return aas.getStringArray("resources");
             } catch (Exception e) {
                 return new String[0];
             }
