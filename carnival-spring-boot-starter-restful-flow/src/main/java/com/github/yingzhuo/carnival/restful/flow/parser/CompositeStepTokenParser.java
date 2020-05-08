@@ -14,6 +14,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +24,10 @@ import java.util.Optional;
  */
 public class CompositeStepTokenParser implements StepTokenParser, InitializingBean {
 
-    private int order = 0;
     private final List<StepTokenParser> parsers;
 
     public CompositeStepTokenParser(StepTokenParser... parsers) {
-        this.parsers = Arrays.asList(parsers);
+        this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
     }
 
     @Override
@@ -44,21 +44,16 @@ public class CompositeStepTokenParser implements StepTokenParser, InitializingBe
     }
 
     @Override
-    public int getOrder() {
-        return order;
-    }
-
-    public void setOrder(int order) {
-        this.order = order;
-    }
-
-    @Override
     public void afterPropertiesSet() throws Exception {
         for (StepTokenParser parser : this.parsers) {
             if (parser instanceof InitializingBean) {
                 ((InitializingBean) parser).afterPropertiesSet();
             }
         }
+    }
+
+    public List<StepTokenParser> getParsers() {
+        return parsers;
     }
 
 }

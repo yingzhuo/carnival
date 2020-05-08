@@ -15,6 +15,7 @@ import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
     private final List<UserDetailsRealm> realms;
 
     public CompositeUserDetailsRealm(UserDetailsRealm... realms) {
-        this.realms = Arrays.asList(realms);
+        this.realms = Collections.unmodifiableList(Arrays.asList(realms));
     }
 
     @Override
@@ -48,6 +49,10 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
                 ((InitializingBean) realm).afterPropertiesSet();
             }
         }
+    }
+
+    public List<UserDetailsRealm> getRealms() {
+        return realms;
     }
 
 }

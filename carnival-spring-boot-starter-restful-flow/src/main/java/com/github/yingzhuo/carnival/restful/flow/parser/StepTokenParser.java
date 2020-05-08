@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.parser;
 
-import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
@@ -19,13 +18,8 @@ import java.util.Optional;
  * @since 1.3.6
  */
 @FunctionalInterface
-public interface StepTokenParser extends Ordered {
+public interface StepTokenParser {
 
     public Optional<String> parse(NativeWebRequest request);
-
-    @Override
-    public default int getOrder() {
-        return 0;
-    }
 
 }

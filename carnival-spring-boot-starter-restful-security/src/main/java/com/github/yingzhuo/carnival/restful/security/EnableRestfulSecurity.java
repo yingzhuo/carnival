@@ -29,7 +29,7 @@ public @interface EnableRestfulSecurity {
 
     public AuthenticationStrategy strategy() default AuthenticationStrategy.ANNOTATED_REQUESTS;
 
-    public static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
+    static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
 
         @Override
         public String[] selectImports(AnnotationMetadata importingClassMetadata) {

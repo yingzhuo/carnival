@@ -46,20 +46,4 @@ public class RestfulSecurityBeanAutoConfig {
         return new RequiresTokenAuthComponent();
     }
 
-    @Bean
-    public RequiresIdAuthComponent requiresIdAuthenticationComponent() {
-        return new RequiresIdAuthComponent();
-    }
-
-    @Bean
-    public RequiresUsernameAuthComponent requiresUserAuthenticationComponent() {
-        return new RequiresUsernameAuthComponent();
-    }
-
-    @Bean
-    @Deprecated
-    public RequiresAdminAuthComponent requiresAdminAuthComponent() {
-        return new RequiresAdminAuthComponent();
-    }
-
 }

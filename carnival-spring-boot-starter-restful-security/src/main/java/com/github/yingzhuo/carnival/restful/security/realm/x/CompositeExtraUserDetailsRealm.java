@@ -15,21 +15,25 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * @author 应卓
  * @since 1.6.5
  */
 public class CompositeExtraUserDetailsRealm implements ExtraUserDetailsRealm, InitializingBean {
 
-    private final ExtraUserDetailsRealm[] realms;
+    private final List<ExtraUserDetailsRealm> realms;
 
     public CompositeExtraUserDetailsRealm(ExtraUserDetailsRealm... realms) {
-        this.realms = realms;
+        this.realms = Collections.unmodifiableList(Arrays.asList(realms));
     }
 
     @Override
     public void execute(Token token, UserDetails userDetails) throws RestfulSecurityException {
-        if (realms == null || realms.length == 0) {
+        if (realms == null || realms.isEmpty()) {
             return;
         }
 
@@ -49,4 +53,7 @@ public class CompositeExtraUserDetailsRealm implements ExtraUserDetailsRealm, In
         }
     }
 
+    public List<ExtraUserDetailsRealm> getRealms() {
+        return realms;
+    }
 }

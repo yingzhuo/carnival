@@ -15,6 +15,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
     private final List<TokenParser> parsers;
 
     public CompositeTokenParser(TokenParser... parsers) {
-        this.parsers = Arrays.asList(parsers);
+        this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
     }
 
     @Override
@@ -48,6 +49,10 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
                 ((InitializingBean) parser).afterPropertiesSet();
             }
         }
+    }
+
+    public List<TokenParser> getParsers() {
+        return parsers;
     }
 
 }

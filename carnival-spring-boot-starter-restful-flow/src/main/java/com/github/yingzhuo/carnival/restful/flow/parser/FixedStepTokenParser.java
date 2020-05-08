@@ -24,25 +24,14 @@ import java.util.Optional;
 public class FixedStepTokenParser implements StepTokenParser, InitializingBean {
 
     private final String tokenValue;
-    private final int order;
 
     public FixedStepTokenParser(String tokenValue) {
-        this(tokenValue, 0);
-    }
-
-    public FixedStepTokenParser(String tokenValue, int order) {
         this.tokenValue = Objects.requireNonNull(tokenValue);
-        this.order = order;
     }
 
     @Override
     public Optional<String> parse(NativeWebRequest request) {
         return Optional.of(tokenValue);
-    }
-
-    @Override
-    public int getOrder() {
-        return this.order;
     }
 
     @Override
