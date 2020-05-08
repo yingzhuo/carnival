@@ -9,10 +9,8 @@
  */
 package com.github.yingzhuo.carnival.actuator.autoconfig;
 
-import com.github.yingzhuo.carnival.actuator.endpoint.ManifestEndpoint;
 import com.github.yingzhuo.carnival.actuator.endpoint.NoteEndpoint;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnManifest;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -41,12 +39,6 @@ public class ActuatorCoreConfig {
         return new NoteEndpoint();
     }
 
-    @Bean
-    @ConditionalOnManifest
-    public ManifestEndpoint manifestEndpoint() {
-        return new ManifestEndpoint();
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     @Getter
@@ -55,6 +47,5 @@ public class ActuatorCoreConfig {
     static class Props implements Serializable {
         private boolean enabled = true;
     }
-
 
 }
