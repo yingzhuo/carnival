@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
+import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
@@ -23,6 +24,7 @@ public final class RestfulSecurityContext {
 
     private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
+    private final static ThreadLocal<SkipReason> skipReasonHolder = ThreadLocal.withInitial(() -> null);
 
     private RestfulSecurityContext() {
     }
@@ -35,6 +37,10 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(userDetailsHolder.get());
     }
 
+    public static Optional<SkipReason> getSkipReason() {
+        return Optional.ofNullable(skipReasonHolder.get());
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     static void setUserDetails(UserDetails userDetails) {
@@ -45,9 +51,14 @@ public final class RestfulSecurityContext {
         tokenHolder.set(token);
     }
 
+    static void setSkipReason(SkipReason reason) {
+        skipReasonHolder.set(reason);
+    }
+
     static void clean() {
         tokenHolder.remove();
         userDetailsHolder.remove();
+        skipReasonHolder.remove();
     }
 
 }

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.core;
 
 import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
+import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
@@ -57,11 +58,13 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
         val handlerMethod = (HandlerMethod) handler;
 
         if (hasMethodAnnotation(IgnoreToken.class, handler) || hasClassAnnotation(IgnoreToken.class, handler)) {
+            RestfulSecurityContext.setSkipReason(new SkipReason(true, SkipReason.TokenAbsent.UNKNOWN)); // 记录跳过理由
             return true;
         }
 
         final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ANNOTATED_REQUESTS) {
+            RestfulSecurityContext.setSkipReason(new SkipReason(false, SkipReason.TokenAbsent.UNKNOWN));
             return true;
         }
 

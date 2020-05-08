@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
+import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.annotation.StringTokenValue;
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
@@ -38,7 +39,8 @@ public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMeth
                 parameter.getParameterType() == Token.class ||
                 parameter.getParameterType() == StringToken.class ||
                 parameter.getParameterType() == UsernamePasswordToken.class ||
-                parameter.getParameterType() == BytesToken.class;
+                parameter.getParameterType() == BytesToken.class ||
+                parameter.getParameterType() == SkipReason.class;
     }
 
     @Override
@@ -62,6 +64,10 @@ public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMeth
 
         if (parameter.getParameterType() == BytesToken.class) {
             return (BytesToken) RestfulSecurityContext.getToken().orElse(null);
+        }
+
+        if (parameter.getParameterType() == SkipReason.class) {
+            return RestfulSecurityContext.getSkipReason().orElse(null);
         }
 
         if (parameter.hasParameterAnnotation(StringTokenValue.class) && parameter.getParameterType() == String.class) {
