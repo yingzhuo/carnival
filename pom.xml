@@ -91,8 +91,8 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <springcloud.version>Hoxton.RELEASE</springcloud.version>
-        <springboot.version>2.2.6.RELEASE</springboot.version>
-        <spring.version>5.2.5.RELEASE</spring.version>
+        <springboot.version>2.2.7.RELEASE</springboot.version>
+        <spring.version>5.2.6.RELEASE</spring.version>
         <jackson.version>2.11.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.49.Final</netty.version>
