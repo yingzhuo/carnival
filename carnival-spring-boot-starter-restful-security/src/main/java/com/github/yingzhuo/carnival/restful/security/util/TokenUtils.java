@@ -18,6 +18,11 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 @SuppressWarnings("unchecked")
 public final class TokenUtils {
 
+    private TokenUtils() {
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * 获取令牌
      *
@@ -26,11 +31,6 @@ public final class TokenUtils {
      */
     public static <T extends Token> T get() {
         return (T) RestfulSecurityContext.getToken().orElse(null);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private TokenUtils() {
     }
 
 }

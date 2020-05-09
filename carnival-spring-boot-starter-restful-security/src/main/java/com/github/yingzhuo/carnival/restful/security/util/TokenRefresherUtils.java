@@ -19,13 +19,13 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public class TokenRefresherUtils {
 
-    public static Token refresh(Token oldToken) {
-        return SpringUtils.getBean(TokenRefresher.class).refresh(oldToken);
+    private TokenRefresherUtils() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private TokenRefresherUtils() {
+    public static Token refresh(Token oldToken) {
+        return SpringUtils.getBean(TokenRefresher.class).refresh(oldToken);
     }
 
 }

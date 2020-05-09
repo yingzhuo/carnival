@@ -22,6 +22,14 @@ import java.util.Objects;
  */
 public final class SaltPair implements Serializable {
 
+    public final String left;
+    public final String right;
+
+    public SaltPair(String left, String right) {
+        this.left = left != null ? left : "";
+        this.right = right != null ? right : "";
+    }
+
     public static SaltPair of(String left, String right) {
         return new SaltPair(left, right);
     }
@@ -32,14 +40,6 @@ public final class SaltPair implements Serializable {
 
     public static SaltPair random(int leftLength, int rightLength) {
         return new SaltPair(RandomStringUtils.randomAlphabetic(leftLength), RandomStringUtils.randomAlphabetic(rightLength));
-    }
-
-    public final String left;
-    public final String right;
-
-    public SaltPair(String left, String right) {
-        this.left = left != null ? left : "";
-        this.right = right != null ? right : "";
     }
 
     @Override

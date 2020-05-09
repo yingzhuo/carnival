@@ -18,6 +18,10 @@ import com.github.yingzhuo.carnival.common.io.ResourceText;
  */
 public final class AlgorithmGenerators {
 
+    // -----------------------------------------------------------------------------------------------------------------
+    private AlgorithmGenerators() {
+    }
+
     // None
     // -----------------------------------------------------------------------------------------------------------------
     public static AlgorithmGenerator none() {
@@ -160,10 +164,6 @@ public final class AlgorithmGenerators {
                 ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
                 ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
         );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private AlgorithmGenerators() {
     }
 
 }

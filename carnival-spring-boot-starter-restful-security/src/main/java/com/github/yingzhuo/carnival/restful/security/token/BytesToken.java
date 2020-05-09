@@ -19,12 +19,12 @@ public class BytesToken implements Token {
 
     private final byte[] data;
 
-    public static BytesToken of(byte[] data) {
-        return new BytesToken(data);
-    }
-
     public BytesToken(byte[] data) {
         this.data = data;
+    }
+
+    public static BytesToken of(byte[] data) {
+        return new BytesToken(data);
     }
 
     public byte[] getData() {

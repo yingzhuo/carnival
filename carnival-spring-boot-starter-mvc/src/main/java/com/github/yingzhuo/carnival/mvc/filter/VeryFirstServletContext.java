@@ -24,20 +24,20 @@ public final class VeryFirstServletContext {
     private VeryFirstServletContext() {
     }
 
-    static void setRequest(HttpServletRequest request) {
-        REQUEST_HOLDER.set(request);
-    }
-
-    static void setResponse(HttpServletResponse response) {
-        RESPONSE_HOLDER.set(response);
-    }
-
     public static HttpServletRequest getRequest() {
         return REQUEST_HOLDER.get();
     }
 
+    static void setRequest(HttpServletRequest request) {
+        REQUEST_HOLDER.set(request);
+    }
+
     public static HttpServletResponse getResponse() {
         return RESPONSE_HOLDER.get();
+    }
+
+    static void setResponse(HttpServletResponse response) {
+        RESPONSE_HOLDER.set(response);
     }
 
     static void clean() {

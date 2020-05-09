@@ -19,6 +19,9 @@ import java.util.concurrent.TimeUnit;
  */
 public final class DistributedLockUtils extends AbstractUtils {
 
+    private DistributedLockUtils() {
+    }
+
     public static InterProcessMutex createInterProcessMutex(String path) {
         path = betterPath(path);
         return new InterProcessMutex(getClient(), path);
@@ -36,16 +39,13 @@ public final class DistributedLockUtils extends AbstractUtils {
         }
     }
 
+    // ------------------------------------------------------------------------------------------------------------
+
     public static void release(InterProcessMutex mutex) {
         try {
             mutex.release();
         } catch (Exception ignore) {
         }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------
-
-    private DistributedLockUtils() {
     }
 
 }

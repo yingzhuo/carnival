@@ -24,10 +24,6 @@ public class BusinessException extends RuntimeException implements StringCoded {
 
     private String code;
 
-    public static BusinessException of(String code, Object... params) {
-        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code, params);
-    }
-
     public BusinessException() {
     }
 
@@ -38,6 +34,10 @@ public class BusinessException extends RuntimeException implements StringCoded {
     public BusinessException(String code, String message, Object... params) {
         super(MessageFormatter.format(message, params));
         this.code = code;
+    }
+
+    public static BusinessException of(String code, Object... params) {
+        return SpringUtils.getBean(BusinessExceptionFactory.class).create(code, params);
     }
 
     public String getCode() {

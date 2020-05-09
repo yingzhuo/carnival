@@ -20,6 +20,9 @@ import org.apache.curator.retry.RetryOneTime;
  */
 public final class CounterUtils extends AbstractUtils {
 
+    private CounterUtils() {
+    }
+
     public static DistributedAtomicLong newDistributedAtomicLong(String path) {
         return newDistributedAtomicLong(path, null);
     }
@@ -31,9 +34,6 @@ public final class CounterUtils extends AbstractUtils {
 
     public static RetryPolicy getDefaultRetryPolicy() {
         return new RetryOneTime(500);
-    }
-
-    private CounterUtils() {
     }
 
 }

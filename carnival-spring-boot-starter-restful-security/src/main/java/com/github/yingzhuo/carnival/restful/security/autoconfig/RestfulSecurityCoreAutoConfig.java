@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
-import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
-import com.github.yingzhuo.carnival.restful.security.EnableRestfulSecurity;
+import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
@@ -40,31 +39,30 @@ import java.util.List;
 @AutoConfigureAfter(RestfulSecurityBeanAutoConfig.class)
 public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
-    @Autowired
-    private TokenParser tokenParser;
-
-    @Autowired
-    private UserDetailsRealm userDetailsRealm;
+    @Autowired(required = false)
+    private RestfulSecurityConfigurer configurer;
 
     @Autowired(required = false)
-    private TokenBlacklistManager tokenBlackListManager;
+    private TokenParser injectedTokenParser;
 
     @Autowired(required = false)
-    private ExtraUserDetailsRealm extraUserDetailsRealm;
+    private UserDetailsRealm injectedUserDetailsRealm;
+
+    @Autowired(required = false)
+    private TokenBlacklistManager injectedTokenBlackListManager;
+
+    @Autowired(required = false)
+    private ExtraUserDetailsRealm injectedExtraUserDetailsRealm;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        final AuthenticationStrategy authenticationStrategy = AnnotationAttributesHolder.getValue(EnableRestfulSecurity.class, "strategy");
-
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-        interceptor.setAuthenticationStrategy(authenticationStrategy);
-        interceptor.setTokenParser(tokenParser);
-        interceptor.setUserDetailsRealm(userDetailsRealm);
-        interceptor.setTokenBlacklistManager(tokenBlackListManager);
-        interceptor.setExtraUserDetailsRealm(extraUserDetailsRealm);
+        interceptor.setAuthenticationStrategy(getAuthenticationStrategy());
+        interceptor.setTokenParser(getTokenParser());
+        interceptor.setUserDetailsRealm(getUserDetailsRealm());
+        interceptor.setTokenBlacklistManager(getTokenBlackListManager());
+        interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(Ordered.HIGHEST_PRECEDENCE);
-
-        AnnotationAttributesHolder.remove(EnableRestfulSecurity.class);
     }
 
     @Override
@@ -77,4 +75,57 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         ReflectCache.init();
     }
 
+    private AuthenticationStrategy getAuthenticationStrategy() {
+        AuthenticationStrategy strategy = null;
+        if (configurer != null) {
+            strategy = configurer.getAuthenticationStrategy();
+        }
+
+        if (strategy == null) {
+            strategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
+        }
+        return strategy;
+    }
+
+    private TokenParser getTokenParser() {
+        if (injectedTokenParser != null) {
+            return injectedTokenParser;
+        }
+
+        TokenParser tokenParser = configurer != null ? configurer.getTokenParser() : null;
+
+        if (tokenParser == null) {
+            throw new NullPointerException("TokenParser NOT configured.");
+        }
+
+        return tokenParser;
+    }
+
+    private UserDetailsRealm getUserDetailsRealm() {
+        if (injectedUserDetailsRealm != null) {
+            return injectedUserDetailsRealm;
+        }
+
+        UserDetailsRealm userDetailsRealm = configurer != null ? configurer.getUserDetailsRealm() : null;
+
+        if (userDetailsRealm == null) {
+            throw new NullPointerException("UserDetailsRealm NOT configured.");
+        }
+
+        return userDetailsRealm;
+    }
+
+    private TokenBlacklistManager getTokenBlackListManager() {
+        if (injectedTokenBlackListManager != null) {
+            return injectedTokenBlackListManager;
+        }
+        return configurer != null ? configurer.getTokenBlacklistManager() : null;
+    }
+
+    private ExtraUserDetailsRealm getExtraUserDetailsRealm() {
+        if (injectedExtraUserDetailsRealm != null) {
+            return injectedExtraUserDetailsRealm;
+        }
+        return configurer != null ? configurer.getExtraUserDetailsRealm() : null;
+    }
 }

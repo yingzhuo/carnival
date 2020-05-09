@@ -9,11 +9,9 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
-import com.github.yingzhuo.carnival.common.autoconfig.support.AnnotationAttributesHolder;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityBeanAutoConfig;
 import com.github.yingzhuo.carnival.restful.security.autoconfig.RestfulSecurityCoreAutoConfig;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.type.AnnotationMetadata;
 
 import java.lang.annotation.*;
 
@@ -24,23 +22,6 @@ import java.lang.annotation.*;
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(EnableRestfulSecurity.ImportSelector.class)
+@Import({RestfulSecurityBeanAutoConfig.class, RestfulSecurityCoreAutoConfig.class})
 public @interface EnableRestfulSecurity {
-
-    public AuthenticationStrategy strategy() default AuthenticationStrategy.ANNOTATED_REQUESTS;
-
-    static class ImportSelector implements org.springframework.context.annotation.ImportSelector {
-
-        @Override
-        public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-
-            AnnotationAttributesHolder.setAnnotationMetadata(EnableRestfulSecurity.class, importingClassMetadata);
-
-            return new String[]{
-                    RestfulSecurityBeanAutoConfig.class.getName(),
-                    RestfulSecurityCoreAutoConfig.class.getName()
-            };
-        }
-    }
-
 }

@@ -17,6 +17,9 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public final class PasswordEncrypterUtils {
 
+    private PasswordEncrypterUtils() {
+    }
+
     public static String encrypt(String rawPassword) {
         return passwordEncrypter().encrypt(rawPassword);
     }
@@ -53,13 +56,10 @@ public final class PasswordEncrypterUtils {
         return passwordEncrypter().notMatches(rawPassword, leftSalt, rightSalt, encryptedPassword);
     }
 
-    private static PasswordEncrypter passwordEncrypter() {
-        return SpringUtils.getBean(PasswordEncrypter.class);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private PasswordEncrypterUtils() {
+    private static PasswordEncrypter passwordEncrypter() {
+        return SpringUtils.getBean(PasswordEncrypter.class);
     }
 
 }

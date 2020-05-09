@@ -26,6 +26,9 @@ import static com.github.yingzhuo.carnival.common.util.MessageFormatter.format;
  */
 public final class SelfConsistent {
 
+    private SelfConsistent() {
+    }
+
     public static <T> T notNull(T obj) {
         return notNull(obj, null);
     }
@@ -153,15 +156,12 @@ public final class SelfConsistent {
         isFalse(state, null);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static void isFalse(boolean state, String message, Object... params) {
         if (state) {
             throw new SelfConsistentException(format(message, params));
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private SelfConsistent() {
     }
 
 }

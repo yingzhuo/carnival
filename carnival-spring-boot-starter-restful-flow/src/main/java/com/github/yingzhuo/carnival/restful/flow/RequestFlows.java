@@ -23,6 +23,11 @@ import java.util.Date;
  */
 public final class RequestFlows {
 
+    private RequestFlows() {
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static String newToken(String name, int step) {
         val props = SpringUtils.getBean(FlowProps.class);
         val now = System.currentTimeMillis();
@@ -33,11 +38,6 @@ public final class RequestFlows {
                 .withClaim("timestamp", now)
                 .withExpiresAt(new Date(now + props.getTtl().toMillis()))
                 .sign(algFactory.create());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private RequestFlows() {
     }
 
 }

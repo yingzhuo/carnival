@@ -23,6 +23,9 @@ import java.nio.charset.StandardCharsets;
  */
 public final class NameUtils extends AbstractUtils {
 
+    private NameUtils() {
+    }
+
     public static Long getNameAsLong(Class<?> entityType) {
         String name = getName(entityType);
         return Long.parseLong(StringUtils.stripStart(name, "0"));
@@ -42,6 +45,8 @@ public final class NameUtils extends AbstractUtils {
         return Long.parseLong(StringUtils.stripStart(name, "0"));
     }
 
+    // ------------------------------------------------------------------------------------------------------------
+
     public static String getName(String path, boolean removePath) {
         Preconditions.checkArgument(path != null);
 
@@ -60,11 +65,6 @@ public final class NameUtils extends AbstractUtils {
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
-    }
-
-    // ------------------------------------------------------------------------------------------------------------
-
-    private NameUtils() {
     }
 
 }

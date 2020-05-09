@@ -23,6 +23,9 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public final class UserDetailsUtils {
 
+    private UserDetailsUtils() {
+    }
+
     public static UserDetails get() {
         return RestfulSecurityContext.getUserDetails().orElse(null);
     }
@@ -88,6 +91,8 @@ public final class UserDetailsUtils {
         return getProperty(propertyName, null);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static <T> T getProperty(String propertyName, T defaultValue) {
         final UserDetails userDetails = get();
 
@@ -101,11 +106,6 @@ public final class UserDetailsUtils {
         } catch (BeansException e) {
             return defaultValue;
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private UserDetailsUtils() {
     }
 
 }

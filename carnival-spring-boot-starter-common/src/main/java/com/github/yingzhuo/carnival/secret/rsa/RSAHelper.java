@@ -29,13 +29,13 @@ public final class RSAHelper extends AbstractSecuritySupport {
     private final String base64PublicKey;
     private final String base64PrivateKey;
 
-    public static RSAHelper of(RSAKeyPair pair) {
-        return new RSAHelper(pair);
-    }
-
     private RSAHelper(RSAKeyPair pair) {
         this.base64PublicKey = pair.getBase64PublicKey();
         this.base64PrivateKey = pair.getBase64PrivateKey();
+    }
+
+    public static RSAHelper of(RSAKeyPair pair) {
+        return new RSAHelper(pair);
     }
 
     public String encryptByPublicKey(String encryptingString) {

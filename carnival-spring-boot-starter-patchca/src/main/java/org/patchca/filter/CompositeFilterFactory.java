@@ -19,14 +19,6 @@ import java.util.List;
  */
 public class CompositeFilterFactory implements FilterFactory {
 
-    public static CompositeFilterFactory of(FilterFactory... filterFactories) {
-        return new CompositeFilterFactory(filterFactories);
-    }
-
-    public static CompositeFilterFactory of(List<FilterFactory> filterFactories) {
-        return new CompositeFilterFactory(filterFactories);
-    }
-
     private final List<FilterFactory> filterFactories;
 
     public CompositeFilterFactory(FilterFactory... filterFactories) {
@@ -35,6 +27,14 @@ public class CompositeFilterFactory implements FilterFactory {
 
     public CompositeFilterFactory(List<FilterFactory> filterFactories) {
         this.filterFactories = filterFactories;
+    }
+
+    public static CompositeFilterFactory of(FilterFactory... filterFactories) {
+        return new CompositeFilterFactory(filterFactories);
+    }
+
+    public static CompositeFilterFactory of(List<FilterFactory> filterFactories) {
+        return new CompositeFilterFactory(filterFactories);
     }
 
     @Override

@@ -23,9 +23,14 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public final class IdGeneratorUtils {
 
+    private IdGeneratorUtils() {
+    }
+
     public static <T> T nextId() {
         return (T) ((IdGenerator<?>) SpringUtils.getBean(IdGenerator.class)).nextId();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static <T> List<T> nextIds(int count) {
         if (count <= 0) {
@@ -36,11 +41,6 @@ public final class IdGeneratorUtils {
             list.set(i, nextId());
         }
         return Collections.unmodifiableList(list);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private IdGeneratorUtils() {
     }
 
 }

@@ -18,12 +18,12 @@ public class StringToken implements Token {
 
     private final String value;
 
-    public static StringToken of(String value) {
-        return new StringToken(value);
-    }
-
     public StringToken(String value) {
         this.value = Objects.requireNonNull(value);
+    }
+
+    public static StringToken of(String value) {
+        return new StringToken(value);
     }
 
     public String getValue() {

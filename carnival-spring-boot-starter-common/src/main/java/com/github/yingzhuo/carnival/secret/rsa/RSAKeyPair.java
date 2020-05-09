@@ -26,6 +26,11 @@ public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair
     private final String base64PublicKey;
     private final String base64PrivateKey;
 
+    private RSAKeyPair(String publicKey, String privateKey) {
+        this.base64PublicKey = publicKey;
+        this.base64PrivateKey = privateKey;
+    }
+
     public static RSAKeyPair createRandom(int keySize) {
         try {
             KeyPairGenerator generator = KeyPairGenerator.getInstance(RSA);
@@ -45,11 +50,6 @@ public final class RSAKeyPair extends AbstractSecuritySupport implements KeyPair
 
     public static RSAKeyPair fromString(String publicKey, String privateKey) {
         return new RSAKeyPair(publicKey, privateKey);
-    }
-
-    private RSAKeyPair(String publicKey, String privateKey) {
-        this.base64PublicKey = publicKey;
-        this.base64PrivateKey = privateKey;
     }
 
     @Override

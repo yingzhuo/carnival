@@ -17,6 +17,9 @@ import java.util.Objects;
  */
 public final class AtoiUtils {
 
+    private AtoiUtils() {
+    }
+
     public static Long toLong(String s) {
         Objects.requireNonNull(s);
         if (s.startsWith("0x") || s.startsWith("0X")) {
@@ -45,6 +48,8 @@ public final class AtoiUtils {
         return Integer.parseInt(s, 10);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static Double toDouble(String s) {
         Objects.requireNonNull(s);
         try {
@@ -53,11 +58,6 @@ public final class AtoiUtils {
         } catch (Exception e) {
             return Double.parseDouble(s);
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private AtoiUtils() {
     }
 
 }

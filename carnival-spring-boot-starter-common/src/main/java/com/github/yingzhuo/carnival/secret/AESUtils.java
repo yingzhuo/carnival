@@ -26,6 +26,9 @@ import java.security.SecureRandom;
  */
 public final class AESUtils {
 
+    private AESUtils() {
+    }
+
     public static String encrypt(String value, String passphrase) {
         try {
             byte[] initVector = new byte[16];
@@ -56,13 +59,10 @@ public final class AESUtils {
         return new SecretKeySpec(digest.digest(passphrase.getBytes(StandardCharsets.UTF_8)), "AES");
     }
 
-    private static Cipher getCipher() throws NoSuchPaddingException, NoSuchAlgorithmException {
-        return Cipher.getInstance("AES/CBC/PKCS5PADDING");
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private AESUtils() {
+    private static Cipher getCipher() throws NoSuchPaddingException, NoSuchAlgorithmException {
+        return Cipher.getInstance("AES/CBC/PKCS5PADDING");
     }
 
 }

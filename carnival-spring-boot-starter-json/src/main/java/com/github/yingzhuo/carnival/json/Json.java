@@ -24,15 +24,14 @@ import java.util.function.Supplier;
 @JsonIgnoreProperties("empty")
 public class Json implements ApiResult<Payload> {
 
-    public static Json newInstance() {
-        return new Json();
-    }
-
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
     private Payload payload = new Payload();
-
     public Json() {
+    }
+
+    public static Json newInstance() {
+        return new Json();
     }
 
     public Json code(String code) {
@@ -55,13 +54,6 @@ public class Json implements ApiResult<Payload> {
 
     public Json payload(String key, Object value) {
         payload.put(key, value);
-        return this;
-    }
-
-    public Json setPayload(Map<String, Object> map) {
-        Objects.requireNonNull(map);
-        payload.clear();
-        payload.putAll(map);
         return this;
     }
 
@@ -104,6 +96,13 @@ public class Json implements ApiResult<Payload> {
     @Override
     public Payload getPayload() {
         return payload;
+    }
+
+    public Json setPayload(Map<String, Object> map) {
+        Objects.requireNonNull(map);
+        payload.clear();
+        payload.putAll(map);
+        return this;
     }
 
     public int size() {

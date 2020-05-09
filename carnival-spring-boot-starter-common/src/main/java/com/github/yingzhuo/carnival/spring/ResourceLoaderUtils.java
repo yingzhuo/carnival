@@ -20,13 +20,13 @@ public class ResourceLoaderUtils {
 
     private static final ResourceLoader DEFAULT = new DefaultResourceLoader();
 
-    public static ResourceLoader getDefault() {
-        return DEFAULT;
+    private ResourceLoaderUtils() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private ResourceLoaderUtils() {
+    public static ResourceLoader getDefault() {
+        return DEFAULT;
     }
 
 }

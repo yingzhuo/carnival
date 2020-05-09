@@ -21,8 +21,6 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-security</module>
-        <module>carnival-spring-boot-starter-restful-security-httpbasic</module>
-        <module>carnival-spring-boot-starter-restful-security-jwt</module>
     </modules>
     <packaging>pom</packaging>
 

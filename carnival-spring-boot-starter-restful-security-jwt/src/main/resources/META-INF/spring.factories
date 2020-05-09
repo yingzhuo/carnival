@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.restful.security.jwt.autoconfig.RestfulSecurityJwtCoreAutoConfig,\
-    com.github.yingzhuo.carnival.restful.security.jwt.autoconfig.RestfulSecurityJwtTokenFactoryAutoConfig

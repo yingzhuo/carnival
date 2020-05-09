@@ -19,16 +19,16 @@ import java.io.Serializable;
  */
 public final class JsonQRCode extends AbstractQRCode implements Serializable {
 
+    public JsonQRCode() {
+        super();
+    }
+
     public static JsonQRCode create() {
         return JsonQRCode.builder().build();
     }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public JsonQRCode() {
-        super();
     }
 
     @Override

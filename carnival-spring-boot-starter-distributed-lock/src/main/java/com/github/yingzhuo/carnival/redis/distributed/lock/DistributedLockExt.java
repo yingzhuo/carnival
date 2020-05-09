@@ -18,6 +18,9 @@ import java.util.Stack;
  */
 public final class DistributedLockExt implements Constant {
 
+    private DistributedLockExt() {
+    }
+
     public static boolean lockMultiple(List<String> keys, long expireInMillis) {
         final Stack<String> stack = new Stack<>();
 
@@ -35,6 +38,8 @@ public final class DistributedLockExt implements Constant {
         return true;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     public static boolean releaseMultiple(List<String> keys) {
         for (String key : keys) {
             if (!DistributedLock.release(key)) {
@@ -42,11 +47,6 @@ public final class DistributedLockExt implements Constant {
             }
         }
         return true;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private DistributedLockExt() {
     }
 
 }

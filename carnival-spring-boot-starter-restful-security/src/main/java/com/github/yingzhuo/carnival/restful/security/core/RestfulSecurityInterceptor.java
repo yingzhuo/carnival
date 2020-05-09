@@ -37,9 +37,9 @@ import java.util.Optional;
  */
 public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
+    private AuthenticationStrategy authenticationStrategy;
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
-    private AuthenticationStrategy authenticationStrategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
     private TokenBlacklistManager tokenBlacklistManager;
     private ExtraUserDetailsRealm extraUserDetailsRealm;
 

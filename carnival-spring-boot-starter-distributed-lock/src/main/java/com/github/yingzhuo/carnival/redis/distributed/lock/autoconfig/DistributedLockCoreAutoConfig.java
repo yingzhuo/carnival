@@ -121,6 +121,24 @@ public class DistributedLockCoreAutoConfig {
         return new RequestIdCreatorImpl();
     }
 
+    enum Mode {
+
+        /**
+         * 单节点模式
+         */
+        SINGLE,
+
+        /**
+         * 哨兵模式
+         */
+        SENTINEL,
+
+        /**
+         * 集群模式
+         */
+        CLUSTER
+    }
+
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.distributed-lock")
@@ -213,23 +231,5 @@ public class DistributedLockCoreAutoConfig {
         private int connectionTimeoutMillis = 10000;
         private int soTimeoutMillis = 10000;
         private int maxAttempts = 3;
-    }
-
-    enum Mode {
-
-        /**
-         * 单节点模式
-         */
-        SINGLE,
-
-        /**
-         * 哨兵模式
-         */
-        SENTINEL,
-
-        /**
-         * 集群模式
-         */
-        CLUSTER
     }
 }

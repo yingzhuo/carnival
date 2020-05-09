@@ -22,6 +22,9 @@ public final class BytesBuilder {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream(64);
 
+    private BytesBuilder() {
+    }
+
     public static BytesBuilder newInstance() {
         return new BytesBuilder();
     }
@@ -41,9 +44,6 @@ public final class BytesBuilder {
 
     public byte[] build() {
         return outputStream.toByteArray();
-    }
-
-    private BytesBuilder() {
     }
 
 }

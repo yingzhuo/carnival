@@ -28,16 +28,16 @@ import java.util.logging.Logger;
 public class ForkDataSource implements DataSource, InitializingBean {
 
     private final Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private final Lookup lookup;
     private DataSource defaultDataSource;
     private String defaultDataSourceName;
-    private final Lookup lookup;
-
-    public static ForkDataSourceBuilder builder() {
-        return new ForkDataSourceBuilder();
-    }
 
     ForkDataSource(String defaultDataSourceName) {
         this.lookup = new Lookup(defaultDataSourceName);
+    }
+
+    public static ForkDataSourceBuilder builder() {
+        return new ForkDataSourceBuilder();
     }
 
     void addDataSource(String dataSourceName, DataSource dataSource) {
@@ -79,13 +79,13 @@ public class ForkDataSource implements DataSource, InitializingBean {
     }
 
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-        current().setLoginTimeout(seconds);
+    public int getLoginTimeout() throws SQLException {
+        return current().getLoginTimeout();
     }
 
     @Override
-    public int getLoginTimeout() throws SQLException {
-        return current().getLoginTimeout();
+    public void setLoginTimeout(int seconds) throws SQLException {
+        current().setLoginTimeout(seconds);
     }
 
     @Override

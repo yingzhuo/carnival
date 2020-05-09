@@ -16,17 +16,16 @@ import java.util.Objects;
  */
 public class UsernamePasswordToken extends StringToken {
 
-    public static UsernamePasswordToken of(String username, String password) {
-        return new UsernamePasswordToken(username, password);
-    }
-
     private final String username;
     private final String password;
-
     public UsernamePasswordToken(String username, String password) {
         super(String.format("%s:%s", username, password));
         this.username = Objects.requireNonNull(username);
         this.password = Objects.requireNonNull(password);
+    }
+
+    public static UsernamePasswordToken of(String username, String password) {
+        return new UsernamePasswordToken(username, password);
     }
 
     @Override

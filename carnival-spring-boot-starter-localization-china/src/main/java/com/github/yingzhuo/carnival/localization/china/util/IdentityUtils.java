@@ -67,6 +67,9 @@ public final class IdentityUtils {
         ZONE_NUM.put(91, "外国");
     }
 
+    private IdentityUtils() {
+    }
+
     public static IdentityDescriptor parse(String number) {
         return SpringUtils.getBean(IdentityParser.class).parse(number).orElse(null);
     }
@@ -107,13 +110,10 @@ public final class IdentityUtils {
         return Period.between(LocalDate.parse(dob, DateTimeFormatter.ofPattern("yyyyMMdd")), LocalDate.now()).getYears();
     }
 
-    public static String getProvince(String number) {
-        return ZONE_NUM.get(Integer.parseInt(number.substring(0, 2)));
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private IdentityUtils() {
+    public static String getProvince(String number) {
+        return ZONE_NUM.get(Integer.parseInt(number.substring(0, 2)));
     }
 
 }

@@ -30,6 +30,9 @@ import java.util.Objects;
 @Slf4j
 public final class DistributedLock implements Constant {
 
+    private DistributedLock() {
+    }
+
     public static boolean lock(String key, long expireInMillis) {
 
         Assert.hasText(key, "key is null or blank.");
@@ -156,6 +159,8 @@ public final class DistributedLock implements Constant {
         waitAndRun(String.valueOf(key), expireInMillis, runnable);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     private static void closeQuietly(JedisCommands jedisCommands) {
         if (jedisCommands != null) {
 
@@ -163,11 +168,6 @@ public final class DistributedLock implements Constant {
                 ((Jedis) jedisCommands).close();
             }
         }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private DistributedLock() {
     }
 
 }

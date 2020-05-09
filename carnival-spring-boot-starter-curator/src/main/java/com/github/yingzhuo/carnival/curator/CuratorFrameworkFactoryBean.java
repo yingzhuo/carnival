@@ -24,11 +24,9 @@ import org.springframework.beans.factory.InitializingBean;
 @Slf4j
 public class CuratorFrameworkFactoryBean implements FactoryBean<CuratorFramework>, InitializingBean, DisposableBean {
 
-    private CuratorFramework bean = null;
-
-    private CuratorFrameworkFactoryBuilderConfigurer configurer;
     private final CuratorFrameworkFactory.Builder builder = CuratorFrameworkFactory.builder();
-
+    private CuratorFramework bean = null;
+    private CuratorFrameworkFactoryBuilderConfigurer configurer;
     private String connectString;
     private int sessionTimeoutMs;
     private int connectionTimeoutMs;

@@ -53,14 +53,6 @@ public final class JacksonUtils {
         }
     }
 
-    public byte[] writeValueAsBytes(Object value) {
-        try {
-            return getObjectMapper().writeValueAsBytes(value);
-        } catch (JsonProcessingException e) {
-            throw new UncheckedIOException(e.getMessage(), e);
-        }
-    }
-
     public static void writeValue(Object value, File dest) {
         try {
             getObjectMapper().writeValue(dest, value);
@@ -93,8 +85,6 @@ public final class JacksonUtils {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static <T> T readValue(File src, Class<T> type) {
         try {
             return getObjectMapper().readValue(src, type);
@@ -102,6 +92,8 @@ public final class JacksonUtils {
             throw new UncheckedIOException(e.getMessage(), e);
         }
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static <T> T readValue(InputStream src, Class<T> type) {
         try {
@@ -135,10 +127,18 @@ public final class JacksonUtils {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     private static ObjectMapper getObjectMapper() {
         return SpringUtils.getBean(ObjectMapper.class, DEFAULT_OBJECT_MAPPER);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    public byte[] writeValueAsBytes(Object value) {
+        try {
+            return getObjectMapper().writeValueAsBytes(value);
+        } catch (JsonProcessingException e) {
+            throw new UncheckedIOException(e.getMessage(), e);
+        }
     }
 
 }

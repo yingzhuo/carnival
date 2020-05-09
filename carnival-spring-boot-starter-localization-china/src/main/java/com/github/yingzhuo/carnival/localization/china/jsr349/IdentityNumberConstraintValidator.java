@@ -22,6 +22,8 @@ import java.util.Date;
  */
 public class IdentityNumberConstraintValidator implements ConstraintValidator<IdentityNumber, String> {
 
+    private final static int[] PARITYBIT = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
+    private final static int[] POWER_LIST = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
     private boolean compatibility15 = true;
 
     @Override
@@ -49,9 +51,6 @@ public class IdentityNumberConstraintValidator implements ConstraintValidator<Id
 
         return false;
     }
-
-    private final static int[] PARITYBIT = {'1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2'};
-    private final static int[] POWER_LIST = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
 
     private boolean doValid(String value) throws Exception {
         if (value.length() != 15 && value.length() != 18)

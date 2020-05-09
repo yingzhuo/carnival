@@ -21,6 +21,9 @@ import java.net.Socket;
  */
 public final class SocketUtils {
 
+    private SocketUtils() {
+    }
+
     public static boolean isReachable(String address, int port) {
         return isReachable(address, port, 0);
     }
@@ -38,12 +41,9 @@ public final class SocketUtils {
         return isReachable(hostAndPort, 0);
     }
 
-    public static boolean isReachable(HostAndPort hostAndPort, int timeoutInMilliseconds) {
-        return isReachable(hostAndPort.getHost(), hostAndPort.getPort(), timeoutInMilliseconds);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private SocketUtils() {
+    public static boolean isReachable(HostAndPort hostAndPort, int timeoutInMilliseconds) {
+        return isReachable(hostAndPort.getHost(), hostAndPort.getPort(), timeoutInMilliseconds);
     }
 }

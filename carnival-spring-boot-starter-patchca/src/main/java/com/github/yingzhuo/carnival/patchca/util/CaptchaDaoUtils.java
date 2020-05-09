@@ -18,6 +18,9 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public final class CaptchaDaoUtils {
 
+    private CaptchaDaoUtils() {
+    }
+
     public static void save(String accessKey, String patchca) {
         SpringUtils.getBean(CaptchaDao.class).save(accessKey, patchca);
     }
@@ -34,13 +37,10 @@ public final class CaptchaDaoUtils {
         return SpringUtils.getBean(CaptchaDao.class).matches(accessKey, submittedCaptcha);
     }
 
-    public static boolean notMatches(String accessKey, String submittedCaptcha) {
-        return SpringUtils.getBean(CaptchaDao.class).notMatches(accessKey, submittedCaptcha);
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private CaptchaDaoUtils() {
+    public static boolean notMatches(String accessKey, String submittedCaptcha) {
+        return SpringUtils.getBean(CaptchaDao.class).notMatches(accessKey, submittedCaptcha);
     }
 
 }

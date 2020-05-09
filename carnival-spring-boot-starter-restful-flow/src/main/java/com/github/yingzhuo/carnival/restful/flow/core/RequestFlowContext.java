@@ -18,6 +18,9 @@ public final class RequestFlowContext {
     private static final ThreadLocal<String> NAME_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<Integer> STEP_HOLDER = ThreadLocal.withInitial(() -> null);
 
+    private RequestFlowContext() {
+    }
+
     public static String getName() {
         return NAME_HOLDER.get();
     }
@@ -34,14 +37,11 @@ public final class RequestFlowContext {
         STEP_HOLDER.set(prevStep);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     static void clean() {
         NAME_HOLDER.remove();
         STEP_HOLDER.remove();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private RequestFlowContext() {
     }
 
 }

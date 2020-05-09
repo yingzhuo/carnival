@@ -20,17 +20,6 @@ import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
  */
 public class RSAPasswordEncrypter implements PasswordEncrypter {
 
-    public static RSAPasswordEncrypter predefined(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
-        }
-
-        return new RSAPasswordEncrypter(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
-        );
-    }
-
     private final RSAKeyPair keyPair;
 
     public RSAPasswordEncrypter(ResourceText publicKey, ResourceText privateKey) {
@@ -43,6 +32,17 @@ public class RSAPasswordEncrypter implements PasswordEncrypter {
 
     public RSAPasswordEncrypter(RSAKeyPair keyPair) {
         this.keyPair = keyPair;
+    }
+
+    public static RSAPasswordEncrypter predefined(int number) {
+        if (number < 0 || number > 15) {
+            throw new IllegalArgumentException("number range: [0,16)");
+        }
+
+        return new RSAPasswordEncrypter(
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
+                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+        );
     }
 
     @Override

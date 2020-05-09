@@ -35,7 +35,7 @@ public final class SkipReason implements Serializable {
 
     // ---------------------------------------------------------------------------------------------------------------
 
-    public static enum TokenAbsent {
+    public enum TokenAbsent {
         YES, NO, UNKNOWN
     }
 

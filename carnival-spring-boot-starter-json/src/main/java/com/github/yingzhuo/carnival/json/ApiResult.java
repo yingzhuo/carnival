@@ -23,14 +23,6 @@ import java.util.Objects;
 @JsonView(Views.Normal.class)
 public interface ApiResult<T> extends Serializable, StringCoded {
 
-    public String getCode();
-
-    public String getErrorMessage();
-
-    public T getPayload();
-
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static <T> ApiResult<T> newInstance(final T payload) {
         return newInstance(HttpStatus.OK, null, payload);
     }
@@ -42,6 +34,8 @@ public interface ApiResult<T> extends Serializable, StringCoded {
     public static <T> ApiResult<T> newInstance(final String code, final T payload) {
         return newInstance(code, null, payload);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public static <T> ApiResult<T> newInstance(final HttpStatus httpStatus, final String errorMessage, final T payload) {
         return newInstance(String.valueOf(Objects.requireNonNull(httpStatus).value()), errorMessage, payload);
@@ -67,5 +61,11 @@ public interface ApiResult<T> extends Serializable, StringCoded {
             }
         };
     }
+
+    public String getCode();
+
+    public String getErrorMessage();
+
+    public T getPayload();
 
 }

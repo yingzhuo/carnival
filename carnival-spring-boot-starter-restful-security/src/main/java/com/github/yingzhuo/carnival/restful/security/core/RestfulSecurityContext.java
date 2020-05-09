@@ -33,12 +33,12 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(tokenHolder.get());
     }
 
-    public static Optional<UserDetails> getUserDetails() {
-        return Optional.ofNullable(userDetailsHolder.get());
+    static void setToken(Token token) {
+        tokenHolder.set(token);
     }
 
-    public static Optional<SkipReason> getSkipReason() {
-        return Optional.ofNullable(skipReasonHolder.get());
+    public static Optional<UserDetails> getUserDetails() {
+        return Optional.ofNullable(userDetailsHolder.get());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ public final class RestfulSecurityContext {
         userDetailsHolder.set(userDetails);
     }
 
-    static void setToken(Token token) {
-        tokenHolder.set(token);
+    public static Optional<SkipReason> getSkipReason() {
+        return Optional.ofNullable(skipReasonHolder.get());
     }
 
     static void setSkipReason(SkipReason reason) {

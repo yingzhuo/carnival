@@ -20,17 +20,17 @@ import org.patchca.service.EncodedCaptcha;
  */
 public final class CaptchaServiceUtils {
 
+    private CaptchaServiceUtils() {
+    }
+
     public static Captcha getCaptcha() {
         return SpringUtils.getBean(CaptchaService.class).getCaptcha();
     }
 
-    public static EncodedCaptcha getEncodedCaptcha() {
-        return SpringUtils.getBean(CaptchaService.class).getEncodedCaptcha();
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
-    private CaptchaServiceUtils() {
+    public static EncodedCaptcha getEncodedCaptcha() {
+        return SpringUtils.getBean(CaptchaService.class).getEncodedCaptcha();
     }
 
 }
