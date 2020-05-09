@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenNotWhitelistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -45,11 +46,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     private TokenBlacklistManager tokenBlacklistManager;
     private TokenWhitelistManager tokenWhitelistManager;
     private ExtraUserDetailsRealm extraUserDetailsRealm;
+    private ExceptionTransformer exceptionTransformer;
 
-    @Override
     @SuppressWarnings("unchecked")
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-
+    private boolean doPreHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         RestfulSecurityContext.clean();
 
         if (!(handler instanceof HandlerMethod)) {
@@ -116,6 +116,18 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     }
 
     @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        try {
+            return doPreHandle(request, response, handler);
+        } catch (Exception e) {
+            if (exceptionTransformer != null && exceptionTransformer.isSupportsType(e.getClass())) {
+                throw exceptionTransformer.transform(e);
+            }
+            throw e;
+        }
+    }
+
+    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         RestfulSecurityContext.clean();
     }
@@ -146,6 +158,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     public void setExtraUserDetailsRealm(ExtraUserDetailsRealm extraUserDetailsRealm) {
         this.extraUserDetailsRealm = extraUserDetailsRealm;
+    }
+
+    public void setExceptionTransformer(ExceptionTransformer exceptionTransformer) {
+        this.exceptionTransformer = exceptionTransformer;
     }
 
 }

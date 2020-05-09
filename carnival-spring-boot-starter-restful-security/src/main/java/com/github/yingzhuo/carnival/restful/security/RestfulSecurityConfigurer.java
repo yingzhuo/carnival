@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
@@ -46,6 +47,10 @@ public interface RestfulSecurityConfigurer {
     }
 
     public default ExtraUserDetailsRealm getExtraUserDetailsRealm() {
+        return null;
+    }
+
+    public default ExceptionTransformer getExceptionTransformer() {
         return null;
     }
 

@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
+import com.github.yingzhuo.carnival.restful.security.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -57,6 +58,9 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Autowired(required = false)
     private ExtraUserDetailsRealm injectedExtraUserDetailsRealm;
 
+    @Autowired(required = false)
+    private ExceptionTransformer injectedExceptionTransformer;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
@@ -66,6 +70,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         interceptor.setTokenBlacklistManager(getTokenBlackListManager());
         interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
         interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
+        interceptor.setExceptionTransformer(getExceptionTransformer());
         registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(getOrder());
     }
 
@@ -142,6 +147,13 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             return injectedExtraUserDetailsRealm;
         }
         return configurer != null ? configurer.getExtraUserDetailsRealm() : null;
+    }
+
+    private ExceptionTransformer getExceptionTransformer() {
+        if (injectedExceptionTransformer != null) {
+            return injectedExceptionTransformer;
+        }
+        return configurer != null ? configurer.getExceptionTransformer() : null;
     }
 
 }
