@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
+import lombok.val;
 
 /**
  * @author 应卓
@@ -35,13 +36,13 @@ public class RSAPasswordEncrypter implements PasswordEncrypter {
     }
 
     public static RSAPasswordEncrypter predefined(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
 
         return new RSAPasswordEncrypter(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 

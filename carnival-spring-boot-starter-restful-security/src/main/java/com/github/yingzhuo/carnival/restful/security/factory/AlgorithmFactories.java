@@ -81,32 +81,32 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory predefinedRsa256(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA256AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
     public static AlgorithmFactory predefinedRsa384(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA384AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
     public static AlgorithmFactory predefinedRsa512(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA512AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
@@ -137,32 +137,32 @@ public final class AlgorithmFactories {
     }
 
     public static AlgorithmFactory predefinedEcdsa256(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA256AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 
     public static AlgorithmFactory predefinedEcdsa384(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA384AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 
     public static AlgorithmFactory predefinedEcdsa512(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0, 16]");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA512AlgorithmFactory(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 

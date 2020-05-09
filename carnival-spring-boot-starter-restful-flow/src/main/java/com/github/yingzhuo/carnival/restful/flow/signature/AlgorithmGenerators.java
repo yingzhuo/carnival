@@ -81,32 +81,32 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator predefinedRsa256(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA256AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
     public static AlgorithmGenerator predefinedRsa384(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA384AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
     public static AlgorithmGenerator predefinedRsa512(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new RSA512AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/RSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/rsa-%d-private", number))
         );
     }
 
@@ -137,32 +137,32 @@ public final class AlgorithmGenerators {
     }
 
     public static AlgorithmGenerator predefinedEcdsa256(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA256AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 
     public static AlgorithmGenerator predefinedEcdsa384(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA384AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 
     public static AlgorithmGenerator predefinedEcdsa512(int number) {
-        if (number < 0 || number > 15) {
-            throw new IllegalArgumentException("number range: [0,16)");
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA512AlgorithmGenerator(
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/public", number)),
-                ResourceText.of(String.format("classpath:/com.github.yingzhuo.carnival/ECDSA/pair%d/private", number))
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
     }
 
