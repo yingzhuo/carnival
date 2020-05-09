@@ -39,7 +39,7 @@ public @interface ConditionalOnAllResource {
 
             for (String location : locations) {
                 try {
-                    val resource = ResourceLoaderUtils.getDefault().getResource(location);
+                    val resource = ResourceLoaderUtils.getResourceLoader().getResource(location);
                     if (!resource.exists()) {
                         return false;
                     }

@@ -151,7 +151,7 @@ public interface ResourceOptional extends Closeable {
         private Resource resource = null;
 
         public SimpleResourceOptional(String... locations) {
-            this(Arrays.stream(locations).map(ResourceLoaderUtils.getDefault()::getResource).toArray(Resource[]::new));
+            this(Arrays.stream(locations).map(ResourceLoaderUtils.getResourceLoader()::getResource).toArray(Resource[]::new));
         }
 
         public SimpleResourceOptional(Resource... resources) {

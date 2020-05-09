@@ -9,8 +9,9 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 /**
  * @author 应卓
@@ -18,14 +19,18 @@ import org.springframework.core.io.ResourceLoader;
  */
 public class ResourceLoaderUtils {
 
-    private static final ResourceLoader DEFAULT = new DefaultResourceLoader();
+    private static final ResourcePatternResolver DEFAULT = new PathMatchingResourcePatternResolver();
 
     private ResourceLoaderUtils() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static ResourceLoader getDefault() {
+    public static ResourceLoader getResourceLoader() {
+        return DEFAULT;
+    }
+
+    public static ResourcePatternResolver getResourcePatternResolver() {
         return DEFAULT;
     }
 

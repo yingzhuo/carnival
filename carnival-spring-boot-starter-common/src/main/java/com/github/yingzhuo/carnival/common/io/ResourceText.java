@@ -62,7 +62,7 @@ public interface ResourceText extends Serializable {
         private final String text;
 
         public SimpleResourceText(String location, Charset charset) {
-            this(ResourceLoaderUtils.getDefault().getResource(location), charset);
+            this(ResourceLoaderUtils.getResourceLoader().getResource(location), charset);
         }
 
         public SimpleResourceText(Resource resource, Charset charset) {

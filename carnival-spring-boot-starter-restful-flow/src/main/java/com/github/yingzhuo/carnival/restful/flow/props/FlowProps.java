@@ -39,7 +39,6 @@ public class FlowProps implements Serializable {
     @Getter
     @Setter
     public static class Interceptor implements Serializable {
-        private String[] patterns = new String[]{"/", "/**"};
         private int order = 0;
     }
 

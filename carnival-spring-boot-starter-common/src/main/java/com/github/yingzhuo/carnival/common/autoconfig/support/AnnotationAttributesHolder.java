@@ -23,6 +23,7 @@ import java.util.Objects;
  *
  * @author 应卓
  */
+@Deprecated
 @SuppressWarnings("unchecked")
 public final class AnnotationAttributesHolder {
 

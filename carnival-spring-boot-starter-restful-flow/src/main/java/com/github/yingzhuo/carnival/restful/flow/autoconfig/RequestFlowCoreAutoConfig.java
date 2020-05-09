@@ -54,7 +54,7 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new RequestFlowCoreInterceptor(algorithmGenerator.create(), parser))
-                .addPathPatterns(props.getInterceptor().getPatterns())
+                .addPathPatterns("/", "/**")
                 .order(props.getInterceptor().getOrder());
     }
 
