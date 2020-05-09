@@ -38,7 +38,7 @@ public class NoteEndpoint {
             val text = resourceOptional.toResourceText().getText();
             html = Processor.process(text);
         } else {
-            html = "<h2>Description</h2>";
+            html = "<h2>Note</h2>";
         }
     }
 
