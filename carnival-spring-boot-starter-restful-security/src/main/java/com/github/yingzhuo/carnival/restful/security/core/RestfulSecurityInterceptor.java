@@ -16,11 +16,13 @@ import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationCo
 import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
+import com.github.yingzhuo.carnival.restful.security.exception.TokenNotWhitelistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
+import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -41,6 +43,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
     private TokenParser tokenParser;
     private UserDetailsRealm userDetailsRealm;
     private TokenBlacklistManager tokenBlacklistManager;
+    private TokenWhitelistManager tokenWhitelistManager;
     private ExtraUserDetailsRealm extraUserDetailsRealm;
 
     @Override
@@ -99,6 +102,16 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
             );
         }
 
+        if (tokenWhitelistManager != null) {
+            if (!tokenWhitelistManager.isWhitelisted(RestfulSecurityContext.getToken().orElse(null),
+                    RestfulSecurityContext.getUserDetails().orElse(null))) {
+                throw new TokenNotWhitelistedException(
+                        RestfulSecurityContext.getToken().orElse(null),
+                        RestfulSecurityContext.getUserDetails().orElse(null)
+                );
+            }
+        }
+
         return true;
     }
 
@@ -125,6 +138,10 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
     public void setTokenBlacklistManager(TokenBlacklistManager tokenBlacklistManager) {
         this.tokenBlacklistManager = tokenBlacklistManager;
+    }
+
+    public void setTokenWhitelistManager(TokenWhitelistManager tokenWhitelistManager) {
+        this.tokenWhitelistManager = tokenWhitelistManager;
     }
 
     public void setExtraUserDetailsRealm(ExtraUserDetailsRealm extraUserDetailsRealm) {

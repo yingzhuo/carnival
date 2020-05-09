@@ -13,12 +13,17 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistMan
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 
 /**
  * @author 应卓
  * @since 1.6.5
  */
 public interface RestfulSecurityConfigurer {
+
+    public default int getOrder() {
+        return 0;
+    }
 
     public default AuthenticationStrategy getAuthenticationStrategy() {
         return AuthenticationStrategy.ANNOTATED_REQUESTS;
@@ -33,6 +38,10 @@ public interface RestfulSecurityConfigurer {
     }
 
     public default TokenBlacklistManager getTokenBlacklistManager() {
+        return null;
+    }
+
+    public default TokenWhitelistManager getTokenWhitelistManager() {
         return null;
     }
 

@@ -18,13 +18,13 @@ import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerM
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
+import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -52,6 +52,9 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     private TokenBlacklistManager injectedTokenBlackListManager;
 
     @Autowired(required = false)
+    private TokenWhitelistManager injectedTokenWhitelistManager;
+
+    @Autowired(required = false)
     private ExtraUserDetailsRealm injectedExtraUserDetailsRealm;
 
     @Override
@@ -61,8 +64,9 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         interceptor.setTokenParser(getTokenParser());
         interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setTokenBlacklistManager(getTokenBlackListManager());
+        interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
         interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(Ordered.HIGHEST_PRECEDENCE);
+        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(getOrder());
     }
 
     @Override
@@ -73,6 +77,10 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Override
     public void run(ApplicationArguments args) {
         ReflectCache.init();
+    }
+
+    private int getOrder() {
+        return configurer != null ? configurer.getOrder() : 0;
     }
 
     private AuthenticationStrategy getAuthenticationStrategy() {
@@ -122,10 +130,18 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         return configurer != null ? configurer.getTokenBlacklistManager() : null;
     }
 
+    private TokenWhitelistManager getTokenWhitelistManager() {
+        if (injectedTokenWhitelistManager != null) {
+            return injectedTokenWhitelistManager;
+        }
+        return configurer != null ? configurer.getTokenWhitelistManager() : null;
+    }
+
     private ExtraUserDetailsRealm getExtraUserDetailsRealm() {
         if (injectedExtraUserDetailsRealm != null) {
             return injectedExtraUserDetailsRealm;
         }
         return configurer != null ? configurer.getExtraUserDetailsRealm() : null;
     }
+
 }

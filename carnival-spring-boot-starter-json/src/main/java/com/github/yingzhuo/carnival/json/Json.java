@@ -27,6 +27,7 @@ public class Json implements ApiResult<Payload> {
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
     private Payload payload = new Payload();
+
     public Json() {
     }
 

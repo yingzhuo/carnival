@@ -18,6 +18,7 @@ public class UsernamePasswordToken extends StringToken {
 
     private final String username;
     private final String password;
+
     public UsernamePasswordToken(String username, String password) {
         super(String.format("%s:%s", username, password));
         this.username = Objects.requireNonNull(username);

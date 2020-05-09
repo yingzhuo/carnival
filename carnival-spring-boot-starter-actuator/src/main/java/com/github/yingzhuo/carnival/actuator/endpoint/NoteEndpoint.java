@@ -23,10 +23,10 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 public class NoteEndpoint {
 
     private static final String[] LOCATIONS = new String[]{
-            "classpath:/note.md",
-            "classpath:/NOTE.md",
-            "classpath:/META-INF/note.md",
-            "classpath:/META-INF/NOTE.md"
+            "classpath:note.md",
+            "classpath:NOTE.md",
+            "classpath:META-INF/note.md",
+            "classpath:META-INF/NOTE.md"
     };
 
     private final String html;

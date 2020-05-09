@@ -30,10 +30,10 @@ public class ActuatorCoreConfig {
 
     @Bean
     @ConditionalOnAnyResource(resources = {
-            "classpath:/note.md",
-            "classpath:/NOTE.md",
-            "classpath:/META-INF/note.md",
-            "classpath:/META-INF/NOTE.md"
+            "classpath:note.md",
+            "classpath:NOTE.md",
+            "classpath:META-INF/note.md",
+            "classpath:META-INF/NOTE.md"
     })
     public NoteEndpoint noteEndpoint() {
         return new NoteEndpoint();
