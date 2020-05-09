@@ -42,7 +42,6 @@ public final class SpringUtils {
     static Environment ENV = null;
     static ApplicationArguments APP_ARGS = null;
     static List<String> CMD_ARGS = null;
-    static String ID;
 
     private SpringUtils() {
     }
@@ -76,7 +75,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return ID;
+        return PropertyUtils.getPropertyValue("spring.id");
     }
 
     public static String getDisplayName() {

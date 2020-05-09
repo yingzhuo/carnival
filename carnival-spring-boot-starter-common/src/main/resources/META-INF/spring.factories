@@ -1,4 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
+    com.github.yingzhuo.carnival.common.env.SpringIdEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.EnhancedRandomValueEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.Git,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.PropertySource,\
