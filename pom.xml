@@ -459,13 +459,6 @@
                 <version>2.8.6</version>
             </dependency>
 
-            <!-- zxing -->
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>3.4.0</version>
-            </dependency>
-
             <!-- jedis -->
             <dependency>
                 <groupId>redis.clients</groupId>

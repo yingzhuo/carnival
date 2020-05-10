@@ -25,6 +25,9 @@ public final class Debugger implements EnvironmentAware {
     private static final Logger log = LoggerFactory.getLogger("carnival.debugger");
     private static boolean enabled;
 
+    private Debugger() {
+    }
+
     public static void debug(String format, Object... args) {
         if (enabled && log.isDebugEnabled()) {
             if (!format.startsWith("[Carnival DebugMode]")) {
@@ -34,14 +37,11 @@ public final class Debugger implements EnvironmentAware {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     @Override
     public void setEnvironment(Environment environment) {
         Debugger.enabled = environment.acceptsProfiles(Profiles.of("debug"));
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private Debugger() {
     }
 
 }

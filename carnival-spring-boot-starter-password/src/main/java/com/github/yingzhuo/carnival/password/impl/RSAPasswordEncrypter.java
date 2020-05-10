@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
-import lombok.val;
 
 /**
  * @author 应卓
