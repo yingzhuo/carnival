@@ -14,7 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
-import com.github.yingzhuo.carnival.restful.security.exception.ExceptionTransformer;
+import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;

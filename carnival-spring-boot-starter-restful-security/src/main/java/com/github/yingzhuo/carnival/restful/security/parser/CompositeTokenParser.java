@@ -27,6 +27,10 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
 
     private final List<TokenParser> parsers;
 
+    public CompositeTokenParser(List<TokenParser> parsers) {
+        this.parsers = Collections.unmodifiableList(parsers);
+    }
+
     public CompositeTokenParser(TokenParser... parsers) {
         this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
     }

@@ -28,11 +28,12 @@ public class SpringIdEnvironmentPostProcessor implements EnvironmentPostProcesso
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        final String id = createRandomId();
         environment.getPropertySources()
                 .addFirst(
                         new MapPropertySource(
                                 "spring.id",
-                                Collections.singletonMap("spring.id", createRandomId())
+                                Collections.singletonMap("spring.id", id)
                         )
                 );
     }

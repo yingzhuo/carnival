@@ -27,6 +27,10 @@ public class CompositeExtraUserDetailsRealm implements ExtraUserDetailsRealm, In
 
     private final List<ExtraUserDetailsRealm> realms;
 
+    public CompositeExtraUserDetailsRealm(List<ExtraUserDetailsRealm> realms) {
+        this.realms = Collections.unmodifiableList(realms);
+    }
+
     public CompositeExtraUserDetailsRealm(ExtraUserDetailsRealm... realms) {
         this.realms = Collections.unmodifiableList(Arrays.asList(realms));
     }

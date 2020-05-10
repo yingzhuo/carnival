@@ -27,6 +27,10 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
 
     private final List<UserDetailsRealm> realms;
 
+    public CompositeUserDetailsRealm(List<UserDetailsRealm> realms) {
+        this.realms = Collections.unmodifiableList(realms);
+    }
+
     public CompositeUserDetailsRealm(UserDetailsRealm... realms) {
         this.realms = Collections.unmodifiableList(Arrays.asList(realms));
     }

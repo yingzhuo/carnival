@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.datamodel.*;
 import com.github.yingzhuo.carnival.log.Debugger;
+import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
@@ -98,6 +99,14 @@ public class CommonAutoConfig {
     @ConditionalOnMissingBean
     public StringToColorConverter stringToColorConverter() {
         return new StringToColorConverter();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ApplicationContextProvider applicationContextProvider() {
+        return ApplicationContextProvider.INSTANCE;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

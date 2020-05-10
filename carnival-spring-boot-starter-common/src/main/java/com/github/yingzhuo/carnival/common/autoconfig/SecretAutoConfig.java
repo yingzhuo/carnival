@@ -32,11 +32,11 @@ import java.io.Serializable;
  * @author 应卓
  */
 @Slf4j
+@Lazy(false)
 @EnableConfigurationProperties({
         SecretAutoConfig.SecretProps.class
 })
 @ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true")
-@Lazy(false)
 public class SecretAutoConfig implements Configurer<FormatterRegistry> {
 
     @Autowired

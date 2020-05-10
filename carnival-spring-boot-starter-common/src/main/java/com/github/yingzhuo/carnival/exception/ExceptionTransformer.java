@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.exception;
+package com.github.yingzhuo.carnival.exception;
 
 /**
  * @author 应卓

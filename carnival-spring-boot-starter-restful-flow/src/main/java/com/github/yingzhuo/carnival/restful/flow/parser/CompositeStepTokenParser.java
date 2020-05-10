@@ -26,6 +26,10 @@ public class CompositeStepTokenParser implements StepTokenParser, InitializingBe
 
     private final List<StepTokenParser> parsers;
 
+    public CompositeStepTokenParser(List<StepTokenParser> parsers) {
+        this.parsers = Collections.unmodifiableList(parsers);
+    }
+
     public CompositeStepTokenParser(StepTokenParser... parsers) {
         this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
     }

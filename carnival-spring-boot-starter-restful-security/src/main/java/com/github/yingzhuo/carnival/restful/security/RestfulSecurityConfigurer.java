@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.exception.ExceptionTransformer;
+import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
