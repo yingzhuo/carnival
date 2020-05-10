@@ -9,13 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.flow;
 
-import com.auth0.jwt.JWT;
-import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
-import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerator;
+import com.github.yingzhuo.carnival.restful.flow.core.DefaultRequestFlowBean;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import lombok.val;
-
-import java.util.Date;
 
 /**
  * @author 应卓
@@ -29,15 +24,7 @@ public final class RequestFlows {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static String newToken(String name, int step) {
-        val props = SpringUtils.getBean(FlowProps.class);
-        val now = System.currentTimeMillis();
-        val algFactory = SpringUtils.getBean(AlgorithmGenerator.class);
-        return JWT.create()
-                .withClaim("name", name)
-                .withClaim("step", step)
-                .withClaim("timestamp", now)
-                .withExpiresAt(new Date(now + props.getTtl().toMillis()))
-                .sign(algFactory.create());
+        return SpringUtils.getBean(DefaultRequestFlowBean.class).newToken(name, step);
     }
 
 }

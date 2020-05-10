@@ -9,20 +9,19 @@
  */
 package com.github.yingzhuo.carnival.restful.flow;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import com.github.yingzhuo.carnival.restful.flow.autoconfig.RequestFlowCoreAutoConfig;
+import org.springframework.context.annotation.Import;
+
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.1
+ * @since 1.6.6
  */
-@Getter
-@ToString
-@AllArgsConstructor
-public class Prev implements java.io.Serializable {
-
-    private final String name;
-    private final Integer step;
-
+@Documented
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Import(RequestFlowCoreAutoConfig.class)
+public @interface EnableRestfulFlow {
 }

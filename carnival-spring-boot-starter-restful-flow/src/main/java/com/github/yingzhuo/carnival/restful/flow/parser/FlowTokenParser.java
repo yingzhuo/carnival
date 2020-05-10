@@ -18,7 +18,7 @@ import java.util.Optional;
  * @since 1.3.6
  */
 @FunctionalInterface
-public interface StepTokenParser {
+public interface FlowTokenParser {
 
     public Optional<String> parse(NativeWebRequest request);
 

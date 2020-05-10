@@ -17,17 +17,17 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.3.6
  */
-public class HttpParameterStepTokenParser implements StepTokenParser {
+public class HttpParameterFlowTokenParser implements FlowTokenParser {
 
     private static final String DEFAULT_PARAMETER_NAME = "_step_token";
 
     private final String parameterName;
 
-    public HttpParameterStepTokenParser() {
+    public HttpParameterFlowTokenParser() {
         this(DEFAULT_PARAMETER_NAME);
     }
 
-    public HttpParameterStepTokenParser(String parameterName) {
+    public HttpParameterFlowTokenParser(String parameterName) {
         this.parameterName = parameterName;
     }
 

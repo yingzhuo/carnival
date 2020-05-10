@@ -9,27 +9,24 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.flow.Prev;
-import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowContext;
+import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
+import com.github.yingzhuo.carnival.restful.flow.RestfulFlowConfigurer;
+import com.github.yingzhuo.carnival.restful.flow.core.DefaultRequestFlowBean;
+import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowBean;
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowCoreInterceptor;
-import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
+import com.github.yingzhuo.carnival.restful.flow.parser.FlowTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.MethodParameter;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
+import java.time.Duration;
 
 /**
  * @author 应卓
@@ -37,47 +34,66 @@ import java.util.List;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.flow", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(FlowProps.class)
-@AutoConfigureAfter(RequestFlowBeanAutoConfig.class)
 public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private FlowProps props;
+    @Autowired(required = false)
+    private FlowTokenParser parser;
 
-    @Autowired
-    private StepTokenParser parser;
-
-    @Autowired
+    @Autowired(required = false)
     private AlgorithmGenerator algorithmGenerator;
+
+    @Autowired(required = false)
+    private ExceptionTransformer exceptionTransformer;
+
+    @Autowired(required = false)
+    private RestfulFlowConfigurer configurer = new RestfulFlowConfigurer() {
+    };
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RequestFlowCoreInterceptor(algorithmGenerator.create(), parser))
+        final RequestFlowCoreInterceptor interceptor = new RequestFlowCoreInterceptor();
+        interceptor.setAlgorithm(getAlgorithmGenerator().create());
+        interceptor.setTokenParser(getFlowTokenParser());
+        interceptor.setExceptionTransformer(getExceptionTransformer());
+
+        registry.addInterceptor(interceptor)
                 .addPathPatterns("/", "/**")
-                .order(props.getInterceptor().getOrder());
+                .order(getOrder());
     }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new RequestFlowHandlerMethodArgumentResolver());
+    @Bean
+    @ConditionalOnMissingBean
+    public RequestFlowBean requestFlowBean() {
+        return new DefaultRequestFlowBean(
+                getAlgorithmGenerator().create(),
+                getTokenTimeToLive()
+        );
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    private int getOrder() {
+        return configurer.getOrder();
+    }
 
-    /**
-     * @since 1.6.1
-     */
-    private static class RequestFlowHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-        @Override
-        public boolean supportsParameter(MethodParameter parameter) {
-            return parameter.getParameterType() == Prev.class;
-        }
+    public FlowTokenParser getFlowTokenParser() {
+        if (parser != null) return parser;
+        return configurer.getFlowTokenParser();
+    }
 
-        @Override
-        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-            return new Prev(RequestFlowContext.getName(), RequestFlowContext.getStep());
+    public AlgorithmGenerator getAlgorithmGenerator() {
+        if (algorithmGenerator != null) return algorithmGenerator;
+        return configurer.getAlgorithmGenerator();
+    }
+
+    public Duration getTokenTimeToLive() {
+        return configurer.getTokenTimeToLive();
+    }
+
+    public ExceptionTransformer getExceptionTransformer() {
+        if (exceptionTransformer != null) {
+            return exceptionTransformer;
         }
+        return configurer.getExceptionTransformer();
     }
 
 }

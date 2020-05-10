@@ -22,15 +22,15 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.6.0
  */
-public class CompositeStepTokenParser implements StepTokenParser, InitializingBean {
+public class CompositeFlowTokenParser implements FlowTokenParser, InitializingBean {
 
-    private final List<StepTokenParser> parsers;
+    private final List<FlowTokenParser> parsers;
 
-    public CompositeStepTokenParser(List<StepTokenParser> parsers) {
+    public CompositeFlowTokenParser(List<FlowTokenParser> parsers) {
         this.parsers = Collections.unmodifiableList(parsers);
     }
 
-    public CompositeStepTokenParser(StepTokenParser... parsers) {
+    public CompositeFlowTokenParser(FlowTokenParser... parsers) {
         this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
     }
 
@@ -49,14 +49,14 @@ public class CompositeStepTokenParser implements StepTokenParser, InitializingBe
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        for (StepTokenParser parser : this.parsers) {
+        for (FlowTokenParser parser : this.parsers) {
             if (parser instanceof InitializingBean) {
                 ((InitializingBean) parser).afterPropertiesSet();
             }
         }
     }
 
-    public List<StepTokenParser> getParsers() {
+    public List<FlowTokenParser> getParsers() {
         return parsers;
     }
 

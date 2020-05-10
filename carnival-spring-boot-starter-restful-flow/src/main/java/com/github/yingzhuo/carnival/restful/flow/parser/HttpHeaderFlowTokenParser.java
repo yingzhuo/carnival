@@ -18,17 +18,17 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.3.6
  */
-public class HttpHeaderStepTokenParser implements StepTokenParser {
+public class HttpHeaderFlowTokenParser implements FlowTokenParser {
 
     private final String headerName;
     private final String prefix;
     private final int prefixLen;
 
-    public HttpHeaderStepTokenParser(String headerName) {
+    public HttpHeaderFlowTokenParser(String headerName) {
         this(headerName, "");
     }
 
-    public HttpHeaderStepTokenParser(String headerName, String prefix) {
+    public HttpHeaderFlowTokenParser(String headerName, String prefix) {
         this.headerName = headerName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();

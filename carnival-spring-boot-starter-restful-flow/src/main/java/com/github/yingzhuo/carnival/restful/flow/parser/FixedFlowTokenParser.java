@@ -21,11 +21,11 @@ import java.util.Optional;
  * @since 1.6.0
  */
 @Slf4j
-public class FixedStepTokenParser implements StepTokenParser, InitializingBean {
+public class FixedFlowTokenParser implements FlowTokenParser, InitializingBean {
 
     private final String tokenValue;
 
-    public FixedStepTokenParser(String tokenValue) {
+    public FixedFlowTokenParser(String tokenValue) {
         this.tokenValue = Objects.requireNonNull(tokenValue);
     }
 

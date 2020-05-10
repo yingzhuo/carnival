@@ -15,9 +15,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.flow.RequestFlow;
 import com.github.yingzhuo.carnival.restful.flow.exception.RequestFlowException;
-import com.github.yingzhuo.carnival.restful.flow.parser.StepTokenParser;
+import com.github.yingzhuo.carnival.restful.flow.parser.FlowTokenParser;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -34,16 +35,22 @@ import java.util.Set;
 public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
 
     private Algorithm algorithm;
-    private StepTokenParser tokenParser;
-
-    public RequestFlowCoreInterceptor(Algorithm algorithm, StepTokenParser parser) {
-        this.algorithm = Objects.requireNonNull(algorithm);
-        this.tokenParser = Objects.requireNonNull(parser);
-    }
+    private FlowTokenParser tokenParser;
+    private ExceptionTransformer exceptionTransformer;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        RequestFlowContext.clean();
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        try {
+            return doPreHandle(request, response, handler);
+        } catch (Exception e) {
+            if (exceptionTransformer != null && exceptionTransformer.isSupportsType(e.getClass())) {
+                throw exceptionTransformer.transform(e);
+            }
+            throw e;
+        }
+    }
+
+    public boolean doPreHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         val annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
 
@@ -68,9 +75,6 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
             final String nameInToken = jwt.getClaim("name").asString();
             final Integer stepInToken = jwt.getClaim("step").asInt();
 
-            RequestFlowContext.setName(nameInToken);
-            RequestFlowContext.setStep(stepInToken);
-
             final Set<Integer> prevSet = new HashSet<>();
             for (int i : annotation.prevStep()) {
                 prevSet.add(i);
@@ -87,17 +91,24 @@ public class RequestFlowCoreInterceptor extends HandlerInterceptorSupport {
         return true;
     }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        RequestFlowContext.clean();
-    }
-
     private String getMsg(RequestFlow annotation) {
         if ("".equals(annotation.message())) {
             return null;
         } else {
             return annotation.message();
         }
+    }
+
+    public void setAlgorithm(Algorithm algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public void setTokenParser(FlowTokenParser tokenParser) {
+        this.tokenParser = tokenParser;
+    }
+
+    public void setExceptionTransformer(ExceptionTransformer exceptionTransformer) {
+        this.exceptionTransformer = exceptionTransformer;
     }
 
 }
