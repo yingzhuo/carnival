@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.exception;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -30,23 +31,16 @@ public class CompositeExceptionTransformer implements ExceptionTransformer {
     }
 
     @Override
-    public boolean isSupportsType(Class<?> exceptionType) {
-        for (ExceptionTransformer transformer : transformers) {
-            if (transformer.isSupportsType(exceptionType)) {
-                return true;
-            }
-        }
-        return false;
-    }
+    public Optional<Exception> transform(Exception from) {
 
-    @Override
-    public Exception transform(Exception from) {
         for (ExceptionTransformer transformer : transformers) {
-            if (transformer.isSupportsType(from.getClass())) {
-                return transformer.transform(from);
+            Optional<Exception> op = transformer.transform(from);
+            if (op.isPresent()) {
+                return op;
             }
         }
-        throw new AssertionError();
+
+        return Optional.empty();
     }
 
     public List<ExceptionTransformer> getTransformers() {

@@ -120,8 +120,8 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
         try {
             return doPreHandle(request, response, handler);
         } catch (Exception e) {
-            if (exceptionTransformer != null && exceptionTransformer.isSupportsType(e.getClass())) {
-                throw exceptionTransformer.transform(e);
+            if (exceptionTransformer != null) {
+                throw exceptionTransformer.transform(e).orElse(e);
             }
             throw e;
         }

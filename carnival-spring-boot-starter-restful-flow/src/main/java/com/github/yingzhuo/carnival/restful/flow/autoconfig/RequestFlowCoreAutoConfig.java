@@ -15,12 +15,10 @@ import com.github.yingzhuo.carnival.restful.flow.core.DefaultRequestFlowBean;
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowBean;
 import com.github.yingzhuo.carnival.restful.flow.core.RequestFlowCoreInterceptor;
 import com.github.yingzhuo.carnival.restful.flow.parser.FlowTokenParser;
-import com.github.yingzhuo.carnival.restful.flow.props.FlowProps;
 import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -34,7 +32,6 @@ import java.time.Duration;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(FlowProps.class)
 public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)

@@ -9,14 +9,15 @@
  */
 package com.github.yingzhuo.carnival.exception;
 
+import java.util.Optional;
+
 /**
  * @author 应卓
  * @since 1.6.5
  */
+@FunctionalInterface
 public interface ExceptionTransformer {
 
-    public boolean isSupportsType(Class<?> exceptionType);
-
-    public Exception transform(Exception from);
+    public Optional<Exception> transform(Exception from);
 
 }
