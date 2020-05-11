@@ -57,7 +57,9 @@ public interface ResourceText extends Serializable {
         return getText().replaceAll("\\s", "");
     }
 
-    public static class SimpleResourceText implements ResourceText {
+    // -----------------------------------------------------------------------------------------------------------------
+
+    static class SimpleResourceText implements ResourceText {
 
         private final String text;
 
@@ -79,6 +81,11 @@ public interface ResourceText extends Serializable {
 
         @Override
         public String getText() {
+            return this.text;
+        }
+
+        @Override
+        public String toString() {
             return this.text;
         }
     }

@@ -40,6 +40,8 @@ public final class SelfConsistent {
         return obj;
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
     public static <T> void equals(T obj1, T obj2) {
         equals(obj1, obj2, null);
     }
@@ -59,6 +61,8 @@ public final class SelfConsistent {
             throw new SelfConsistentException(format(message, params));
         }
     }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     public static <T> Collection<T> notEmpty(Collection<T> collection) {
         return notEmpty(collection, null);
@@ -96,6 +100,8 @@ public final class SelfConsistent {
         return map;
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
     public static <T extends CharSequence> T notEmpty(T string) {
         return notEmpty(string, null);
     }
@@ -117,6 +123,8 @@ public final class SelfConsistent {
         }
         return string;
     }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     public static <T> void noNullElement(Collection<T> collection) {
         noNullElement(collection, null);
@@ -142,6 +150,8 @@ public final class SelfConsistent {
         }
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
     public static void isTrue(boolean state) {
         isTrue(state, null);
     }
@@ -158,6 +168,18 @@ public final class SelfConsistent {
 
     public static void isFalse(boolean state, String message, Object... params) {
         if (state) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static void isPositive(Double number) {
+        isPositive(number, null);
+    }
+
+    public static void isPositive(Double number, String message, Object... params) {
+        if (number == null || number <= 0.0) {
             throw new SelfConsistentException(format(message, params));
         }
     }
@@ -182,6 +204,18 @@ public final class SelfConsistent {
         }
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static void isNegative(Double number) {
+        isNegative(number, null);
+    }
+
+    public static void isNegative(Double number, String message, Object... params) {
+        if (number == null || number >= 0.0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
     public static void isNegative(Integer number) {
         isNegative(number, null);
     }
@@ -198,6 +232,18 @@ public final class SelfConsistent {
 
     public static void isNegative(Long number, String message, Object... params) {
         if (number == null || number >= 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static void isZero(Double number) {
+        isZero(number, null);
+    }
+
+    public static void isZero(Double number, String message, Object... params) {
+        if (number == null || number != 0.0) {
             throw new SelfConsistentException(format(message, params));
         }
     }

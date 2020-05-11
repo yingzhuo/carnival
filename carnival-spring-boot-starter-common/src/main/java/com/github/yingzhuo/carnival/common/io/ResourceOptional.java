@@ -126,9 +126,16 @@ public interface ResourceOptional extends Closeable {
         return ResourceText.of(get());
     }
 
+    public default ResourceProperties toResourceProperties() {
+        if (isAbsent()) {
+            throw new NoSuchElementException("ResourceOptional is absent");
+        }
+        return ResourceProperties.of(get());
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static final class AbsentResourceOptional implements ResourceOptional {
+    static class AbsentResourceOptional implements ResourceOptional {
         @Override
         public Resource get() {
             throw new NoSuchElementException("ResourceOptional is absent");
@@ -147,7 +154,7 @@ public interface ResourceOptional extends Closeable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    public static class SimpleResourceOptional implements ResourceOptional {
+    static class SimpleResourceOptional implements ResourceOptional {
         private Resource resource = null;
 
         public SimpleResourceOptional(String... locations) {
