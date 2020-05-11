@@ -17,22 +17,22 @@ import org.apache.commons.lang3.StringUtils;
 @FunctionalInterface
 public interface PasswordEncrypter {
 
-    public static final String EMPTY_SALT = "";
+    public static final String EMPTY = "";
 
     public String encrypt(String rawPassword, String leftSalt, String rightSalt);
 
     public default String encrypt(String rawPassword) {
-        return encrypt(rawPassword, EMPTY_SALT, EMPTY_SALT);
+        return encrypt(rawPassword, EMPTY, EMPTY);
     }
 
     public default String encrypt(String rawPassword, String rightSalt) {
-        return encrypt(rawPassword, EMPTY_SALT, rightSalt);
+        return encrypt(rawPassword, EMPTY, rightSalt);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     public default boolean matches(String rawPassword, String encryptedPassword) {
-        return matches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
+        return matches(rawPassword, EMPTY, EMPTY, encryptedPassword);
     }
 
     public default boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
@@ -40,17 +40,17 @@ public interface PasswordEncrypter {
     }
 
     public default boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return StringUtils.equals(encrypt(rawPassword, EMPTY_SALT, rightSalt), encryptedPassword);
+        return StringUtils.equals(encrypt(rawPassword, EMPTY, rightSalt), encryptedPassword);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     public default boolean notMatches(String rawPassword, String encryptedPassword) {
-        return notMatches(rawPassword, EMPTY_SALT, EMPTY_SALT, encryptedPassword);
+        return notMatches(rawPassword, EMPTY, EMPTY, encryptedPassword);
     }
 
     public default boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return !matches(rawPassword, EMPTY_SALT, rightSalt, encryptedPassword);
+        return !matches(rawPassword, EMPTY, rightSalt, encryptedPassword);
     }
 
     public default boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {

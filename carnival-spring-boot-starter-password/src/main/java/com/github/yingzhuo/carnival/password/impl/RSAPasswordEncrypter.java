@@ -10,17 +10,14 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
-import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
-
-import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.6.5
  */
-public class RSAPasswordEncrypter implements PasswordEncrypter {
+public class RSAPasswordEncrypter extends AbstractPasswordEncrypter {
 
     private final RSAKeyPair keyPair;
 
@@ -48,18 +45,8 @@ public class RSAPasswordEncrypter implements PasswordEncrypter {
     }
 
     @Override
-    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        Objects.requireNonNull(rawPassword);
-
-        if (leftSalt == null) {
-            leftSalt = EMPTY_SALT;
-        }
-
-        if (rightSalt == null) {
-            rightSalt = EMPTY_SALT;
-        }
-
-        return RSAHelper.of(keyPair).encryptByPrivateKey(leftSalt + rawPassword + rightSalt);
+    public String doEncrypt(String rawPassword, String leftSalt, String rightSalt) {
+        return RSAHelper.of(keyPair).encryptByPrivateKey(contact(rawPassword, leftSalt, rightSalt));
     }
 
 }

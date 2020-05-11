@@ -9,30 +9,16 @@
  */
 package com.github.yingzhuo.carnival.password.impl;
 
-import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.Objects;
 
 /**
  * @author 应卓
  */
-public class MD5PasswordEncrypter implements PasswordEncrypter {
+public class MD5PasswordEncrypter extends AbstractPasswordEncrypter {
 
     @Override
-    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        Objects.requireNonNull(rawPassword);
-
-        if (leftSalt == null) {
-            leftSalt = EMPTY_SALT;
-        }
-
-        if (rightSalt == null) {
-            rightSalt = EMPTY_SALT;
-        }
-
-        return DigestUtils.md5Hex(leftSalt + rawPassword + rightSalt);
+    protected String doEncrypt(String rawPassword, String leftSalt, String rightSalt) {
+        return DigestUtils.md5Hex(contact(rawPassword, leftSalt, rightSalt));
     }
 
 }

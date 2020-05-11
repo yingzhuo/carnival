@@ -9,31 +9,21 @@
  */
 package com.github.yingzhuo.carnival.password.impl;
 
-import com.github.yingzhuo.carnival.password.PasswordEncrypter;
-
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
-import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.6.6
  */
-public class Base64PasswordEncrypter implements PasswordEncrypter {
+public class Base64PasswordEncrypter extends AbstractPasswordEncrypter {
 
     @Override
-    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        Objects.requireNonNull(rawPassword);
-
-        if (leftSalt == null) {
-            leftSalt = EMPTY_SALT;
-        }
-
-        if (rightSalt == null) {
-            rightSalt = EMPTY_SALT;
-        }
-
-        return Base64.getUrlEncoder().encodeToString((leftSalt + rawPassword + rightSalt).getBytes(StandardCharsets.UTF_8));
+    public String doEncrypt(String rawPassword, String leftSalt, String rightSalt) {
+        return Base64.getUrlEncoder()
+                .encodeToString(
+                        contact(rawPassword, leftSalt, rightSalt).getBytes(StandardCharsets.UTF_8)
+                );
     }
 
 }

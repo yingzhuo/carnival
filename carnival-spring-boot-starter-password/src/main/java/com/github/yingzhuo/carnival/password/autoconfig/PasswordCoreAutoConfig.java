@@ -32,7 +32,7 @@ public class PasswordCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncrypter passwordEncrypter(Props props) {
-        int repeat = props.getRepeat();
+        final int repeat = props.getRepeat();
 
         switch (props.getAlgorithm()) {
             case MD5:

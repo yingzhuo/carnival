@@ -9,59 +9,21 @@
  */
 package com.github.yingzhuo.carnival.password.impl;
 
-import com.github.yingzhuo.carnival.password.PasswordEncrypter;
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-public class NonePasswordEncrypter implements PasswordEncrypter {
+public class NonePasswordEncrypter extends AbstractPasswordEncrypter {
 
     @Override
-    public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        return Objects.requireNonNull(rawPassword);
+    protected String doEncrypt(String rawPassword, String leftSalt, String rightSalt) {
+        return rawPassword;
     }
 
     @Override
-    public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        return StringUtils.equals(rawPassword, encryptedPassword);
-    }
-
-    @Override
-    public String encrypt(String rawPassword) {
-        return Objects.requireNonNull(rawPassword);
-    }
-
-    @Override
-    public String encrypt(String rawPassword, String rightSalt) {
-        return Objects.requireNonNull(rawPassword);
-    }
-
-    @Override
-    public boolean matches(String rawPassword, String encryptedPassword) {
-        return StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
-    }
-
-    @Override
-    public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
-    }
-
-    @Override
-    public boolean notMatches(String rawPassword, String encryptedPassword) {
-        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
-    }
-
-    @Override
-    public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
-    }
-
-    @Override
-    public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
+    protected boolean doMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        return Objects.equals(rawPassword, encryptedPassword);
     }
 
 }
