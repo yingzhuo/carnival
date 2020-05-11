@@ -25,6 +25,10 @@ import java.util.Optional;
  */
 public class CompositeUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
+    public static CompositeUserDetailsRealm of(UserDetailsRealm... realms) {
+        return new CompositeUserDetailsRealm(realms);
+    }
+
     private final List<UserDetailsRealm> realms;
 
     public CompositeUserDetailsRealm(List<UserDetailsRealm> realms) {

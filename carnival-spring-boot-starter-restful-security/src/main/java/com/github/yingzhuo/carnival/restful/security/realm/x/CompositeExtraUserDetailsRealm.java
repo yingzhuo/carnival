@@ -25,6 +25,10 @@ import java.util.List;
  */
 public class CompositeExtraUserDetailsRealm implements ExtraUserDetailsRealm, InitializingBean {
 
+    public static CompositeExtraUserDetailsRealm of(ExtraUserDetailsRealm... realm) {
+        return new CompositeExtraUserDetailsRealm(realm);
+    }
+
     private final List<ExtraUserDetailsRealm> realms;
 
     public CompositeExtraUserDetailsRealm(List<ExtraUserDetailsRealm> realms) {

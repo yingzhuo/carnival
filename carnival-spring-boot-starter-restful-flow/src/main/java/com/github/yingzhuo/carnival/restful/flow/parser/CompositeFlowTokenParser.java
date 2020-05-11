@@ -24,6 +24,10 @@ import java.util.Optional;
  */
 public class CompositeFlowTokenParser implements FlowTokenParser, InitializingBean {
 
+    public static CompositeFlowTokenParser of(FlowTokenParser... parsers) {
+        return new CompositeFlowTokenParser(parsers);
+    }
+
     private final List<FlowTokenParser> parsers;
 
     public CompositeFlowTokenParser(List<FlowTokenParser> parsers) {
@@ -36,7 +40,6 @@ public class CompositeFlowTokenParser implements FlowTokenParser, InitializingBe
 
     @Override
     public Optional<String> parse(NativeWebRequest request) {
-
         for (val parser : parsers) {
             val op = parser.parse(request);
             if (op.isPresent()) {
