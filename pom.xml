@@ -349,6 +349,13 @@
                 <version>1.0.3</version>
             </dependency>
 
+            <!-- hdrhistogram -->
+            <dependency>
+                <groupId>org.hdrhistogram</groupId>
+                <artifactId>HdrHistogram</artifactId>
+                <version>2.1.12</version>
+            </dependency>
+
             <!-- jackson -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>

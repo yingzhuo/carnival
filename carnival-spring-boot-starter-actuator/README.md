@@ -2,7 +2,17 @@
 
 本项目目前属于实验阶段。
 
-### (1) NoteEndpoint
+#### 依赖
+
+```xml
+<dependency>
+  <groupId>com.github.yingzhuo</groupId>
+  <artifactId>carnival-spring-boot-starter-id</artifactId>
+  <version>${carnival.version}</version>
+</dependency>
+```
+
+#### (1) NoteEndpoint
 
 如果存在以下md文件之一，则`NoteEndpoint`将自动被添加。
 
