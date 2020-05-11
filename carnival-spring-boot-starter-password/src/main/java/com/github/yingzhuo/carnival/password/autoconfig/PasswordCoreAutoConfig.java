@@ -25,22 +25,24 @@ import org.springframework.context.annotation.Lazy;
  * @author 应卓
  */
 @Lazy(false)
-@EnableConfigurationProperties(PasswordEncrypterAutoConfig.Props.class)
+@EnableConfigurationProperties(PasswordCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class PasswordEncrypterAutoConfig {
+public class PasswordCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncrypter passwordEncrypter(Props props) {
+        int repeat = props.getRepeat();
+
         switch (props.getAlgorithm()) {
             case MD5:
-                return new MD5PasswordEncrypter();
+                return repeat >= 2 ? new RepeatPasswordEncrypter(new MD5PasswordEncrypter(), repeat) : new MD5PasswordEncrypter();
             case BCRYPT:
-                return new BCryptPasswordEncrypter();
+                return repeat >= 2 ? new RepeatPasswordEncrypter(new BCryptPasswordEncrypter(), repeat) : new BCryptPasswordEncrypter();
             case SHA1:
-                return new SHA1PasswordEncrypter();
+                return repeat >= 2 ? new RepeatPasswordEncrypter(new SHA1PasswordEncrypter(), repeat) : new SHA1PasswordEncrypter();
             case SHA256:
-                return new SHA256PasswordEncrypter();
+                return repeat >= 2 ? new RepeatPasswordEncrypter(new SHA256PasswordEncrypter(), repeat) : new SHA256PasswordEncrypter();
             case NONE:
                 return new NonePasswordEncrypter();
         }
@@ -53,6 +55,7 @@ public class PasswordEncrypterAutoConfig {
     static class Props {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.MD5;
+        private int repeat = 1;
     }
 
 }

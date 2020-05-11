@@ -14,6 +14,8 @@ import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  * @since 1.6.5
@@ -47,6 +49,16 @@ public class RSAPasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
+        Objects.requireNonNull(rawPassword);
+
+        if (leftSalt == null) {
+            leftSalt = EMPTY_SALT;
+        }
+
+        if (rightSalt == null) {
+            rightSalt = EMPTY_SALT;
+        }
+
         return RSAHelper.of(keyPair).encryptByPrivateKey(leftSalt + rawPassword + rightSalt);
     }
 

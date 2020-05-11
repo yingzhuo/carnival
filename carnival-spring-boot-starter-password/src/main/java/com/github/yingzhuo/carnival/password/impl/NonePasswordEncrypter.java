@@ -10,24 +10,14 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.InitializingBean;
 
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
-@Slf4j
-public class NonePasswordEncrypter implements PasswordEncrypter, InitializingBean {
-
-    @Override
-    public void afterPropertiesSet() {
-        log.warn("~~~~~~");
-        log.warn("DO NOT use {} in your production environment.", getClass().getName());
-        log.warn("~~~~~~");
-    }
+public class NonePasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
@@ -41,37 +31,37 @@ public class NonePasswordEncrypter implements PasswordEncrypter, InitializingBea
 
     @Override
     public String encrypt(String rawPassword) {
-        return rawPassword;
+        return Objects.requireNonNull(rawPassword);
     }
 
     @Override
     public String encrypt(String rawPassword, String rightSalt) {
-        return rawPassword;
+        return Objects.requireNonNull(rawPassword);
     }
 
     @Override
     public boolean matches(String rawPassword, String encryptedPassword) {
-        return StringUtils.equals(rawPassword, encryptedPassword);
+        return StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
     }
 
     @Override
     public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return StringUtils.equals(rawPassword, encryptedPassword);
+        return StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String encryptedPassword) {
-        return !StringUtils.equals(rawPassword, encryptedPassword);
+        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
-        return !StringUtils.equals(rawPassword, encryptedPassword);
+        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        return !StringUtils.equals(rawPassword, encryptedPassword);
+        return !StringUtils.equals(Objects.requireNonNull(rawPassword), encryptedPassword);
     }
 
 }

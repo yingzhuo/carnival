@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.secret.AESUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
 
@@ -35,11 +34,11 @@ public class AESPasswordEncrypter implements PasswordEncrypter {
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
         Objects.requireNonNull(rawPassword);
 
-        if (StringUtils.isBlank(leftSalt)) {
+        if (leftSalt == null) {
             leftSalt = EMPTY_SALT;
         }
 
-        if (StringUtils.isBlank(rightSalt)) {
+        if (rightSalt == null) {
             rightSalt = EMPTY_SALT;
         }
 

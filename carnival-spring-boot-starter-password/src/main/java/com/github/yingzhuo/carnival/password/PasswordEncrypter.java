@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * @author 应卓
  */
+@FunctionalInterface
 public interface PasswordEncrypter {
 
     public static final String EMPTY_SALT = "";

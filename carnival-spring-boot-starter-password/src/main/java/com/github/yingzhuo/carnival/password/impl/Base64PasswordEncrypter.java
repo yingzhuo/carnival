@@ -10,15 +10,16 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Objects;
 
 /**
  * @author 应卓
+ * @since 1.6.6
  */
-public class SHA1PasswordEncrypter implements PasswordEncrypter {
+public class Base64PasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
@@ -32,7 +33,7 @@ public class SHA1PasswordEncrypter implements PasswordEncrypter {
             rightSalt = EMPTY_SALT;
         }
 
-        return DigestUtils.sha1Hex(leftSalt + rawPassword + rightSalt);
+        return Base64.getUrlEncoder().encodeToString((leftSalt + rawPassword + rightSalt).getBytes(StandardCharsets.UTF_8));
     }
 
 }

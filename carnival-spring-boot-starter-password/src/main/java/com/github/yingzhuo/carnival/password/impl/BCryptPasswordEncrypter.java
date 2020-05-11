@@ -11,28 +11,34 @@ package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncrypter;
 import com.github.yingzhuo.carnival.password.support.BCrypt;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
 
 /**
  * @author 应卓
  */
+@Slf4j
 public class BCryptPasswordEncrypter implements PasswordEncrypter {
+
+    private final String bcryptSalt = BCrypt.gensalt();
 
     @Override
     public String encrypt(String rawPassword) {
         Objects.requireNonNull(rawPassword);
-        return BCrypt.hashpw(rawPassword, BCrypt.gensalt(13));
+        return BCrypt.hashpw(rawPassword, bcryptSalt);
     }
 
     @Override
     public String encrypt(String rawPassword, String rightSalt) {
-        throw new UnsupportedOperationException();
+        log.warn("salt is ignored.");
+        return encrypt(rawPassword);
     }
 
     @Override
     public String encrypt(String rawPassword, String leftSalt, String rightSalt) {
-        throw new UnsupportedOperationException();
+        log.warn("salt is ignored.");
+        return encrypt(rawPassword);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -48,34 +54,31 @@ public class BCryptPasswordEncrypter implements PasswordEncrypter {
 
     @Override
     public boolean matches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
-        try {
-            return BCrypt.checkpw(rawPassword, encryptedPassword);
-        } catch (Exception e) {
-            return false;
-        }
+        log.warn("salt is ignored.");
+        return matches(rawPassword, encryptedPassword);
     }
 
     @Override
     public boolean matches(String rawPassword, String rightSalt, String encryptedPassword) {
-        try {
-            return BCrypt.checkpw(rawPassword, encryptedPassword);
-        } catch (Exception e) {
-            return false;
-        }
+        log.warn("salt is ignored.");
+        return matches(rawPassword, encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String encryptedPassword) {
+        log.warn("salt is ignored.");
         return !matches(rawPassword, encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String rightSalt, String encryptedPassword) {
+        log.warn("salt is ignored.");
         return !matches(rawPassword, encryptedPassword);
     }
 
     @Override
     public boolean notMatches(String rawPassword, String leftSalt, String rightSalt, String encryptedPassword) {
+        log.warn("salt is ignored.");
         return !matches(rawPassword, encryptedPassword);
     }
 
