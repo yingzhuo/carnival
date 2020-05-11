@@ -156,10 +156,68 @@ public final class SelfConsistent {
         isFalse(state, null);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static void isFalse(boolean state, String message, Object... params) {
         if (state) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isPositive(Integer number) {
+        isPositive(number, null);
+    }
+
+    public static void isPositive(Integer number, String message, Object... params) {
+        if (number == null || number <= 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isPositive(Long number) {
+        isPositive(number, null);
+    }
+
+    public static void isPositive(Long number, String message, Object... params) {
+        if (number == null || number <= 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isNegative(Integer number) {
+        isNegative(number, null);
+    }
+
+    public static void isNegative(Integer number, String message, Object... params) {
+        if (number == null || number >= 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isNegative(Long number) {
+        isNegative(number, null);
+    }
+
+    public static void isNegative(Long number, String message, Object... params) {
+        if (number == null || number >= 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isZero(Integer number) {
+        isZero(number, null);
+    }
+
+    public static void isZero(Integer number, String message, Object... params) {
+        if (number == null || number != 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void isZero(Long number) {
+        isZero(number, null);
+    }
+
+    public static void isZero(Long number, String message, Object... params) {
+        if (number == null || number != 0) {
             throw new SelfConsistentException(format(message, params));
         }
     }
