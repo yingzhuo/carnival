@@ -25,10 +25,6 @@ import java.util.Optional;
  */
 public class CompositeTokenParser implements TokenParser, InitializingBean {
 
-    public static CompositeTokenParser of(TokenParser... parsers) {
-        return new CompositeTokenParser(parsers);
-    }
-
     private final List<TokenParser> parsers;
 
     public CompositeTokenParser(List<TokenParser> parsers) {
@@ -37,6 +33,10 @@ public class CompositeTokenParser implements TokenParser, InitializingBean {
 
     public CompositeTokenParser(TokenParser... parsers) {
         this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
+    }
+
+    public static CompositeTokenParser of(TokenParser... parsers) {
+        return new CompositeTokenParser(parsers);
     }
 
     @Override

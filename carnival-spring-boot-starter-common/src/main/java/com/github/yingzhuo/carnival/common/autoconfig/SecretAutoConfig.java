@@ -33,9 +33,7 @@ import java.io.Serializable;
  */
 @Slf4j
 @Lazy(false)
-@EnableConfigurationProperties({
-        SecretAutoConfig.SecretProps.class
-})
+@EnableConfigurationProperties(SecretAutoConfig.SecretProps.class)
 @ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true")
 public class SecretAutoConfig implements Configurer<FormatterRegistry> {
 

@@ -24,10 +24,6 @@ import java.util.Optional;
  */
 public class CompositeFlowTokenParser implements FlowTokenParser, InitializingBean {
 
-    public static CompositeFlowTokenParser of(FlowTokenParser... parsers) {
-        return new CompositeFlowTokenParser(parsers);
-    }
-
     private final List<FlowTokenParser> parsers;
 
     public CompositeFlowTokenParser(List<FlowTokenParser> parsers) {
@@ -36,6 +32,10 @@ public class CompositeFlowTokenParser implements FlowTokenParser, InitializingBe
 
     public CompositeFlowTokenParser(FlowTokenParser... parsers) {
         this.parsers = Collections.unmodifiableList(Arrays.asList(parsers));
+    }
+
+    public static CompositeFlowTokenParser of(FlowTokenParser... parsers) {
+        return new CompositeFlowTokenParser(parsers);
     }
 
     @Override

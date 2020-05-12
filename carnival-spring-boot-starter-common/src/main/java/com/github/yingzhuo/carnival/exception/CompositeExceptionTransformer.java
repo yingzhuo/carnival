@@ -20,10 +20,6 @@ import java.util.Optional;
  */
 public class CompositeExceptionTransformer implements ExceptionTransformer {
 
-    public static CompositeExceptionTransformer of(ExceptionTransformer... transformers) {
-        return new CompositeExceptionTransformer(transformers);
-    }
-
     private final List<ExceptionTransformer> transformers;
 
     public CompositeExceptionTransformer(List<ExceptionTransformer> transformers) {
@@ -32,6 +28,10 @@ public class CompositeExceptionTransformer implements ExceptionTransformer {
 
     public CompositeExceptionTransformer(ExceptionTransformer... transformers) {
         this.transformers = Collections.unmodifiableList(Arrays.asList(transformers));
+    }
+
+    public static CompositeExceptionTransformer of(ExceptionTransformer... transformers) {
+        return new CompositeExceptionTransformer(transformers);
     }
 
     @Override

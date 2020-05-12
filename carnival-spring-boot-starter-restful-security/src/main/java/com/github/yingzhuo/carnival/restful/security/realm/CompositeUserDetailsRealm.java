@@ -25,10 +25,6 @@ import java.util.Optional;
  */
 public class CompositeUserDetailsRealm implements UserDetailsRealm, InitializingBean {
 
-    public static CompositeUserDetailsRealm of(UserDetailsRealm... realms) {
-        return new CompositeUserDetailsRealm(realms);
-    }
-
     private final List<UserDetailsRealm> realms;
 
     public CompositeUserDetailsRealm(List<UserDetailsRealm> realms) {
@@ -37,6 +33,10 @@ public class CompositeUserDetailsRealm implements UserDetailsRealm, Initializing
 
     public CompositeUserDetailsRealm(UserDetailsRealm... realms) {
         this.realms = Collections.unmodifiableList(Arrays.asList(realms));
+    }
+
+    public static CompositeUserDetailsRealm of(UserDetailsRealm... realms) {
+        return new CompositeUserDetailsRealm(realms);
     }
 
     @Override

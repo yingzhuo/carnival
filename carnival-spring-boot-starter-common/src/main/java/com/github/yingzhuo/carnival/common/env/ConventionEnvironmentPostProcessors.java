@@ -18,16 +18,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @author 应卓
  * @since 1.6.4
  */
-public final class ConventionEnvironmentPostProcessors {
-
-    private static String getInMainPkgPrefix(Class<?> mainClass, String prefix) {
-        if (mainClass == null) {
-            return null;
-        }
-
-        final String packageName = mainClass.getPackage().getName().replaceAll("\\.", "/");
-        return "classpath:" + packageName + "/" + prefix;
-    }
+public interface ConventionEnvironmentPostProcessors {
 
     public static class PropertySource extends AbstractConventionEnvironmentPostProcessor {
         @Override
@@ -51,8 +42,7 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:.config/property",
                     "classpath:_config/property",
                     "classpath:property",
-                    "classpath:META-INF/property",
-                    getInMainPkgPrefix(mainClass, "property")
+                    "classpath:META-INF/property"
             };
         }
     }
@@ -79,8 +69,7 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:.config/business-exception",
                     "classpath:_config/business-exception",
                     "classpath:business-exception",
-                    "classpath:META-INF/business-exception",
-                    getInMainPkgPrefix(mainClass, "business-exception")
+                    "classpath:META-INF/business-exception"
             };
         }
     }
@@ -107,8 +96,7 @@ public final class ConventionEnvironmentPostProcessors {
                     "classpath:.config/datasource",
                     "classpath:_config/datasource",
                     "classpath:datasource",
-                    "classpath:META-INF/datasource",
-                    getInMainPkgPrefix(mainClass, "datasource")
+                    "classpath:META-INF/datasource"
             };
         }
     }

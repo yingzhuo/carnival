@@ -17,6 +17,9 @@ import java.util.*;
  */
 public final class Unmodified {
 
+    private Unmodified() {
+    }
+
     public static <T> Set<T> toSet(T... objs) {
         final Set<T> set = new HashSet<>();
         if (objs == null) {
@@ -40,11 +43,6 @@ public final class Unmodified {
 
     public static <E extends Enum<E>> List<E> toList(Class<E> type) {
         return Collections.unmodifiableList(Arrays.asList(type.getEnumConstants()));
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-
-    private Unmodified() {
     }
 
 }
