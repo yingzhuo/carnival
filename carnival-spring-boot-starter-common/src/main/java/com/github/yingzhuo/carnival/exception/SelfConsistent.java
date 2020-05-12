@@ -29,15 +29,16 @@ public final class SelfConsistent {
     private SelfConsistent() {
     }
 
-    public static <T> T notNull(T obj) {
-        return notNull(obj, null);
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static <T> void notNull(T obj) {
+        notNull(obj, null);
     }
 
-    public static <T> T notNull(T obj, String message, Object... params) {
+    public static <T> void notNull(T obj, String message, Object... params) {
         if (obj == null) {
             throw new SelfConsistentException(format(message, params));
         }
-        return obj;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -64,64 +65,59 @@ public final class SelfConsistent {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    public static <T> Collection<T> notEmpty(Collection<T> collection) {
-        return notEmpty(collection, null);
+    public static <T> void notEmpty(Collection<T> collection) {
+        notEmpty(collection, null);
     }
 
-    public static <T> Collection<T> notEmpty(Collection<T> collection, String message, Object... params) {
+    public static <T> void notEmpty(Collection<T> collection, String message, Object... params) {
         notNull(collection, message, params);
         if (collection.isEmpty()) {
             throw new SelfConsistentException(format(message, params));
         }
-        return collection;
     }
 
-    public static <T> T[] notEmpty(T[] array) {
-        return notEmpty(array, null);
+    public static <T> void notEmpty(T[] array) {
+        notEmpty(array, null);
     }
 
-    public static <T> T[] notEmpty(T[] array, String message, Object... params) {
+    public static <T> void notEmpty(T[] array, String message, Object... params) {
         notNull(array, message, params);
         if (array.length == 0) {
             throw new SelfConsistentException(format(message, params));
         }
-        return array;
     }
 
-    public static <K, V> Map<K, V> notEmpty(Map<K, V> map) {
-        return notEmpty(map, null);
+    public static void notEmpty(Map<?, ?> map) {
+        notEmpty(map, null);
     }
 
-    public static <K, V> Map<K, V> notEmpty(Map<K, V> map, String message, Object... params) {
+    public static void notEmpty(Map<?, ?> map, String message, Object... params) {
         notNull(map, message, params);
         if (map.isEmpty()) {
             throw new SelfConsistentException(format(message, params));
         }
-        return map;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    public static <T extends CharSequence> T notEmpty(T string) {
-        return notEmpty(string, null);
+    public static <T extends CharSequence> void notEmpty(T string) {
+        notEmpty(string, null);
     }
 
-    public static <T extends CharSequence> T notEmpty(T string, String message, Object... params) {
+    public static <T extends CharSequence> void notEmpty(T string, String message, Object... params) {
         if (StringUtils.isEmpty(string)) {
             throw new SelfConsistentException(format(message, params));
         }
-        return string;
     }
 
-    public static <T extends CharSequence> T notBlank(T string) {
-        return notBlank(string, null);
+    public static <T extends CharSequence> void notBlank(T string) {
+        notBlank(string, null);
     }
 
-    public static <T extends CharSequence> T notBlank(T string, String message, Object... params) {
+    public static <T extends CharSequence> void notBlank(T string, String message, Object... params) {
         if (StringUtils.isBlank(string)) {
             throw new SelfConsistentException(format(message, params));
         }
-        return string;
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -264,6 +260,32 @@ public final class SelfConsistent {
 
     public static void isZero(Long number, String message, Object... params) {
         if (number == null || number != 0) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static void isInstanceOf(Class<?> type, Object obj) {
+        isInstanceOf(type, obj, null);
+    }
+
+    public static void isInstanceOf(Class<?> type, Object obj, String message, Object... params) {
+        notNull(type, message, params);
+        if (!type.isInstance(obj)) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static void isAssignable(Class<?> superType, Class<?> subType) {
+        isAssignable(superType, subType, null);
+    }
+
+    public static void isAssignable(Class<?> superType, Class<?> subType, String message, Object... params) {
+        notNull(superType, message, params);
+        if (subType == null || !superType.isAssignableFrom(subType)) {
             throw new SelfConsistentException(format(message, params));
         }
     }
