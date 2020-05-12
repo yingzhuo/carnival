@@ -50,6 +50,7 @@ public interface PasswordEncrypter {
 carnival:
     password:
       algorithm: <算法>
+      repeat: 1
 ```
 
 #### 其他工具
