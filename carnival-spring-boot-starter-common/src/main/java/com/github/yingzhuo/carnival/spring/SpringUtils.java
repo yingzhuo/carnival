@@ -75,7 +75,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return PropertyUtils.getPropertyValue("spring.id");
+        return PropertyUtils.getPropertyValue("x.spring.id");
     }
 
     public static String getDisplayName() {
