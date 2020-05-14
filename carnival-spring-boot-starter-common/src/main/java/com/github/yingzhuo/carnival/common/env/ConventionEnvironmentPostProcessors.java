@@ -20,7 +20,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 public interface ConventionEnvironmentPostProcessors {
 
-    public static class PropertySource extends AbstractConventionEnvironmentPostProcessor {
+    static class PropertySource extends AbstractConventionEnvironmentPostProcessor {
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "property-source";
@@ -47,7 +47,7 @@ public interface ConventionEnvironmentPostProcessors {
         }
     }
 
-    public static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
+    static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "business-exception";
@@ -74,7 +74,7 @@ public interface ConventionEnvironmentPostProcessors {
         }
     }
 
-    public static class DataSource extends AbstractConventionEnvironmentPostProcessor {
+    static class DataSource extends AbstractConventionEnvironmentPostProcessor {
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "datasource";
@@ -101,7 +101,7 @@ public interface ConventionEnvironmentPostProcessors {
         }
     }
 
-    public static class Git extends AbstractConventionEnvironmentPostProcessor {
+    static class Git extends AbstractConventionEnvironmentPostProcessor {
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
             return "git";
