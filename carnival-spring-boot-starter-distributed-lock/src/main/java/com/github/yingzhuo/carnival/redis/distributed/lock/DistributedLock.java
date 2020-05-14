@@ -22,20 +22,22 @@ import redis.clients.jedis.JedisCommands;
 import java.util.Collections;
 import java.util.Objects;
 
+import static com.github.yingzhuo.carnival.redis.distributed.lock.Constant.*;
+
 /**
  * Redis实现分布式锁
  *
  * @author 应卓
  */
 @Slf4j
-public final class DistributedLock implements Constant {
+public final class DistributedLock {
 
     private DistributedLock() {
     }
 
     public static boolean lock(String key, long expireInMillis) {
 
-        Assert.hasText(key, "key is null or blank.");
+        if (key == null) return false;
 
         final String prefix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeyPrefix();
         final String suffix = SpringUtils.getBean(DistributedLockCoreAutoConfig.Props.class).getKeySuffix();
@@ -44,14 +46,12 @@ public final class DistributedLock implements Constant {
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
         if (log.isTraceEnabled()) {
-            log.trace("try to LOCK");
-            log.trace("key: {}", effKey);
-            log.trace("value: {}", requestId);
+            log.trace("try to lock. key = {}, value = {}", effKey, requestId);
         }
 
-        JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
+        JedisCommands jedis = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
-        String result = jedisCommands.set(
+        String result = jedis.set(
                 effKey,
                 requestId,
                 SET_IF_NOT_EXIST,
@@ -61,7 +61,7 @@ public final class DistributedLock implements Constant {
         try {
             return LOCK_SUCCESS.equals(result);
         } finally {
-            closeQuietly(jedisCommands);
+            closeQuietly(jedis);
         }
     }
 
@@ -75,27 +75,25 @@ public final class DistributedLock implements Constant {
         final String requestId = requestIdCreator.create(SpringUtils.getSpringId(), Thread.currentThread().getId());
 
         if (log.isTraceEnabled()) {
-            log.trace("try to RELEASE");
-            log.trace("key: {}", effKey);
-            log.trace("value: {}", requestId);
+            log.trace("try to release. key = {}, value = {}", effKey, requestId);
         }
 
-        JedisCommands jedisCommands = SpringUtils.getBean(JedisCommandsFinder.class).find();
+        JedisCommands jedis = SpringUtils.getBean(JedisCommandsFinder.class).find();
 
         final String lua = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
         final Object result;
 
-        if (jedisCommands instanceof Jedis) {
-            result = ((Jedis) jedisCommands).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
+        if (jedis instanceof Jedis) {
+            result = ((Jedis) jedis).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
         } else {
-            result = ((JedisCluster) jedisCommands).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
+            result = ((JedisCluster) jedis).eval(lua, Collections.singletonList(effKey), Collections.singletonList(requestId));
         }
 
         try {
             return RELEASE_SUCCESS.equals(result);
         } finally {
-            closeQuietly(jedisCommands);
+            closeQuietly(jedis);
         }
     }
 

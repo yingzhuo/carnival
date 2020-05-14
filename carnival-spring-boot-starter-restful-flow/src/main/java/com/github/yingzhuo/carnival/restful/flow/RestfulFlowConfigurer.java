@@ -44,4 +44,8 @@ public interface RestfulFlowConfigurer {
         return null;
     }
 
+    public default String[] getPathPatterns() {
+        return new String[]{"/", "/**"};
+    }
+
 }

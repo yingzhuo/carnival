@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.restful.norepeated.autoconfig.NoRepeatedCoreAutoConfig,\
+    com.github.yingzhuo.carnival.restful.norepeated.autoconfig.NoRepeatedActuatorAutoConfig

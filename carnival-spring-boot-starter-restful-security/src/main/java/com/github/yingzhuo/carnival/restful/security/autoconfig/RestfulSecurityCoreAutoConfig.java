@@ -71,7 +71,10 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
         interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
         interceptor.setExceptionTransformer(getExceptionTransformer());
-        registry.addInterceptor(interceptor).addPathPatterns("/", "/**").order(getOrder());
+
+        registry.addInterceptor(interceptor)
+                .addPathPatterns(getPathPatterns())
+                .order(getOrder());
     }
 
     @Override
@@ -154,6 +157,10 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             return injectedExceptionTransformer;
         }
         return configurer != null ? configurer.getExceptionTransformer() : null;
+    }
+
+    private String[] getPathPatterns() {
+        return configurer != null ? configurer.getPathPatterns() : new String[]{"/", "/**"};
     }
 
 }

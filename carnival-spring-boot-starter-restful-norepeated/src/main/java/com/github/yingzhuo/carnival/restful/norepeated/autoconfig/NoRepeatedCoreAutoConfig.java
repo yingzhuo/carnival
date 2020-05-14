@@ -7,22 +7,34 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.distributed.lock.autoconfig;
+package com.github.yingzhuo.carnival.restful.norepeated.autoconfig;
 
-import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinder;
-import com.github.yingzhuo.carnival.redis.distributed.lock.support.JedisCommandsFinderImpl;
-import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreator;
-import com.github.yingzhuo.carnival.redis.distributed.lock.support.RequestIdCreatorImpl;
+import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
+import com.github.yingzhuo.carnival.restful.norepeated.NoRepeatedConfigurer;
+import com.github.yingzhuo.carnival.restful.norepeated.core.NoRepeatedInterceptor;
+import com.github.yingzhuo.carnival.restful.norepeated.factory.NoRepeatedTokenFactory;
+import com.github.yingzhuo.carnival.restful.norepeated.factory.NoRepeatedTokenFactoryImpl;
+import com.github.yingzhuo.carnival.restful.norepeated.parser.NoRepeatedTokenParser;
+import com.github.yingzhuo.carnival.restful.norepeated.support.JedisCommandsFinder;
+import com.github.yingzhuo.carnival.restful.norepeated.support.JedisCommandsFinderImpl;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import redis.clients.jedis.*;
 
+import java.io.Serializable;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,15 +43,36 @@ import java.util.stream.Stream;
 
 /**
  * @author 应卓
+ * @since 1.6.7
  */
 @Lazy(false)
-@EnableConfigurationProperties(DistributedLockCoreAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.distributed-lock", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class DistributedLockCoreAutoConfig {
+@EnableConfigurationProperties(NoRepeatedCoreAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.no-repeated", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnWebApplication
+public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
+
+    @Autowired(required = false)
+    private ExceptionTransformer injectedExceptionTransformer;
+
+    @Autowired(required = false)
+    private NoRepeatedTokenParser injectedNoRepeatedTokenParser;
+
+    @Autowired(required = false)
+    private NoRepeatedConfigurer configurer = new NoRepeatedConfigurer() {
+    };
 
     @Bean
-    public JedisCommandsFinder lockJedisCommandsFinder(Props props) {
+    public NoRepeatedTokenFactory noRepeatedTokenFactory(Props props) {
+        return new NoRepeatedTokenFactoryImpl(
+                props.getToken().getTtl(),
+                props.getToken().getPrefix(),
+                props.getToken().getSuffix()
+        );
+    }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public JedisCommandsFinder noRepeatedJedisCommandsFinder(Props props) {
         // 单例模式
         if (props.getMode() == Mode.SINGLE) {
             final JedisPool pool = new JedisPool(
@@ -115,11 +148,32 @@ public class DistributedLockCoreAutoConfig {
         return config;
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public RequestIdCreator requestIdFactory() {
-        return new RequestIdCreatorImpl();
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        final NoRepeatedInterceptor interceptor = new NoRepeatedInterceptor();
+        interceptor.setExceptionTransformer(getExceptionTransformer());
+        interceptor.setTokenParser(getNoRepeatedTokenParser());
+
+        registry.addInterceptor(interceptor)
+                .addPathPatterns(configurer.getPathPatterns())
+                .order(configurer.getOrder());
     }
+
+    private NoRepeatedTokenParser getNoRepeatedTokenParser() {
+        if (injectedNoRepeatedTokenParser != null) {
+            return injectedNoRepeatedTokenParser;
+        }
+        return configurer.getNoRepeatedTokenParser();
+    }
+
+    private ExceptionTransformer getExceptionTransformer() {
+        if (injectedExceptionTransformer != null) {
+            return injectedExceptionTransformer;
+        }
+        return configurer.getExceptionTransformer();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     enum Mode {
 
@@ -141,12 +195,11 @@ public class DistributedLockCoreAutoConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.distributed-lock")
-    public static class Props {
+    @ConfigurationProperties(prefix = "carnival.no-repeated")
+    public static class Props implements Serializable {
         private boolean enable = true;
         private Mode mode = Mode.SINGLE;
-        private String keyPrefix = "";
-        private String keySuffix = "";
+        private TokenProps token = new TokenProps();
         private PoolProps pool = new PoolProps();
         private SingleProps single = new SingleProps();
         private SentinelProps sentinel = new SentinelProps();
@@ -155,7 +208,16 @@ public class DistributedLockCoreAutoConfig {
 
     @Getter
     @Setter
-    static class PoolProps {
+    static class TokenProps implements Serializable {
+        @DurationUnit(ChronoUnit.SECONDS)
+        private Duration ttl = Duration.ofMinutes(5L);
+        private String prefix = "no-repeated-token-";
+        private String suffix = "";
+    }
+
+    @Getter
+    @Setter
+    static class PoolProps implements Serializable {
 
         /*
          * 资源设置和使用
@@ -205,8 +267,7 @@ public class DistributedLockCoreAutoConfig {
 
     @Getter
     @Setter
-    static class SingleProps {
-
+    static class SingleProps implements Serializable {
         private String host = "localhost";
         private int port = 6379;
         private String password = null;
@@ -215,8 +276,7 @@ public class DistributedLockCoreAutoConfig {
 
     @Getter
     @Setter
-    static class SentinelProps {
-
+    static class SentinelProps implements Serializable {
         private String masterName;
         private String password = null;
         private int timeout = 10000;
@@ -225,11 +285,12 @@ public class DistributedLockCoreAutoConfig {
 
     @Getter
     @Setter
-    static class ClusterProps {
+    static class ClusterProps implements Serializable {
         private String password = null;
         private String nodes;
         private int connectionTimeoutMillis = 10000;
         private int soTimeoutMillis = 10000;
         private int maxAttempts = 3;
     }
+
 }

@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.actuator.endpoint;
 
 import com.github.rjeschke.txtmark.Processor;
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
-import lombok.val;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
@@ -20,7 +19,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
  * @since 1.6.5
  */
 @Endpoint(id = "note")
-public class NoteEndpoint {
+public class NoteEndpoint extends AbstractEndpoint {
 
     private static final String[] LOCATIONS = new String[]{
             "classpath:note.md",
@@ -29,20 +28,18 @@ public class NoteEndpoint {
             "classpath:META-INF/NOTE.md"
     };
 
-    private final String html;
+    private String html = "<h2>Note</h2>";
 
     public NoteEndpoint() {
-        val resourceOptional = ResourceOptional.of(LOCATIONS);
+        ResourceOptional resourceOptional = ResourceOptional.of(LOCATIONS);
 
         if (resourceOptional.isPresent()) {
-            val text = resourceOptional.toResourceText().getText();
+            String text = resourceOptional.toResourceText().getText();
             html = Processor.process(text);
-        } else {
-            html = "<h2>Note</h2>";
         }
     }
 
-    @ReadOperation(produces = "text/html;charset=UTF-8")
+    @ReadOperation(produces = PRODUCE_HTML)
     public String read() {
         return html;
     }

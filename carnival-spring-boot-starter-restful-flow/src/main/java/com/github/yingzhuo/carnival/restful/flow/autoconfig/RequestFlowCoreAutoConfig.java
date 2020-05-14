@@ -55,7 +55,7 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
         interceptor.setExceptionTransformer(getExceptionTransformer());
 
         registry.addInterceptor(interceptor)
-                .addPathPatterns("/", "/**")
+                .addPathPatterns(getPathPatterns())
                 .order(getOrder());
     }
 
@@ -91,6 +91,10 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
             return exceptionTransformer;
         }
         return configurer.getExceptionTransformer();
+    }
+
+    private String[] getPathPatterns() {
+        return configurer != null ? configurer.getPathPatterns() : new String[]{"/", "/**"};
     }
 
 }

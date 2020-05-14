@@ -54,4 +54,8 @@ public interface RestfulSecurityConfigurer {
         return null;
     }
 
+    public default String[] getPathPatterns() {
+        return new String[]{"/", "/**"};
+    }
+
 }
