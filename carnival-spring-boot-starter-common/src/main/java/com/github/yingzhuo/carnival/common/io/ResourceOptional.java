@@ -9,11 +9,10 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
+import com.github.yingzhuo.carnival.spring.ResourceUtils;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -34,10 +33,6 @@ public interface ResourceOptional extends Closeable {
         }
     }
 
-    public static ResourceOptional of(Resource... resources) {
-        return new SimpleResourceOptional(resources);
-    }
-
     public static ResourceOptional empty() {
         return new AbsentResourceOptional();
     }
@@ -47,6 +42,8 @@ public interface ResourceOptional extends Closeable {
     }
 
     public Resource get();
+
+    public String getLocation();
 
     public default Resource orElse(Resource defaultResource) {
         return isPresent() ? get() : defaultResource;
@@ -130,7 +127,7 @@ public interface ResourceOptional extends Closeable {
         if (isAbsent()) {
             throw new NoSuchElementException("ResourceOptional is absent");
         }
-        return ResourceProperties.of(get());
+        return ResourceProperties.of(getLocation());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -138,6 +135,11 @@ public interface ResourceOptional extends Closeable {
     static class AbsentResourceOptional implements ResourceOptional {
         @Override
         public Resource get() {
+            throw new NoSuchElementException("ResourceOptional is absent");
+        }
+
+        @Override
+        public String getLocation() {
             throw new NoSuchElementException("ResourceOptional is absent");
         }
 
@@ -155,19 +157,26 @@ public interface ResourceOptional extends Closeable {
     // -----------------------------------------------------------------------------------------------------------------
 
     static class SimpleResourceOptional implements ResourceOptional {
-        private Resource resource = null;
+        private Resource resource;
+        private String location;
 
         public SimpleResourceOptional(String... locations) {
-            this(Arrays.stream(locations).map(ResourceLoaderUtils.getResourceLoader()::getResource).toArray(Resource[]::new));
-        }
-
-        public SimpleResourceOptional(Resource... resources) {
-            for (Resource resource : resources) {
-                if (resource.exists() && resource.isReadable()) {
-                    this.resource = resource;
+            for (String location : locations) {
+                Resource it = ResourceUtils.loadResource(location);
+                if (it.exists() && it.isReadable()) {
+                    this.resource = it;
+                    this.location = location;
                     return;
                 }
             }
+        }
+
+        @Override
+        public String getLocation() {
+            if (isAbsent()) {
+                throw new NoSuchElementException("ResourceOptional is absent");
+            }
+            return location;
         }
 
         @Override

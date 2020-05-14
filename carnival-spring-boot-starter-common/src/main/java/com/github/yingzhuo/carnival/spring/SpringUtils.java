@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import lombok.val;
-import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -23,12 +21,8 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 /**
  * Spring通用工具
@@ -76,20 +70,6 @@ public final class SpringUtils {
 
     public static String getSpringId() {
         return PropertyUtils.getPropertyValue("x.spring.id");
-    }
-
-    public static String getDisplayName() {
-        return AC.getDisplayName();
-    }
-
-    public static Date getSpringStartupDate() {
-        final Date date = new Date();
-        date.setTime(AC.getStartupDate());
-        return date;
-    }
-
-    public static String getSpringStartupDateAsString(String pattern) {
-        return DateFormatUtils.format(getSpringStartupDate(), pattern);
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -153,16 +133,6 @@ public final class SpringUtils {
 
     public static ConversionService getConversionService() {
         return getBean(ConversionService.class);
-    }
-
-    public static Locale getLocale() {
-        val request = ServletUtils.getRequest();
-        return RequestContextUtils.getLocale(request);
-    }
-
-    public static TimeZone getTimeZone() {
-        val request = ServletUtils.getRequest();
-        return RequestContextUtils.getTimeZone(request);
     }
 
 }

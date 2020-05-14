@@ -27,12 +27,12 @@ public final class ResourceUtils {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static Resource loadResource(String location) {
-        return SpringUtils.getResourcePatternResolver().getResource(location);
+        return ResourceLoaderUtils.getResourceLoader().getResource(location);
     }
 
     public static Resource[] loadResources(String locationPattern) {
         try {
-            return SpringUtils.getResourcePatternResolver().getResources(locationPattern);
+            return ResourceLoaderUtils.getResourcePatternResolver().getResources(locationPattern);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }

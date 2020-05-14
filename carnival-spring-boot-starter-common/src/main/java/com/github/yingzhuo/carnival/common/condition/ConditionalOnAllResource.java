@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.condition;
 
-import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
+import com.github.yingzhuo.carnival.spring.ResourceUtils;
 import lombok.val;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
@@ -39,7 +39,7 @@ public @interface ConditionalOnAllResource {
 
             for (String location : locations) {
                 try {
-                    val resource = ResourceLoaderUtils.getResourceLoader().getResource(location);
+                    val resource = ResourceUtils.loadResource(location);
                     if (!resource.exists()) {
                         return false;
                     }

@@ -15,10 +15,9 @@ import org.springframework.boot.system.ApplicationHome;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -30,13 +29,14 @@ public class XEnvironmentPostProcessor implements EnvironmentPostProcessor {
     private final Pattern springIdPattern = Pattern.compile("[a-z].{31}");
 
     @Override
-    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+    public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication app) {
 
-        final Map<String, Object> values = new HashMap<>();
+        final Map<String, Object> values = new TreeMap<>();
         setSpringId(values);
-        setMainClass(values, application);
-        setJarDir(values, application);
-        setWebApplicationType(values, application);
+        setStartupTime(values);
+        setMainClass(values, app);
+        setJarDir(values, app);
+        setWebApplicationType(values, app);
 
         environment.getPropertySources()
                 .addFirst(new MapPropertySource("x", Collections.unmodifiableMap(values)));
@@ -54,26 +54,36 @@ public class XEnvironmentPostProcessor implements EnvironmentPostProcessor {
         }
     }
 
-    private void setMainClass(Map<String, Object> map, SpringApplication application) {
+    private void setMainClass(Map<String, Object> map, SpringApplication app) {
         try {
-            String mainClass = application.getMainApplicationClass().getName();
+            String mainClass = app.getMainApplicationClass().getName();
             map.put("x.main.class", mainClass);
         } catch (Exception ignore) {
         }
     }
 
-    private void setJarDir(Map<String, Object> map, SpringApplication application) {
+    private void setJarDir(Map<String, Object> map, SpringApplication app) {
         try {
-            String jarDir = new ApplicationHome(application.getMainApplicationClass()).getDir().getAbsolutePath();
+            String jarDir = new ApplicationHome(app.getMainApplicationClass()).getDir().getAbsolutePath();
             map.put("x.jar.dir", jarDir);
         } catch (Exception ignore) {
         }
     }
 
-    private void setWebApplicationType(Map<String, Object> map, SpringApplication application) {
+    private void setWebApplicationType(Map<String, Object> map, SpringApplication app) {
         try {
-            map.put("x.webapp.type", application.getWebApplicationType().toString());
+            map.put("x.webapp.type", app.getWebApplicationType().toString());
         } catch (Exception ignore) {
+        }
+    }
+
+    private void setStartupTime(Map<String, Object> map) {
+        try {
+            final Date date = new Date();
+            final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+            map.put("x.startup.timestamp", date.getTime());
+            map.put("x.startup.time", dateFormat.format(date));
+        } catch (Exception ignored) {
         }
     }
 

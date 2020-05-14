@@ -10,14 +10,20 @@
 package com.github.yingzhuo.carnival.exception;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * @author 应卓
  * @since 1.6.5
  */
 @FunctionalInterface
-public interface ExceptionTransformer {
+public interface ExceptionTransformer extends Function<Exception, Exception> {
 
     public Optional<Exception> transform(Exception from);
+
+    @Override
+    default Exception apply(Exception e) {
+        return transform(e).orElse(null);
+    }
 
 }

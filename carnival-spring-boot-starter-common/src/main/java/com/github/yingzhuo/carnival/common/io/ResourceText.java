@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
+import com.github.yingzhuo.carnival.spring.ResourceUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 
@@ -64,7 +64,7 @@ public interface ResourceText extends Serializable {
         private final String text;
 
         public SimpleResourceText(String location, Charset charset) {
-            this(ResourceLoaderUtils.getResourceLoader().getResource(location), charset);
+            this(ResourceUtils.loadResource(location), charset);
         }
 
         public SimpleResourceText(Resource resource, Charset charset) {

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
+import com.github.yingzhuo.carnival.spring.ResourceUtils;
 import org.springframework.core.io.Resource;
 
 import java.io.IOException;
@@ -27,10 +27,6 @@ public interface ResourceProperties extends Serializable {
         return new SimpleResourceProperties(location);
     }
 
-    public static ResourceProperties of(Resource resource) {
-        return new SimpleResourceProperties(resource);
-    }
-
     public Properties getProperties();
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -40,15 +36,19 @@ public interface ResourceProperties extends Serializable {
         private final Properties props = new Properties();
 
         public SimpleResourceProperties(String location) {
-            this(ResourceLoaderUtils.getResourceLoader().getResource(location));
-        }
+            Resource resource = ResourceUtils.loadResource(location);
 
-        public SimpleResourceProperties(Resource resource) {
             try {
                 if (!resource.exists() || !resource.isReadable()) {
                     throw new IOException("Cannot open resource.");
                 }
-                props.load(resource.getInputStream());
+
+                if (location.endsWith(".xml") || location.endsWith(".XML")) {
+                    props.loadFromXML(resource.getInputStream());
+                } else {
+                    props.load(resource.getInputStream());
+                }
+
                 resource.getInputStream().close();
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
