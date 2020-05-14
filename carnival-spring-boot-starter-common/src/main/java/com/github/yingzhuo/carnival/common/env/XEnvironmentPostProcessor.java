@@ -38,7 +38,6 @@ public class XEnvironmentPostProcessor implements EnvironmentPostProcessor {
         setJarDir(values, application);
         setWebApplicationType(values, application);
 
-
         environment.getPropertySources()
                 .addFirst(new MapPropertySource("x", Collections.unmodifiableMap(values)));
     }
@@ -63,7 +62,7 @@ public class XEnvironmentPostProcessor implements EnvironmentPostProcessor {
         }
     }
 
-    private void setJarDir(Map<String, Object> map , SpringApplication application) {
+    private void setJarDir(Map<String, Object> map, SpringApplication application) {
         try {
             String jarDir = new ApplicationHome(application.getMainApplicationClass()).getDir().getAbsolutePath();
             map.put("x.jar.dir", jarDir);

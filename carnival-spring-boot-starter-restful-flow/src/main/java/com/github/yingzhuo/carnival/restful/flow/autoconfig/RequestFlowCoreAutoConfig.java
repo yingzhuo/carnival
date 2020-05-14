@@ -72,21 +72,21 @@ public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
         return configurer.getOrder();
     }
 
-    public FlowTokenParser getFlowTokenParser() {
+    private FlowTokenParser getFlowTokenParser() {
         if (parser != null) return parser;
         return configurer.getFlowTokenParser();
     }
 
-    public AlgorithmGenerator getAlgorithmGenerator() {
+    private AlgorithmGenerator getAlgorithmGenerator() {
         if (algorithmGenerator != null) return algorithmGenerator;
         return configurer.getAlgorithmGenerator();
     }
 
-    public Duration getTokenTimeToLive() {
+    private Duration getTokenTimeToLive() {
         return configurer.getTokenTimeToLive();
     }
 
-    public ExceptionTransformer getExceptionTransformer() {
+    private ExceptionTransformer getExceptionTransformer() {
         if (exceptionTransformer != null) {
             return exceptionTransformer;
         }
