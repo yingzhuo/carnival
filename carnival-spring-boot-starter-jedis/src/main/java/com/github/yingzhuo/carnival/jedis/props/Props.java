@@ -66,7 +66,7 @@ public class Props implements Serializable {
         private boolean testWhileIdle = false;
 
         // 空闲资源的检测周期
-        private long timeBetweenEvictionRunsMillis = 1000 * 60 * 30;
+        private long timeBetweenEvictionRunsMillis = 1800000;
 
         // 资源池中资源最小空闲时间，达到此值后空闲资源将被移除
         private long minEvictableIdleTimeMillis = 1000 * 60 * 30;

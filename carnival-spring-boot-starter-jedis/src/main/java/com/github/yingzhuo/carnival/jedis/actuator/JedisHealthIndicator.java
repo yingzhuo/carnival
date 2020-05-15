@@ -24,7 +24,7 @@ public class JedisHealthIndicator extends AbstractHealthIndicator {
 
     @Override
     protected void doHealthCheck(Health.Builder builder) {
-        val commands = JedisUtils.getJedisCommands();
+        val commands = JedisUtils.getCommands();
 
         try {
             val uuid = UUID.randomUUID().toString();
@@ -34,7 +34,7 @@ public class JedisHealthIndicator extends AbstractHealthIndicator {
         } catch (Exception e) {
             builder.down(e);
         } finally {
-            JedisUtils.close(commands);
+            JedisUtils.closeCommands(commands);
         }
 
     }

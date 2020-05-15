@@ -64,7 +64,7 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
             throw new NoTokenFoundException(getMessage(annotation));
         }
 
-        val commands = JedisUtils.getJedisCommands();
+        val commands = JedisUtils.getCommands();
 
         try {
             String count = commands.get(tokenOption.get());
@@ -75,7 +75,7 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
                 throw new RepeatedRequestException(getMessage(annotation));
             }
         } finally {
-            JedisUtils.close(commands);
+            JedisUtils.closeCommands(commands);
         }
     }
 

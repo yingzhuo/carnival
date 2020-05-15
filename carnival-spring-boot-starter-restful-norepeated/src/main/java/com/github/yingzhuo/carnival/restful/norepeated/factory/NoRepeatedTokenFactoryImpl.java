@@ -35,14 +35,14 @@ public class NoRepeatedTokenFactoryImpl implements NoRepeatedTokenFactory {
     public String create() {
         final String uuid = UUID.randomUUID().toString();
         final String redisKey = createRedisKey(uuid);
-        final JedisCommands commands = JedisUtils.getJedisCommands();
+        final JedisCommands commands = JedisUtils.getCommands();
 
         try {
             commands.incr(redisKey);
             commands.expire(redisKey, (int) ttl.getSeconds());
             return redisKey;
         } finally {
-            JedisUtils.close(commands);
+            JedisUtils.closeCommands(commands);
         }
     }
 

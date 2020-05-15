@@ -22,11 +22,11 @@ public final class JedisUtils {
     private JedisUtils() {
     }
 
-    public static JedisCommands getJedisCommands() {
+    public static JedisCommands getCommands() {
         return SpringUtils.getBean(JedisCommandsHolder.class).get();
     }
 
-    public static void close(JedisCommands commands) {
+    public static void closeCommands(JedisCommands commands) {
         SpringUtils.getBean(JedisCommandsHolder.class).close(commands);
     }
 

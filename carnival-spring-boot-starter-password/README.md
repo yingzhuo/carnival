@@ -36,7 +36,7 @@ public interface PasswordEncrypter {
 }
 ```
 
-#### 简单配置
+#### 配置
 
 支持以下算法:
 

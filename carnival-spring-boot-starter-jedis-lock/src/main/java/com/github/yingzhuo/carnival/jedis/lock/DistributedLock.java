@@ -59,9 +59,9 @@ public final class DistributedLock {
 
         log.trace("try to lock. key = {}, value = {}", effKey, requestId);
 
-        final JedisCommands commands = JedisUtils.getJedisCommands();
+        final JedisCommands commands = JedisUtils.getCommands();
 
-        String result = commands.set(
+        final String result = commands.set(
                 effKey,
                 requestId,
                 SET_IF_NOT_EXIST,
@@ -75,7 +75,7 @@ public final class DistributedLock {
             }
             return ok;
         } finally {
-            JedisUtils.close(commands);
+            JedisUtils.closeCommands(commands);
         }
     }
 
@@ -92,7 +92,7 @@ public final class DistributedLock {
 
         log.trace("try to release. key = {}, value = {}", effKey, requestId);
 
-        final JedisCommands commands = JedisUtils.getJedisCommands();
+        final JedisCommands commands = JedisUtils.getCommands();
 
         final String lua = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
 
@@ -111,7 +111,7 @@ public final class DistributedLock {
             }
             return ok;
         } finally {
-            JedisUtils.close(commands);
+            JedisUtils.closeCommands(commands);
         }
     }
 
