@@ -51,12 +51,11 @@ public final class DistributedLock {
 
         Objects.requireNonNull(key);
 
+        final long threadId = Thread.currentThread().getId();
         final String effKey = prefix + key + suffix;
-        final String requestId = createRequestId(Thread.currentThread().getId());
+        final String requestId = createRequestId(threadId);
 
-        if (log.isTraceEnabled()) {
-            log.trace("try to lock. key = {}, value = {}", effKey, requestId);
-        }
+        log.trace("try to lock. key = {}, value = {}", effKey, requestId);
 
         final JedisCommands commands = JedisUtils.getJedisCommands();
 
@@ -70,7 +69,7 @@ public final class DistributedLock {
         try {
             val ok = LOCK_SUCCESS.equals(result);
             if (!ok && exceptionThrower != null) {
-                exceptionThrower.raiseIfNotAbleToLock(springId, Thread.currentThread().getId());
+                exceptionThrower.raiseIfNotAbleToLock(springId, threadId);
             }
             return ok;
         } finally {
@@ -85,12 +84,11 @@ public final class DistributedLock {
 
         Objects.requireNonNull(key);
 
+        final long threadId = Thread.currentThread().getId();
         final String effKey = prefix + key + suffix;
-        final String requestId = createRequestId(Thread.currentThread().getId());
+        final String requestId = createRequestId(threadId);
 
-        if (log.isTraceEnabled()) {
-            log.trace("try to release. key = {}, value = {}", effKey, requestId);
-        }
+        log.trace("try to release. key = {}, value = {}", effKey, requestId);
 
         final JedisCommands commands = JedisUtils.getJedisCommands();
 
@@ -107,7 +105,7 @@ public final class DistributedLock {
         try {
             val ok = RELEASE_SUCCESS.equals(result);
             if (!ok && exceptionThrower != null) {
-                exceptionThrower.raiseIfNotAbleToRelease(springId, Thread.currentThread().getId());
+                exceptionThrower.raiseIfNotAbleToRelease(springId, threadId);
             }
             return ok;
         } finally {

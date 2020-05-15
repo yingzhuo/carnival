@@ -31,16 +31,15 @@ public class Props implements Serializable {
     private Sentinel sentinel = new Sentinel();
     private Cluster cluster = new Cluster();
 
-
     @Getter
     @Setter
     public static class Pool implements Serializable {
 
         // 资源池中最大连接数
-        private int maxTotal = 16;
+        private int maxTotal = 8;
 
         // 资源池允许最大空闲的连接数
-        private int maxIdle = 16;
+        private int maxIdle = 8;
 
         // 当资源池用尽后，调用者是否要等待。
         // 只有当为true时，下面的maxWaitMillis才会生效
@@ -78,30 +77,25 @@ public class Props implements Serializable {
     @Getter
     @Setter
     public static class Sentinel implements Serializable {
-
         private String masterName;
         private String password = null;
         private int timeout = 10000;
         private String nodes;
-
     }
 
     @Getter
     @Setter
     public static class Cluster implements Serializable {
-
         private String password = null;
         private String nodes;
         private int connectionTimeoutMillis = 10000;
         private int soTimeoutMillis = 10000;
         private int maxAttempts = 3;
-
     }
 
     @Getter
     @Setter
     public static class Single implements Serializable {
-
         private String host = "localhost";
         private int port = 6379;
         private String password = null;

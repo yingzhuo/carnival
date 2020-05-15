@@ -25,12 +25,6 @@ public class DefaultJedisCommandsHolder implements JedisCommandsHolder, Disposab
     private final JedisSentinelPool jedisSentinelPool;
     private final JedisCluster jedisCluster;
 
-    private DefaultJedisCommandsHolder(JedisPool jedisPool, JedisSentinelPool jedisSentinelPool, JedisCluster jedisCluster) {
-        this.jedisPool = jedisPool;
-        this.jedisSentinelPool = jedisSentinelPool;
-        this.jedisCluster = jedisCluster;
-    }
-
     public DefaultJedisCommandsHolder(JedisPool pool) {
         this(Objects.requireNonNull(pool), null, null);
     }
@@ -41,6 +35,12 @@ public class DefaultJedisCommandsHolder implements JedisCommandsHolder, Disposab
 
     public DefaultJedisCommandsHolder(JedisCluster cluster) {
         this(null, null, Objects.requireNonNull(cluster));
+    }
+
+    private DefaultJedisCommandsHolder(JedisPool jedisPool, JedisSentinelPool jedisSentinelPool, JedisCluster jedisCluster) {
+        this.jedisPool = jedisPool;
+        this.jedisSentinelPool = jedisSentinelPool;
+        this.jedisCluster = jedisCluster;
     }
 
     @Override

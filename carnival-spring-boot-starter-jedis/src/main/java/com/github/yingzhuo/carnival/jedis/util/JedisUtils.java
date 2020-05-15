@@ -26,8 +26,6 @@ public final class JedisUtils {
         return SpringUtils.getBean(JedisCommandsHolder.class).get();
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
     public static void close(JedisCommands commands) {
         SpringUtils.getBean(JedisCommandsHolder.class).close(commands);
     }
