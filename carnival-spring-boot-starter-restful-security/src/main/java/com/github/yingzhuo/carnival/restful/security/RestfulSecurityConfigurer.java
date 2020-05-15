@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
@@ -23,7 +24,7 @@ import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistMan
 public interface RestfulSecurityConfigurer {
 
     public default int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE + 1000;
     }
 
     public default AuthenticationStrategy getAuthenticationStrategy() {

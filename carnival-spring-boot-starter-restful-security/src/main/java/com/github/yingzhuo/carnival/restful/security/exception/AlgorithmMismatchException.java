@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 加密算法不匹配
  *
@@ -17,20 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class AlgorithmMismatchException extends InvalidTokenException {
 
-    public AlgorithmMismatchException() {
-        super();
+    public AlgorithmMismatchException(HttpServletRequest request) {
+        super(request);
     }
 
-    public AlgorithmMismatchException(String message) {
-        super(message);
-    }
-
-    public AlgorithmMismatchException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AlgorithmMismatchException(Throwable cause) {
-        super(cause);
+    public AlgorithmMismatchException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

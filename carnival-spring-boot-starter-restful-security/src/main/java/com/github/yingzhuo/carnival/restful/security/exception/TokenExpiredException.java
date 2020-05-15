@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 令牌过期
  *
@@ -17,20 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class TokenExpiredException extends InvalidTokenException {
 
-    public TokenExpiredException() {
-        super();
+    public TokenExpiredException(HttpServletRequest request) {
+        super(request);
     }
 
-    public TokenExpiredException(String message) {
-        super(message);
-    }
-
-    public TokenExpiredException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public TokenExpiredException(Throwable cause) {
-        super(cause);
+    public TokenExpiredException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

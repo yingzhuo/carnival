@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.norepeated;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.norepeated.parser.HttpParameterNoRepeatedTokenParser;
 import com.github.yingzhuo.carnival.restful.norepeated.parser.NoRepeatedTokenParser;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
@@ -20,7 +21,7 @@ import com.github.yingzhuo.carnival.restful.norepeated.parser.NoRepeatedTokenPar
 public interface NoRepeatedConfigurer {
 
     public default int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE + 800;
     }
 
     public default NoRepeatedTokenParser getNoRepeatedTokenParser() {

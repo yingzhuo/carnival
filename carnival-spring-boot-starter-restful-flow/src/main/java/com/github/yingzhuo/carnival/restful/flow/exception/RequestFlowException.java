@@ -9,17 +9,22 @@
  */
 package com.github.yingzhuo.carnival.restful.flow.exception;
 
+import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  * @since 1.3.6
  */
-public class RequestFlowException extends RuntimeException {
+public class RequestFlowException extends RequestInterruptedException {
 
-    public RequestFlowException() {
+    public RequestFlowException(HttpServletRequest request) {
+        this(null, request);
     }
 
-    public RequestFlowException(String message) {
-        super(message);
+    public RequestFlowException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

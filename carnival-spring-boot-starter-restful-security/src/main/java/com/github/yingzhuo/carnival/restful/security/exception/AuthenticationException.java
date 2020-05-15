@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 认证异常
  *
@@ -17,19 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class AuthenticationException extends RestfulSecurityException {
 
-    public AuthenticationException() {
+    public AuthenticationException(HttpServletRequest request) {
+        super(request);
     }
 
-    public AuthenticationException(String message) {
-        super(message);
-    }
-
-    public AuthenticationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public AuthenticationException(Throwable cause) {
-        super(cause);
+    public AuthenticationException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

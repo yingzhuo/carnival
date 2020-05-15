@@ -52,7 +52,7 @@ public class RequestFlowCoreInterceptor extends AbstractHandlerInterceptorSuppor
 
     public boolean doPreHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
-        val annotation = super.getMethodAnnotation(RequestFlow.class, handler).orElse(null);
+        val annotation = getMethodAnnotation(RequestFlow.class, handler).orElse(null);
 
         if (annotation == null) {
             return true;
@@ -62,11 +62,9 @@ public class RequestFlowCoreInterceptor extends AbstractHandlerInterceptorSuppor
             return true;
         }
 
-        val msg = getMsg(annotation);
-
         final String stepToken = tokenParser.parse(new ServletWebRequest(request, response)).orElse(null);
         if (stepToken == null) {
-            throw new RequestFlowException(msg);
+            throw new RequestFlowException(request);
         }
 
         try {
@@ -81,22 +79,14 @@ public class RequestFlowCoreInterceptor extends AbstractHandlerInterceptorSuppor
             }
 
             if (!Objects.equals(nameInToken, annotation.name()) || !prevSet.contains(stepInToken)) {
-                throw new RequestFlowException(msg);
+                throw new RequestFlowException(request);
             }
 
         } catch (AlgorithmMismatchException | TokenExpiredException | SignatureVerificationException | InvalidClaimException | JWTDecodeException ex) {
-            throw new RequestFlowException(msg);
+            throw new RequestFlowException(request);
         }
 
         return true;
-    }
-
-    private String getMsg(RequestFlow annotation) {
-        if ("".equals(annotation.message())) {
-            return null;
-        } else {
-            return annotation.message();
-        }
     }
 
     public void setAlgorithm(Algorithm algorithm) {

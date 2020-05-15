@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 账号已过期异常
  *
@@ -18,10 +20,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class UserDetailsExpiredException extends AuthenticationException {
 
-    public UserDetailsExpiredException() {
+    public UserDetailsExpiredException(HttpServletRequest request) {
+        super(request);
     }
 
-    public UserDetailsExpiredException(String message) {
-        super(message);
+    public UserDetailsExpiredException(String message, HttpServletRequest request) {
+        super(message, request);
     }
+
 }

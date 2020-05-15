@@ -28,6 +28,4 @@ public @interface RequiresRoles {
 
     public Logical logical() default Logical.ANY;
 
-    public String errorMessage() default ":::<NO MESSAGE>:::";
-
 }

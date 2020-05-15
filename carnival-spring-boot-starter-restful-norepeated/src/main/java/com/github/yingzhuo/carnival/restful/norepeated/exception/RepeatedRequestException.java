@@ -9,17 +9,22 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.exception;
 
+import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  * @since 1.6.7
  */
-public class RepeatedRequestException extends RuntimeException {
+public class RepeatedRequestException extends RequestInterruptedException {
 
-    public RepeatedRequestException() {
+    public RepeatedRequestException(HttpServletRequest request) {
+        this(null, request);
     }
 
-    public RepeatedRequestException(String message) {
-        super(message);
+    public RepeatedRequestException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

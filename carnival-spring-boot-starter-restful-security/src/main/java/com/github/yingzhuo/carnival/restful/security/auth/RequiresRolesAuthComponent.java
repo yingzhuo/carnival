@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.auth;
 import com.github.yingzhuo.carnival.restful.security.Logical;
 import com.github.yingzhuo.carnival.restful.security.RequiresRoles;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
@@ -20,8 +21,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -32,15 +31,15 @@ public class RequiresRolesAuthComponent implements AuthenticationComponent<Requi
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresRoles annotation) throws RestfulSecurityException {
         if (userDetails == null) {
-            throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            throw new AuthenticationException(RestfulSecurityContext.getRequest());
         }
 
         if (userDetails.isLocked()) {
-            throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            throw new UserDetailsLockedException(RestfulSecurityContext.getRequest());
         }
 
         if (userDetails.isExpired()) {
-            throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
+            throw new UserDetailsExpiredException(RestfulSecurityContext.getRequest());
         }
 
         final List<String> require = Arrays.asList(annotation.value());
@@ -48,11 +47,11 @@ public class RequiresRolesAuthComponent implements AuthenticationComponent<Requi
 
         if (annotation.logical() == Logical.ANY) {
             if (require.stream().noneMatch(actual::contains)) {
-                throw new AuthorizationException(getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(RestfulSecurityContext.getRequest());
             }
         } else {
             if (!actual.containsAll(require)) {
-                throw new AuthorizationException(getMessage(annotation.errorMessage()));
+                throw new AuthorizationException(RestfulSecurityContext.getRequest());
             }
         }
     }

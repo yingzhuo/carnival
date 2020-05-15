@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 /**
@@ -25,6 +26,7 @@ public final class RestfulSecurityContext {
     private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<SkipReason> skipReasonHolder = ThreadLocal.withInitial(() -> null);
+    private final static ThreadLocal<HttpServletRequest> requestHolder = ThreadLocal.withInitial(() -> null);
 
     private RestfulSecurityContext() {
     }
@@ -33,32 +35,40 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(tokenHolder.get());
     }
 
-    static void setToken(Token token) {
-        tokenHolder.set(token);
-    }
 
     public static Optional<UserDetails> getUserDetails() {
         return Optional.ofNullable(userDetailsHolder.get());
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    static void setUserDetails(UserDetails userDetails) {
-        userDetailsHolder.set(userDetails);
     }
 
     public static Optional<SkipReason> getSkipReason() {
         return Optional.ofNullable(skipReasonHolder.get());
     }
 
+    public static HttpServletRequest getRequest() {
+        return requestHolder.get();
+    }
+
     static void setSkipReason(SkipReason reason) {
         skipReasonHolder.set(reason);
+    }
+
+    static void setRequest(HttpServletRequest request) {
+        requestHolder.set(request);
+    }
+
+    static void setUserDetails(UserDetails userDetails) {
+        userDetailsHolder.set(userDetails);
+    }
+
+    static void setToken(Token token) {
+        tokenHolder.set(token);
     }
 
     static void clean() {
         tokenHolder.remove();
         userDetailsHolder.remove();
         skipReasonHolder.remove();
+        requestHolder.remove();
     }
 
 }

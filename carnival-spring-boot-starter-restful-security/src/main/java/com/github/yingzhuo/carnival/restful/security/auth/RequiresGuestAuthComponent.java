@@ -11,12 +11,11 @@ package com.github.yingzhuo.carnival.restful.security.auth;
 
 import com.github.yingzhuo.carnival.restful.security.RequiresGuest;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-
-import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -27,7 +26,7 @@ public class RequiresGuestAuthComponent implements AuthenticationComponent<Requi
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresGuest annotation) throws RestfulSecurityException {
         if (userDetails != null) {
-            throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            throw new AuthenticationException(RestfulSecurityContext.getRequest());
         }
     }
 

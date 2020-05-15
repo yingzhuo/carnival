@@ -60,7 +60,7 @@ public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
 
         // 解析不出Token则抛出异常退出
         if (!tokenOption.isPresent()) {
-            throw new NoTokenFoundException(getMessage(annotation));
+            throw new NoTokenFoundException(request);
         }
 
         val commands = JedisUtils.getCommands();
@@ -71,7 +71,7 @@ public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
             if ("1".equals(count)) {
                 commands.del(tokenOption.get());
             } else {
-                throw new RepeatedRequestException(getMessage(annotation));
+                throw new RepeatedRequestException(request);
             }
         } finally {
             JedisUtils.closeCommands(commands);
@@ -84,11 +84,6 @@ public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
         }
 
         return super.getMethodOrClassAnnotation(NoRepeated.class, handler).orElse(null);
-    }
-
-    private String getMessage(NoRepeated annotation) {
-        val msg = annotation.message();
-        return "".equals(msg) ? null : msg;
     }
 
     public void setExceptionTransformer(ExceptionTransformer exceptionTransformer) {

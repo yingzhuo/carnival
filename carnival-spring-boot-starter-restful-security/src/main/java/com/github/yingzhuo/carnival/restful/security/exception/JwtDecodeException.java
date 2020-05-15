@@ -9,25 +9,18 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  */
 public class JwtDecodeException extends InvalidTokenException {
 
-    public JwtDecodeException() {
-        super();
+    public JwtDecodeException(HttpServletRequest request) {
+        super(request);
     }
 
-    public JwtDecodeException(String message) {
-        super(message);
+    public JwtDecodeException(String message, HttpServletRequest request) {
+        super(message, request);
     }
-
-    public JwtDecodeException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public JwtDecodeException(Throwable cause) {
-        super(cause);
-    }
-
 }

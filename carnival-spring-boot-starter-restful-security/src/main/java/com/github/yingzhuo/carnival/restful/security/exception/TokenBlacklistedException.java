@@ -11,26 +11,27 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 
-import java.util.Objects;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 应卓
  */
 public class TokenBlacklistedException extends AuthenticationException {
 
-    private final Token token;
+    private final Token Token;
 
-    public TokenBlacklistedException(Token token) {
-        this.token = Objects.requireNonNull(token);
+    public TokenBlacklistedException(HttpServletRequest request, Token token) {
+        super(request);
+        Token = token;
     }
 
-    public TokenBlacklistedException(Token token, String message) {
-        super(message);
-        this.token = token;
+    public TokenBlacklistedException(String message, HttpServletRequest request, Token token) {
+        super(message, request);
+        Token = token;
     }
 
-    public Token getToken() {
-        return token;
+    public com.github.yingzhuo.carnival.restful.security.token.Token getToken() {
+        return Token;
     }
 
 }

@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.flow.parser.FlowTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.parser.HttpParameterFlowTokenParser;
 import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerator;
 import com.github.yingzhuo.carnival.restful.flow.signature.AlgorithmGenerators;
+import org.springframework.core.Ordered;
 
 import java.time.Duration;
 
@@ -25,7 +26,7 @@ import java.time.Duration;
 public interface RestfulFlowConfigurer {
 
     public default int getOrder() {
-        return 0;
+        return Ordered.HIGHEST_PRECEDENCE + 900;
     }
 
     public default FlowTokenParser getFlowTokenParser() {

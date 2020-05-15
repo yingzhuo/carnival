@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 账号被锁定异常
  *
@@ -17,18 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class UserDetailsLockedException extends AuthorizationException {
 
-    public UserDetailsLockedException() {
+    public UserDetailsLockedException(HttpServletRequest request) {
+        super(request);
     }
 
-    public UserDetailsLockedException(String message) {
-        super(message);
+    public UserDetailsLockedException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
-    public UserDetailsLockedException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public UserDetailsLockedException(Throwable cause) {
-        super(cause);
-    }
 }

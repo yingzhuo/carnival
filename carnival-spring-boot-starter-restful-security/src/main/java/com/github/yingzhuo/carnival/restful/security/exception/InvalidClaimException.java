@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Claim非法
  *
@@ -17,20 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class InvalidClaimException extends InvalidTokenException {
 
-    public InvalidClaimException() {
-        super();
+    public InvalidClaimException(HttpServletRequest request) {
+        super(request);
     }
 
-    public InvalidClaimException(String message) {
-        super(message);
-    }
-
-    public InvalidClaimException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public InvalidClaimException(Throwable cause) {
-        super(cause);
+    public InvalidClaimException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

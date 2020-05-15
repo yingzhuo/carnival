@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.restful.security.exception;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  */
@@ -20,12 +22,14 @@ public class TokenNotWhitelistedException extends AuthenticationException {
     private final Token token;
     private final UserDetails userDetails;
 
-    public TokenNotWhitelistedException(Token token, UserDetails userDetails) {
-        this(token, userDetails, null);
+    public TokenNotWhitelistedException(HttpServletRequest request, Token token, UserDetails userDetails) {
+        super(request);
+        this.token = token;
+        this.userDetails = userDetails;
     }
 
-    public TokenNotWhitelistedException(Token token, UserDetails userDetails, String message) {
-        super(message);
+    public TokenNotWhitelistedException(String message, HttpServletRequest request, Token token, UserDetails userDetails) {
+        super(message, request);
         this.token = token;
         this.userDetails = userDetails;
     }

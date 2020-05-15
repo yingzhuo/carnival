@@ -26,6 +26,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -88,7 +89,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     }
 
     private int getOrder() {
-        return configurer != null ? configurer.getOrder() : 0;
+        return configurer != null ? configurer.getOrder() : Ordered.HIGHEST_PRECEDENCE + 1000;
     }
 
     private AuthenticationStrategy getAuthenticationStrategy() {

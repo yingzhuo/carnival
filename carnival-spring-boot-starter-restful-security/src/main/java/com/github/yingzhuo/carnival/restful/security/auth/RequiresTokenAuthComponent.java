@@ -11,12 +11,11 @@ package com.github.yingzhuo.carnival.restful.security.auth;
 
 import com.github.yingzhuo.carnival.restful.security.RequiresToken;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenNotFoundException;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-
-import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -27,7 +26,7 @@ public class RequiresTokenAuthComponent implements AuthenticationComponent<Requi
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresToken annotation) throws RestfulSecurityException {
         if (token == null) {
-            throw new TokenNotFoundException(getMessage(annotation.errorMessage()));
+            throw new TokenNotFoundException(RestfulSecurityContext.getRequest());
         }
     }
 

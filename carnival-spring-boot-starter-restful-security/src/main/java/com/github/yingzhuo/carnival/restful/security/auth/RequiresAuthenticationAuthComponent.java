@@ -11,14 +11,13 @@ package com.github.yingzhuo.carnival.restful.security.auth;
 
 import com.github.yingzhuo.carnival.restful.security.RequiresAuthentication;
 import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationComponent;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsExpiredException;
 import com.github.yingzhuo.carnival.restful.security.exception.UserDetailsLockedException;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-
-import static com.github.yingzhuo.carnival.restful.security.auth.MessageUtils.getMessage;
 
 /**
  * @author 应卓
@@ -29,15 +28,15 @@ public class RequiresAuthenticationAuthComponent implements AuthenticationCompon
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
         if (userDetails == null) {
-            throw new AuthenticationException(getMessage(annotation.errorMessage()));
+            throw new AuthenticationException(RestfulSecurityContext.getRequest());
         }
 
         if (userDetails.isLocked()) {
-            throw new UserDetailsLockedException(getMessage(annotation.errorMessage()));
+            throw new UserDetailsLockedException(RestfulSecurityContext.getRequest());
         }
 
         if (userDetails.isExpired()) {
-            throw new UserDetailsExpiredException(getMessage(annotation.errorMessage()));
+            throw new UserDetailsExpiredException(RestfulSecurityContext.getRequest());
         }
     }
 

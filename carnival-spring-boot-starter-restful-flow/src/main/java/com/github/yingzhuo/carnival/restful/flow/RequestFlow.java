@@ -24,6 +24,4 @@ public @interface RequestFlow {
 
     public int[] prevStep() default {};
 
-    public String message() default "";
-
 }

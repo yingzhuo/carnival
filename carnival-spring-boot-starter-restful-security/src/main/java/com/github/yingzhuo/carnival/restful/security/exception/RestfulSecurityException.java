@@ -9,24 +9,21 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
+
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  */
-public class RestfulSecurityException extends RuntimeException {
+public class RestfulSecurityException extends RequestInterruptedException {
 
-    public RestfulSecurityException() {
+    public RestfulSecurityException(HttpServletRequest request) {
+        this(null, request);
     }
 
-    public RestfulSecurityException(String message) {
-        super(message);
-    }
-
-    public RestfulSecurityException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public RestfulSecurityException(Throwable cause) {
-        super(cause);
+    public RestfulSecurityException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

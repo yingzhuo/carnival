@@ -51,6 +51,7 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     @SuppressWarnings("unchecked")
     private boolean doPreHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         RestfulSecurityContext.clean();
+        RestfulSecurityContext.setRequest(request);
 
         if (!(handler instanceof HandlerMethod)) {
             return true;
@@ -79,7 +80,7 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
             RestfulSecurityContext.setToken(token);
 
             if (tokenBlacklistManager != null && tokenBlacklistManager.isBlacklisted(token)) {
-                throw new TokenBlacklistedException(token);
+                throw new TokenBlacklistedException(request, token);
             }
 
             Optional<UserDetails> userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
@@ -106,6 +107,7 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
             if (!tokenWhitelistManager.isWhitelisted(RestfulSecurityContext.getToken().orElse(null),
                     RestfulSecurityContext.getUserDetails().orElse(null))) {
                 throw new TokenNotWhitelistedException(
+                        request,
                         RestfulSecurityContext.getToken().orElse(null),
                         RestfulSecurityContext.getUserDetails().orElse(null)
                 );

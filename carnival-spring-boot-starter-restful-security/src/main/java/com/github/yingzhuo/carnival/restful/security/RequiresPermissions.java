@@ -27,7 +27,4 @@ public @interface RequiresPermissions {
     public String[] value();
 
     public Logical logical() default Logical.ANY;
-
-    public String errorMessage() default ":::<NO MESSAGE>:::";
-
 }

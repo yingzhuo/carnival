@@ -23,7 +23,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresGuestAuthComponent.class)
 public @interface RequiresGuest {
-
-    public String errorMessage() default ":::<NO MESSAGE>:::";
-
 }

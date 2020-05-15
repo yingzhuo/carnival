@@ -24,7 +24,4 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresAuthenticationAuthComponent.class)
 public @interface RequiresAuthentication {
-
-    public String errorMessage() default ":::<NO MESSAGE>:::";
-
 }

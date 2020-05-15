@@ -9,25 +9,19 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  */
 public class InvalidTokenException extends AuthenticationException {
 
-    public InvalidTokenException() {
-        super();
+    public InvalidTokenException(HttpServletRequest request) {
+        super(request);
     }
 
-    public InvalidTokenException(String message) {
-        super(message);
-    }
-
-    public InvalidTokenException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public InvalidTokenException(Throwable cause) {
-        super(cause);
+    public InvalidTokenException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

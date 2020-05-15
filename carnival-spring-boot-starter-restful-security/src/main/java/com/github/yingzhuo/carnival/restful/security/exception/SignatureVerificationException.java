@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 签名错误
  *
@@ -17,20 +19,12 @@ package com.github.yingzhuo.carnival.restful.security.exception;
  */
 public class SignatureVerificationException extends InvalidTokenException {
 
-    public SignatureVerificationException() {
-        super();
+    public SignatureVerificationException(HttpServletRequest request) {
+        super(request);
     }
 
-    public SignatureVerificationException(String message) {
-        super(message);
-    }
-
-    public SignatureVerificationException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public SignatureVerificationException(Throwable cause) {
-        super(cause);
+    public SignatureVerificationException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }

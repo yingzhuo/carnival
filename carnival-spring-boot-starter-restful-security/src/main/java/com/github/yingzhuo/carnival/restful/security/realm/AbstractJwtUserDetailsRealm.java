@@ -13,6 +13,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.*;
 import com.github.yingzhuo.carnival.restful.security.factory.AlgorithmFactory;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
@@ -41,19 +42,19 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, A
             try {
                 return Optional.ofNullable(getUserDetails(token, verifier.verify(tokenValue)));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
-                throw new AlgorithmMismatchException(ex.getMessage(), ex);
+                throw new AlgorithmMismatchException(RestfulSecurityContext.getRequest());
             } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {
-                throw new TokenExpiredException(ex.getMessage(), ex);
+                throw new TokenExpiredException(RestfulSecurityContext.getRequest());
             } catch (com.auth0.jwt.exceptions.SignatureVerificationException ex) {
-                throw new SignatureVerificationException(ex.getMessage(), ex);
+                throw new SignatureVerificationException(RestfulSecurityContext.getRequest());
             } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
-                throw new InvalidClaimException(ex.getMessage(), ex);
+                throw new InvalidClaimException(RestfulSecurityContext.getRequest());
             } catch (com.auth0.jwt.exceptions.JWTDecodeException ex) {
-                throw new JwtDecodeException(ex.getMessage(), ex);
+                throw new JwtDecodeException(RestfulSecurityContext.getRequest());
             }
         }
 
-        throw new UnsupportedTokenTypeException();
+        return Optional.empty();
     }
 
     protected abstract UserDetails getUserDetails(Token token, DecodedJWT jwt);

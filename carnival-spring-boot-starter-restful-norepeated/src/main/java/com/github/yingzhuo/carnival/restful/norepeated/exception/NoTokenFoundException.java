@@ -9,17 +9,20 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.exception;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author 应卓
  * @since 1.6.7
  */
 public class NoTokenFoundException extends RepeatedRequestException {
 
-    public NoTokenFoundException() {
+    public NoTokenFoundException(HttpServletRequest request) {
+        super(request);
     }
 
-    public NoTokenFoundException(String message) {
-        super(message);
+    public NoTokenFoundException(String message, HttpServletRequest request) {
+        super(message, request);
     }
 
 }
