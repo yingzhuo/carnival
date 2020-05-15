@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.jedis.lock;
 
 import com.github.yingzhuo.carnival.jedis.lock.props.Props;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -27,9 +28,18 @@ public class JedisLockCoreAutoConfig implements ApplicationRunner {
     @Autowired
     private Props props;
 
+    @Autowired(required = false)
+    private DistributedLockExceptionThrower exceptionThrower;
+
     @Override
     public void run(ApplicationArguments args) {
-        DistributedLock.enabled = props.isEnabled();    // 开关用这种别扭的方式实现 :(
+        // 初始化工具类静态部分
+        DistributedLock.enabled = props.isEnabled();
+        DistributedLock.prefix = props.getRedisKey().getPrefix();
+        DistributedLock.suffix = props.getRedisKey().getSuffix();
+        DistributedLock.springId = SpringUtils.getSpringId();
+        DistributedLock.timeToLive = props.getTimeToLive().toMillis();
+        DistributedLock.exceptionThrower = exceptionThrower;
     }
 
 }

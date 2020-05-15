@@ -18,11 +18,11 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  */
 public final class NoRepeatedToken {
 
-    public static String create() {
-        return SpringUtils.getBean(NoRepeatedTokenFactory.class).create();
+    private NoRepeatedToken() {
     }
 
-    private NoRepeatedToken() {
+    public static String create() {
+        return SpringUtils.getBean(NoRepeatedTokenFactory.class).create();
     }
 
 }

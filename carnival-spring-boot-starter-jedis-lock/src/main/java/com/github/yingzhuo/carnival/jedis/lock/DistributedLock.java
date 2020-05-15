@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.jedis.lock;
 
-import com.github.yingzhuo.carnival.jedis.lock.props.Props;
 import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisCommands;
@@ -21,7 +20,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 /**
- * Redis实现分布式锁
+ * 分布式锁
  *
  * @author 应卓
  * @since 1.6.7
@@ -29,12 +28,18 @@ import java.util.Objects;
 @Slf4j
 public final class DistributedLock {
 
-    static boolean enabled = true;
-
     private final static String LOCK_SUCCESS = "OK";
+    private final static Long RELEASE_SUCCESS = 1L;
     private final static String SET_IF_NOT_EXIST = "NX";
     private final static String SET_WITH_EXPIRE_TIME = "PX";
-    private final static Long RELEASE_SUCCESS = 1L;
+
+    // 待初始化
+    static boolean enabled = false;
+    static String prefix;
+    static String suffix;
+    static String springId;
+    static long timeToLive; // 毫秒
+    static DistributedLockExceptionThrower exceptionThrower;
 
     private DistributedLock() {
     }
@@ -46,11 +51,8 @@ public final class DistributedLock {
 
         Objects.requireNonNull(key);
 
-        final String prefix = SpringUtils.getBean(Props.class).getRedisKey().getPrefix();
-        final String suffix = SpringUtils.getBean(Props.class).getRedisKey().getSuffix();
         final String effKey = prefix + key + suffix;
-        final String requestId = createRequestId(SpringUtils.getSpringId(), Thread.currentThread().getId());
-        final long expireInMillis = SpringUtils.getBean(Props.class).getTimeToLive().toMillis();
+        final String requestId = createRequestId(Thread.currentThread().getId());
 
         if (log.isTraceEnabled()) {
             log.trace("try to lock. key = {}, value = {}", effKey, requestId);
@@ -63,10 +65,14 @@ public final class DistributedLock {
                 requestId,
                 SET_IF_NOT_EXIST,
                 SET_WITH_EXPIRE_TIME,
-                expireInMillis);
+                timeToLive);
 
         try {
-            return LOCK_SUCCESS.equals(result);
+            val ok = LOCK_SUCCESS.equals(result);
+            if (!ok && exceptionThrower != null) {
+                exceptionThrower.raiseIfNotAbleToLock(springId, Thread.currentThread().getId());
+            }
+            return ok;
         } finally {
             JedisUtils.close(commands);
         }
@@ -79,10 +85,8 @@ public final class DistributedLock {
 
         Objects.requireNonNull(key);
 
-        final String prefix = SpringUtils.getBean(Props.class).getRedisKey().getPrefix();
-        final String suffix = SpringUtils.getBean(Props.class).getRedisKey().getSuffix();
         final String effKey = prefix + key + suffix;
-        final String requestId = createRequestId(SpringUtils.getSpringId(), Thread.currentThread().getId());
+        final String requestId = createRequestId(Thread.currentThread().getId());
 
         if (log.isTraceEnabled()) {
             log.trace("try to release. key = {}, value = {}", effKey, requestId);
@@ -101,7 +105,11 @@ public final class DistributedLock {
         }
 
         try {
-            return RELEASE_SUCCESS.equals(result);
+            val ok = RELEASE_SUCCESS.equals(result);
+            if (!ok && exceptionThrower != null) {
+                exceptionThrower.raiseIfNotAbleToRelease(springId, Thread.currentThread().getId());
+            }
+            return ok;
         } finally {
             JedisUtils.close(commands);
         }
@@ -143,10 +151,8 @@ public final class DistributedLock {
         waitAndRun(String.valueOf(key), runnable);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-    private static String createRequestId(String springId, long threadId) {
-        return Objects.requireNonNull(springId) + "." + threadId;
+    private static String createRequestId(long threadId) {
+        return springId + "." + threadId;
     }
 
 }

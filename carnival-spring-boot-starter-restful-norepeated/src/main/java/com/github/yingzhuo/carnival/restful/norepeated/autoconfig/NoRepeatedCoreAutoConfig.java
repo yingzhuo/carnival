@@ -55,7 +55,7 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
     @Bean
     public NoRepeatedTokenFactory noRepeatedTokenFactory(Props props) {
         return new NoRepeatedTokenFactoryImpl(
-                props.getToken().getTtl(),
+                props.getToken().getTimeToLive(),
                 props.getRedisKey().getPrefix(),
                 props.getRedisKey().getSuffix()
         );
@@ -101,7 +101,7 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
     @Setter
     static class Token implements Serializable {
         @DurationUnit(ChronoUnit.SECONDS)
-        private Duration ttl = Duration.ofMinutes(5L);
+        private Duration timeToLive = Duration.ofMinutes(5L);
     }
 
     @Getter

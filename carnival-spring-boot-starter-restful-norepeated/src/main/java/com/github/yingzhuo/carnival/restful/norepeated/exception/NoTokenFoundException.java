@@ -14,4 +14,12 @@ package com.github.yingzhuo.carnival.restful.norepeated.exception;
  * @since 1.6.7
  */
 public class NoTokenFoundException extends RepeatedRequestException {
+
+    public NoTokenFoundException() {
+    }
+
+    public NoTokenFoundException(String message) {
+        super(message);
+    }
+
 }

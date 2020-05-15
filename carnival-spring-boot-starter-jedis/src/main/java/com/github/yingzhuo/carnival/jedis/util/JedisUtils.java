@@ -19,17 +19,17 @@ import redis.clients.jedis.JedisCommands;
  */
 public final class JedisUtils {
 
+    private JedisUtils() {
+    }
+
     public static JedisCommands getJedisCommands() {
         return SpringUtils.getBean(JedisCommandsHolder.class).get();
     }
 
-    public static void close(JedisCommands commands) {
-        SpringUtils.getBean(JedisCommandsHolder.class).close(commands);
-    }
-
     // ----------------------------------------------------------------------------------------------------------------
 
-    private JedisUtils() {
+    public static void close(JedisCommands commands) {
+        SpringUtils.getBean(JedisCommandsHolder.class).close(commands);
     }
 
 }

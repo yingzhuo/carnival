@@ -22,6 +22,7 @@ import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -51,7 +52,8 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
 
         // 查找元注释NoRepeated
         // 没有元注释直接退出
-        if (!hasToken(handler)) {
+        val annotation = getToken(handler);
+        if (annotation == null) {
             return;
         }
 
@@ -59,7 +61,7 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
 
         // 解析不出Token则抛出异常退出
         if (!tokenOption.isPresent()) {
-            throw new NoTokenFoundException();
+            throw new NoTokenFoundException(getMessage(annotation));
         }
 
         val commands = JedisUtils.getJedisCommands();
@@ -70,18 +72,30 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
             if ("1".equals(count)) {
                 commands.del(tokenOption.get());
             } else {
-                throw new RepeatedRequestException();
+                throw new RepeatedRequestException(getMessage(annotation));
             }
         } finally {
             JedisUtils.close(commands);
         }
     }
 
-    private boolean hasToken(Object handler) {
+    private NoRepeated getToken(Object handler) {
         if (!(handler instanceof HandlerMethod)) {
-            return false;
+            return null;
         }
-        return hasMethodAnnotation(NoRepeated.class, handler) || hasClassAnnotation(NoRepeated.class, handler);
+
+        Optional<NoRepeated> token = super.getMethodAnnotation(NoRepeated.class, handler);
+        if (token.isPresent()) {
+            return token.get();
+        }
+
+        token = super.getClassAnnotation(NoRepeated.class, handler);
+        return token.orElse(null);
+    }
+
+    private String getMessage(NoRepeated annotation) {
+        val msg = annotation.message();
+        return "".equals(msg) ? null : msg;
     }
 
     public void setExceptionTransformer(ExceptionTransformer exceptionTransformer) {
