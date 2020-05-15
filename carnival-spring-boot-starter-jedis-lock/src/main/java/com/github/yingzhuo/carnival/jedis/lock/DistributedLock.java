@@ -18,6 +18,8 @@ import redis.clients.jedis.JedisCommands;
 
 import java.util.Collections;
 import java.util.Objects;
+import java.util.Stack;
+import java.util.stream.Stream;
 
 /**
  * 分布式锁
@@ -127,6 +129,100 @@ public final class DistributedLock {
 
     public static boolean release(int key) {
         return release(String.valueOf(key));
+    }
+
+    public static boolean lock(String... keys) {
+        final Stack<String> locked = new Stack<>();
+        boolean result = true;
+
+        for (String key : keys) {
+            boolean success = lockQuietly(key);
+            if (success) {
+                locked.add(key);
+            } else {
+                result = false;
+                break;
+            }
+        }
+
+        if (!result) {
+            while (!locked.isEmpty()) {
+                releaseQuietly(locked.pop());
+            }
+
+            if (exceptionThrower != null) {
+                exceptionThrower.raiseIfNotAbleToLock(springId, Thread.currentThread().getId());
+            }
+        }
+
+        return result;
+    }
+
+    public static boolean release(String... keys) {
+        boolean result = true;
+        for (String key : keys) {
+            if (!releaseQuietly(key)) {
+                result = false;
+            }
+        }
+
+        if (!result && exceptionThrower != null) {
+            exceptionThrower.raiseIfNotAbleToRelease(springId, Thread.currentThread().getId());
+        }
+
+        return result;
+    }
+
+    public static boolean lock(Lockable... keys) {
+        return lock(Stream.of(keys)
+                .map(Lockable::toLockableKey)
+                .toArray(String[]::new));
+    }
+
+    public static boolean release(Lockable... keys) {
+        return release(Stream.of(keys)
+                .map(Lockable::toLockableKey)
+                .toArray(String[]::new));
+    }
+
+    public static boolean lock(int... keys) {
+        return lock(Stream.of(keys)
+                .map(String::valueOf)
+                .toArray(String[]::new));
+    }
+
+    public static boolean release(int... keys) {
+        return release(Stream.of(keys)
+                .map(String::valueOf)
+                .toArray(String[]::new));
+    }
+
+    public static boolean lock(long... keys) {
+        return lock(Stream.of(keys)
+                .map(String::valueOf)
+                .toArray(String[]::new));
+    }
+
+    public static boolean release(long... keys) {
+        return release(Stream.of(keys)
+                .map(String::valueOf)
+                .toArray(String[]::new));
+    }
+
+    private static boolean lockQuietly(String key) {
+        try {
+            return lock(key);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private static boolean releaseQuietly(String key) {
+        try {
+            return release(key);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public static boolean lock(Lockable lockable) {
