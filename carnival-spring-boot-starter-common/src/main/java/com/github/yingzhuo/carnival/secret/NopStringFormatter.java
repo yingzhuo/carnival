@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.datamodel.support;
+package com.github.yingzhuo.carnival.secret;
 
 import org.springframework.format.Formatter;
 
@@ -16,7 +16,7 @@ import java.util.Locale;
 /**
  * @author 应卓
  */
-public final class NopStringFormatter implements Formatter<String> {
+final class NopStringFormatter implements Formatter<String> {
 
     public static final Formatter<String> INSTANCE = new NopStringFormatter();
 

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.datasource.fork;
 
-import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ import javax.sql.DataSource;
  * @since 1.6.0
  */
 @Slf4j
-public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
+public class ForkDataSourceInterceptor extends AbstractHandlerInterceptorSupport {
 
     private final ForkDataSource forkDataSource;
 
@@ -39,7 +39,7 @@ public class ForkDataSourceInterceptor extends HandlerInterceptorSupport {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        ForkDataSourceSwitch annotation = super.getMethodAnnotation(ForkDataSourceSwitch.class, handler).orElse(null);
+        final ForkDataSourceSwitch annotation = super.getMethodOrClassAnnotation(ForkDataSourceSwitch.class, handler).orElse(null);
         if (annotation != null && forkDataSource != null) {
             log.trace("datasource switch to {}", annotation.value());
             forkDataSource.getLookup().set(annotation.value());

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.support;
 
-import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.mvc.NoDebug;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -28,7 +28,7 @@ import java.util.Enumeration;
  * @author 应卓
  */
 @Slf4j
-public class DebugMvcInterceptor extends HandlerInterceptorSupport {
+public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -37,8 +37,7 @@ public class DebugMvcInterceptor extends HandlerInterceptorSupport {
             return true;
         }
 
-        // since 1.6.2
-        if (hasMethodAnnotation(NoDebug.class, handler) || hasClassAnnotation(NoDebug.class, handler)) {
+        if (hasMethodOrClassAnnotation(NoDebug.class, handler)) {
             return true;
         }
 

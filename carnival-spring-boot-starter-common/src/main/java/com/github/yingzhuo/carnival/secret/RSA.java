@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.common.datamodel.support.NopStringFormatter;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;

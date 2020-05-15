@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.core;
 
-import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import com.github.yingzhuo.carnival.restful.norepeated.NoRepeated;
@@ -22,13 +22,12 @@ import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.6.7
  */
-public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
+public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
 
     private NoRepeatedTokenParser tokenParser;
     private ExceptionTransformer exceptionTransformer;
@@ -84,13 +83,7 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
             return null;
         }
 
-        Optional<NoRepeated> token = super.getMethodAnnotation(NoRepeated.class, handler);
-        if (token.isPresent()) {
-            return token.get();
-        }
-
-        token = super.getClassAnnotation(NoRepeated.class, handler);
-        return token.orElse(null);
+        return super.getMethodOrClassAnnotation(NoRepeated.class, handler).orElse(null);
     }
 
     private String getMessage(NoRepeated annotation) {

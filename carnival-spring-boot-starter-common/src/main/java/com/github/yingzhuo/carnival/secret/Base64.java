@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.secret;
 
-import com.github.yingzhuo.carnival.common.datamodel.support.NopStringFormatter;
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
 import org.springframework.format.Printer;

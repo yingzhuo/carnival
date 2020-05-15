@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
+import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.SkipReason;
@@ -38,7 +38,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
+public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSupport {
 
     private AuthenticationStrategy authenticationStrategy;
     private TokenParser tokenParser;
@@ -60,7 +60,7 @@ public class RestfulSecurityInterceptor extends HandlerInterceptorSupport {
 
         val handlerMethod = (HandlerMethod) handler;
 
-        if (hasMethodAnnotation(IgnoreToken.class, handler) || hasClassAnnotation(IgnoreToken.class, handler)) {
+        if (hasMethodOrClassAnnotation(IgnoreToken.class, handler)) {
             RestfulSecurityContext.setSkipReason(new SkipReason(true, SkipReason.TokenAbsent.UNKNOWN)); // 记录跳过理由
             return true;
         }

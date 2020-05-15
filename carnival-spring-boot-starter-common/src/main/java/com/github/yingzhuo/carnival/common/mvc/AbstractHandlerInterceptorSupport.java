@@ -19,7 +19,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
+public abstract class AbstractHandlerInterceptorSupport implements HandlerInterceptor {
 
     protected final <A extends Annotation> Optional<A> getMethodAnnotation(Class<A> annotationType, Object handler) {
         Objects.requireNonNull(handler);
@@ -53,6 +53,20 @@ public abstract class HandlerInterceptorSupport implements HandlerInterceptor {
 
     protected final <A extends Annotation> boolean hasClassAnnotation(Class<A> annotationType, Object handler) {
         return getClassAnnotation(annotationType, handler).isPresent();
+    }
+
+    protected final <A extends Annotation> boolean hasMethodOrClassAnnotation(Class<A> annotationType, Object handler) {
+        return getMethodOrClassAnnotation(annotationType, handler).isPresent();
+    }
+
+    protected final <A extends Annotation> Optional<A> getMethodOrClassAnnotation(Class<A> annotationType, Object handler) {
+        Optional<A> optional = getMethodAnnotation(annotationType, handler);
+
+        if (optional.isPresent()) {
+            return optional;
+        }
+
+        return getClassAnnotation(annotationType, handler);
     }
 
 }
