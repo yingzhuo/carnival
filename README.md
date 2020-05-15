@@ -18,15 +18,17 @@
 * [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
-* [carnival-spring-boot-starter-distributed-lock](./carnival-spring-boot-starter-distributed-lock)
 * [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
+* [carnival-spring-boot-starter-jedis](./carnival-spring-boot-starter-jedis)
+* [carnival-spring-boot-starter-jedis-lock](./carnival-spring-boot-starter-jedis-lock)
 * [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
 * [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)
 * [carnival-spring-boot-starter-mvc](./carnival-spring-boot-starter-mvc)
 * [carnival-spring-boot-starter-password](./carnival-spring-boot-starter-password)
 * [carnival-spring-boot-starter-patchca](./carnival-spring-boot-starter-patchca)
 * [carnival-spring-boot-starter-restful-flow](./carnival-spring-boot-starter-restful-flow)
+* [carnival-spring-boot-starter-restful-norepeated](./carnival-spring-boot-starter-restful-norepeated)
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 
 ### Contributing

@@ -11,12 +11,11 @@ package com.github.yingzhuo.carnival.restful.norepeated.core;
 
 import com.github.yingzhuo.carnival.common.mvc.HandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
+import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import com.github.yingzhuo.carnival.restful.norepeated.NoRepeated;
 import com.github.yingzhuo.carnival.restful.norepeated.exception.NoTokenFoundException;
 import com.github.yingzhuo.carnival.restful.norepeated.exception.RepeatedRequestException;
 import com.github.yingzhuo.carnival.restful.norepeated.parser.NoRepeatedTokenParser;
-import com.github.yingzhuo.carnival.restful.norepeated.support.JedisCommandsFinder;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.val;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
@@ -63,13 +62,18 @@ public class NoRepeatedInterceptor extends HandlerInterceptorSupport {
             throw new NoTokenFoundException();
         }
 
-        val jedis = SpringUtils.getBean(JedisCommandsFinder.class).find();
+        val commands = JedisUtils.getJedisCommands();
 
-        String count = jedis.get(tokenOption.get());
-        if ("1".equals(count)) {
-            jedis.del(tokenOption.get());
-        } else {
-            throw new RepeatedRequestException();
+        try {
+            String count = commands.get(tokenOption.get());
+
+            if ("1".equals(count)) {
+                commands.del(tokenOption.get());
+            } else {
+                throw new RepeatedRequestException();
+            }
+        } finally {
+            JedisUtils.close(commands);
         }
     }
 

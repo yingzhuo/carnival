@@ -7,7 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.norepeated.factory;
+package com.github.yingzhuo.carnival.jedis;
+
+import redis.clients.jedis.JedisCommands;
 
 import java.util.function.Supplier;
 
@@ -15,14 +17,11 @@ import java.util.function.Supplier;
  * @author 应卓
  * @since 1.6.7
  */
-@FunctionalInterface
-public interface NoRepeatedTokenFactory extends Supplier<String> {
-
-    public String create();
+public interface JedisCommandsHolder extends Supplier<JedisCommands> {
 
     @Override
-    public default String get() {
-        return create();
-    }
+    public JedisCommands get();
+
+    public void close(JedisCommands commands);
 
 }

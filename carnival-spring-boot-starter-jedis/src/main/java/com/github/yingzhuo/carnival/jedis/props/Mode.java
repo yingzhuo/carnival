@@ -7,22 +7,27 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.norepeated.factory;
-
-import java.util.function.Supplier;
+package com.github.yingzhuo.carnival.jedis.props;
 
 /**
  * @author 应卓
  * @since 1.6.7
  */
-@FunctionalInterface
-public interface NoRepeatedTokenFactory extends Supplier<String> {
+public enum Mode {
 
-    public String create();
+    /**
+     * 单节点模式
+     */
+    SINGLE,
 
-    @Override
-    public default String get() {
-        return create();
-    }
+    /**
+     * 哨兵模式
+     */
+    SENTINEL,
+
+    /**
+     * 集群模式
+     */
+    CLUSTER
 
 }

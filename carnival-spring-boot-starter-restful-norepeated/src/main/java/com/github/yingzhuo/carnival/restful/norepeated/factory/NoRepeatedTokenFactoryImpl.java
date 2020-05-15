@@ -9,8 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.factory;
 
-import com.github.yingzhuo.carnival.restful.norepeated.support.JedisCommandsFinder;
-import com.github.yingzhuo.carnival.spring.SpringUtils;
+import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import redis.clients.jedis.JedisCommands;
 
 import java.time.Duration;
@@ -36,12 +35,15 @@ public class NoRepeatedTokenFactoryImpl implements NoRepeatedTokenFactory {
     public String create() {
         final String uuid = UUID.randomUUID().toString();
         final String redisKey = createRedisKey(uuid);
-        final JedisCommands jedis = SpringUtils.getBean(JedisCommandsFinder.class).find();
+        final JedisCommands commands = JedisUtils.getJedisCommands();
 
-        jedis.incr(redisKey);
-        jedis.expire(redisKey, (int) ttl.getSeconds());
-
-        return redisKey;
+        try {
+            commands.incr(redisKey);
+            commands.expire(redisKey, (int) ttl.getSeconds());
+            return redisKey;
+        } finally {
+            JedisUtils.close(commands);
+        }
     }
 
     private String createRedisKey(String key) {

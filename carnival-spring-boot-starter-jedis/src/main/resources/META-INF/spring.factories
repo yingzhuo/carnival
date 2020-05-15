@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.jedis.autoconfig.JedisCoreAutoConfig,\
+    com.github.yingzhuo.carnival.jedis.autoconfig.JedisActuatorAutoConfig
