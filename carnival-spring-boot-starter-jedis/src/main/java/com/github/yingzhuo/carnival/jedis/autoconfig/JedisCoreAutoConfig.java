@@ -11,18 +11,17 @@ package com.github.yingzhuo.carnival.jedis.autoconfig;
 
 import com.github.yingzhuo.carnival.jedis.JedisCommandsHolder;
 import com.github.yingzhuo.carnival.jedis.core.DefaultJedisCommandsHolder;
+import com.github.yingzhuo.carnival.jedis.props.JedisStringToHostPortConverter;
 import com.github.yingzhuo.carnival.jedis.props.Props;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import redis.clients.jedis.*;
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -34,6 +33,12 @@ import java.util.stream.Stream;
 public class JedisCoreAutoConfig {
 
     @Bean
+    @ConfigurationPropertiesBinding
+    public JedisStringToHostPortConverter jedisStringToHostPortConverter() {
+        return new JedisStringToHostPortConverter();
+    }
+
+    @Bean
     public JedisCommandsHolder jedisCommandsHolder(Props props) {
         final JedisPoolConfig poolConfig = createPoolConfig(props.getPool());
 
@@ -42,8 +47,8 @@ public class JedisCoreAutoConfig {
             case SINGLE:
                 final JedisPool pool = new JedisPool(
                         poolConfig,
-                        props.getSingle().getHost(),
-                        props.getSingle().getPort(),
+                        props.getSingle().getNode().getHost(),
+                        props.getSingle().getNode().getPort(),
                         props.getSingle().getTimeout(),
                         props.getSingle().getPassword());
                 return new DefaultJedisCommandsHolder(pool);
@@ -52,7 +57,7 @@ public class JedisCoreAutoConfig {
             case SENTINEL:
                 final JedisSentinelPool jedisSentinelPool = new JedisSentinelPool(
                         props.getSentinel().getMasterName(),
-                        Arrays.stream(props.getSentinel().getNodes().split(",")).collect(Collectors.toSet()),
+                        props.getSentinel().getNodes().stream().map(HostAndPort::toString).collect(Collectors.toSet()),
                         poolConfig,
                         props.getSentinel().getTimeout(),
                         props.getSentinel().getPassword()
@@ -61,15 +66,8 @@ public class JedisCoreAutoConfig {
 
             // 集群
             case CLUSTER:
-                Set<String> redisSet = Stream.of(props.getCluster().getNodes().split(",")).collect(Collectors.toSet());
-                Set<HostAndPort> nodes = new HashSet<>();
-                for (String str : redisSet) {
-                    String[] nodeInfo = str.split(":");
-                    nodes.add(new HostAndPort(nodeInfo[0], Integer.parseInt(nodeInfo[1])));
-                }
-
-                JedisCluster jedisCluster = new JedisCluster(
-                        nodes,
+                final JedisCluster jedisCluster = new JedisCluster(
+                        new HashSet<>(props.getCluster().getNodes()),
                         props.getCluster().getConnectionTimeoutMillis(),
                         props.getCluster().getSoTimeoutMillis(),
                         props.getCluster().getMaxAttempts(),
@@ -77,6 +75,7 @@ public class JedisCoreAutoConfig {
                         poolConfig);
 
                 return new DefaultJedisCommandsHolder(jedisCluster);
+
             default:
                 throw new AssertionError();
         }

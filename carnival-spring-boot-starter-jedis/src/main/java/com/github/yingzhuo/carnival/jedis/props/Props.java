@@ -12,8 +12,10 @@ package com.github.yingzhuo.carnival.jedis.props;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import redis.clients.jedis.HostAndPort;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 应卓
@@ -71,7 +73,6 @@ public class Props implements Serializable {
 
         // 做空闲资源检测时，每次的采样数
         private int numTestsPerEvictionRun = 3;
-
     }
 
     @Getter
@@ -80,14 +81,14 @@ public class Props implements Serializable {
         private String masterName;
         private String password = null;
         private int timeout = 10000;
-        private String nodes;
+        private List<HostAndPort> nodes;
     }
 
     @Getter
     @Setter
     public static class Cluster implements Serializable {
         private String password = null;
-        private String nodes;
+        private List<HostAndPort> nodes;
         private int connectionTimeoutMillis = 10000;
         private int soTimeoutMillis = 10000;
         private int maxAttempts = 3;
@@ -96,8 +97,7 @@ public class Props implements Serializable {
     @Getter
     @Setter
     public static class Single implements Serializable {
-        private String host = "localhost";
-        private int port = 6379;
+        private HostAndPort node;
         private String password = null;
         private int timeout = 10000;
     }

@@ -129,6 +129,14 @@ public final class DistributedLock {
         return release(String.valueOf(key));
     }
 
+    public static boolean lock(Lockable lockable) {
+        return lock(lockable.toLockableKey());
+    }
+
+    public static boolean release(Lockable lockable) {
+        return release(lockable.toLockableKey());
+    }
+
     public static void waitAndRun(String key, Runnable runnable) {
         Objects.requireNonNull(runnable);
 
