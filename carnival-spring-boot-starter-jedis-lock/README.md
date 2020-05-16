@@ -46,3 +46,7 @@ try {
     DistributedLock.release("key");
 }
 ```
+
+#### 注意事项
+
+* 如果同时使用[carnival-spring-boot-starter-restful-norepeated](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-restful-norepeated)和本插件，那么两者会共用同一个Jedis资源池。
