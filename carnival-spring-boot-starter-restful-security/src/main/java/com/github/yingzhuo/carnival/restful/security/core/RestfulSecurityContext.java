@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 /**
@@ -27,6 +28,7 @@ public final class RestfulSecurityContext {
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<SkipReason> skipReasonHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<HttpServletRequest> requestHolder = ThreadLocal.withInitial(() -> null);
+    private final static ThreadLocal<HttpServletResponse> responseHolder = ThreadLocal.withInitial(() -> null);
 
     private RestfulSecurityContext() {
     }
@@ -35,33 +37,40 @@ public final class RestfulSecurityContext {
         return Optional.ofNullable(tokenHolder.get());
     }
 
+    static void setToken(Token token) {
+        tokenHolder.set(token);
+    }
 
     public static Optional<UserDetails> getUserDetails() {
         return Optional.ofNullable(userDetailsHolder.get());
-    }
-
-    public static Optional<SkipReason> getSkipReason() {
-        return Optional.ofNullable(skipReasonHolder.get());
-    }
-
-    public static HttpServletRequest getRequest() {
-        return requestHolder.get();
-    }
-
-    static void setSkipReason(SkipReason reason) {
-        skipReasonHolder.set(reason);
-    }
-
-    static void setRequest(HttpServletRequest request) {
-        requestHolder.set(request);
     }
 
     static void setUserDetails(UserDetails userDetails) {
         userDetailsHolder.set(userDetails);
     }
 
-    static void setToken(Token token) {
-        tokenHolder.set(token);
+    public static Optional<SkipReason> getSkipReason() {
+        return Optional.ofNullable(skipReasonHolder.get());
+    }
+
+    static void setSkipReason(SkipReason reason) {
+        skipReasonHolder.set(reason);
+    }
+
+    public static HttpServletRequest getRequest() {
+        return requestHolder.get();
+    }
+
+    static void setRequest(HttpServletRequest request) {
+        requestHolder.set(request);
+    }
+
+    public static HttpServletResponse getResponse() {
+        return responseHolder.get();
+    }
+
+    static void setResponse(HttpServletResponse response) {
+        responseHolder.set(response);
     }
 
     static void clean() {
@@ -69,6 +78,7 @@ public final class RestfulSecurityContext {
         userDetailsHolder.remove();
         skipReasonHolder.remove();
         requestHolder.remove();
+        responseHolder.remove();
     }
 
 }

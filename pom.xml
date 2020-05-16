@@ -95,7 +95,7 @@
         <spring.version>5.2.6.RELEASE</spring.version>
         <jackson.version>2.11.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.49.Final</netty.version>
+        <netty.version>4.1.50.Final</netty.version>
     </properties>
 
     <dependencyManagement>
@@ -195,11 +195,6 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-redis</artifactId>
-                <version>${springboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-security</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
 
