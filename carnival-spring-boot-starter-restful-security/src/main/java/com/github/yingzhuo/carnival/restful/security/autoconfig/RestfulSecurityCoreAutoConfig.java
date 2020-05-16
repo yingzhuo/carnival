@@ -26,7 +26,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -42,7 +41,8 @@ import java.util.List;
 public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired(required = false)
-    private RestfulSecurityConfigurer configurer;
+    private RestfulSecurityConfigurer configurer = new RestfulSecurityConfigurer() {
+    };
 
     @Autowired(required = false)
     private TokenParser injectedTokenParser;
@@ -85,23 +85,15 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void run(ApplicationArguments args) {
-        ReflectCache.init();
+        ReflectCache.init();    // 初始化反射工具
     }
 
     private int getOrder() {
-        return configurer != null ? configurer.getOrder() : Ordered.HIGHEST_PRECEDENCE + 1000;
+        return configurer.getOrder();
     }
 
     private AuthenticationStrategy getAuthenticationStrategy() {
-        AuthenticationStrategy strategy = null;
-        if (configurer != null) {
-            strategy = configurer.getAuthenticationStrategy();
-        }
-
-        if (strategy == null) {
-            strategy = AuthenticationStrategy.ANNOTATED_REQUESTS;
-        }
-        return strategy;
+        return configurer.getAuthenticationStrategy();
     }
 
     private TokenParser getTokenParser() {
@@ -109,7 +101,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             return injectedTokenParser;
         }
 
-        TokenParser tokenParser = configurer != null ? configurer.getTokenParser() : null;
+        TokenParser tokenParser = configurer.getTokenParser();
 
         if (tokenParser == null) {
             throw new NullPointerException("TokenParser NOT configured.");
@@ -123,7 +115,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             return injectedUserDetailsRealm;
         }
 
-        UserDetailsRealm userDetailsRealm = configurer != null ? configurer.getUserDetailsRealm() : null;
+        UserDetailsRealm userDetailsRealm = configurer.getUserDetailsRealm();
 
         if (userDetailsRealm == null) {
             throw new NullPointerException("UserDetailsRealm NOT configured.");
@@ -136,32 +128,33 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         if (injectedTokenBlackListManager != null) {
             return injectedTokenBlackListManager;
         }
-        return configurer != null ? configurer.getTokenBlacklistManager() : null;
+        return configurer.getTokenBlacklistManager();
     }
 
     private TokenWhitelistManager getTokenWhitelistManager() {
         if (injectedTokenWhitelistManager != null) {
             return injectedTokenWhitelistManager;
         }
-        return configurer != null ? configurer.getTokenWhitelistManager() : null;
+        return configurer.getTokenWhitelistManager();
     }
 
     private ExtraUserDetailsRealm getExtraUserDetailsRealm() {
         if (injectedExtraUserDetailsRealm != null) {
             return injectedExtraUserDetailsRealm;
         }
-        return configurer != null ? configurer.getExtraUserDetailsRealm() : null;
+        return configurer.getExtraUserDetailsRealm();
     }
 
     private ExceptionTransformer getExceptionTransformer() {
         if (injectedExceptionTransformer != null) {
             return injectedExceptionTransformer;
         }
-        return configurer != null ? configurer.getExceptionTransformer() : null;
+        return configurer.getExceptionTransformer();
     }
 
     private String[] getPathPatterns() {
-        return configurer != null ? configurer.getPathPatterns() : new String[]{"/", "/**"};
+        String[] patterns = configurer.getPathPatterns();
+        return patterns != null ? patterns : new String[]{"/", "/**"};
     }
 
 }

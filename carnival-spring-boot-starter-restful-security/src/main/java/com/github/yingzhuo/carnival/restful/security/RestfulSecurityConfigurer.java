@@ -27,6 +27,10 @@ public interface RestfulSecurityConfigurer {
         return Ordered.HIGHEST_PRECEDENCE + 1000;
     }
 
+    public default String[] getPathPatterns() {
+        return new String[]{"/", "/**"};
+    }
+
     public default AuthenticationStrategy getAuthenticationStrategy() {
         return AuthenticationStrategy.ANNOTATED_REQUESTS;
     }
@@ -53,10 +57,6 @@ public interface RestfulSecurityConfigurer {
 
     public default ExceptionTransformer getExceptionTransformer() {
         return null;
-    }
-
-    public default String[] getPathPatterns() {
-        return new String[]{"/", "/**"};
     }
 
 }
