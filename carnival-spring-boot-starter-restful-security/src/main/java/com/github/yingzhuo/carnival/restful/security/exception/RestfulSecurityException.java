@@ -9,14 +9,14 @@
  */
 package com.github.yingzhuo.carnival.restful.security.exception;
 
-import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
+import com.github.yingzhuo.carnival.common.mvc.AbstractRequestInterruptedException;
 
 import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 应卓
  */
-public class RestfulSecurityException extends RequestInterruptedException {
+public class RestfulSecurityException extends AbstractRequestInterruptedException {
 
     public RestfulSecurityException(HttpServletRequest request) {
         this(null, request);
