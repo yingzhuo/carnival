@@ -9,12 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.restful.security.SkipReason;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 /**
@@ -26,9 +24,7 @@ public final class RestfulSecurityContext {
 
     private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<SkipReason> skipReasonHolder = ThreadLocal.withInitial(() -> null);
     private final static ThreadLocal<HttpServletRequest> requestHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<HttpServletResponse> responseHolder = ThreadLocal.withInitial(() -> null);
 
     private RestfulSecurityContext() {
     }
@@ -49,14 +45,6 @@ public final class RestfulSecurityContext {
         userDetailsHolder.set(userDetails);
     }
 
-    public static Optional<SkipReason> getSkipReason() {
-        return Optional.ofNullable(skipReasonHolder.get());
-    }
-
-    static void setSkipReason(SkipReason reason) {
-        skipReasonHolder.set(reason);
-    }
-
     public static HttpServletRequest getRequest() {
         return requestHolder.get();
     }
@@ -65,20 +53,10 @@ public final class RestfulSecurityContext {
         requestHolder.set(request);
     }
 
-    public static HttpServletResponse getResponse() {
-        return responseHolder.get();
-    }
-
-    static void setResponse(HttpServletResponse response) {
-        responseHolder.set(response);
-    }
-
     static void clean() {
         tokenHolder.remove();
         userDetailsHolder.remove();
-        skipReasonHolder.remove();
         requestHolder.remove();
-        responseHolder.remove();
     }
 
 }
