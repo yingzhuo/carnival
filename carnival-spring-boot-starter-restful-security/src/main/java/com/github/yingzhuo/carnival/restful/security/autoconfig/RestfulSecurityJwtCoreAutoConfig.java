@@ -9,10 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
+import com.auth0.jwt.algorithms.Algorithm;
+import com.github.yingzhuo.carnival.restful.security.factory.AlgorithmFactories;
 import com.github.yingzhuo.carnival.restful.security.factory.AlgorithmFactory;
 import com.github.yingzhuo.carnival.restful.security.factory.DefaultJwtTokenFactory;
 import com.github.yingzhuo.carnival.restful.security.factory.JwtTokenFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
@@ -22,16 +24,15 @@ import org.springframework.context.annotation.Lazy;
 @Lazy(false)
 public class RestfulSecurityJwtCoreAutoConfig {
 
-    @Autowired(required = false)
-    private AlgorithmFactory algFactory;
+    @Bean
+    @ConditionalOnMissingBean
+    public AlgorithmFactory algorithmFactory() {
+        return AlgorithmFactories.hmac512(Algorithm.class.getName());
+    }
 
     @Bean
+    @ConditionalOnMissingBean
     public JwtTokenFactory tokenFactory(AlgorithmFactory algFactory) {
-
-        if (algFactory == null) {
-            throw new NullPointerException("AlgorithmFactory NOT configured.");
-        }
-
         return new DefaultJwtTokenFactory(algFactory.create());
     }
 
