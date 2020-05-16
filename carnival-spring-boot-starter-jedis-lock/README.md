@@ -19,7 +19,7 @@
 
 #### 配置
 
-本插件无需配置非常简单。但是由于分布式锁依赖于[Jedis](https://github.com/xetorthio/jedis)实现。使用时务必配置好[carnival-spring-boot-starter-jedis](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-jedis-lock)。
+本插件无需配置非常简单。但是由于分布式锁依赖于[Jedis](https://github.com/xetorthio/jedis)实现。使用时务必配置好[carnival-spring-boot-starter-jedis](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-jedis)。
 
 ```yaml
 carnival:
