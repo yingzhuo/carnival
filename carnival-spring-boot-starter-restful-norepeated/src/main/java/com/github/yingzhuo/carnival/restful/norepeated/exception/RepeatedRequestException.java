@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.exception;
 
-import com.github.yingzhuo.carnival.common.mvc.AbstractRequestInterruptedException;
+import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 应卓
  * @since 1.6.7
  */
-public class RepeatedRequestException extends AbstractRequestInterruptedException {
+public class RepeatedRequestException extends RequestInterruptedException {
 
     public RepeatedRequestException(HttpServletRequest request) {
         this(null, request);

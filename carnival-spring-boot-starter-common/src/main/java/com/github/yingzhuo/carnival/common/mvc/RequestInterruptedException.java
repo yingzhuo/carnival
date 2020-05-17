@@ -15,15 +15,15 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 应卓
- * @since 1.6.7
+ * @since 1.6.8
  */
-public abstract class AbstractRequestInterruptedException extends RuntimeException {
+public class RequestInterruptedException extends RuntimeException {
 
     private final RequestMethod method;
     private final String path;
     private final long timestamp = System.currentTimeMillis();
 
-    public AbstractRequestInterruptedException(String message, HttpServletRequest request) {
+    public RequestInterruptedException(String message, HttpServletRequest request) {
         super(message);
         this.method = request != null ? RequestMethod.valueOf(request.getMethod().toUpperCase()) : null;
         this.path = request != null ? request.getRequestURI() : null;

@@ -13,11 +13,10 @@ package com.github.yingzhuo.carnival.common.mvc;
  * @author 应卓
  * @since 1.6.8
  */
+@FunctionalInterface
 public interface MvcInterceptorConfigurer {
 
-    public default int getOrder() {
-        return 0;
-    }
+    public int getOrder();
 
     public default String[] getPathPatterns() {
         return new String[]{"/", "/**"};
