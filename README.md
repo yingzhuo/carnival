@@ -2,18 +2,18 @@
 [![Build](http://img.shields.io/badge/Build-Maven_2-green.svg)](https://maven.apache.org/)
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.yingzhuo/carnival.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.yingzhuo%22%20AND%20a:%22carnival%22)
 
-# carnival
+# Carnival
 
-### Requires
+### 要求
 
 * Java 8+
 * SpringBoot 2.2.0+
 
-### Download
+### 下载
 
-* [maven / gradle](https://search.maven.org/search?q=carnival) is highly recommended.
+* 推荐使用[maven或gradle](https://search.maven.org/search?q=carnival)。
 
-### Wiki
+### 文档
 
 * [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
@@ -31,15 +31,7 @@
 * [carnival-spring-boot-starter-restful-norepeated](./carnival-spring-boot-starter-restful-norepeated)
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
 
-### Contributing
-
-* Fork it
-* Create your feature branch (git checkout -b my-new-feature)
-* Commit your changes (git commit -am 'add some feature')
-* Push to the branch (git push origin my-new-feature)
-* Create new Pull Request
-
-### Authors
+### 作者
 
 * 应卓 - [github](https://github.com/yingzhuo)
 
