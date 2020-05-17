@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security;
 
+import com.github.yingzhuo.carnival.common.mvc.MvcInterceptorConfigurer;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
@@ -21,14 +22,11 @@ import org.springframework.core.Ordered;
  * @author 应卓
  * @since 1.6.5
  */
-public interface RestfulSecurityConfigurer {
+public interface RestfulSecurityConfigurer extends MvcInterceptorConfigurer {
 
+    @Override
     public default int getOrder() {
         return Ordered.HIGHEST_PRECEDENCE + 1000;
-    }
-
-    public default String[] getPathPatterns() {
-        return new String[]{"/", "/**"};
     }
 
     public default AuthenticationStrategy getAuthenticationStrategy() {
