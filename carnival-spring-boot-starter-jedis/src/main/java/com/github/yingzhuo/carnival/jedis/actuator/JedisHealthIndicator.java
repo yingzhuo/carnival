@@ -36,7 +36,6 @@ public class JedisHealthIndicator extends AbstractHealthIndicator {
         } finally {
             JedisUtils.closeCommands(commands);
         }
-
     }
 
 }
