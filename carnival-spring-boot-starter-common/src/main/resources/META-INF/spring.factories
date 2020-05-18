@@ -2,6 +2,7 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
     com.github.yingzhuo.carnival.common.env.XEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.EnhancedRandomValueEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.Git,\
+    com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.BuildInfo,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.PropertySource,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.BusinessException,\
     com.github.yingzhuo.carnival.common.env.ConventionEnvironmentPostProcessors.DataSource
