@@ -22,3 +22,14 @@
 * classpath:META-INF/NOTE.md
 
 访问`/acutator/note`即可看到由markdown文档生成的html页面。
+
+#### (2) HelpEndpoint
+
+如果存在以下md文件之一，则`HelpEndpoint`将自动被添加。
+
+* classpath:help.md
+* classpath:HELP.md
+* classpath:META-INF/help.md
+* classpath:META-INF/HELP.md
+
+访问`/acutator/help`即可看到由markdown文档生成的html页面。

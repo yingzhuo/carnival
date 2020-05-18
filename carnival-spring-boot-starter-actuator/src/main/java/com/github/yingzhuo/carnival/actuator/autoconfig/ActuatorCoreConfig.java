@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.actuator.autoconfig;
 
+import com.github.yingzhuo.carnival.actuator.endpoint.HelpEndpoint;
 import com.github.yingzhuo.carnival.actuator.endpoint.NoteEndpoint;
 import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
 import lombok.Getter;
@@ -37,6 +38,17 @@ public class ActuatorCoreConfig {
     })
     public NoteEndpoint noteEndpoint() {
         return new NoteEndpoint();
+    }
+
+    @Bean
+    @ConditionalOnAnyResource(resources = {
+            "classpath:help.md",
+            "classpath:HELP.md",
+            "classpath:META-INF/help.md",
+            "classpath:META-INF/HELP.md"
+    })
+    public HelpEndpoint helpEndpoint() {
+        return new HelpEndpoint();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
