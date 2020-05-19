@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.jedis.lock;
 
+import com.github.yingzhuo.carnival.common.util.SleepUtils;
 import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -41,6 +42,7 @@ public final class DistributedLock {
     static String suffix;
     static String springId;
     static long timeToLive; // 毫秒
+    static long waitAndRunSleep; // 毫秒
     static DistributedLockExceptionThrower exceptionThrower;
 
     private DistributedLock() {
@@ -237,10 +239,16 @@ public final class DistributedLock {
         Objects.requireNonNull(runnable);
 
         while (true) {
-            if (lock(key)) {
+            if (lockQuietly(key)) {
                 runnable.run();
-                release(key);
+                releaseQuietly(key);
                 return;
+            } else {
+
+                // 两次尝试之间稍微休息一下
+                if (waitAndRunSleep > 0) {
+                    SleepUtils.sleep(100);
+                }
             }
         }
     }
@@ -251,6 +259,10 @@ public final class DistributedLock {
 
     public static void waitAndRun(long key, Runnable runnable) {
         waitAndRun(String.valueOf(key), runnable);
+    }
+
+    public static void waitAndRun(Lockable key, Runnable runnable) {
+        waitAndRun(key.toLockableKey(), runnable);
     }
 
     private static String createRequestId(long threadId) {

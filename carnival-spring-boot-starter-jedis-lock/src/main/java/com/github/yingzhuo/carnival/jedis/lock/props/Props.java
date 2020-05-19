@@ -29,16 +29,24 @@ public class Props implements Serializable {
 
     private boolean enabled = true;
 
-    private RedisKey redisKey = new RedisKey();
-
     @DurationUnit(ChronoUnit.SECONDS)
     private Duration timeToLive = Duration.ofSeconds(10);
+
+    private RedisKey redisKey = new RedisKey();
+
+    private WaitAndRun waitAndRun = new WaitAndRun();
 
     @Getter
     @Setter
     public static class RedisKey implements Serializable {
         private String prefix = "carnival-distributed-lock-";
         private String suffix = "";
+    }
+
+    @Getter
+    @Setter
+    public static class WaitAndRun implements Serializable {
+        private Duration sleep = Duration.ofMillis(100L);
     }
 
 }

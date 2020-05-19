@@ -39,6 +39,7 @@ public class JedisLockCoreAutoConfig implements ApplicationRunner {
         DistributedLock.suffix = props.getRedisKey().getSuffix();
         DistributedLock.springId = SpringUtils.getSpringId();
         DistributedLock.timeToLive = props.getTimeToLive().toMillis();
+        DistributedLock.waitAndRunSleep = props.getWaitAndRun().getSleep().toMillis();
         DistributedLock.exceptionThrower = exceptionThrower;
     }
 
