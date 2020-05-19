@@ -10,33 +10,32 @@
 package com.github.yingzhuo.carnival.patchca.dao;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
-import com.github.yingzhuo.carnival.patchca.CaptchaSessionAttribute;
 import com.github.yingzhuo.carnival.spring.ServletUtils;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * @author 应卓
  * @since 1.6.2
  */
-public class DefaultStatefulCaptchaDao implements CaptchaDao, CaptchaSessionAttribute {
+public class HttpSessionCaptchaDao implements CaptchaDao {
+
+    private static final String ATTRIBUTE_NAME = "com.github.yingzhuo.carnival.patchca.CaptchaSessionAttribute";
 
     @Override
-    public void save(String unused, String patchca) {
-        final HttpSession session = ServletUtils.getSession(true);
-        session.setAttribute(NAME, patchca);
+    public void save(String unused, String captcha) {
+        ServletUtils.getSession(true)
+                .setAttribute(ATTRIBUTE_NAME, captcha);
     }
 
     @Override
     public String load(String unused) {
-        final HttpSession session = ServletUtils.getSession(true);
-        return (String) session.getAttribute(NAME);
+        return (String) ServletUtils.getSession(true)
+                .getAttribute(ATTRIBUTE_NAME);
     }
 
     @Override
     public void delete(String unused) {
-        final HttpSession session = ServletUtils.getSession(true);
-        session.removeAttribute(NAME);
+        ServletUtils.getSession(true)
+                .removeAttribute(ATTRIBUTE_NAME);
     }
 
 }

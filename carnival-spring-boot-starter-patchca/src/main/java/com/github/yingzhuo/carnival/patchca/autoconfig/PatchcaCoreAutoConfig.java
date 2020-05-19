@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.patchca.autoconfig;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
-import com.github.yingzhuo.carnival.patchca.CaptchaSessionAttribute;
 import com.github.yingzhuo.carnival.patchca.SessionPatchca;
 import com.github.yingzhuo.carnival.patchca.core.PatchcaCoreFilter;
 import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
@@ -77,7 +76,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    private static class PatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver, CaptchaSessionAttribute {
+    private static class PatchcaHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
         @Override
         public boolean supportsParameter(MethodParameter parameter) {
             return parameter.hasParameterAnnotation(SessionPatchca.class);
@@ -85,7 +84,7 @@ public class PatchcaCoreAutoConfig implements WebMvcConfigurer {
 
         @Override
         public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-            return ((HttpServletRequest) webRequest.getNativeRequest()).getSession(true).getAttribute(NAME);
+            return ((HttpServletRequest) webRequest.getNativeRequest()).getSession(true).getAttribute("com.github.yingzhuo.carnival.patchca.CaptchaSessionAttribute");
         }
     }
 

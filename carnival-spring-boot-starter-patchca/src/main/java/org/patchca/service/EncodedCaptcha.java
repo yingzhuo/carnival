@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.Serializable;
 import java.io.UncheckedIOException;
 import java.util.Base64;
 
@@ -22,7 +21,7 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.2
  */
-public class EncodedCaptcha extends Captcha implements Serializable {
+public class EncodedCaptcha extends Captcha {
 
     private String encodeImage;
 

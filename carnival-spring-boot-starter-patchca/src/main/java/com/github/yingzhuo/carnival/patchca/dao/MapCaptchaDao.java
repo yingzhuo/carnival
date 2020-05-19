@@ -21,13 +21,13 @@ import java.util.Map;
  * @since 1.6.2
  */
 @Slf4j
-public class DefaultStatelessCaptchaDao implements CaptchaDao, InitializingBean {
+public class MapCaptchaDao implements CaptchaDao, InitializingBean {
 
     private final Map<String, String> map = new HashMap<>();
 
     @Override
-    public void save(String accessKey, String patchca) {
-        map.put(accessKey, patchca);
+    public void save(String accessKey, String captcha) {
+        map.put(accessKey, captcha);
     }
 
     @Override

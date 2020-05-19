@@ -11,8 +11,8 @@ package com.github.yingzhuo.carnival.patchca.autoconfig;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
-import com.github.yingzhuo.carnival.patchca.dao.DefaultStatefulCaptchaDao;
-import com.github.yingzhuo.carnival.patchca.dao.DefaultStatelessCaptchaDao;
+import com.github.yingzhuo.carnival.patchca.dao.HttpSessionCaptchaDao;
+import com.github.yingzhuo.carnival.patchca.dao.MapCaptchaDao;
 import com.github.yingzhuo.carnival.patchca.handler.DefaultStatefulCaptchaHandler;
 import com.github.yingzhuo.carnival.patchca.handler.DefaultStatelessCaptchaHandler;
 import com.github.yingzhuo.carnival.patchca.props.Mode;
@@ -35,7 +35,6 @@ import org.patchca.text.renderer.BestFitTextRenderer;
 import org.patchca.text.renderer.TextRenderer;
 import org.patchca.word.AdaptiveRandomWordFactory;
 import org.patchca.word.WordFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -55,18 +54,16 @@ import java.util.Arrays;
 @EnableConfigurationProperties(PatchcaProps.class)
 public class PatchcaBeanAutoConfig {
 
-    @Autowired
-    private PatchcaProps props;
-
     // dao
     @Bean
     @ConditionalOnMissingBean
-    public CaptchaDao captchaDao() {
+    @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
+    public CaptchaDao captchaDao(PatchcaProps props) {
         final Mode mode = props.getMode();
         if (mode == Mode.STATEFUL) {
-            return new DefaultStatefulCaptchaDao();
+            return new HttpSessionCaptchaDao();
         } else {
-            return new DefaultStatelessCaptchaDao();
+            return new MapCaptchaDao();
         }
     }
 
@@ -74,7 +71,7 @@ public class PatchcaBeanAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "carnival.patchca.servlet-filter", name = "enabled", havingValue = "true", matchIfMissing = true)
-    public CaptchaHandler captchaHandler() {
+    public CaptchaHandler captchaHandler(PatchcaProps props) {
         final Mode mode = props.getMode();
         if (mode == Mode.STATEFUL) {
             return new DefaultStatefulCaptchaHandler();

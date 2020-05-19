@@ -15,7 +15,7 @@ package com.github.yingzhuo.carnival.patchca;
  */
 public interface CaptchaDao {
 
-    public void save(String accessKey, String patchca);
+    public void save(String accessKey, String captcha);
 
     public String load(String accessKey);
 
