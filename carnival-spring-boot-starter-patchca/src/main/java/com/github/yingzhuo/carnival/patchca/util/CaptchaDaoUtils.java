@@ -37,8 +37,6 @@ public final class CaptchaDaoUtils {
         return SpringUtils.getBean(CaptchaDao.class).matches(accessKey, submittedCaptcha);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static boolean notMatches(String accessKey, String submittedCaptcha) {
         return SpringUtils.getBean(CaptchaDao.class).notMatches(accessKey, submittedCaptcha);
     }

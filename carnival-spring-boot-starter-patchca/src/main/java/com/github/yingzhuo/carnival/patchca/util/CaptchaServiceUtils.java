@@ -27,8 +27,6 @@ public final class CaptchaServiceUtils {
         return SpringUtils.getBean(CaptchaService.class).getCaptcha();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static EncodedCaptcha getEncodedCaptcha() {
         return SpringUtils.getBean(CaptchaService.class).getEncodedCaptcha();
     }

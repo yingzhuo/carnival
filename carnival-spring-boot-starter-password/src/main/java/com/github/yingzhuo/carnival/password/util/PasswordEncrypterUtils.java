@@ -56,8 +56,6 @@ public final class PasswordEncrypterUtils {
         return passwordEncrypter().notMatches(rawPassword, leftSalt, rightSalt, encryptedPassword);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     private static PasswordEncrypter passwordEncrypter() {
         return SpringUtils.getBean(PasswordEncrypter.class);
     }
