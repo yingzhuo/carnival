@@ -9,6 +9,9 @@
  */
 package org.patchca.service;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -21,6 +24,8 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.2
  */
+@Getter
+@Setter
 public class EncodedCaptcha extends Captcha {
 
     private String encodeImage;
@@ -41,14 +46,6 @@ public class EncodedCaptcha extends Captcha {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
-    }
-
-    public String getEncodeImage() {
-        return encodeImage;
-    }
-
-    public void setEncodeImage(String encodeImage) {
-        this.encodeImage = encodeImage;
     }
 
 }

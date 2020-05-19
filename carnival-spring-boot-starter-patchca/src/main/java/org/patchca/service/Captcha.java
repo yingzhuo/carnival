@@ -9,6 +9,11 @@
  */
 package org.patchca.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
@@ -16,43 +21,14 @@ import java.io.Serializable;
  * @author Piotr Piastucki
  * @author 应卓
  */
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Captcha implements Serializable {
 
     private String accessKey;
     private String captcha;
     private BufferedImage image;
-
-    public Captcha() {
-    }
-
-    public Captcha(String accessKey, String captcha, BufferedImage image) {
-        this.accessKey = accessKey;
-        this.captcha = captcha;
-        this.image = image;
-    }
-
-    public String getAccessKey() {
-        return accessKey;
-    }
-
-    public void setAccessKey(String accessKey) {
-        this.accessKey = accessKey;
-    }
-
-    public String getCaptcha() {
-        return captcha;
-    }
-
-    public void setCaptcha(String captcha) {
-        this.captcha = captcha;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
-    }
 
 }
