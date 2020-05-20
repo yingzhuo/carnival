@@ -25,6 +25,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -52,9 +53,13 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
     private NoRepeatedConfigurer configurer = new NoRepeatedConfigurer() {
     };
 
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
     @Bean
     public NoRepeatedTokenFactory noRepeatedTokenFactory(Props props) {
         return new NoRepeatedTokenFactoryImpl(
+                redisConnectionFactory,
                 props.getToken().getTimeToLive(),
                 props.getRedisKey().getPrefix(),
                 props.getRedisKey().getSuffix()
@@ -63,7 +68,7 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        final NoRepeatedInterceptor interceptor = new NoRepeatedInterceptor();
+        final NoRepeatedInterceptor interceptor = new NoRepeatedInterceptor(redisConnectionFactory);
         interceptor.setExceptionTransformer(getExceptionTransformer());
         interceptor.setTokenParser(getNoRepeatedTokenParser());
 

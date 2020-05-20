@@ -9,10 +9,10 @@
  */
 package com.github.yingzhuo.carnival.patchca.dao;
 
-import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
 import org.springframework.beans.factory.InitializingBean;
-import redis.clients.jedis.JedisCommands;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
 
@@ -25,11 +25,13 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
     private Duration timeToLive;
     private String keyPrefix = "carnival-captcha-";
     private String keySuffix = "";
+    private StringRedisTemplate template;
 
     public RedisCaptchaDao() {
     }
 
-    public RedisCaptchaDao(Duration timeToLive, String keyPrefix, String keySuffix) {
+    public RedisCaptchaDao(RedisConnectionFactory connectionFactory, Duration timeToLive, String keyPrefix, String keySuffix) {
+        this.template = new StringRedisTemplate(connectionFactory);
         this.timeToLive = timeToLive;
         this.keyPrefix = keyPrefix;
         this.keySuffix = keySuffix;
@@ -40,7 +42,7 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
         if (timeToLive == null) {
             timeToLive = Duration.ofMinutes(5);
         }
-        
+
         if (keyPrefix == null) {
             keyPrefix = "";
         }
@@ -53,40 +55,19 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
     @Override
     public void save(String accessKey, String captcha) {
         final String redisKey = genRedisKey(accessKey);
-        final JedisCommands commands = JedisUtils.getCommands();
-
-        try {
-            commands.set(redisKey, captcha);
-            if (timeToLive != null) {
-                commands.expire(redisKey, (int) timeToLive.getSeconds());
-            }
-        } finally {
-            JedisUtils.closeCommands(commands);
-        }
+        template.opsForValue().set(redisKey, captcha, timeToLive);
     }
 
     @Override
     public String load(String accessKey) {
         final String redisKey = genRedisKey(accessKey);
-        final JedisCommands commands = JedisUtils.getCommands();
-
-        try {
-            return commands.get(redisKey);
-        } finally {
-            JedisUtils.closeCommands(commands);
-        }
+        return template.opsForValue().get(redisKey);
     }
 
     @Override
     public void delete(String accessKey) {
         final String redisKey = genRedisKey(accessKey);
-        final JedisCommands commands = JedisUtils.getCommands();
-
-        try {
-            commands.del(redisKey);
-        } finally {
-            JedisUtils.closeCommands(commands);
-        }
+        template.delete(redisKey);
     }
 
     private String genRedisKey(String accessKey) {
@@ -103,6 +84,10 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
 
     public void setKeySuffix(String keySuffix) {
         this.keySuffix = keySuffix;
+    }
+
+    public void setTemplate(StringRedisTemplate template) {
+        this.template = template;
     }
 
 }

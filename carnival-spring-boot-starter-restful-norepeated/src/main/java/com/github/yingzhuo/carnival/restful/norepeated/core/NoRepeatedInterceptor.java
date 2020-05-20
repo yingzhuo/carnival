@@ -11,12 +11,13 @@ package com.github.yingzhuo.carnival.restful.norepeated.core;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.exception.ExceptionTransformer;
-import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
 import com.github.yingzhuo.carnival.restful.norepeated.NoRepeated;
 import com.github.yingzhuo.carnival.restful.norepeated.exception.NoTokenFoundException;
 import com.github.yingzhuo.carnival.restful.norepeated.exception.RepeatedRequestException;
 import com.github.yingzhuo.carnival.restful.norepeated.parser.NoRepeatedTokenParser;
 import lombok.val;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.method.HandlerMethod;
 
@@ -31,6 +32,12 @@ public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
 
     private NoRepeatedTokenParser tokenParser;
     private ExceptionTransformer exceptionTransformer;
+
+    private final StringRedisTemplate template;
+
+    public NoRepeatedInterceptor(RedisConnectionFactory connectionFactory) {
+        this.template = new StringRedisTemplate(connectionFactory);
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -63,18 +70,11 @@ public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
             throw new NoTokenFoundException(request);
         }
 
-        val commands = JedisUtils.getCommands();
-
-        try {
-            String count = commands.get(tokenOption.get());
-
-            if ("1".equals(count)) {
-                commands.del(tokenOption.get());
-            } else {
-                throw new RepeatedRequestException(request);
-            }
-        } finally {
-            JedisUtils.closeCommands(commands);
+        String count = template.opsForValue().get(tokenOption.get());
+        if ("1".equals(count)) {
+            template.delete(tokenOption.get());
+        } else {
+            throw new RepeatedRequestException(request);
         }
     }
 

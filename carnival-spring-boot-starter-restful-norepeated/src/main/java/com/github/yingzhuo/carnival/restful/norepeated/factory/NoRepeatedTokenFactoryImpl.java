@@ -9,11 +9,12 @@
  */
 package com.github.yingzhuo.carnival.restful.norepeated.factory;
 
-import com.github.yingzhuo.carnival.jedis.util.JedisUtils;
-import redis.clients.jedis.JedisCommands;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import java.time.Duration;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author 应卓
@@ -24,8 +25,10 @@ public class NoRepeatedTokenFactoryImpl implements NoRepeatedTokenFactory {
     private final Duration ttl;
     private final String prefix;
     private final String suffix;
+    private final StringRedisTemplate template;
 
-    public NoRepeatedTokenFactoryImpl(Duration ttl, String prefix, String suffix) {
+    public NoRepeatedTokenFactoryImpl(RedisConnectionFactory connectionFactory, Duration ttl, String prefix, String suffix) {
+        this.template = new StringRedisTemplate(connectionFactory);
         this.ttl = ttl != null ? ttl : Duration.ofMinutes(5L);
         this.prefix = prefix != null ? prefix : "";
         this.suffix = suffix != null ? suffix : "";
@@ -35,15 +38,10 @@ public class NoRepeatedTokenFactoryImpl implements NoRepeatedTokenFactory {
     public String create() {
         final String uuid = UUID.randomUUID().toString();
         final String redisKey = createRedisKey(uuid);
-        final JedisCommands commands = JedisUtils.getCommands();
 
-        try {
-            commands.incr(redisKey);
-            commands.expire(redisKey, (int) ttl.getSeconds());
-            return redisKey;
-        } finally {
-            JedisUtils.closeCommands(commands);
-        }
+        template.opsForValue().increment(redisKey);
+        template.expire(redisKey, ttl.getSeconds(), TimeUnit.SECONDS);
+        return redisKey;
     }
 
     private String createRedisKey(String key) {
