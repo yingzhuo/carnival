@@ -19,6 +19,7 @@
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis</module>
+        <module>carnival-spring-boot-starter-fastdfs</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>
@@ -497,6 +498,13 @@
                 <version>1.2.2</version>
             </dependency>
 
+            <!-- thumbnailator -->
+            <dependency>
+                <groupId>net.coobird</groupId>
+                <artifactId>thumbnailator</artifactId>
+                <version>0.4.11</version>
+            </dependency>
+
             <!-- commons -->
             <dependency>
                 <groupId>com.google.guava</groupId>
@@ -527,6 +535,11 @@
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
                 <version>1.9.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>2.6.2</version>
             </dependency>
 
             <!-- junit -->

@@ -29,6 +29,23 @@ public interface Immutable {
         return Collections.unmodifiableSet(set);
     }
 
+    public static <T extends Comparable<T>> SortedSet<T> sortedSet(T... objs) {
+        if (objs == null || objs.length == 0) {
+            return Collections.unmodifiableSortedSet(new TreeSet<>());
+        }
+        return Collections.unmodifiableSortedSet(new TreeSet<>(Arrays.asList(objs)));
+    }
+
+    public static <T> SortedSet<T> sortedSet(Comparator<T> comparator, T... objs) {
+        if (objs == null || objs.length == 0) {
+            return Collections.unmodifiableSortedSet(new TreeSet<>(comparator));
+        }
+
+        final TreeSet<T> set = new TreeSet<>(comparator);
+        set.addAll(Arrays.asList(objs));
+        return Collections.unmodifiableSortedSet(set);
+    }
+
     public static <E extends Enum<E>> Set<E> set(Class<E> enumType) {
         if (enumType == null) {
             return Collections.emptySet();
