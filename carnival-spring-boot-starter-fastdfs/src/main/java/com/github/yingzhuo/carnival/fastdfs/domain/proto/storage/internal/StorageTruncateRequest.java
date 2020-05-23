@@ -51,10 +51,9 @@ public class StorageTruncateRequest extends Request {
      * 文件Truncate命令
      */
     public StorageTruncateRequest(String path, long fileSize) {
-        super();
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_TRUNCATE_FILE);
         this.fileSize = fileSize;
         this.path = path;
-        head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_TRUNCATE_FILE);
     }
 
     /**

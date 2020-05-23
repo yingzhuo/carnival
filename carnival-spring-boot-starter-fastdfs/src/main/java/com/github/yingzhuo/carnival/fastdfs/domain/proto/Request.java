@@ -13,19 +13,21 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.mapper.ObjectMetaData;
 import com.github.yingzhuo.carnival.fastdfs.domain.proto.mapper.ParamMapperUtils;
 
 import java.io.InputStream;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 
 /**
- * Fdfs交易请求基类
+ * 交易请求
  *
  * @author tobato
  */
-public abstract class Request {
+public abstract class Request implements Serializable {
 
     /**
      * 报文头
      */
     protected ProtoHead head;
+
     /**
      * 发送文件
      */

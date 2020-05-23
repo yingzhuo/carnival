@@ -20,6 +20,7 @@ public enum StorageMetadataSetType {
      * 覆盖
      */
     STORAGE_SET_METADATA_FLAG_OVERWRITE((byte) 'O'),
+
     /**
      * 没有的条目增加，有则条目覆盖
      */

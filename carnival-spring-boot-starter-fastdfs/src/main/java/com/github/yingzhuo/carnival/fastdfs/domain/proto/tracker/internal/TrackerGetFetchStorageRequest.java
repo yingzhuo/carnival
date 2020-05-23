@@ -42,13 +42,14 @@ public class TrackerGetFetchStorageRequest extends Request {
      * 获取文件源服务器
      */
     public TrackerGetFetchStorageRequest(String groupName, String path, boolean toUpdate) {
-        this.groupName = groupName;
-        this.path = path;
         if (toUpdate) {
             super.head = new ProtoHead(updateCmd);
         } else {
             super.head = new ProtoHead(fetchCmd);
         }
+
+        this.groupName = groupName;
+        this.path = path;
     }
 
     public String getGroupName() {

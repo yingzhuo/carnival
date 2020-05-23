@@ -20,13 +20,11 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.Request;
  */
 public class TrackerGetStoreStorageRequest extends Request {
 
-    private static final byte withoutGroupCmd = CmdConstants.TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITHOUT_GROUP_ONE;
-
     /**
      * 获取存储节点
      */
     public TrackerGetStoreStorageRequest() {
-        this.head = new ProtoHead(withoutGroupCmd);
+        this.head = new ProtoHead(CmdConstants.TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITHOUT_GROUP_ONE);
     }
 
 }

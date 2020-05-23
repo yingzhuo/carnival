@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
  *
  * @author tobato
  * @author 应卓
+ * @since 1.6.10
  */
 public interface Connection extends Closeable {
 

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.fastdfs;
+package com.github.yingzhuo.carnival.fastdfs.autoconfig;
 
 import com.github.yingzhuo.carnival.fastdfs.client.*;
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.ConnectionFactory;
@@ -20,6 +20,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,9 @@ import java.util.ArrayList;
  *
  * @author tobato
  * @author 应卓
+ * @since 1.6.10
  */
+@Lazy(false)
 @Configuration
 //@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @EnableConfigurationProperties({
@@ -39,7 +42,7 @@ import java.util.ArrayList;
         ThumbImageProperties.class
 })
 @ConditionalOnProperty(prefix = "carnival.fastdfs", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class FastDfsClientAutoConfig {
+public class FastDfsCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

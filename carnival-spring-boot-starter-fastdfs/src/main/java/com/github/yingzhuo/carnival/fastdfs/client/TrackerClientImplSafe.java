@@ -16,6 +16,10 @@ import com.github.yingzhuo.carnival.fastdfs.domain.fdfs.StorageState;
 
 import java.util.List;
 
+/**
+ * @author 应卓
+ * @since 1.6.10
+ */
 public class TrackerClientImplSafe implements TrackerClient {
 
     private final TrackerClient delegate;

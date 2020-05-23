@@ -20,6 +20,7 @@ import java.util.List;
  * 目录服务(Tracker)客户端接口
  *
  * @author tobato
+ * @since 1.6.10
  */
 public interface TrackerClient {
 

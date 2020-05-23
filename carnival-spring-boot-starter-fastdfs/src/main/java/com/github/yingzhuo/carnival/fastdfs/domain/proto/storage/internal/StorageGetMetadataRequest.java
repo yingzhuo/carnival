@@ -38,9 +38,9 @@ public class StorageGetMetadataRequest extends Request {
      * 删除文件命令
      */
     public StorageGetMetadataRequest(String groupName, String path) {
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_GET_METADATA);
         this.groupName = groupName;
         this.path = path;
-        this.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_GET_METADATA);
     }
 
     public String getGroupName() {

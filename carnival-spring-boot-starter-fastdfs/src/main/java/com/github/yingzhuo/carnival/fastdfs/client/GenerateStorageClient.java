@@ -21,6 +21,7 @@ import java.util.Set;
  * 基本文件存储客户端操作
  *
  * @author tobato
+ * @since 1.6.10
  */
 public interface GenerateStorageClient {
 

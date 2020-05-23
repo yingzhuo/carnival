@@ -30,21 +30,25 @@ public class StorageUploadSlaveFileRequest extends Request {
      */
     @Column(index = 2, max = OtherConstants.FDFS_FILE_PREFIX_MAX_LEN)
     private final String prefixName;
+
     /**
      * 主文件名
      */
     @Column(index = 4, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private final String masterFilename;
+
     /**
      * 主文件名长度
      */
     @Column(index = 0)
     private long masterFileNameSize;
+
     /**
      * 发送文件长度
      */
     @Column(index = 1)
     private long fileSize;
+
     /**
      * 文件扩展名
      */
@@ -53,14 +57,14 @@ public class StorageUploadSlaveFileRequest extends Request {
 
     public StorageUploadSlaveFileRequest(InputStream inputStream, long fileSize, String masterFilename,
                                          String prefixName, String fileExtName) {
+
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE);
         this.inputFile = inputStream;
         this.fileSize = fileSize;
         this.masterFileNameSize = masterFilename.length();
         this.masterFilename = masterFilename;
         this.fileExtName = fileExtName;
         this.prefixName = prefixName;
-        head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_UPLOAD_SLAVE_FILE);
-
     }
 
     public long getMasterFileNameSize() {

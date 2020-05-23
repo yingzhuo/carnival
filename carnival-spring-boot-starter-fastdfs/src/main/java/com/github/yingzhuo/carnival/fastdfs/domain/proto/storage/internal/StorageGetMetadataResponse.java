@@ -37,7 +37,6 @@ public class StorageGetMetadataResponse extends Response<Set<MetaData>> {
             throw new IOException("读取到的数据长度与协议长度不符");
         }
         return MetadataMapper.fromByte(bytes, charset);
-
     }
 
 }

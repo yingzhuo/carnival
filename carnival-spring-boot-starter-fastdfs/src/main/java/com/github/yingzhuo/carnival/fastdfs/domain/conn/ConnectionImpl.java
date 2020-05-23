@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.OtherConstants;
 import com.github.yingzhuo.carnival.fastdfs.domain.proto.mapper.BytesUtils;
 import com.github.yingzhuo.carnival.fastdfs.exception.FastDfsConnectException;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,9 +28,10 @@ import java.util.Arrays;
  *
  * @author tobato
  * @author 应卓
+ * @since 1.6.10
  */
 @Slf4j
-public class ConnectionImpl implements Connection {
+class ConnectionImpl implements Connection {
 
     private Socket socket;
     private Charset charset;
@@ -62,7 +62,10 @@ public class ConnectionImpl implements Connection {
         } catch (IOException e) {
             log.warn("close connection error", e);
         } finally {
-            IOUtils.closeQuietly(socket);
+            try {
+                socket.close();
+            } catch (IOException ignored) {
+            }
         }
     }
 

@@ -51,7 +51,6 @@ public class TrackerListStorageRequest extends Request {
      * 列举组当中存储节点状态
      */
     public TrackerListStorageRequest(String groupName) {
-        this();
         this.groupName = groupName;
     }
 

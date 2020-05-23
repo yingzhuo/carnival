@@ -17,6 +17,7 @@ import java.io.InputStream;
  * 支持断点续传的文件服务接口
  *
  * @author tobato
+ * @since 1.6.10
  */
 public interface AppendFileStorageClient extends GenerateStorageClient {
 

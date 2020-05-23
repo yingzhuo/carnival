@@ -15,6 +15,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
 
+/**
+ * @author 应卓
+ * @since 1.6.10
+ */
 @Slf4j
 abstract class AbstractConnectionManager {
 
@@ -32,19 +36,15 @@ abstract class AbstractConnectionManager {
         try {
             return command.execute(conn);
         } catch (FastDFSException e) {
-            log.error("execute fdfs command error", e);
             isException = true;
             throw e;
         } catch (Exception e) {
-            log.error("execute fdfs command exception", e);
             isException = true;
             throw new RuntimeException("execute fdfs command error", e);
         } finally {
             if (isException) {
-                //移除连接
                 removeConnect(address, conn);
             } else {
-                //归还连接
                 returnConnect(address, conn);
             }
         }

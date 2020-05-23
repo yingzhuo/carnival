@@ -23,6 +23,7 @@ import java.util.List;
  * 目录服务客户端默认实现
  *
  * @author tobato
+ * @since 1.6.10
  */
 public class TrackerClientImpl implements TrackerClient {
 

@@ -70,7 +70,7 @@ public class StorageSetMetadataRequest extends Request {
      */
     public StorageSetMetadataRequest(String groupName, String path, Set<MetaData> metaDataSet,
                                      StorageMetadataSetType type) {
-        head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_SET_METADATA);
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_SET_METADATA);
         this.groupName = groupName;
         this.path = path;
         this.metaDataSet = metaDataSet;

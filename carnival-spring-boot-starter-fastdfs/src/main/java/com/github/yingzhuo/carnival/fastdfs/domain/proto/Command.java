@@ -11,12 +11,14 @@ package com.github.yingzhuo.carnival.fastdfs.domain.proto;
 
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.Connection;
 
+import java.io.Serializable;
+
 /**
- * Fdfs交易命令抽象
+ * 命令抽象
  *
  * @author tobato
  */
-public interface Command<T> {
+public interface Command<T> extends Serializable {
 
     /**
      * 执行交易

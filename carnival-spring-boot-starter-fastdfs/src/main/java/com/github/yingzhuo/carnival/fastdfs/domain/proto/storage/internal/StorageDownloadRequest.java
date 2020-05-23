@@ -48,12 +48,11 @@ public class StorageDownloadRequest extends Request {
      * 文件下载请求
      */
     public StorageDownloadRequest(String groupName, String path, long fileOffset, long downloadBytes) {
-        super();
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DOWNLOAD_FILE);
         this.groupName = groupName;
         this.downloadBytes = downloadBytes;
         this.path = path;
         this.fileOffset = fileOffset;
-        head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DOWNLOAD_FILE);
     }
 
     public long getFileOffset() {

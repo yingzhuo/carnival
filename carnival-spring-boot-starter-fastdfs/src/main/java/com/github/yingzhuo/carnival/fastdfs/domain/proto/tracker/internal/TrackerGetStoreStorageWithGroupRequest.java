@@ -22,8 +22,6 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.mapper.Column;
  */
 public class TrackerGetStoreStorageWithGroupRequest extends Request {
 
-    private static final byte withGroupCmd = CmdConstants.TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ONE;
-
     /**
      * 分组定义
      */
@@ -34,7 +32,7 @@ public class TrackerGetStoreStorageWithGroupRequest extends Request {
      * 获取存储节点
      */
     public TrackerGetStoreStorageWithGroupRequest(String groupName) {
-        super.head = new ProtoHead(withGroupCmd);
+        super.head = new ProtoHead(CmdConstants.TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ONE);
         this.groupName = groupName;
     }
 

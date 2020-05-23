@@ -38,7 +38,6 @@ public class StorageDeleteFileRequest extends Request {
      * 删除文件命令
      */
     public StorageDeleteFileRequest(String groupName, String path) {
-        super();
         this.groupName = groupName;
         this.path = path;
         this.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DELETE_FILE);

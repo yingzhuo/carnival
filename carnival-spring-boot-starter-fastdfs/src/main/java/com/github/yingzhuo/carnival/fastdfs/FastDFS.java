@@ -26,12 +26,14 @@ public final class FastDFS {
     }
 
     public static String upload(InputStream in, String fileExtName) {
+        // TODO: 把NGINX前缀考略进去
         val client = SpringUtils.getBean(FastFileStorageClient.class);
         val data = client.uploadFile(in, 0L, fileExtName, Collections.emptySet());
         return data.getFullPath();
     }
 
     public static void delete(String filePath) {
+        // TODO: 把NGINX前缀考略进去
         val client = SpringUtils.getBean(FastFileStorageClient.class);
         client.deleteFile(filePath);
     }

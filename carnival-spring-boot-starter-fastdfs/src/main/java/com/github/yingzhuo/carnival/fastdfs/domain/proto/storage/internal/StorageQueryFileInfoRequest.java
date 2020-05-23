@@ -39,10 +39,9 @@ public class StorageQueryFileInfoRequest extends Request {
      * 删除文件命令
      */
     public StorageQueryFileInfoRequest(String groupName, String path) {
-        super();
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_QUERY_FILE_INFO);
         this.groupName = groupName;
         this.path = path;
-        this.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_QUERY_FILE_INFO);
     }
 
     public String getGroupName() {

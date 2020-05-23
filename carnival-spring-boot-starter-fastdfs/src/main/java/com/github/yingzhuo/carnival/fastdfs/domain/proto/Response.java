@@ -14,14 +14,15 @@ import org.springframework.core.GenericTypeResolver;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 
 /**
- * Fdfs交易应答基类
+ * 交易应答
  *
  * @author tobato
  */
-public abstract class Response<T> {
+public abstract class Response<T> implements Serializable {
 
     /**
      * 返回值类型

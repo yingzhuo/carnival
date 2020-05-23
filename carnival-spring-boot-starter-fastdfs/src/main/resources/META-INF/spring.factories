@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.fastdfs.FastDfsClientAutoConfig
+    com.github.yingzhuo.carnival.fastdfs.autoconfig.FastDfsCoreAutoConfig,\
+    com.github.yingzhuo.carnival.fastdfs.autoconfig.FastDfsActuatorAutoConfig

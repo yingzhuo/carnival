@@ -47,15 +47,16 @@ public class StorageUploadFileRequest extends Request {
 
     public StorageUploadFileRequest(byte storeIndex, InputStream inputStream, String fileExtName, long fileSize,
                                     boolean isAppenderFile) {
+        if (isAppenderFile) {
+            super.head = new ProtoHead(uploadAppenderCmd);
+        } else {
+            super.head = new ProtoHead(uploadCmd);
+        }
+
         this.inputFile = inputStream;
         this.fileSize = fileSize;
         this.storeIndex = storeIndex;
         this.fileExtName = fileExtName;
-        if (isAppenderFile) {
-            head = new ProtoHead(uploadAppenderCmd);
-        } else {
-            head = new ProtoHead(uploadCmd);
-        }
     }
 
     public byte getStoreIndex() {

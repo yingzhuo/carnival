@@ -47,11 +47,11 @@ public class StorageModifyRequest extends Request {
     private String path;
 
     public StorageModifyRequest(InputStream inputStream, long fileSize, String path, long fileOffset) {
+        super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_MODIFY_FILE);
         this.inputFile = inputStream;
         this.fileSize = fileSize;
         this.path = path;
         this.fileOffset = fileOffset;
-        head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_MODIFY_FILE);
     }
 
     @Override

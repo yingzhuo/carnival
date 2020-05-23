@@ -18,6 +18,7 @@ import java.net.InetSocketAddress;
  *
  * @author tobato
  * @author 应卓
+ * @since 1.6.10
  */
 public class StorageConnectionManager extends AbstractConnectionManager {
 

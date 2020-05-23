@@ -22,6 +22,7 @@ import java.util.Set;
  * 基本存储客户端操作实现
  *
  * @author tobato
+ * @since 1.6.10
  */
 @Slf4j
 public class GenerateStorageClientImpl implements GenerateStorageClient {

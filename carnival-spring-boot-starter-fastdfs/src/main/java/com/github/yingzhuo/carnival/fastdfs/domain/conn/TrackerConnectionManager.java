@@ -21,6 +21,7 @@ import java.util.List;
  *
  * @author tobato
  * @author 应卓
+ * @since 1.6.10
  */
 public class TrackerConnectionManager extends AbstractConnectionManager {
 
