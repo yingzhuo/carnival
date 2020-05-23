@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.exception;
 
 import com.github.yingzhuo.carnival.common.mvc.RequestInterruptedException;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author 应卓
  */
 public class RestfulSecurityException extends RequestInterruptedException {
+
+    public RestfulSecurityException() {
+        this(RestfulSecurityContext.getRequest());
+    }
 
     public RestfulSecurityException(HttpServletRequest request) {
         this(null, request);

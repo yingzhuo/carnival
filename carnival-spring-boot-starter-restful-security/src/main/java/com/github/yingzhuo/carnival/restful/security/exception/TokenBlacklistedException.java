@@ -20,6 +20,11 @@ public class TokenBlacklistedException extends AuthenticationException {
 
     private final Token Token;
 
+    public TokenBlacklistedException(Token token) {
+        super();
+        this.Token = token;
+    }
+
     public TokenBlacklistedException(HttpServletRequest request, Token token) {
         super(request);
         Token = token;

@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserDetailsLockedException extends AuthorizationException {
 
+    public UserDetailsLockedException() {
+    }
+
     public UserDetailsLockedException(HttpServletRequest request) {
         super(request);
     }

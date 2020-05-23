@@ -22,6 +22,12 @@ public class TokenNotWhitelistedException extends AuthenticationException {
     private final Token token;
     private final UserDetails userDetails;
 
+    public TokenNotWhitelistedException(Token token, UserDetails userDetails) {
+        super();
+        this.token = token;
+        this.userDetails = userDetails;
+    }
+
     public TokenNotWhitelistedException(HttpServletRequest request, Token token, UserDetails userDetails) {
         super(request);
         this.token = token;
