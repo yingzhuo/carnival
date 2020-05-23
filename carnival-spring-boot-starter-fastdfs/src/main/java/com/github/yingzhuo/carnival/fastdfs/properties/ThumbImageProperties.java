@@ -11,7 +11,10 @@ package com.github.yingzhuo.carnival.fastdfs.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.io.Serializable;
 
 /**
  * 缩略图生成配置支持
@@ -21,9 +24,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.thumb-image")
-public class ThumbImageProperties {
+public class ThumbImageProperties implements Serializable, InitializingBean {
 
     private int defaultWidth;
     private int defaultHeight;
+
+    @Override
+    public void afterPropertiesSet() {
+    }
 
 }

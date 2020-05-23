@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.fastdfs.service;
+package com.github.yingzhuo.carnival.fastdfs.client;
 
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.TrackerConnectionManager;
 import com.github.yingzhuo.carnival.fastdfs.domain.fdfs.GroupState;

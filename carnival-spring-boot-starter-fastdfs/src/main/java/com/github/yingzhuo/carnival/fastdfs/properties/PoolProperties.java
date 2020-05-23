@@ -10,7 +10,10 @@
 package com.github.yingzhuo.carnival.fastdfs.properties;
 
 import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.io.Serializable;
 
 /**
  * 连接池配置
@@ -19,7 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @author 应卓
  */
 @ConfigurationProperties(prefix = "carnival.fastdfs.pool")
-public class PoolProperties extends GenericKeyedObjectPoolConfig {
+public class PoolProperties extends GenericKeyedObjectPoolConfig implements Serializable, InitializingBean {
 
     /**
      * 从池中借出的对象的最大数目
@@ -107,7 +110,6 @@ public class PoolProperties extends GenericKeyedObjectPoolConfig {
      */
     public static final boolean FDFS_TEST_ON_BORROW = true;
 
-
     public PoolProperties() {
         // 从池中借出的对象的最大数目
         setMaxTotal(FDFS_MAX_TOTAL);
@@ -139,6 +141,10 @@ public class PoolProperties extends GenericKeyedObjectPoolConfig {
         setJmxEnabled(FDFS_JMX_ENABLED);
         setJmxNameBase(FDFS_JMX_NAME_BASE);
         setJmxNamePrefix(FDFS_JMX_NAME_PREFIX);
+    }
+
+    @Override
+    public void afterPropertiesSet() {
     }
 
 }

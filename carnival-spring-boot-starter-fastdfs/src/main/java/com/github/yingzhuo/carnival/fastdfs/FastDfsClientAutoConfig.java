@@ -9,22 +9,19 @@
  */
 package com.github.yingzhuo.carnival.fastdfs;
 
+import com.github.yingzhuo.carnival.fastdfs.client.*;
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.ConnectionFactory;
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.ConnectionPool;
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.StorageConnectionManager;
 import com.github.yingzhuo.carnival.fastdfs.domain.conn.TrackerConnectionManager;
 import com.github.yingzhuo.carnival.fastdfs.properties.*;
-import com.github.yingzhuo.carnival.fastdfs.service.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableMBeanExport;
-import org.springframework.jmx.support.RegistrationPolicy;
-import org.springframework.util.StringUtils;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 /**
  * 自动配置
@@ -33,7 +30,7 @@ import java.util.stream.Collectors;
  * @author 应卓
  */
 @Configuration
-@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
+//@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @EnableConfigurationProperties({
         RootProperties.class,
         PoolProperties.class,
@@ -71,10 +68,7 @@ public class FastDfsClientAutoConfig {
     public TrackerConnectionManager trackerConnectionManager(ConnectionPool pool, TrackerProperties trackerConfig) {
         return new TrackerConnectionManager(
                 pool,
-                trackerConfig.getNodes().parallelStream()
-                        .filter(StringUtils::hasText)
-                        .map(String::trim)
-                        .collect(Collectors.toList())
+                new ArrayList<>(trackerConfig.getNodes())
         );
     }
 

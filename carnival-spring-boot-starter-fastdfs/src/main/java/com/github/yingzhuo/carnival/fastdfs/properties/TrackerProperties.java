@@ -11,16 +11,31 @@ package com.github.yingzhuo.carnival.fastdfs.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.tracker")
-public class TrackerProperties {
+public class TrackerProperties implements Serializable, InitializingBean {
 
-    private List<String> nodes = new ArrayList<>();
+    private Set<String> nodes = new HashSet<>();
+
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notEmpty(nodes, "tracker nodes not configured");
+        nodes = nodes.stream()
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .collect(Collectors.toSet());
+
+    }
 
 }
