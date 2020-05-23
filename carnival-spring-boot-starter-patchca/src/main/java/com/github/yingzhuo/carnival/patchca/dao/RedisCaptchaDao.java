@@ -30,6 +30,11 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
     public RedisCaptchaDao() {
     }
 
+    public RedisCaptchaDao(RedisConnectionFactory connectionFactory, Duration timeToLive) {
+        this.template = new StringRedisTemplate(connectionFactory);
+        this.timeToLive = timeToLive;
+    }
+
     public RedisCaptchaDao(RedisConnectionFactory connectionFactory, Duration timeToLive, String keyPrefix, String keySuffix) {
         this.template = new StringRedisTemplate(connectionFactory);
         this.timeToLive = timeToLive;
