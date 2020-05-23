@@ -30,10 +30,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NoRepeatedInterceptor extends AbstractHandlerInterceptorSupport {
 
+    private final StringRedisTemplate template;
     private NoRepeatedTokenParser tokenParser;
     private ExceptionTransformer exceptionTransformer;
-
-    private final StringRedisTemplate template;
 
     public NoRepeatedInterceptor(RedisConnectionFactory connectionFactory) {
         this.template = new StringRedisTemplate(connectionFactory);

@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AlgorithmMismatchException extends InvalidTokenException {
 
-
-
     public AlgorithmMismatchException(HttpServletRequest request) {
         super(request);
     }

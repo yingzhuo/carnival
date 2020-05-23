@@ -26,8 +26,8 @@ import java.util.Collections;
 @Slf4j
 public class DefaultRedisLockBean extends AbstractRedisLockBean implements RedisLockBean, InitializingBean {
 
-    private Duration defaultMax;
     private final StringRedisTemplate template;
+    private Duration defaultMax;
 
     public DefaultRedisLockBean(RedisConnectionFactory connectionFactory) {
         super();
@@ -56,8 +56,6 @@ public class DefaultRedisLockBean extends AbstractRedisLockBean implements Redis
         if (defaultMax == null) {
             defaultMax = Duration.ofSeconds(10L);
         }
-
-        // TODO: log the configs
     }
 
     public void setDefaultMax(Duration defaultMax) {

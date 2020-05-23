@@ -17,20 +17,23 @@ import java.time.Duration;
  */
 public final class SleepUtils {
 
+    private SleepUtils() {
+    }
+
     public static void sleep(Duration time) {
         try {
             Thread.sleep(time.toMillis());
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public static void sleep(long timeInMillis) {
         try {
             Thread.sleep(timeInMillis);
-        } catch (InterruptedException ignored) {
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private SleepUtils() {
-    }
 }
