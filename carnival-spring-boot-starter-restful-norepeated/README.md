@@ -7,19 +7,12 @@
 ```xml
 <dependency>
     <groupId>com.github.yingzhuo</groupId>
-    <artifactId>carnival-spring-boot-starter-jedis</artifactId>
-    <version>${carnival.version}</version>
-</dependency>
-<dependency>
-    <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival-spring-boot-starter-restful-norepeated</artifactId>
     <version>${carnival.version}</version>
 </dependency>
 ```
 
 #### 配置
-
-本插件无需配置非常简单。但是由于依赖于[Jedis](https://github.com/xetorthio/jedis)实现。使用时务必配置好[carnival-spring-boot-starter-jedis](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-jedis)。
 
 ```yaml
 carnival:
@@ -84,7 +77,3 @@ public class MyParser implements NoRepeatedTokenParser {
     // ...
 }
 ```
-
-#### 注意事项
-
-* 如果同时使用[carnival-spring-boot-starter-jedis-lock](https://github.com/yingzhuo/carnival/tree/master/carnival-spring-boot-starter-jedis-lock)和本插件，那么两者会共用同一个Jedis资源池。
