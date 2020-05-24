@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.fastdfs.properties;
 
+import com.github.yingzhuo.carnival.fastdfs.domain.conn.Connection;
 import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -22,7 +23,7 @@ import java.io.Serializable;
  * @author 应卓
  */
 @ConfigurationProperties(prefix = "carnival.fastdfs.pool")
-public class PoolProperties extends GenericKeyedObjectPoolConfig implements Serializable, InitializingBean {
+public class PoolProperties extends GenericKeyedObjectPoolConfig<Connection> implements Serializable, InitializingBean {
 
     /**
      * 从池中借出的对象的最大数目
@@ -146,5 +147,4 @@ public class PoolProperties extends GenericKeyedObjectPoolConfig implements Seri
     @Override
     public void afterPropertiesSet() {
     }
-
 }

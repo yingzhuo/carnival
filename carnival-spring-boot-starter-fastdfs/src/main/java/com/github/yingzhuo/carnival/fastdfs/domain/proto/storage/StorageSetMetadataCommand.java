@@ -24,15 +24,10 @@ import java.util.Set;
  */
 public class StorageSetMetadataCommand extends AbstractCommand<Void> {
 
-    /**
-     * 设置文件标签(元数据)
-     */
     public StorageSetMetadataCommand(String groupName, String path, Set<MetaData> metaDataSet,
                                      StorageMetadataSetType type) {
         this.request = new StorageSetMetadataRequest(groupName, path, metaDataSet, type);
-        // 输出响应
         this.response = new Response<Void>() {
-            // default response
         };
     }
 
