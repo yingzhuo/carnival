@@ -166,12 +166,12 @@ public class FastFileStorageClientImpl extends GenerateStorageClientImpl impleme
         // 上传文件
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
-        StorePath path = connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        StorePath path = connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
         // 上传metadata
         if (hasMetaData(metaDataSet)) {
             StorageSetMetadataCommand setMDCommand = new StorageSetMetadataCommand(path.getGroup(), path.getPath(),
                     metaDataSet, StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
-            connectionManager.executeCommand(client.getInetSocketAddress(), setMDCommand);
+            connectionManager.executeStorageCommand(client.getInetSocketAddress(), setMDCommand);
         }
         return path;
     }
@@ -192,7 +192,7 @@ public class FastFileStorageClientImpl extends GenerateStorageClientImpl impleme
             }
             StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(thumbImageStream, fileSize,
                     masterFilename, prefixName, fastImageFile.getFileExtName());
-            connectionManager.executeCommand(client.getInetSocketAddress(), command);
+            connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
 
         } catch (IOException e) {
             log.error("upload ThumbImage error", e);

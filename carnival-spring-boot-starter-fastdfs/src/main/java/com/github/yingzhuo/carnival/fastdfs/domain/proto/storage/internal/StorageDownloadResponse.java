@@ -36,7 +36,7 @@ public class StorageDownloadResponse<T> extends Response<T> {
      */
     @Override
     public T decodeContent(InputStream in, Charset charset) throws IOException {
-        // TODO: 考略RichInputStream 是否真的有必要
+        // TODO: 考虑RichInputStream 是否真的有必要
         RichInputStream input = new RichInputStream(in, getContentLength());
         return callback.recv(input);
     }

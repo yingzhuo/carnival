@@ -10,11 +10,11 @@
 package com.github.yingzhuo.carnival.fastdfs.actuator;
 
 import com.github.yingzhuo.carnival.fastdfs.FastDFS;
-import com.github.yingzhuo.carnival.spring.ResourceLoaderUtils;
+import lombok.val;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 
-import java.io.IOException;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 /**
@@ -24,14 +24,11 @@ import java.io.InputStream;
 public class FastDfsHealthIndicator extends AbstractHealthIndicator {
 
     @Override
-    protected void doHealthCheck(Health.Builder builder) throws IOException {
-        final InputStream file = ResourceLoaderUtils.getResourceLoader()
-                .getResource("classpath:/META-INF/1x1.png")
-                .getInputStream();
+    protected void doHealthCheck(Health.Builder builder) {
 
-        try {
-            final String filePath = FastDFS.upload(file,  0L,"PNG");
-            FastDFS.delete(filePath);
+        try (InputStream file = new ByteArrayInputStream(new byte[]{(byte) 0xFF})) {
+            val path = FastDFS.upload(file, 1L, "");
+            FastDFS.delete(path);
             builder.up();
         } catch (Exception e) {
             builder.down(e);

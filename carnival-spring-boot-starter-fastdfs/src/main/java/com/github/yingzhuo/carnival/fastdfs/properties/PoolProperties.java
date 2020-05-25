@@ -147,4 +147,5 @@ public class PoolProperties extends GenericKeyedObjectPoolConfig<Connection> imp
     @Override
     public void afterPropertiesSet() {
     }
+
 }

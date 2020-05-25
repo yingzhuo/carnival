@@ -50,7 +50,7 @@ public class RichInputStream extends InputStream {
 
     @Override
     public void close() throws IOException {
-        // do nothing
+        ins.close();
     }
 
     /**

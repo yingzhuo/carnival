@@ -37,28 +37,28 @@ public class AppendFileStorageClientImpl extends GenerateStorageClientImpl imple
         StorageNode client = trackerClient.getStoreStorage(groupName);
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, true);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public void appendFile(String groupName, String path, InputStream inputStream, long fileSize) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageAppendFileCommand command = new StorageAppendFileCommand(inputStream, fileSize, path);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public void modifyFile(String groupName, String path, InputStream inputStream, long fileSize, long fileOffset) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageModifyCommand command = new StorageModifyCommand(path, inputStream, fileSize, fileOffset);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public void truncateFile(String groupName, String path, long truncatedFileSize) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageTruncateCommand command = new StorageTruncateCommand(path, truncatedFileSize);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override

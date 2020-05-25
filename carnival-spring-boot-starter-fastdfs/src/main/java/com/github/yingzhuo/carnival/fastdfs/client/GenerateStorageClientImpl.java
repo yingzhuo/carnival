@@ -40,7 +40,7 @@ public class GenerateStorageClientImpl implements GenerateStorageClient {
         StorageNode client = trackerClient.getStoreStorage(groupName);
         StorageUploadFileCommand command = new StorageUploadFileCommand(client.getStoreIndex(), inputStream,
                 fileExtName, fileSize, false);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
@@ -49,14 +49,14 @@ public class GenerateStorageClientImpl implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, masterFilename);
         StorageUploadSlaveFileCommand command = new StorageUploadSlaveFileCommand(inputStream, fileSize, masterFilename,
                 prefixName, fileExtName);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public Set<MetaData> getMetadata(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageGetMetadataCommand command = new StorageGetMetadataCommand(groupName, path);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GenerateStorageClientImpl implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_OVERWRITE);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
@@ -72,21 +72,21 @@ public class GenerateStorageClientImpl implements GenerateStorageClient {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageSetMetadataCommand command = new StorageSetMetadataCommand(groupName, path, metaDataSet,
                 StorageMetadataSetType.STORAGE_SET_METADATA_FLAG_MERGE);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public FileInfo queryFileInfo(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageQueryFileInfoCommand command = new StorageQueryFileInfoCommand(groupName, path);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
     public void deleteFile(String groupName, String path) {
         StorageNodeInfo client = trackerClient.getUpdateStorage(groupName, path);
         StorageDeleteFileCommand command = new StorageDeleteFileCommand(groupName, path);
-        connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class GenerateStorageClientImpl implements GenerateStorageClient {
                               DownloadCallback<T> callback) {
         StorageNodeInfo client = trackerClient.getFetchStorage(groupName, path);
         StorageDownloadCommand<T> command = new StorageDownloadCommand<T>(groupName, path, fileOffset, fileSize, callback);
-        return connectionManager.executeCommand(client.getInetSocketAddress(), command);
+        return connectionManager.executeStorageCommand(client.getInetSocketAddress(), command);
     }
 
 }

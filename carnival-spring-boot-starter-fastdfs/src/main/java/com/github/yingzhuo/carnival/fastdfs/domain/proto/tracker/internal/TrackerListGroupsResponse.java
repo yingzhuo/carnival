@@ -40,7 +40,7 @@ public class TrackerListGroupsResponse extends Response<List<GroupState>> {
             try {
                 return decode(bytes, charset);
             } catch (Exception e) {
-                throw new IOException("读取到的数据长度与协议长度不符");
+                throw new IOException();
             }
 
         } else {

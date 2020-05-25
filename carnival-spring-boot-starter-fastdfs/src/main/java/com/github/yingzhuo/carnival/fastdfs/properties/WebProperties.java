@@ -20,17 +20,18 @@ import java.io.Serializable;
  * 表示文件Web服务器对象
  *
  * @author tobato
+ * @author 应卓
  */
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.web")
 public class WebProperties implements Serializable, InitializingBean {
 
-    private String url;
+    private String url = "";
 
     @Override
     public void afterPropertiesSet() {
-        if (url != null) {
+        if (url != null && !url.isEmpty()) {
             if (!url.endsWith("/")) {
                 url = url + "/";
             }

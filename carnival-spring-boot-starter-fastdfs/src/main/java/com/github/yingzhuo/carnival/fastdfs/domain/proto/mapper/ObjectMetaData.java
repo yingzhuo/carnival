@@ -180,15 +180,4 @@ public class ObjectMetaData {
         }
     }
 
-//    /**
-//     * 导出调试信息
-//     */
-//    public void dumpObjectMetaData() {
-//        log.debug("dump class={}", className);
-//        log.debug("----------------------------------------");
-//        for (FieldMetaData md : fieldList) {
-//            log.debug(md.toString());
-//        }
-//    }
-
 }

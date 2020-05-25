@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.fastdfs.domain.conn;
 import com.github.yingzhuo.carnival.fastdfs.properties.PoolProperties;
 import org.apache.commons.pool2.impl.GenericKeyedObjectPool;
 import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 
 import java.net.InetSocketAddress;
 
@@ -23,14 +22,10 @@ import java.net.InetSocketAddress;
  * @author 应卓
  * @since 1.6.10
  */
-public class ConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> implements InitializingBean, DisposableBean {
+public class ConnectionPool extends GenericKeyedObjectPool<InetSocketAddress, Connection> implements DisposableBean {
 
     public ConnectionPool(ConnectionFactory factory, PoolProperties config) {
         super(factory, config);
-    }
-
-    @Override
-    public void afterPropertiesSet() {
     }
 
     @Override

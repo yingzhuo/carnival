@@ -36,7 +36,7 @@ public class TrackerListStorageResponse extends Response<List<StorageState>> {
         byte[] bytes = new byte[(int) getContentLength()];
         int contentSize = in.read(bytes);
         if (contentSize != getContentLength()) {
-            throw new IOException("读取到的数据长度与协议长度不符");
+            throw new IOException();
         }
         return decode(bytes, charset);
     }

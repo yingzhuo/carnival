@@ -33,7 +33,6 @@ import java.util.Arrays;
  */
 @Lazy(false)
 @Configuration
-//@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 @EnableConfigurationProperties({
         RootProperties.class,
         PoolProperties.class,
@@ -42,6 +41,7 @@ import java.util.Arrays;
         ThumbImageProperties.class
 })
 @ConditionalOnProperty(prefix = "carnival.fastdfs", name = "enabled", havingValue = "true", matchIfMissing = true)
+//@EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
 public class FastDfsCoreAutoConfig {
 
     @Bean

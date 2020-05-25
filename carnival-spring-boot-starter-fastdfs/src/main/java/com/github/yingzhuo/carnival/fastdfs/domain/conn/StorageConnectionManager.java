@@ -29,7 +29,7 @@ public class StorageConnectionManager extends AbstractConnectionManager {
     /**
      * 获取连接并执行交易
      */
-    public <T> T executeCommand(InetSocketAddress address, Command<T> command) {
+    public <T> T executeStorageCommand(InetSocketAddress address, Command<T> command) {
         Connection conn = getConnection(address);
         return doExecute(address, conn, command);
     }

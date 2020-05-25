@@ -30,16 +30,19 @@ public class StorageModifyRequest extends Request {
      */
     @Column(index = 0)
     private long pathSize;
+
     /**
      * 开始位置
      */
     @Column(index = 1)
     private long fileOffset;
+
     /**
      * 发送文件长度
      */
     @Column(index = 2)
     private long fileSize;
+
     /**
      * 文件路径
      */

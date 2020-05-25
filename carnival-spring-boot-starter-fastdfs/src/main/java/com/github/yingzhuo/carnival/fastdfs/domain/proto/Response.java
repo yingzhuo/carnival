@@ -66,7 +66,7 @@ public abstract class Response<T> implements Serializable {
             int contentSize = in.read(bytes);
             // 获取数据
             if (contentSize != getContentLength()) {
-                throw new IOException("读取到的数据长度与协议长度不符");
+                throw new IOException();
             }
             return ParamMapperUtils.map(bytes, genericType, charset);
         }

@@ -22,9 +22,6 @@ import java.net.InetSocketAddress;
 @Slf4j
 abstract class AbstractConnectionManager {
 
-    /**
-     * 连接池
-     */
     private final ConnectionPool pool;
 
     public AbstractConnectionManager(ConnectionPool pool) {
@@ -50,9 +47,6 @@ abstract class AbstractConnectionManager {
         }
     }
 
-    /**
-     * 出现例外时从连接池移除连接
-     */
     private void removeConnect(InetSocketAddress address, Connection conn) {
         try {
             if (null != conn) {
@@ -64,9 +58,6 @@ abstract class AbstractConnectionManager {
         }
     }
 
-    /**
-     * 归还连接
-     */
     private void returnConnect(InetSocketAddress address, Connection conn) {
         try {
             if (null != conn) {
@@ -77,9 +68,6 @@ abstract class AbstractConnectionManager {
         }
     }
 
-    /**
-     * 获取连接
-     */
     protected Connection getConnection(InetSocketAddress address) {
         final Connection conn;
         try {
@@ -94,9 +82,6 @@ abstract class AbstractConnectionManager {
         return conn;
     }
 
-    /**
-     * 打印连接池情况
-     */
     public final void dumpPoolInfo(InetSocketAddress address) {
 
         if (log.isDebugEnabled()) {
