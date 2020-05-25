@@ -10,8 +10,10 @@
 package com.github.yingzhuo.carnival.fastdfs;
 
 import com.github.yingzhuo.carnival.fastdfs.client.FastFileStorageClient;
+import com.github.yingzhuo.carnival.fastdfs.properties.WebProperties;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import lombok.val;
+import lombok.var;
 
 import java.io.InputStream;
 import java.util.Collections;
@@ -25,15 +27,29 @@ public final class FastDFS {
     private FastDFS() {
     }
 
-    public static String upload(InputStream in, String fileExtName) {
-        // TODO: 把NGINX前缀考略进去
+    public static String upload(InputStream in, long fileSize, String fileExtName) {
+
+        var prefix = SpringUtils.getBean(WebProperties.class).getUrl();
+        if (prefix == null) {
+            prefix = "";
+        }
+
         val client = SpringUtils.getBean(FastFileStorageClient.class);
-        val data = client.uploadFile(in, 0L, fileExtName, Collections.emptySet());
-        return data.getFullPath();
+        val data = client.uploadFile(in, fileSize, fileExtName, Collections.emptySet());
+        return prefix + data.getFullPath();
     }
 
     public static void delete(String filePath) {
-        // TODO: 把NGINX前缀考略进去
+
+        var prefix = SpringUtils.getBean(WebProperties.class).getUrl();
+        if (prefix == null) {
+            prefix = "";
+        }
+
+        if (filePath.startsWith(prefix)) {
+            filePath = filePath.substring(prefix.length());
+        }
+
         val client = SpringUtils.getBean(FastFileStorageClient.class);
         client.deleteFile(filePath);
     }

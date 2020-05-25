@@ -31,7 +31,7 @@ public class WebProperties implements Serializable, InitializingBean {
     @Override
     public void afterPropertiesSet() {
         if (url != null) {
-            if (url.endsWith("/")) {
+            if (!url.endsWith("/")) {
                 url = url + "/";
             }
         }

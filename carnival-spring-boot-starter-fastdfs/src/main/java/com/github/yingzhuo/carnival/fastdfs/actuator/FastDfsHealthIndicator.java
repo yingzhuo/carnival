@@ -30,7 +30,7 @@ public class FastDfsHealthIndicator extends AbstractHealthIndicator {
                 .getInputStream();
 
         try {
-            final String filePath = FastDFS.upload(file, "PNG");
+            final String filePath = FastDFS.upload(file,  0L,"PNG");
             FastDFS.delete(filePath);
             builder.up();
         } catch (Exception e) {
