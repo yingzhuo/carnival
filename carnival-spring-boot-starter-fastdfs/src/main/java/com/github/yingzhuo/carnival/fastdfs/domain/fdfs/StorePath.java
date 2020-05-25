@@ -64,9 +64,11 @@ public class StorePath {
     private static String getGroupName(String filePath) {
         //先分隔开路径
         String[] paths = filePath.split(SPLIT_GROUP_NAME_AND_FILENAME_SEPARATOR);
+
         if (paths.length == 1) {
             throw new FastDFSUnsupportedStorePathException("解析文件路径错误,有效的路径样式为(group/path) 而当前解析路径为".concat(filePath));
         }
+
         for (String item : paths) {
             if (item.contains(SPLIT_GROUP_NAME)) {
                 return item;

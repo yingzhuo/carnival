@@ -16,26 +16,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.tracker")
 public class TrackerProperties implements Serializable, InitializingBean {
 
-    private Set<String> nodes = new HashSet<>();
+    private String[] nodes = new String[0];
 
     @Override
     public void afterPropertiesSet() {
         Assert.notEmpty(nodes, "tracker nodes not configured");
-        nodes = nodes.stream()
-                .filter(Objects::nonNull)
-                .map(String::trim)
-                .collect(Collectors.toSet());
-
     }
 
 }

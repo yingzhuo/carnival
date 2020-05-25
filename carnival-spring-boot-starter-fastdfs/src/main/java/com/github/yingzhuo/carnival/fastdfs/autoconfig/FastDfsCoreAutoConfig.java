@@ -22,7 +22,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 自动配置
@@ -71,7 +71,7 @@ public class FastDfsCoreAutoConfig {
     public TrackerConnectionManager trackerConnectionManager(ConnectionPool pool, TrackerProperties trackerConfig) {
         return new TrackerConnectionManager(
                 pool,
-                new ArrayList<>(trackerConfig.getNodes())
+                Arrays.asList(trackerConfig.getNodes())
         );
     }
 
