@@ -59,7 +59,7 @@ public class ConnectionFactory extends BaseKeyedPooledObjectFactory<InetSocketAd
      */
     @Override
     public PooledObject<Connection> wrap(Connection conn) {
-        return new DefaultPooledObject<>(conn);
+        return new PooledConnection(conn);
     }
 
     /**
@@ -70,12 +70,20 @@ public class ConnectionFactory extends BaseKeyedPooledObjectFactory<InetSocketAd
         p.getObject().close();
     }
 
-    /***
+    /**
      * 验证池中对象是否可用
      */
     @Override
     public boolean validateObject(InetSocketAddress key, PooledObject<Connection> p) {
         return p.getObject().isValid();
+    }
+
+    // --------------------------------------------------------------------------------------------------------------
+
+    private static class PooledConnection extends DefaultPooledObject<Connection> {
+        public PooledConnection(Connection object) {
+            super(object);
+        }
     }
 
 }
