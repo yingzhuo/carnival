@@ -21,21 +21,12 @@ import java.util.Set;
  */
 public class FastImageFile extends FastFile {
 
-    /**
-     * 图片配置
-     */
     private ThumbImage thumbImage;
 
-    /**
-     * 上传图片文件
-     */
     public FastImageFile(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet) {
         super(inputStream, fileSize, fileExtName, metaDataSet);
     }
 
-    /**
-     * 上传图片文件
-     */
     public FastImageFile(InputStream inputStream, long fileSize, String fileExtName, Set<MetaData> metaDataSet, ThumbImage thumbImage) {
         super(inputStream, fileSize, fileExtName, metaDataSet);
         this.thumbImage = thumbImage;
@@ -48,16 +39,10 @@ public class FastImageFile extends FastFile {
         return thumbImage;
     }
 
-    /**
-     * 获取缩略图路径
-     */
     public String getThumbImagePath(String masterFilename) {
         return thumbImage.getThumbImagePath(masterFilename);
     }
 
-    /**
-     * 构造模式
-     */
     public static class Builder extends AbstractFastFileBuilder<FastImageFile> {
 
         private ThumbImage thumbImage;
@@ -72,7 +57,6 @@ public class FastImageFile extends FastFile {
         public Builder withFile(InputStream inputStream, long fileSize, String fileExtName) {
             super.withFile(inputStream, fileSize, fileExtName);
             return this;
-
         }
 
         @Override
@@ -87,33 +71,21 @@ public class FastImageFile extends FastFile {
             return this;
         }
 
-        /**
-         * 按默认方式生成缩略图
-         */
         public Builder withThumbImage() {
             this.thumbImage = new ThumbImage();
             return this;
         }
 
-        /**
-         * 缩略图配置
-         */
         public Builder withThumbImage(int width, int height) {
             this.thumbImage = new ThumbImage(width, height);
             return this;
         }
 
-        /**
-         * 缩放比例配置
-         */
         public Builder withThumbImage(double percent) {
             this.thumbImage = new ThumbImage(percent);
             return this;
         }
 
-        /**
-         * 构造上传文件对象
-         */
         @Override
         public FastImageFile build() {
             FastImageFile file = new FastImageFile();

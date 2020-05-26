@@ -34,9 +34,6 @@ public class TrackerDeleteStorageRequest extends Request {
     @Column(index = 1, max = OtherConstants.FDFS_IP_ADDR_SIZE - 1)
     private String storageIpAddr;
 
-    /**
-     * 获取文件源服务器
-     */
     public TrackerDeleteStorageRequest(String groupName, String storageIpAddr) {
         super.head = new ProtoHead(CmdConstants.TRACKER_PROTO_CMD_SERVER_DELETE_STORAGE);
         this.groupName = groupName;

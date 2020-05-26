@@ -23,12 +23,8 @@ import java.io.InputStream;
  */
 public class StorageUploadFileCommand extends AbstractCommand<StorePath> {
 
-    /**
-     * 文件上传命令
-     */
     public StorageUploadFileCommand(byte storeIndex, InputStream inputStream, String fileExtName, long fileSize,
                                     boolean isAppenderFile) {
-        super();
         this.request = new StorageUploadFileRequest(storeIndex, inputStream, fileExtName, fileSize, isAppenderFile);
         // 输出响应
         this.response = new Response<StorePath>() {

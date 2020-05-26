@@ -20,11 +20,7 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.storage.internal.Storag
  */
 public class StorageTruncateCommand extends AbstractCommand<Void> {
 
-    /**
-     * StorageTruncateCommand
-     */
     public StorageTruncateCommand(String path, long fileSize) {
-        super();
         this.request = new StorageTruncateRequest(path, fileSize);
         // 输出响应
         this.response = new Response<Void>() {

@@ -53,9 +53,6 @@ public class RichInputStream extends InputStream {
         ins.close();
     }
 
-    /**
-     * 是否已完成读取
-     */
     public boolean isReadCompleted() {
         return remainByteSize == 0;
     }

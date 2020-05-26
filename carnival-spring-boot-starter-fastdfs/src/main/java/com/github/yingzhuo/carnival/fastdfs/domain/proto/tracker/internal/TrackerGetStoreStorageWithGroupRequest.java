@@ -28,9 +28,6 @@ public class TrackerGetStoreStorageWithGroupRequest extends Request {
     @Column(index = 0, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
     private final String groupName;
 
-    /**
-     * 获取存储节点
-     */
     public TrackerGetStoreStorageWithGroupRequest(String groupName) {
         super.head = new ProtoHead(CmdConstants.TRACKER_PROTO_CMD_SERVICE_QUERY_STORE_WITH_GROUP_ONE);
         this.groupName = groupName;

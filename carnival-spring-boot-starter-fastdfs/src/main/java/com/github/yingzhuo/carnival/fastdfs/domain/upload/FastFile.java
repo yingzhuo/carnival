@@ -48,9 +48,6 @@ public class FastFile implements Serializable {
      */
     protected String groupName;
 
-    /**
-     * 上传文件对象
-     */
     public FastFile(InputStream inputStream, long fileSize,
                     String fileExtName, Set<MetaData> metaDataSet) {
         this.inputStream = inputStream;

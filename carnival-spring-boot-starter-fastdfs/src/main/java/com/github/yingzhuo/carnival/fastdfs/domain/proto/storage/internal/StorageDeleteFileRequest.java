@@ -34,9 +34,6 @@ public class StorageDeleteFileRequest extends Request {
     @Column(index = 1, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 删除文件命令
-     */
     public StorageDeleteFileRequest(String groupName, String path) {
         this.groupName = groupName;
         this.path = path;

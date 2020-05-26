@@ -22,9 +22,6 @@ import java.io.InputStream;
  */
 public class StorageModifyCommand extends AbstractCommand<Void> {
 
-    /**
-     * 文件修改命令
-     */
     public StorageModifyCommand(String path, InputStream inputStream, long fileSize, long fileOffset) {
         super();
         this.request = new StorageModifyRequest(inputStream, fileSize, path, fileOffset);

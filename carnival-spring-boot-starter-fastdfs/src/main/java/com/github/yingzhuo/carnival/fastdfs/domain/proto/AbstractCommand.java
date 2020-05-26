@@ -20,7 +20,6 @@ import java.nio.charset.Charset;
 /**
  * 交易命令抽象类
  *
- * @param <T>
  * @author tobato
  */
 public abstract class AbstractCommand<T> implements Command<T> {

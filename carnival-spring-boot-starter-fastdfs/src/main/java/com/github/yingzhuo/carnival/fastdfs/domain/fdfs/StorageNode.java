@@ -42,9 +42,6 @@ public class StorageNode {
     @Column(index = 3)
     private byte storeIndex;
 
-    /**
-     * 存储节点
-     */
     public StorageNode(String ip, int port, byte storeIndex) {
         this.ip = ip;
         this.port = port;

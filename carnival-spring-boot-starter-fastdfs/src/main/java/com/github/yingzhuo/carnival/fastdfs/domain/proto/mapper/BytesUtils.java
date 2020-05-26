@@ -22,12 +22,6 @@ public final class BytesUtils {
     private BytesUtils() {
     }
 
-    /**
-     * long convert to buff (big-endian)
-     *
-     * @param n long number
-     * @return 8 bytes buff
-     */
     public static byte[] long2buff(long n) {
         byte[] bs;
 
@@ -43,9 +37,6 @@ public final class BytesUtils {
         return bs;
     }
 
-    /**
-     * buff convert to long
-     */
     public static long buff2long(byte[] bs, int offset) {
         return (((long) (bs[offset] >= 0 ? bs[offset] : 256 + bs[offset])) << 56)
                 | (((long) (bs[offset + 1] >= 0 ? bs[offset + 1] : 256 + bs[offset + 1])) << 48)
@@ -57,9 +48,6 @@ public final class BytesUtils {
                 | (bs[offset + 7] >= 0 ? bs[offset + 7] : 256 + bs[offset + 7]);
     }
 
-    /**
-     * buff convert to int
-     */
     public static int buff2int(byte[] bs, int offset) {
         return ((bs[offset] >= 0 ? bs[offset] : 256 + bs[offset]) << 24)
                 | ((bs[offset + 1] >= 0 ? bs[offset + 1] : 256 + bs[offset + 1]) << 16)
@@ -67,9 +55,6 @@ public final class BytesUtils {
                 | (bs[offset + 3] >= 0 ? bs[offset + 3] : 256 + bs[offset + 3]);
     }
 
-    /**
-     * 将String转换为byte
-     */
     public static byte[] objString2Byte(String value, int max, Charset charset) {
         byte[] fullContentBytes = new byte[max];
         // 填充默认值
@@ -90,9 +75,6 @@ public final class BytesUtils {
         return fullContentBytes;
     }
 
-    /**
-     * 将String转换为byte
-     */
     public static byte[] objString2Byte(String value, Charset charset) {
         if (null == value) {
             return null;

@@ -39,17 +39,11 @@ public class TrackerListStorageRequest extends Request {
         head = new ProtoHead(CmdConstants.TRACKER_PROTO_CMD_SERVER_LIST_STORAGE);
     }
 
-    /**
-     * 列举存储服务器状态
-     */
     public TrackerListStorageRequest(String groupName, String storageIpAddr) {
         this.groupName = groupName;
         this.storageIpAddr = storageIpAddr;
     }
 
-    /**
-     * 列举组当中存储节点状态
-     */
     public TrackerListStorageRequest(String groupName) {
         this.groupName = groupName;
     }

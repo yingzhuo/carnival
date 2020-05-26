@@ -16,29 +16,21 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.storage.internal.Storag
 /**
  * 文件下载命令
  *
- * @param <T>
  * @author tobato
  */
 public class StorageDownloadCommand<T> extends AbstractCommand<T> {
 
-    /**
-     * 下载部分文件
-     */
     public StorageDownloadCommand(String groupName, String path, long fileOffset, long downloadBytes,
                                   DownloadCallback<T> callback) {
-        super();
         this.request = new StorageDownloadRequest(groupName, path, fileOffset, downloadBytes);
         // 输出响应
         this.response = new StorageDownloadResponse<T>(callback);
     }
 
-    /**
-     * 下载文件
-     */
     public StorageDownloadCommand(String groupName, String path, DownloadCallback<T> callback) {
-        super();
         this.request = new StorageDownloadRequest(groupName, path, 0, 0);
         // 输出响应
         this.response = new StorageDownloadResponse<T>(callback);
     }
+
 }

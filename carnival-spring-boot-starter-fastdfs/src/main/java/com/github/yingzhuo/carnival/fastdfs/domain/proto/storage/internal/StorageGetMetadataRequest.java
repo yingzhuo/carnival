@@ -34,9 +34,6 @@ public class StorageGetMetadataRequest extends Request {
     @Column(index = 1, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 删除文件命令
-     */
     public StorageGetMetadataRequest(String groupName, String path) {
         super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_GET_METADATA);
         this.groupName = groupName;

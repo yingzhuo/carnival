@@ -65,9 +65,6 @@ public class StorageSetMetadataRequest extends Request {
     @Column(index = 5, dynamicField = DynamicFieldType.METADATA)
     private Set<MetaData> metaDataSet;
 
-    /**
-     * 设置文件元数据
-     */
     public StorageSetMetadataRequest(String groupName, String path, Set<MetaData> metaDataSet,
                                      StorageMetadataSetType type) {
         super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_SET_METADATA);

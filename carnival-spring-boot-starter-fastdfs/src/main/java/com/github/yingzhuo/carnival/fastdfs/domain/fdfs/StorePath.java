@@ -27,14 +27,8 @@ import lombok.*;
 @NoArgsConstructor
 public class StorePath {
 
-    /**
-     * 解析路径
-     */
     private static final String SPLIT_GROUP_NAME_AND_FILENAME_SEPARATOR = "/";
 
-    /**
-     * group
-     */
     private static final String SPLIT_GROUP_NAME = "group";
 
     @Column(index = 0, max = OtherConstants.FDFS_GROUP_NAME_MAX_LEN)
@@ -43,12 +37,6 @@ public class StorePath {
     @Column(index = 1, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 从Url当中解析存储路径对象
-     *
-     * @param filePath 有效的路径样式为(group/path) 或者
-     *                 (http://ip/group/path),路径地址必须包含group
-     */
     public static StorePath parseFromUrl(String filePath) {
         String group = getGroupName(filePath);
 
@@ -58,9 +46,6 @@ public class StorePath {
         return new StorePath(group, path);
     }
 
-    /**
-     * 获取Group名称
-     */
     private static String getGroupName(String filePath) {
         //先分隔开路径
         String[] paths = filePath.split(SPLIT_GROUP_NAME_AND_FILENAME_SEPARATOR);
@@ -78,9 +63,6 @@ public class StorePath {
         throw new FastDFSUnsupportedStorePathException("解析文件路径错误,被解析路径url没有group,当前解析路径为".concat(filePath));
     }
 
-    /**
-     * 获取文件全路径
-     */
     public String getFullPath() {
         return this.group.concat(SPLIT_GROUP_NAME_AND_FILENAME_SEPARATOR).concat(this.path);
     }

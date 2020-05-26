@@ -23,14 +23,8 @@ import java.nio.charset.Charset;
  */
 public abstract class Request implements Serializable {
 
-    /**
-     * 报文头
-     */
     protected ProtoHead head;
 
-    /**
-     * 发送文件
-     */
     protected InputStream inputFile;
 
     /**
@@ -40,9 +34,6 @@ public abstract class Request implements Serializable {
         return head;
     }
 
-    /**
-     * 获取报文头
-     */
     public byte[] getHeadByte(Charset charset) {
         // 设置报文长度
         head.setContentLength(getBodyLength(charset));
@@ -50,16 +41,10 @@ public abstract class Request implements Serializable {
         return head.toBytes();
     }
 
-    /**
-     * 打包参数
-     */
     public byte[] encodeParam(Charset charset) {
         return ParamMapperUtils.toByte(this, charset);
     }
 
-    /**
-     * 获取参数域长度
-     */
     protected long getBodyLength(Charset charset) {
         ObjectMetaData objectMetaData = ParamMapperUtils.getObjectMap(this.getClass());
         return objectMetaData.getFieldsSendTotalByteSize(this, charset) + getFileSize();

@@ -32,9 +32,6 @@ public class TrackerConnectionManager extends AbstractConnectionManager {
         this.locator = new TrackerLocator(trackerList);
     }
 
-    /**
-     * 获取连接并执行交易
-     */
     public <T> T executeTrackerCommand(Command<T> command) {
         Connection conn;
         InetSocketAddress address = null;

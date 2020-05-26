@@ -24,17 +24,11 @@ import java.util.Map;
  */
 public final class ParamMapperUtils {
 
-    /**
-     * 对象映射缓存
-     */
     private static Map<String, ObjectMetaData> mapCache = new HashMap<>();
 
     private ParamMapperUtils() {
     }
 
-    /**
-     * 将byte解码为对象
-     */
     public static <T> T map(byte[] content, Class<T> genericType, Charset charset) {
         // 获取映射对象
         ObjectMetaData objectMap = getObjectMap(genericType);
@@ -46,9 +40,6 @@ public final class ParamMapperUtils {
         }
     }
 
-    /**
-     * 获取对象映射定义
-     */
     public static <T> ObjectMetaData getObjectMap(Class<T> genericType) {
         if (null == mapCache.get(genericType.getName())) {
             // 还未缓存过
@@ -57,9 +48,6 @@ public final class ParamMapperUtils {
         return mapCache.get(genericType.getName());
     }
 
-    /**
-     * 按列顺序映射
-     */
     private static <T> T mapByIndex(byte[] content, Class<T> genericType, ObjectMetaData objectMap, Charset charset)
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
 
@@ -73,9 +61,6 @@ public final class ParamMapperUtils {
         return obj;
     }
 
-    /**
-     * 序列化为Byte
-     */
     public static byte[] toByte(Object object, Charset charset) {
         ObjectMetaData objectMap = getObjectMap(object.getClass());
         try {
@@ -85,9 +70,6 @@ public final class ParamMapperUtils {
         }
     }
 
-    /**
-     * 将属性转换为byte
-     */
     private static byte[] convertFieldToByte(ObjectMetaData objectMap, Object object, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         List<FieldMetaData> mappingFields = objectMap.getFieldList();

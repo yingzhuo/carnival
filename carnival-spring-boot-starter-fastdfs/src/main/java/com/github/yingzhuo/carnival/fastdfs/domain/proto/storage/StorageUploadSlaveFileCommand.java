@@ -18,7 +18,6 @@ import java.io.InputStream;
 
 /**
  * 从文件上传命令
- * <p>
  * <pre>
  * 使用背景
  * 使用FastDFS存储一个图片的多个分辨率的备份时，希望只记录源图的FID，
@@ -42,12 +41,8 @@ import java.io.InputStream;
  */
 public class StorageUploadSlaveFileCommand extends AbstractCommand<StorePath> {
 
-    /**
-     * 文件上传命令
-     */
     public StorageUploadSlaveFileCommand(InputStream inputStream, long fileSize, String masterFilename,
                                          String prefixName, String fileExtName) {
-        super();
         this.request = new StorageUploadSlaveFileRequest(inputStream, fileSize, masterFilename, prefixName,
                 fileExtName);
         // 输出响应

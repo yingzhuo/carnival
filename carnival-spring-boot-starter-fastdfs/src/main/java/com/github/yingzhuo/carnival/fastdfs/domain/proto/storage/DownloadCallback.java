@@ -15,14 +15,10 @@ import java.io.InputStream;
 /**
  * 文件下载回调接口
  *
- * @param <T>
  * @author tobato
  */
 public interface DownloadCallback<T> {
 
-    /**
-     * 注意不能直接返回入参的InputStream，因为此方法返回后将关闭原输入流
-     */
     public T recv(InputStream ins) throws IOException;
 
 }

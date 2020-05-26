@@ -35,9 +35,6 @@ public class StorageQueryFileInfoRequest extends Request {
     @Column(index = 1, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 删除文件命令
-     */
     public StorageQueryFileInfoRequest(String groupName, String path) {
         super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_QUERY_FILE_INFO);
         this.groupName = groupName;

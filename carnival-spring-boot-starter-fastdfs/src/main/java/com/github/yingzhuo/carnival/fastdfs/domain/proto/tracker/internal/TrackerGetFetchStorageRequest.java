@@ -38,9 +38,6 @@ public class TrackerGetFetchStorageRequest extends Request {
     @Column(index = 1, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 获取文件源服务器
-     */
     public TrackerGetFetchStorageRequest(String groupName, String path, boolean toUpdate) {
         if (toUpdate) {
             super.head = new ProtoHead(updateCmd);

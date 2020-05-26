@@ -21,19 +21,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Column {
 
-    /**
-     * 映射顺序 (从0开始)
-     */
     public int index();
 
-    /**
-     * String最大值
-     */
     public int max() default 0;
 
-    /**
-     * 动态属性
-     */
     public DynamicFieldType dynamicField() default DynamicFieldType.NULL;
 
 }

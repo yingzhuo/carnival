@@ -23,9 +23,6 @@ import java.util.Set;
  */
 public class StorageGetMetadataCommand extends AbstractCommand<Set<MetaData>> {
 
-    /**
-     * 设置文件标签(元数据)
-     */
     public StorageGetMetadataCommand(String groupName, String path) {
         this.request = new StorageGetMetadataRequest(groupName, path);
         // 输出响应

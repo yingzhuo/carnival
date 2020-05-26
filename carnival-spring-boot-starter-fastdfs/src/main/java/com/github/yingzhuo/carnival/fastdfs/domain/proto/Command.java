@@ -20,9 +20,6 @@ import java.io.Serializable;
  */
 public interface Command<T> extends Serializable {
 
-    /**
-     * 执行交易
-     */
     public T execute(Connection conn);
 
 }

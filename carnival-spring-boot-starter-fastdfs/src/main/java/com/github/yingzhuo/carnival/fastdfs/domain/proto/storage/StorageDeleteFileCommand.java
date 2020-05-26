@@ -20,11 +20,7 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.storage.internal.Storag
  */
 public class StorageDeleteFileCommand extends AbstractCommand<Void> {
 
-    /**
-     * 文件删除命令
-     */
     public StorageDeleteFileCommand(String groupName, String path) {
-        super();
         this.request = new StorageDeleteFileRequest(groupName, path);
         // 输出响应
         this.response = new Response<Void>() {

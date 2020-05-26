@@ -21,9 +21,6 @@ import com.github.yingzhuo.carnival.fastdfs.domain.proto.storage.internal.Storag
  */
 public class StorageQueryFileInfoCommand extends AbstractCommand<FileInfo> {
 
-    /**
-     * 文件查询命令
-     */
     public StorageQueryFileInfoCommand(String groupName, String path) {
         super();
         this.request = new StorageQueryFileInfoRequest(groupName, path);

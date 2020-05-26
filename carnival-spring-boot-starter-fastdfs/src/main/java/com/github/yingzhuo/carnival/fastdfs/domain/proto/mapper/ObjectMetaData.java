@@ -20,7 +20,6 @@ import java.util.List;
 
 /**
  * 映射对象元数据
- * <p>
  * <pre>
  * 映射对象元数据必须由{@code @FdfsColumn}注解
  * </pre>
@@ -30,29 +29,14 @@ import java.util.List;
 @Slf4j
 public class ObjectMetaData {
 
-    /**
-     * 映射对象类名
-     */
     private String className;
 
-    /**
-     * 映射列(全部)
-     */
     private List<FieldMetaData> fieldList = new ArrayList<>();
 
-    /**
-     * 动态计算列(部分)fieldList包含dynamicFieldList
-     */
     private List<FieldMetaData> dynamicFieldList = new ArrayList<>();
 
-    /**
-     * FieldsTotalSize
-     */
     private int fieldsTotalSize = 0;
 
-    /**
-     * 映射对象元数据构造函数
-     */
     public <T> ObjectMetaData(Class<T> genericType) {
         // 获得对象类名
         this.className = genericType.getName();
@@ -69,9 +53,6 @@ public class ObjectMetaData {
         return Collections.unmodifiableList(fieldList);
     }
 
-    /**
-     * 解析映射对象数据映射情况
-     */
     private <T> List<FieldMetaData> parseFieldList(Class<T> genericType) {
         Field[] fields = genericType.getDeclaredFields();
         List<FieldMetaData> mappedFieldList = new ArrayList<>();
@@ -90,22 +71,12 @@ public class ObjectMetaData {
         return mappedFieldList;
     }
 
-    /**
-     * 检查数据列定义
-     * <p>
-     * <pre>
-     * 为了减少编码的错误，检查数据列定义是否存在列名相同或者索引定义相同(多个大于0相同的)的
-     * </pre>
-     */
     private void validateFieldListDefine() {
         for (FieldMetaData field : fieldList) {
             validateFieldItemDefineByIndex(field);
         }
     }
 
-    /**
-     * 检查按索引映射
-     */
     private void validateFieldItemDefineByIndex(FieldMetaData field) {
         for (FieldMetaData otherField : fieldList) {
             if (!field.equals(otherField) && (field.getIndex() == otherField.getIndex())) {
@@ -115,9 +86,6 @@ public class ObjectMetaData {
         }
     }
 
-    /**
-     * 是否有动态数据列
-     */
     private boolean hasDynamicField() {
         for (FieldMetaData field : fieldList) {
             if (field.isDynamicField()) {
@@ -127,9 +95,6 @@ public class ObjectMetaData {
         return false;
     }
 
-    /**
-     * 获取动态数据列长度
-     */
     private int getDynamicFieldSize(Object obj, Charset charset)
             throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
         int size = 0;
@@ -139,9 +104,6 @@ public class ObjectMetaData {
         return size;
     }
 
-    /**
-     * 获取固定参数对象总长度
-     */
     public int getFieldsFixTotalSize() {
         if (hasDynamicField()) {
             throw new FastDFSColumnMappingException(
@@ -150,9 +112,6 @@ public class ObjectMetaData {
         return fieldsTotalSize;
     }
 
-    /**
-     * 获取需要发送的报文长度
-     */
     public int getFieldsSendTotalByteSize(Object bean, Charset charset) {
         if (!hasDynamicField()) {
             return fieldsTotalSize;
@@ -161,9 +120,6 @@ public class ObjectMetaData {
         }
     }
 
-    /**
-     * 获取动态属性长度
-     */
     private int getDynamicTotalFieldSize(Object bean, Charset charset) {
         try {
             int dynamicFieldSize = getDynamicFieldSize(bean, charset);

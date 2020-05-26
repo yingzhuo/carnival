@@ -24,41 +24,24 @@ import java.nio.charset.Charset;
  */
 public abstract class Response<T> implements Serializable {
 
-    /**
-     * 返回值类型
-     */
     protected final Class<T> genericType;
-    /**
-     * 报文头
-     */
+
     protected ProtoHead head;
 
-    /**
-     * 构造函数
-     */
     @SuppressWarnings("unchecked")
     public Response() {
         this.genericType = (Class<T>) GenericTypeResolver.resolveTypeArgument(getClass(), Response.class);
     }
 
-    /**
-     * 获取报文长度
-     */
     protected long getContentLength() {
         return head.getContentLength();
     }
 
-    /**
-     * 解析反馈结果,head已经被解析过
-     */
     public T decode(ProtoHead head, InputStream in, Charset charset) throws IOException {
         this.head = head;
         return decodeContent(in, charset);
     }
 
-    /**
-     * 解析反馈内容
-     */
     public T decodeContent(InputStream in, Charset charset) throws IOException {
         // 如果有内容
         if (getContentLength() > 0) {

@@ -20,8 +20,8 @@ import java.nio.charset.Charset;
 /**
  * 文件下载结果
  *
- * @param <T>
  * @author tobato
+ * @author 应卓
  */
 public class StorageDownloadResponse<T> extends Response<T> {
 
@@ -31,9 +31,6 @@ public class StorageDownloadResponse<T> extends Response<T> {
         this.callback = callback;
     }
 
-    /**
-     * 解析反馈内容
-     */
     @Override
     public T decodeContent(InputStream in, Charset charset) throws IOException {
         // TODO: 考虑RichInputStream 是否真的有必要

@@ -26,9 +26,6 @@ public final class MetadataMapper {
     private MetadataMapper() {
     }
 
-    /**
-     * 将元数据映射为byte
-     */
     public static byte[] toByte(Set<MetaData> metadataSet, Charset charset) {
         if (null == metadataSet || metadataSet.isEmpty()) {
             return new byte[0];
@@ -43,9 +40,6 @@ public final class MetadataMapper {
         return sb.toString().getBytes(charset);
     }
 
-    /**
-     * 将byte映射为对象
-     */
     public static Set<MetaData> fromByte(byte[] content, Charset charset) {
         Set<MetaData> mdSet = new HashSet<>();
         if (null == content) {
@@ -62,7 +56,6 @@ public final class MetadataMapper {
             }
             mdSet.add(md);
         }
-
         return mdSet;
     }
 

@@ -44,9 +44,6 @@ public class StorageDownloadRequest extends Request {
     @Column(index = 3, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 文件下载请求
-     */
     public StorageDownloadRequest(String groupName, String path, long fileOffset, long downloadBytes) {
         super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_DOWNLOAD_FILE);
         this.groupName = groupName;

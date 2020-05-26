@@ -26,9 +26,6 @@ public class StorageConnectionManager extends AbstractConnectionManager {
         super(pool);
     }
 
-    /**
-     * 获取连接并执行交易
-     */
     public <T> T executeStorageCommand(InetSocketAddress address, Command<T> command) {
         Connection conn = getConnection(address);
         return doExecute(address, conn, command);

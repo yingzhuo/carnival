@@ -47,9 +47,6 @@ public abstract class AbstractFastFileBuilder<T> {
      */
     protected String groupName;
 
-    /**
-     * 上传文件
-     */
     public AbstractFastFileBuilder<T> withFile(InputStream inputStream, long fileSize, String fileExtName) {
         this.inputStream = inputStream;
         this.fileSize = fileSize;
@@ -57,33 +54,21 @@ public abstract class AbstractFastFileBuilder<T> {
         return this;
     }
 
-    /**
-     * 元数据信息
-     */
     public AbstractFastFileBuilder<T> withMetaData(String name, String value) {
         this.metaDataSet.add(new MetaData(name, value));
         return this;
     }
 
-    /**
-     * 元数据信息
-     */
     public AbstractFastFileBuilder<T> withMetaData(Set<MetaData> metaDataSet) {
         this.metaDataSet.addAll(metaDataSet);
         return this;
     }
 
-    /**
-     * 上传至文件组
-     */
     public AbstractFastFileBuilder<T> toGroup(String groupName) {
         this.groupName = groupName;
         return this;
     }
 
-    /**
-     * 构造上传文件对象
-     */
     public abstract T build();
 
 }

@@ -19,7 +19,6 @@ import java.nio.charset.Charset;
 
 /**
  * 文件Truncate命令
- * <p>
  * <pre>
  * 使用限制：创建文件时候需要采用源追加模式,之后才能Truncate
  * size使用也有限制
@@ -47,9 +46,6 @@ public class StorageTruncateRequest extends Request {
     @Column(index = 2, dynamicField = DynamicFieldType.ALL_REST_BYTE)
     private String path;
 
-    /**
-     * 文件Truncate命令
-     */
     public StorageTruncateRequest(String path, long fileSize) {
         super.head = new ProtoHead(CmdConstants.STORAGE_PROTO_CMD_TRUNCATE_FILE);
         this.fileSize = fileSize;
