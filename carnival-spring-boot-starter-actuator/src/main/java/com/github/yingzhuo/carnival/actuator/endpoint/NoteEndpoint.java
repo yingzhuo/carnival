@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.actuator.endpoint;
 
-import com.github.rjeschke.txtmark.Processor;
+import com.github.yingzhuo.carnival.actuator.util.MarkdownEntityFactory;
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -35,7 +35,7 @@ public class NoteEndpoint extends AbstractEndpoint {
 
         if (resourceOptional.isPresent()) {
             String text = resourceOptional.toResourceText().getText();
-            html = Processor.process(text);
+            html = MarkdownEntityFactory.create(text).toString();
         }
     }
 

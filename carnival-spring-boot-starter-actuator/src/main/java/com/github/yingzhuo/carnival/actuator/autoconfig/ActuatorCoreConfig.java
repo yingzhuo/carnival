@@ -31,17 +31,6 @@ public class ActuatorCoreConfig {
 
     @Bean
     @ConditionalOnAnyResource(resources = {
-            "classpath:note.md",
-            "classpath:NOTE.md",
-            "classpath:META-INF/note.md",
-            "classpath:META-INF/NOTE.md"
-    })
-    public NoteEndpoint noteEndpoint() {
-        return new NoteEndpoint();
-    }
-
-    @Bean
-    @ConditionalOnAnyResource(resources = {
             "classpath:help.md",
             "classpath:HELP.md",
             "classpath:META-INF/help.md",
@@ -49,6 +38,17 @@ public class ActuatorCoreConfig {
     })
     public HelpEndpoint helpEndpoint() {
         return new HelpEndpoint();
+    }
+
+    @Bean
+    @ConditionalOnAnyResource(resources = {
+            "classpath:note.md",
+            "classpath:NOTE.md",
+            "classpath:META-INF/note.md",
+            "classpath:META-INF/NOTE.md"
+    })
+    public NoteEndpoint noteEndpoint() {
+        return new NoteEndpoint();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
