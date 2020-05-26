@@ -35,7 +35,7 @@ public class HelpEndpoint extends AbstractEndpoint {
 
         if (resourceOptional.isPresent()) {
             String text = resourceOptional.toResourceText().getText();
-            html = MarkdownEntityFactory.create(text).toString();
+            html = MarkdownEntityFactory.create(text).asHtml();
         }
     }
 

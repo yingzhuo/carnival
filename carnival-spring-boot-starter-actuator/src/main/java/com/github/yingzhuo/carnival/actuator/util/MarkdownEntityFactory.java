@@ -25,16 +25,7 @@ import java.util.Collections;
  */
 public final class MarkdownEntityFactory {
 
-    private static String MD_CSS;
-
-    static {
-        try {
-            MD_CSS = ResourceText.of("classpath:markdown/markdown.css").getText();
-            MD_CSS = "<style type=\"text/css\">\n" + MD_CSS + "\n</style>\n";
-        } catch (Exception e) {
-            MD_CSS = "";
-        }
-    }
+    private final static String MD_CSS = "<style type=\"text/css\">\n" + ResourceText.of("classpath:markdown/markdown.css").getText() + "\n</style>\n";
 
     private MarkdownEntityFactory() {
     }
