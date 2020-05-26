@@ -40,7 +40,13 @@ public class DocumentMap implements Serializable {
         return this;
     }
 
-    public DocumentMap entry(String path, String location) {
+    public DocumentMap rootDoc(String location) {
+        Objects.requireNonNull(location);
+        map.put("", resourceLoader.getResource(location));
+        return this;
+    }
+
+    public DocumentMap doc(String path, String location) {
         Objects.requireNonNull(path);
         Objects.requireNonNull(location);
 
