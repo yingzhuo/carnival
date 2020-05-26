@@ -11,7 +11,6 @@
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
-        <module>carnival-spring-boot-starter-document</module>
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
