@@ -23,16 +23,7 @@ public class BytesDownloadCallback implements DownloadCallback<byte[]> {
 
     @Override
     public byte[] done(RichInputStream ins) throws IOException {
-
-        try {
-            bytes = IOUtils.toByteArray(ins);
-        } finally {
-            try {
-                ins.close();
-            } catch (IOException ignored) {
-            }
-        }
-
+        bytes = IOUtils.toByteArray(ins);
         return bytes;
     }
 

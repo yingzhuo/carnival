@@ -40,7 +40,7 @@ public class RichInputStream extends InputStream {
         }
         int byteSize = delegate.read(b, off, len);
         if (remainByteSize < byteSize) {
-            throw new IOException("remainByteSize < byteSize !");
+            throw new IOException("remainByteSize < byteSize!");
         }
 
         remainByteSize -= byteSize;
@@ -48,8 +48,10 @@ public class RichInputStream extends InputStream {
     }
 
     @Override
-    public void close() throws IOException {
-        delegate.close();
+    @Deprecated
+    public void close() {
+        // RichInputStream 不需要关闭
+        // 关闭的不由DownloadCallback负责!
     }
 
     public boolean isReadCompleted() {
