@@ -11,6 +11,7 @@
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
+        <module>carnival-spring-boot-starter-etcd</module>
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
@@ -444,6 +445,13 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-x-discovery</artifactId>
                 <version>4.0.1</version>
+            </dependency>
+
+            <!-- etcd3-client -->
+            <dependency>
+                <groupId>io.etcd</groupId>
+                <artifactId>jetcd-core</artifactId>
+                <version>0.5.3</version>
             </dependency>
 
             <!-- aspectj -->
