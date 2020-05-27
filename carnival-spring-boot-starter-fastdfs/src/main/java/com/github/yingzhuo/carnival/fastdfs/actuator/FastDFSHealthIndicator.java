@@ -19,7 +19,7 @@ import java.io.ByteArrayInputStream;
  * @author 应卓
  * @since 1.6.10
  */
-public class FastDfsHealthIndicator extends AbstractHealthIndicator {
+public class FastDFSHealthIndicator extends AbstractHealthIndicator {
 
     private static final byte[] FILE_CONTENT = new byte[]{
             (byte) 0,

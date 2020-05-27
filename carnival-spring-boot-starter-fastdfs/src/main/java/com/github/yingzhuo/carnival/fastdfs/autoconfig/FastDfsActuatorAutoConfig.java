@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.fastdfs.autoconfig;
 
-import com.github.yingzhuo.carnival.fastdfs.actuator.FastDfsHealthIndicator;
+import com.github.yingzhuo.carnival.fastdfs.actuator.FastDFSHealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -27,8 +27,8 @@ public class FastDfsActuatorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public FastDfsHealthIndicator fastDfsHealthIndicator() {
-        return new FastDfsHealthIndicator();
+    public FastDFSHealthIndicator fastDFSHealthIndicator() {
+        return new FastDFSHealthIndicator();
     }
 
 }

@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.fastdfs;
 
 import com.github.yingzhuo.carnival.fastdfs.client.FastFileStorageClient;
+import com.github.yingzhuo.carnival.fastdfs.domain.fdfs.MetaData;
 import com.github.yingzhuo.carnival.fastdfs.domain.proto.storage.BytesDownloadCallback;
 import com.github.yingzhuo.carnival.fastdfs.properties.WebProperties;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
@@ -18,6 +19,7 @@ import lombok.var;
 
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.Set;
 
 /**
  * @author 应卓
@@ -29,6 +31,10 @@ public final class FastDFS {
     }
 
     public static String upload(InputStream in, long fileSize, String fileExtName) {
+        return upload(in, fileSize, fileExtName, Collections.emptySet());
+    }
+
+    public static String upload(InputStream in, long fileSize, String fileExtName, Set<MetaData> metaDataSet) {
 
         var prefix = SpringUtils.getBean(WebProperties.class).getUrl();
         if (prefix == null) {
@@ -36,7 +42,7 @@ public final class FastDFS {
         }
 
         val cli = SpringUtils.getBean(FastFileStorageClient.class);
-        val data = cli.uploadFile(in, fileSize, fileExtName, Collections.emptySet());
+        val data = cli.uploadFile(in, fileSize, fileExtName, metaDataSet);
         return prefix + data.getFullPath();
     }
 
