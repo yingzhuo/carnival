@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.fastdfs.domain.proto.storage;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * 文件下载回调接口
@@ -19,6 +18,6 @@ import java.io.InputStream;
  */
 public interface DownloadCallback<T> {
 
-    public T recv(InputStream ins) throws IOException;
+    public T done(RichInputStream ins) throws IOException;
 
 }

@@ -13,25 +13,24 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * FdfsInputStream包装类
- *
  * @author tobato
+ * @author 应卓
  */
 public class RichInputStream extends InputStream {
 
-    private final InputStream ins;
+    private final InputStream delegate;
     private final long size;
     private long remainByteSize;
 
-    public RichInputStream(InputStream ins, long size) {
-        this.ins = ins;
+    public RichInputStream(InputStream in, long size) {
+        this.delegate = in;
         this.size = size;
-        remainByteSize = size;
+        this.remainByteSize = size;
     }
 
     @Override
     public int read() throws IOException {
-        return ins.read();
+        return delegate.read();
     }
 
     @Override
@@ -39,9 +38,9 @@ public class RichInputStream extends InputStream {
         if (remainByteSize == 0) {
             return -1;
         }
-        int byteSize = ins.read(b, off, len);
+        int byteSize = delegate.read(b, off, len);
         if (remainByteSize < byteSize) {
-            throw new IOException("协议长度" + size + "与实际长度不符");
+            throw new IOException("remainByteSize < byteSize !");
         }
 
         remainByteSize -= byteSize;
@@ -50,11 +49,15 @@ public class RichInputStream extends InputStream {
 
     @Override
     public void close() throws IOException {
-        ins.close();
+        delegate.close();
     }
 
     public boolean isReadCompleted() {
         return remainByteSize == 0;
+    }
+
+    public long getSize() {
+        return size;
     }
 
 }

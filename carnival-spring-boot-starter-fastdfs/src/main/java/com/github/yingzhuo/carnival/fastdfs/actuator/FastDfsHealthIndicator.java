@@ -10,12 +10,10 @@
 package com.github.yingzhuo.carnival.fastdfs.actuator;
 
 import com.github.yingzhuo.carnival.fastdfs.FastDFS;
-import lombok.val;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 /**
  * @author 应卓
@@ -23,12 +21,18 @@ import java.io.InputStream;
  */
 public class FastDfsHealthIndicator extends AbstractHealthIndicator {
 
+    private static final byte[] FILE_CONTENT = new byte[]{
+            (byte) 0,
+    };
+
+    private static final long FILE_LENGTH = FILE_CONTENT.length;
+
     @Override
     protected void doHealthCheck(Health.Builder builder) {
 
-        try (InputStream file = new ByteArrayInputStream(new byte[]{(byte) 0xFF})) {
-            val path = FastDFS.upload(file, 1L, "");
-            FastDFS.delete(path);
+        try {
+            String filePath = FastDFS.upload(new ByteArrayInputStream(FILE_CONTENT), FILE_LENGTH, "tmp");
+            FastDFS.delete(filePath);
             builder.up();
         } catch (Exception e) {
             builder.down(e);
