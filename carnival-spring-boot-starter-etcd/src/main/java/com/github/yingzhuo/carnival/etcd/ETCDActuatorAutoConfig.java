@@ -24,7 +24,7 @@ import java.util.UUID;
  */
 @ConditionalOnClass(name = "org.springframework.boot.actuate.endpoint.annotation.Endpoint")
 @ConditionalOnProperty(prefix = "carnival.etcd", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class ETCDActuatorAutoConfig {
+class ETCDActuatorAutoConfig {
 
     @Bean
     public ETCDHealthIndicator etcdHealthIndicator() {
@@ -44,4 +44,5 @@ public class ETCDActuatorAutoConfig {
             }
         }
     }
+
 }

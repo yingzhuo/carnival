@@ -9,10 +9,14 @@
  */
 package com.github.yingzhuo.carnival.etcd;
 
+import com.github.yingzhuo.carnival.etcd.exception.ETCDException;
+import com.github.yingzhuo.carnival.etcd.exception.NotUniqueValueException;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import io.etcd.jetcd.ByteSequence;
 import io.etcd.jetcd.Client;
+import io.etcd.jetcd.Watch;
 import io.etcd.jetcd.options.PutOption;
+import io.etcd.jetcd.options.WatchOption;
 import lombok.val;
 
 import java.nio.charset.Charset;
@@ -34,7 +38,7 @@ public final class ETCD {
         val kvCli = cli.getKVClient();
 
         try {
-            kvCli.put(to(key), to(value)).get();
+            kvCli.put(c(key), c(value)).get();
         } catch (Exception e) {
             throw new ETCDException(e);
         }
@@ -47,7 +51,7 @@ public final class ETCD {
         try {
             val leaseCli = cli.getLeaseClient();
             val leaseId = leaseCli.grant(ttl.getSeconds()).get().getID();
-            kvCli.put(ByteSequence.from(key, charset), ByteSequence.from(value, charset),
+            kvCli.put(c(key), c(value),
                     PutOption.newBuilder()
                             .withLeaseId(leaseId)
                             .build())
@@ -62,13 +66,12 @@ public final class ETCD {
         val kvCli = cli.getKVClient();
 
         try {
-            val result = kvCli.get(to(key)).get();
+            val result = kvCli.get(c(key)).get();
 
             if (result.getCount() == 0) {
                 return null;
             } else if (result.getCount() > 1) {
-                // TODO:
-                throw new RuntimeException();
+                throw new NotUniqueValueException();
             } else {
                 return result.getKvs().get(0).getValue().toString(charset);
             }
@@ -82,13 +85,28 @@ public final class ETCD {
         val kvCli = cli.getKVClient();
 
         try {
-            kvCli.delete(to(key)).get();
+            kvCli.delete(c(key)).get();
         } catch (Exception e) {
             throw new ETCDException(e);
         }
     }
 
-    private static ByteSequence to(String string) {
+    public static void watch(String key, Watch.Listener listener) {
+        watch(key, null, listener);
+    }
+
+    public static void watch(String key, WatchOption option, Watch.Listener listener) {
+        val cli = SpringUtils.getBean(Client.class);
+        val watchCli = cli.getWatchClient();
+
+        if (option == null) {
+            option = WatchOption.DEFAULT;
+        }
+
+        watchCli.watch(c(key), option, listener);
+    }
+
+    private static ByteSequence c(String string) {
         return ByteSequence.from(string, charset);
     }
 

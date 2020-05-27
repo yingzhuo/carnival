@@ -7,15 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.etcd;
+package com.github.yingzhuo.carnival.etcd.exception;
 
 /**
  * @author 应卓
  * @since 1.6.11
  */
-public class ETCDException extends RuntimeException {
+public class NotUniqueValueException extends ETCDException {
 
-    public ETCDException(Throwable cause) {
+    public NotUniqueValueException() {
+    }
+
+    public NotUniqueValueException(Throwable cause) {
         super(cause);
     }
 

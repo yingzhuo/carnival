@@ -36,7 +36,7 @@ import java.util.Set;
  */
 @EnableConfigurationProperties(ETCDCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.etcd", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class ETCDCoreAutoConfig implements ApplicationRunner {
+class ETCDCoreAutoConfig implements ApplicationRunner {
 
     @Autowired
     private Props props;
@@ -53,6 +53,7 @@ public class ETCDCoreAutoConfig implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        // 初始化ETCD工具
         ETCD.charset = props.getCharset();
     }
 
