@@ -18,6 +18,8 @@
 * [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
+* [carnival-spring-boot-starter-etcd](./carnival-spring-boot-starter-etcd)
+* [carnival-spring-boot-starter-fastdfs](./carnival-spring-boot-starter-fastdfs)
 * [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)

@@ -12,6 +12,7 @@
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-etcd</module>
+        <module>carnival-spring-boot-starter-fastdfs</module>
         <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
@@ -20,7 +21,6 @@
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis</module>
-        <module>carnival-spring-boot-starter-fastdfs</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>
