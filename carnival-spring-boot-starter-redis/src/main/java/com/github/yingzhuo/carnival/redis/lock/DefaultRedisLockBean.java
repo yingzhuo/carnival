@@ -28,9 +28,8 @@ import java.util.Collections;
 public class DefaultRedisLockBean extends AbstractRedisLockBean implements RedisLockBean, InitializingBean {
 
     private final StringRedisTemplate template;
-    private Duration defaultMax;
-
     private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
+    private Duration defaultMax;
 
     public DefaultRedisLockBean(RedisConnectionFactory connectionFactory) {
         this.template = new StringRedisTemplate(connectionFactory);
