@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.lock;
 
+import com.github.yingzhuo.carnival.common.io.ResourceText;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -29,8 +30,9 @@ public class DefaultRedisLockBean extends AbstractRedisLockBean implements Redis
     private final StringRedisTemplate template;
     private Duration defaultMax;
 
+    private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
+
     public DefaultRedisLockBean(RedisConnectionFactory connectionFactory) {
-        super();
         this.template = new StringRedisTemplate(connectionFactory);
     }
 
@@ -43,8 +45,7 @@ public class DefaultRedisLockBean extends AbstractRedisLockBean implements Redis
 
     @Override
     public boolean release(String key) {
-        final String lua = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
-        final RedisScript<Long> script = new DefaultRedisScript<>(lua, Long.class);
+        final RedisScript<Long> script = new DefaultRedisScript<>(unlockScript, Long.class);
         final Long result = template.execute(script, Collections.singletonList(genRedisKey(key)), genRedisValue());
         return result != null && 1L == result;
     }
