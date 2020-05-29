@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.redis.autoconfig;
 
-import com.github.yingzhuo.carnival.redis.lock.DefaultRedisLockBean;
 import com.github.yingzhuo.carnival.redis.lock.RedisLockBean;
+import com.github.yingzhuo.carnival.redis.lock.RedisLockBeanImpl;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,8 +35,8 @@ public class RedisLockAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public RedisLockBean redisLockBean(RedisConnectionFactory connectionFactory, Props props) {
-        final DefaultRedisLockBean bean = new DefaultRedisLockBean(connectionFactory);
+    public RedisLockBean redisLockBean(RedisConnectionFactory factory, Props props) {
+        final RedisLockBeanImpl bean = new RedisLockBeanImpl(factory);
         bean.setDefaultMax(props.getDefaultTimeToLive());
         bean.setPrefix(props.getKeyPrefix());
         bean.setSuffix(props.getKeySuffix());
@@ -51,7 +51,7 @@ public class RedisLockAutoConfig {
         private String keyPrefix = "carnival-redis-lock-";
         private String keySuffix = "";
         @DurationUnit(ChronoUnit.SECONDS)
-        private Duration defaultTimeToLive;
+        private Duration defaultTimeToLive = Duration.ofSeconds(10L);
     }
 
 }

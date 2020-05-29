@@ -10,8 +10,6 @@
 package com.github.yingzhuo.carnival.redis.lock;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -24,42 +22,38 @@ import java.util.Collections;
  * @author 应卓
  * @since 1.6.9
  */
-@Slf4j
-public class DefaultRedisLockBean extends AbstractRedisLockBean implements RedisLockBean, InitializingBean {
+public class RedisLockBeanImpl extends AbstractRedisLockBean implements RedisLockBean {
 
-    private final StringRedisTemplate template;
+    private final String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
     private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
-    private Duration defaultMax;
+    private StringRedisTemplate template;
 
-    public DefaultRedisLockBean(RedisConnectionFactory connectionFactory) {
-        this.template = new StringRedisTemplate(connectionFactory);
+    public RedisLockBeanImpl(RedisConnectionFactory factory) {
+        this.template = new StringRedisTemplate(factory);
     }
 
     @Override
     public boolean lock(String key, Duration max) {
-        final Duration ttl = max != null ? max : defaultMax;
-        final Boolean result = template.opsForValue().setIfAbsent(genRedisKey(key), genRedisValue(), ttl);
-        return result != null ? result : false;
+        final RedisScript<Long> script = new DefaultRedisScript<>(lockScript, Long.class);
+        final Long result =
+                template.execute(
+                        script,
+                        Collections.singletonList(generateLockKey(key)),    // KEYS[1]
+                        generateLockValue(),    // ARGV[1]
+                        getMaxOfDefault(max)    // ARGV[2]
+                );
+        return result != null && result == 1L;
     }
 
     @Override
     public boolean release(String key) {
         final RedisScript<Long> script = new DefaultRedisScript<>(unlockScript, Long.class);
-        final Long result = template.execute(script, Collections.singletonList(genRedisKey(key)), genRedisValue());
+        final Long result = template.execute(
+                script,
+                Collections.singletonList(generateLockKey(key)),    // KEYS[1]
+                generateLockValue()     // ARGV[1]
+        );
         return result != null && 1L == result;
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        super.afterPropertiesSet();
-
-        if (defaultMax == null) {
-            defaultMax = Duration.ofSeconds(10L);
-        }
-    }
-
-    public void setDefaultMax(Duration defaultMax) {
-        this.defaultMax = defaultMax;
     }
 
 }

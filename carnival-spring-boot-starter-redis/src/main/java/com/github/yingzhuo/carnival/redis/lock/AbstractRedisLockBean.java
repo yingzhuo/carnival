@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.redis.lock;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.beans.factory.InitializingBean;
 
+import java.time.Duration;
+
 /**
  * @author 应卓
  * @since 1.6.9
@@ -20,20 +22,29 @@ public abstract class AbstractRedisLockBean implements RedisLockBean, Initializi
 
     private String prefix = "";
     private String suffix = "";
+    private Duration defaultMax;
 
-
-    protected final String genRedisKey(String key) {
+    protected final String generateLockKey(String key) {
         return prefix + key + suffix;
     }
 
-    protected final String genRedisValue() {
+    protected final String generateLockValue() {
         return SpringUtils.getSpringId() + "." + Thread.currentThread().getId();
+    }
+
+    protected final String getMaxOfDefault(Duration ttl) {
+        if (ttl == null) {
+            return defaultMax.getSeconds() + "";
+        } else {
+            return ttl.getSeconds() + "";
+        }
     }
 
     @Override
     public void afterPropertiesSet() {
         if (prefix == null) prefix = "";
         if (suffix == null) suffix = "";
+        if (defaultMax == null) defaultMax = Duration.ofSeconds(10);
     }
 
     public void setPrefix(String prefix) {
@@ -42,6 +53,10 @@ public abstract class AbstractRedisLockBean implements RedisLockBean, Initializi
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+    public void setDefaultMax(Duration defaultMax) {
+        this.defaultMax = defaultMax;
     }
 
 }
