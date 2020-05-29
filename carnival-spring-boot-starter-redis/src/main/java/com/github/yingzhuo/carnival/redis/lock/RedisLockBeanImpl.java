@@ -10,6 +10,8 @@
 package com.github.yingzhuo.carnival.redis.lock;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
+import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
@@ -22,14 +24,52 @@ import java.util.Collections;
  * @author 应卓
  * @since 1.6.9
  */
-public class RedisLockBeanImpl extends AbstractRedisLockBean implements RedisLockBean {
+public class RedisLockBeanImpl implements RedisLockBean, InitializingBean {
 
-    private final String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
-    private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
-    private StringRedisTemplate template;
+    private String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
+    private String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
+    private final StringRedisTemplate template;
+    private String prefix = "";
+    private String suffix = "";
+    private Duration defaultMax;
 
     public RedisLockBeanImpl(RedisConnectionFactory factory) {
         this.template = new StringRedisTemplate(factory);
+    }
+
+    private String generateLockKey(String key) {
+        return prefix + key + suffix;
+    }
+
+    private String generateLockValue() {
+        return SpringUtils.getSpringId() + "." + Thread.currentThread().getId();
+    }
+
+    private String getMaxOfDefault(Duration ttl) {
+        if (ttl == null) {
+            return defaultMax.getSeconds() + "";
+        } else {
+            return ttl.getSeconds() + "";
+        }
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        if (prefix == null) prefix = "";
+        if (suffix == null) suffix = "";
+        if (defaultMax == null) defaultMax = Duration.ofSeconds(10);
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
+    }
+
+    public void setDefaultMax(Duration defaultMax) {
+        this.defaultMax = defaultMax;
     }
 
     @Override
