@@ -24,8 +24,6 @@ public final class ServletUtils {
     private ServletUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static HttpServletRequest getRequest() {
         final ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attributes.getRequest();

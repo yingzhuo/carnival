@@ -24,8 +24,6 @@ public class ResourceLoaderUtils {
     private ResourceLoaderUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static ResourceLoader getResourceLoader() {
         return DEFAULT;
     }

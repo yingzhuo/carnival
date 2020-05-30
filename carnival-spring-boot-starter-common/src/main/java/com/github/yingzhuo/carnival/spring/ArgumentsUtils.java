@@ -11,28 +11,17 @@ package com.github.yingzhuo.carnival.spring;
 
 import org.springframework.boot.ApplicationArguments;
 
-import java.util.List;
-
-import static com.github.yingzhuo.carnival.spring.SpringUtils.APP_ARGS;
-import static com.github.yingzhuo.carnival.spring.SpringUtils.CMD_ARGS;
-
 /**
  * @author 应卓
  * @see SpringUtils
  */
-public final class ArgumentUtils {
+public final class ArgumentsUtils {
 
-    private ArgumentUtils() {
+    private ArgumentsUtils() {
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     public static ApplicationArguments getApplicationArguments() {
-        return APP_ARGS;
-    }
-
-    public static List<String> getCommandArguments() {
-        return CMD_ARGS;
+        return SpringUtils.APP_ARGS;
     }
 
 }

@@ -21,8 +21,6 @@ public final class EventUtils {
     private EventUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static void publish(ApplicationEvent event) {
         SpringUtils.getApplicationEventPublisher().publishEvent(event);
     }

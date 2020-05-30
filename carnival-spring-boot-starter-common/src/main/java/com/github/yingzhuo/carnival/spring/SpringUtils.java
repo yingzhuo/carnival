@@ -35,7 +35,6 @@ public final class SpringUtils {
     static ApplicationContext AC = null;
     static Environment ENV = null;
     static ApplicationArguments APP_ARGS = null;
-    static List<String> CMD_ARGS = null;
 
     private SpringUtils() {
     }

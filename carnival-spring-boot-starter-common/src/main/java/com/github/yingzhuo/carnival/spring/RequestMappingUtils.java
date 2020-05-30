@@ -21,8 +21,6 @@ public final class RequestMappingUtils {
     private RequestMappingUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         return SpringUtils.getBean(RequestMappingHandlerMapping.class);
     }

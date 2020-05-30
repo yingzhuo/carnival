@@ -24,8 +24,6 @@ public final class ResourceUtils {
     private ResourceUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static Resource loadResource(String location) {
         return ResourceLoaderUtils.getResourceLoader().getResource(location);
     }

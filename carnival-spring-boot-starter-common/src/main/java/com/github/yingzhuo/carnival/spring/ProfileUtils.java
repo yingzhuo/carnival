@@ -24,8 +24,6 @@ public final class ProfileUtils {
     private ProfileUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static List<String> getActiveProfiles() {
         return Collections.unmodifiableList(Arrays.asList(SpringUtils.getEnvironment().getActiveProfiles()));
     }

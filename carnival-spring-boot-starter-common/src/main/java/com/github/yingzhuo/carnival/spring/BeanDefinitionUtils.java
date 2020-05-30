@@ -21,8 +21,6 @@ public final class BeanDefinitionUtils {
     private BeanDefinitionUtils() {
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static <B> void registerBean(String beanName, Class<B> beanClass, final B bean, String... alias) {
         SpringUtils.getBeanDefinitionRegistry().registerBeanDefinition(beanName,
                 new RootBeanDefinition(beanClass, () -> bean));
