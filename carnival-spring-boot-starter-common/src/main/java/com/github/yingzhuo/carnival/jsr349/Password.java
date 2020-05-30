@@ -27,11 +27,11 @@ public @interface Password {
 
     public String specialChars() default "\"',./<>?;:'{}[]+=-_!@#$%^&*()`~";
 
-    public int minLength() default Integer.MIN_VALUE;
+    public int min() default Integer.MIN_VALUE;
 
-    public int maxLength() default Integer.MAX_VALUE;
+    public int max() default Integer.MAX_VALUE;
 
-    public String message() default "Invalid password.";
+    public String message() default "{com.github.yingzhuo.carnival.jsr349.Password.message}";
 
     public Class<?>[] groups() default {};
 

@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = PhoneNumberValidator.class)
 public @interface PhoneNumber {
 
-    public String message() default "Invalid phone number";
+    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.PhoneNumber.message}";
 
     public Class<?>[] groups() default {};
 

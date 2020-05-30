@@ -22,7 +22,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = IdentityNumberConstraintValidator.class)
 public @interface IdentityNumber {
 
-    public String message() default "Invalid identity card number.";
+    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.IdentityNumber.message}";
 
     /**
      * 兼容15位老身份证号码

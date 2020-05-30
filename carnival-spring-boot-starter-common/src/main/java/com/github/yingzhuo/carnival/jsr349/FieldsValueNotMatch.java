@@ -24,7 +24,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = FieldsValueNotMatchValidator.class)
 public @interface FieldsValueNotMatch {
 
-    public String message() default "Fields values matches!";
+    public String message() default "{com.github.yingzhuo.carnival.jsr349.FieldsValueNotMatch.message}";
 
     public String field();
 

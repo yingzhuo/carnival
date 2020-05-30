@@ -23,7 +23,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = UUID36Validator.class)
 public @interface UUID36 {
 
-    public String message() default "Invalid uuid (36)";
+    public String message() default "{com.github.yingzhuo.carnival.jsr349.UUID36.message}";
 
     public Class<?>[] groups() default {};
 

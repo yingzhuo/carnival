@@ -38,8 +38,8 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     @Override
     public void initialize(Password annotation) {
         this.complexity = annotation.complexity();
-        this.minLength = annotation.minLength();
-        this.maxLength = annotation.maxLength();
+        this.minLength = annotation.min();
+        this.maxLength = annotation.max();
         this.specialChars = toCharStream(annotation.specialChars()).collect(Collectors.toSet());
     }
 
