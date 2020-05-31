@@ -22,8 +22,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
-import java.util.List;
-
 /**
  * Spring通用工具
  *

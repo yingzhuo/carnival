@@ -9,9 +9,10 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import com.github.yingzhuo.carnival.common.StringCoded;
 import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.support.MessageSourceAccessor;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,20 +21,15 @@ import java.util.Map;
 /**
  * @author 应卓
  */
-public class BusinessException extends RuntimeException implements StringCoded {
+public class BusinessException extends RuntimeException implements MessageSourceResolvable {
 
     private String code;
+    private Object[] args;
 
-    public BusinessException() {
-    }
-
-    public BusinessException(String message) {
-        super(message);
-    }
-
-    public BusinessException(String code, String message, Object... params) {
-        super(MessageFormatter.format(message, params));
+    BusinessException(String code, String message, Object... args) {
+        super(MessageFormatter.format(message, args));
         this.code = code;
+        this.args = args;
     }
 
     public static BusinessException of(String code, Object... params) {
@@ -62,6 +58,26 @@ public class BusinessException extends RuntimeException implements StringCoded {
         map.put("code", getCode());
         map.put("message", getMessage());
         return Collections.unmodifiableMap(map);
+    }
+
+    @Override
+    public String[] getCodes() {
+        return new String[]{code};
+    }
+
+    @Override
+    public Object[] getArguments() {
+        return args;
+    }
+
+    @Override
+    public String getDefaultMessage() {
+        return super.getMessage();
+    }
+
+    @Override
+    public String getLocalizedMessage() {
+        return SpringUtils.getBean(MessageSourceAccessor.class).getMessage(this);
     }
 
 }

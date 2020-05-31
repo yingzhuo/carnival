@@ -17,14 +17,14 @@ import java.util.Objects;
  */
 public final class ToStringLockable implements Lockable {
 
-    public Lockable of(Object o) {
-        return new ToStringLockable(0);
-    }
-
     private final String toString;
 
     private ToStringLockable(Object delegate) {
         this.toString = Objects.requireNonNull(delegate).toString();
+    }
+
+    public Lockable of(Object o) {
+        return new ToStringLockable(0);
     }
 
     @Override

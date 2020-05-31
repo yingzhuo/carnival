@@ -26,9 +26,9 @@ import java.util.Collections;
  */
 public class RedisLockBeanImpl implements RedisLockBean, InitializingBean {
 
+    private final StringRedisTemplate template;
     private String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
     private String unlockScript = ResourceText.of("classpath:/lua-script/lock/unlock.lua").getText();
-    private final StringRedisTemplate template;
     private String prefix = "";
     private String suffix = "";
     private Duration defaultMax;
