@@ -9,35 +9,37 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import com.github.yingzhuo.carnival.common.util.MessageFormatter;
+import org.springframework.context.NoSuchMessageException;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.util.StringUtils;
-
-import java.util.Map;
 
 /**
  * @author 应卓
  * @since 1.6.13
  */
-public class MapBusinessExceptionFactory implements BusinessExceptionFactory {
+public class MessageSourceBusinessExceptionFactory extends ReloadableResourceBundleMessageSource implements BusinessExceptionFactory {
 
-    private final Map<String, String> messages;
+    private final MessageSourceAccessor accessor;
 
-    public MapBusinessExceptionFactory(Map<String, String> messages) {
-        this.messages = messages;
+    public MessageSourceBusinessExceptionFactory() {
+        setCacheSeconds(-1);
+        setUseCodeAsDefaultMessage(false);
+        accessor = new MessageSourceAccessor(this);
     }
 
     @Override
     public BusinessException create(String code, Object... args) {
+
         if (!StringUtils.hasText(code)) {
             throw new IllegalArgumentException("'" + code + "' is invalid code");
         }
 
-        final String message = messages.get(code);
-        if (message == null) {
+        try {
+            return new BusinessException(code, accessor.getMessage(code, args));
+        } catch (NoSuchMessageException e) {
             throw new IllegalArgumentException("'" + code + "' is invalid code");
         }
-
-        return new BusinessException(code, MessageFormatter.format(message, args));
     }
 
 }

@@ -15,11 +15,12 @@ import java.util.TreeMap;
 
 /**
  * @author 应卓
- * @since 1.6.3
+ * @since 1.6.13
  */
 @ConfigurationProperties(prefix = "business.exception")
 public class BusinessExceptionMap extends TreeMap<String, String> {
 
     // 从 conf/toml/yaml/properties 映射到此类
+    // 而本类自身就是工厂的实现
 
 }
