@@ -15,6 +15,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 /**
  * @author 应卓
@@ -98,6 +100,14 @@ public class CommonAutoConfig {
     @ConditionalOnMissingBean
     public StringToColorConverter stringToColorConverter() {
         return new StringToColorConverter();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public PathMatcher pathMatcher() {
+        return new AntPathMatcher();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -20,7 +20,11 @@ public interface Constant {
     public static final String DEFAULT_GROUP = "default";
 
     public static <T> T get(String group, String name) {
-        return get(group, name, null);
+        T constant = get(group, name, null);
+        if (constant == null) {
+            throw new NoSuchConstantException();
+        }
+        return constant;
     }
 
     @SuppressWarnings("unchecked")
