@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport
 import com.github.yingzhuo.carnival.mvc.NoDebug;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.util.Enumeration;
+import java.util.Locale;
 
 /**
  * 日志输出拦截器
@@ -57,26 +59,32 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
     private void doLog(HttpServletRequest request, HandlerMethod handlerMethod) {
         log.debug(StringUtils.repeat('-', 120));
 
-        log.debug("[Path]: ");
-        log.debug("\t\t\t{}", decode(request.getRequestURI()));
+        log.debug("[Path]:");
+        log.debug("\t\t{}", decode(request.getRequestURI()));
 
-        log.debug("[Method]: ");
-        log.debug("\t\t\t{}", request.getMethod());
+        log.debug("[Method]:");
+        log.debug("\t\t{}", request.getMethod());
 
-        log.debug("[Headers]: ");
+        log.debug("[Headers]:");
         Enumeration<String> headerNames = request.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
             String value = request.getHeader(name);
-            log.debug("\t\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
+            log.debug("\t\t{} = {}", name, name.equalsIgnoreCase("cookie") ? StringUtils.abbreviate(value, 60) : value);
         }
 
-        log.debug("[Params]: ");
+        Locale locale = getLocale();
+        if (locale != null) {
+            log.debug("[Locale]:");
+            log.debug("\t\t{}", getLocale());
+        }
+
+        log.debug("[Params]:");
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String name = paramNames.nextElement();
             String value = request.getParameter(name);
-            log.debug("\t\t\t{} = {}", name, value);
+            log.debug("\t\t{} = {}", name, value);
         }
 
         if (handlerMethod != null) {
@@ -85,12 +93,20 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
             boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
             boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
 
-            log.debug("[Controller]: ");
-            log.debug("\t\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
-            log.debug("\t\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
+            log.debug("[Controller]:");
+            log.debug("\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
+            log.debug("\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
         }
 
         log.debug(StringUtils.repeat('-', 120));
+    }
+
+    private Locale getLocale() {
+        try {
+            return LocaleContextHolder.getLocale();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private String decode(String path) {

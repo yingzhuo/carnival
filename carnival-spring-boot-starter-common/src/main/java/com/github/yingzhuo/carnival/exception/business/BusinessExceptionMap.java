@@ -11,12 +11,15 @@ package com.github.yingzhuo.carnival.exception.business;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * @author 应卓
  * @since 1.6.3
  */
 @ConfigurationProperties(prefix = "business.exception")
-public class BusinessExceptionMap extends HashMap<String, String> {
+public class BusinessExceptionMap extends TreeMap<String, String> {
+
+    // 从 conf/toml/yaml/properties 映射到此类
+
 }

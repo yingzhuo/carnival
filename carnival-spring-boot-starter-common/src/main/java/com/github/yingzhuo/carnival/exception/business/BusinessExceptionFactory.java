@@ -15,6 +15,6 @@ package com.github.yingzhuo.carnival.exception.business;
 @FunctionalInterface
 public interface BusinessExceptionFactory {
 
-    public BusinessException create(String code, Object... params);
+    public BusinessException create(String code, Object... args);
 
 }

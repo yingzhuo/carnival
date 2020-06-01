@@ -9,66 +9,61 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import lombok.extern.slf4j.Slf4j;
-import lombok.var;
-import org.springframework.beans.factory.InitializingBean;
+import com.github.yingzhuo.carnival.common.util.MessageFormatter;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.StringUtils;
 
-import java.util.*;
-
-import static com.github.yingzhuo.carnival.common.util.MessageFormatter.format;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 
 /**
  * @author 应卓
  * @since 1.6.3
  */
-@Slf4j
-public class MapBusinessExceptionFactory implements BusinessExceptionFactory, InitializingBean {
+public class MapBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private final Map<String, String> messages;
+    private final MessageSourceAccessor accessor;
 
-    public MapBusinessExceptionFactory(Map<String, String> messages) {
+    public MapBusinessExceptionFactory(Map<String, String> messages, MessageSourceAccessor accessor) {
         this.messages = Collections.unmodifiableMap(new TreeMap<>(Objects.requireNonNull(messages)));
+        this.accessor = accessor;
     }
 
     @Override
-    public BusinessException create(String code, Object... params) {
+    public BusinessException create(String code, Object... args) {
         if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException("'" + code + "' is not a valid code");
+            throw new IllegalArgumentException("'" + code + "' is invalid code");
         }
 
-        final Optional<String> msgOp = getMessage(code);
-
-        if (!msgOp.isPresent()) {
-            throw new IllegalArgumentException("'" + code + "' is not a valid code");
+        final String messageTemplateOrI18nCode = messages.get(code);
+        if (messageTemplateOrI18nCode == null) {
+            throw new IllegalArgumentException("'" + code + "' is invalid code");
         }
 
-        var message = msgOp.get();
-
-        if (!StringUtils.hasText(message)) {
-            throw new IllegalArgumentException("'" + code + "' is not a valid code");
-        }
-
-        return new BusinessException(code, format(message, params));
-    }
-
-    private Optional<String> getMessage(String code) {
-        return Optional.ofNullable(messages.get(code));
-    }
-
-    @Override
-    public void afterPropertiesSet() {
-        if (log.isDebugEnabled() && !messages.isEmpty()) {
-            log.debug("business exception codes:");
-            for (final String key : messages.keySet()) {
-                final String value = messages.get(key);
-                log.debug("\t'{}' = '{}'", key, value);
-            }
+        if (isWithI18n(messageTemplateOrI18nCode)) {
+            return doCreateWithI18n(code, messageTemplateOrI18nCode, args);
+        } else {
+            return doCreateWithoutI18n(code, messageTemplateOrI18nCode, args);
         }
     }
 
-    public Map<String, String> getMessages() {
-        return messages;
+    private BusinessException doCreateWithoutI18n(String code, String messageTemplate, Object... args) {
+        return new BusinessException(code, MessageFormatter.format(messageTemplate, args));
+    }
+
+    private BusinessException doCreateWithI18n(String code, String i18nCode, Object... args) {
+        i18nCode = i18nCode.substring(1, i18nCode.length() - 1);    // 去掉前后的大括号
+        final String message = accessor.getMessage(i18nCode, args, i18nCode);
+        return new BusinessException(code, message);
+    }
+
+    private boolean isWithI18n(String messageTemplateOrI18nCode) {
+        return accessor != null
+                && messageTemplateOrI18nCode.startsWith("{")
+                && messageTemplateOrI18nCode.endsWith("}");
     }
 
 }

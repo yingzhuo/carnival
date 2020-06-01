@@ -14,12 +14,14 @@ import com.github.yingzhuo.carnival.common.datamodel.DateTimeFormat;
 import com.github.yingzhuo.carnival.common.datamodel.IntCurrencyFormat;
 import com.github.yingzhuo.carnival.common.datamodel.LongCurrencyFormat;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.format.FormatterRegistry;
 
 /**
  * @author 应卓
  * @since 1.6.6
  */
+@Lazy(false)
 public class FormatterAutoConfig implements Configurer<FormatterRegistry> {
 
     @Override

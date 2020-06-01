@@ -15,12 +15,14 @@ import com.github.yingzhuo.carnival.exception.business.EmptyBusinessExceptionFac
 import com.github.yingzhuo.carnival.exception.business.MapBusinessExceptionFactory;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.support.MessageSourceAccessor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +33,13 @@ import java.util.Map;
 @Lazy(false)
 @EnableConfigurationProperties({
         BusinessExceptionMap.class,
-        BusinessExceptionFactoryAutoConfig.Props.class
+        BusinessExceptionAutoConfig.Props.class
 })
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class BusinessExceptionFactoryAutoConfig {
+public class BusinessExceptionAutoConfig {
+
+    @Autowired(required = false)
+    private MessageSourceAccessor accessor;
 
     @Bean
     @ConditionalOnMissingBean
@@ -42,7 +47,7 @@ public class BusinessExceptionFactoryAutoConfig {
         final Map<String, String> merged = new HashMap<>();
         merged.putAll(props.getMessages());
         merged.putAll(env);
-        return merged.isEmpty() ? new EmptyBusinessExceptionFactory() : new MapBusinessExceptionFactory(merged);
+        return merged.isEmpty() ? new EmptyBusinessExceptionFactory() : new MapBusinessExceptionFactory(merged, accessor);
     }
 
     @Getter
