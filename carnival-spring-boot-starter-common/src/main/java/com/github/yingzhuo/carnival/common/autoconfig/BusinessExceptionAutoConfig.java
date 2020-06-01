@@ -42,12 +42,12 @@ public class BusinessExceptionAutoConfig {
     public BusinessExceptionFactory businessExceptionFactory(Props props, BusinessExceptionMap envMap) {
 
         // i18n
-        I18n i18n = props.getI18n();
+        final I18n i18n = props.getI18n();
         String[] basenames = i18n.getBasenames();
         if (basenames != null && basenames.length != 0) {
 
             if (!envMap.isEmpty()) {
-                log.warn("env properties 'business.exception' will be ignored.");
+                log.warn("env properties 'business.exception.*' will be ignored.");
             }
 
             MessageSourceBusinessExceptionFactory bean = new MessageSourceBusinessExceptionFactory();

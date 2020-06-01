@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.Assert;
 import org.springframework.util.PathMatcher;
 
 import java.util.stream.Stream;
@@ -19,16 +21,39 @@ import java.util.stream.Stream;
  */
 public final class PathMatcherUtils {
 
+    private static final PathMatcher DEFAULT = new AntPathMatcher();
+
     private PathMatcherUtils() {
     }
 
+    public static boolean match(String path, String pattern) {
+        Assert.hasText(pattern, "pattern is empty");
+        Assert.hasText(path, "path is empty");
+        final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class, DEFAULT);
+        return matcher.match(pattern, path);
+    }
+
     public static boolean anyMatch(String path, String... patterns) {
-        final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class);
+        Assert.hasText(path, "path is Empty");
+        Assert.notEmpty(patterns, "patterns is empty");
+
+        final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class, DEFAULT);
+        if (patterns.length == 1) {
+            return match(path, patterns[0]);
+        }
+
         return Stream.of(patterns).anyMatch(pattern -> matcher.match(pattern, path));
     }
 
     public static boolean allMatch(String path, String... patterns) {
-        final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class);
+        Assert.hasText(path, "path is Empty");
+        Assert.notEmpty(patterns, "patterns is empty");
+
+        final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class, DEFAULT);
+        if (patterns.length == 1) {
+            return match(path, patterns[0]);
+        }
+
         return Stream.of(patterns).allMatch(pattern -> matcher.match(pattern, path));
     }
 
