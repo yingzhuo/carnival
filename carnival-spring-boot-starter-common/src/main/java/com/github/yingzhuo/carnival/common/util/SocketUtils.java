@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.common.util;
 
 import com.google.common.net.HostAndPort;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -32,7 +31,7 @@ public final class SocketUtils {
         try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(address, port), timeoutInMilliseconds);
             return true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             return false;
         }
     }
