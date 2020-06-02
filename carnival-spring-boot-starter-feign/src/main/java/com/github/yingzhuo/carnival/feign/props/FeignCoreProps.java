@@ -13,8 +13,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 1.6.0
@@ -22,7 +20,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.feign")
-public class FeignCoreProps implements Serializable {
+public class FeignCoreProps {
 
     private boolean enabled = true;
     private String defaultDatePattern = "yyyy-MM-dd'T'HH:mm:ss.SSS";

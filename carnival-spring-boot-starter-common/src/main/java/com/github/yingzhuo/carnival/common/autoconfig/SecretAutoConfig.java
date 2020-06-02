@@ -26,8 +26,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Lazy;
 import org.springframework.format.FormatterRegistry;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  */
@@ -82,7 +80,7 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.secret")
-    static class SecretProps implements Serializable, InitializingBean {
+    static class SecretProps implements InitializingBean {
         private boolean enabled = false;
         private RSAProps rsa = new RSAProps();
         private AESProps aes = new AESProps();
@@ -98,7 +96,7 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
 
     @Getter
     @Setter
-    static class RSAProps implements Serializable, InitializingBean {
+    static class RSAProps implements InitializingBean {
         private String publicKey;
         private String privateKey;
         private ResourceText publicKeyLocation;
@@ -122,7 +120,7 @@ public class SecretAutoConfig implements Configurer<FormatterRegistry> {
 
     @Getter
     @Setter
-    static class AESProps implements Serializable, InitializingBean {
+    static class AESProps implements InitializingBean {
         private String passphrase;
         private ResourceText passphraseLocation;
 

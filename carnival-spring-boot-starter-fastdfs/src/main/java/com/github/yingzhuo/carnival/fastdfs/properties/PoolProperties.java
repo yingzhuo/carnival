@@ -14,8 +14,6 @@ import org.apache.commons.pool2.impl.GenericKeyedObjectPoolConfig;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.io.Serializable;
-
 /**
  * 连接池配置
  *
@@ -23,7 +21,7 @@ import java.io.Serializable;
  * @author 应卓
  */
 @ConfigurationProperties(prefix = "carnival.fastdfs.pool")
-public class PoolProperties extends GenericKeyedObjectPoolConfig<Connection> implements Serializable, InitializingBean {
+public class PoolProperties extends GenericKeyedObjectPoolConfig<Connection> implements InitializingBean {
 
     /**
      * 从池中借出的对象的最大数目

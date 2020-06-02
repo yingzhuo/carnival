@@ -20,7 +20,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
@@ -58,7 +57,7 @@ class ETCDCoreAutoConfig implements ApplicationRunner {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.etcd")
-    static class Props implements Serializable {
+    static class Props {
         private boolean enabled = true;
         private Set<String> endpoints;
         private Charset charset = StandardCharsets.UTF_8;

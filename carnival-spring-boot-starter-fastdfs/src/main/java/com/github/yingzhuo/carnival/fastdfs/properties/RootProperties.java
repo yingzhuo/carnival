@@ -14,14 +14,13 @@ import lombok.Setter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs")
-public class RootProperties implements Serializable, InitializingBean {
+public class RootProperties implements InitializingBean {
 
     private boolean enabled = true;
     private int soTimeout;

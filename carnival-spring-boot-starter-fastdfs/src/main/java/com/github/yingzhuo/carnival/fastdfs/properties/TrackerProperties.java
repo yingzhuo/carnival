@@ -15,7 +15,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.tracker")
-public class TrackerProperties implements Serializable, InitializingBean {
+public class TrackerProperties implements InitializingBean {
 
     private String[] nodes = new String[0];
 

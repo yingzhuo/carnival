@@ -29,7 +29,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
@@ -96,7 +95,7 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.no-repeated")
-    public static class Props implements Serializable {
+    public static class Props {
         private boolean enable = true;
         private Token token = new Token();
         private RedisKey redisKey = new RedisKey();
@@ -104,14 +103,14 @@ public class NoRepeatedCoreAutoConfig implements WebMvcConfigurer {
 
     @Getter
     @Setter
-    static class Token implements Serializable {
+    static class Token {
         @DurationUnit(ChronoUnit.SECONDS)
         private Duration timeToLive = Duration.ofMinutes(5L);
     }
 
     @Getter
     @Setter
-    static class RedisKey implements Serializable {
+    static class RedisKey {
         private String prefix = "carnival-no-repeated-token-";
         private String suffix = "";
     }

@@ -65,15 +65,14 @@ public class IdCoreAutoConfig {
         private boolean enabled = true;
         private Algorithm algorithm = Algorithm.SNOWFLAKE;
         private Snowflake snowflake = new Snowflake();
-
-        @Getter
-        @Setter
-        static class Snowflake {
-            private long workerId = 0L;
-            private long dataCenterId = 0L;
-            private int length = -1;
-            private char padCharacter = '0';
-        }
     }
 
+    @Getter
+    @Setter
+    static class Snowflake {
+        private long workerId = 0L;
+        private long dataCenterId = 0L;
+        private int length = -1;
+        private char padCharacter = '0';
+    }
 }

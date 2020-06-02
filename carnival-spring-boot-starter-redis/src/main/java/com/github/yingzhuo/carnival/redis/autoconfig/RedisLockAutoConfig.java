@@ -21,7 +21,6 @@ import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
-import java.io.Serializable;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
@@ -46,7 +45,7 @@ public class RedisLockAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.redis.lock")
-    static class Props implements Serializable {
+    static class Props {
         private boolean enabled = true;
         private String keyPrefix = "carnival-redis-lock-";
         private String keySuffix = "";

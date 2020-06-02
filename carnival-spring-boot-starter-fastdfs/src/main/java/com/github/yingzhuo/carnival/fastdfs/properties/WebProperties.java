@@ -14,8 +14,6 @@ import lombok.Setter;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.io.Serializable;
-
 /**
  * 表示文件Web服务器对象
  *
@@ -25,7 +23,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.fastdfs.web")
-public class WebProperties implements Serializable, InitializingBean {
+public class WebProperties implements InitializingBean {
 
     private String url = "";
 

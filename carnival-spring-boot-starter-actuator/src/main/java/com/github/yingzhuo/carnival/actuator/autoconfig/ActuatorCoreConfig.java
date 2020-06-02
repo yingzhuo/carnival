@@ -19,8 +19,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 1.6.5
@@ -56,7 +54,7 @@ public class ActuatorCoreConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.actuator")
-    static class Props implements Serializable {
+    static class Props {
         private boolean enabled = true;
     }
 
