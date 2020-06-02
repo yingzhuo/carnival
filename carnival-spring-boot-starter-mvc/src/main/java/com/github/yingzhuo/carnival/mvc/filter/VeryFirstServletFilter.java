@@ -9,29 +9,23 @@
  */
 package com.github.yingzhuo.carnival.mvc.filter;
 
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author 应卓
  * @since 1.6.2
  */
-public class VeryFirstServletFilter extends OncePerRequestFilter {
+public class VeryFirstServletFilter extends AbstractServletFilter {
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected boolean doFilter(HttpServletRequest request, HttpServletResponse response) {
         try {
             execute(request, response);
         } catch (Throwable e) {
-            // NOP
+            // 其实这里不太可能抛出异常
         }
-
-        filterChain.doFilter(request, response);
+        return true;
     }
 
     private void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -41,7 +35,6 @@ public class VeryFirstServletFilter extends OncePerRequestFilter {
 
     @Override
     public void destroy() {
-        // super.destroy();
         VeryFirstServletContext.clean();
     }
 
