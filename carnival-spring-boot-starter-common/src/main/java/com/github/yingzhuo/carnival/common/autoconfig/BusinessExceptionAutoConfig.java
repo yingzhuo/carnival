@@ -50,10 +50,7 @@ public class BusinessExceptionAutoConfig {
                 log.warn("env properties 'business.exception.*' will be ignored.");
             }
 
-            MessageSourceBusinessExceptionFactory bean = new MessageSourceBusinessExceptionFactory();
-            bean.setBasenames(basenames);
-            bean.setDefaultEncoding(i18n.getEncoding());
-            return bean;
+            return new MessageSourceBusinessExceptionFactory(i18n.getBasenames(), i18n.getEncoding());
         }
 
         // no i18n

@@ -23,7 +23,7 @@ public class BusinessException extends RuntimeException {
 
     private String code;
 
-    BusinessException(String code, String message, Object... args) {
+    public BusinessException(String code, String message, Object... args) {
         super(MessageFormatter.format(message, args));
         this.code = code;
     }

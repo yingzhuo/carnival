@@ -18,14 +18,20 @@ import org.springframework.util.StringUtils;
  * @author 应卓
  * @since 1.6.13
  */
-public class MessageSourceBusinessExceptionFactory extends ReloadableResourceBundleMessageSource implements BusinessExceptionFactory {
+public class MessageSourceBusinessExceptionFactory implements BusinessExceptionFactory {
 
     private final MessageSourceAccessor accessor;
 
-    public MessageSourceBusinessExceptionFactory() {
-        setCacheSeconds(-1);
-        setUseCodeAsDefaultMessage(false);
-        accessor = new MessageSourceAccessor(this);
+    public MessageSourceBusinessExceptionFactory(String[] basenames) {
+        this(basenames, "UTF-8");
+    }
+
+    public MessageSourceBusinessExceptionFactory(String[] basenames, String encoding) {
+        final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setCacheSeconds(-1);
+        messageSource.setUseCodeAsDefaultMessage(false);
+        messageSource.setBasenames(basenames);
+        accessor = new MessageSourceAccessor(messageSource);
     }
 
     @Override
