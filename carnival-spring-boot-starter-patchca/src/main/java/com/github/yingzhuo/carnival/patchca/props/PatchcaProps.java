@@ -18,14 +18,13 @@ import org.patchca.filter.FilterType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.patchca")
-public class PatchcaProps implements Serializable {
+public class PatchcaProps {
 
     private boolean enabled = true;
     private Mode mode = Mode.STATEFUL;
@@ -42,13 +41,13 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class FilterProps implements Serializable {
+    public static class FilterProps {
         private List<FilterType> types = Collections.singletonList(FilterType.CURVES);
     }
 
     @Getter
     @Setter
-    public static class ForegroundProps implements Serializable {
+    public static class ForegroundProps {
         private int r = -1;
         private int g = -1;
         private int b = -1;
@@ -64,7 +63,7 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class BackgroundProps implements Serializable {
+    public static class BackgroundProps {
         private int r = 255;
         private int g = 255;
         private int b = 255;
@@ -80,7 +79,7 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class FontProps implements Serializable {
+    public static class FontProps {
         private String[] families = new String[]{"Verdana", "Tahoma"};
         private int minSize = 45;
         private int maxSize = 45;
@@ -88,7 +87,7 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class TextRendererProps implements Serializable {
+    public static class TextRendererProps {
         private int leftMargin = 10;
         private int rightMargin = 10;
         private int topMargin = 5;
@@ -97,7 +96,7 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class WordProps implements Serializable {
+    public static class WordProps {
         private String wideCharacters = "wm";
         private String characters = "abcdefghijklmnopqrstuvwxyz0123456789";
         private int minLength = 6;
@@ -106,14 +105,14 @@ public class PatchcaProps implements Serializable {
 
     @Getter
     @Setter
-    public static class SizeProps implements Serializable {
+    public static class SizeProps {
         private int width = 160;
         private int height = 70;
     }
 
     @Getter
     @Setter
-    public static class ServletFilterProps implements Serializable {
+    public static class ServletFilterProps {
         private boolean enabled = true;
         private String[] urlPatterns = new String[]{"/captcha", "/captcha.png", "/patchca", "/patchca.png"};
     }
