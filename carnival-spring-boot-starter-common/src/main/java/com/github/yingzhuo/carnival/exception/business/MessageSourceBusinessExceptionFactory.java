@@ -36,6 +36,7 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
         messageSource.setCacheSeconds(-1);
         messageSource.setUseCodeAsDefaultMessage(false);
         messageSource.setBasenames(basenames);
+        messageSource.setDefaultEncoding(encoding);
         accessor = new MessageSourceAccessor(messageSource);
     }
 
