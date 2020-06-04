@@ -1,9 +1,22 @@
-
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.client.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
@@ -15,6 +28,8 @@ import org.springframework.core.Ordered;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
+@EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.mvc.client-info", name = "enabled", havingValue = "true")
 public class MvcClientInfoAutoConfig {
 
     @Autowired(required = false)
@@ -43,6 +58,13 @@ public class MvcClientInfoAutoConfig {
         bean.addUrlPatterns("/*");
         bean.setName(ClientInfoResolvingFilter.class.getSimpleName());
         return bean;
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.mvc.client-info")
+    static class Props {
+        private boolean enabled = false;
     }
 
 }

@@ -89,24 +89,13 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
             log.debug("\t\t{} = {}", name, value);
         }
 
-        if (handlerMethod != null) {
-            final Method method = handlerMethod.getMethod();
-            final Class<?> type = handlerMethod.getBeanType();
-            boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
-            boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
-
-            log.debug("[Controller]:");
-            log.debug("\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
-            log.debug("\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
-        }
-
         ClientOSType clientOSType = ClientInfoContext.getClientOSType();
         String clientOSVersion = ClientInfoContext.getClientOSVersion();
         String clientAppVersion = ClientInfoContext.getClientAppVersion();
         String clientUsingBackendVersion = ClientInfoContext.getClientUsingBackendVersion();
 
         if (clientOSType != null || clientOSVersion != null || clientAppVersion != null || clientUsingBackendVersion != null) {
-            log.debug("[Client Information]:");
+            log.debug("[Client]:");
             if (clientOSType != null) {
                 log.debug("\t\tclient-os-type = {}", clientOSType);
             }
@@ -122,6 +111,17 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
             if (clientUsingBackendVersion != null) {
                 log.debug("\t\tclient-using-backend-version = {}", clientUsingBackendVersion);
             }
+        }
+
+        if (handlerMethod != null) {
+            final Method method = handlerMethod.getMethod();
+            final Class<?> type = handlerMethod.getBeanType();
+            boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
+            boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
+
+            log.debug("[Controller]:");
+            log.debug("\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
+            log.debug("\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
         }
 
         log.debug(StringUtils.repeat('-', 120));
