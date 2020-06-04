@@ -3,4 +3,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.mvc.autoconfig.MvcCorsForAllAutoConfig,\
     com.github.yingzhuo.carnival.mvc.autoconfig.MvcWebRootAutoConfig,\
     com.github.yingzhuo.carnival.mvc.autoconfig.MvcXssProtectingAutoConfig,\
+    com.github.yingzhuo.carnival.mvc.autoconfig.MvcClientInfoAutoConfig,\
     com.github.yingzhuo.carnival.mvc.autoconfig.MvcDebugAutoConfig
