@@ -81,10 +81,6 @@ public interface Immutable {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    public static <K, V> KeyValue<K, V> kv(K k, V v) {
-        return new KeyValue<>(k, v);
-    }
-
     public static <K, V> Map<K, V> map(KeyValue<K, V>... objs) {
         if (objs == null || objs.length == 0) {
             return Collections.emptyMap();
@@ -101,35 +97,6 @@ public interface Immutable {
         final Map<K, V> map = new HashMap<>();
         map.put(key, value);
         return Collections.unmodifiableMap(map);
-    }
-
-    // KV
-    // ----------------------------------------------------------------------------------------------------------------
-
-    public static class KeyValue<K, V> implements Map.Entry<K, V> {
-
-        private final K k;
-        private final V v;
-
-        private KeyValue(K k, V v) {
-            this.k = k;
-            this.v = v;
-        }
-
-        @Override
-        public K getKey() {
-            return k;
-        }
-
-        @Override
-        public V getValue() {
-            return v;
-        }
-
-        @Override
-        public V setValue(V value) {
-            throw new UnsupportedOperationException();
-        }
     }
 
 }
