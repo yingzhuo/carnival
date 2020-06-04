@@ -15,6 +15,8 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.util.StringUtils;
 
+import static com.github.yingzhuo.carnival.common.util.StringFormatter.format;
+
 /**
  * @author 应卓
  * @since 1.6.13
@@ -27,7 +29,7 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
         accessor = new MessageSourceAccessor(messageSource);
     }
 
-    public MessageSourceBusinessExceptionFactory(String[] basenames) {
+    public MessageSourceBusinessExceptionFactory(String... basenames) {
         this(basenames, "UTF-8");
     }
 
@@ -44,13 +46,13 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
     public BusinessException create(String code, Object... args) {
 
         if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException("'" + code + "' is invalid code");
+            throw new IllegalArgumentException(format("'{}' is invalid code", code));
         }
 
         try {
             return new BusinessException(code, accessor.getMessage(code, args));
         } catch (NoSuchMessageException e) {
-            throw new IllegalArgumentException("'" + code + "' is invalid code");
+            throw new IllegalArgumentException(format("'{}' is invalid code", code));
         }
     }
 

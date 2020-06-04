@@ -7,11 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common;
+package com.github.yingzhuo.carnival.exception.business;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author 应卓
+ * @since 1.6.13
  */
-@FunctionalInterface
-public interface StringCoded extends Coded<String> {
+@ConfigurationProperties(prefix = "business.exception")
+public class BusinessExceptionEnvMap extends java.util.HashMap<String, String> {
 }

@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.role;
 
-import com.github.yingzhuo.carnival.common.Named;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.io.Serializable;
@@ -21,7 +20,9 @@ import java.io.Serializable;
  * @see UserDetails
  */
 @FunctionalInterface
-public interface Role extends Named, Serializable {
+public interface Role extends Serializable {
+
+    public String getName();
 
     public static Role of(String name) {
         return new SimpleRole(name);

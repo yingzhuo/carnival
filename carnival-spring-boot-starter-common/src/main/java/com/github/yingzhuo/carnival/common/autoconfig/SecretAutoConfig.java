@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.Configurer;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.secret.*;
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
@@ -33,12 +32,11 @@ import org.springframework.format.FormatterRegistry;
 @Lazy(false)
 @EnableConfigurationProperties(SecretAutoConfig.SecretProps.class)
 @ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true")
-public class SecretAutoConfig implements Configurer<FormatterRegistry> {
+public class SecretAutoConfig {
 
     @Autowired
     private SecretProps props;
 
-    @Override
     @Autowired
     public void config(FormatterRegistry registry) {
 

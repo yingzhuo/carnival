@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.github.yingzhuo.carnival.common.util.MessageFormatter.format;
+import static com.github.yingzhuo.carnival.common.util.StringFormatter.format;
 
 /**
  * 逻辑自洽性

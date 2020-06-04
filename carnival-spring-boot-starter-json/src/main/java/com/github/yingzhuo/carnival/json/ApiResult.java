@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.json;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.github.yingzhuo.carnival.common.StringCoded;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
@@ -21,7 +20,7 @@ import java.util.Objects;
  * @since 1.0.4
  */
 @JsonView(Views.Normal.class)
-public interface ApiResult<T> extends Serializable, StringCoded {
+public interface ApiResult<T> extends Serializable {
 
     public static <T> ApiResult<T> newInstance(final T payload) {
         return newInstance(HttpStatus.OK, null, payload);

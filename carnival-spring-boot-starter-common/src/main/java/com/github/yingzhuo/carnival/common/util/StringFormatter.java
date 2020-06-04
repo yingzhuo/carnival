@@ -14,16 +14,16 @@ import java.util.Map;
 
 /**
  * @author 应卓
- * @since 1.4.5
+ * @since 1.4.13
  */
-public final class MessageFormatter {
+public final class StringFormatter {
 
     private static final char DELIM_START = '{';
     private static final char DELIM_STOP = '}';
     private static final String DELIM_STR = "{}";
     private static final char ESCAPE_CHAR = '\\';
 
-    private MessageFormatter() {
+    private StringFormatter() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -33,10 +33,10 @@ public final class MessageFormatter {
     }
 
     public static String format(String messagePattern, Object[] argArray) {
-        Throwable throwableCandidate = MessageFormatter.getThrowableCandidate(argArray);
+        Throwable throwableCandidate = StringFormatter.getThrowableCandidate(argArray);
         Object[] args = argArray;
         if (throwableCandidate != null) {
-            args = MessageFormatter.trimmedCopy(argArray);
+            args = StringFormatter.trimmedCopy(argArray);
         }
         return format(messagePattern, args, throwableCandidate);
     }

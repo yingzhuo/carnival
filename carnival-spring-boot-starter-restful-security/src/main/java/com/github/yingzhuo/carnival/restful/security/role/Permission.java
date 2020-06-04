@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.role;
 
-import com.github.yingzhuo.carnival.common.Named;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import java.io.Serializable;
@@ -20,8 +19,9 @@ import java.io.Serializable;
  * @author 应卓
  * @see UserDetails
  */
-@FunctionalInterface
-public interface Permission extends Named, Serializable {
+public interface Permission extends Serializable {
+
+    public String getName();
 
     public static Permission of(String name) {
         return new SimplePermission(name);

@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import com.github.yingzhuo.carnival.common.util.MessageFormatter;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.util.Collections;
@@ -23,8 +22,8 @@ public class BusinessException extends RuntimeException {
 
     private String code;
 
-    public BusinessException(String code, String message, Object... args) {
-        super(MessageFormatter.format(message, args));
+    public BusinessException(String code, String message) {
+        super(message);
         this.code = code;
     }
 

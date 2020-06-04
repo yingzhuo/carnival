@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.curator;
 
-import com.github.yingzhuo.carnival.common.Configurer;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 
 /**
@@ -17,7 +16,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
  * @since 1.3.0
  */
 @FunctionalInterface
-public interface CuratorFrameworkFactoryBuilderConfigurer extends Configurer<CuratorFrameworkFactory.Builder> {
+public interface CuratorFrameworkFactoryBuilderConfigurer {
 
     public void config(CuratorFrameworkFactory.Builder builder);
 
