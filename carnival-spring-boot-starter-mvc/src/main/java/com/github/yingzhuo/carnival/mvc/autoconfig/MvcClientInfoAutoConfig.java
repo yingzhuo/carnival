@@ -29,7 +29,7 @@ import org.springframework.core.Ordered;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.client-info", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "carnival.mvc.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcClientInfoAutoConfig {
 
     @Autowired(required = false)
@@ -64,7 +64,7 @@ public class MvcClientInfoAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.mvc.client-info")
     static class Props {
-        private boolean enabled = false;
+        private boolean enabled = true;
     }
 
 }
