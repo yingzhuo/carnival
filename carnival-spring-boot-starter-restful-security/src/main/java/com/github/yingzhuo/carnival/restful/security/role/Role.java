@@ -22,10 +22,10 @@ import java.io.Serializable;
 @FunctionalInterface
 public interface Role extends Serializable {
 
-    public String getName();
-
     public static Role of(String name) {
         return new SimpleRole(name);
     }
+
+    public String getName();
 
 }

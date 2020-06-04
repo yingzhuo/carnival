@@ -7,14 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.exception.business;
-
-import org.springframework.boot.context.properties.ConfigurationProperties;
+package com.github.yingzhuo.carnival.i18n;
 
 /**
  * @author 应卓
  * @since 1.6.13
  */
-@ConfigurationProperties(prefix = "business.exception")
-public class BusinessExceptionEnvMap extends java.util.HashMap<String, String> {
+public final class MessageSourceBuilder {
 }

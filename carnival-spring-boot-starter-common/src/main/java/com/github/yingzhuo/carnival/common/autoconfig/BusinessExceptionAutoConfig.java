@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.exception.business.BusinessExceptionFactory;
-import com.github.yingzhuo.carnival.exception.business.BusinessExceptionEnvMap;
 import com.github.yingzhuo.carnival.exception.business.MapBusinessExceptionFactory;
 import com.github.yingzhuo.carnival.exception.business.MessageSourceBusinessExceptionFactory;
 import lombok.Getter;
@@ -22,27 +21,35 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import static com.github.yingzhuo.carnival.exception.business.BusinessExceptionMaps.*;
+
 /**
  * @author 应卓
  */
 @Lazy(false)
 @EnableConfigurationProperties({
-        BusinessExceptionEnvMap.class,
-        BusinessExceptionAutoConfig.Props.class
+        BusinessExceptionAutoConfig.Props.class,
+        Map1.class,
+        Map2.class,
+        Map3.class
 })
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class BusinessExceptionAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public BusinessExceptionFactory businessExceptionFactory(Props props, BusinessExceptionEnvMap envMap) {
+    public BusinessExceptionFactory businessExceptionFactory(Props props, Map1 map1, Map2 map2, Map3 map3) {
         final I18n i18n = props.getI18n();
         final String[] basenames = i18n.getBasenames();
 
         if (basenames != null && basenames.length != 0) {
             return new MessageSourceBusinessExceptionFactory(i18n.getBasenames(), i18n.getEncoding());
         } else {
-            return new MapBusinessExceptionFactory(envMap);
+            return new MapBusinessExceptionFactory(
+                    merge(map1,
+                            map2,
+                            map3)
+            );
         }
     }
 

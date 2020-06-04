@@ -18,16 +18,15 @@ import java.util.Map;
  */
 public final class KeyValue<K, V> implements Map.Entry<K, V> {
 
-    public static <K, V> KeyValue<K, V> of(K key, V value) {
-        return new KeyValue<>(key, value);
-    }
-
     private final K k;
     private final V v;
-
     private KeyValue(K k, V v) {
         this.k = k;
         this.v = v;
+    }
+
+    public static <K, V> KeyValue<K, V> of(K key, V value) {
+        return new KeyValue<>(key, value);
     }
 
     @Override
