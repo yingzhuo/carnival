@@ -22,6 +22,7 @@ import java.lang.annotation.*;
 /**
  * @author 应卓
  */
+@Deprecated
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

@@ -9,6 +9,9 @@
  */
 package com.github.yingzhuo.carnival.common;
 
+import org.springframework.core.OrderComparator;
+import org.springframework.core.Ordered;
+
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -60,6 +63,15 @@ public interface Immutable {
             return Collections.emptyList();
         }
         return Collections.unmodifiableList(Arrays.asList(objs));
+    }
+
+    public static <T extends Ordered> List<T> orderedList(T... objs) {
+        if (objs == null || objs.length == 0) {
+            return Collections.emptyList();
+        }
+        List<T> list = new ArrayList<>(Arrays.asList(objs));
+        OrderComparator.sort(list);
+        return Collections.unmodifiableList(list);
     }
 
     public static <E extends Enum<E>> List<E> list(Class<E> enumType) {

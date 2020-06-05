@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.mvc.support;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.mvc.NoDebug;
+import com.github.yingzhuo.carnival.mvc.client.ClientInfoContext;
+import com.github.yingzhuo.carnival.mvc.client.ClientOSType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -25,7 +27,7 @@ import java.util.Enumeration;
 import java.util.Locale;
 
 /**
- * 日志输出拦截器
+ * 日志输出拦截器 (不建议生产环境使用)
  *
  * @author 应卓
  */
@@ -85,6 +87,30 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
             String name = paramNames.nextElement();
             String value = request.getParameter(name);
             log.debug("\t\t{} = {}", name, value);
+        }
+
+        ClientOSType clientOSType = ClientInfoContext.getClientOSType();
+        String clientOSVersion = ClientInfoContext.getClientOSVersion();
+        String clientAppVersion = ClientInfoContext.getClientAppVersion();
+        String clientUsingBackendVersion = ClientInfoContext.getClientUsingBackendVersion();
+
+        if (clientOSType != null || clientOSVersion != null || clientAppVersion != null || clientUsingBackendVersion != null) {
+            log.debug("[Client]:");
+            if (clientOSType != null) {
+                log.debug("\t\tclient-os-type = {}", clientOSType);
+            }
+
+            if (clientOSVersion != null) {
+                log.debug("\t\tclient-os-version = {}", clientOSVersion);
+            }
+
+            if (clientAppVersion != null) {
+                log.debug("\t\tclient-app-version = {}", clientAppVersion);
+            }
+
+            if (clientUsingBackendVersion != null) {
+                log.debug("\t\tclient-using-backend-version = {}", clientUsingBackendVersion);
+            }
         }
 
         if (handlerMethod != null) {

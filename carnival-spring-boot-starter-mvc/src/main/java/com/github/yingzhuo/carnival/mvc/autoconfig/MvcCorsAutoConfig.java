@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
+import com.github.yingzhuo.carnival.mvc.props.AbstractWebFilterProps;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.val;
@@ -19,6 +20,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.Ordered;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -29,16 +31,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Lazy(false)
 @ConditionalOnWebApplication
-@EnableConfigurationProperties(MvcCorsForAllAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.cors-for-all", name = "enabled", havingValue = "true")
-public class MvcCorsForAllAutoConfig implements WebMvcConfigurer {
+@EnableConfigurationProperties(MvcCorsAutoConfig.Props.class)
+@ConditionalOnProperty(prefix = "carnival.web-filter.cors", name = "enabled", havingValue = "true")
+public class MvcCorsAutoConfig implements WebMvcConfigurer {
 
     @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
+    public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean(Props props) {
         val bean = new FilterRegistrationBean<CorsFilter>();
         bean.setFilter(corsFilter());
-        bean.addUrlPatterns("/", "/*");
-        bean.setName(CorsFilter.class.getSimpleName());
+        bean.addUrlPatterns(props.getUrlPatterns());
+        bean.setName(props.getFilterName());
+        bean.setOrder(props.getOrder());
         return bean;
     }
 
@@ -57,9 +60,14 @@ public class MvcCorsForAllAutoConfig implements WebMvcConfigurer {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.mvc.cors-for-all")
-    static class Props {
+    @ConfigurationProperties(prefix = "carnival.web-filter.cors")
+    static class Props extends AbstractWebFilterProps {
         private boolean enabled = false;
+
+        Props() {
+            super.setOrder(Ordered.LOWEST_PRECEDENCE - 100);
+            super.setFilterName(CorsFilter.class.getName());
+        }
     }
 
 }
