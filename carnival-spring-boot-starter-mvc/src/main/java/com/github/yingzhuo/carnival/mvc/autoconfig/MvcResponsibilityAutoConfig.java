@@ -14,13 +14,13 @@ import com.github.yingzhuo.carnival.mvc.responsibility.ResponsibilityChain;
 import com.github.yingzhuo.carnival.mvc.responsibility.ResponsibilityChainFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,16 +30,20 @@ import java.util.List;
 @Slf4j
 @Lazy(false)
 @ConditionalOnWebApplication
+@ConditionalOnBean(Responsibility.class)
 public class MvcResponsibilityAutoConfig {
 
-    @Autowired(required = false)
-    private List<Responsibility> responsibilities = Collections.emptyList();
+    @Autowired
+    private List<Responsibility> responsibilities;
 
     @Bean
     public FilterRegistrationBean<ResponsibilityChainFilter> responsibilityChainFilterFilter() {
-        final FilterRegistrationBean<ResponsibilityChainFilter> bean = new FilterRegistrationBean<>(new ResponsibilityChainFilter(ResponsibilityChain.of(responsibilities)));
-        bean.setName(ResponsibilityChainFilter.class.getSimpleName());
-        bean.addUrlPatterns("/*");
+        final FilterRegistrationBean<ResponsibilityChainFilter> bean = new FilterRegistrationBean<>(
+                new ResponsibilityChainFilter(ResponsibilityChain.of(responsibilities))
+        );
+
+        bean.setName(ResponsibilityChainFilter.class.getName());
+        bean.addUrlPatterns("/", "/*");
         bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 100);
         return bean;
     }

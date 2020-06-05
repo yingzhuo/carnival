@@ -38,11 +38,14 @@ public class ResponsibilityChainFilter extends OncePerRequestFilter {
 
             final String path = request.getRequestURI();
 
-
             for (Responsibility responsibility : chain) {
 
-                if (PathMatcherUtils.anyMatch(path, responsibility.excludePatterns())) {
-                    continue;
+                final String[] excludePatterns = responsibility.excludePatterns();
+
+                if (excludePatterns != null && excludePatterns.length > 0) {
+                    if (PathMatcherUtils.anyMatch(path, excludePatterns)) {
+                        continue;
+                    }
                 }
 
                 responsibility.execute(new ServletWebRequest(request, response));
