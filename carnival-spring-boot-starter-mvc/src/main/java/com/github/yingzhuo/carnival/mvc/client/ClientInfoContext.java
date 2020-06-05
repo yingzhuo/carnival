@@ -15,16 +15,11 @@ package com.github.yingzhuo.carnival.mvc.client;
  */
 public final class ClientInfoContext {
 
-    private ClientInfoContext() {
-    }
-
     private static final ThreadLocal<ClientOSType> CLIENT_OS_TYPE_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<String> CLIENT_OS_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<String> CLIENT_APP_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<String> CLIENT_USING_BACKEND_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
-
-    static void setClientUsingBackendVersion(String version) {
-        CLIENT_USING_BACKEND_VERSION_HOLDER.set(version);
+    private ClientInfoContext() {
     }
 
     static void setClientOsType(ClientOSType type) {
@@ -33,10 +28,6 @@ public final class ClientInfoContext {
 
     static void setClientOsVersion(String version) {
         CLIENT_OS_VERSION_HOLDER.set(version);
-    }
-
-    static void setClientAppVersion(String version) {
-        CLIENT_APP_VERSION_HOLDER.set(version);
     }
 
     static void clean() {
@@ -58,8 +49,16 @@ public final class ClientInfoContext {
         return CLIENT_APP_VERSION_HOLDER.get();
     }
 
+    static void setClientAppVersion(String version) {
+        CLIENT_APP_VERSION_HOLDER.set(version);
+    }
+
     public static String getClientUsingBackendVersion() {
         return CLIENT_USING_BACKEND_VERSION_HOLDER.get();
+    }
+
+    static void setClientUsingBackendVersion(String version) {
+        CLIENT_USING_BACKEND_VERSION_HOLDER.set(version);
     }
 
 }

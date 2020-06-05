@@ -11,43 +11,28 @@ package com.github.yingzhuo.carnival.actuator.health;
 
 import com.github.yingzhuo.carnival.common.util.SocketUtils;
 import com.google.common.net.HostAndPort;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
+import org.springframework.util.Assert;
 
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * @author 应卓
  * @since 1.6.13
  */
-public abstract class AbstractTcpHealthIndicator extends AbstractHealthIndicator {
+public abstract class AbstractTcpHealthIndicator extends AbstractHealthIndicator implements InitializingBean {
 
-    private final Logic logic;
-    private final Duration timeout;
-    private final Set<HostAndPort> targets;
+    private HostAndPort target;
+    private Duration timeout = Duration.ofSeconds(2L);
 
-    public AbstractTcpHealthIndicator(Duration timeout, HostAndPort... targets) {
-        this(null, timeout, targets);
-    }
-
-    public AbstractTcpHealthIndicator(Logic logic, Duration timeout, HostAndPort... targets) {
-        this.timeout = timeout;
-        this.logic = logic != null ? logic : Logic.ALL;
-        this.targets = new HashSet<>(Arrays.asList(targets));
+    public AbstractTcpHealthIndicator() {
     }
 
     @Override
     protected final void doHealthCheck(Health.Builder builder) {
-        final boolean ok;
-
-        if (logic == Logic.ALL) {
-            ok = targets.stream().allMatch(hostAndPort -> SocketUtils.isReachable(hostAndPort, (int) timeout.getSeconds()));
-        } else {
-            ok = targets.stream().anyMatch(hostAndPort -> SocketUtils.isReachable(hostAndPort, (int) timeout.getSeconds()));
-        }
+        final boolean ok = SocketUtils.isReachable(target, (int) timeout.getSeconds());
 
         if (ok) {
             builder.up();
@@ -56,8 +41,17 @@ public abstract class AbstractTcpHealthIndicator extends AbstractHealthIndicator
         }
     }
 
-    public enum Logic {
-        ALL, ANY
+    @Override
+    public void afterPropertiesSet() {
+        Assert.notNull(target, "target is null");
+    }
+
+    public void setTarget(HostAndPort target) {
+        this.target = target;
+    }
+
+    public void setTimeout(Duration timeout) {
+        this.timeout = timeout;
     }
 
 }

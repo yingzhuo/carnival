@@ -20,6 +20,7 @@ public final class KeyValue<K, V> implements Map.Entry<K, V> {
 
     private final K k;
     private final V v;
+
     private KeyValue(K k, V v) {
         this.k = k;
         this.v = v;

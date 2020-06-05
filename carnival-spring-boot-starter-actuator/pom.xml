@@ -36,6 +36,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
         <!-- markdown -->
         <dependency>
             <groupId>com.vladsch.flexmark</groupId>
@@ -68,4 +74,5 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
 </project>

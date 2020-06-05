@@ -20,12 +20,12 @@ public final class ResponsibilityChain implements Iterable<Responsibility> {
 
     private final List<Responsibility> responsibilities;
 
-    public static ResponsibilityChain of(List<Responsibility> responsibilities) {
-        return new ResponsibilityChain(responsibilities);
-    }
-
     private ResponsibilityChain(List<Responsibility> responsibilities) {
         this.responsibilities = responsibilities;
+    }
+
+    public static ResponsibilityChain of(List<Responsibility> responsibilities) {
+        return new ResponsibilityChain(responsibilities);
     }
 
     @Override
