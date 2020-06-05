@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
 import com.github.yingzhuo.carnival.mvc.client.*;
+import com.github.yingzhuo.carnival.mvc.props.AbstractWebFilterProps;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ import org.springframework.core.Ordered;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.mvc.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcClientInfoAutoConfig {
 
     @Autowired(required = false)
@@ -45,7 +46,7 @@ public class MvcClientInfoAutoConfig {
     private ClientUsingBackendVersionResolver clientUsingBackendVersionResolver;
 
     @Bean
-    public FilterRegistrationBean<ClientInfoResolvingFilter> clientOSTypeResolvingFilterFilter() {
+    public FilterRegistrationBean<ClientInfoResolvingFilter> clientOSTypeResolvingFilterFilter(Props props) {
         FilterRegistrationBean<ClientInfoResolvingFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new ClientInfoResolvingFilter(
                 clientOSTypeResolver != null ? clientOSTypeResolver : ClientInfoResolver.DEFAULT,
@@ -54,17 +55,22 @@ public class MvcClientInfoAutoConfig {
                 clientUsingBackendVersionResolver != null ? clientUsingBackendVersionResolver : ClientInfoResolver.DEFAULT
         ));
 
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 1000);
-        bean.addUrlPatterns("/*");
-        bean.setName(ClientInfoResolvingFilter.class.getSimpleName());
+        bean.setOrder(props.getOrder());
+        bean.addUrlPatterns(props.getUrlPatterns());
+        bean.setName(props.getFilterName());
         return bean;
     }
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.mvc.client-info")
-    static class Props {
+    @ConfigurationProperties(prefix = "carnival.web-filter.client-info")
+    static class Props extends AbstractWebFilterProps {
         private boolean enabled = true;
+
+        Props() {
+            super.setOrder(Ordered.LOWEST_PRECEDENCE);
+            super.setFilterName(ClientInfoResolvingFilter.class.getName());
+        }
     }
 
 }
