@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.datamodel.*;
+import com.github.yingzhuo.carnival.event.ApplicationInitializerProvider;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
@@ -108,6 +109,13 @@ public class CommonAutoConfig {
     @ConditionalOnMissingBean
     public PathMatcher pathMatcher() {
         return new AntPathMatcher();
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    public ApplicationInitializerProvider applicationInitializerProvider() {
+        return new ApplicationInitializerProvider();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
