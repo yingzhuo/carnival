@@ -24,9 +24,9 @@ public class ApplicationInitializerListener implements ApplicationListener<Appli
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
 
-        OrderComparator.sort(ApplicationInitializerProvider.INITIALIZERS);
+        OrderComparator.sort(ApplicationInitializerHolder.INITIALIZERS);
 
-        for (ApplicationInitializer initializer : ApplicationInitializerProvider.INITIALIZERS) {
+        for (ApplicationInitializer initializer : ApplicationInitializerHolder.INITIALIZERS) {
             try {
                 initializer.execute();
             } catch (Exception e) {

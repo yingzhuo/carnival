@@ -19,7 +19,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.6.15
  */
-public class ApplicationInitializerProvider implements BeanPostProcessor {
+public class ApplicationInitializerHolder implements BeanPostProcessor {
 
     static final List<ApplicationInitializer> INITIALIZERS = new LinkedList<>();
 
