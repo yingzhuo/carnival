@@ -43,12 +43,10 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
             throw new IllegalArgumentException(format("'{}' is invalid code", code));
         }
 
-        String messageTemplate = messages.get(code);
+        final String messageTemplate = messages.get(code);
         if (messageTemplate == null) {
             throw new IllegalArgumentException(format("'{}' is invalid code", code));
         }
-
-        messageTemplate = messageTemplate.replaceAll("\\{[0-9]+}", "{}"); // {0} -> {}
 
         return new BusinessException(code, format(messageTemplate, args));
     }
