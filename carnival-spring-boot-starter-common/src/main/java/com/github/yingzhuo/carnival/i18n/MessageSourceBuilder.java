@@ -28,6 +28,7 @@ public final class MessageSourceBuilder {
     private Charset encoding = StandardCharsets.UTF_8;
     private boolean fallbackToSystemLocale = true;
     private boolean useCodeAsDefaultMessage = false;
+
     private MessageSourceBuilder() {
     }
 
@@ -40,7 +41,7 @@ public final class MessageSourceBuilder {
         return this;
     }
 
-    public MessageSourceBuilder charset(Charset encoding) {
+    public MessageSourceBuilder encoding(Charset encoding) {
         this.encoding = encoding;
         return this;
     }

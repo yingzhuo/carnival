@@ -19,6 +19,7 @@ public final class ClientInfoContext {
     private static final ThreadLocal<String> CLIENT_OS_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<String> CLIENT_APP_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
     private static final ThreadLocal<String> CLIENT_USING_BACKEND_VERSION_HOLDER = ThreadLocal.withInitial(() -> null);
+
     private ClientInfoContext() {
     }
 

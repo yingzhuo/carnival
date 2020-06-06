@@ -13,6 +13,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Assert;
 import org.springframework.util.PathMatcher;
 
+import java.util.Collection;
 import java.util.stream.Stream;
 
 /**
@@ -45,6 +46,10 @@ public final class PathMatcherUtils {
         return Stream.of(patterns).anyMatch(pattern -> matcher.match(pattern, path));
     }
 
+    public static boolean anyMatch(String path, Collection<String> patterns) {
+        return anyMatch(path, patterns.toArray(new String[0]));
+    }
+
     public static boolean allMatch(String path, String... patterns) {
         Assert.hasText(path, "path is Empty");
         Assert.notEmpty(patterns, "patterns is empty");
@@ -55,6 +60,10 @@ public final class PathMatcherUtils {
         }
 
         return Stream.of(patterns).allMatch(pattern -> matcher.match(pattern, path));
+    }
+
+    public static boolean allMatch(String path, Collection<String> patterns) {
+        return allMatch(path, patterns.toArray(new String[0]));
     }
 
 }

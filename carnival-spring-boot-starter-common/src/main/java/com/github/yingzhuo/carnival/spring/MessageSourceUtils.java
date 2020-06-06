@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.spring;
 
 import org.springframework.context.MessageSourceResolvable;
+import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -24,6 +25,20 @@ import java.util.stream.Collectors;
 public final class MessageSourceUtils {
 
     private MessageSourceUtils() {
+    }
+
+    public static String getMessage(String code, Object[] args, String defaultMessage) {
+        return SpringUtils.getBean(MessageSourceAccessor.class)
+                .getMessage(code, args, defaultMessage);
+    }
+
+    public static String getMessage(String code, Object... args) {
+        try {
+            return SpringUtils.getBean(MessageSourceAccessor.class)
+                    .getMessage(code, args);
+        } catch (NoSuchMessageException e) {
+            return null;
+        }
     }
 
     public static String getMessage(MessageSourceResolvable messageSourceResolvable) {

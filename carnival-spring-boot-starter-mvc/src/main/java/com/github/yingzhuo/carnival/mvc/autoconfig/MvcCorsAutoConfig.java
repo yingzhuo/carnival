@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 import com.github.yingzhuo.carnival.mvc.props.AbstractWebFilterProps;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.val;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -32,12 +31,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcCorsAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.web-filter.cors", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "carnival.web-filter.cors", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcCorsAutoConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean(Props props) {
-        val bean = new FilterRegistrationBean<CorsFilter>();
+        final FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(corsFilter());
         bean.addUrlPatterns(props.getUrlPatterns());
         bean.setName(props.getFilterName());
@@ -46,13 +45,13 @@ public class MvcCorsAutoConfig implements WebMvcConfigurer {
     }
 
     private CorsFilter corsFilter() {
-        val cnf = new CorsConfiguration();
-        cnf.addAllowedOrigin("*"); // 1 设置访问源地址
-        cnf.addAllowedHeader("*"); // 2 设置访问源请求头
-        cnf.addAllowedMethod("*"); // 3 设置访问源请求方法
+        final CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("*"); // 1 设置访问源地址
+        config.addAllowedHeader("*"); // 2 设置访问源请求头
+        config.addAllowedMethod("*"); // 3 设置访问源请求方法
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", cnf); // 4 对接口配置跨域设置
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config); // 4 对接口配置跨域设置
         return new CorsFilter(source);
     }
 
@@ -62,7 +61,7 @@ public class MvcCorsAutoConfig implements WebMvcConfigurer {
     @Setter
     @ConfigurationProperties(prefix = "carnival.web-filter.cors")
     static class Props extends AbstractWebFilterProps {
-        private boolean enabled = false;
+        private boolean enabled = true;
 
         Props() {
             super.setOrder(Ordered.LOWEST_PRECEDENCE - 100);

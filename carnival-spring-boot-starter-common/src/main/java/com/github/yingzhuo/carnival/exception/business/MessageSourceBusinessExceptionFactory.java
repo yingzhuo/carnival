@@ -15,6 +15,9 @@ import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.util.StringUtils;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 import static com.github.yingzhuo.carnival.common.util.StringFormatter.format;
 
 /**
@@ -25,20 +28,24 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
 
     private final MessageSourceAccessor accessor;
 
+    public MessageSourceBusinessExceptionFactory(MessageSourceAccessor accessor) {
+        this.accessor = accessor;
+    }
+
     public MessageSourceBusinessExceptionFactory(MessageSource messageSource) {
         accessor = new MessageSourceAccessor(messageSource);
     }
 
     public MessageSourceBusinessExceptionFactory(String... basenames) {
-        this(basenames, "UTF-8");
+        this(basenames, StandardCharsets.UTF_8);
     }
 
-    public MessageSourceBusinessExceptionFactory(String[] basenames, String encoding) {
+    public MessageSourceBusinessExceptionFactory(String[] basenames, Charset encoding) {
         final ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setCacheSeconds(-1);
         messageSource.setUseCodeAsDefaultMessage(false);
         messageSource.setBasenames(basenames);
-        messageSource.setDefaultEncoding(encoding);
+        messageSource.setDefaultEncoding(encoding.displayName());
         accessor = new MessageSourceAccessor(messageSource);
     }
 
