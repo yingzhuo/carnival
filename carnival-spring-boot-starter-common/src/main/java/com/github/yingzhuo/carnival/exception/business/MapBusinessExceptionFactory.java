@@ -36,16 +36,16 @@ public class MapBusinessExceptionFactory implements BusinessExceptionFactory, In
     @Override
     public BusinessException create(String code, Object... args) {
         if (empty) {
-            throw new IllegalArgumentException(format("'{}' is invalid code", code));
+            throw new NoSuchCodeException(code);
         }
 
         if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException(format("'{}' is invalid code", code));
+            throw new NoSuchCodeException(code);
         }
 
         final String messageTemplate = messages.get(code);
         if (messageTemplate == null) {
-            throw new IllegalArgumentException(format("'{}' is invalid code", code));
+            throw new NoSuchCodeException(code);
         }
 
         return new BusinessException(code, format(messageTemplate, args));

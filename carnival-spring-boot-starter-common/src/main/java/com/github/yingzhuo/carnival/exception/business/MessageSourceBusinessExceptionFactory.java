@@ -18,8 +18,6 @@ import org.springframework.util.StringUtils;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import static com.github.yingzhuo.carnival.common.util.StringFormatter.format;
-
 /**
  * @author 应卓
  * @since 1.6.13
@@ -53,13 +51,13 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
     public BusinessException create(String code, Object... args) {
 
         if (!StringUtils.hasText(code)) {
-            throw new IllegalArgumentException(format("'{}' is invalid code", code));
+            throw new NoSuchCodeException(code);
         }
 
         try {
             return new BusinessException(code, accessor.getMessage(code, args));
         } catch (NoSuchMessageException e) {
-            throw new IllegalArgumentException(format("'{}' is invalid code", code));
+            throw new NoSuchCodeException(code);
         }
     }
 
