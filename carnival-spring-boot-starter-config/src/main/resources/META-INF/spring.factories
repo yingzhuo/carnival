@@ -6,5 +6,4 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
     com.github.yingzhuo.carnival.config.env.MainClassEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.PropertySource,\
     com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.BusinessException,\
-    com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Git,\
-    com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.BuildInfo
+    com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Git

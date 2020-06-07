@@ -85,17 +85,4 @@ public interface ConventionEnvironmentPostProcessors {
         }
     }
 
-    static class BuildInfo extends AbstractConventionEnvironmentPostProcessor {
-
-        @Override
-        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
-            return "build-info";
-        }
-
-        @Override
-        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
-            return new String[]{"classpath:build-info", "classpath:META-INF/build-info"};
-        }
-    }
-
 }
