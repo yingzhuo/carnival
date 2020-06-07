@@ -7,14 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.constant;
+package com.github.yingzhuo.carnival.config.constant;
 
-import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 
 /**
  * @author 应卓
- * @since 1.6.12
+ * @since 1.6.15
  */
+@SuppressWarnings("unchecked")
 public interface Constant {
 
     public static final String DEFAULT_GROUP = "default";
@@ -27,12 +28,11 @@ public interface Constant {
         return constant;
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T get(String group, String name, T defaultIfNull) {
         try {
-            T obj = (T) SpringUtils.getBean(ConstantFactory.MapConstant.class).getMap().get(group).get(name);
+            T obj = (T) ConstantFactory.APPLICATION_CONTEXT.getBean(ConstantFactory.MapConstant.class).getMap().get(group).get(name);
             return obj != null ? obj : defaultIfNull;
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | NoSuchBeanDefinitionException e) {
             return defaultIfNull;
         }
     }

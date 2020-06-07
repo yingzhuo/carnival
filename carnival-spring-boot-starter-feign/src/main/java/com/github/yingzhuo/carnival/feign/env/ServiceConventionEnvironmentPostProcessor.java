@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.feign.env;
 
-import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
-import com.github.yingzhuo.springboot.env.util.JarDir;
+import com.github.yingzhuo.carnival.config.env.AbstractConventionEnvironmentPostProcessor;
+import com.github.yingzhuo.carnival.config.util.JarDir;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
 

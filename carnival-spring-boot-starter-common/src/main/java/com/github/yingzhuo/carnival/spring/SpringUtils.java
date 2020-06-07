@@ -66,7 +66,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return PropertyUtils.getPropertyValue("x.spring.id");
+        return PropertyUtils.getPropertyValue("spring.id");
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

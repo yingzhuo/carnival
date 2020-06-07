@@ -10,6 +10,7 @@
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
+        <module>carnival-spring-boot-starter-config</module>
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-etcd</module>
         <module>carnival-spring-boot-starter-fastdfs</module>
@@ -109,15 +110,13 @@
             </dependency>
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-json</artifactId>
+                <artifactId>carnival-spring-boot-starter-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!-- config / env -->
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
-                <artifactId>spring-boot-stater-env</artifactId>
-                <version>1.2.4</version>
+                <artifactId>carnival-spring-boot-starter-json</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <!-- spring-boot -->
@@ -445,6 +444,27 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-x-discovery</artifactId>
                 <version>4.0.1</version>
+            </dependency>
+
+            <!-- toml4j -->
+            <dependency>
+                <groupId>com.moandjiezana.toml</groupId>
+                <artifactId>toml4j</artifactId>
+                <version>0.7.2</version>
+            </dependency>
+
+            <!-- yaml -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.26</version>
+            </dependency>
+
+            <!-- hocon -->
+            <dependency>
+                <groupId>com.typesafe</groupId>
+                <artifactId>config</artifactId>
+                <version>1.4.0</version>
             </dependency>
 
             <!-- etcd3-client -->

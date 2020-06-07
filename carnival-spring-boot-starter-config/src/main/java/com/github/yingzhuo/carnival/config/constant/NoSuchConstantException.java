@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.constant;
+package com.github.yingzhuo.carnival.config.constant;
 
 /**
  * @author 应卓
- * @since 1.6.13
+ * @since 1.6.15
  */
 public class NoSuchConstantException extends RuntimeException {
 

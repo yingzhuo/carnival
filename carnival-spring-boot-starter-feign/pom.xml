@@ -18,6 +18,10 @@
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>carnival-spring-boot-starter-config</artifactId>
+        </dependency>
 
         <!-- spring-cloud -->
         <dependency>
@@ -46,12 +50,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- config / env -->
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>spring-boot-stater-env</artifactId>
         </dependency>
 
         <!-- lombok -->

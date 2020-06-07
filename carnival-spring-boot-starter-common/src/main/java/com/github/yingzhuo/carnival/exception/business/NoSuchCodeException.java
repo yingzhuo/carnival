@@ -15,19 +15,19 @@ package com.github.yingzhuo.carnival.exception.business;
  */
 public final class NoSuchCodeException extends IllegalArgumentException {
 
+    public final String code;
+
+    public NoSuchCodeException(String code) {
+        super(getMessage(code));
+        this.code = code;
+    }
+
     private static String getMessage(String code) {
         if (code == null) {
             return "Code should NOT be null.";
         } else {
             return "Illegal code '" + code + "' for creating BusinessException.";
         }
-    }
-
-    public final String code;
-
-    public NoSuchCodeException(String code) {
-        super(getMessage(code));
-        this.code = code;
     }
 
     public String getCode() {

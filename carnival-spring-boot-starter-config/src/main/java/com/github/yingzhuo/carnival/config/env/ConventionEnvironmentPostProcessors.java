@@ -7,16 +7,15 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.env;
+package com.github.yingzhuo.carnival.config.env;
 
-import com.github.yingzhuo.springboot.env.support.AbstractConventionEnvironmentPostProcessor;
-import com.github.yingzhuo.springboot.env.util.JarDir;
+import com.github.yingzhuo.carnival.config.util.JarDir;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @author 应卓
- * @since 1.6.4
+ * @since 1.6.15
  */
 public interface ConventionEnvironmentPostProcessors {
 
@@ -70,33 +69,6 @@ public interface ConventionEnvironmentPostProcessors {
                     "classpath:_config/business-exception",
                     "classpath:business-exception",
                     "classpath:META-INF/business-exception"
-            };
-        }
-    }
-
-    static class DataSource extends AbstractConventionEnvironmentPostProcessor {
-        @Override
-        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
-            return "datasource";
-        }
-
-        @Override
-        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
-            final Class<?> mainClass = application.getMainApplicationClass();
-            return new String[]{
-                    JarDir.of(mainClass).getDirAsResourceLocation("config/datasource"),
-                    JarDir.of(mainClass).getDirAsResourceLocation(".config/datasource"),
-                    JarDir.of(mainClass).getDirAsResourceLocation("_config/datasource"),
-                    JarDir.of(mainClass).getDirAsResourceLocation("datasource"),
-                    "file:config/datasource",
-                    "file:.config/datasource",
-                    "file:_config/datasource",
-                    "file:datasource",
-                    "classpath:config/datasource",
-                    "classpath:.config/datasource",
-                    "classpath:_config/datasource",
-                    "classpath:datasource",
-                    "classpath:META-INF/datasource"
             };
         }
     }

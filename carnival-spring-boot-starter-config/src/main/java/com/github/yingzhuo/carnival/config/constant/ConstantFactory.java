@@ -7,22 +7,31 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.constant;
+package com.github.yingzhuo.carnival.config.constant;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
 import java.util.Map;
 
 /**
  * @author 应卓
- * @since 1.6.12
+ * @since 1.6.15
  */
-public class ConstantFactory implements FactoryBean<Constant> {
+public class ConstantFactory implements FactoryBean<Constant>, ApplicationContextAware {
 
-    private final Constant constant;
+    static ApplicationContext APPLICATION_CONTEXT;
+    private final MapConstant constant;
 
     public ConstantFactory(Map<String, Map<String, Object>> map) {
         this.constant = new MapConstant(map);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        ConstantFactory.APPLICATION_CONTEXT = applicationContext;
     }
 
     @Override
