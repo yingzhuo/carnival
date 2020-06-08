@@ -49,14 +49,14 @@ public class EnvironmentPostProcessor implements org.springframework.boot.env.En
         if (!springIdPattern.matcher(id).matches()) {
             setSpringId(map);
         } else {
-            map.put("spring.id", id);
+            map.put("x.spring.id", id);
         }
     }
 
     private void setMainClass(Map<String, Object> map, SpringApplication app) {
         try {
             String mainClass = app.getMainApplicationClass().getName();
-            map.put("main.class", mainClass);
+            map.put("x.main.class", mainClass);
         } catch (Exception ignore) {
         }
     }
@@ -64,14 +64,14 @@ public class EnvironmentPostProcessor implements org.springframework.boot.env.En
     private void setJarDir(Map<String, Object> map, SpringApplication app) {
         try {
             String jarDir = new ApplicationHome(app.getMainApplicationClass()).getDir().getAbsolutePath();
-            map.put("jar.dir", jarDir);
+            map.put("x.jar.dir", jarDir);
         } catch (Exception ignore) {
         }
     }
 
     private void setWebApplicationType(Map<String, Object> map, SpringApplication app) {
         try {
-            map.put("webapp.type", app.getWebApplicationType().toString());
+            map.put("x.webapp.type", app.getWebApplicationType().toString());
         } catch (Exception ignore) {
         }
     }
@@ -80,8 +80,8 @@ public class EnvironmentPostProcessor implements org.springframework.boot.env.En
         try {
             final Date date = new Date();
             final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            map.put("startup.timestamp", date.getTime());
-            map.put("startup.time", dateFormat.format(date));
+            map.put("x.startup.timestamp", date.getTime());
+            map.put("x.startup.time", dateFormat.format(date));
         } catch (Exception ignored) {
         }
     }
