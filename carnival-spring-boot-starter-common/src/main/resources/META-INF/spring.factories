@@ -6,6 +6,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.common.autoconfig.FormatterAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.BusinessExceptionAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.I18nAutoConfig,\
-    com.github.yingzhuo.carnival.common.autoconfig.SecretAutoConfig
+    com.github.yingzhuo.carnival.common.autoconfig.SecretAutoConfig,\
+    com.github.yingzhuo.carnival.common.autoconfig.QRCodeAutoConfig
 org.springframework.context.ApplicationListener=\
     com.github.yingzhuo.carnival.event.ApplicationInitializerListener

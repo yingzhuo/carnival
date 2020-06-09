@@ -59,6 +59,24 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <!-- qrcode -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.beust</groupId>
+                    <artifactId>jcommander</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- commons -->
         <dependency>
             <groupId>com.google.guava</groupId>
