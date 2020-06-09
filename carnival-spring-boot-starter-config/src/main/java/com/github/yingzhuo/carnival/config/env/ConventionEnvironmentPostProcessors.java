@@ -46,33 +46,6 @@ public interface ConventionEnvironmentPostProcessors {
         }
     }
 
-    static class BusinessException extends AbstractConventionEnvironmentPostProcessor {
-        @Override
-        protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
-            return "business-exception";
-        }
-
-        @Override
-        protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
-            final Class<?> mainClass = application.getMainApplicationClass();
-            return new String[]{
-                    JarDir.of(mainClass).getDirAsResourceLocation("config/business-exception"),
-                    JarDir.of(mainClass).getDirAsResourceLocation(".config/business-exception"),
-                    JarDir.of(mainClass).getDirAsResourceLocation("_config/business-exception"),
-                    JarDir.of(mainClass).getDirAsResourceLocation("business-exception"),
-                    "file:config/business-exception",
-                    "file:.config/business-exception",
-                    "file:_config/business-exception",
-                    "file:business-exception",
-                    "classpath:config/business-exception",
-                    "classpath:.config/business-exception",
-                    "classpath:_config/business-exception",
-                    "classpath:business-exception",
-                    "classpath:META-INF/business-exception"
-            };
-        }
-    }
-
     static class Git extends AbstractConventionEnvironmentPostProcessor {
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
