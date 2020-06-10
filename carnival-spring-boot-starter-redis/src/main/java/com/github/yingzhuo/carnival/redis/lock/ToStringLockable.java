@@ -23,7 +23,7 @@ public final class ToStringLockable implements Lockable {
         this.toString = Objects.requireNonNull(delegate).toString();
     }
 
-    public Lockable of(Object o) {
+    public static Lockable of(Object o) {
         return new ToStringLockable(0);
     }
 

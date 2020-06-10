@@ -2,7 +2,7 @@
 
 local key = KEYS[1];
 local value = ARGV[1];
-local ttl = ARGV[2]
+local ttl = ARGV[2];
 
 if redis.call('SETNX', key, value) == 1 then
     redis.call('EXPIRE', key, ttl);
