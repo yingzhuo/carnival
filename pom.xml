@@ -543,24 +543,6 @@
                 <version>0.4.11</version>
             </dependency>
 
-            <!-- qrcode -->
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>core</artifactId>
-                <version>3.4.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.zxing</groupId>
-                <artifactId>javase</artifactId>
-                <version>3.4.0</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.beust</groupId>
-                        <artifactId>jcommander</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
             <!-- commons -->
             <dependency>
                 <groupId>com.google.guava</groupId>
