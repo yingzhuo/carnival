@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public final class MessageSourceBuilder {
 
-    private String[] basenames;
+    private String[] basenames = new String[0];
     private Charset encoding = StandardCharsets.UTF_8;
     private boolean fallbackToSystemLocale = true;
     private boolean useCodeAsDefaultMessage = false;
