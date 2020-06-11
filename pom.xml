@@ -24,6 +24,7 @@
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>
+        <module>carnival-spring-boot-starter-openfeign</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -91,7 +92,6 @@
     <properties>
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
-        <springcloud.version>Hoxton.RELEASE</springcloud.version>
         <springboot.version>2.2.7.RELEASE</springboot.version>
         <spring.version>5.2.6.RELEASE</spring.version>
         <jackson.version>2.11.0</jackson.version>
@@ -255,15 +255,6 @@
                 <version>${spring.version}</version>
             </dependency>
 
-            <!-- spring-cloud -->
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${springcloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
             <!-- slf4j -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -301,6 +292,28 @@
                 <groupId>com.vladsch.flexmark</groupId>
                 <artifactId>flexmark-ext-tables</artifactId>
                 <version>0.61.32</version>
+            </dependency>
+
+            <!-- feign -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-core</artifactId>
+                <version>11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-jackson</artifactId>
+                <version>11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-slf4j</artifactId>
+                <version>11.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-spring4</artifactId>
+                <version>11.0</version>
             </dependency>
 
             <!-- netty -->
