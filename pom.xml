@@ -14,7 +14,6 @@
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-etcd</module>
         <module>carnival-spring-boot-starter-fastdfs</module>
-        <module>carnival-spring-boot-starter-feign</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>

@@ -11,7 +11,7 @@
 
 ### 下载
 
-* 推荐使用[maven或gradle](https://search.maven.org/search?q=carnival)。
+* 推荐使用[maven](https://search.maven.org/search?q=carnival)。
 
 ### 文档
 
@@ -21,7 +21,6 @@
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-etcd](./carnival-spring-boot-starter-etcd)
 * [carnival-spring-boot-starter-fastdfs](./carnival-spring-boot-starter-fastdfs)
-* [carnival-spring-boot-starter-feign](./carnival-spring-boot-starter-feign)
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
 * [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)
