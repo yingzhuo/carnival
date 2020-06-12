@@ -27,9 +27,19 @@ public class OpenFeignProps {
     private AnnotationStyle annotationStyle = AnnotationStyle.SPRING;
     private Logger.Level loggerLevel = Logger.Level.FULL;
     private String loggerName = "OpenFeign";
+    private boolean decode404 = false;
+
+    private BasicAuth basicAuth;
 
     public enum AnnotationStyle {
         SPRING, OPEN_FEIGN
+    }
+
+    @Getter
+    @Setter
+    public static class BasicAuth {
+        private String username;
+        private String password;
     }
 
 }

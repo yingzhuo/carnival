@@ -7,21 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.interceptor;
+package com.github.yingzhuo.carnival.openfeign.decoder;
 
-import feign.RequestInterceptor;
-import org.springframework.core.Ordered;
+import feign.codec.ErrorDecoder;
 
 /**
  * @author 应卓
  * @since 1.6.16
  */
-@FunctionalInterface
-public interface OpenFeignRequestInterceptor extends RequestInterceptor, Ordered {
-
-    @Override
-    default int getOrder() {
-        return 0;
-    }
-
+public interface OpenFeignErrorDecoder extends ErrorDecoder {
 }

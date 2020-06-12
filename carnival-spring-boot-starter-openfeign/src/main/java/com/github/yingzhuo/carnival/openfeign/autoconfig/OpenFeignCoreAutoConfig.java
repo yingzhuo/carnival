@@ -44,6 +44,7 @@ public class OpenFeignCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "carnival.openfeign", name = "annotation-style", havingValue = "spring", matchIfMissing = true)
     public SpringContract springContract() {
         return new SpringContract();
     }
