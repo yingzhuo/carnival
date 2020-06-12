@@ -20,10 +20,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "carnival.openfeign.logger")
-public class LoggerProps {
+@ConfigurationProperties(prefix = "carnival.openfeign")
+public class OpenFeignProps {
 
-    private Logger.Level level = Logger.Level.FULL;
-    private String name = "OpenFeign";
+    private boolean enabled = true;
+    private AnnotationStyle annotationStyle = AnnotationStyle.SPRING;
+    private Logger.Level loggerLevel = Logger.Level.FULL;
+    private String loggerName = "OpenFeign";
+
+    public enum AnnotationStyle {
+        SPRING, OPEN_FEIGN
+    }
 
 }

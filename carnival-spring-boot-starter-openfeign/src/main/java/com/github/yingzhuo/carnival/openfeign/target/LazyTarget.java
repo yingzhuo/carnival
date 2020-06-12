@@ -37,8 +37,4 @@ public final class LazyTarget<T> extends Target.HardCodedTarget<T> {
         return urlSupplier.get();
     }
 
-    @FunctionalInterface
-    public static interface UrlSupplier extends Supplier<String> {
-    }
-
 }

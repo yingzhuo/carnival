@@ -9,8 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.props.LoggerProps;
-import com.github.yingzhuo.carnival.openfeign.props.RootProps;
+import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.jackson.JacksonDecoder;
@@ -27,12 +26,9 @@ import org.springframework.context.annotation.Lazy;
  * @since 1.6.16
  */
 @Lazy(false)
-@EnableConfigurationProperties({
-        RootProps.class,
-        LoggerProps.class
-})
+@EnableConfigurationProperties(OpenFeignProps.class)
 @ConditionalOnProperty(prefix = "carnival.openfeign", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class OpenFeignAutoConfig {
+public class OpenFeignCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
