@@ -9,15 +9,15 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
-import com.github.yingzhuo.carnival.openfeign.decoder.OpenFeignErrorDecoder;
-import com.github.yingzhuo.carnival.openfeign.interceptor.OpenFeignRequestInterceptor;
 import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
+import feign.Capability;
 import feign.Client;
 import feign.RequestInterceptor;
 import feign.Retryer;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
+import feign.codec.ErrorDecoder;
 import feign.slf4j.Slf4jLogger;
 import feign.spring.SpringContract;
 import lombok.val;
@@ -27,10 +27,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.core.OrderComparator;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static feign.Feign.Builder;
 
@@ -41,16 +39,23 @@ import static feign.Feign.Builder;
 public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, ApplicationContextAware, InitializingBean {
 
     private ApplicationContext applicationContext;
-    private final Builder builder;
+
+    private final Builder builder; // instance
 
     @Autowired
-    private OpenFeignProps props;
+    private OpenFeignProps props; // never null
 
     @Autowired(required = false)
-    private List<OpenFeignRequestInterceptor> interceptors; // may be null
+    private List<RequestInterceptor> interceptors; // may be null
 
     @Autowired(required = false)
-    private OpenFeignErrorDecoder errorDecoder; // may be null
+    private ErrorDecoder errorDecoder; // may be null
+
+    @Autowired(required = false)
+    private List<Capability> capabilities; // may be null
+
+    @Autowired
+    private Retryer retryer; // never null
 
     public OpenFeignBuilderFactoryBean() {
         this(null);
@@ -71,7 +76,7 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -87,6 +92,7 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
         init404();
         initBasicAuth();
         initRetryer();
+        initCapabilities();
     }
 
     private void initClient() {
@@ -128,12 +134,7 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
 
     private void initInterceptors() {
         if (interceptors != null) {
-            OrderComparator.sort(interceptors); // 重新排序
-            builder.requestInterceptors(
-                    interceptors.stream()
-                            .map(it -> (RequestInterceptor) it)
-                            .collect(Collectors.toList())
-            );
+            builder.requestInterceptors(interceptors);
         }
     }
 
@@ -157,7 +158,15 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
     }
 
     private void initRetryer() {
-        builder.retryer(Retryer.NEVER_RETRY);
+        builder.retryer(retryer);
+    }
+
+    private void initCapabilities() {
+        if (capabilities != null) {
+            for (val init : capabilities) {
+                builder.addCapability(init);
+            }
+        }
     }
 
 }

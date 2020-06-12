@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
+import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.jackson.JacksonDecoder;
@@ -44,8 +45,14 @@ public class OpenFeignCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
+    public Retryer openFeignRetryer() {
+        return Retryer.NEVER_RETRY;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "carnival.openfeign", name = "annotation-style", havingValue = "spring", matchIfMissing = true)
-    public SpringContract springContract() {
+    public SpringContract openFeignSpringContract() {
         return new SpringContract();
     }
 

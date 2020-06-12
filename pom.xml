@@ -93,10 +93,11 @@
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
         <springboot.version>2.2.7.RELEASE</springboot.version>
-        <spring.version>5.2.6.RELEASE</spring.version>
+        <spring.version>5.2.7.RELEASE</spring.version>
         <jackson.version>2.11.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.50.Final</netty.version>
+        <feign.version>11.0</feign.version>
     </properties>
 
     <dependencyManagement>
@@ -298,22 +299,27 @@
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-core</artifactId>
-                <version>11.0</version>
+                <version>${feign.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-jackson</artifactId>
-                <version>11.0</version>
+                <version>${feign.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-slf4j</artifactId>
-                <version>11.0</version>
+                <version>${feign.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-spring4</artifactId>
-                <version>11.0</version>
+                <version>${feign.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-micrometer</artifactId>
+                <version>${feign.version}</version>
             </dependency>
 
             <!-- netty -->

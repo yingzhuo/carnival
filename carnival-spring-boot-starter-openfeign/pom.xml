@@ -60,6 +60,11 @@
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-spring4</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-micrometer</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- slf4j -->
         <dependency>
