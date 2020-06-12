@@ -22,6 +22,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import static feign.Request.Options;
+
 /**
  * @author 应卓
  * @since 1.6.16
@@ -47,6 +49,12 @@ public class OpenFeignCoreAutoConfig {
     @ConditionalOnMissingBean
     public Retryer openFeignRetryer() {
         return Retryer.NEVER_RETRY;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public Options openFeignOptions() {
+        return new Options();
     }
 
     @Bean

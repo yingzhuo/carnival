@@ -31,6 +31,8 @@ import org.springframework.context.ApplicationContextAware;
 import java.util.List;
 
 import static feign.Feign.Builder;
+import static feign.Request.Options;
+
 
 /**
  * @author 应卓
@@ -56,6 +58,9 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
 
     @Autowired
     private Retryer retryer; // never null
+
+    @Autowired
+    private Options options; // never null
 
     public OpenFeignBuilderFactoryBean() {
         this(null);
@@ -93,6 +98,7 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
         initBasicAuth();
         initRetryer();
         initCapabilities();
+        initOptions();
     }
 
     private void initClient() {
@@ -167,6 +173,10 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
                 builder.addCapability(init);
             }
         }
+    }
+
+    private void initOptions() {
+        builder.options(options);
     }
 
 }
