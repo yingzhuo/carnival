@@ -59,6 +59,7 @@
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-spring4</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>io.github.openfeign</groupId>

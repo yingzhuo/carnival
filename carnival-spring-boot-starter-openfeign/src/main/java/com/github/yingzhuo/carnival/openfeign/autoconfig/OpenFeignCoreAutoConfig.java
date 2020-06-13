@@ -10,12 +10,13 @@
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
+import com.github.yingzhuo.carnival.openfeign.support.SpringMvcContract;
+import feign.Contract;
 import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
-import feign.spring.SpringContract;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -59,9 +60,8 @@ public class OpenFeignCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "carnival.openfeign", name = "annotation-style", havingValue = "spring", matchIfMissing = true)
-    public SpringContract openFeignSpringContract() {
-        return new SpringContract();
+    public Contract openFeignContract() {
+        return new SpringMvcContract();
     }
 
 }

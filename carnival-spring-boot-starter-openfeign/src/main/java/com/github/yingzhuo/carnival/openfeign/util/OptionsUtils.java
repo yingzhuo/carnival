@@ -10,9 +10,9 @@
 package com.github.yingzhuo.carnival.openfeign.util;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static feign.Request.Options;
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * @author 应卓
@@ -29,8 +29,8 @@ public final class OptionsUtils {
 
     public static Options newInstance(Duration connectTimeout, Duration readTimeout, boolean followRedirects) {
         return new Options(
-                connectTimeout.getSeconds(), TimeUnit.SECONDS,
-                readTimeout.getSeconds(), TimeUnit.SECONDS,
+                connectTimeout.getSeconds(), SECONDS,
+                readTimeout.getSeconds(), SECONDS,
                 followRedirects
         );
     }

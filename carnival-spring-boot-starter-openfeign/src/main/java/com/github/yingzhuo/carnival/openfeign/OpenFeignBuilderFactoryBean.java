@@ -10,39 +10,36 @@
 package com.github.yingzhuo.carnival.openfeign;
 
 import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
-import feign.Capability;
-import feign.Client;
-import feign.RequestInterceptor;
-import feign.Retryer;
+import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.slf4j.Slf4jLogger;
-import feign.spring.SpringContract;
 import lombok.val;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 
 import java.util.List;
+import java.util.Optional;
 
 import static feign.Feign.Builder;
 import static feign.Request.Options;
-
 
 /**
  * @author 应卓
  * @since 1.6.16
  */
-public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, ApplicationContextAware, InitializingBean {
-
-    private ApplicationContext applicationContext;
+public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, InitializingBean {
 
     private final Builder builder; // instance
+
+    @Autowired(required = false)
+    private Encoder encoder;
+
+    @Autowired(required = false)
+    private Decoder decoder;
 
     @Autowired
     private OpenFeignProps props; // never null
@@ -61,6 +58,12 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
 
     @Autowired
     private Options options; // never null
+
+    @Autowired
+    private Contract contract; // never null
+
+    @Autowired(required = false)
+    private Client client;  // may be null
 
     public OpenFeignBuilderFactoryBean() {
         this(null);
@@ -81,11 +84,6 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        this.applicationContext = applicationContext;
-    }
-
-    @Override
     public void afterPropertiesSet() {
         initClient();
         initLogger();
@@ -102,12 +100,7 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
     }
 
     private void initClient() {
-        try {
-            val client = applicationContext.getBean(Client.class);
-            builder.client(client);
-        } catch (BeansException e) {
-            // 找不到就用默认实现
-        }
+        Optional.ofNullable(client).ifPresent(builder::client);
     }
 
     private void initLogger() {
@@ -116,49 +109,42 @@ public class OpenFeignBuilderFactoryBean implements FactoryBean<Builder>, Applic
     }
 
     private void initEncoder() {
-        val encoder = applicationContext.getBean(Encoder.class);
-        builder.encoder(encoder);
+        Optional.ofNullable(encoder).ifPresent(builder::encoder);
     }
 
     private void initDecoder() {
-        val decoder = applicationContext.getBean(Decoder.class);
-        builder.decoder(decoder);
+        Optional.ofNullable(decoder).ifPresent(builder::decoder);
     }
 
     private void initErrorDecoder() {
-        if (errorDecoder != null) {
-            builder.errorDecoder(errorDecoder);
-        }
+        Optional.ofNullable(errorDecoder).ifPresent(builder::errorDecoder);
     }
 
     private void initAnnotationStyle() {
-        if (props.getAnnotationStyle() == OpenFeignProps.AnnotationStyle.SPRING) {
-            val contract = applicationContext.getBean(SpringContract.class);
-            builder.contract(contract);
-        }
+        builder.contract(contract);
     }
 
     private void initInterceptors() {
-        if (interceptors != null) {
-            builder.requestInterceptors(interceptors);
-        }
+        Optional.ofNullable(interceptors).ifPresent(builder::requestInterceptors);
     }
 
     private void init404() {
-        if (applicationContext.getBean(OpenFeignProps.class).isDecode404()) {
+        if (props.isDecode404()) {
             builder.decode404();
         }
     }
 
     private void initBasicAuth() {
         try {
-            val basicAuth = applicationContext.getBean(OpenFeignProps.class).getBasicAuth();
+            val basicAuth = props.getBasicAuth();
             val username = basicAuth.getUsername();
             val password = basicAuth.getPassword();
+            val charset = basicAuth.getCharset();
             if (basicAuth.getUsername() != null && basicAuth.getPassword() != null) {
-                builder.requestInterceptor(new BasicAuthRequestInterceptor(username, password));
+                val interceptor = new BasicAuthRequestInterceptor(username, password, charset);
+                builder.requestInterceptor(interceptor);
             }
-        } catch (BeansException | NullPointerException e) {
+        } catch (NullPointerException e) {
             // NoOP
         }
     }

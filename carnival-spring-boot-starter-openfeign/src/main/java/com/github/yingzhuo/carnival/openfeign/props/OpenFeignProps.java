@@ -14,6 +14,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author 应卓
  * @since 1.6.16
@@ -24,22 +27,18 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class OpenFeignProps {
 
     private boolean enabled = true;
-    private AnnotationStyle annotationStyle = AnnotationStyle.SPRING;
     private Logger.Level loggerLevel = Logger.Level.FULL;
     private String loggerName = "OpenFeign";
     private boolean decode404 = false;
 
     private BasicAuth basicAuth;
 
-    public enum AnnotationStyle {
-        SPRING, OPEN_FEIGN
-    }
-
     @Getter
     @Setter
     public static class BasicAuth {
         private String username;
         private String password;
+        private Charset charset = StandardCharsets.UTF_8;
     }
 
 }

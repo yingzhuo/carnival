@@ -21,15 +21,15 @@ import java.util.function.Supplier;
  */
 public final class LazyTarget<T> extends Target.HardCodedTarget<T> {
 
-    public static <T> Target<T> of(Class<T> type, UrlSupplier urlSupplier) {
-        return new LazyTarget<>(type, urlSupplier);
-    }
-
     private final Supplier<String> urlSupplier;
 
     public LazyTarget(Class<T> type, UrlSupplier urlSupplier) {
         super(type, "url");
         this.urlSupplier = Objects.requireNonNull(urlSupplier);
+    }
+
+    public static <T> Target<T> of(Class<T> type, UrlSupplier urlSupplier) {
+        return new LazyTarget<>(type, urlSupplier);
     }
 
     @Override
