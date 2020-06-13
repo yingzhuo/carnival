@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
+import com.github.yingzhuo.carnival.openfeign.retryer.NeverRetryer;
 import com.github.yingzhuo.carnival.openfeign.support.SpringMvcContract;
 import feign.Contract;
 import feign.Retryer;
@@ -49,7 +50,7 @@ public class OpenFeignCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public Retryer openFeignRetryer() {
-        return Retryer.NEVER_RETRY;
+        return NeverRetryer.INSTANCE;
     }
 
     @Bean
