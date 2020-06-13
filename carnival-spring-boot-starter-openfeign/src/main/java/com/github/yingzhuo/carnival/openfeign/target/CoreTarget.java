@@ -12,29 +12,34 @@ package com.github.yingzhuo.carnival.openfeign.target;
 import feign.Target;
 
 import java.util.Objects;
-import java.util.function.Supplier;
+
+import static feign.Target.HardCodedTarget;
 
 /**
  * @param <T> type of client
  * @author 应卓
- * @since 1.6.16
+ * @since 1.6.17
  */
-public final class LazyTarget<T> extends Target.HardCodedTarget<T> {
+public class CoreTarget<T> extends HardCodedTarget<T> implements Target<T> {
 
-    private final Supplier<String> urlSupplier;
+    private final UrlSupplier urlSupplier;
 
-    public LazyTarget(Class<T> type, UrlSupplier urlSupplier) {
-        super(type, "url");
+    public CoreTarget(Class<T> type, UrlSupplier urlSupplier) {
+        super(type, CoreTarget.class.getName());
         this.urlSupplier = Objects.requireNonNull(urlSupplier);
     }
 
     public static <T> Target<T> of(Class<T> type, UrlSupplier urlSupplier) {
-        return new LazyTarget<>(type, urlSupplier);
+        return new CoreTarget<>(type, urlSupplier);
     }
 
     @Override
     public String url() {
-        return urlSupplier.get();
+        String url = urlSupplier.get();
+        if (!url.startsWith("http://") && !url.startsWith("https://")) {
+            url = "http://" + url;
+        }
+        return url;
     }
 
 }

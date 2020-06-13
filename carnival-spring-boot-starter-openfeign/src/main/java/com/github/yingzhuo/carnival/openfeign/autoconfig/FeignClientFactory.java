@@ -7,11 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
+package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.target.BrokenUrlSupplier;
-import com.github.yingzhuo.carnival.openfeign.target.FixedUrlSupplier;
-import com.github.yingzhuo.carnival.openfeign.target.LazyTarget;
+import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
 import com.github.yingzhuo.carnival.openfeign.target.UrlSupplier;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -22,9 +21,9 @@ import static feign.Feign.Builder;
 
 /**
  * @author 应卓
- * @since 1.6.16
+ * @since 1.6.17
  */
-class OpenFeignClientFactoryBean<T> implements FactoryBean<T>, ApplicationContextAware {
+class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
 
     private ApplicationContext applicationContext;
     private Class<T> clientType;
@@ -32,9 +31,9 @@ class OpenFeignClientFactoryBean<T> implements FactoryBean<T>, ApplicationContex
     private String url;
 
     @Override
-    public T getObject() throws Exception {
+    public T getObject() {
         final Builder builder = getBuilder();
-        return builder.target(LazyTarget.of(clientType, getUrlSupplier(urlSupplierType, url)));
+        return builder.target(CoreTarget.of(clientType, getUrlSupplier(urlSupplierType, url)));
     }
 
     @Override
@@ -51,42 +50,17 @@ class OpenFeignClientFactoryBean<T> implements FactoryBean<T>, ApplicationContex
         return applicationContext;
     }
 
-    public Class<T> getClientType() {
-        return clientType;
-    }
-
-    public void setClientType(Class<T> clientType) {
-        this.clientType = clientType;
-    }
-
-    public Class<? extends UrlSupplier> getUrlSupplierType() {
-        return urlSupplierType;
-    }
-
-    public void setUrlSupplierType(Class<? extends UrlSupplier> urlSupplierType) {
-        this.urlSupplierType = urlSupplierType;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     private Builder getBuilder() {
         try {
             return applicationContext.getBean(Builder.class);
         } catch (BeansException e) {
-            e.printStackTrace();
             return new Builder();
         }
     }
 
     private UrlSupplier getUrlSupplier(Class<? extends UrlSupplier> urlSupplierType, String url) {
-        if (!"<:::NO VALUE:::>".equals(url)) {
-            return new FixedUrlSupplier(url);
+        if (!"".equals(url)) {
+            return UrlSupplier.of(url);
         }
 
         if (urlSupplierType != BrokenUrlSupplier.class) {
@@ -94,5 +68,17 @@ class OpenFeignClientFactoryBean<T> implements FactoryBean<T>, ApplicationContex
         }
 
         throw new IllegalArgumentException();
+    }
+
+    public void setClientType(Class<T> clientType) {
+        this.clientType = clientType;
+    }
+
+    public void setUrlSupplierType(Class<? extends UrlSupplier> urlSupplierType) {
+        this.urlSupplierType = urlSupplierType;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

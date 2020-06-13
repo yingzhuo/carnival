@@ -9,9 +9,10 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.props.OpenFeignProps;
+import com.github.yingzhuo.carnival.openfeign.FeignClientBuilderFactoryBean;
+import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
 import com.github.yingzhuo.carnival.openfeign.retryer.NeverRetryer;
-import com.github.yingzhuo.carnival.openfeign.support.SpringMvcContract;
+import com.github.yingzhuo.carnival.openfeign.support.SpringContract;
 import feign.Contract;
 import feign.Retryer;
 import feign.codec.Decoder;
@@ -19,11 +20,11 @@ import feign.codec.Encoder;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
 
+import static feign.Feign.Builder;
 import static feign.Request.Options;
 
 /**
@@ -31,38 +32,43 @@ import static feign.Request.Options;
  * @since 1.6.16
  */
 @Lazy(false)
-@EnableConfigurationProperties(OpenFeignProps.class)
-@ConditionalOnProperty(prefix = "carnival.openfeign", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class OpenFeignCoreAutoConfig {
+@EnableConfigurationProperties(FeignProperties.class)
+public class FeignCoreAutoConfig {
+
+    @Bean
+    @ConditionalOnMissingBean(Builder.class)
+    public FeignClientBuilderFactoryBean defaultFeignClientBuilder() {
+        return new FeignClientBuilderFactoryBean();
+    }
 
     @Bean
     @ConditionalOnMissingBean
-    public Encoder openFeignEncoder() {
+    public Encoder defaultFeignEncoder() {
         return new JacksonEncoder();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public Decoder openFeignDecoder() {
+    public Decoder defaultFeignDecoder() {
         return new JacksonDecoder();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public Retryer openFeignRetryer() {
+    public Retryer defaultFeignRetryer() {
         return NeverRetryer.INSTANCE;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public Options openFeignOptions() {
+    public Options defaultFeignOptions() {
         return new Options();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public Contract openFeignContract() {
-        return new SpringMvcContract();
+    public Contract defaultFeignContract() {
+        return new SpringContract();
     }
 
 }

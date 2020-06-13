@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
+import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignBeanDefinitionRegistrar;
+import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignCoreAutoConfig;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,13 +21,19 @@ import java.lang.annotation.Target;
 
 /**
  * @author 应卓
- * @since 1.6.7
+ * @since 1.6.17
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(OpenFeignBeanDefinitionRegistrar.class)
-public @interface EnableOpenFeignClients {
+@Import({FeignBeanDefinitionRegistrar.class, FeignCoreAutoConfig.class})
+public @interface EnableFeignClients {
 
+    @AliasFor("basePackages")
+    public String[] value() default {};
+
+    @AliasFor("value")
     public String[] basePackages() default {};
+
+    public Class<?>[] basePackageClasses() default {};
 
 }

@@ -7,40 +7,35 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
+package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
+import com.github.yingzhuo.carnival.openfeign.EnableFeignClients;
+import com.github.yingzhuo.carnival.openfeign.FeignClient;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 应卓
  * @since 1.6.17
  */
-@Slf4j
-class OpenFeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware, ApplicationContextAware {
+@Lazy(false)
+public class FeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
 
-    private ApplicationContext applicationContext;
     private Environment environment;
     private ResourceLoader resourceLoader;
 
@@ -51,10 +46,12 @@ class OpenFeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar,
     }
 
     private Set<String> getBasePackage(AnnotationMetadata metadata) {
-        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableOpenFeignClients.class.getName());
+        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
 
         final Set<String> set = new HashSet<>();
         Collections.addAll(set, (String[]) attrs.get("basePackages"));
+        Collections.addAll(set, (String[]) attrs.get("value"));
+        Collections.addAll(set, Arrays.stream((Class<?>[]) attrs.get("basePackageClasses")).map(ClassUtils::getPackageName).toArray(String[]::new));
 
         if (set.isEmpty()) {
             set.add(ClassUtils.getPackageName(metadata.getClassName()));
@@ -76,7 +73,7 @@ class OpenFeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar,
                     final AnnotationMetadata annotationMetadata = annotatedBeanDefinition.getMetadata();
                     if (annotationMetadata.isInterface()) {
                         // 只有接口类型才有可能是Client
-                        Map<String, Object> attrs = annotationMetadata.getAnnotationAttributes(OpenFeignClient.class.getName());
+                        Map<String, Object> attrs = annotationMetadata.getAnnotationAttributes(FeignClient.class.getName());
 
                         // 注册单个Client
                         registerClient(attrs, annotatedBeanDefinition, registry, beanNameGenerator);
@@ -87,38 +84,32 @@ class OpenFeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar,
     }
 
     private void registerClient(Map<String, Object> attrs, AnnotatedBeanDefinition beanDefinition, BeanDefinitionRegistry registry, BeanNameGenerator beanNameGenerator) {
-        // FIXME: 先打印一下再说
 
         final String clientType = beanDefinition.getBeanClassName();
 
         final BeanDefinitionBuilder factoryBuilder =
-                BeanDefinitionBuilder.genericBeanDefinition(OpenFeignClientFactoryBean.class);
+                BeanDefinitionBuilder.genericBeanDefinition(FeignClientFactory.class);
 
         factoryBuilder.addPropertyValue("url", attrs.get("url"));
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
         factoryBuilder.addPropertyValue("clientType", clientType);
 
-        // primary bean ?
-        boolean isPrimary = (Boolean) attrs.get("primary"); // 这里有默认值，不怕NPE
-        factoryBuilder.setPrimary(isPrimary);
+        factoryBuilder.setPrimary(true);
         factoryBuilder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         AbstractBeanDefinition clientDefinition = factoryBuilder.getBeanDefinition();
         clientDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, beanDefinition.getBeanClassName());
-        clientDefinition.setPrimary(isPrimary);
+        clientDefinition.setPrimary(true);
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
-
-        System.out.println("注册完成了");
     }
-
 
     private ClassPathScanningCandidateComponentProvider createScanner() {
         return new ClassPathScanningCandidateComponentProvider(false, environment) {
             {
                 super.setResourceLoader(resourceLoader);
-                super.addIncludeFilter(new AnnotationTypeFilter(OpenFeignClient.class));
+                super.addIncludeFilter(new AnnotationTypeFilter(FeignClient.class));
             }
 
             @Override
@@ -133,12 +124,6 @@ class OpenFeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar,
                 return isCandidate;
             }
         };
-    }
-
-
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
     }
 
     @Override

@@ -38,7 +38,10 @@ import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
-public class SpringMvcContract extends Contract.BaseContract
+/**
+ * @since 1.6.17
+ */
+public class SpringContract extends Contract.BaseContract
         implements ResourceLoaderAware {
 
     private static final String ACCEPT = "Accept";
@@ -63,16 +66,16 @@ public class SpringMvcContract extends Contract.BaseContract
 
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-    public SpringMvcContract() {
+    public SpringContract() {
         this(Collections.emptyList());
     }
 
-    public SpringMvcContract(
+    public SpringContract(
             List<AnnotatedParameterProcessor> annotatedParameterProcessors) {
         this(annotatedParameterProcessors, new DefaultConversionService());
     }
 
-    public SpringMvcContract(
+    public SpringContract(
             List<AnnotatedParameterProcessor> annotatedParameterProcessors,
             ConversionService conversionService) {
         Assert.notNull(annotatedParameterProcessors,

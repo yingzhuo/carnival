@@ -16,7 +16,7 @@ import java.util.*;
 import static java.util.Optional.ofNullable;
 
 /**
- * @since 1.6.17
+ * 内部工具
  */
 final class FeignUtils {
 

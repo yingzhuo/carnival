@@ -1,3 +1,12 @@
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
 package com.github.yingzhuo.carnival.openfeign;
 
 import com.github.yingzhuo.carnival.openfeign.target.BrokenUrlSupplier;
@@ -10,12 +19,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface OpenFeignClient {
+public @interface FeignClient {
 
-    public String url() default "<:::NO VALUE:::>";
+    public String url() default "";
 
     public Class<? extends UrlSupplier> urlSupplier() default BrokenUrlSupplier.class;
-
-    public boolean primary() default true;
 
 }

@@ -24,14 +24,13 @@ import java.nio.charset.StandardCharsets;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.openfeign")
-public class OpenFeignProps {
+public class FeignProperties {
 
-    private boolean enabled = true;
-    private Logger.Level loggerLevel = Logger.Level.FULL;
+    private Logger.Level loggerLevel = Logger.Level.BASIC;
     private String loggerName = "OpenFeign";
     private boolean decode404 = false;
-
     private BasicAuth basicAuth;
+    private BearerAuth bearerAuth;
 
     @Getter
     @Setter
@@ -39,6 +38,12 @@ public class OpenFeignProps {
         private String username;
         private String password;
         private Charset charset = StandardCharsets.UTF_8;
+    }
+
+    @Getter
+    @Setter
+    public static class BearerAuth {
+        private String token;
     }
 
 }

@@ -9,17 +9,18 @@
  */
 package com.github.yingzhuo.carnival.openfeign.target;
 
-import java.util.function.Supplier;
-
 /**
  * @author 应卓
- * @since 1.6.16
+ * @since 1.6.17
  */
-@FunctionalInterface
-public interface UrlSupplier extends Supplier<String> {
+public final class BrokenUrlSupplier implements UrlSupplier {
 
-    public static UrlSupplier of(String url) {
-        return new FixedUrlSupplier(url);
+    private BrokenUrlSupplier() {
+    }
+
+    @Override
+    public String get() {
+        throw new UnsupportedOperationException();
     }
 
 }

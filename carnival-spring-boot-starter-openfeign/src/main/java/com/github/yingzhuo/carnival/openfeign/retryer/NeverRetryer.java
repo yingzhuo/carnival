@@ -19,7 +19,7 @@ import java.net.SocketException;
  * @author 应卓
  * @since 1.6.17
  */
-public class NeverRetryer implements Retryer {
+public final class NeverRetryer implements Retryer {
 
     public static final Retryer INSTANCE = new NeverRetryer();
 
