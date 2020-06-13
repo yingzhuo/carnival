@@ -20,9 +20,6 @@ import static java.util.Optional.ofNullable;
  */
 final class FeignUtils {
 
-    private FeignUtils() {
-    }
-
     static HttpHeaders getHttpHeaders(Map<String, Collection<String>> headers) {
         HttpHeaders httpHeaders = new HttpHeaders();
         for (Map.Entry<String, Collection<String>> entry : headers.entrySet()) {
