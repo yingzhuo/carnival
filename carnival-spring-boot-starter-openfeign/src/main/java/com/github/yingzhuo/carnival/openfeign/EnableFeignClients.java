@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
-import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignBeanDefinitionRegistrar;
+import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignClientRegistrar;
 import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignCoreAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import({FeignBeanDefinitionRegistrar.class, FeignCoreAutoConfig.class})
+@Import({FeignClientRegistrar.class, FeignCoreAutoConfig.class})
 public @interface EnableFeignClients {
 
     @AliasFor("basePackages")

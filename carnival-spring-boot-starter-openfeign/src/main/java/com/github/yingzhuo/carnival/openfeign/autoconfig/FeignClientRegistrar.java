@@ -34,7 +34,7 @@ import java.util.*;
  * @since 1.6.17
  */
 @Lazy(false)
-public class FeignBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
+public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
 
     private Environment environment;
     private ResourceLoader resourceLoader;
