@@ -35,7 +35,10 @@ import static feign.Request.Options;
  */
 public class FeignClientBuilderFactoryBean implements FactoryBean<Builder>, InitializingBean {
 
-    private final Builder builder; // instance
+    /**
+     * @see #reset()
+     */
+    private final Builder builder;
 
     @Autowired(required = false)
     private Encoder encoder;
@@ -44,28 +47,31 @@ public class FeignClientBuilderFactoryBean implements FactoryBean<Builder>, Init
     private Decoder decoder;
 
     @Autowired
-    private FeignProperties props; // never null
+    private FeignProperties props;
 
     @Autowired(required = false)
-    private List<RequestInterceptor> interceptors; // may be null
+    private List<RequestInterceptor> interceptors;
 
     @Autowired(required = false)
-    private ErrorDecoder errorDecoder; // may be null
+    private ErrorDecoder errorDecoder;
 
     @Autowired(required = false)
-    private List<Capability> capabilities; // may be null
+    private List<Capability> capabilities;
 
     @Autowired
-    private Retryer retryer; // never null
+    private Retryer retryer;
 
     @Autowired
-    private Options options; // never null
+    private Options options;
 
     @Autowired
-    private Contract contract; // never null
+    private Contract contract;
 
     @Autowired(required = false)
-    private Client client;  // may be null
+    private Client client;
+
+    @Autowired(required = false)
+    private FeignBuilderCustomizer customizer;
 
     public FeignClientBuilderFactoryBean() {
         this(null);
@@ -100,6 +106,7 @@ public class FeignClientBuilderFactoryBean implements FactoryBean<Builder>, Init
         initOptions();
         initBasicAuth();
         initBearerAuth();
+        reset();
     }
 
     private void initClient() {
@@ -191,6 +198,12 @@ public class FeignClientBuilderFactoryBean implements FactoryBean<Builder>, Init
 
     private void initOptions() {
         builder.options(options);
+    }
+
+    private void reset() {
+        if (customizer != null) {
+            customizer.customize(builder);
+        }
     }
 
 }

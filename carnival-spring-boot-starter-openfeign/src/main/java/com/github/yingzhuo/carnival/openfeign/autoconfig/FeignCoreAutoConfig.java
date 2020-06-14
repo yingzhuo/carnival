@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
-import com.github.yingzhuo.carnival.openfeign.FeignClientBuilderFactoryBean;
 import com.github.yingzhuo.carnival.openfeign.FeignFormatterRegistrar;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
 import com.github.yingzhuo.carnival.openfeign.retryer.NeverRetryer;
@@ -32,7 +31,6 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import java.util.ArrayList;
 import java.util.List;
 
-import static feign.Feign.Builder;
 import static feign.Request.Options;
 
 /**
@@ -49,12 +47,6 @@ public class FeignCoreAutoConfig {
 
     @Autowired(required = false)
     private List<AnnotatedParameterProcessor> annotatedParameterProcessors = new ArrayList<>();
-
-    @Bean
-    @ConditionalOnMissingBean(Builder.class)
-    public FeignClientBuilderFactoryBean defaultFeignClientBuilder() {
-        return new FeignClientBuilderFactoryBean();
-    }
 
     @Bean
     @ConditionalOnMissingBean
@@ -90,7 +82,7 @@ public class FeignCoreAutoConfig {
             }
             return new SpringContract(annotatedParameterProcessors, conversionService);
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);   // 不要用lambda表达式
             return new SpringContract(annotatedParameterProcessors);
         }
     }
