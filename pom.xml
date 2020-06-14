@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.6.17</version>
+    <version>1.6.18</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -92,7 +92,7 @@
     <properties>
         <encoding>UTF-8</encoding>
         <java.version>1.8</java.version>
-        <springboot.version>2.2.7.RELEASE</springboot.version>
+        <springboot.version>2.3.1.RELEASE</springboot.version>
         <spring.version>5.2.7.RELEASE</spring.version>
         <jackson.version>2.11.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
@@ -340,6 +340,11 @@
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
+                <artifactId>netty-codec-socks</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
                 <artifactId>netty-codec-http</artifactId>
                 <version>${netty.version}</version>
             </dependency>
@@ -351,6 +356,11 @@
             <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty-handler</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-handler-proxy</artifactId>
                 <version>${netty.version}</version>
             </dependency>
             <dependency>
