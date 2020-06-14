@@ -17,24 +17,18 @@ public interface Views {
 
     /**
      * 普通
-     *
-     * @since 1.1.12
      */
     public static interface Normal {
     }
 
     /**
      * 敏感信息
-     *
-     * @since 1.1.12
      */
     public static interface Secret extends Normal {
     }
 
     /**
      * 危险信息
-     *
-     * @since 1.2.0
      */
     public static interface Danger extends Secret {
     }

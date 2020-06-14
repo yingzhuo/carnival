@@ -10,6 +10,8 @@
 package com.github.yingzhuo.carnival.openfeign.target;
 
 /**
+ * 仅做标记使用
+ *
  * @author 应卓
  * @since 1.6.17
  */

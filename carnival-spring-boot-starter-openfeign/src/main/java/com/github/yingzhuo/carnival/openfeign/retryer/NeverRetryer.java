@@ -30,12 +30,10 @@ public final class NeverRetryer implements Retryer {
     public void continueOrPropagate(RetryableException e) {
         Throwable cause = e.getCause();
         if (cause != null) {
-
             // 连接故障
             if ((cause instanceof SocketException)) {
                 throw new UncheckedIOException((SocketException) cause);
             }
-
         }
         throw e;
     }

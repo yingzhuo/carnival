@@ -7,12 +7,13 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.json.module.jackson;
+package com.github.yingzhuo.carnival.json.module;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import lombok.val;
 import org.springframework.data.domain.*;
 
 import java.util.Iterator;
@@ -21,24 +22,44 @@ import java.util.function.Function;
 
 /**
  * @author 应卓
+ * @since 1.6.17
  */
-@JsonDeserialize(as = PageMixIn.SimplePageImpl.class)
-public interface PageMixIn {
+public class PageJacksonModule extends Module {
 
-    public static class SimplePageImpl<T> implements Page<T> {
+    @Override
+    public String getModuleName() {
+        return "PageJacksonModule";
+    }
+
+    @Override
+    public Version version() {
+        return new Version(0, 1, 0, "", null, null);
+    }
+
+    @Override
+    public void setupModule(SetupContext context) {
+        context.setMixInAnnotations(Page.class, PageMixIn.class);
+    }
+
+    @JsonDeserialize(as = SimplePageImpl.class)
+    private interface PageMixIn {
+    }
+
+    static class SimplePageImpl<T> implements Page<T> {
+
         private final Page<T> delegate;
-        private final int pageNumber;
-        private final int pageSize;
 
-        public SimplePageImpl(
-                @JsonProperty("content") List<T> content,
-                @JsonProperty("page") int number,
-                @JsonProperty("size") int size,
-                @JsonProperty("totalElements") long totalElements) {
-
-            this.pageNumber = number;
-            this.pageSize = size;
-            this.delegate = new PageImpl<>(content, PageRequest.of(number, size), totalElements);
+        SimplePageImpl(@JsonProperty("content") List<T> content,
+                       @JsonProperty("number") int number, @JsonProperty("size") int size,
+                       @JsonProperty("totalElements") long totalElements,
+                       @JsonProperty("sort") Sort sort) {
+            final PageRequest pageRequest;
+            if (sort != null) {
+                pageRequest = PageRequest.of(number, size, sort);
+            } else {
+                pageRequest = PageRequest.of(number, size);
+            }
+            delegate = new PageImpl<>(content, pageRequest, totalElements);
         }
 
         @Override
@@ -54,7 +75,7 @@ public interface PageMixIn {
         }
 
         @Override
-        @JsonProperty("page")
+        @JsonProperty
         public int getNumber() {
             return delegate.getNumber();
         }
@@ -127,7 +148,7 @@ public interface PageMixIn {
 
         @Override
         @JsonIgnore
-        public <U> Page<U> map(Function<? super T, ? extends U> converter) {
+        public <S> Page<S> map(Function<? super T, ? extends S> converter) {
             return delegate.map(converter);
         }
 
@@ -135,15 +156,6 @@ public interface PageMixIn {
         @JsonIgnore
         public Iterator<T> iterator() {
             return delegate.iterator();
-        }
-
-        @Override
-        public Pageable getPageable() {
-            val pageable = delegate.getPageable();
-            if ("org.springframework.data.domain.Unpaged".equals(pageable.getClass().getName())) {
-                return PageRequest.of(pageNumber, pageSize);
-            }
-            return pageable;
         }
     }
 

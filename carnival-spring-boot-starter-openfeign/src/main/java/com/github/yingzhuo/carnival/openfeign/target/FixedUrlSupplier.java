@@ -13,7 +13,7 @@ package com.github.yingzhuo.carnival.openfeign.target;
  * @author 应卓
  * @since 1.6.17
  */
-class FixedUrlSupplier implements UrlSupplier {
+final class FixedUrlSupplier implements UrlSupplier {
 
     private final String url;
 
