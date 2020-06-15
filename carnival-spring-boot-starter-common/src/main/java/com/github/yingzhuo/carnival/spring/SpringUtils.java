@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.spring;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
@@ -21,6 +20,9 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Spring通用工具
@@ -107,6 +109,10 @@ public final class SpringUtils {
         }
     }
 
+    public static <B> List<B> getBeanList(Class<B> beanType) {
+        return new ArrayList<>(AC.getBeansOfType(beanType).values());
+    }
+
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static <B> boolean containsBean(Class<B> beanType) {
@@ -118,12 +124,6 @@ public final class SpringUtils {
         } catch (BeansException e) {
             return false;
         }
-    }
-
-    /* -------------------------------------------------------------------------------------------------------------- */
-
-    public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
-        return (BeanDefinitionRegistry) getApplicationContext().getAutowireCapableBeanFactory();
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
