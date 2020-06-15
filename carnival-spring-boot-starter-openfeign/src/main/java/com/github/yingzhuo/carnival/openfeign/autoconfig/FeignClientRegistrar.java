@@ -44,16 +44,13 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
 
     private Set<String> getBasePackage(AnnotationMetadata metadata) {
         final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
-
         final Set<String> set = new HashSet<>();
         Collections.addAll(set, (String[]) attrs.get("basePackages"));
         Collections.addAll(set, (String[]) attrs.get("value"));
         Collections.addAll(set, Arrays.stream((Class<?>[]) attrs.get("basePackageClasses")).map(ClassUtils::getPackageName).toArray(String[]::new));
-
         if (set.isEmpty()) {
             set.add(ClassUtils.getPackageName(metadata.getClassName()));
         }
-
         return set;
     }
 
@@ -81,18 +78,22 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
         final BeanDefinitionBuilder factoryBuilder =
                 BeanDefinitionBuilder.genericBeanDefinition(FeignClientFactory.class);
 
+        final String[] aliases = (String[]) attrs.get("aliases");
+        final boolean primary = (Boolean) attrs.get("primary");
+
         factoryBuilder.addPropertyValue("url", attrs.get("url"));
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
         factoryBuilder.addPropertyValue("clientType", clientType);
+        factoryBuilder.addPropertyValue("backend", attrs.get("backend"));
 
-        factoryBuilder.setPrimary(true);
+        factoryBuilder.setPrimary(primary);
         factoryBuilder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         AbstractBeanDefinition clientDefinition = factoryBuilder.getBeanDefinition();
         clientDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, beanDefinition.getBeanClassName());
-        clientDefinition.setPrimary(true);
+        clientDefinition.setPrimary(primary);
 
-        BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType);
+        BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType, aliases);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
     }
 

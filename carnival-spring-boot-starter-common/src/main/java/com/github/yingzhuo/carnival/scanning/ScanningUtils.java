@@ -39,6 +39,7 @@ public final class ScanningUtils {
     // -----------------------------------------------------------------------------------------------------------------
     public static final Filter FILTER_IS_FINAL_FILTER = it -> it.getMetadata().isFinal();
     public static final Filter FILTER_IS_NOT_FINAL = it -> !it.getMetadata().isFinal();
+
     private ScanningUtils() {
     }
 
@@ -84,6 +85,7 @@ public final class ScanningUtils {
 
         return set;
     }
+
     @FunctionalInterface
     public static interface Filter extends Predicate<AnnotatedBeanDefinition> {
     }

@@ -7,16 +7,20 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
-
-import static feign.Feign.Builder;
+package com.github.yingzhuo.carnival.resilience4j.config;
 
 /**
  * @author 应卓
- * @since 1.6.17
+ * @since 1.6.18
  */
-public interface FeignBuilderCustomizer {
+public enum Module {
 
-    public void customize(Builder builder);
+    CIRCUIT_BREAKER,
+
+    BULKHEAD,
+
+    RETRY,
+
+    RATE_LIMITER
 
 }

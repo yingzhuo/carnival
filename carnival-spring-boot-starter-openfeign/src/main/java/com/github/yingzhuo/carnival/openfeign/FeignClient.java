@@ -29,4 +29,9 @@ public @interface FeignClient {
 
     public Class<? extends UrlSupplier> urlSupplier() default BrokenUrlSupplier.class;
 
+    public String[] aliases() default {};
+
+    public boolean primary() default true;
+
+    public String backend() default "";
 }

@@ -18,13 +18,14 @@
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
         <module>carnival-spring-boot-starter-mvc</module>
+        <module>carnival-spring-boot-starter-openfeign</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis</module>
+        <module>carnival-spring-boot-starter-resilience4j</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>
-        <module>carnival-spring-boot-starter-openfeign</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -116,6 +117,11 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>carnival-spring-boot-starter-resilience4j</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -320,6 +326,43 @@
                 <groupId>io.github.openfeign</groupId>
                 <artifactId>feign-micrometer</artifactId>
                 <version>${feign.version}</version>
+            </dependency>
+
+            <!-- resilience4j -->
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-feign</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-circuitbreaker</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-bulkhead</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-retry</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-ratelimiter</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-timelimiter</artifactId>
+                <version>1.5.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.resilience4j</groupId>
+                <artifactId>resilience4j-cache</artifactId>
+                <version>1.5.0</version>
             </dependency>
 
             <!-- netty -->

@@ -25,7 +25,7 @@ public class CoreTarget<T> extends HardCodedTarget<T> implements Target<T> {
     private final UrlSupplier urlSupplier;
 
     public CoreTarget(Class<T> type, UrlSupplier urlSupplier) {
-        super(type, CoreTarget.class.getName());
+        super(Objects.requireNonNull(type), CoreTarget.class.getName());
         this.urlSupplier = Objects.requireNonNull(urlSupplier);
     }
 

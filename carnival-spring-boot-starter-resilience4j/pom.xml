@@ -9,17 +9,13 @@
         <version>1.6.18</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>carnival-spring-boot-starter-openfeign</artifactId>
+    <artifactId>carnival-spring-boot-starter-resilience4j</artifactId>
 
     <dependencies>
         <!-- carnival -->
         <dependency>
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>carnival-spring-boot-starter-resilience4j</artifactId>
         </dependency>
 
         <!-- springboot -->
@@ -37,8 +33,30 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- resilience4j -->
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-circuitbreaker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-bulkhead</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-ratelimiter</artifactId>
         </dependency>
 
         <!-- lombok -->
@@ -47,34 +65,16 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- feign -->
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-jackson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-spring4</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-micrometer</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
         <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- commons -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
 
         <!-- junit -->
@@ -83,4 +83,5 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
 </project>
