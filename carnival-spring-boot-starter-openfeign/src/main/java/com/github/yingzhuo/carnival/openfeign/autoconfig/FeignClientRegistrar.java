@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.EnableFeignClients;
 import com.github.yingzhuo.carnival.openfeign.FeignClient;
-import com.github.yingzhuo.carnival.scanning.ScannerUtils;
+import com.github.yingzhuo.carnival.scanning.ScanningUtils;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -20,12 +20,8 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ClassUtils;
 
@@ -38,10 +34,7 @@ import java.util.stream.Collectors;
  */
 @Lazy(false)
 @AutoConfigureAfter(FeignCoreAutoConfig.class)
-public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
-
-    private Environment environment;
-    private ResourceLoader resourceLoader;
+public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
@@ -66,10 +59,10 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
 
     private void registerClients(Set<String> basePackages, BeanDefinitionRegistry registry) {
 
-        Set<AnnotatedBeanDefinition> scanned =
-                ScannerUtils.scan(FeignClient.class, environment, resourceLoader, basePackages)
+        final Set<AnnotatedBeanDefinition> scanned =
+                ScanningUtils.scan(FeignClient.class, basePackages)
                         .stream()
-                        .filter(it -> it.getMetadata().isInterface())
+                        .filter(ScanningUtils.FILTER_IS_INTERFACE)
                         .collect(Collectors.toSet());
 
         for (AnnotatedBeanDefinition annotatedBeanDefinition : scanned) {
@@ -101,16 +94,6 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
-    }
-
-    @Override
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
-
-    @Override
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
     }
 
 }

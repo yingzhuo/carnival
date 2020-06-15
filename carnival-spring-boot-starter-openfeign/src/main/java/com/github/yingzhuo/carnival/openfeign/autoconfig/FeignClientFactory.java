@@ -41,13 +41,13 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         return clientType;
     }
 
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     private Builder getBuilder() {
