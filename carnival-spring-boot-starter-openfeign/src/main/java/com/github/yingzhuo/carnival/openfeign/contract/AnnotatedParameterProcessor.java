@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
 import feign.MethodMetadata;
 

@@ -9,11 +9,11 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import com.github.yingzhuo.carnival.openfeign.FeignFormatterRegistrar;
+import com.github.yingzhuo.carnival.openfeign.contract.AnnotatedParameterProcessor;
+import com.github.yingzhuo.carnival.openfeign.contract.SpringContract;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
 import com.github.yingzhuo.carnival.openfeign.retryer.NeverRetryer;
-import com.github.yingzhuo.carnival.openfeign.support.SpringContract;
 import feign.Contract;
 import feign.Retryer;
 import feign.codec.Decoder;

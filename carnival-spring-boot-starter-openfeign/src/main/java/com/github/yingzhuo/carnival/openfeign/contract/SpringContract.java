@@ -7,9 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.support;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
-import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import feign.*;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.ResourceLoaderAware;

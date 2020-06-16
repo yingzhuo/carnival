@@ -7,9 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.support;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
-import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import feign.MethodMetadata;
 import org.springframework.web.bind.annotation.MatrixVariable;
 

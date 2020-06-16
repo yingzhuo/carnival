@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.support;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
 import org.springframework.http.HttpHeaders;
 

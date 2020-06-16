@@ -1,6 +1,5 @@
-package com.github.yingzhuo.carnival.openfeign.support;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
-import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import feign.MethodMetadata;
 import feign.QueryMap;
 

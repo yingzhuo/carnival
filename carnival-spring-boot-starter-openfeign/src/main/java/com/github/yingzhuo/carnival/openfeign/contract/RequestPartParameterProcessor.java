@@ -7,23 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.support;
+package com.github.yingzhuo.carnival.openfeign.contract;
 
-import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import feign.MethodMetadata;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.Map;
 
 import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 
-public class RequestHeaderParameterProcessor implements AnnotatedParameterProcessor {
+public class RequestPartParameterProcessor implements AnnotatedParameterProcessor {
 
-    private static final Class<RequestHeader> ANNOTATION = RequestHeader.class;
+    private static final Class<RequestPart> ANNOTATION = RequestPart.class;
 
     @Override
     public Class<? extends Annotation> getAnnotationType() {
@@ -34,25 +32,17 @@ public class RequestHeaderParameterProcessor implements AnnotatedParameterProces
     public boolean processArgument(AnnotatedParameterContext context,
                                    Annotation annotation, Method method) {
         int parameterIndex = context.getParameterIndex();
-        Class<?> parameterType = method.getParameterTypes()[parameterIndex];
         MethodMetadata data = context.getMethodMetadata();
-
-        if (Map.class.isAssignableFrom(parameterType)) {
-            checkState(data.headerMapIndex() == null,
-                    "Header map can only be present once.");
-            data.headerMapIndex(parameterIndex);
-
-            return true;
-        }
 
         String name = ANNOTATION.cast(annotation).value();
         checkState(emptyToNull(name) != null,
-                "RequestHeader.value() was empty on parameter %s", parameterIndex);
+                "RequestPart.value() was empty on parameter %s", parameterIndex);
         context.setParameterName(name);
 
-        Collection<String> header = context.setTemplateParameter(name,
-                data.template().headers().get(name));
-        data.template().header(name, header);
+        data.formParams().add(name);
+        Collection<String> names = context.setTemplateParameter(name,
+                data.indexToName().get(parameterIndex));
+        data.indexToName().put(parameterIndex, names);
         return true;
     }
 
