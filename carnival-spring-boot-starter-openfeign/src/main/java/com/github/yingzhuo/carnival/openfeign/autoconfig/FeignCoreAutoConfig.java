@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 import com.github.yingzhuo.carnival.openfeign.AnnotatedParameterProcessor;
 import com.github.yingzhuo.carnival.openfeign.FeignFormatterRegistrar;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
-import com.github.yingzhuo.carnival.openfeign.retryer.NeverRetryer;
 import com.github.yingzhuo.carnival.openfeign.support.SpringContract;
 import feign.Contract;
 import feign.Retryer;
@@ -63,7 +62,7 @@ public class FeignCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public Retryer defaultFeignRetryer() {
-        return NeverRetryer.INSTANCE;
+        return Retryer.NEVER_RETRY;
     }
 
     @Bean

@@ -15,11 +15,9 @@ package com.github.yingzhuo.carnival.resilience4j.config;
  */
 public enum FallbackConfigType {
 
-    TYPE1("withFallback(Object fallback)"),
+    FALLBACK_WITH_PREDICATE("withFallback(Object fallback, Predicate<Exception> filter)"),
 
-    TYPE2("withFallback(Object fallback, Predicate<Exception> filter)"),
-
-    TYPE3("withFallback(Object fallback, Class<Exception> filter)");
+    FALLBACK_WITH_EXCEPTION_CLASS("withFallback(Object fallback, Class<Exception> filter)");
 
     private final String description;
 

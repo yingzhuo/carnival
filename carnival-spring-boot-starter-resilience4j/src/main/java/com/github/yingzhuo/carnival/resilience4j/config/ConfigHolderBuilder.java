@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.resilience4j.config;
 
+import com.github.yingzhuo.carnival.resilience4j.util.FallbackConditions;
 import io.github.resilience4j.bulkhead.BulkheadConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
@@ -57,10 +58,7 @@ public final class ConfigHolderBuilder {
     }
 
     public ConfigHolderBuilder addFallback(String backend, Object fallback) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(fallback, "fallback is null");
-        impl.addFallback(backend, fallback);
-        return this;
+        return addFallback(backend, fallback, FallbackConditions.all());
     }
 
     public ConfigHolderBuilder addFallback(String backend, Object fallback, Predicate<? extends Exception> filter) {

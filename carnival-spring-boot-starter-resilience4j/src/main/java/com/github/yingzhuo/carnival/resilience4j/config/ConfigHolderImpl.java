@@ -16,7 +16,6 @@ import io.github.resilience4j.bulkhead.BulkheadConfig;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
-import org.springframework.util.Assert;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -25,21 +24,18 @@ import java.util.function.Predicate;
  * @author 应卓
  * @since 1.6.18
  */
-public class ConfigHolderImpl implements ConfigHolder {
+class ConfigHolderImpl implements ConfigHolder {
 
     private static final Object NULL = Null.INSTANCE;
 
     private final Table<String, Module, Object> moduleConfigTable = HashBasedTable.create();
     private final Map<String, List<FallbackConfig>> fallbackConfigDict = new HashMap<>();
 
-    public ConfigHolderImpl() {
+    ConfigHolderImpl() {
     }
 
     @Override
     public Object getModuleConfig(String backend, Module module) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(module, "module is null");
-
         Object obj = moduleConfigTable.get(
                 Objects.requireNonNull(backend),
                 Objects.requireNonNull(module)
@@ -50,16 +46,11 @@ public class ConfigHolderImpl implements ConfigHolder {
 
     @Override
     public List<FallbackConfig> getFallbackConfig(String backend) {
-        Assert.hasText(backend, "backend is null or empty");
-
         List<FallbackConfig> list = fallbackConfigDict.get(backend);
         return list != null ? Collections.unmodifiableList(list) : Collections.emptyList();
     }
 
     public void put(String backend, CircuitBreakerConfig config) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(config, "config is null");
-
         moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.CIRCUIT_BREAKER,
@@ -68,9 +59,6 @@ public class ConfigHolderImpl implements ConfigHolder {
     }
 
     public void put(String backend, BulkheadConfig config) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(config, "config is null");
-
         moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.BULKHEAD,
@@ -79,9 +67,6 @@ public class ConfigHolderImpl implements ConfigHolder {
     }
 
     public void put(String backend, RetryConfig config) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(config, "config is null");
-
         moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.RETRY,
@@ -90,9 +75,6 @@ public class ConfigHolderImpl implements ConfigHolder {
     }
 
     public void put(String backend, RateLimiterConfig config) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(config, "config is null");
-
         moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.RATE_LIMITER,
@@ -100,51 +82,19 @@ public class ConfigHolderImpl implements ConfigHolder {
         );
     }
 
-    public void addFallback(String backend, Object fallback) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(fallback, "fallback is null");
-
-        FallbackConfigType type = FallbackConfigType.TYPE1;
-        FallbackConfig fallbackConfig = new FallbackConfig(type, fallback);
-
-        List<FallbackConfig> list = fallbackConfigDict.get(backend);
-        if (list == null) {
-            list = new LinkedList<>();
-            fallbackConfigDict.put(backend, list);
-        }
-        list.add(fallbackConfig);
-    }
-
     public void addFallback(String backend, Object fallback, Predicate<? extends Exception> filter) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(fallback, "fallback is null");
-        Assert.notNull(filter, "filter is null");
-
-        FallbackConfigType type = FallbackConfigType.TYPE2;
+        FallbackConfigType type = FallbackConfigType.FALLBACK_WITH_PREDICATE;
         FallbackConfig fallbackConfig = new FallbackConfig(type, fallback, filter);
 
-        List<FallbackConfig> list = fallbackConfigDict.get(backend);
-        if (list == null) {
-            list = new LinkedList<>();
-            fallbackConfigDict.put(backend, list);
-        }
+        List<FallbackConfig> list = fallbackConfigDict.computeIfAbsent(backend, k -> new LinkedList<>());
         list.add(fallbackConfig);
     }
 
     public void addFallback(String backend, Object fallback, Class<? extends Exception> filter) {
-        Assert.hasText(backend, "backend is null or empty");
-        Assert.notNull(fallback, "fallback is null");
-        Assert.notNull(filter, "filter is null");
-
-        FallbackConfigType type = FallbackConfigType.TYPE3;
+        FallbackConfigType type = FallbackConfigType.FALLBACK_WITH_EXCEPTION_CLASS;
         FallbackConfig fallbackConfig = new FallbackConfig(type, fallback, filter);
 
-        List<FallbackConfig> list = fallbackConfigDict.get(backend);
-        if (list == null) {
-            list = new LinkedList<>();
-            fallbackConfigDict.put(backend, list);
-        }
+        List<FallbackConfig> list = fallbackConfigDict.computeIfAbsent(backend, k -> new LinkedList<>());
         list.add(fallbackConfig);
     }
-
 }

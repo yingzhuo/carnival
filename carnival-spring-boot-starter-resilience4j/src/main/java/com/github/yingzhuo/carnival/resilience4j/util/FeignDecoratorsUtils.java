@@ -31,10 +31,6 @@ public final class FeignDecoratorsUtils {
     private FeignDecoratorsUtils() {
     }
 
-    public static FeignDecorators getDefaultDecorators(final ConfigHolder holder) {
-        return getDecorators(ConfigHolder.DEFAULT_BACKEND_NAME, holder);
-    }
-
     public static FeignDecorators getDecorators(final String backend, final ConfigHolder holder) {
         Objects.requireNonNull(backend);
         Objects.requireNonNull(holder);
@@ -73,16 +69,13 @@ public final class FeignDecoratorsUtils {
         if (fallbackConfigList != null) {
             for (FallbackConfig cnf : fallbackConfigList) {
                 switch (cnf.getType()) {
-                    case TYPE1:
-                        builder.withFallback(cnf.getArgs()[0]);
-                        break;
-                    case TYPE2:
+                    case FALLBACK_WITH_PREDICATE:
                         builder.withFallback(
                                 cnf.getArgs()[0],
                                 (Predicate<Exception>) cnf.getArgs()[1]
                         );
                         break;
-                    case TYPE3:
+                    case FALLBACK_WITH_EXCEPTION_CLASS:
                         builder.withFallback(
                                 cnf.getArgs()[0],
                                 (Class<? extends Exception>) cnf.getArgs()[1]
