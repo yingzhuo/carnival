@@ -20,8 +20,12 @@ import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ClassUtils;
 
@@ -34,7 +38,20 @@ import java.util.stream.Collectors;
  */
 @Lazy(false)
 @AutoConfigureAfter(FeignCoreAutoConfig.class)
-public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
+public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
+
+    private Environment environment;
+    private ResourceLoader resourceLoader;
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
@@ -57,7 +74,7 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
     private void registerClients(Set<String> basePackages, BeanDefinitionRegistry registry) {
 
         final Set<AnnotatedBeanDefinition> scanned =
-                ScanningUtils.scan(FeignClient.class, basePackages)
+                ScanningUtils.scan(FeignClient.class, environment, resourceLoader, basePackages)
                         .stream()
                         .filter(ScanningUtils.FILTER_IS_INTERFACE)
                         .collect(Collectors.toSet());
@@ -79,9 +96,10 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar {
                 BeanDefinitionBuilder.genericBeanDefinition(FeignClientFactory.class);
 
         final String[] aliases = (String[]) attrs.get("aliases");
+        final String url = environment.getProperty((String) attrs.get("urlProperty"), "");
         final boolean primary = (Boolean) attrs.get("primary");
 
-        factoryBuilder.addPropertyValue("url", attrs.get("url"));
+        factoryBuilder.addPropertyValue("url", url);
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
         factoryBuilder.addPropertyValue("clientType", clientType);
         factoryBuilder.addPropertyValue("backend", attrs.get("backend"));
