@@ -118,6 +118,10 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
     private String resolveUrl(Map<String, Object> attrs) {
         final String template = (String) attrs.get("url");
 
+        if (template == null || "".equals(template)) {
+            return "";
+        }
+
         try {
             return environment.resolveRequiredPlaceholders(template);
         } catch (IllegalArgumentException e) {
