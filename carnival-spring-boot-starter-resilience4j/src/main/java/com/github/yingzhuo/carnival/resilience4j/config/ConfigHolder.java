@@ -22,10 +22,12 @@ import java.util.List;
  */
 public interface ConfigHolder {
 
-    public static final String DEFAULT_BACKEND_NAME = "default";
-
     public static ConfigHolderBuilder builder() {
         return new ConfigHolderBuilder();
+    }
+
+    public static ConfigHolder empty() {
+        return new ConfigHolderBuilder.Empty();
     }
 
     public Object getModuleConfig(String backend, Module module);
@@ -37,7 +39,7 @@ public interface ConfigHolder {
     public int size();
 
     public default boolean isEmpty() {
-        return size() >= 0;
+        return size() == 0;
     }
 
     // ----------------------------------------------------------------------------------------------------------------

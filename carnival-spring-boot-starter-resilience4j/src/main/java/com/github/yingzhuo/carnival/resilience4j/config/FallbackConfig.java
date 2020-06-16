@@ -9,10 +9,13 @@
  */
 package com.github.yingzhuo.carnival.resilience4j.config;
 
+import lombok.Getter;
+
 /**
  * @author 应卓
  * @since 1.6.8
  */
+@Getter
 public final class FallbackConfig {
 
     private final String backend;
@@ -23,18 +26,6 @@ public final class FallbackConfig {
         this.type = type;
         this.args = args;
         this.backend = backend;
-    }
-
-    public String getBackend() {
-        return backend;
-    }
-
-    public FallbackConfigType getType() {
-        return type;
-    }
-
-    public Object[] getArgs() {
-        return args;
     }
 
 }

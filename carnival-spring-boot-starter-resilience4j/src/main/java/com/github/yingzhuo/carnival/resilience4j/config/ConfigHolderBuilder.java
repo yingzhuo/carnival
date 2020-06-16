@@ -194,4 +194,24 @@ public final class ConfigHolderBuilder {
         }
     }
 
+    static final class Empty implements ConfigHolder {
+        @Override
+        public Object getModuleConfig(String backend, Module module) {
+            return null;
+        }
+
+        @Override
+        public List<FallbackConfig> getFallbackConfig(String backend) {
+            return new ArrayList<>();
+        }
+
+        @Override
+        public void clear() {
+        }
+
+        @Override
+        public int size() {
+            return 0;
+        }
+    }
 }

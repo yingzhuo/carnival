@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.EnableFeignClients;
+import com.github.yingzhuo.carnival.openfeign.EnableFeignClient;
 import com.github.yingzhuo.carnival.openfeign.FeignClient;
 import com.github.yingzhuo.carnival.scanning.ScanningUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -60,7 +60,7 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
     }
 
     private Set<String> getBasePackage(AnnotationMetadata metadata) {
-        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
+        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClient.class.getName());
         final Set<String> set = new HashSet<>();
         Collections.addAll(set, (String[]) attrs.get("basePackages"));
         Collections.addAll(set, (String[]) attrs.get("value"));
