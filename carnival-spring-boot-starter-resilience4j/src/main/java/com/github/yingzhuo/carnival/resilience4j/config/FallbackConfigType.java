@@ -25,7 +25,6 @@ public enum FallbackConfigType {
         this.description = description;
     }
 
-    // just for logging
     public String getDescription() {
         return description;
     }

@@ -9,14 +9,22 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
+import org.springframework.core.Ordered;
+
 import static feign.Feign.Builder;
 
 /**
  * @author 应卓
- * @since 1.6.17
+ * @since 1.6.18
  */
-public interface FeignBuilderCustomizer {
+@FunctionalInterface
+public interface FeignBuilderCustomizer extends Ordered {
 
-    public void customize(Builder builder);
+    public void customize(Class<?> clientType, Builder builder);
+
+    @Override
+    default int getOrder() {
+        return 0;
+    }
 
 }

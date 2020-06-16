@@ -13,30 +13,28 @@ package com.github.yingzhuo.carnival.resilience4j.config;
  * @author 应卓
  * @since 1.6.8
  */
-public class FallbackConfig {
+public final class FallbackConfig {
 
-    private FallbackConfigType type;
+    private final String backend;
+    private final FallbackConfigType type;
+    private final Object[] args;
 
-    private Object[] args;
-
-    public FallbackConfig(FallbackConfigType type, Object... args) {
+    public FallbackConfig(String backend, FallbackConfigType type, Object... args) {
         this.type = type;
         this.args = args;
+        this.backend = backend;
+    }
+
+    public String getBackend() {
+        return backend;
     }
 
     public FallbackConfigType getType() {
         return type;
     }
 
-    public void setType(FallbackConfigType type) {
-        this.type = type;
-    }
-
     public Object[] getArgs() {
         return args;
     }
 
-    public void setArgs(Object[] args) {
-        this.args = args;
-    }
 }

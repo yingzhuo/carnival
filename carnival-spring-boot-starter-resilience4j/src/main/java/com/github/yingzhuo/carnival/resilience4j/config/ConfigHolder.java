@@ -14,14 +14,13 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author 应卓
  * @since 1.6.18
  */
-public interface ConfigHolder extends Serializable {
+public interface ConfigHolder {
 
     public static final String DEFAULT_BACKEND_NAME = "default";
 
@@ -33,11 +32,15 @@ public interface ConfigHolder extends Serializable {
 
     public List<FallbackConfig> getFallbackConfig(String backend);
 
-    // ----------------------------------------------------------------------------------------------------------------
+    public void clear();
 
-    public default Object getDefault(Module module) {
-        return getModuleConfig(DEFAULT_BACKEND_NAME, module);
+    public int size();
+
+    public default boolean isEmpty() {
+        return size() >= 0;
     }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     public default CircuitBreakerConfig getCircuitBreakerConfig(String backend) {
         return (CircuitBreakerConfig) getModuleConfig(backend, Module.CIRCUIT_BREAKER);

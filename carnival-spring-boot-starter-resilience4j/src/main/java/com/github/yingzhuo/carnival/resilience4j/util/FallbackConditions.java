@@ -29,17 +29,7 @@ public final class FallbackConditions {
     }
 
     public static Predicate<Exception> io() {
-        return e -> {
-            if (e instanceof IOException) {
-                return true;
-            }
-
-            if (e instanceof UncheckedIOException) {
-                return true;
-            }
-
-            return false;
-        };
+        return e -> (e instanceof IOException) || (e instanceof UncheckedIOException);
     }
 
     public static Predicate<Exception> notIO() {

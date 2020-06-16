@@ -31,6 +31,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import static feign.Feign.Builder;
 
 /**
@@ -63,21 +66,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     }
 
     private void initBuilder() {
-
-        // 是否集成 Resilience4j
-        if (!"".equals(backend)) {
-
-            ConfigHolder configHolder = getConfigHolder();
-            if (configHolder == null) {
-                builder = new Builder();
-            } else {
-                builder = Resilience4jFeign.builder(FeignDecoratorsUtils.getDecorators(backend, configHolder));
-            }
-
-        } else {
-            builder = new Builder();
-        }
-
+        builder = createBasicBuilder();
         props = applicationContext.getBean(FeignProperties.class);
 
         initClient();
@@ -96,10 +85,23 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         reset();
     }
 
+    private Builder createBasicBuilder() {
+        if ("".equals(backend)) {
+            return new Builder();
+        }
+
+        final ConfigHolder configHolder = getConfigHolder();
+        if (configHolder == null || configHolder.isEmpty()) {
+            return new Builder();
+        } else {
+            return Resilience4jFeign.builder(FeignDecoratorsUtils.getDecorators(backend, configHolder));
+        }
+    }
+
     private ConfigHolder getConfigHolder() {
         try {
             return applicationContext.getBean(ConfigHolder.class);
-        } catch (BeansException e) {
+        } catch (BeansException ignored) {
             return null;
         }
     }
@@ -107,8 +109,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     private void initClient() {
         try {
             builder.client(applicationContext.getBean(Client.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
@@ -120,42 +121,35 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     private void initEncoder() {
         try {
             builder.encoder(applicationContext.getBean(Encoder.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void initDecoder() {
         try {
             builder.decoder(applicationContext.getBean(Decoder.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void initErrorDecoder() {
         try {
             builder.errorDecoder(applicationContext.getBean(ErrorDecoder.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void initContract() {
         try {
             builder.contract(applicationContext.getBean(Contract.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void initInterceptors() {
         try {
-            builder.requestInterceptors(
-                    applicationContext.getBeansOfType(RequestInterceptor.class).values()
-            );
-        } catch (BeansException e) {
-            // nop
+            builder.requestInterceptors(applicationContext.getBeansOfType(RequestInterceptor.class).values());
+        } catch (BeansException ignored) {
         }
     }
 
@@ -175,8 +169,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
                 val interceptor = new BasicAuthRequestInterceptor(username, password, charset);
                 builder.requestInterceptor(interceptor);
             }
-        } catch (NullPointerException e) {
-            // NoOP
+        } catch (NullPointerException ignored) {
         }
     }
 
@@ -200,16 +193,14 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
                 };
                 builder.requestInterceptor(interceptor);
             }
-        } catch (NullPointerException e) {
-            // NoOP
+        } catch (NullPointerException ignored) {
         }
     }
 
     private void initRetryer() {
         try {
             builder.retryer(applicationContext.getBean(Retryer.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
@@ -218,24 +209,22 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
             for (Capability c : applicationContext.getBeansOfType(Capability.class).values()) {
                 builder.addCapability(c);
             }
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void initOptions() {
         try {
             builder.options(applicationContext.getBean(Request.Options.class));
-        } catch (BeansException e) {
-            // nop
+        } catch (BeansException ignored) {
         }
     }
 
     private void reset() {
         try {
-            applicationContext.getBean(FeignBuilderCustomizer.class).customize(builder);
-        } catch (BeansException e) {
-            // nop
+            List<FeignBuilderCustomizer> customizers = new LinkedList<>(applicationContext.getBeansOfType(FeignBuilderCustomizer.class).values());
+            customizers.forEach(it -> it.customize(clientType, builder));
+        } catch (BeansException ignored) {
         }
     }
 
