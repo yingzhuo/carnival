@@ -18,37 +18,29 @@ import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
 import org.springframework.util.Assert;
 
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * @author 应卓
  * @since 1.6.18
  */
-class ConfigHolderImpl implements ConfigHolder {
+public class ConfigHolderImpl implements ConfigHolder {
 
     private static final Object NULL = Null.INSTANCE;
 
-    private final Table<String, Module, Object> configTable = HashBasedTable.create();
+    private final Table<String, Module, Object> moduleConfigTable = HashBasedTable.create();
+    private final Map<String, List<FallbackConfig>> fallbackConfigDict = new HashMap<>();
 
     public ConfigHolderImpl() {
     }
 
     @Override
-    public void clear() {
-        configTable.clear();
-    }
-
-    @Override
-    public int size() {
-        return configTable.size();
-    }
-
-    @Override
-    public Object get(String backend, Module module) {
+    public Object getModuleConfig(String backend, Module module) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(module, "module is null");
 
-        Object obj = configTable.get(
+        Object obj = moduleConfigTable.get(
                 Objects.requireNonNull(backend),
                 Objects.requireNonNull(module)
         );
@@ -56,11 +48,19 @@ class ConfigHolderImpl implements ConfigHolder {
         return obj == NULL ? null : obj;
     }
 
+    @Override
+    public List<FallbackConfig> getFallbackConfig(String backend) {
+        Assert.hasText(backend, "backend is null or empty");
+
+        List<FallbackConfig> list = fallbackConfigDict.get(backend);
+        return list != null ? Collections.unmodifiableList(list) : Collections.emptyList();
+    }
+
     public void put(String backend, CircuitBreakerConfig config) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
 
-        configTable.put(
+        moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.CIRCUIT_BREAKER,
                 config == null ? NULL : config
@@ -71,7 +71,7 @@ class ConfigHolderImpl implements ConfigHolder {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
 
-        configTable.put(
+        moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.BULKHEAD,
                 config == null ? NULL : config
@@ -82,7 +82,7 @@ class ConfigHolderImpl implements ConfigHolder {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
 
-        configTable.put(
+        moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.RETRY,
                 config == null ? NULL : config
@@ -93,11 +93,58 @@ class ConfigHolderImpl implements ConfigHolder {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
 
-        configTable.put(
+        moduleConfigTable.put(
                 Objects.requireNonNull(backend),
                 Module.RATE_LIMITER,
                 config == null ? NULL : config
         );
+    }
+
+    public void addFallback(String backend, Object fallback) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+
+        FallbackConfigType type = FallbackConfigType.TYPE1;
+        FallbackConfig fallbackConfig = new FallbackConfig(type, fallback);
+
+        List<FallbackConfig> list = fallbackConfigDict.get(backend);
+        if (list == null) {
+            list = new LinkedList<>();
+            fallbackConfigDict.put(backend, list);
+        }
+        list.add(fallbackConfig);
+    }
+
+    public void addFallback(String backend, Object fallback, Predicate<? extends Exception> filter) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+        Assert.notNull(filter, "filter is null");
+
+        FallbackConfigType type = FallbackConfigType.TYPE2;
+        FallbackConfig fallbackConfig = new FallbackConfig(type, fallback, filter);
+
+        List<FallbackConfig> list = fallbackConfigDict.get(backend);
+        if (list == null) {
+            list = new LinkedList<>();
+            fallbackConfigDict.put(backend, list);
+        }
+        list.add(fallbackConfig);
+    }
+
+    public void addFallback(String backend, Object fallback, Class<? extends Exception> filter) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+        Assert.notNull(filter, "filter is null");
+
+        FallbackConfigType type = FallbackConfigType.TYPE3;
+        FallbackConfig fallbackConfig = new FallbackConfig(type, fallback, filter);
+
+        List<FallbackConfig> list = fallbackConfigDict.get(backend);
+        if (list == null) {
+            list = new LinkedList<>();
+            fallbackConfigDict.put(backend, list);
+        }
+        list.add(fallbackConfig);
     }
 
 }

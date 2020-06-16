@@ -10,14 +10,17 @@
 package com.github.yingzhuo.carnival.resilience4j.util;
 
 import com.github.yingzhuo.carnival.resilience4j.config.ConfigHolder;
+import com.github.yingzhuo.carnival.resilience4j.config.FallbackConfig;
 import io.github.resilience4j.bulkhead.Bulkhead;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.feign.FeignDecorators;
 import io.github.resilience4j.ratelimiter.RateLimiter;
 import io.github.resilience4j.retry.Retry;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 /**
  * @author 应卓
@@ -58,7 +61,38 @@ public final class FeignDecoratorsUtils {
         rateLimiterOption.ifPresent(builder::withRateLimiter);
         circuitBreakerOption.ifPresent(builder::withCircuitBreaker);
         retryOption.ifPresent(builder::withRetry);  // 最外层装饰器
+
+        // fallback and fallbackFactory
+        setFallback(builder, holder.getFallbackConfig(backend));
+
         return builder.build();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void setFallback(FeignDecorators.Builder builder, List<FallbackConfig> fallbackConfigList) {
+        if (fallbackConfigList != null) {
+            for (FallbackConfig cnf : fallbackConfigList) {
+                switch (cnf.getType()) {
+                    case TYPE1:
+                        builder.withFallback(cnf.getArgs()[0]);
+                        break;
+                    case TYPE2:
+                        builder.withFallback(
+                                cnf.getArgs()[0],
+                                (Predicate<Exception>) cnf.getArgs()[1]
+                        );
+                        break;
+                    case TYPE3:
+                        builder.withFallback(
+                                cnf.getArgs()[0],
+                                (Class<? extends Exception>) cnf.getArgs()[1]
+                        );
+                        break;
+                    default:
+                        throw new AssertionError();
+                }
+            }
+        }
     }
 
 }

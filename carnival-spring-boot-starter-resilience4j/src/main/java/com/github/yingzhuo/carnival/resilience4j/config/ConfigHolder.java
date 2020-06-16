@@ -15,6 +15,7 @@ import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author 应卓
@@ -28,46 +29,30 @@ public interface ConfigHolder extends Serializable {
         return new ConfigHolderBuilder();
     }
 
-    public Object get(String backend, Module module);
+    public Object getModuleConfig(String backend, Module module);
 
-    public void clear();
+    public List<FallbackConfig> getFallbackConfig(String backend);
 
-    public int size();
+    // ----------------------------------------------------------------------------------------------------------------
 
     public default Object getDefault(Module module) {
-        return get(DEFAULT_BACKEND_NAME, module);
+        return getModuleConfig(DEFAULT_BACKEND_NAME, module);
     }
 
     public default CircuitBreakerConfig getCircuitBreakerConfig(String backend) {
-        return (CircuitBreakerConfig) get(backend, Module.CIRCUIT_BREAKER);
-    }
-
-    public default CircuitBreakerConfig getDefaultCircuitBreakerConfig() {
-        return (CircuitBreakerConfig) get(DEFAULT_BACKEND_NAME, Module.CIRCUIT_BREAKER);
+        return (CircuitBreakerConfig) getModuleConfig(backend, Module.CIRCUIT_BREAKER);
     }
 
     public default BulkheadConfig getBulkheadConfig(String backend) {
-        return (BulkheadConfig) get(backend, Module.BULKHEAD);
-    }
-
-    public default BulkheadConfig getDefaultBulkheadConfig() {
-        return (BulkheadConfig) get(DEFAULT_BACKEND_NAME, Module.BULKHEAD);
+        return (BulkheadConfig) getModuleConfig(backend, Module.BULKHEAD);
     }
 
     public default RetryConfig getRetryConfig(String backend) {
-        return (RetryConfig) get(backend, Module.RETRY);
-    }
-
-    public default RetryConfig getDefaultRetryConfig() {
-        return (RetryConfig) get(DEFAULT_BACKEND_NAME, Module.RETRY);
+        return (RetryConfig) getModuleConfig(backend, Module.RETRY);
     }
 
     public default RateLimiterConfig getRateLimiterConfig(String backend) {
-        return (RateLimiterConfig) get(backend, Module.RATE_LIMITER);
-    }
-
-    public default RateLimiterConfig getDefaultRateLimiterConfig() {
-        return (RateLimiterConfig) get(DEFAULT_BACKEND_NAME, Module.RATE_LIMITER);
+        return (RateLimiterConfig) getModuleConfig(backend, Module.RATE_LIMITER);
     }
 
 }

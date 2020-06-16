@@ -15,6 +15,8 @@ import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
 import org.springframework.util.Assert;
 
+import java.util.function.Predicate;
+
 /**
  * @author 应卓
  * @since 1.6.18
@@ -51,6 +53,29 @@ public final class ConfigHolderBuilder {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
         impl.put(backend, config);
+        return this;
+    }
+
+    public ConfigHolderBuilder addFallback(String backend, Object fallback) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+        impl.addFallback(backend, fallback);
+        return this;
+    }
+
+    public ConfigHolderBuilder addFallback(String backend, Object fallback, Predicate<? extends Exception> filter) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+        Assert.notNull(filter, "filter is null");
+        impl.addFallback(backend, fallback, filter);
+        return this;
+    }
+
+    public ConfigHolderBuilder addFallback(String backend, Object fallback, Class<? extends Exception> filter) {
+        Assert.hasText(backend, "backend is null or empty");
+        Assert.notNull(fallback, "fallback is null");
+        Assert.notNull(filter, "filter is null");
+        impl.addFallback(backend, fallback, filter);
         return this;
     }
 
