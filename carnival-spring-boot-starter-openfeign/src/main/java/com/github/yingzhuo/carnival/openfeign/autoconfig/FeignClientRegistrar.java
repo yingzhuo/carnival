@@ -96,8 +96,8 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
                 BeanDefinitionBuilder.genericBeanDefinition(FeignClientFactory.class);
 
         final String[] aliases = (String[]) attrs.get("aliases");
-        final String url = environment.getProperty((String) attrs.get("urlProperty"), "");
         final boolean primary = (Boolean) attrs.get("primary");
+        final String url = parseUrl(attrs);
 
         factoryBuilder.addPropertyValue("url", url);
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
@@ -113,6 +113,16 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
 
         BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType, aliases);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
+    }
+
+    private String parseUrl(Map<String, Object> attrs) {
+        final String template = (String) attrs.get("url");
+
+        try {
+            return environment.resolveRequiredPlaceholders(template);
+        } catch (IllegalArgumentException e) {
+            return template;
+        }
     }
 
 }

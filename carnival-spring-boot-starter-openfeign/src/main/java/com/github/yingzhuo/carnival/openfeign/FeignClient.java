@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface FeignClient {
 
-    public String urlProperty() default "";
+    public String url() default "";
 
     public Class<? extends UrlSupplier> urlSupplier() default BrokenUrlSupplier.class;
 
