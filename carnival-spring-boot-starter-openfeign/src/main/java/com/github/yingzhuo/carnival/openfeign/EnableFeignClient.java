@@ -14,15 +14,13 @@ import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignCoreAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.6.17
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import({FeignClientRegistrar.class, FeignCoreAutoConfig.class})

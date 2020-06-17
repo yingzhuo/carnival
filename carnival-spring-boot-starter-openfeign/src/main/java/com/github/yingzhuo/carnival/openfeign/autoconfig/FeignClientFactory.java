@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.FeignBuilderCustomizer;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
-import com.github.yingzhuo.carnival.openfeign.target.BrokenUrlSupplier;
 import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
 import com.github.yingzhuo.carnival.openfeign.target.UrlSupplier;
 import com.github.yingzhuo.carnival.resilience4j.config.ConfigHolder;
@@ -46,9 +45,10 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
 
     // setter注入
     private Class<T> clientType;
-    private Class<? extends UrlSupplier> urlSupplierType;
+    private Class<?> urlSupplierType;
     private String url;
     private String backend;
+    private Class<?> contractType;
 
     // 以下为初始化时才处理的字段
     private Builder builder = null;
@@ -140,9 +140,16 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     }
 
     private void initContract() {
-        try {
-            builder.contract(applicationContext.getBean(Contract.class));
-        } catch (BeansException ignored) {
+        if (contractType == void.class) {
+            try {
+                builder.contract(applicationContext.getBean(Contract.class));   // use primary contract
+            } catch (BeansException ignored) {
+            }
+        } else {
+            try {
+                builder.contract((Contract) applicationContext.getBean(contractType));  // 类型转换异常抛出就可以了
+            } catch (BeansException ignored) {
+            }
         }
     }
 
@@ -228,16 +235,19 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         }
     }
 
-    private UrlSupplier getUrlSupplier(Class<? extends UrlSupplier> urlSupplierType, String url) {
+    private UrlSupplier getUrlSupplier(Class<?> urlSupplierType, String url) {
+
+        // "url"配置的优先级高于"urlSupplier"
+
         if (!"".equals(url)) {
             return UrlSupplier.of(url);
         }
 
-        if (urlSupplierType != BrokenUrlSupplier.class) {
-            return applicationContext.getBean(urlSupplierType);
+        if (urlSupplierType != void.class) {
+            return (UrlSupplier) applicationContext.getBean(urlSupplierType); // 类型转换异常抛出就可以了
         }
 
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("url or urlSupplier not configured");
     }
 
     @Override
@@ -249,7 +259,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         this.clientType = clientType;
     }
 
-    public void setUrlSupplierType(Class<? extends UrlSupplier> urlSupplierType) {
+    public void setUrlSupplierType(Class<?> urlSupplierType) {
         this.urlSupplierType = urlSupplierType;
     }
 
@@ -259,6 +269,10 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
 
     public void setBackend(String backend) {
         this.backend = backend;
+    }
+
+    public void setContractType(Class<?> contractType) {
+        this.contractType = contractType;
     }
 
 }

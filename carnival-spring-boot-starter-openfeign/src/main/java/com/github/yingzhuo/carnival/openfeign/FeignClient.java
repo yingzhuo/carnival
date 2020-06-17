@@ -9,29 +9,27 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
-import com.github.yingzhuo.carnival.openfeign.target.BrokenUrlSupplier;
-import com.github.yingzhuo.carnival.openfeign.target.UrlSupplier;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.6.17
  */
+@Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface FeignClient {
 
     public String url() default "";
 
-    public Class<? extends UrlSupplier> urlSupplier() default BrokenUrlSupplier.class;
+    public Class<?> urlSupplier() default void.class;
+
+    public Class<?> contract() default void.class;
+
+    public String backend() default "";
 
     public String[] aliases() default {};
 
     public boolean primary() default true;
 
-    public String backend() default "";
 }
