@@ -30,7 +30,7 @@ import org.springframework.core.Ordered;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class MvcClientInfoAutoConfig {
 
     @Autowired(required = false)
@@ -55,7 +55,6 @@ public class MvcClientInfoAutoConfig {
                 clientUsingBackendVersionResolver != null ? clientUsingBackendVersionResolver : ClientInfoResolver.DEFAULT
         );
         bean.setFilter(filter);
-
         bean.setOrder(props.getOrder());
         bean.addUrlPatterns(props.getUrlPatterns());
         bean.setName(props.getFilterName());
@@ -66,7 +65,7 @@ public class MvcClientInfoAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.web-filter.client-info")
     static class Props extends AbstractWebFilterProps {
-        private boolean enabled = false;
+        private boolean enabled = true;
 
         Props() {
             super.setOrder(Ordered.LOWEST_PRECEDENCE);
