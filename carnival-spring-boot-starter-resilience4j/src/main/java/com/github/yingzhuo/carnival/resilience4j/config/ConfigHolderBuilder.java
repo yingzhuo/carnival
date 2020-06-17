@@ -36,28 +36,28 @@ public final class ConfigHolderBuilder {
     public ConfigHolderBuilder circuitBreaker(String backend, CircuitBreakerConfig config) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
-        impl.put(backend, config);
+        impl.set(backend, config);
         return this;
     }
 
     public ConfigHolderBuilder bulkhead(String backend, BulkheadConfig config) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
-        impl.put(backend, config);
+        impl.set(backend, config);
         return this;
     }
 
     public ConfigHolderBuilder retry(String backend, RetryConfig config) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
-        impl.put(backend, config);
+        impl.set(backend, config);
         return this;
     }
 
     public ConfigHolderBuilder rateLimiter(String backend, RateLimiterConfig config) {
         Assert.hasText(backend, "backend is null or empty");
         Assert.notNull(config, "config is null");
-        impl.put(backend, config);
+        impl.set(backend, config);
         return this;
     }
 
@@ -102,7 +102,7 @@ public final class ConfigHolderBuilder {
 
     // 实现类
     // 不是线程安全的，也不需要线程安全
-    static class Impl implements ConfigHolder {
+    static class Impl implements ConfigurableConfigHolder {
         private static final Object NULL = Null.INSTANCE;
 
         private final Table<String, Module, Object> moduleConfigTable = HashBasedTable.create();
@@ -139,7 +139,8 @@ public final class ConfigHolderBuilder {
             size = 0;
         }
 
-        public void put(String backend, CircuitBreakerConfig config) {
+        @Override
+        public void set(String backend, CircuitBreakerConfig config) {
             moduleConfigTable.put(
                     Objects.requireNonNull(backend),
                     Module.CIRCUIT_BREAKER,
@@ -148,7 +149,8 @@ public final class ConfigHolderBuilder {
             size++;
         }
 
-        public void put(String backend, BulkheadConfig config) {
+        @Override
+        public void set(String backend, BulkheadConfig config) {
             moduleConfigTable.put(
                     Objects.requireNonNull(backend),
                     Module.BULKHEAD,
@@ -157,7 +159,8 @@ public final class ConfigHolderBuilder {
             size++;
         }
 
-        public void put(String backend, RetryConfig config) {
+        @Override
+        public void set(String backend, RetryConfig config) {
             moduleConfigTable.put(
                     Objects.requireNonNull(backend),
                     Module.RETRY,
@@ -166,7 +169,8 @@ public final class ConfigHolderBuilder {
             size++;
         }
 
-        public void put(String backend, RateLimiterConfig config) {
+        @Override
+        public void set(String backend, RateLimiterConfig config) {
             moduleConfigTable.put(
                     Objects.requireNonNull(backend),
                     Module.RATE_LIMITER,
@@ -175,6 +179,7 @@ public final class ConfigHolderBuilder {
             size++;
         }
 
+        @Override
         public void addFallback(String backend, Object fallback, Predicate<? extends Exception> filter) {
             FallbackConfigType type = FallbackConfigType.FALLBACK_WITH_PREDICATE;
             FallbackConfig fallbackConfig = new FallbackConfig(backend, type, fallback, filter);
@@ -184,6 +189,7 @@ public final class ConfigHolderBuilder {
             size++;
         }
 
+        @Override
         public void addFallback(String backend, Object fallback, Class<? extends Exception> filter) {
             FallbackConfigType type = FallbackConfigType.FALLBACK_WITH_EXCEPTION_CLASS;
             FallbackConfig fallbackConfig = new FallbackConfig(backend, type, fallback, filter);

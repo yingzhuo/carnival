@@ -14,13 +14,14 @@ import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
 import io.github.resilience4j.ratelimiter.RateLimiterConfig;
 import io.github.resilience4j.retry.RetryConfig;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author 应卓
  * @since 1.6.18
  */
-public interface ConfigHolder {
+public interface ConfigHolder extends Serializable {
 
     public static ConfigHolderBuilder builder() {
         return new ConfigHolderBuilder();
