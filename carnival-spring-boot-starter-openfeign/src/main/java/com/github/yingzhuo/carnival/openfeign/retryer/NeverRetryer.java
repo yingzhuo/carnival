@@ -33,7 +33,7 @@ public final class NeverRetryer implements Retryer {
         if (cause != null) {
             if (cause instanceof IOException) {
                 final IOException ioEx = (IOException) cause;
-                throw new RuntimeException(new UncheckedIOException(ioEx));
+                throw new UncheckedIOException(ioEx);
             }
 
             if (cause instanceof RuntimeException) {
