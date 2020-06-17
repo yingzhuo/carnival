@@ -7,9 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.lock;
-
-import java.util.Objects;
+package com.github.yingzhuo.carnival.redis.support;
 
 /**
  * @author 应卓
@@ -20,7 +18,7 @@ public final class ToStringLockable implements Lockable {
     private final String toString;
 
     private ToStringLockable(Object delegate) {
-        this.toString = Objects.requireNonNull(delegate).toString();
+        this.toString = delegate.toString();
     }
 
     public static Lockable of(Object o) {

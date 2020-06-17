@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.redis.autoconfig.RedisCoreAutoConfig,\
-    com.github.yingzhuo.carnival.redis.autoconfig.RedisLockAutoConfig
+    com.github.yingzhuo.carnival.redis.autoconfig.RedisLockAutoConfig,\
+    com.github.yingzhuo.carnival.redis.autoconfig.RedisSemaphoreAutoConfig

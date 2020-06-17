@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.lock;
+package com.github.yingzhuo.carnival.redis.support;
 
 /**
  * @author 应卓

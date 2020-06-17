@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.lock;
 
+import com.github.yingzhuo.carnival.redis.support.Lockable;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 import java.time.Duration;
@@ -36,8 +37,6 @@ public final class RedisLock {
         return getBean().release(key);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
     public static boolean lock(Lockable key) {
         return getBean().lock(key.asLockKey());
     }
@@ -50,9 +49,6 @@ public final class RedisLock {
         return getBean().release(key.asLockKey());
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
-
-
     public static boolean lock(long key) {
         return getBean().lock(String.valueOf(key));
     }
@@ -64,9 +60,6 @@ public final class RedisLock {
     public static boolean release(long key) {
         return getBean().release(String.valueOf(key));
     }
-
-    // ----------------------------------------------------------------------------------------------------------------
-
 
     private static RedisLockBean getBean() {
         return SpringUtils.getBean(RedisLockBean.class);

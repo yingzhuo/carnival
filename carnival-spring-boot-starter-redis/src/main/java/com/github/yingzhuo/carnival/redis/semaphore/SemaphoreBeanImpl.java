@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.redis.lock;
+package com.github.yingzhuo.carnival.redis.semaphore;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.redis.support.AbstractLockBean;
@@ -21,27 +21,28 @@ import java.util.Collections;
 
 /**
  * @author 应卓
- * @since 1.6.9
+ * @since 1.6.19
  */
-public class RedisLockBeanImpl extends AbstractLockBean implements RedisLockBean {
+public class SemaphoreBeanImpl extends AbstractLockBean implements SemaphoreBean {
 
     private final StringRedisTemplate template;
-    private final String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
-    private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/release.lua").getText();
+    private final String lockScript = ResourceText.of("classpath:/lua-script/semaphore/lock.lua").getText();
+    private final String unlockScript = ResourceText.of("classpath:/lua-script/semaphore/release.lua").getText();
 
-    public RedisLockBeanImpl(RedisConnectionFactory factory) {
-        this.template = new StringRedisTemplate(factory);
+    public SemaphoreBeanImpl(RedisConnectionFactory connectionFactory) {
+        this.template = new StringRedisTemplate(connectionFactory);
     }
 
     @Override
-    public boolean lock(String key, Duration max) {
+    public boolean lock(String key, int size, Duration max) {
         final RedisScript<Long> script = new DefaultRedisScript<>(lockScript, Long.class);
         final Long result =
                 template.execute(
                         script,
                         Collections.singletonList(generateLockKey(key)),    // KEYS[1]
                         generateLockValue(),    // ARGV[1]
-                        getMaxOfDefault(max)    // ARGV[2]
+                        String.valueOf(size),   // ARGV[2]
+                        getMaxOfDefault(max)    // ARGV[3]
                 );
         return result != null && result == 1L;
     }
@@ -49,12 +50,13 @@ public class RedisLockBeanImpl extends AbstractLockBean implements RedisLockBean
     @Override
     public boolean release(String key) {
         final RedisScript<Long> script = new DefaultRedisScript<>(unlockScript, Long.class);
-        final Long result = template.execute(
-                script,
-                Collections.singletonList(generateLockKey(key)),    // KEYS[1]
-                generateLockValue()     // ARGV[1]
-        );
-        return result != null && 1L == result;
+        final Long result =
+                template.execute(
+                        script,
+                        Collections.singletonList(generateLockKey(key)),    // KEYS[1]
+                        generateLockValue()    // ARGV[1]
+                );
+        return result != null && result == 1L;
     }
 
 }
