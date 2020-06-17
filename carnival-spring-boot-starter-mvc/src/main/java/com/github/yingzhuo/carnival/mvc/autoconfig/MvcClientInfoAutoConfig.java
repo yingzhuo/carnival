@@ -30,7 +30,7 @@ import org.springframework.core.Ordered;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true")
 public class MvcClientInfoAutoConfig {
 
     @Autowired(required = false)
@@ -47,13 +47,14 @@ public class MvcClientInfoAutoConfig {
 
     @Bean
     public FilterRegistrationBean<ClientInfoResolvingFilter> clientOSTypeResolvingFilterFilter(Props props) {
-        FilterRegistrationBean<ClientInfoResolvingFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new ClientInfoResolvingFilter(
+        final FilterRegistrationBean<ClientInfoResolvingFilter> bean = new FilterRegistrationBean<>();
+        final ClientInfoResolvingFilter filter = new ClientInfoResolvingFilter(
                 clientOSTypeResolver != null ? clientOSTypeResolver : ClientInfoResolver.DEFAULT,
                 clientOSVersionResolver != null ? clientOSVersionResolver : ClientInfoResolver.DEFAULT,
                 clientAppVersionResolver != null ? clientAppVersionResolver : ClientInfoResolver.DEFAULT,
                 clientUsingBackendVersionResolver != null ? clientUsingBackendVersionResolver : ClientInfoResolver.DEFAULT
-        ));
+        );
+        bean.setFilter(filter);
 
         bean.setOrder(props.getOrder());
         bean.addUrlPatterns(props.getUrlPatterns());
@@ -65,7 +66,7 @@ public class MvcClientInfoAutoConfig {
     @Setter
     @ConfigurationProperties(prefix = "carnival.web-filter.client-info")
     static class Props extends AbstractWebFilterProps {
-        private boolean enabled = true;
+        private boolean enabled = false;
 
         Props() {
             super.setOrder(Ordered.LOWEST_PRECEDENCE);

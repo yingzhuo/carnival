@@ -35,6 +35,10 @@ public class SemaphoreBeanImpl extends AbstractLockBean implements SemaphoreBean
 
     @Override
     public boolean lock(String key, int size, Duration max) {
+        if (size < 1) {
+            throw new IllegalArgumentException("size must greater than 0");
+        }
+
         final RedisScript<Long> script = new DefaultRedisScript<>(lockScript, Long.class);
         final Long result =
                 template.execute(

@@ -6,7 +6,7 @@ local total = tonumber(ARGV[2]);
 local ttl = ARGV[3];
 
 -- 可重入
-if redis.call("SISMEMBER", key, value) == 1 then
+if redis.call('SISMEMBER', key, value) == 1 then
     return 1;
 end
 

@@ -35,4 +35,17 @@ public final class ToStringLockable implements Lockable {
         return toString;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ToStringLockable that = (ToStringLockable) o;
+        return toString.equals(that.toString);
+    }
+
+    @Override
+    public int hashCode() {
+        return toString.hashCode();
+    }
 }

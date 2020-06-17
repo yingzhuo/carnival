@@ -9,10 +9,9 @@
  */
 package com.github.yingzhuo.carnival.mvc.client;
 
+import com.github.yingzhuo.carnival.mvc.filter.AbstractServletFilter;
 import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +22,7 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.6.14
  */
-public class ClientInfoResolvingFilter extends OncePerRequestFilter {
+public class ClientInfoResolvingFilter extends AbstractServletFilter {
 
     private final ClientOSTypeResolver clientOSTypeResolver;
     private final ClientOSVersionResolver clientOSVersionResolver;
@@ -38,14 +37,14 @@ public class ClientInfoResolvingFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected boolean doFilter(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         final ServletWebRequest webRequest = new ServletWebRequest(request);
+        ClientInfoContext.clean();
         ClientInfoContext.setClientOsType(clientOSTypeResolver.resolveClientOSType(webRequest));
         ClientInfoContext.setClientOsVersion(clientOSVersionResolver.resolveClientOSVersion(webRequest));
         ClientInfoContext.setClientAppVersion(clientAppVersionResolver.resolveClientAppVersion(webRequest));
         ClientInfoContext.setClientUsingBackendVersion(clientUsingBackendVersionResolver.resolveClientUsingBackendVersion(webRequest));
-        filterChain.doFilter(request, response);
-        ClientInfoContext.clean();
+        return true;
     }
 
 }

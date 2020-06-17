@@ -34,9 +34,9 @@ public abstract class AbstractLockBean implements InitializingBean {
 
     protected final String getMaxOfDefault(Duration ttl) {
         if (ttl == null) {
-            return defaultMax.getSeconds() + "";
+            return String.valueOf(defaultMax.getSeconds());
         } else {
-            return ttl.getSeconds() + "";
+            return String.valueOf(ttl.getSeconds());
         }
     }
 

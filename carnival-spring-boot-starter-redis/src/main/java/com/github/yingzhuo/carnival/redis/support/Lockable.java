@@ -9,13 +9,20 @@
  */
 package com.github.yingzhuo.carnival.redis.support;
 
+import java.util.function.Supplier;
+
 /**
  * @author 应卓
  * @since 1.6.9
  */
 @FunctionalInterface
-public interface Lockable {
+public interface Lockable extends Supplier<String> {
 
     public String asLockKey();
+
+    @Override
+    default String get() {
+        return asLockKey();
+    }
 
 }
