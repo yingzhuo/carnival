@@ -15,6 +15,8 @@ package com.github.yingzhuo.carnival.mvc.client;
  */
 public enum ClientOSType {
 
+    UNKNOWN,
+
     IOS,
 
     ANDROID,

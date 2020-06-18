@@ -21,7 +21,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
+import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.method.support.ModelAndViewContainer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+
+import static com.github.yingzhuo.carnival.mvc.ClientInfo.*;
 
 /**
  * @author 应卓
@@ -30,8 +40,8 @@ import org.springframework.core.Ordered;
 @Lazy(false)
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class MvcClientInfoAutoConfig {
+@ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true")
+public class MvcClientInfoAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)
     private ClientOSTypeResolver clientOSTypeResolver;
@@ -61,15 +71,71 @@ public class MvcClientInfoAutoConfig {
         return bean;
     }
 
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new ClientOSTypeArgumentResolver());
+        resolvers.add(new ClientOSVersionArgumentResolver());
+        resolvers.add(new ClientVersionArgumentResolver());
+        resolvers.add(new ClientUsingBackendVersionArgumentResolver());
+    }
+
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.web-filter.client-info")
     static class Props extends AbstractWebFilterProps {
-        private boolean enabled = true;
+        private boolean enabled = false;
 
         Props() {
             super.setOrder(Ordered.LOWEST_PRECEDENCE);
             super.setFilterName(ClientInfoResolvingFilter.class.getName());
+        }
+    }
+
+    private static class ClientOSTypeArgumentResolver implements HandlerMethodArgumentResolver {
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            return parameter.hasParameterAnnotation(OSType.class) || parameter.getParameterType() == ClientOSType.class;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+            return ClientInfoContext.getClientOSType();
+        }
+    }
+
+    private static class ClientOSVersionArgumentResolver implements HandlerMethodArgumentResolver {
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            return parameter.hasParameterAnnotation(OSVersion.class) || parameter.getParameterType() == String.class;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+            return ClientInfoContext.getClientOSVersion();
+        }
+    }
+
+    private static class ClientUsingBackendVersionArgumentResolver implements HandlerMethodArgumentResolver {
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            return parameter.hasParameterAnnotation(UsingBackendVersion.class) || parameter.getParameterType() == String.class;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+            return ClientInfoContext.getClientUsingBackendVersion();
+        }
+    }
+
+    private static class ClientVersionArgumentResolver implements HandlerMethodArgumentResolver {
+        @Override
+        public boolean supportsParameter(MethodParameter parameter) {
+            return parameter.hasParameterAnnotation(AppVersion.class) || parameter.getParameterType() == String.class;
+        }
+
+        @Override
+        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
+            return ClientInfoContext.getClientAppVersion();
         }
     }
 

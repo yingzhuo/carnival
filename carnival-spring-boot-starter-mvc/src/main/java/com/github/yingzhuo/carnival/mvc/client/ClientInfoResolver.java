@@ -27,7 +27,7 @@ public interface ClientInfoResolver extends
     @Override
     public default ClientOSType resolveClientOSType(NativeWebRequest request) {
         String s = request.getHeader("X-Client-OS-Type");
-        if (s == null) return null;
+        if (s == null) return ClientOSType.UNKNOWN;
 
         if (s.equalsIgnoreCase("ANDROID")) {
             return ClientOSType.ANDROID;
@@ -37,7 +37,7 @@ public interface ClientInfoResolver extends
             return ClientOSType.IOS;
         }
 
-        return null;
+        return ClientOSType.OTHER;
     }
 
     @Override
