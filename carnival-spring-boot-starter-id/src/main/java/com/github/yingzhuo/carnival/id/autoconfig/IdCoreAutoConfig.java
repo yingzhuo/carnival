@@ -13,8 +13,7 @@ import com.github.yingzhuo.carnival.id.Algorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
-import com.github.yingzhuo.carnival.id.impl.UUID32IdGenerator;
-import com.github.yingzhuo.carnival.id.impl.UUID36IdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.var;
@@ -36,7 +35,6 @@ public class IdCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public IdGenerator<?> idGenerator(Props props) {
-
         switch (props.getAlgorithm()) {
             case SNOWFLAKE:
             case SNOWFLAKE_STRING:
@@ -50,9 +48,9 @@ public class IdCoreAutoConfig {
                     return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
                 }
             case UUID_32:
-                return new UUID32IdGenerator();
+                return new UUIDGenerator(true);
             case UUID_36:
-                return new UUID36IdGenerator();
+                return new UUIDGenerator(false);
             default:
                 throw new AssertionError();
         }

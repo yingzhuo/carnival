@@ -15,12 +15,20 @@ import java.util.UUID;
 
 /**
  * @author 应卓
+ * @since 1.6.19
  */
-public class UUID36IdGenerator implements StringIdGenerator {
+public class UUIDGenerator implements StringIdGenerator {
+
+    private final boolean shortVersion;
+
+    public UUIDGenerator(boolean shortVersion) {
+        this.shortVersion = shortVersion;
+    }
 
     @Override
     public String nextId() {
-        return UUID.randomUUID().toString();
+        final String uuid = UUID.randomUUID().toString();
+        return shortVersion ? uuid.replaceAll("-", "") : uuid;
     }
 
 }
