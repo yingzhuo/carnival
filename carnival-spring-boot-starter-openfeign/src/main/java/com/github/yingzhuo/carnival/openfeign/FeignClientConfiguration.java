@@ -7,20 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.resilience4j.config;
+package com.github.yingzhuo.carnival.openfeign;
 
 /**
  * @author 应卓
- * @since 1.6.18
+ * @since 1.6.19
  */
-public enum Module {
-
-    CIRCUIT_BREAKER,
-
-    BULKHEAD,
-
-    RETRY,
-
-    RATE_LIMITER
-
+public interface FeignClientConfiguration {
 }

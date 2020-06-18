@@ -7,24 +7,22 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
+package com.github.yingzhuo.carnival.openfeign.resilience4j;
 
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.17
+ * @since 1.6.19
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface FeignClient {
+public @interface RateLimiter {
 
-    public String url() default "";
+    public int limitForPeriod() default 50;
 
-    public Class<?> urlSupplier() default void.class;
+    public long limitRefreshPeriodInNanos() default 500;
 
-    @Deprecated // 还没有实现
-    public Class<?> configuration() default void.class;
-
+    public int timeoutDurationInSeconds() default 5;
 }

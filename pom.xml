@@ -22,7 +22,6 @@
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-redis</module>
-        <module>carnival-spring-boot-starter-resilience4j</module>
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>

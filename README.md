@@ -29,7 +29,6 @@
 * [carnival-spring-boot-starter-password](./carnival-spring-boot-starter-password)
 * [carnival-spring-boot-starter-patchca](./carnival-spring-boot-starter-patchca)
 * [carnival-spring-boot-starter-redis](./carnival-spring-boot-starter-redis)
-* [carnival-spring-boot-starter-resilience4j](./carnival-spring-boot-starter-resilience4j)
 * [carnival-spring-boot-starter-restful-flow](./carnival-spring-boot-starter-restful-flow)
 * [carnival-spring-boot-starter-restful-norepeated](./carnival-spring-boot-starter-restful-norepeated)
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)

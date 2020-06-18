@@ -11,17 +11,21 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.FeignBuilderCustomizer;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
+import com.github.yingzhuo.carnival.openfeign.resilience4j.*;
 import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
 import com.github.yingzhuo.carnival.openfeign.target.UrlSupplier;
-import com.github.yingzhuo.carnival.resilience4j.config.ConfigHolder;
-import com.github.yingzhuo.carnival.resilience4j.util.FeignDecoratorsUtils;
 import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.slf4j.Slf4jLogger;
+import io.github.resilience4j.bulkhead.BulkheadConfig;
+import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
+import io.github.resilience4j.feign.FeignDecorators;
 import io.github.resilience4j.feign.Resilience4jFeign;
+import io.github.resilience4j.ratelimiter.RateLimiterConfig;
+import io.github.resilience4j.retry.RetryConfig;
 import lombok.val;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -30,8 +34,12 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
+import java.lang.annotation.Annotation;
+import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static feign.Feign.Builder;
 
@@ -47,8 +55,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     private Class<T> clientType;
     private Class<?> urlSupplierType;
     private String url;
-    private String backend;
-    private Class<?> contractType;
 
     // 以下为初始化时才处理的字段
     private Builder builder = null;
@@ -86,24 +92,79 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     }
 
     private Builder createBasicBuilder() {
-        if ("".equals(backend)) {
-            return new Builder();
-        }
 
-        final ConfigHolder configHolder = getConfigHolder();
-        if (configHolder == null || configHolder.isEmpty()) {
-            return new Builder();
-        } else {
-            return Resilience4jFeign.builder(FeignDecoratorsUtils.getDecorators(backend, configHolder));
-        }
+        val name = UUID.randomUUID().toString();
+        val xBuilder = FeignDecorators.builder();
+
+        findResilience4jAnnotation(Bulkhead.class).ifPresent(a -> {
+            xBuilder.withBulkhead(
+                    io.github.resilience4j.bulkhead.Bulkhead.of(
+                            "BULKHEAD_" + name,
+                            BulkheadConfig.custom()
+                                    .maxConcurrentCalls(a.maxConcurrentCalls())
+                                    .maxWaitDuration(Duration.ofMillis(a.maxWaitInMillis()))
+                                    .build()
+                    )
+            );
+        });
+
+        findResilience4jAnnotation(RateLimiter.class).ifPresent(a -> {
+            xBuilder.withRateLimiter(
+                    io.github.resilience4j.ratelimiter.RateLimiter.of(
+                            "RATE_LIMITER_" + name,
+                            RateLimiterConfig.custom()
+                                    .limitForPeriod(a.limitForPeriod())
+                                    .limitRefreshPeriod(Duration.ofNanos(a.limitRefreshPeriodInNanos()))
+                                    .timeoutDuration(Duration.ofSeconds(a.timeoutDurationInSeconds()))
+                                    .build()
+                    )
+            );
+        });
+
+        findResilience4jAnnotation(CircuitBreaker.class).ifPresent(a -> {
+            xBuilder.withCircuitBreaker(
+                    io.github.resilience4j.circuitbreaker.CircuitBreaker.of(
+                            "CIRCUIT_BREAKER_" + name,
+                            CircuitBreakerConfig.custom()
+                                    .recordExceptions(a.exceptionTypes())
+                                    .ignoreExceptions(a.ignoreExceptionTypes())
+                                    .permittedNumberOfCallsInHalfOpenState(a.permittedNumberOfCallsInHalfOpenState())
+                                    .failureRateThreshold(a.failureRateThreshold())
+                                    .slowCallRateThreshold(a.slowCallRateThreshold())
+                                    .slowCallDurationThreshold(Duration.ofSeconds(a.slowCallDurationThresholdInSeconds()))
+                                    .minimumNumberOfCalls(a.minimumNumberOfCalls())
+                                    .slidingWindowSize(a.slidingWindowSize())
+                                    .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
+                                    .build()
+                    )
+            );
+        });
+
+        findResilience4jAnnotation(Retry.class).ifPresent(a -> {
+            xBuilder.withRetry(
+                    io.github.resilience4j.retry.Retry.of(
+                            "RETRY_" + name,
+                            RetryConfig.custom()
+                                    .maxAttempts(a.maxAttempts())
+                                    .retryExceptions(a.exceptionTypes())
+                                    .ignoreExceptions(a.ignoreExceptionTypes())
+                                    .build()
+                    )
+            );
+        });
+
+        findResilience4jAnnotation(Fallback.class).ifPresent(a -> {
+            val fallback = applicationContext.getBean(a.type());
+            for (val exType : a.fallbackExceptions()) {
+                xBuilder.withFallback(fallback, exType);
+            }
+        });
+
+        return Resilience4jFeign.builder(xBuilder.build());
     }
 
-    private ConfigHolder getConfigHolder() {
-        try {
-            return applicationContext.getBean(ConfigHolder.class);
-        } catch (BeansException ignored) {
-            return null;
-        }
+    private <A extends Annotation> Optional<A> findResilience4jAnnotation(Class<A> annotationType) {
+        return Optional.ofNullable(clientType.getAnnotation(annotationType));
     }
 
     private void initClient() {
@@ -140,16 +201,9 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     }
 
     private void initContract() {
-        if (contractType == void.class) {
-            try {
-                builder.contract(applicationContext.getBean(Contract.class));   // use primary contract
-            } catch (BeansException ignored) {
-            }
-        } else {
-            try {
-                builder.contract((Contract) applicationContext.getBean(contractType));  // 类型转换异常抛出就可以了
-            } catch (BeansException ignored) {
-            }
+        try {
+            builder.contract(applicationContext.getBean(Contract.class));
+        } catch (BeansException ignored) {
         }
     }
 
@@ -265,14 +319,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public void setBackend(String backend) {
-        this.backend = backend;
-    }
-
-    public void setContractType(Class<?> contractType) {
-        this.contractType = contractType;
     }
 
 }

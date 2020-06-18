@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.EnableFeignClient;
+import com.github.yingzhuo.carnival.openfeign.EnableFeignClients;
 import com.github.yingzhuo.carnival.openfeign.FeignClient;
 import com.github.yingzhuo.carnival.scanning.ScanningUtils;
 import org.springframework.beans.factory.FactoryBean;
@@ -58,7 +58,7 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
     }
 
     private Set<String> getBasePackage(AnnotationMetadata metadata) {
-        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClient.class.getName());
+        final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
         final Set<String> set = new HashSet<>();
         Collections.addAll(set, (String[]) attrs.get("basePackages"));
         Collections.addAll(set, (String[]) attrs.get("value"));
@@ -93,24 +93,20 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
         final BeanDefinitionBuilder factoryBuilder =
                 BeanDefinitionBuilder.genericBeanDefinition(FeignClientFactory.class);
 
-        final String[] aliases = (String[]) attrs.get("aliases");
-        final boolean primary = (Boolean) attrs.get("primary");
         final String url = resolveUrl(attrs);
 
         factoryBuilder.addPropertyValue("url", url);
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
         factoryBuilder.addPropertyValue("clientType", clientType);
-        factoryBuilder.addPropertyValue("backend", attrs.get("backend"));
-        factoryBuilder.addPropertyValue("contractType", attrs.get("contract"));
 
-        factoryBuilder.setPrimary(primary);
+        factoryBuilder.setPrimary(true);
         factoryBuilder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);
 
         AbstractBeanDefinition clientDefinition = factoryBuilder.getBeanDefinition();
         clientDefinition.setAttribute(FactoryBean.OBJECT_TYPE_ATTRIBUTE, beanDefinition.getBeanClassName());
-        clientDefinition.setPrimary(primary);
+        clientDefinition.setPrimary(true);
 
-        BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType, aliases);
+        BeanDefinitionHolder holder = new BeanDefinitionHolder(clientDefinition, clientType);
         BeanDefinitionReaderUtils.registerBeanDefinition(holder, registry);
     }
 

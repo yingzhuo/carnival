@@ -7,15 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.resilience4j.config;
+package com.github.yingzhuo.carnival.openfeign.resilience4j;
+
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.18
+ * @since 1.6.19
  */
-public enum FallbackConfigType {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Fallback {
 
-    FALLBACK_WITH_PREDICATE,
-    FALLBACK_WITH_EXCEPTION_CLASS;
+    public Class<?> type();
+
+    public Class<? extends Exception>[] fallbackExceptions() default {};
 
 }

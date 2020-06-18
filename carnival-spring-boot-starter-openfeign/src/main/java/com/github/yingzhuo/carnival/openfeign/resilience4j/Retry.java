@@ -7,24 +7,23 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign;
+package com.github.yingzhuo.carnival.openfeign.resilience4j;
 
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.17
+ * @since 1.6.19
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface FeignClient {
+public @interface Retry {
 
-    public String url() default "";
+    public int maxAttempts() default 3;
 
-    public Class<?> urlSupplier() default void.class;
+    public Class<? extends Exception>[] exceptionTypes() default {};
 
-    @Deprecated // 还没有实现
-    public Class<?> configuration() default void.class;
+    public Class<? extends Exception>[] ignoreExceptionTypes() default {};
 
 }

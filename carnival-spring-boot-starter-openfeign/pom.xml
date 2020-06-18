@@ -17,10 +17,6 @@
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>carnival-spring-boot-starter-common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>carnival-spring-boot-starter-resilience4j</artifactId>
-        </dependency>
 
         <!-- springboot -->
         <dependency>
@@ -71,6 +67,28 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- resilience4j -->
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-feign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-circuitbreaker</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-bulkhead</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-retry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.resilience4j</groupId>
+            <artifactId>resilience4j-ratelimiter</artifactId>
+        </dependency>
+
         <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -83,4 +101,5 @@
             <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
+
 </project>

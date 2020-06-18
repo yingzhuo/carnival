@@ -24,7 +24,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Import({FeignClientRegistrar.class, FeignCoreAutoConfig.class})
-public @interface EnableFeignClient {
+public @interface EnableFeignClients {
 
     @AliasFor("basePackages")
     public String[] value() default {};
