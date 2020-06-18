@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.boot.ApplicationArguments;
@@ -111,9 +112,21 @@ public final class SpringUtils {
     }
 
     public static <B> List<B> getBeanList(Class<B> beanType) {
-        final List<B> list = new ArrayList<>(AC.getBeansOfType(beanType).values());
-        OrderComparator.sort(list);
-        return Collections.unmodifiableList(list);
+        try {
+            return Collections.unmodifiableList(new ArrayList<>(AC.getBeansOfType(beanType).values()));
+        } catch (BeansException e) {
+            return Collections.emptyList();
+        }
+    }
+
+    public static <B> List<B> getBeanListAndSort(Class<B> beanType) {
+        try {
+            final List<B> list = new ArrayList<>(AC.getBeansOfType(beanType).values());
+            OrderComparator.sort(list);
+            return Collections.unmodifiableList(list);
+        } catch (BeansException e) {
+            return Collections.emptyList();
+        }
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

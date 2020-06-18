@@ -35,8 +35,6 @@ public final class ScanningUtils {
     public static final Filter FILTER_IS_NOT_INTERFACE = it -> !it.getMetadata().isInterface();
     public static final Filter FILTER_IS_ABSTRACT = it -> it.getMetadata().isAbstract();
     public static final Filter FILTER_IS_NOT_ABSTRACT = it -> !it.getMetadata().isAbstract();
-
-    // -----------------------------------------------------------------------------------------------------------------
     public static final Filter FILTER_IS_FINAL_FILTER = it -> it.getMetadata().isFinal();
     public static final Filter FILTER_IS_NOT_FINAL = it -> !it.getMetadata().isFinal();
 
@@ -109,6 +107,6 @@ public final class ScanningUtils {
             }
             return isCandidate;
         }
-
     }
+
 }

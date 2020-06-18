@@ -46,11 +46,7 @@ public class BusinessExceptionAutoConfig {
         if (basenames != null && basenames.length != 0) {
             return new MessageSourceBusinessExceptionFactory(i18n.getBasenames(), i18n.getEncoding());
         } else {
-            return new MapBusinessExceptionFactory(
-                    merge(map1,
-                            map2,
-                            map3)
-            );
+            return new MapBusinessExceptionFactory(merge(map1, map2, map3));
         }
     }
 
