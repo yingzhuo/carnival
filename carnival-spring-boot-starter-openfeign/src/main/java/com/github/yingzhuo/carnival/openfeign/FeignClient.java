@@ -24,7 +24,6 @@ public @interface FeignClient {
 
     public Class<?> urlSupplier() default void.class;
 
-    @Deprecated // 还没有实现
     public Class<?> configuration() default void.class;
 
 }

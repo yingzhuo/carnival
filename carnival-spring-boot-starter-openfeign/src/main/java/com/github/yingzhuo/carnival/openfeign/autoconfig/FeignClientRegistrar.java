@@ -95,9 +95,10 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
 
         final String url = resolveUrl(attrs);
 
+        factoryBuilder.addPropertyValue("clientType", clientType);
         factoryBuilder.addPropertyValue("url", url);
         factoryBuilder.addPropertyValue("urlSupplierType", attrs.get("urlSupplier"));
-        factoryBuilder.addPropertyValue("clientType", clientType);
+        factoryBuilder.addPropertyValue("configurationType", attrs.get("configuration"));
 
         factoryBuilder.setPrimary(true);
         factoryBuilder.setAutowireMode(AbstractBeanDefinition.AUTOWIRE_BY_TYPE);

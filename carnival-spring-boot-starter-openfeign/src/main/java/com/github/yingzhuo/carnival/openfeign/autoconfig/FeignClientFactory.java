@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
-import com.github.yingzhuo.carnival.openfeign.FeignBuilderCustomizer;
+import com.github.yingzhuo.carnival.openfeign.Configuration;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
 import com.github.yingzhuo.carnival.openfeign.resilience4j.*;
 import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
@@ -36,8 +36,6 @@ import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.time.Duration;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -52,9 +50,10 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     // setter注入
-    private Class<T> clientType;
-    private Class<?> urlSupplierType;
     private String url;
+    private Class<?> urlSupplierType;
+    private Class<T> clientType;
+    private Class<?> configurationType;
 
     // 以下为初始化时才处理的字段
     private Builder builder = null;
@@ -161,6 +160,31 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         });
 
         return Resilience4jFeign.builder(xBuilder.build());
+    }
+
+    private void reset() {
+        if (configurationType == void.class) {
+            return;
+        }
+
+        final Configuration config = (Configuration) applicationContext.getBean(configurationType);
+
+        Optional.ofNullable(config.getCapabilities()).ifPresent(cs -> {
+            for (val c : cs) {
+                builder.addCapability(c);
+            }
+        });
+
+        if (config.decode404()) {
+            builder.decode404();
+        }
+
+        Optional.ofNullable(config.getContract()).ifPresent(builder::contract);
+        Optional.ofNullable(config.getEncoder()).ifPresent(builder::encoder);
+        Optional.ofNullable(config.getDecoder()).ifPresent(builder::decoder);
+        Optional.ofNullable(config.getErrorDecoder()).ifPresent(builder::errorDecoder);
+        Optional.ofNullable(config.getRetryer()).ifPresent(builder::retryer);
+        Optional.ofNullable(config.getRequestInterceptors()).ifPresent(builder::requestInterceptors);
     }
 
     private <A extends Annotation> Optional<A> findResilience4jAnnotation(Class<A> annotationType) {
@@ -281,14 +305,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
         }
     }
 
-    private void reset() {
-        try {
-            List<FeignBuilderCustomizer> customizers = new LinkedList<>(applicationContext.getBeansOfType(FeignBuilderCustomizer.class).values());
-            customizers.forEach(it -> it.customize(clientType, builder));
-        } catch (BeansException ignored) {
-        }
-    }
-
     private UrlSupplier getUrlSupplier(Class<?> urlSupplierType, String url) {
 
         // "url"配置的优先级高于"urlSupplier"
@@ -319,6 +335,10 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public void setConfigurationType(Class<?> configurationType) {
+        this.configurationType = configurationType;
     }
 
 }
