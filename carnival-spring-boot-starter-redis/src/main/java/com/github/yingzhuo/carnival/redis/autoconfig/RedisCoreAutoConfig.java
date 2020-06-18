@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.redis.autoconfig;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
@@ -19,7 +18,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author 应卓
  * @since 1.6.17
  */
-@Lazy(false)
 public class RedisCoreAutoConfig {
 
     @Bean

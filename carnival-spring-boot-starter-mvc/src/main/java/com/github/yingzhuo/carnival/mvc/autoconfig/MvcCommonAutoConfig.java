@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentRe
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -29,7 +28,6 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@Lazy(false)
 @ConditionalOnWebApplication
 public class MvcCommonAutoConfig implements WebMvcConfigurer {
 

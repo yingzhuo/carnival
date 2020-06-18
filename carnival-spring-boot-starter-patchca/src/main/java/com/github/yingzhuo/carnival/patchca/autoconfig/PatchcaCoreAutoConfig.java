@@ -22,7 +22,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -37,7 +36,6 @@ import java.util.List;
 /**
  * @author 应卓
  */
-@Lazy(false)
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(PatchcaBeanAutoConfig.class)

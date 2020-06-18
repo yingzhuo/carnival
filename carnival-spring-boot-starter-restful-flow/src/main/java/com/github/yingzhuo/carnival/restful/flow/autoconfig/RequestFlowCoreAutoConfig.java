@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,7 +29,6 @@ import java.time.Duration;
  * @author 应卓
  * @since 1.3.6
  */
-@Lazy(false)
 @ConditionalOnWebApplication
 public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
 

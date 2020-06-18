@@ -15,7 +15,6 @@ import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -23,7 +22,6 @@ import org.springframework.util.PathMatcher;
  * @author 应卓
  * @since 1.5.2
  */
-@Lazy(false)
 public class CommonAutoConfig {
 
     @Bean

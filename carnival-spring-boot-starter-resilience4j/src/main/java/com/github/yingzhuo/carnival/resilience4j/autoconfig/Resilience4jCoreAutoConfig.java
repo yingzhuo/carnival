@@ -12,13 +12,11 @@ package com.github.yingzhuo.carnival.resilience4j.autoconfig;
 import com.github.yingzhuo.carnival.resilience4j.config.ConfigHolder;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  * @since 1.6.18
  */
-@Lazy(false)
 public class Resilience4jCoreAutoConfig {
 
     @Bean

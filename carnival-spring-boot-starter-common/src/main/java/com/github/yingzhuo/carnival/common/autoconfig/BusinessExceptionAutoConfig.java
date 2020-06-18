@@ -19,7 +19,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +28,6 @@ import static com.github.yingzhuo.carnival.exception.business.BusinessExceptionM
 /**
  * @author 应卓
  */
-@Lazy(false)
 @EnableConfigurationProperties({
         BusinessExceptionAutoConfig.Props.class,
         Map1.class,

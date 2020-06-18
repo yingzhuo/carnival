@@ -13,14 +13,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.support.MessageSourceAccessor;
 
 /**
  * @author 应卓
  * @since 1.6.13
  */
-@Lazy(false)
 public class I18nAutoConfig {
 
     @Bean

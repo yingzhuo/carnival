@@ -25,7 +25,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.format.support.DefaultFormattingConversionService;
 
 import java.util.ArrayList;
@@ -38,7 +37,6 @@ import static feign.Request.Options;
  * @since 1.6.16
  */
 @Slf4j
-@Lazy(false)
 @EnableConfigurationProperties(FeignProperties.class)
 public class FeignCoreAutoConfig {
 

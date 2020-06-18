@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilde
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 
 import java.time.format.DateTimeFormatter;
 
@@ -25,7 +24,6 @@ import java.time.format.DateTimeFormatter;
  * @author 应卓
  * @since 1.4.3
  */
-@Lazy(false)
 @EnableConfigurationProperties(JacksonCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.jackson", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class JacksonCoreAutoConfig {

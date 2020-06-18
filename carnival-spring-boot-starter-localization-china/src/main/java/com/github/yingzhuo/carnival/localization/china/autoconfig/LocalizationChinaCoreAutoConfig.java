@@ -14,12 +14,10 @@ import com.github.yingzhuo.carnival.localization.china.tool.IdentityParser;
 import com.github.yingzhuo.carnival.localization.china.tool.IdentityParserImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 
 /**
  * @author 应卓
  */
-@Lazy(false)
 public class LocalizationChinaCoreAutoConfig {
 
     @Bean

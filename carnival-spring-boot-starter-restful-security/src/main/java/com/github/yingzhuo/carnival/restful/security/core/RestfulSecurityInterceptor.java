@@ -37,6 +37,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
+@SuppressWarnings("unchecked")
 public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSupport {
 
     private AuthenticationStrategy authenticationStrategy;
@@ -47,7 +48,6 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     private ExtraUserDetailsRealm extraUserDetailsRealm;
     private ExceptionTransformer exceptionTransformer;
 
-    @SuppressWarnings("unchecked")
     private boolean doPreHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RestfulSecurityContext.clean();
         RestfulSecurityContext.setRequest(request);

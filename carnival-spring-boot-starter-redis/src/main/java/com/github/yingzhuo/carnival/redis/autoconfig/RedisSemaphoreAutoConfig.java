@@ -19,7 +19,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 import java.time.Duration;
@@ -29,7 +28,6 @@ import java.time.temporal.ChronoUnit;
  * @author 应卓
  * @since 1.6.19
  */
-@Lazy(false)
 @EnableConfigurationProperties(RedisSemaphoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.redis.semaphore", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class RedisSemaphoreAutoConfig {

@@ -15,21 +15,17 @@ import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.format.FormatterRegistry;
 
 /**
  * @author 应卓
  */
-@Slf4j
-@Lazy(false)
 @EnableConfigurationProperties(SecretAutoConfig.SecretProps.class)
 @ConditionalOnProperty(prefix = "carnival.secret", name = "enabled", havingValue = "true")
 public class SecretAutoConfig {
