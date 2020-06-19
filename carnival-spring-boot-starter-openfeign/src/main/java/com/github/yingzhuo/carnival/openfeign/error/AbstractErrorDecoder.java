@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -31,11 +33,11 @@ public abstract class AbstractErrorDecoder implements ErrorDecoder {
     private final Charset bodyCharset;
 
     public AbstractErrorDecoder() {
-        this(StandardCharsets.UTF_8);
+        this(null);
     }
 
     public AbstractErrorDecoder(Charset bodyCharset) {
-        this.bodyCharset = bodyCharset;
+        this.bodyCharset = bodyCharset != null ? bodyCharset : StandardCharsets.UTF_8;
     }
 
     @Override
@@ -43,9 +45,10 @@ public abstract class AbstractErrorDecoder implements ErrorDecoder {
         try {
             final int status = response.status();
             final Reader body = response.body().asReader(bodyCharset);
+            final Map<String, Collection<String>> headers = response.headers();
 
             try {
-                return doDecode(methodKey, status, body)
+                return decode(methodKey, status, body, headers)
                         .orElseGet(() -> DEFAULT.decode(methodKey, response));
 
             } finally {
@@ -68,6 +71,11 @@ public abstract class AbstractErrorDecoder implements ErrorDecoder {
         }
     }
 
-    protected abstract Optional<Exception> doDecode(String methodKey, int status, Reader body) throws IOException;
+    protected abstract Optional<Exception> decode(
+            String methodKey,
+            int status,
+            Reader body,
+            Map<String, Collection<String>> headers
+    ) throws IOException;
 
 }
