@@ -38,7 +38,7 @@ import static feign.Request.Options;
  */
 @Slf4j
 @EnableConfigurationProperties(FeignProperties.class)
-public class FeignCoreAutoConfig {
+public class FeignBeanAutoConfig {
 
     @Autowired(required = false)
     private List<FeignFormatterRegistrar> feignFormatterRegistrars = new ArrayList<>();

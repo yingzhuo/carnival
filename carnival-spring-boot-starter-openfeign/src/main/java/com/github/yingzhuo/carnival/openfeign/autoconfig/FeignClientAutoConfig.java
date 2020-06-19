@@ -34,8 +34,8 @@ import java.util.*;
  * @author 应卓
  * @since 1.6.17
  */
-@AutoConfigureAfter(FeignCoreAutoConfig.class)
-public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
+@AutoConfigureAfter(FeignBeanAutoConfig.class)
+public class FeignClientAutoConfig implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
 
     private Environment environment;
     private ResourceLoader resourceLoader;
