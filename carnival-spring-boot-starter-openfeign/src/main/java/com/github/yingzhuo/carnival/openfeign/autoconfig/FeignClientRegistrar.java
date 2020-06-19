@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.EnableFeignClients;
 import com.github.yingzhuo.carnival.openfeign.FeignClient;
-import com.github.yingzhuo.carnival.scanning.ScanningUtils;
+import com.github.yingzhuo.carnival.scanning.ClassPathScanner;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
@@ -29,7 +29,6 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.ClassUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -72,16 +71,17 @@ public class FeignClientRegistrar implements ImportBeanDefinitionRegistrar, Envi
     private void registerClients(Set<String> basePackages, BeanDefinitionRegistry registry) {
 
         final Set<AnnotatedBeanDefinition> scanned =
-                ScanningUtils.scan(FeignClient.class, environment, resourceLoader, basePackages)
-                        .stream()
-                        .filter(ScanningUtils.FILTER_IS_INTERFACE)
-                        .collect(Collectors.toSet());
+                ClassPathScanner.builder()
+                        .annotation(FeignClient.class)
+                        .environment(environment)
+                        .resourceLoader(resourceLoader)
+                        .filters(ClassPathScanner.FILTER_IS_INTERFACE)
+                        .builder()
+                        .scan(basePackages);
 
         for (AnnotatedBeanDefinition annotatedBeanDefinition : scanned) {
             AnnotationMetadata metadata = annotatedBeanDefinition.getMetadata();
             Map<String, Object> attrs = metadata.getAnnotationAttributes(FeignClient.class.getName());
-
-            // 注册单个Client
             registerClient(attrs, annotatedBeanDefinition, registry);
         }
     }
