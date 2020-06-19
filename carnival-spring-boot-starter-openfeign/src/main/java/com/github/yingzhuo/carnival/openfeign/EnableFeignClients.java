@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
-import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignClientAutoConfig;
 import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignBeanAutoConfig;
+import com.github.yingzhuo.carnival.openfeign.autoconfig.FeignClientAutoConfig;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
 

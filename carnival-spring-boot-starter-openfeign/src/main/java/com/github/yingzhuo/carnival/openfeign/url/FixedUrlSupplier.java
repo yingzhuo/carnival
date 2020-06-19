@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.openfeign.target;
+package com.github.yingzhuo.carnival.openfeign.url;
 
 import org.springframework.core.env.Environment;
 

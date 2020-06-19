@@ -13,7 +13,9 @@ import com.github.yingzhuo.carnival.openfeign.Configuration;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
 import com.github.yingzhuo.carnival.openfeign.resilience4j.*;
 import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
-import com.github.yingzhuo.carnival.openfeign.target.UrlSupplier;
+import com.github.yingzhuo.carnival.openfeign.url.FixedUrlSupplier;
+import com.github.yingzhuo.carnival.openfeign.url.GlobalUrlSupplier;
+import com.github.yingzhuo.carnival.openfeign.url.UrlSupplier;
 import feign.*;
 import feign.auth.BasicAuthRequestInterceptor;
 import feign.codec.Decoder;
@@ -318,14 +320,18 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
         // "url"配置的优先级高于"urlSupplier"
 
         if (!"".equals(url)) {
-            return UrlSupplier.of(url);
+            return new FixedUrlSupplier(url);
         }
 
         if (urlSupplierType != void.class) {
             return (UrlSupplier) applicationContext.getBean(urlSupplierType); // 类型转换异常抛出就可以了
         }
 
-        throw new IllegalArgumentException("url or urlSupplier not configured");
+        try {
+            return applicationContext.getBean(GlobalUrlSupplier.class);
+        } catch (BeansException e) {
+            throw new IllegalArgumentException("url or urlSupplier not configured");
+        }
     }
 
     @Override

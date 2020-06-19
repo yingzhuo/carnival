@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.target;
 
+import com.github.yingzhuo.carnival.openfeign.url.UrlSupplier;
 import org.springframework.core.env.Environment;
 
 import java.util.Objects;

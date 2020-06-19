@@ -98,6 +98,7 @@
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.50.Final</netty.version>
         <feign.version>11.0</feign.version>
+        <resilience4j.version>1.5.0</resilience4j.version>
     </properties>
 
     <dependencyManagement>
@@ -331,27 +332,27 @@
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-feign</artifactId>
-                <version>1.5.0</version>
+                <version>${resilience4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-circuitbreaker</artifactId>
-                <version>1.5.0</version>
+                <version>${resilience4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-bulkhead</artifactId>
-                <version>1.5.0</version>
+                <version>${resilience4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-retry</artifactId>
-                <version>1.5.0</version>
+                <version>${resilience4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.resilience4j</groupId>
                 <artifactId>resilience4j-ratelimiter</artifactId>
-                <version>1.5.0</version>
+                <version>${resilience4j.version}</version>
             </dependency>
 
             <!-- netty -->
