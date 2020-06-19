@@ -70,7 +70,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return PropertyUtils.getPropertyValue("x.spring.id");
+        return EnvironmentUtils.getPropertyValue("x.spring.id");
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
@@ -131,7 +131,7 @@ public final class SpringUtils {
 
     /* -------------------------------------------------------------------------------------------------------------- */
 
-    public static <B> boolean containsBean(Class<B> beanType) {
+    public static boolean containsBean(Class<?> beanType) {
         try {
             AC.getBean(beanType);
             return true;

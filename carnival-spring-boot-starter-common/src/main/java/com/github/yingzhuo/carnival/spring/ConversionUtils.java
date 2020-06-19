@@ -15,10 +15,16 @@ import org.springframework.core.convert.TypeDescriptor;
 /**
  * @author 应卓
  * @see SpringUtils
+ * @see org.springframework.core.convert.ConversionService
  */
 public final class ConversionUtils {
 
     private ConversionUtils() {
+    }
+
+    public static boolean canConvert(Class<?> sourceType, Class<?> targetType) {
+        val service = SpringUtils.getConversionService();
+        return service.canConvert(sourceType, targetType);
     }
 
     public static <T> T convert(Object source, Class<T> targetType) {

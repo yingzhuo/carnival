@@ -19,30 +19,31 @@ import java.util.List;
 /**
  * @author 应卓
  * @see SpringUtils
+ * @since 1.6.20
  */
-@Deprecated
-public final class PropertyUtils {
+public final class EnvironmentUtils {
 
-    private PropertyUtils() {
+    private EnvironmentUtils() {
     }
 
-    @Deprecated
+    public static String resolvePlaceholders(String text) {
+        if (text == null) return null;
+        return SpringUtils.getEnvironment().resolvePlaceholders(text);
+    }
+
     public static String getPropertyValue(String propertyName) {
         return getPropertyValue(propertyName, String.class);
     }
 
-    @Deprecated
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType) {
         return getPropertyValue(propertyName, targetType, null);
     }
 
-    @Deprecated
     public static <T> T getPropertyValue(String propertyName, Class<T> targetType, T defaultIfNull) {
         T result = SpringUtils.getEnvironment().getProperty(propertyName, targetType);
         return result != null ? result : defaultIfNull;
     }
 
-    @Deprecated
     public static List<String> getCommaDelimitedPropertyValue(String propertyName) {
         val value = getPropertyValue(propertyName);
 
@@ -52,5 +53,4 @@ public final class PropertyUtils {
             return Collections.unmodifiableList(Arrays.asList(StringUtils.commaDelimitedListToStringArray(value)));
         }
     }
-
 }
