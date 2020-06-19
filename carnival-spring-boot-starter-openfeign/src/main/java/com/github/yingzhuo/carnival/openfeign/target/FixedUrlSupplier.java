@@ -9,11 +9,13 @@
  */
 package com.github.yingzhuo.carnival.openfeign.target;
 
+import org.springframework.core.env.Environment;
+
 /**
  * @author 应卓
  * @since 1.6.17
  */
-final class FixedUrlSupplier implements UrlSupplier {
+public final class FixedUrlSupplier implements UrlSupplier {
 
     private final String url;
 
@@ -22,7 +24,7 @@ final class FixedUrlSupplier implements UrlSupplier {
     }
 
     @Override
-    public String get() {
+    public String get(Class<?> clientType, Environment environment) {
         return url;
     }
 

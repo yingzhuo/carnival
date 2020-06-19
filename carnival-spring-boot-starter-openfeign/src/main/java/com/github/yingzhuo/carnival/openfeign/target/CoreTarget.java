@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign.target;
 
-import feign.Target;
+import org.springframework.core.env.Environment;
 
 import java.util.Objects;
 
@@ -20,22 +20,22 @@ import static feign.Target.HardCodedTarget;
  * @author 应卓
  * @since 1.6.17
  */
-public class CoreTarget<T> extends HardCodedTarget<T> implements Target<T> {
+public class CoreTarget<T> extends HardCodedTarget<T> {
 
     private final UrlSupplier urlSupplier;
+    private final Class<?> clientType;
+    private final Environment environment;
 
-    public CoreTarget(Class<T> type, UrlSupplier urlSupplier) {
+    public CoreTarget(Class<T> type, UrlSupplier urlSupplier, Environment environment) {
         super(Objects.requireNonNull(type), CoreTarget.class.getName());
         this.urlSupplier = Objects.requireNonNull(urlSupplier);
-    }
-
-    public static <T> Target<T> of(Class<T> type, UrlSupplier urlSupplier) {
-        return new CoreTarget<>(type, urlSupplier);
+        this.clientType = type;
+        this.environment = Objects.requireNonNull(environment);
     }
 
     @Override
     public String url() {
-        String url = urlSupplier.get();
+        String url = urlSupplier.get(clientType, environment);
         if (!url.startsWith("http://") && !url.startsWith("https://")) {
             url = "http://" + url;
         }

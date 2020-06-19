@@ -9,17 +9,19 @@
  */
 package com.github.yingzhuo.carnival.openfeign.target;
 
-import java.util.function.Supplier;
+import org.springframework.core.env.Environment;
 
 /**
  * @author 应卓
  * @since 1.6.16
  */
 @FunctionalInterface
-public interface UrlSupplier extends Supplier<String> {
+public interface UrlSupplier {
 
     public static UrlSupplier of(String url) {
         return new FixedUrlSupplier(url);
     }
+
+    public String get(Class<?> clientType, Environment environment);
 
 }

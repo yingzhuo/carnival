@@ -31,6 +31,8 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
@@ -45,9 +47,10 @@ import static feign.Feign.Builder;
  * @author 应卓
  * @since 1.6.17
  */
-class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
+class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, EnvironmentAware {
 
     private ApplicationContext applicationContext;
+    private Environment environment;
 
     // setter注入
     private String url;
@@ -62,7 +65,12 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     @Override
     public T getObject() {
         initBuilder();
-        return builder.target(CoreTarget.of(clientType, getUrlSupplier(urlSupplierType, url)));
+        return builder.target(
+                new CoreTarget<>(
+                        clientType,
+                        getUrlSupplier(urlSupplierType, url),
+                        environment)
+        );
     }
 
     @Override
@@ -323,6 +331,11 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
     public void setClientType(Class<T> clientType) {
