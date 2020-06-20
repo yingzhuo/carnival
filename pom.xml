@@ -119,11 +119,6 @@
                 <artifactId>carnival-spring-boot-starter-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-resilience4j</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- spring-boot -->
             <dependency>

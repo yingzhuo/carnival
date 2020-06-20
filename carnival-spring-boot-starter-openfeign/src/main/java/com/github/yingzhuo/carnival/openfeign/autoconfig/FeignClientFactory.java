@@ -31,7 +31,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
-import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 import static feign.Feign.Builder;
@@ -119,10 +118,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
         Optional.ofNullable(config.getRetryer()).ifPresent(builder::retryer);
         Optional.ofNullable(config.getQueryMapEncoder()).ifPresent(builder::queryMapEncoder);
         Optional.ofNullable(config.getRequestInterceptors()).ifPresent(builder::requestInterceptors);
-    }
-
-    private <A extends Annotation> Optional<A> findResilience4jAnnotation(Class<A> annotationType) {
-        return Optional.ofNullable(clientType.getAnnotation(annotationType));
     }
 
     private void initClient() {

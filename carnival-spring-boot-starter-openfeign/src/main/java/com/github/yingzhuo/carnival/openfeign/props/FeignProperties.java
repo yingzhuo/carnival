@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
 @ConfigurationProperties(prefix = "carnival.openfeign")
 public class FeignProperties {
 
-    private Logger.Level loggerLevel = Logger.Level.BASIC;
+    private Logger.Level loggerLevel = Logger.Level.FULL;
     private String loggerName = "OpenFeign";
     private boolean decode404 = false;
     private BasicAuth basicAuth;
