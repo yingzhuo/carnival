@@ -11,7 +11,6 @@ package com.github.yingzhuo.carnival.openfeign.autoconfig;
 
 import com.github.yingzhuo.carnival.openfeign.Configuration;
 import com.github.yingzhuo.carnival.openfeign.props.FeignProperties;
-import com.github.yingzhuo.carnival.openfeign.resilience4j.*;
 import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
 import com.github.yingzhuo.carnival.openfeign.url.FixedUrlSupplier;
 import com.github.yingzhuo.carnival.openfeign.url.GlobalUrlSupplier;
@@ -22,12 +21,6 @@ import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
 import feign.slf4j.Slf4jLogger;
-import io.github.resilience4j.bulkhead.BulkheadConfig;
-import io.github.resilience4j.circuitbreaker.CircuitBreakerConfig;
-import io.github.resilience4j.feign.FeignDecorators;
-import io.github.resilience4j.feign.Resilience4jFeign;
-import io.github.resilience4j.ratelimiter.RateLimiterConfig;
-import io.github.resilience4j.retry.RetryConfig;
 import lombok.val;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
@@ -39,9 +32,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
-import java.time.Duration;
 import java.util.Optional;
-import java.util.UUID;
 
 import static feign.Feign.Builder;
 
@@ -101,75 +92,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
     }
 
     private Builder createBasicBuilder() {
-
-        val name = UUID.randomUUID().toString();
-        val xBuilder = FeignDecorators.builder();
-
-        findResilience4jAnnotation(Bulkhead.class).ifPresent(a -> {
-            xBuilder.withBulkhead(
-                    io.github.resilience4j.bulkhead.Bulkhead.of(
-                            "BULKHEAD_" + name,
-                            BulkheadConfig.custom()
-                                    .maxConcurrentCalls(a.maxConcurrentCalls())
-                                    .maxWaitDuration(Duration.ofMillis(a.maxWaitInMillis()))
-                                    .build()
-                    )
-            );
-        });
-
-        findResilience4jAnnotation(RateLimiter.class).ifPresent(a -> {
-            xBuilder.withRateLimiter(
-                    io.github.resilience4j.ratelimiter.RateLimiter.of(
-                            "RATE_LIMITER_" + name,
-                            RateLimiterConfig.custom()
-                                    .limitForPeriod(a.limitForPeriod())
-                                    .limitRefreshPeriod(Duration.ofNanos(a.limitRefreshPeriodInNanos()))
-                                    .timeoutDuration(Duration.ofSeconds(a.timeoutDurationInSeconds()))
-                                    .build()
-                    )
-            );
-        });
-
-        findResilience4jAnnotation(CircuitBreaker.class).ifPresent(a -> {
-            xBuilder.withCircuitBreaker(
-                    io.github.resilience4j.circuitbreaker.CircuitBreaker.of(
-                            "CIRCUIT_BREAKER_" + name,
-                            CircuitBreakerConfig.custom()
-                                    .recordExceptions(a.exceptionTypes())
-                                    .ignoreExceptions(a.ignoreExceptionTypes())
-                                    .permittedNumberOfCallsInHalfOpenState(a.permittedNumberOfCallsInHalfOpenState())
-                                    .failureRateThreshold(a.failureRateThreshold())
-                                    .slowCallRateThreshold(a.slowCallRateThreshold())
-                                    .slowCallDurationThreshold(Duration.ofSeconds(a.slowCallDurationThresholdInSeconds()))
-                                    .minimumNumberOfCalls(a.minimumNumberOfCalls())
-                                    .slidingWindowSize(a.slidingWindowSize())
-                                    .slidingWindowType(CircuitBreakerConfig.SlidingWindowType.COUNT_BASED)
-                                    .build()
-                    )
-            );
-        });
-
-        findResilience4jAnnotation(Retry.class).ifPresent(a -> {
-            xBuilder.withRetry(
-                    io.github.resilience4j.retry.Retry.of(
-                            "RETRY_" + name,
-                            RetryConfig.custom()
-                                    .maxAttempts(a.maxAttempts())
-                                    .retryExceptions(a.exceptionTypes())
-                                    .ignoreExceptions(a.ignoreExceptionTypes())
-                                    .build()
-                    )
-            );
-        });
-
-        findResilience4jAnnotation(Fallback.class).ifPresent(a -> {
-            val fallback = applicationContext.getBean(a.type());
-            for (val exType : a.fallbackExceptions()) {
-                xBuilder.withFallback(fallback, exType);
-            }
-        });
-
-        return Resilience4jFeign.builder(xBuilder.build());
+        return new Builder();
     }
 
     private void reset() {
@@ -194,6 +117,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
         Optional.ofNullable(config.getDecoder()).ifPresent(builder::decoder);
         Optional.ofNullable(config.getErrorDecoder()).ifPresent(builder::errorDecoder);
         Optional.ofNullable(config.getRetryer()).ifPresent(builder::retryer);
+        Optional.ofNullable(config.getQueryMapEncoder()).ifPresent(builder::queryMapEncoder);
         Optional.ofNullable(config.getRequestInterceptors()).ifPresent(builder::requestInterceptors);
     }
 
@@ -316,9 +240,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
     }
 
     private UrlSupplier getUrlSupplier(Class<?> urlSupplierType, String url) {
-
-        // "url"配置的优先级高于"urlSupplier"
-
         if (!"".equals(url)) {
             return new FixedUrlSupplier(url);
         }

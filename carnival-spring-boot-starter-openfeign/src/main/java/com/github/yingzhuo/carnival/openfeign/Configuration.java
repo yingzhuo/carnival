@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.openfeign;
 
-import feign.Capability;
-import feign.Contract;
-import feign.RequestInterceptor;
-import feign.Retryer;
+import feign.*;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.codec.ErrorDecoder;
@@ -47,6 +44,10 @@ public interface Configuration {
 
     public default boolean decode404() {
         return false;
+    }
+
+    public default QueryMapEncoder getQueryMapEncoder() {
+        return null;
     }
 
     public default List<RequestInterceptor> getRequestInterceptors() {
