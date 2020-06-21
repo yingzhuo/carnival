@@ -99,7 +99,7 @@ public interface Immutable {
         }
 
         final Map<K, V> map = new HashMap<>();
-        for (KeyValue kv : objs) {
+        for (KeyValue<K, V> kv : objs) {
             map.put((K) kv.getKey(), (V) kv.getValue());
         }
         return Collections.unmodifiableMap(map);

@@ -10,23 +10,22 @@
 package com.github.yingzhuo.carnival.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.apache.commons.beanutils.BeanMap;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.http.HttpStatus;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.Supplier;
 
 /**
  * @author 应卓
  */
 @JsonIgnoreProperties("empty")
+@JsonView(Views.Normal.class)
 public class Json implements ApiResult<Payload> {
 
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
-    private Payload payload = new Payload();
+    private final Payload payload = new Payload();
 
     public Json() {
     }
@@ -58,32 +57,6 @@ public class Json implements ApiResult<Payload> {
         return this;
     }
 
-    public Json addPayload(Map<String, Object> map) {
-        Objects.requireNonNull(map);
-        payload.putAll(map);
-        return this;
-    }
-
-    public Json setBeanToPayload(Object bean) {
-        Objects.requireNonNull(bean);
-        payload.clear();
-        payload.putAll(new BeanMap(bean));
-        payload.remove("class");
-        return this;
-    }
-
-    public Json addBeanToPayload(Object bean) {
-        Objects.requireNonNull(bean);
-        payload.putAll(new BeanMap(bean));
-        payload.remove("class");
-        return this;
-    }
-
-    public Json clear() {
-        payload.clear();
-        return this;
-    }
-
     @Override
     public String getCode() {
         return code;
@@ -99,23 +72,12 @@ public class Json implements ApiResult<Payload> {
         return payload;
     }
 
-    public Json setPayload(Map<String, Object> map) {
-        Objects.requireNonNull(map);
-        payload.clear();
-        payload.putAll(map);
-        return this;
-    }
-
     public int size() {
         return payload.size();
     }
 
     public boolean isEmpty() {
         return payload.isEmpty();
-    }
-
-    public Set<Object> payloadKeySet() {
-        return payload.keySet();
     }
 
 }

@@ -26,9 +26,9 @@ import java.util.*;
  */
 public final class ClassPathScannerBuilder {
 
+    private final List<TypeFilter> typeFilters = new LinkedList<>();
     private Environment environment = new StandardEnvironment();
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
-    private final List<TypeFilter> typeFilters = new LinkedList<>();
 
     ClassPathScannerBuilder() {
     }

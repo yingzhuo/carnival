@@ -42,17 +42,15 @@ import static feign.Feign.Builder;
  */
 class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, ApplicationContextAware, EnvironmentAware {
 
+    // 以下为初始化时才处理的字段
+    private final Builder builder = new Builder();
     private ApplicationContext applicationContext;
     private Environment environment;
-
     // setter注入
     private String url;
     private Class<?> urlSupplierType;
     private Class<T> clientType;
     private Class<?> configurationType;
-
-    // 以下为初始化时才处理的字段
-    private final Builder builder = new Builder();
     private FeignProperties props = null;
 
     @Override
