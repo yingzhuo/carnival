@@ -24,6 +24,7 @@ import feign.slf4j.Slf4jLogger;
 import lombok.val;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.EnvironmentAware;
@@ -39,7 +40,7 @@ import static feign.Feign.Builder;
  * @author 应卓
  * @since 1.6.17
  */
-class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, EnvironmentAware {
+class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, ApplicationContextAware, EnvironmentAware {
 
     private ApplicationContext applicationContext;
     private Environment environment;
@@ -51,12 +52,11 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
     private Class<?> configurationType;
 
     // 以下为初始化时才处理的字段
-    private Builder builder = null;
+    private final Builder builder = new Builder();
     private FeignProperties props = null;
 
     @Override
     public T getObject() {
-        initBuilder();
         return builder.target(
                 new CoreTarget<>(
                         clientType,
@@ -70,10 +70,8 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
         return clientType;
     }
 
-    private void initBuilder() {
-        builder = createBasicBuilder();
-        props = applicationContext.getBean(FeignProperties.class);
-
+    @Override
+    public void afterPropertiesSet() {
         initClient();
         initLogger();
         initInterceptors();
@@ -90,10 +88,6 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
         reset();
     }
 
-    private Builder createBasicBuilder() {
-        return new Builder();
-    }
-
     private void reset() {
         if (configurationType == void.class) {
             return;
@@ -101,16 +95,11 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
 
         final Configuration config = (Configuration) applicationContext.getBean(configurationType);
 
-        Optional.ofNullable(config.getCapabilities()).ifPresent(cs -> {
-            for (val c : cs) {
-                builder.addCapability(c);
-            }
-        });
-
         if (config.decode404()) {
             builder.decode404();
         }
 
+        Optional.ofNullable(config.getCapabilities()).ifPresent(cs -> cs.forEach(builder::addCapability));
         Optional.ofNullable(config.getContract()).ifPresent(builder::contract);
         Optional.ofNullable(config.getEncoder()).ifPresent(builder::encoder);
         Optional.ofNullable(config.getDecoder()).ifPresent(builder::decoder);
@@ -253,6 +242,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, ApplicationContextAware, 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+        this.props = applicationContext.getBean(FeignProperties.class);
     }
 
     @Override
