@@ -20,9 +20,10 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public interface ConventionEnvironmentPostProcessors {
 
     static class PropertySource extends AbstractConventionEnvironmentPostProcessor {
+
         @Override
         protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
-            return "property-source";
+            return "property";
         }
 
         @Override

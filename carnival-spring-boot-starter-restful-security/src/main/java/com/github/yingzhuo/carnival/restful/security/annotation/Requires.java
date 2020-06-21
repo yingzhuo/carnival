@@ -22,6 +22,6 @@ public @interface Requires {
      *
      * @return AuthenticationComponent的实现类
      */
-    public Class<? extends AuthenticationComponent> value();
+    public Class<? extends AuthenticationComponent<?>> value();
 
 }
