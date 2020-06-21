@@ -10,16 +10,15 @@
 package com.github.yingzhuo.carnival.scanning;
 
 import org.springframework.beans.factory.annotation.AnnotatedBeanDefinition;
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.type.filter.AnnotationTypeFilter;
+import org.springframework.core.type.filter.TypeFilter;
 import org.springframework.util.Assert;
 
-import java.lang.annotation.Annotation;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -27,18 +26,15 @@ import java.util.stream.Collectors;
  */
 public final class ClassPathScannerBuilder {
 
-    private List<ClassPathScanner.Filter> filters = new ArrayList<>();
     private Environment environment = new StandardEnvironment();
     private ResourceLoader resourceLoader = new DefaultResourceLoader();
-    private List<Class<? extends Annotation>> annotationTypes = new ArrayList<>();
+    private final List<TypeFilter> typeFilters = new LinkedList<>();
 
     ClassPathScannerBuilder() {
     }
 
-    @SafeVarargs
-    public final ClassPathScannerBuilder annotation(Class<? extends Annotation>... annotationTypes) {
-        Assert.notNull(annotationTypes, "annotationType is null");
-        Collections.addAll(this.annotationTypes, annotationTypes);
+    public final ClassPathScannerBuilder typeFilters(TypeFilter... typeFilters) {
+        Collections.addAll(this.typeFilters, typeFilters);
         return this;
     }
 
@@ -54,57 +50,37 @@ public final class ClassPathScannerBuilder {
         return this;
     }
 
-    public ClassPathScannerBuilder filters(ClassPathScanner.Filter... filters) {
-        this.filters = Arrays.asList(filters);
-        return this;
+    public ClassPathScanner builder() {
+        if (typeFilters.isEmpty()) {
+            return new ClassPathScannerEmpty();
+        } else {
+            final ClassPathScannerImpl impl = new ClassPathScannerImpl();
+            impl.setTypeFilters(typeFilters);
+            impl.setEnvironment(environment);
+            impl.setResourceLoader(resourceLoader);
+            return impl;
+        }
     }
 
-    public ClassPathScanner builder() {
-        Assert.notEmpty(annotationTypes, "annotationType not set");
-
-        final ClassPathScannerImpl impl = new ClassPathScannerImpl();
-        impl.setAnnotations(annotationTypes);
-        impl.setEnvironment(environment);
-        impl.setResourceLoader(resourceLoader);
-        impl.setFilters(filters);
-        return impl;
+    private static final class ClassPathScannerEmpty implements ClassPathScanner {
+        @Override
+        public Set<BeanDefinition> scan(Iterable<String> basePackages) {
+            return Collections.emptySet();
+        }
     }
 
     private static final class ClassPathScannerImpl implements ClassPathScanner {
-        private ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
-        private List<ClassPathScanner.Filter> filters;
+        private final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider();
 
         @Override
-        public Set<AnnotatedBeanDefinition> scan(Iterable<String> basePackages) {
-            final Set<AnnotatedBeanDefinition> set = new HashSet<>();
+        public Set<BeanDefinition> scan(Iterable<String> basePackages) {
+            final Set<BeanDefinition> set = new HashSet<>();
 
             for (String basePackage : basePackages) {
-                set.addAll(
-                        provider.findCandidateComponents(basePackage)
-                                .stream()
-                                .filter(it -> it instanceof AnnotatedBeanDefinition)
-                                .map(it -> (AnnotatedBeanDefinition) it)
-                                .collect(Collectors.toSet())
-                );
+                set.addAll(provider.findCandidateComponents(basePackage));
             }
 
-            if (filters == null || filters.isEmpty()) {
-                return Collections.unmodifiableSet(set);
-            }
-
-            if (filters.size() == 1) {
-                return Collections.unmodifiableSet(
-                        set.stream()
-                                .filter(filters.get(0))
-                                .collect(Collectors.toSet())
-                );
-            } else {
-                return Collections.unmodifiableSet(
-                        set.stream()
-                                .filter(new CompositeFilter(filters))
-                                .collect(Collectors.toSet())
-                );
-            }
+            return Collections.unmodifiableSet(set);
         }
 
         public void setResourceLoader(ResourceLoader resourceLoader) {
@@ -115,12 +91,10 @@ public final class ClassPathScannerBuilder {
             provider.setEnvironment(environment);
         }
 
-        public void setAnnotations(List<Class<? extends Annotation>> annotationTypes) {
-            annotationTypes.forEach(type -> provider.addIncludeFilter(new AnnotationTypeFilter(type)));
-        }
-
-        public void setFilters(List<Filter> filters) {
-            this.filters = filters;
+        public void setTypeFilters(List<TypeFilter> typeFilters) {
+            for (TypeFilter typeFilter : typeFilters) {
+                provider.addIncludeFilter(typeFilter);
+            }
         }
     }
 

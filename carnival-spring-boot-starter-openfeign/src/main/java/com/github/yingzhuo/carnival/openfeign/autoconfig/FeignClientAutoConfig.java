@@ -26,9 +26,11 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.util.ClassUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -72,12 +74,15 @@ public class FeignClientAutoConfig implements ImportBeanDefinitionRegistrar, Env
 
         final Set<AnnotatedBeanDefinition> scanned =
                 ClassPathScanner.builder()
-                        .annotation(FeignClient.class)
+                        .typeFilters(new AnnotationTypeFilter(FeignClient.class))
                         .environment(environment)
                         .resourceLoader(resourceLoader)
-                        .filters(ClassPathScanner.FILTER_IS_INTERFACE)
                         .builder()
-                        .scan(basePackages);
+                        .scan(basePackages)
+                        .stream()
+                        .filter(it -> it instanceof AnnotatedBeanDefinition)
+                        .map(it -> (AnnotatedBeanDefinition) it)
+                        .collect(Collectors.toSet());
 
         for (AnnotatedBeanDefinition annotatedBeanDefinition : scanned) {
             AnnotationMetadata metadata = annotatedBeanDefinition.getMetadata();
