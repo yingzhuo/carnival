@@ -26,6 +26,9 @@ import java.util.function.Function;
  */
 public class PageJacksonModule extends Module {
 
+    public PageJacksonModule() {
+    }
+
     @Override
     public String getModuleName() {
         return "PageJacksonModule";

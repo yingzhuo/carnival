@@ -15,11 +15,10 @@ import com.github.yingzhuo.carnival.openfeign.target.CoreTarget;
 import com.github.yingzhuo.carnival.openfeign.url.FixedUrlSupplier;
 import com.github.yingzhuo.carnival.openfeign.url.GlobalUrlSupplier;
 import com.github.yingzhuo.carnival.openfeign.url.UrlSupplier;
-import feign.*;
+import feign.Capability;
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
 import feign.auth.BasicAuthRequestInterceptor;
-import feign.codec.Decoder;
-import feign.codec.Encoder;
-import feign.codec.ErrorDecoder;
 import feign.slf4j.Slf4jLogger;
 import lombok.val;
 import org.springframework.beans.BeansException;
@@ -108,10 +107,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, Applica
     }
 
     private void initClient() {
-        try {
-            builder.client(applicationContext.getBean(Client.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.client(applicationContext).ifPresent(builder::client);
     }
 
     private void initLogger() {
@@ -120,31 +116,19 @@ class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, Applica
     }
 
     private void initEncoder() {
-        try {
-            builder.encoder(applicationContext.getBean(Encoder.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.encoder(applicationContext).ifPresent(builder::encoder);
     }
 
     private void initDecoder() {
-        try {
-            builder.decoder(applicationContext.getBean(Decoder.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.decoder(applicationContext).ifPresent(builder::decoder);
     }
 
     private void initErrorDecoder() {
-        try {
-            builder.errorDecoder(applicationContext.getBean(ErrorDecoder.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.errorDecoder(applicationContext).ifPresent(builder::errorDecoder);
     }
 
     private void initContract() {
-        try {
-            builder.contract(applicationContext.getBean(Contract.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.contract(applicationContext).ifPresent(builder::contract);
     }
 
     private void initInterceptors() {
@@ -199,10 +183,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, Applica
     }
 
     private void initRetryer() {
-        try {
-            builder.retryer(applicationContext.getBean(Retryer.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.retryer(applicationContext).ifPresent(builder::retryer);
     }
 
     private void initCapabilities() {
@@ -215,10 +196,7 @@ class FeignClientFactory<T> implements FactoryBean<T>, InitializingBean, Applica
     }
 
     private void initOptions() {
-        try {
-            builder.options(applicationContext.getBean(Request.Options.class));
-        } catch (BeansException ignored) {
-        }
+        FeignComponentFinder.options(applicationContext).ifPresent(builder::options);
     }
 
     private UrlSupplier getUrlSupplier(Class<?> urlSupplierType, String url) {
