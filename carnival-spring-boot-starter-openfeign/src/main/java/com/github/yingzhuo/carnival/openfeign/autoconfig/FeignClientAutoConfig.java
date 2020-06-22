@@ -19,6 +19,7 @@ import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionReaderUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -35,6 +36,7 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 1.6.17
  */
+@AutoConfigureAfter(FeignBeanAutoConfig.class)
 public class FeignClientAutoConfig implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
 
     private Environment environment;
