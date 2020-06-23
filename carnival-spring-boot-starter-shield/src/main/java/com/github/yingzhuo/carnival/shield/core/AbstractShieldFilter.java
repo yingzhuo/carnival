@@ -9,17 +9,15 @@
  */
 package com.github.yingzhuo.carnival.shield.core;
 
-import org.springframework.util.AntPathMatcher;
-import org.springframework.util.PathMatcher;
+import com.github.yingzhuo.carnival.shield.DecryptBody;
+import com.github.yingzhuo.carnival.shield.EncryptBody;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExecutionChain;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author 应卓
@@ -28,8 +26,6 @@ import java.util.Set;
 abstract class AbstractShieldFilter extends OncePerRequestFilter {
 
     private final RequestMappingHandlerMapping mappings;
-    private final PathMatcher pathMatcher = new AntPathMatcher();
-    private Set<String> skipPatterns = Collections.emptySet();
 
     public AbstractShieldFilter(RequestMappingHandlerMapping mappings) {
         this.mappings = Objects.requireNonNull(mappings);
@@ -44,19 +40,18 @@ abstract class AbstractShieldFilter extends OncePerRequestFilter {
         }
     }
 
-    protected boolean shouldSkip(HttpServletRequest request) {
-        if (skipPatterns == null || skipPatterns.isEmpty()) {
-            return false;
+    protected final boolean shouldEncrypt(HandlerMethod handlerMethod) {
+        if (handlerMethod.hasMethodAnnotation(EncryptBody.class)) {
+            return true;
         }
-
-        final String path = request.getRequestURI();
-        return skipPatterns
-                .stream()
-                .anyMatch(pattern -> pathMatcher.match(pattern, path));
+        return handlerMethod.getBeanType().getAnnotation(EncryptBody.class) != null;
     }
 
-    public final void setSkipPatterns(Set<String> skipPatterns) {
-        this.skipPatterns = skipPatterns;
+    protected final boolean shouldDecrypt(HandlerMethod handlerMethod) {
+        if (handlerMethod.hasMethodAnnotation(DecryptBody.class)) {
+            return true;
+        }
+        return handlerMethod.getBeanType().getAnnotation(DecryptBody.class) != null;
     }
 
 }

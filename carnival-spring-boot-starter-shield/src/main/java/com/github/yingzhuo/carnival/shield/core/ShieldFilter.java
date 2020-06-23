@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.shield.core;
 
-import com.github.yingzhuo.carnival.shield.DecryptBody;
-import com.github.yingzhuo.carnival.shield.EncryptBody;
 import com.github.yingzhuo.carnival.shield.ShieldIgnored;
 import com.github.yingzhuo.carnival.shield.algorithm.Algorithm;
 import org.springframework.util.StringUtils;
@@ -45,11 +43,6 @@ public class ShieldFilter extends AbstractShieldFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 
-        if (super.shouldSkip(request)) {
-            chain.doFilter(request, response);
-            return;
-        }
-
         final HandlerMethod handlerMethod = super.getHandlerMethod(request);
         if (handlerMethod == null) {
             chain.doFilter(request, response);
@@ -61,8 +54,8 @@ public class ShieldFilter extends AbstractShieldFilter {
             return;
         }
 
-        boolean encryptionStatus = handlerMethod.hasMethodAnnotation(EncryptBody.class);
-        boolean decryptionStatus = handlerMethod.hasMethodAnnotation(DecryptBody.class);
+        boolean encryptionStatus = shouldEncrypt(handlerMethod);
+        boolean decryptionStatus = shouldDecrypt(handlerMethod);
 
         if (!encryptionStatus && !decryptionStatus) {
             chain.doFilter(request, response);
@@ -120,7 +113,6 @@ public class ShieldFilter extends AbstractShieldFilter {
                 requestWrapper.setRequestBody(decryptRequestData.getBytes(charset));
             }
         } catch (Exception e) {
-            logger.error("请求数据解密失败", e);
             throw new RuntimeException(e);
         }
     }
