@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.shield.algorithm;
 
 import com.github.yingzhuo.carnival.secret.rsa.RSAHelper;
 import com.github.yingzhuo.carnival.secret.rsa.RSAKeyPair;
+import org.springframework.util.Assert;
 
 /**
  * @author 应卓
@@ -21,6 +22,8 @@ public final class RSAAlgorithm implements Algorithm {
     private final RSAHelper helper;
 
     public RSAAlgorithm(String publicKey, String privateKey) {
+        Assert.hasText(publicKey, "publicKey is empty");
+        Assert.hasText(privateKey, "privateKey is empty");
         this.helper = RSAHelper.of(RSAKeyPair.fromString(publicKey, privateKey));
     }
 

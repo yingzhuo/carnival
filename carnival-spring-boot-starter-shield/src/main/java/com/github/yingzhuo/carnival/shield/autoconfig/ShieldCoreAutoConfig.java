@@ -72,6 +72,6 @@ public class ShieldCoreAutoConfig {
             super.setOrder(0);
             super.setFilterName(ShieldFilter.class.getName());
         }
-
     }
+
 }
