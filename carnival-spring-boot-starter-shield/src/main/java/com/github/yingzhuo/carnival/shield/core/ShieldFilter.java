@@ -99,10 +99,10 @@ public class ShieldFilter extends AbstractShieldFilter {
         }
     }
 
-    private void processDecryption(DecryptionRequest requestWrapper, HttpServletRequest req) {
-        String requestData = requestWrapper.getRequestBodyAsString();
+    private void processDecryption(DecryptionRequest requestWrapper, HttpServletRequest request) {
+        final String requestData = requestWrapper.getRequestBodyAsString();
         try {
-            if (!StringUtils.endsWithIgnoreCase(req.getMethod(), RequestMethod.GET.name())) {
+            if (!StringUtils.endsWithIgnoreCase(request.getMethod(), RequestMethod.GET.name())) {
                 String decryptRequestData = algorithm.decrypt(requestData);
                 requestWrapper.setRequestBody(decryptRequestData.getBytes(charset));
             }

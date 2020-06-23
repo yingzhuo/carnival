@@ -23,20 +23,20 @@ public final class BeanFinder {
 
     private final ApplicationContext context;
 
-    public static BeanFinder newInstance() {
-        return new BeanFinder();
-    }
-
-    public static BeanFinder newInstance(ApplicationContext context) {
-        return new BeanFinder(context);
-    }
-
     public BeanFinder() {
         this.context = Objects.requireNonNull(SpringUtils.getApplicationContext());
     }
 
     public BeanFinder(ApplicationContext applicationContext) {
         this.context = Objects.requireNonNull(applicationContext);
+    }
+
+    public static BeanFinder newInstance() {
+        return new BeanFinder();
+    }
+
+    public static BeanFinder newInstance(ApplicationContext context) {
+        return new BeanFinder(context);
     }
 
     public <T> T getOneOrPrimary(Class<T> beanType) {

@@ -26,4 +26,16 @@ public final class Algorithms {
         return new AESAlgorithm(passphrase);
     }
 
+    public static Algorithm rsa(String publicKey, String privateKey) {
+        return new RSAAlgorithm(publicKey, privateKey);
+    }
+
+    public static Algorithm base64() {
+        return new Base64Algorithm();
+    }
+
+    public static Algorithm reverse() {
+        return new ReverseAlgorithm();
+    }
+
 }
