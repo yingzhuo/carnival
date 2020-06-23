@@ -7,22 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.shield.algorithm;
+package com.github.yingzhuo.carnival.shield;
+
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.6.21
  */
-public final class NopAlgorithm implements Algorithm {
-
-    @Override
-    public String encrypt(String string) {
-        return string;
-    }
-
-    @Override
-    public String decrypt(String string) {
-        return string;
-    }
-
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE, ElementType.METHOD})
+public @interface IgnoreDecryption {
 }

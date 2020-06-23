@@ -32,6 +32,7 @@
 * [carnival-spring-boot-starter-restful-flow](./carnival-spring-boot-starter-restful-flow)
 * [carnival-spring-boot-starter-restful-norepeated](./carnival-spring-boot-starter-restful-norepeated)
 * [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
+* [carnival-spring-boot-starter-shield](./carnival-spring-boot-starter-shield)
 
 ### 作者
 

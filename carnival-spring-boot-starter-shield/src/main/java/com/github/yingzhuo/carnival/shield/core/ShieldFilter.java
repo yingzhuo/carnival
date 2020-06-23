@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.shield.core;
 
-import com.github.yingzhuo.carnival.shield.ShieldIgnored;
 import com.github.yingzhuo.carnival.shield.algorithm.Algorithm;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,11 +44,6 @@ public class ShieldFilter extends AbstractShieldFilter {
 
         final HandlerMethod handlerMethod = super.getHandlerMethod(request);
         if (handlerMethod == null) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if (handlerMethod.hasMethodAnnotation(ShieldIgnored.class)) {
             chain.doFilter(request, response);
             return;
         }

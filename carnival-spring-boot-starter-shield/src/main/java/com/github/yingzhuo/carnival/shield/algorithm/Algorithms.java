@@ -18,7 +18,6 @@ public final class Algorithms {
     private Algorithms() {
     }
 
-    @Deprecated
     public static Algorithm nop() {
         return new NopAlgorithm();
     }

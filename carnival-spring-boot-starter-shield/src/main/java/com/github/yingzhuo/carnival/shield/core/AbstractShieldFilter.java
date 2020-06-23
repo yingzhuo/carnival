@@ -9,8 +9,7 @@
  */
 package com.github.yingzhuo.carnival.shield.core;
 
-import com.github.yingzhuo.carnival.shield.DecryptBody;
-import com.github.yingzhuo.carnival.shield.EncryptBody;
+import com.github.yingzhuo.carnival.shield.*;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExecutionChain;
@@ -41,6 +40,14 @@ abstract class AbstractShieldFilter extends OncePerRequestFilter {
     }
 
     protected final boolean shouldEncrypt(HandlerMethod handlerMethod) {
+        if (handlerMethod.hasMethodAnnotation(IgnoreEncryption.class) || handlerMethod.hasMethodAnnotation(IgnoreEncryptionAndDecryption.class)) {
+            return false;
+        }
+        if (handlerMethod.getBeanType().getAnnotation(IgnoreEncryption.class) != null ||
+                handlerMethod.getBeanType().getAnnotation(IgnoreEncryptionAndDecryption.class) != null) {
+            return false;
+        }
+
         if (handlerMethod.hasMethodAnnotation(EncryptBody.class)) {
             return true;
         }
@@ -48,6 +55,14 @@ abstract class AbstractShieldFilter extends OncePerRequestFilter {
     }
 
     protected final boolean shouldDecrypt(HandlerMethod handlerMethod) {
+        if (handlerMethod.hasMethodAnnotation(IgnoreDecryption.class) || handlerMethod.hasMethodAnnotation(IgnoreEncryptionAndDecryption.class)) {
+            return false;
+        }
+        if (handlerMethod.getBeanType().getAnnotation(IgnoreDecryption.class) != null ||
+                handlerMethod.getBeanType().getAnnotation(IgnoreEncryptionAndDecryption.class) != null) {
+            return false;
+        }
+
         if (handlerMethod.hasMethodAnnotation(DecryptBody.class)) {
             return true;
         }
