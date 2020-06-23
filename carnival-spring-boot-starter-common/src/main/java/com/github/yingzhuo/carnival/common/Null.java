@@ -15,7 +15,7 @@ import java.io.Serializable;
  * @author 应卓
  * @since 1.0.0
  */
-public final class Null implements Serializable {
+public final class Null implements Serializable, Cloneable {
 
     public static final Null INSTANCE = new Null();
 
@@ -25,6 +25,10 @@ public final class Null implements Serializable {
     @Override
     public String toString() {
         return "NullObject";
+    }
+
+    public Null clone() {
+        return this;
     }
 
 }

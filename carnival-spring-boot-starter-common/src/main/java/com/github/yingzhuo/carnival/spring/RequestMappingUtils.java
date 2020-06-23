@@ -9,7 +9,11 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import com.github.yingzhuo.carnival.common.Unsafe;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author 应卓
@@ -23,6 +27,17 @@ public final class RequestMappingUtils {
 
     public static RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
         return SpringUtils.getBean(RequestMappingHandlerMapping.class);
+    }
+
+    @Unsafe
+    public static HandlerMethod getHandlerMethod(HttpServletRequest request) {
+        try {
+            return (HandlerMethod) getRequestMappingHandlerMapping()
+                    .getHandler(request)
+                    .getHandler();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
