@@ -25,6 +25,7 @@
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-norepeated</module>
         <module>carnival-spring-boot-starter-restful-security</module>
+        <module>carnival-spring-boot-starter-shield</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -59,11 +60,13 @@
             <id>yingzhuo</id>
             <name>应卓</name>
             <email>yingzhor@gmail.com</email>
+            <timezone>+8</timezone>
         </developer>
         <developer>
             <id>chth666</id>
             <name>程泰恒</name>
             <email>chth668@163.com</email>
+            <timezone>+8</timezone>
         </developer>
     </developers>
 
@@ -116,6 +119,11 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>carnival-spring-boot-starter-json</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>carnival-spring-boot-starter-mvc</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
