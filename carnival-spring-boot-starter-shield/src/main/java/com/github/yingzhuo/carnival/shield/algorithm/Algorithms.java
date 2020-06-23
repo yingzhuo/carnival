@@ -18,6 +18,10 @@ public final class Algorithms {
     private Algorithms() {
     }
 
+    public static Algorithm composite(Algorithm... algorithms) {
+        return CompositeAlgorithm.of(algorithms);
+    }
+
     public static Algorithm nop() {
         return new NopAlgorithm();
     }
