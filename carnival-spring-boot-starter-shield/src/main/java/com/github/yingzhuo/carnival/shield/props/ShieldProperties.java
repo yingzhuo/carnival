@@ -15,6 +15,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author 应卓
  * @since 1.6.21
@@ -25,6 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ShieldProperties extends AbstractWebFilterProps {
 
     private boolean enabled = true;
+    private Charset charset = StandardCharsets.UTF_8;
 
     public ShieldProperties() {
         super.setOrder(0);

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.shield.core;
 
 import com.github.yingzhuo.carnival.shield.DecryptBody;
 import com.github.yingzhuo.carnival.shield.EncryptBody;
+import com.github.yingzhuo.carnival.shield.ShieldIgnored;
 import com.github.yingzhuo.carnival.shield.algorithm.Algorithm;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.Charset;
 
 /**
  * @author 应卓
@@ -33,10 +34,12 @@ import java.nio.charset.StandardCharsets;
 public class ShieldFilter extends AbstractShieldFilter {
 
     private final Algorithm algorithm;
+    private final Charset charset;
 
-    public ShieldFilter(RequestMappingHandlerMapping requestMappingHandlerMapping, Algorithm algorithm) {
-        super(requestMappingHandlerMapping);
+    public ShieldFilter(RequestMappingHandlerMapping mappings, Algorithm algorithm, Charset charset) {
+        super(mappings);
         this.algorithm = algorithm;
+        this.charset = charset;
     }
 
     @Override
@@ -53,8 +56,13 @@ public class ShieldFilter extends AbstractShieldFilter {
             return;
         }
 
-        boolean encryptionStatus = handlerMethod.getMethodAnnotation(EncryptBody.class) != null;
-        boolean decryptionStatus = handlerMethod.getMethodAnnotation(DecryptBody.class) != null;
+        if (handlerMethod.hasMethodAnnotation(ShieldIgnored.class)) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        boolean encryptionStatus = handlerMethod.hasMethodAnnotation(EncryptBody.class);
+        boolean decryptionStatus = handlerMethod.hasMethodAnnotation(DecryptBody.class);
 
         if (!encryptionStatus && !decryptionStatus) {
             chain.doFilter(request, response);
@@ -91,9 +99,9 @@ public class ShieldFilter extends AbstractShieldFilter {
         try {
             responseData = algorithm.encrypt(responseData);
             response.setContentLength(responseData.length());
-            response.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding(charset.displayName());
             out = response.getOutputStream();
-            out.write(responseData.getBytes(StandardCharsets.UTF_8));
+            out.write(responseData.getBytes(charset));
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -109,7 +117,7 @@ public class ShieldFilter extends AbstractShieldFilter {
         try {
             if (!StringUtils.endsWithIgnoreCase(req.getMethod(), RequestMethod.GET.name())) {
                 String decryptRequestData = algorithm.decrypt(requestData);
-                requestWrapper.setRequestBody(decryptRequestData.getBytes(StandardCharsets.UTF_8));
+                requestWrapper.setRequestBody(decryptRequestData.getBytes(charset));
             }
         } catch (Exception e) {
             logger.error("请求数据解密失败", e);

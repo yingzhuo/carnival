@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.shield.autoconfig;
 
 import com.github.yingzhuo.carnival.shield.algorithm.Algorithm;
+import com.github.yingzhuo.carnival.shield.algorithm.Algorithms;
 import com.github.yingzhuo.carnival.shield.core.ShieldFilter;
 import com.github.yingzhuo.carnival.shield.props.ShieldProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,19 @@ public class ShieldCoreAutoConfig {
     @Autowired
     private RequestMappingHandlerMapping mappings;
 
-    @Autowired
+    @Autowired(required = false)
     private Algorithm algorithm;
 
     @Bean
     public FilterRegistrationBean<ShieldFilter> shieldFilter(ShieldProperties props) {
-        FilterRegistrationBean<ShieldFilter> bean = new FilterRegistrationBean<>(new ShieldFilter(mappings, algorithm));
+        final FilterRegistrationBean<ShieldFilter> bean =
+                new FilterRegistrationBean<>(
+                        new ShieldFilter(
+                                mappings,
+                                algorithm != null ? algorithm : Algorithms.aes(Algorithm.class.getName()),
+                                props.getCharset())
+                );
+
         bean.setName(props.getFilterName());
         bean.setOrder(props.getOrder());
         bean.addUrlPatterns(props.getUrlPatterns());
