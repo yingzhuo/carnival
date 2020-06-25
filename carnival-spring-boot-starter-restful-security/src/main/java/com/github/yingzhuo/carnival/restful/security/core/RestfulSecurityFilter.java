@@ -9,22 +9,28 @@
  */
 package com.github.yingzhuo.carnival.restful.security.core;
 
-import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
-import org.springframework.web.method.HandlerMethod;
+import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author 应卓
+ * @since 1.6.22
  */
-public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSupport implements RestfulSecurity {
+public class RestfulSecurityFilter extends OncePerRequestFilter implements RestfulSecurity {
 
     private AuthenticationStrategy authenticationStrategy;
     private TokenParser tokenParser;
@@ -32,16 +38,25 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     private TokenBlacklistManager tokenBlacklistManager;
     private TokenWhitelistManager tokenWhitelistManager;
     private ExtraUserDetailsRealm extraUserDetailsRealm;
+    private ExceptionHandler exceptionHandler;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         RestfulSecurityContext.clean();
-        doExecute(request, response, (HandlerMethod) handler);
-        return true;
-    }
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+        try {
+            doExecute(request, response, RequestMappingUtils.getHandlerMethod(request));
+        } catch (Exception e) {
+            if (e instanceof RestfulSecurityException) {
+                exceptionHandler.handler(request, response, (RestfulSecurityException) e);
+            } else {
+                exceptionHandler.handler(request, response, e);
+            }
+            RestfulSecurityContext.clean();
+            return;
+        }
+
+        chain.doFilter(request, response);
         RestfulSecurityContext.clean();
     }
 
@@ -99,4 +114,11 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
         this.extraUserDetailsRealm = extraUserDetailsRealm;
     }
 
+    public ExceptionHandler getExceptionHandler() {
+        return exceptionHandler;
+    }
+
+    public void setExceptionHandler(ExceptionHandler exceptionHandler) {
+        this.exceptionHandler = exceptionHandler;
+    }
 }
