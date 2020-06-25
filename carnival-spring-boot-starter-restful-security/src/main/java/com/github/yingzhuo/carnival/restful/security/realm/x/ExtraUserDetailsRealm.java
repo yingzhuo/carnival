@@ -17,6 +17,7 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
  * @author 应卓
  * @since 1.6.0
  */
+@Deprecated
 @FunctionalInterface
 public interface ExtraUserDetailsRealm {
 

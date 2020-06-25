@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityEx
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author 应卓
@@ -20,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface ExceptionHandler {
 
-    public void handler(HttpServletRequest request, HttpServletResponse httpServletResponse, RestfulSecurityException ex);
+    public void handler(HttpServletRequest request, HttpServletResponse response, RestfulSecurityException ex) throws IOException;
 
-    public void handler(HttpServletRequest request, HttpServletResponse httpServletResponse, Exception ex);
+    public void handler(HttpServletRequest request, HttpServletResponse response, Exception ex) throws IOException;
 
 }

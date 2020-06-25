@@ -23,6 +23,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.6.5
  */
+@Deprecated
 public class CompositeExtraUserDetailsRealm implements ExtraUserDetailsRealm, InitializingBean {
 
     private final List<ExtraUserDetailsRealm> realms;

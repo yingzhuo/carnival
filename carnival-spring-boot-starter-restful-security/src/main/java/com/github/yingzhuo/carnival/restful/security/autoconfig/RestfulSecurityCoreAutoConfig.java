@@ -61,20 +61,25 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Autowired(required = false)
     private ExtraUserDetailsRealm injectedExtraUserDetailsRealm;
 
+    @Autowired(required = false)
+    private ExceptionHandler injectedExceptionHandler;
+
     @Bean
     @ConditionalOnFilterImpl
-    public FilterRegistrationBean<RestfulSecurityFilter> restfulSecurityFilter(ExceptionHandler exceptionHandler) {
+    public FilterRegistrationBean<RestfulSecurityFilter> restfulSecurityFilter() {
         final FilterRegistrationBean<RestfulSecurityFilter> bean = new FilterRegistrationBean<>();
-        final RestfulSecurityFilter interceptor = new RestfulSecurityFilter();
-        interceptor.setAuthenticationStrategy(getAuthenticationStrategy());
-        interceptor.setTokenParser(getTokenParser());
-        interceptor.setUserDetailsRealm(getUserDetailsRealm());
-        interceptor.setTokenBlacklistManager(getTokenBlackListManager());
-        interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
-        interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
-        interceptor.setExceptionHandler(exceptionHandler);
+        final RestfulSecurityFilter filter = new RestfulSecurityFilter();
+        filter.setAuthenticationStrategy(getAuthenticationStrategy());
+        filter.setTokenParser(getTokenParser());
+        filter.setUserDetailsRealm(getUserDetailsRealm());
+        filter.setTokenBlacklistManager(getTokenBlackListManager());
+        filter.setTokenWhitelistManager(getTokenWhitelistManager());
+        filter.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
+        filter.setExceptionHandler(exceptionHandler());
+        bean.setFilter(filter);
         bean.setOrder(getOrder());
         bean.addUrlPatterns(getPathPatterns());
+        bean.setName(RestfulSecurityFilter.class.getName());
         return bean;
     }
 
@@ -163,6 +168,20 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         return configurer.getExtraUserDetailsRealm();
     }
 
+    private ExceptionHandler exceptionHandler() {
+        if (injectedExceptionHandler != null) {
+            return injectedExceptionHandler;
+        }
+
+        ExceptionHandler exceptionHandler = configurer.getExceptionHandler();
+
+        if (exceptionHandler == null) {
+            throw new NullPointerException("ExceptionHandler NOT configured.");
+        }
+
+        return exceptionHandler;
+    }
+
     private boolean isInterceptorImpl() {
         return configurer.getImplementation() == null ||
                 configurer.getImplementation() == Implementation.SPRING_MAC_INTERCEPTOR;
@@ -170,8 +189,18 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     private String[] getPathPatterns() {
         String[] patterns = configurer.getPathPatterns();
-        return patterns != null ? patterns : new String[]{"/", "/**"};
-    }
+        if (patterns != null) return patterns;
 
+        Implementation impl = configurer.getImplementation();
+        if (impl == null) {
+            impl = Implementation.SPRING_MAC_INTERCEPTOR;
+        }
+
+        if (impl == Implementation.SPRING_MAC_INTERCEPTOR) {
+            return new String[]{"/**"};
+        } else {
+            return new String[]{"/*"};
+        }
+    }
 
 }
