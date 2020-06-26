@@ -17,7 +17,6 @@ import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedE
 import com.github.yingzhuo.carnival.restful.security.exception.TokenNotWhitelistedException;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
@@ -44,7 +43,6 @@ interface RestfulSecurity {
         final UserDetailsRealm userDetailsRealm = getUserDetailsRealm();
         final TokenWhitelistManager tokenWhitelistManager = getTokenWhitelistManager();
         final TokenBlacklistManager tokenBlacklistManager = getTokenBlacklistManager();
-        final ExtraUserDetailsRealm extraUserDetailsRealm = getExtraUserDetailsRealm();
 
         if (handlerMethod == null) {
             return;
@@ -80,13 +78,6 @@ interface RestfulSecurity {
             });
         }
 
-        if (extraUserDetailsRealm != null) {
-            extraUserDetailsRealm.execute(
-                    RestfulSecurityContext.getToken().orElse(null),
-                    RestfulSecurityContext.getUserDetails().orElse(null)
-            );
-        }
-
         if (tokenWhitelistManager != null) {
             if (!tokenWhitelistManager.isWhitelisted(RestfulSecurityContext.getToken().orElse(null),
                     RestfulSecurityContext.getUserDetails().orElse(null))) {
@@ -108,7 +99,5 @@ interface RestfulSecurity {
     public TokenBlacklistManager getTokenBlacklistManager();
 
     public TokenWhitelistManager getTokenWhitelistManager();
-
-    public ExtraUserDetailsRealm getExtraUserDetailsRealm();
 
 }

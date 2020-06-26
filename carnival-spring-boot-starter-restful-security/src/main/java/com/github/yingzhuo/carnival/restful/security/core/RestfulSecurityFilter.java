@@ -15,7 +15,6 @@ import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityEx
 import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -37,7 +36,6 @@ public class RestfulSecurityFilter extends OncePerRequestFilter implements Restf
     private UserDetailsRealm userDetailsRealm;
     private TokenBlacklistManager tokenBlacklistManager;
     private TokenWhitelistManager tokenWhitelistManager;
-    private ExtraUserDetailsRealm extraUserDetailsRealm;
     private ExceptionHandler exceptionHandler;
 
     @Override
@@ -105,15 +103,6 @@ public class RestfulSecurityFilter extends OncePerRequestFilter implements Restf
         this.tokenWhitelistManager = tokenWhitelistManager;
     }
 
-    @Override
-    public ExtraUserDetailsRealm getExtraUserDetailsRealm() {
-        return extraUserDetailsRealm;
-    }
-
-    public void setExtraUserDetailsRealm(ExtraUserDetailsRealm extraUserDetailsRealm) {
-        this.extraUserDetailsRealm = extraUserDetailsRealm;
-    }
-
     public ExceptionHandler getExceptionHandler() {
         return exceptionHandler;
     }
@@ -121,4 +110,5 @@ public class RestfulSecurityFilter extends OncePerRequestFilter implements Restf
     public void setExceptionHandler(ExceptionHandler exceptionHandler) {
         this.exceptionHandler = exceptionHandler;
     }
+
 }

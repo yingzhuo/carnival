@@ -22,13 +22,13 @@ public final class CompositeAlgorithm implements Algorithm {
 
     private final List<Algorithm> algorithms;
 
-    public static Algorithm of(Algorithm... algorithms) {
-        return new CompositeAlgorithm(Arrays.asList(algorithms));
-    }
-
     private CompositeAlgorithm(List<Algorithm> algorithms) {
         Assert.noNullElements(algorithms, "algorithms must not be empty: it must contain at least 1 element");
         this.algorithms = algorithms;
+    }
+
+    public static Algorithm of(Algorithm... algorithms) {
+        return new CompositeAlgorithm(Arrays.asList(algorithms));
     }
 
     @Override

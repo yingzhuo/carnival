@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistMan
 import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import org.springframework.core.Ordered;
 
@@ -56,11 +55,6 @@ public interface RestfulSecurityConfigurer extends Ordered {
         return null;
     }
 
-    public default ExtraUserDetailsRealm getExtraUserDetailsRealm() {
-        return null;
-    }
-
-    @Deprecated
     public default ExceptionHandler getExceptionHandler() {
         return null;
     }

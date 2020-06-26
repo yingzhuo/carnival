@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.Implementation;
 import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
+import org.springframework.beans.BeansException;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
@@ -32,7 +33,7 @@ import java.lang.annotation.*;
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             try {
                 return context.getBeanFactory().getBean(RestfulSecurityConfigurer.class).getImplementation() == Implementation.SERVLET_FILTER;
-            } catch (Exception e) {
+            } catch (BeansException | NullPointerException e) {
                 return false;
             }
         }

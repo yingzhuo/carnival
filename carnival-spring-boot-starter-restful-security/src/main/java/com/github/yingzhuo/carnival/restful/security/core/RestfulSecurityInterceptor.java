@@ -14,7 +14,6 @@ import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import org.springframework.web.method.HandlerMethod;
 
@@ -31,7 +30,6 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     private UserDetailsRealm userDetailsRealm;
     private TokenBlacklistManager tokenBlacklistManager;
     private TokenWhitelistManager tokenWhitelistManager;
-    private ExtraUserDetailsRealm extraUserDetailsRealm;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -88,15 +86,6 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
 
     public void setTokenWhitelistManager(TokenWhitelistManager tokenWhitelistManager) {
         this.tokenWhitelistManager = tokenWhitelistManager;
-    }
-
-    @Override
-    public ExtraUserDetailsRealm getExtraUserDetailsRealm() {
-        return extraUserDetailsRealm;
-    }
-
-    public void setExtraUserDetailsRealm(ExtraUserDetailsRealm extraUserDetailsRealm) {
-        this.extraUserDetailsRealm = extraUserDetailsRealm;
     }
 
 }

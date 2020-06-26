@@ -20,7 +20,6 @@ import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionH
 import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
-import com.github.yingzhuo.carnival.restful.security.realm.x.ExtraUserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -59,9 +58,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     private TokenWhitelistManager injectedTokenWhitelistManager;
 
     @Autowired(required = false)
-    private ExtraUserDetailsRealm injectedExtraUserDetailsRealm;
-
-    @Autowired(required = false)
     private ExceptionHandler injectedExceptionHandler;
 
     @Bean
@@ -74,7 +70,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         filter.setUserDetailsRealm(getUserDetailsRealm());
         filter.setTokenBlacklistManager(getTokenBlackListManager());
         filter.setTokenWhitelistManager(getTokenWhitelistManager());
-        filter.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
         filter.setExceptionHandler(exceptionHandler());
         bean.setFilter(filter);
         bean.setOrder(getOrder());
@@ -93,7 +88,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             interceptor.setUserDetailsRealm(getUserDetailsRealm());
             interceptor.setTokenBlacklistManager(getTokenBlackListManager());
             interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
-            interceptor.setExtraUserDetailsRealm(getExtraUserDetailsRealm());
 
             registry.addInterceptor(interceptor)
                     .addPathPatterns(getPathPatterns())
@@ -159,13 +153,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             return injectedTokenWhitelistManager;
         }
         return configurer.getTokenWhitelistManager();
-    }
-
-    private ExtraUserDetailsRealm getExtraUserDetailsRealm() {
-        if (injectedExtraUserDetailsRealm != null) {
-            return injectedExtraUserDetailsRealm;
-        }
-        return configurer.getExtraUserDetailsRealm();
     }
 
     private ExceptionHandler exceptionHandler() {
