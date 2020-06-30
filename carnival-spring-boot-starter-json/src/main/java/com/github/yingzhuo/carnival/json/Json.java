@@ -23,9 +23,9 @@ import java.util.function.Supplier;
 @JsonView(Views.Normal.class)
 public class Json implements ApiResult<Payload> {
 
-    private final Payload payload = new Payload();
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
+    private Payload payload = new Payload();
 
     public Json() {
     }

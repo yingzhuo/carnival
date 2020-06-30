@@ -20,6 +20,9 @@ import java.util.Map;
 import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 
+/**
+ * @author 应卓
+ */
 public class RequestHeaderParameterProcessor implements AnnotatedParameterProcessor {
 
     private static final Class<RequestHeader> ANNOTATION = RequestHeader.class;

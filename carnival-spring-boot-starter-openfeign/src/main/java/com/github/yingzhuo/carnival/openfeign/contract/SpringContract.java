@@ -318,16 +318,14 @@ public class SpringContract extends Contract.BaseContract
     }
 
     private List<AnnotatedParameterProcessor> getDefaultAnnotatedArgumentsProcessors() {
-
-        List<AnnotatedParameterProcessor> annotatedArgumentResolvers = new ArrayList<>();
-
+        final List<AnnotatedParameterProcessor> annotatedArgumentResolvers = new ArrayList<>();
         annotatedArgumentResolvers.add(new MatrixVariableParameterProcessor());
         annotatedArgumentResolvers.add(new PathVariableParameterProcessor());
         annotatedArgumentResolvers.add(new RequestParamParameterProcessor());
         annotatedArgumentResolvers.add(new RequestHeaderParameterProcessor());
         annotatedArgumentResolvers.add(new RequestPartParameterProcessor());
         annotatedArgumentResolvers.add(new QueryMapParameterProcessor());
-
+        annotatedArgumentResolvers.add(new SpringQueryMapParameterProcessor());
         return annotatedArgumentResolvers;
     }
 

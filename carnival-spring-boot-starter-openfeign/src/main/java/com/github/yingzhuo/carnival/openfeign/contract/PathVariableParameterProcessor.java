@@ -20,6 +20,9 @@ import java.util.Map;
 import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 
+/**
+ * @author 应卓
+ */
 public class PathVariableParameterProcessor implements AnnotatedParameterProcessor {
 
     private static final Class<PathVariable> ANNOTATION = PathVariable.class;

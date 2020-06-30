@@ -38,7 +38,7 @@ public class EnvironmentPostProcessor implements org.springframework.boot.env.En
         setWebApplicationType(values, app);
 
         environment.getPropertySources()
-                .addFirst(new MapPropertySource("x", Collections.unmodifiableMap(values)));
+                .addFirst(new MapPropertySource("x.environment", Collections.unmodifiableMap(values)));
     }
 
     private void setSpringId(Map<String, Object> map) {

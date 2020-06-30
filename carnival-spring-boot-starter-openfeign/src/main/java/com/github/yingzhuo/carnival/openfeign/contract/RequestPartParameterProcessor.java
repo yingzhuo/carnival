@@ -19,6 +19,9 @@ import java.util.Collection;
 import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 
+/**
+ * @author 应卓
+ */
 public class RequestPartParameterProcessor implements AnnotatedParameterProcessor {
 
     private static final Class<RequestPart> ANNOTATION = RequestPart.class;

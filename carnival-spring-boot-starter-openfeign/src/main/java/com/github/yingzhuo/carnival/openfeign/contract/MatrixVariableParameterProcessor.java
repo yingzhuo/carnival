@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
 import static feign.Util.checkState;
 import static feign.Util.emptyToNull;
 
+/**
+ * @author 应卓
+ */
 public class MatrixVariableParameterProcessor implements AnnotatedParameterProcessor {
 
     private static final Class<MatrixVariable> ANNOTATION = MatrixVariable.class;
