@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class JwtDecodeException extends InvalidTokenException {
 
-    public JwtDecodeException() {
-    }
-
     public JwtDecodeException(HttpServletRequest request) {
         super(request);
     }

@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class TokenExpiredException extends InvalidTokenException {
 
-    public TokenExpiredException() {
-    }
-
     public TokenExpiredException(HttpServletRequest request) {
         super(request);
     }

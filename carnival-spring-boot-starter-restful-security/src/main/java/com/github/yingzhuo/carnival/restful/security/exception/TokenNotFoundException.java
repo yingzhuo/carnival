@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class TokenNotFoundException extends AuthenticationException {
 
-    public TokenNotFoundException() {
-    }
-
     public TokenNotFoundException(HttpServletRequest request) {
         super(request);
     }

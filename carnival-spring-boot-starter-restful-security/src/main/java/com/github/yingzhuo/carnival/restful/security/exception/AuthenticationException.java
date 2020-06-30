@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class AuthenticationException extends RestfulSecurityException {
 
-    public AuthenticationException() {
-    }
-
     public AuthenticationException(HttpServletRequest request) {
         super(request);
     }

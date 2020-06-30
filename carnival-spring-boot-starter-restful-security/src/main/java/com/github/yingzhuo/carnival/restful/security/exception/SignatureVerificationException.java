@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SignatureVerificationException extends InvalidTokenException {
 
-    public SignatureVerificationException() {
-    }
-
     public SignatureVerificationException(HttpServletRequest request) {
         super(request);
     }

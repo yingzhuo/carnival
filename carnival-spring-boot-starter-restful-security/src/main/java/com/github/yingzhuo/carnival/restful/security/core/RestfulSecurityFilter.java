@@ -41,6 +41,7 @@ public class RestfulSecurityFilter extends OncePerRequestFilter implements Restf
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         RestfulSecurityContext.clean();
+        RestfulSecurityContext.setRequest(request);
 
         try {
             doExecute(request, response, RequestMappingUtils.getHandlerMethod(request));

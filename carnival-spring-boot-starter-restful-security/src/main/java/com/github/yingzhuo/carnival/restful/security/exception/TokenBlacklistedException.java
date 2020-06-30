@@ -20,11 +20,6 @@ public class TokenBlacklistedException extends AuthenticationException {
 
     private final Token Token;
 
-    public TokenBlacklistedException(Token token) {
-        super();
-        this.Token = token;
-    }
-
     public TokenBlacklistedException(HttpServletRequest request, Token token) {
         super(request);
         Token = token;
@@ -35,7 +30,7 @@ public class TokenBlacklistedException extends AuthenticationException {
         Token = token;
     }
 
-    public com.github.yingzhuo.carnival.restful.security.token.Token getToken() {
+    public Token getToken() {
         return Token;
     }
 

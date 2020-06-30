@@ -20,9 +20,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class UserDetailsExpiredException extends AuthenticationException {
 
-    public UserDetailsExpiredException() {
-    }
-
     public UserDetailsExpiredException(HttpServletRequest request) {
         super(request);
     }

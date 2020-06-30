@@ -16,9 +16,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class InvalidTokenException extends AuthenticationException {
 
-    public InvalidTokenException() {
-    }
-
     public InvalidTokenException(HttpServletRequest request) {
         super(request);
     }

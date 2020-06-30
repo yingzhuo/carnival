@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author 应卓
  * @since 1.6.8
  */
-public class RequestInterruptedException extends RuntimeException {
+public abstract class RequestInterruptedException extends RuntimeException {
 
     private final RequestMethod method;
     private final String path;

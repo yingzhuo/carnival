@@ -19,9 +19,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class InvalidClaimException extends InvalidTokenException {
 
-    public InvalidClaimException() {
-    }
-
     public InvalidClaimException(HttpServletRequest request) {
         super(request);
     }
