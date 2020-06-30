@@ -16,7 +16,6 @@
         <module>carnival-spring-boot-starter-fastdfs</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
-        <module>carnival-spring-boot-starter-kotlin</module>
         <module>carnival-spring-boot-starter-localization-china</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-openfeign</module>
