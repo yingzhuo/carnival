@@ -34,10 +34,7 @@ public @interface ConditionalOnKubernetes {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             final Environment env = context.getEnvironment();
-            final boolean c1 = env.acceptsProfiles(Profiles.of("k8s"));
-            final boolean c2 = env.acceptsProfiles(Profiles.of("kubernetes"));
-            final boolean c3 = env.acceptsProfiles(Profiles.of("kube"));
-            return c1 || c2 || c3;
+            return env.acceptsProfiles(Profiles.of("k8s | kubernetes | kube"));
         }
     }
 

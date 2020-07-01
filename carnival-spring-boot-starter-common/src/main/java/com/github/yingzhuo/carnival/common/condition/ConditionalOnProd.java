@@ -34,9 +34,7 @@ public @interface ConditionalOnProd {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             final Environment env = context.getEnvironment();
-            final boolean c1 = env.acceptsProfiles(Profiles.of("prod"));
-            final boolean c2 = env.acceptsProfiles(Profiles.of("production"));
-            return c1 || c2;
+            return env.acceptsProfiles(Profiles.of("prod | production"));
         }
     }
 
