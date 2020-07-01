@@ -31,7 +31,7 @@ import java.util.Locale;
  *
  * @author 应卓
  */
-@Slf4j
+@Slf4j(topic = "troubleshooting")
 public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
 
     @Override
