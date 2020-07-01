@@ -31,10 +31,14 @@ public class EnvLoggingApplicationRunner implements ApplicationRunner {
             return;
         }
 
-        log.debug(StringUtils.repeat('-', 120));
-        log.debug("[envs]:");
-
         final Map<String, String> env = new TreeMap<>(System.getenv());
+        if (env.isEmpty()) {
+            return;
+        }
+
+        log.debug(StringUtils.repeat('-', 120));
+        log.debug("[Envs]:");
+
         for (String name : env.keySet()) {
             String value = env.get(name);
 

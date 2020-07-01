@@ -23,6 +23,8 @@ public interface ClassPathScanner {
 
     /**
      * 创建扫描器
+     *
+     * @return 创建器
      */
     public static ClassPathScannerBuilder builder() {
         return new ClassPathScannerBuilder();
