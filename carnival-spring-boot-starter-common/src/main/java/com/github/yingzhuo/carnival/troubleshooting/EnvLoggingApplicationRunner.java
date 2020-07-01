@@ -32,7 +32,7 @@ public class EnvLoggingApplicationRunner implements ApplicationRunner {
         }
 
         log.debug(StringUtils.repeat('-', 120));
-        log.debug("env(s):");
+        log.debug("[envs]:");
 
         final Map<String, String> env = new TreeMap<>(System.getenv());
         for (String name : env.keySet()) {
