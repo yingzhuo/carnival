@@ -22,7 +22,7 @@ import java.util.Set;
  * @since 1.6.24
  */
 @Slf4j(topic = "troubleshooting")
-public class ArgumentsApplicationRunner implements ApplicationRunner {
+public class ArgsLoggingApplicationRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {

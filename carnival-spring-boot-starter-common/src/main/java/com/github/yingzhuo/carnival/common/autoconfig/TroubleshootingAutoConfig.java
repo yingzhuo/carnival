@@ -9,21 +9,21 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebug;
-import com.github.yingzhuo.carnival.troubleshooting.ArgumentsApplicationRunner;
+import com.github.yingzhuo.carnival.troubleshooting.ArgsLoggingApplicationRunner;
 import com.github.yingzhuo.carnival.troubleshooting.EnvLoggingApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
  * @since 1.6.24
  */
-@ConditionalOnDebug
+@ConditionalOnProperty(prefix = "carnival", name = "troubleshooting", havingValue = "true")
 public class TroubleshootingAutoConfig {
 
     @Bean
-    public ArgumentsApplicationRunner argumentsApplicationRunner() {
-        return new ArgumentsApplicationRunner();
+    public ArgsLoggingApplicationRunner argsLoggingApplicationRunner() {
+        return new ArgsLoggingApplicationRunner();
     }
 
     @Bean

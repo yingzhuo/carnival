@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnDebug;
 import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -19,13 +19,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author 应卓
  */
-@ConditionalOnDebug
 @ConditionalOnWebApplication
+@ConditionalOnProperty(prefix = "carnival", name = "troubleshooting", havingValue = "true")
 public class MvcDebugAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DebugMvcInterceptor()).addPathPatterns("/", "/**").order(Ordered.LOWEST_PRECEDENCE);
+        registry.addInterceptor(new DebugMvcInterceptor())
+                .addPathPatterns("/", "/**")
+                .order(Ordered.LOWEST_PRECEDENCE);
     }
 
 }
