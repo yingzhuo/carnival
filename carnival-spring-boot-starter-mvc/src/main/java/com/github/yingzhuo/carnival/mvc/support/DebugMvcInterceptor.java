@@ -95,7 +95,7 @@ public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
         String clientUsingBackendVersion = ClientInfoContext.getClientUsingBackendVersion();
 
         if (clientOSType != null || clientOSVersion != null || clientAppVersion != null || clientUsingBackendVersion != null) {
-            log.debug("[Client]:");
+            log.debug("[Client Info]:");
             if (clientOSType != null) {
                 log.debug("\t\tclient-os-type = {}", clientOSType);
             }

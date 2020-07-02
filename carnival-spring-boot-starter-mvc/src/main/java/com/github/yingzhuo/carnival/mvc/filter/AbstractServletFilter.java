@@ -25,7 +25,7 @@ import java.io.IOException;
  */
 public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
-    protected static final String ENCODING_UTF_8 = "UTF-8";
+    protected static final String UTF_8 = "UTF-8";
 
     private String[] skipPatterns;
 
@@ -48,21 +48,21 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
     protected final void writeJson(HttpServletResponse response, Object obj) throws IOException {
         response.setContentType("application/json");
-        response.setCharacterEncoding(ENCODING_UTF_8);
+        response.setCharacterEncoding(UTF_8);
         response.getWriter().print(JacksonUtils.writeValueAsString(obj));
         response.getWriter().flush();
     }
 
     protected final void writeText(HttpServletResponse response, String text) throws IOException {
         response.setContentType("text/plain");
-        response.setCharacterEncoding(ENCODING_UTF_8);
+        response.setCharacterEncoding(UTF_8);
         response.getWriter().print(text);
         response.getWriter().flush();
     }
 
     protected final void writeHtml(HttpServletResponse response, String html) throws IOException {
         response.setContentType("text/html");
-        response.setCharacterEncoding(ENCODING_UTF_8);
+        response.setCharacterEncoding(UTF_8);
         response.getWriter().print(html);
         response.getWriter().flush();
     }

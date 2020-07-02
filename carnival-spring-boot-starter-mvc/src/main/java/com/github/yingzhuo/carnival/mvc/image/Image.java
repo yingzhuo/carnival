@@ -9,9 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.image;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.awt.image.BufferedImage;
 
@@ -22,6 +20,8 @@ import java.awt.image.BufferedImage;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public final class Image {
 
     private Format format;

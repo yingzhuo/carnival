@@ -21,7 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "carnival", name = "troubleshooting", havingValue = "true")
-public class MvcDebugAutoConfig implements WebMvcConfigurer {
+public class MvcTroubleshootingAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
