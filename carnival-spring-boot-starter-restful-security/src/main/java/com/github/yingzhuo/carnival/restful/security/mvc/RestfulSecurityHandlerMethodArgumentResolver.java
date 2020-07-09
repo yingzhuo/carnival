@@ -9,8 +9,10 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
+import com.github.yingzhuo.carnival.restful.security.annotation.Id;
 import com.github.yingzhuo.carnival.restful.security.annotation.StringTokenValue;
 import com.github.yingzhuo.carnival.restful.security.annotation.UserDetailsProperty;
+import com.github.yingzhuo.carnival.restful.security.annotation.Username;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.token.BytesToken;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
@@ -25,6 +27,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import java.util.NoSuchElementException;
+
 /**
  * @author 应卓
  */
@@ -33,6 +37,8 @@ public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMeth
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         return parameter.hasParameterAnnotation(UserDetailsProperty.class) ||
+                parameter.hasParameterAnnotation(Id.class) ||
+                parameter.hasParameterAnnotation(Username.class) ||
                 (parameter.hasParameterAnnotation(StringTokenValue.class) && parameter.getParameterType() == String.class) ||
                 parameter.getParameterType() == UserDetails.class ||
                 parameter.getParameterType() == Token.class ||
@@ -70,6 +76,22 @@ public class RestfulSecurityHandlerMethodArgumentResolver implements HandlerMeth
                 return null;
             } else {
                 return ((StringToken) token).getValue();
+            }
+        }
+
+        if (parameter.hasParameterAnnotation(Id.class)) {
+            try {
+                return RestfulSecurityContext.getUserDetails().get().getId();
+            } catch (NoSuchElementException | NullPointerException e) {
+                return null;
+            }
+        }
+
+        if (parameter.hasParameterAnnotation(Username.class)) {
+            try {
+                return RestfulSecurityContext.getUserDetails().get().getUsername();
+            } catch (NoSuchElementException | NullPointerException e) {
+                return null;
             }
         }
 

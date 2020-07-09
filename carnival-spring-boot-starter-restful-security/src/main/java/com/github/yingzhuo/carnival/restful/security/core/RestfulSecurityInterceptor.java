@@ -35,6 +35,11 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RestfulSecurityContext.clean();
         RestfulSecurityContext.setRequest(request);
+
+        if (!(handler instanceof HandlerMethod)) {
+            return true;
+        }
+
         doExecute(request, response, (HandlerMethod) handler);
         return true;
     }
