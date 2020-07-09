@@ -63,11 +63,6 @@ public abstract class AbstractUserWrapper<T> implements UserDetails {
     }
 
     @Override
-    public boolean isAdmin() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
     public <U> U getNativeUser() {
         return (U) user;

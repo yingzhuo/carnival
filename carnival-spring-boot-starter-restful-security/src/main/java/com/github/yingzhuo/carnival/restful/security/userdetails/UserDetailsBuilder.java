@@ -53,12 +53,6 @@ public final class UserDetailsBuilder {
         return this;
     }
 
-    @Deprecated
-    public UserDetailsBuilder admin(boolean admin) {
-        ud.setAdmin(admin);
-        return this;
-    }
-
     public UserDetailsBuilder roles(Role... roles) {
         ud.setRoles(Arrays.asList(roles));
         return this;

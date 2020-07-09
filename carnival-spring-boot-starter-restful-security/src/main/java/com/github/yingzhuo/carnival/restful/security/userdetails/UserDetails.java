@@ -41,9 +41,6 @@ public interface UserDetails extends Serializable {
 
     public Collection<Permission> getPermissions();
 
-    @Deprecated
-    public boolean isAdmin();
-
     public <U> U getNativeUser();
 
     public Map<String, Object> getPayload();

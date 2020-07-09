@@ -45,11 +45,6 @@ public final class UserDetailsUtils {
         return userDetails != null ? userDetails.getPassword() : null;
     }
 
-    public static boolean isAdmin() {
-        val userDetails = get();
-        return userDetails != null && userDetails.isAdmin();
-    }
-
     public static <T> T getNativeUser() {
         val userDetails = get();
         return (T) (userDetails != null ? userDetails.getNativeUser() : null);

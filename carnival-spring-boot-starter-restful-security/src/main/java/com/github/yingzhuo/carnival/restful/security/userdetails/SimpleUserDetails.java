@@ -32,7 +32,6 @@ class SimpleUserDetails implements UserDetails {
     private boolean locked = false;
     private Collection<Role> roles = Collections.emptyList();
     private Collection<Permission> permissions = Collections.emptyList();
-    private boolean admin = false;
     private Object nativeUser = null;
     private Map<String, Object> payload = new HashMap<>();
 
@@ -45,7 +44,6 @@ class SimpleUserDetails implements UserDetails {
 
         if (expired != that.expired) return false;
         if (locked != that.locked) return false;
-        if (admin != that.admin) return false;
         if (!Objects.equals(id, that.id)) return false;
         if (!Objects.equals(username, that.username)) return false;
         if (!Objects.equals(password, that.password)) return false;
@@ -64,9 +62,9 @@ class SimpleUserDetails implements UserDetails {
         result = 31 * result + (locked ? 1 : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
         result = 31 * result + (permissions != null ? permissions.hashCode() : 0);
-        result = 31 * result + (admin ? 1 : 0);
         result = 31 * result + (nativeUser != null ? nativeUser.hashCode() : 0);
         result = 31 * result + (payload != null ? payload.hashCode() : 0);
         return result;
     }
+
 }
