@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.json.autoconfig.JacksonCoreAutoConfig,\
-    com.github.yingzhuo.carnival.json.autoconfig.PageModuleAutoConfig
+    com.github.yingzhuo.carnival.json.autoconfig.PageModuleAutoConfig,\
+    com.github.yingzhuo.carnival.json.autoconfig.GuavaModuleAutoConfig
