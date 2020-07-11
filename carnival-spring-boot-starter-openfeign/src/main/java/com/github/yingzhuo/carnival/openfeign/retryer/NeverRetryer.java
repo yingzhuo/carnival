@@ -14,6 +14,7 @@ import feign.Retryer;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.net.ConnectException;
 
 /**
  * @author 应卓
@@ -31,6 +32,11 @@ public final class NeverRetryer implements Retryer {
         final Throwable cause = e.getCause();
 
         if (cause != null) {
+
+            if (cause instanceof ConnectException) {
+                throw new com.github.yingzhuo.carnival.openfeign.exception.ConnectionException(cause.getMessage(), (ConnectException) cause);
+            }
+
             if (cause instanceof IOException) {
                 final IOException ioEx = (IOException) cause;
                 throw new UncheckedIOException(ioEx);

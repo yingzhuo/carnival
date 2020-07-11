@@ -37,7 +37,7 @@ import java.util.Optional;
  */
 final class FeignComponentFinder {
 
-    public static Optional<Client> client(ApplicationContext applicationContext) {
+    static Optional<Client> client(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Client.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -47,7 +47,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<Encoder> encoder(ApplicationContext applicationContext) {
+    static Optional<Encoder> encoder(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Encoder.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -57,7 +57,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<Decoder> decoder(ApplicationContext applicationContext) {
+    static Optional<Decoder> decoder(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Decoder.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -67,7 +67,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<ErrorDecoder> errorDecoder(ApplicationContext applicationContext) {
+    static Optional<ErrorDecoder> errorDecoder(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(ErrorDecoder.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -77,7 +77,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<Retryer> retryer(ApplicationContext applicationContext) {
+    static Optional<Retryer> retryer(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Retryer.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -87,7 +87,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<Request.Options> options(ApplicationContext applicationContext) {
+    static Optional<Request.Options> options(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Request.Options.class));
         } catch (NoUniqueBeanDefinitionException e) {
@@ -97,7 +97,7 @@ final class FeignComponentFinder {
         }
     }
 
-    public static Optional<Contract> contract(ApplicationContext applicationContext) {
+    static Optional<Contract> contract(ApplicationContext applicationContext) {
         try {
             return Optional.of(applicationContext.getBean(Contract.class));
         } catch (NoUniqueBeanDefinitionException e) {
