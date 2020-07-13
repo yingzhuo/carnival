@@ -19,9 +19,9 @@ import java.util.Iterator;
  */
 class DateRangeIterator implements Iterator<Date> {
 
-    private long current;
     private final long end;
     private final long step;
+    private long current;
 
     DateRangeIterator(Date begin, Date end, Duration step) {
         this.current = begin.getTime();

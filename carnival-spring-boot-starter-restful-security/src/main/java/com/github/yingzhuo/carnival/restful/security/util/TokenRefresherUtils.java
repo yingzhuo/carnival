@@ -17,12 +17,10 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  * @author 应卓
  * @since 1.6.1
  */
-public class TokenRefresherUtils {
+public final class TokenRefresherUtils {
 
     private TokenRefresherUtils() {
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     public static Token refresh(Token oldToken) {
         return SpringUtils.getBean(TokenRefresher.class).refresh(oldToken);

@@ -14,26 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 自洽性错误
- *
  * @author 应卓
- * @since 1.4.5
+ * @since 1.6.25
  */
-public class SelfConsistentException extends IllegalArgumentException {
+public class NotImplementedException extends UnsupportedOperationException {
 
-    public SelfConsistentException() {
-    }
-
-    public SelfConsistentException(String message) {
-        super(message);
-    }
-
-    public SelfConsistentException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public SelfConsistentException(Throwable cause) {
-        super(cause);
+    public NotImplementedException() {
+        super();
     }
 
     public Map<String, Object> asMap() {
@@ -44,7 +31,7 @@ public class SelfConsistentException extends IllegalArgumentException {
         final Map<String, Object> map = new HashMap<>();
         map.put("message", getMessage());
         if (includeType) {
-            map.put("type", SelfConsistentException.class.getName());
+            map.put("type", NotImplementedException.class.getName());
         }
         return Collections.unmodifiableMap(map);
     }

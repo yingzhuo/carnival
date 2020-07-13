@@ -47,7 +47,7 @@ public class BusinessException extends RuntimeException {
         final Map<String, Object> map = new HashMap<>();
 
         if (includeType) {
-            map.put("type", getClass().getName());
+            map.put("type", BusinessException.class.getName());
         }
 
         map.put("code", getCode());

@@ -29,7 +29,7 @@ public class TypeUsernamePasswordTokenSupport implements HandlerMethodArgumentRe
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         return (UsernamePasswordToken) TokenUtils.get();
     }
 

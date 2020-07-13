@@ -86,8 +86,6 @@ public final class UserDetailsUtils {
         return getProperty(propertyName, null);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static <T> T getProperty(String propertyName, T defaultValue) {
         final UserDetails userDetails = get();
 

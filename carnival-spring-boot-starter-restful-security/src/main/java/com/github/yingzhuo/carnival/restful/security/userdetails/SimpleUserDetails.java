@@ -22,7 +22,7 @@ import java.util.*;
  */
 @Getter
 @Setter
-@ToString(exclude = {"password"})
+@ToString
 class SimpleUserDetails implements UserDetails {
 
     private Object id = null;

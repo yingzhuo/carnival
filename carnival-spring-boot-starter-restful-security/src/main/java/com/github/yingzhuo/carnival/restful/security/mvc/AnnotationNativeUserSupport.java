@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
-import com.github.yingzhuo.carnival.restful.security.token.Token;
-import com.github.yingzhuo.carnival.restful.security.util.TokenUtils;
+import com.github.yingzhuo.carnival.restful.security.annotation.NativeUser;
+import com.github.yingzhuo.carnival.restful.security.util.UserDetailsUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -21,16 +21,16 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  * @author 应卓
  * @since 1.6.25
  */
-public class TypeTokenSupport implements HandlerMethodArgumentResolver {
+public class AnnotationNativeUserSupport implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterType() == Token.class;
+        return parameter.hasParameterAnnotation(NativeUser.class);
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return TokenUtils.get();
+        return UserDetailsUtils.getNativeUser();
     }
 
 }

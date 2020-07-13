@@ -31,7 +31,7 @@ public class AnnotationStringTokenValueSupport implements HandlerMethodArgumentR
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         Token token = TokenUtils.get();
         if (token instanceof StringToken) {
             return ((StringToken) token).getValue();

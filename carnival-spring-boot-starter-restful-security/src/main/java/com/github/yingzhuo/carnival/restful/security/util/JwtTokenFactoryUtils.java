@@ -26,8 +26,6 @@ public final class JwtTokenFactoryUtils {
         return SpringUtils.getBean(JwtTokenFactory.class).create(info);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
     public static String create(JwtTokenInfo.Builder builder) {
         return SpringUtils.getBean(JwtTokenFactory.class).create(builder);
     }
