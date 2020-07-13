@@ -17,7 +17,7 @@ import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityFilter;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
 import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
-import com.github.yingzhuo.carnival.restful.security.mvc.RestfulSecurityHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.restful.security.mvc.*;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
@@ -93,12 +93,20 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
                     .addPathPatterns(getPathPatterns())
                     .order(getOrder());
         }
-
     }
 
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(new RestfulSecurityHandlerMethodArgumentResolver());
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new AnnotationIdSupport());
+        resolvers.add(new AnnotationUsernameSupport());
+        resolvers.add(new AnnotationStringTokenValueSupport());
+        resolvers.add(new AnnotationUserDetailsPropertySupport());
+
+        resolvers.add(new TypeUserDetailsSupport());
+        resolvers.add(new TypeTokenSupport());
+        resolvers.add(new TypeStringTokenSupport());
+        resolvers.add(new TypeBytesTokenSupport());
+        resolvers.add(new TypeUsernamePasswordTokenSupport());
     }
 
     @Override
