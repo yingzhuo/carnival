@@ -17,6 +17,7 @@ import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.var;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -40,11 +41,28 @@ public class IdCoreAutoConfig {
                 var workerId = props.getSnowflake().getWorkerId();
                 var dataCenterId = props.getSnowflake().getDataCenterId();
 
-                if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
-                    return new SnowflakeLongIdGenerator(workerId, dataCenterId);
-                } else {
-                    return new SnowflakeStringIdGenerator(workerId, dataCenterId, props.getSnowflake().getLength(), props.getSnowflake().getPadCharacter());
+                if (workerId < 1) {
+                    workerId = RandomUtils.nextInt(0, 32);
                 }
+
+                if (dataCenterId < 1) {
+                    dataCenterId = RandomUtils.nextInt(0, 32);
+                }
+
+                if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
+                    return new SnowflakeLongIdGenerator(
+                            workerId,
+                            dataCenterId
+                    );
+                } else {
+                    return new SnowflakeStringIdGenerator(
+                            workerId,
+                            dataCenterId,
+                            props.getSnowflake().getLength(),
+                            props.getSnowflake().getPadCharacter()
+                    );
+                }
+
             case UUID_32:
                 return new UUIDGenerator(true);
             case UUID_36:

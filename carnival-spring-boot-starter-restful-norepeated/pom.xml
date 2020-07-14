@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.github.yingzhuo</groupId>
         <artifactId>carnival</artifactId>
-        <version>1.6.25</version>
+        <version>1.7.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>carnival-spring-boot-starter-restful-norepeated</artifactId>
