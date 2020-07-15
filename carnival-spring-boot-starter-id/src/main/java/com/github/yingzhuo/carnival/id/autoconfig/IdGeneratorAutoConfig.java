@@ -16,6 +16,7 @@ import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,9 +28,10 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(IdCoreAutoConfig.Props.class)
+@Slf4j
+@EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class IdCoreAutoConfig {
+public class IdGeneratorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -43,10 +45,12 @@ public class IdCoreAutoConfig {
 
                 if (workerId < 1) {
                     workerId = RandomUtils.nextInt(0, 32);
+                    log.warn("using random worker-id: {}", workerId);
                 }
 
                 if (dataCenterId < 1) {
                     dataCenterId = RandomUtils.nextInt(0, 32);
+                    log.warn("using random data-center-id: {}", dataCenterId);
                 }
 
                 if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
@@ -68,7 +72,7 @@ public class IdCoreAutoConfig {
             case UUID_36:
                 return new UUIDGenerator(false);
             default:
-                throw new AssertionError();
+                throw new AssertionError(); // 程序不可能运行到此处
         }
     }
 
