@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 
 /**
  * @author 应卓
- * @since 1.7.0
+ * @since 1.6.26
  */
 @Slf4j
 class SortDeserializer extends JsonDeserializer<Sort> {

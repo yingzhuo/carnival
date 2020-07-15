@@ -20,7 +20,7 @@ import java.util.function.Function;
 
 /**
  * @author 应卓
- * @since 1.7.0
+ * @since 1.6.26
  */
 class SimplePageImpl<T> implements Page<T> {
 
