@@ -16,6 +16,7 @@ import org.springframework.boot.ApplicationRunner;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -31,8 +32,15 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
             return;
         }
 
-        final Set<String> optionNames = args.getOptionNames();
-        final List<String> nonOptionsArgs = args.getNonOptionArgs();
+        final Set<String> optionNames = args.getOptionNames()
+                .stream()
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toSet());
+
+        final List<String> nonOptionsArgs = args.getNonOptionArgs()
+                .stream()
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toList());
 
         if (optionNames.isEmpty() && nonOptionsArgs.isEmpty()) {
             return;
