@@ -12,16 +12,18 @@ package com.github.yingzhuo.carnival.json.module.page;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 
 /**
  * @author 应卓
  * @since 1.7.0
  */
+@Slf4j
 class SortDeserializer extends JsonDeserializer<Sort> {
 
     @Override
-    public Sort deserialize(JsonParser jp, DeserializationContext ctxt) {
+    public Sort deserialize(JsonParser jp, DeserializationContext context) {
 //        ArrayNode node = jp.getCodec().readTree(jp);
 //        Order[] orders = new Order[node.size()];
 //        int i = 0;
@@ -30,6 +32,7 @@ class SortDeserializer extends JsonDeserializer<Sort> {
 //            i++;
 //        }
 //        return Sort.by(orders);
+        log.info("'sort' property is ignored");
         return null;
     }
 

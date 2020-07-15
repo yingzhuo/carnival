@@ -13,11 +13,11 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.23
+ * @since 1.7.0
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
+@Target(ElementType.PARAMETER)
 public @interface SpringQueryMap {
 
     public boolean encoded() default false;
