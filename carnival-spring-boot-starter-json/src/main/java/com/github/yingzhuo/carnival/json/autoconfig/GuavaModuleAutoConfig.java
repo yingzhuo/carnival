@@ -20,9 +20,7 @@ public class GuavaModuleAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> {
-            builder.modules(new GuavaModule());
-        };
+        return builder -> builder.modules(new GuavaModule());
     }
 
 }
