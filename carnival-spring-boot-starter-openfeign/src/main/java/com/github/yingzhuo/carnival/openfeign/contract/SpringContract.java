@@ -324,7 +324,6 @@ public class SpringContract extends Contract.BaseContract
         annotatedArgumentResolvers.add(new RequestParamParameterProcessor());
         annotatedArgumentResolvers.add(new RequestHeaderParameterProcessor());
         annotatedArgumentResolvers.add(new RequestPartParameterProcessor());
-        annotatedArgumentResolvers.add(new QueryMapParameterProcessor());
         annotatedArgumentResolvers.add(new SpringQueryMapParameterProcessor());
         return annotatedArgumentResolvers;
     }
