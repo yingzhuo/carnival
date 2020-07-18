@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.mvc.image;
 import lombok.*;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * @author 应卓
@@ -22,7 +23,7 @@ import java.awt.image.BufferedImage;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public final class Image {
+public final class Image implements Serializable {
 
     private Format format;
     private BufferedImage image;

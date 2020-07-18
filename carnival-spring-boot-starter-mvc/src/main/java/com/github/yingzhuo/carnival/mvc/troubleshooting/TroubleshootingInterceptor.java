@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.support;
+package com.github.yingzhuo.carnival.mvc.troubleshooting;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.mvc.NoDebug;
@@ -32,7 +32,7 @@ import java.util.Locale;
  * @author 应卓
  */
 @Slf4j(topic = "troubleshooting")
-public class DebugMvcInterceptor extends AbstractHandlerInterceptorSupport {
+public class TroubleshootingInterceptor extends AbstractHandlerInterceptorSupport {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

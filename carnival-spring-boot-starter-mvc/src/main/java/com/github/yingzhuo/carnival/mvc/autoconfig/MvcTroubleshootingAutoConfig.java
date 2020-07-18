@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.support.DebugMvcInterceptor;
+import com.github.yingzhuo.carnival.mvc.troubleshooting.TroubleshootingInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.Ordered;
@@ -25,7 +25,7 @@ public class MvcTroubleshootingAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new DebugMvcInterceptor())
+        registry.addInterceptor(new TroubleshootingInterceptor())
                 .addPathPatterns("/", "/**")
                 .order(Ordered.LOWEST_PRECEDENCE);
     }
