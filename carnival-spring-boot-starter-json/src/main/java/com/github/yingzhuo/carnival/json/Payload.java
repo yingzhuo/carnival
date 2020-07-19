@@ -81,4 +81,9 @@ public class Payload extends HashMap<Object, Object> {
         return payload;
     }
 
+    public Payload append(String key, Object value) {
+        this.put(key, value);
+        return this;
+    }
+
 }
