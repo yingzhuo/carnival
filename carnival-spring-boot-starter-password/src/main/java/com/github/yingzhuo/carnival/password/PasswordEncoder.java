@@ -11,17 +11,12 @@ package com.github.yingzhuo.carnival.password;
 
 /**
  * @author 应卓
+ * @since 1.6.27
  */
-public enum Algorithm {
+public interface PasswordEncoder extends org.springframework.security.crypto.password.PasswordEncoder {
 
-    MD5,
-
-    SHA1,
-
-    SHA256,
-
-    BCRYPT,
-
-    NONE
+    public default boolean notMatches(CharSequence rawPassword, String encodedPassword) {
+        return !matches(rawPassword, encodedPassword);
+    }
 
 }
