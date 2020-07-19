@@ -13,7 +13,7 @@ package com.github.yingzhuo.carnival.password.autoconfig;
  * @author 应卓
  * @since 1.6.27
  */
-enum Algorithm {
+public enum Algorithm {
 
     noop("noop"),
     bcrypt("bcrypt"),
