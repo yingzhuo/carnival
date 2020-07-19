@@ -10,9 +10,9 @@
 package com.github.yingzhuo.carnival.mvc.troubleshooting;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
-import com.github.yingzhuo.carnival.mvc.NoDebug;
 import com.github.yingzhuo.carnival.mvc.client.ClientInfoContext;
 import com.github.yingzhuo.carnival.mvc.client.ClientOSType;
+import com.github.yingzhuo.carnival.troubleshooting.IgnoreTroubleshooting;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -41,7 +41,7 @@ public class TroubleshootingInterceptor extends AbstractHandlerInterceptorSuppor
             return true;
         }
 
-        if (hasMethodOrClassAnnotation(NoDebug.class, handler)) {
+        if (hasMethodOrClassAnnotation(IgnoreTroubleshooting.class, handler)) {
             return true;
         }
 
