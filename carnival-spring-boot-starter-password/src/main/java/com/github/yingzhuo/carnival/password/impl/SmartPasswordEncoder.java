@@ -7,19 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.autoconfig;
+package com.github.yingzhuo.carnival.password.impl;
 
+import com.github.yingzhuo.carnival.password.PasswordEncoder;
+import com.github.yingzhuo.carnival.password.autoconfig.Algorithm;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 
-import static com.github.yingzhuo.carnival.password.autoconfig.Algorithms.SUPPORTED_ALGORITHMS;
+import static com.github.yingzhuo.carnival.password.impl.Algorithms.SUPPORTED_ALGORITHMS;
 
 /**
  * @author 应卓
  * @since 1.6.27
  */
-public class PasswordEncoderImpl extends DelegatingPasswordEncoder implements com.github.yingzhuo.carnival.password.PasswordEncoder {
+public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements PasswordEncoder {
 
-    public PasswordEncoderImpl(Algorithm encoding, Algorithm unmapped) {
+    public SmartPasswordEncoder(Algorithm encoding, Algorithm unmapped) {
         super(encoding.getId(), SUPPORTED_ALGORITHMS);
 
         if (unmapped != null) {

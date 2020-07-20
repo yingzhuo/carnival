@@ -7,8 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.autoconfig;
+package com.github.yingzhuo.carnival.password.impl;
 
+import com.github.yingzhuo.carnival.password.autoconfig.Algorithm;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
@@ -16,6 +17,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * (内部工具)
+ *
  * @author 应卓
  * @since 1.6.27
  */

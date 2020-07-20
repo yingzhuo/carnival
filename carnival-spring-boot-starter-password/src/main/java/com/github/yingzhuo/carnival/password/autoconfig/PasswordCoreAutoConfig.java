@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.password.autoconfig;
 
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
+import com.github.yingzhuo.carnival.password.impl.SmartPasswordEncoder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -28,7 +29,7 @@ public class PasswordCoreAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public PasswordEncoder passwordEncoder(PasswordEncoderProperties props) {
-        return new PasswordEncoderImpl(props.getEncoding(), props.getUnmapped());
+        return new SmartPasswordEncoder(props.getEncoding(), props.getUnmapped());
     }
 
     @Getter

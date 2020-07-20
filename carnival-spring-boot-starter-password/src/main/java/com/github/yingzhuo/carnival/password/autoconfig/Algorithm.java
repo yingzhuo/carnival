@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
-import com.github.yingzhuo.carnival.password.impl.NoOpIgnoreCasePasswordEncoder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
@@ -31,8 +30,7 @@ public enum Algorithm {
     sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
     argon2("argon2", new Argon2PasswordEncoder()),
     ldap("ldap", new LdapShaPasswordEncoder()),
-    noop("noop", NoOpPasswordEncoder.getInstance()),
-    noop_ignore_case("noop-ignore-case", NoOpIgnoreCasePasswordEncoder.getInstance());
+    noop("noop", NoOpPasswordEncoder.getInstance());
 
     private final String id;
     private final PasswordEncoder passwordEncoder;
