@@ -50,12 +50,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- commons -->
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
-
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>

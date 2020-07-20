@@ -9,30 +9,45 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
+import com.github.yingzhuo.carnival.password.impl.NoOpIgnoreCasePasswordEncoder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.*;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+
 /**
  * @author 应卓
  * @since 1.6.27
  */
+@SuppressWarnings("deprecation")
 public enum Algorithm {
 
-    noop("noop"),
-    bcrypt("bcrypt"),
-    ldap("ldap"),
-    md4("MD4"),
-    md5("MD5"),
-    pbkdf2("pbkdf2"),
-    scrypt("scrypt"),
-    sha1("SHA-1"),
-    sha256("SHA-256"),
-    argon2("argon2");
+    bcrypt("bcrypt", new BCryptPasswordEncoder()), // default one
+    md5("MD5", new MessageDigestPasswordEncoder("MD5")),
+    md4("MD4", new Md4PasswordEncoder()),
+    pbkdf2("pbkdf2", new Pbkdf2PasswordEncoder()),
+    scrypt("scrypt", new SCryptPasswordEncoder()),
+    sha1("SHA-1", new MessageDigestPasswordEncoder("SHA-1")),
+    sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
+    argon2("argon2", new Argon2PasswordEncoder()),
+    ldap("ldap", new LdapShaPasswordEncoder()),
+    noop("noop", NoOpPasswordEncoder.getInstance()),
+    noop_ignore_case("noop-ignore-case", NoOpIgnoreCasePasswordEncoder.getInstance());
 
     private final String id;
+    private final PasswordEncoder passwordEncoder;
 
-    Algorithm(String id) {
+    Algorithm(String id, PasswordEncoder passwordEncoder) {
         this.id = id;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public String getId() {
         return id;
     }
+
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
+    }
+
 }
