@@ -17,7 +17,7 @@ import java.util.Base64;
 
 /**
  * @author 应卓
- * @since 1.6.29
+ * @since 1.6.28
  */
 @Deprecated
 public class Base64PasswordEncoder implements PasswordEncoder {
