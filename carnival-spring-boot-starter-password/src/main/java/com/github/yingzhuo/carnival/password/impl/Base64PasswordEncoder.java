@@ -34,7 +34,7 @@ public class Base64PasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return Base64.getEncoder().encodeToString(rawPassword.toString().getBytes(charset));
+        return Base64.getUrlEncoder().encodeToString(rawPassword.toString().getBytes(charset));
     }
 
     @Override

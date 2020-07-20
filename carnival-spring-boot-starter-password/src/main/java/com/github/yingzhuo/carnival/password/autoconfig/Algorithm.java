@@ -24,30 +24,16 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 public enum Algorithm {
 
     bcrypt("bcrypt", new BCryptPasswordEncoder()),
-
     md5("MD5", new MessageDigestPasswordEncoder("MD5")),
-
     md4("MD4", new Md4PasswordEncoder()),
-
     pbkdf2("pbkdf2", new Pbkdf2PasswordEncoder()),
-
     scrypt("scrypt", new SCryptPasswordEncoder()),
-
     sha1("SHA-1", new MessageDigestPasswordEncoder("SHA-1")),
-
     sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
-
     argon2("argon2", new Argon2PasswordEncoder()),
-
     ldap("ldap", new LdapShaPasswordEncoder()),
-
-    @Deprecated
     base64("base64", new Base64PasswordEncoder()),
-
-    @Deprecated
     reverse("reverse", new ReversePasswordEncoder()),
-
-    @Deprecated
     noop("noop", NoOpPasswordEncoder.getInstance());
 
     private final String id;
