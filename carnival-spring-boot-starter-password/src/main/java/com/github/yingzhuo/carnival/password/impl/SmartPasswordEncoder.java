@@ -21,6 +21,10 @@ import static com.github.yingzhuo.carnival.password.impl.Algorithms.SUPPORTED_AL
  */
 public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements PasswordEncoder {
 
+    public SmartPasswordEncoder(Algorithm encoding) {
+        this(encoding, null);
+    }
+
     public SmartPasswordEncoder(Algorithm encoding, Algorithm unmapped) {
         super(encoding.getId(), SUPPORTED_ALGORITHMS);
 

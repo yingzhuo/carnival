@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
+import com.github.yingzhuo.carnival.password.impl.Base64PasswordEncoder;
+import com.github.yingzhuo.carnival.password.impl.ReversePasswordEncoder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
@@ -21,15 +23,31 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 @SuppressWarnings("deprecation")
 public enum Algorithm {
 
-    bcrypt("bcrypt", new BCryptPasswordEncoder()), // default one
+    bcrypt("bcrypt", new BCryptPasswordEncoder()),
+
     md5("MD5", new MessageDigestPasswordEncoder("MD5")),
+
     md4("MD4", new Md4PasswordEncoder()),
+
     pbkdf2("pbkdf2", new Pbkdf2PasswordEncoder()),
+
     scrypt("scrypt", new SCryptPasswordEncoder()),
+
     sha1("SHA-1", new MessageDigestPasswordEncoder("SHA-1")),
+
     sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
+
     argon2("argon2", new Argon2PasswordEncoder()),
+
     ldap("ldap", new LdapShaPasswordEncoder()),
+
+    @Deprecated
+    base64("base64", new Base64PasswordEncoder()),
+
+    @Deprecated
+    reverse("reverse", new ReversePasswordEncoder()),
+
+    @Deprecated
     noop("noop", NoOpPasswordEncoder.getInstance());
 
     private final String id;
