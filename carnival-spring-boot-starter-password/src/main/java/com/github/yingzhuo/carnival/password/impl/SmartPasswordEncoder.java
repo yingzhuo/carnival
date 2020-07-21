@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
-import com.github.yingzhuo.carnival.password.autoconfig.Algorithm;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 
 import static com.github.yingzhuo.carnival.password.impl.Algorithms.SUPPORTED_ALGORITHMS;

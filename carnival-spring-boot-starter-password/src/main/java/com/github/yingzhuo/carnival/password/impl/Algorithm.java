@@ -7,10 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.autoconfig;
+package com.github.yingzhuo.carnival.password.impl;
 
-import com.github.yingzhuo.carnival.password.impl.Base64PasswordEncoder;
-import com.github.yingzhuo.carnival.password.impl.ReversePasswordEncoder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;

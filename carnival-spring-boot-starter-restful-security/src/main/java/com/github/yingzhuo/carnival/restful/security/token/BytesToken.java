@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.token;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 
 /**
@@ -49,6 +51,10 @@ public class BytesToken implements Token {
         return "BytesToken{" +
                 "data=" + Arrays.toString(data) +
                 '}';
+    }
+
+    public InputStream toInputStream() {
+        return new ByteArrayInputStream(getData());
     }
 
 }

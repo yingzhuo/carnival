@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.password.autoconfig;
 
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
+import com.github.yingzhuo.carnival.password.impl.Algorithm;
 import com.github.yingzhuo.carnival.password.impl.SmartPasswordEncoder;
 import lombok.Getter;
 import lombok.Setter;

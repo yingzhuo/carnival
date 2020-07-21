@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.password.impl;
 
-import com.github.yingzhuo.carnival.password.autoconfig.Algorithm;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
@@ -24,9 +23,6 @@ import java.util.Map;
  */
 public final class Algorithms {
 
-    private Algorithms() {
-    }
-
     public static final Map<String, PasswordEncoder> SUPPORTED_ALGORITHMS;
 
     static {
@@ -35,6 +31,9 @@ public final class Algorithms {
             map.put(algorithm.getId(), algorithm.getPasswordEncoder());
         }
         SUPPORTED_ALGORITHMS = Collections.unmodifiableMap(map);
+    }
+
+    private Algorithms() {
     }
 
 }
