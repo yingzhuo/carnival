@@ -19,7 +19,6 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.28
  */
-@Deprecated
 public class Base64PasswordEncoder implements PasswordEncoder {
 
     private final Charset charset;
@@ -40,11 +39,6 @@ public class Base64PasswordEncoder implements PasswordEncoder {
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return new String(Base64.getUrlDecoder().decode(encodedPassword.getBytes(charset))).equals(rawPassword.toString());
-    }
-
-    @Override
-    public boolean upgradeEncoding(String encodedPassword) {
-        return true;
     }
 
 }

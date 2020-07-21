@@ -23,20 +23,20 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(PasswordCoreAutoConfig.PasswordEncoderProperties.class)
+@EnableConfigurationProperties(PasswordEncoderAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class PasswordCoreAutoConfig {
+public class PasswordEncoderAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public PasswordEncoder passwordEncoder(PasswordEncoderProperties props) {
+    public PasswordEncoder passwordEncoder(Props props) {
         return new SmartPasswordEncoder(props.getEncoding(), props.getUnmapped());
     }
 
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.password")
-    static class PasswordEncoderProperties {
+    static class Props {
         private boolean enabled = true;
         private Algorithm encoding = Algorithm.bcrypt;
         private Algorithm unmapped = Algorithm.bcrypt;

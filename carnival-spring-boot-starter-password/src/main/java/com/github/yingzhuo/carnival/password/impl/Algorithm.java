@@ -43,11 +43,11 @@ public enum Algorithm {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 
     public PasswordEncoder getPasswordEncoder() {
-        return passwordEncoder;
+        return this.passwordEncoder;
     }
 
 }

@@ -15,11 +15,7 @@ import com.github.yingzhuo.carnival.password.PasswordEncoder;
  * @author 应卓
  * @since 1.6.28
  */
-@Deprecated
 public final class ReversePasswordEncoder implements PasswordEncoder {
-
-    public ReversePasswordEncoder() {
-    }
 
     @Override
     public String encode(CharSequence rawPassword) {
@@ -29,11 +25,6 @@ public final class ReversePasswordEncoder implements PasswordEncoder {
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
         return encode(rawPassword).equals(encodedPassword);
-    }
-
-    @Override
-    public boolean upgradeEncoding(String encodedPassword) {
-        return true;
     }
 
 }

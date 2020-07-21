@@ -19,4 +19,9 @@ public interface PasswordEncoder extends org.springframework.security.crypto.pas
         return !matches(rawPassword, encodedPassword);
     }
 
+    @Override
+    public default boolean upgradeEncoding(String encodedPassword) {
+        return true;
+    }
+
 }
