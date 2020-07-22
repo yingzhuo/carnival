@@ -17,5 +17,7 @@ public enum Implementation {
 
     SPRING_MAC_INTERCEPTOR,
 
+    @Deprecated
     SERVLET_FILTER;
+
 }

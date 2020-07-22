@@ -80,7 +80,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
         if (isInterceptorImpl()) {
             final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
             interceptor.setAuthenticationStrategy(getAuthenticationStrategy());

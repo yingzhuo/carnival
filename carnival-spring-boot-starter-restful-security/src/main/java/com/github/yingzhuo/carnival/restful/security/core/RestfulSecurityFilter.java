@@ -29,6 +29,7 @@ import java.io.IOException;
  * @author 应卓
  * @since 1.6.22
  */
+@Deprecated
 public class RestfulSecurityFilter extends OncePerRequestFilter implements RestfulSecurity {
 
     private AuthenticationStrategy authenticationStrategy;

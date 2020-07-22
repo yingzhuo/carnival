@@ -31,6 +31,7 @@ public interface RestfulSecurityConfigurer extends Ordered {
         return null;
     }
 
+    @Deprecated
     public default Implementation getImplementation() {
         return Implementation.SPRING_MAC_INTERCEPTOR;
     }
