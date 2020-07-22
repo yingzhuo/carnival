@@ -626,13 +626,6 @@
                 <version>2.6.2</version>
             </dependency>
 
-            <!-- kotlin -->
-            <dependency>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-stdlib</artifactId>
-                <version>${kotlin.version}</version>
-            </dependency>
-
             <!-- junit -->
             <dependency>
                 <groupId>junit</groupId>
