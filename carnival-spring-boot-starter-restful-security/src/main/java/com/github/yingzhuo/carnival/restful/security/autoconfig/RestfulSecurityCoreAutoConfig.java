@@ -10,13 +10,10 @@
 package com.github.yingzhuo.carnival.restful.security.autoconfig;
 
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
-import com.github.yingzhuo.carnival.restful.security.Implementation;
 import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
-import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityFilter;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
-import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
 import com.github.yingzhuo.carnival.restful.security.mvc.*;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -26,8 +23,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -57,41 +52,18 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Autowired(required = false)
     private TokenWhitelistManager injectedTokenWhitelistManager;
 
-    @Autowired(required = false)
-    private ExceptionHandler injectedExceptionHandler;
-
-    @Bean
-    @ConditionalOnFilterImpl
-    public FilterRegistrationBean<RestfulSecurityFilter> restfulSecurityFilter() {
-        final FilterRegistrationBean<RestfulSecurityFilter> bean = new FilterRegistrationBean<>();
-        final RestfulSecurityFilter filter = new RestfulSecurityFilter();
-        filter.setAuthenticationStrategy(getAuthenticationStrategy());
-        filter.setTokenParser(getTokenParser());
-        filter.setUserDetailsRealm(getUserDetailsRealm());
-        filter.setTokenBlacklistManager(getTokenBlackListManager());
-        filter.setTokenWhitelistManager(getTokenWhitelistManager());
-        filter.setExceptionHandler(exceptionHandler());
-        bean.setFilter(filter);
-        bean.setOrder(getOrder());
-        bean.addUrlPatterns(getPathPatterns());
-        bean.setName(RestfulSecurityFilter.class.getName());
-        return bean;
-    }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        if (isInterceptorImpl()) {
-            final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
-            interceptor.setAuthenticationStrategy(getAuthenticationStrategy());
-            interceptor.setTokenParser(getTokenParser());
-            interceptor.setUserDetailsRealm(getUserDetailsRealm());
-            interceptor.setTokenBlacklistManager(getTokenBlackListManager());
-            interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
+        final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
+        interceptor.setAuthenticationStrategy(getAuthenticationStrategy());
+        interceptor.setTokenParser(getTokenParser());
+        interceptor.setUserDetailsRealm(getUserDetailsRealm());
+        interceptor.setTokenBlacklistManager(getTokenBlackListManager());
+        interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
 
-            registry.addInterceptor(interceptor)
-                    .addPathPatterns(getPathPatterns())
-                    .order(getOrder());
-        }
+        registry.addInterceptor(interceptor)
+                .addPathPatterns(getPathPatterns())
+                .order(getOrder());
     }
 
     @Override
@@ -111,7 +83,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
 
     @Override
     public void run(ApplicationArguments args) {
-        ReflectCache.init();    // 初始化反射工具
+        ReflectCache.init();
     }
 
     private int getOrder() {
@@ -163,39 +135,12 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         return configurer.getTokenWhitelistManager();
     }
 
-    private ExceptionHandler exceptionHandler() {
-        if (injectedExceptionHandler != null) {
-            return injectedExceptionHandler;
-        }
-
-        ExceptionHandler exceptionHandler = configurer.getExceptionHandler();
-
-        if (exceptionHandler == null) {
-            throw new NullPointerException("ExceptionHandler NOT configured.");
-        }
-
-        return exceptionHandler;
-    }
-
-    private boolean isInterceptorImpl() {
-        return configurer.getImplementation() == null ||
-                configurer.getImplementation() == Implementation.SPRING_MAC_INTERCEPTOR;
-    }
-
     private String[] getPathPatterns() {
         String[] patterns = configurer.getPathPatterns();
-        if (patterns != null) return patterns;
-
-        Implementation impl = configurer.getImplementation();
-        if (impl == null) {
-            impl = Implementation.SPRING_MAC_INTERCEPTOR;
+        if (patterns == null || patterns.length == 0) {
+            patterns = new String[]{"/**"};
         }
-
-        if (impl == Implementation.SPRING_MAC_INTERCEPTOR) {
-            return new String[]{"/**"};
-        } else {
-            return new String[]{"/*"};
-        }
+        return patterns;
     }
 
 }

@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
-import com.github.yingzhuo.carnival.restful.security.exceptionhandler.ExceptionHandler;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
@@ -31,11 +30,6 @@ public interface RestfulSecurityConfigurer extends Ordered {
         return null;
     }
 
-    @Deprecated
-    public default Implementation getImplementation() {
-        return Implementation.SPRING_MAC_INTERCEPTOR;
-    }
-
     public default AuthenticationStrategy getAuthenticationStrategy() {
         return AuthenticationStrategy.ANNOTATED_REQUESTS;
     }
@@ -53,10 +47,6 @@ public interface RestfulSecurityConfigurer extends Ordered {
     }
 
     public default TokenWhitelistManager getTokenWhitelistManager() {
-        return null;
-    }
-
-    public default ExceptionHandler getExceptionHandler() {
         return null;
     }
 
