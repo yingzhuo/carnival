@@ -27,7 +27,6 @@ public final class JacksonUtils {
 
     static {
         DEFAULT_OBJECT_MAPPER = new ObjectMapper()
-
                 // 序列化
                 .configure(SerializationFeature.INDENT_OUTPUT, false)
                 .configure(SerializationFeature.FAIL_ON_SELF_REFERENCES, true)
@@ -35,7 +34,6 @@ public final class JacksonUtils {
                 .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(SerializationFeature.WRITE_SINGLE_ELEM_ARRAYS_UNWRAPPED, false)
                 .configure(SerializationFeature.WRITE_ENUMS_USING_TO_STRING, true)
-
                 // 反序列化
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }

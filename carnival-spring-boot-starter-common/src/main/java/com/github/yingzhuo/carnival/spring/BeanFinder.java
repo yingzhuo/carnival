@@ -65,12 +65,11 @@ public final class BeanFinder {
         }
     }
 
-    public <T> Optional<List<T>> getMultipleQuietly(Class<T> beanType) {
+    public <T> List<T> getMultipleQuietly(Class<T> beanType) {
         try {
-            List<T> beans = getMultiple(beanType);
-            return beans.isEmpty() ? Optional.empty() : Optional.of(beans);
+            return getMultiple(beanType);
         } catch (IllegalArgumentException e) {
-            return Optional.empty();
+            return new ArrayList<>();
         }
     }
 
