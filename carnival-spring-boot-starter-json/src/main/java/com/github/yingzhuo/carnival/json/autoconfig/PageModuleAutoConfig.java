@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.json.autoconfig;
 
-import com.github.yingzhuo.carnival.json.module.page.PageJacksonModule;
+import com.github.yingzhuo.carnival.json.module.page.PageModule;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -22,7 +22,7 @@ public class PageModuleAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {
-        return builder -> builder.modules(new PageJacksonModule());
+        return builder -> builder.modules(new PageModule());
     }
 
 }

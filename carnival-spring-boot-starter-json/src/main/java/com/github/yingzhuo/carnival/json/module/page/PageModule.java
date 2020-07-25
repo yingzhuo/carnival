@@ -18,9 +18,9 @@ import org.springframework.data.domain.Page;
  * @author 应卓
  * @since 1.6.17
  */
-public class PageJacksonModule extends Module {
+public class PageModule extends Module {
 
-    public PageJacksonModule() {
+    public PageModule() {
     }
 
     @Override
