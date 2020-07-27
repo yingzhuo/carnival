@@ -116,12 +116,21 @@ public class TroubleshootingInterceptor extends AbstractHandlerInterceptorSuppor
         if (handlerMethod != null) {
             final Method method = handlerMethod.getMethod();
             final Class<?> type = handlerMethod.getBeanType();
-            boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
             boolean typeDeprecated = type.getAnnotation(Deprecated.class) != null;
+            boolean methodDeprecated = method.getAnnotation(Deprecated.class) != null;
 
             log.debug("[Controller]:");
-            log.debug("\t\ttype = {}{}", type.getName(), methodDeprecated ? "(Deprecated)" : "");
-            log.debug("\t\tmethod-name = {}{}", method.getName(), typeDeprecated ? "(Deprecated)" : "");
+            if (typeDeprecated) {
+                log.warn("\t\ttype = {} [Deprecated !!!]", type.getName());
+            } else {
+                log.debug("\t\ttype = {}", type.getName());
+            }
+
+            if (methodDeprecated) {
+                log.warn("\t\tmethod-name = {}(...) [Deprecated !!!]", method.getName());
+            } else {
+                log.debug("\t\tmethod-name = {}(...)", method.getName());
+            }
         }
 
         log.debug(StringUtils.repeat('-', 120));
