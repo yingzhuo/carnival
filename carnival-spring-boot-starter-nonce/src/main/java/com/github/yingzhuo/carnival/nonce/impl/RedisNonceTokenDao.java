@@ -24,6 +24,7 @@ public class RedisNonceTokenDao implements NonceTokenDao {
 
     private final StringRedisTemplate redisTemplate;
     private Duration tokenTimeToLive;
+    private String redisKeyPrefix = "";
 
     public RedisNonceTokenDao(RedisConnectionFactory connectionFactory) {
         this.redisTemplate = new StringRedisTemplate(connectionFactory);
@@ -31,7 +32,7 @@ public class RedisNonceTokenDao implements NonceTokenDao {
 
     @Override
     public void save(NonceToken nonceToken) {
-        String key = nonceToken.getValue();
+        String key = redisKeyPrefix + nonceToken.getValue();
         String value = nonceToken.getValue();
         if (tokenTimeToLive != null) {
             redisTemplate.opsForValue().set(key, value, tokenTimeToLive);
@@ -42,12 +43,12 @@ public class RedisNonceTokenDao implements NonceTokenDao {
 
     @Override
     public void delete(NonceToken nonceToken) {
-        redisTemplate.delete(nonceToken.getValue());
+        redisTemplate.delete(redisKeyPrefix + nonceToken.getValue());
     }
 
     @Override
     public boolean exists(NonceToken nonceToken) {
-        String value = redisTemplate.opsForValue().get(nonceToken.getValue());
+        String value = redisTemplate.opsForValue().get(redisKeyPrefix + nonceToken.getValue());
         if (value == null) {
             return false;
         }
@@ -56,6 +57,10 @@ public class RedisNonceTokenDao implements NonceTokenDao {
 
     public void setTokenTimeToLive(Duration tokenTimeToLive) {
         this.tokenTimeToLive = tokenTimeToLive;
+    }
+
+    public void setRedisKeyPrefix(String redisKeyPrefix) {
+        this.redisKeyPrefix = redisKeyPrefix;
     }
 
 }
