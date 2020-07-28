@@ -13,7 +13,7 @@ import com.github.yingzhuo.carnival.nonce.*;
 import com.github.yingzhuo.carnival.nonce.exception.NonceTokenException;
 import com.github.yingzhuo.carnival.nonce.impl.NoopNonceTokenDao;
 import com.github.yingzhuo.carnival.nonce.impl.RandomNonceTokenGenerator;
-import com.github.yingzhuo.carnival.nonce.impl.SimpleNonceTokenResolver;
+import com.github.yingzhuo.carnival.nonce.impl.SmartNonceTokenResolver;
 import com.github.yingzhuo.carnival.nonce.properties.NonceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -39,7 +39,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NonceAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)
-    private NonceTokenResolver resolver = new SimpleNonceTokenResolver();
+    private NonceTokenResolver resolver = new SmartNonceTokenResolver();
 
     @Autowired(required = false)
     private NonceTokenDao dao = new NoopNonceTokenDao();
