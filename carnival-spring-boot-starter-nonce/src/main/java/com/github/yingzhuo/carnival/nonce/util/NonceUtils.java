@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.nonce.util;
 import com.github.yingzhuo.carnival.nonce.NonceToken;
 import com.github.yingzhuo.carnival.nonce.NonceTokenDao;
 import com.github.yingzhuo.carnival.nonce.NonceTokenGenerator;
+import com.github.yingzhuo.carnival.nonce.impl.NoopNonceTokenDao;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 /**
@@ -19,6 +20,8 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
  * @since 1.6.29
  */
 public final class NonceUtils {
+
+    private static final NonceTokenDao DEFAULT_DAO = new NoopNonceTokenDao();
 
     private NonceUtils() {
     }
@@ -28,15 +31,15 @@ public final class NonceUtils {
     }
 
     public static void save(NonceToken nonceToken) {
-        SpringUtils.getBean(NonceTokenDao.class).save(nonceToken);
+        SpringUtils.getBean(NonceTokenDao.class, DEFAULT_DAO).save(nonceToken);
     }
 
     public static void delete(NonceToken nonceToken) {
-        SpringUtils.getBean(NonceTokenDao.class).delete(nonceToken);
+        SpringUtils.getBean(NonceTokenDao.class, DEFAULT_DAO).delete(nonceToken);
     }
 
     public static boolean exists(NonceToken nonceToken) {
-        return SpringUtils.getBean(NonceTokenDao.class).exists(nonceToken);
+        return SpringUtils.getBean(NonceTokenDao.class, DEFAULT_DAO).exists(nonceToken);
     }
 
 }
