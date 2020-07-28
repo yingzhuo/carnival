@@ -32,5 +32,4 @@ public class NoopNonceTokenDao implements NonceTokenDao {
     public boolean exists(NonceToken nonceToken) {
         return false;
     }
-
 }
