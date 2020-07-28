@@ -18,6 +18,7 @@
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
         <module>carnival-spring-boot-starter-mvc</module>
+        <module>carnival-spring-boot-starter-nonce</module>
         <module>carnival-spring-boot-starter-openfeign</module>
         <module>carnival-spring-boot-starter-password</module>
         <module>carnival-spring-boot-starter-patchca</module>
