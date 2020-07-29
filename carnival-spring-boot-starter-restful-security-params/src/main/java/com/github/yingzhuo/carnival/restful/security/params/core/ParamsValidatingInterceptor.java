@@ -165,7 +165,7 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
             }
 
             String[] values = source.get(key);
-            String value = StringUtils.join(values);
+            String value = StringUtils.join(values, ",");
             stringBuilder.append(
                     String.format("%s=%s,", key, value)
             );
