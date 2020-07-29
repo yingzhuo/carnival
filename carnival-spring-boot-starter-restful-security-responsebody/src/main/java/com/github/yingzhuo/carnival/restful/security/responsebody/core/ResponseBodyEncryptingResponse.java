@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.shield.core;
+package com.github.yingzhuo.carnival.restful.security.responsebody.core;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -17,14 +17,14 @@ import java.io.ByteArrayOutputStream;
 
 /**
  * @author 应卓
- * @since 1.6.21
+ * @since 1.6.30
  */
-final class EncryptionResponse extends HttpServletResponseWrapper {
+class ResponseBodyEncryptingResponse extends HttpServletResponseWrapper {
 
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
     private ServletOutputStream filterOutput;
 
-    public EncryptionResponse(HttpServletResponse response) {
+    public ResponseBodyEncryptingResponse(HttpServletResponse response) {
         super(response);
     }
 

@@ -43,7 +43,7 @@ import java.util.Set;
  * @since 1.6.30
  */
 @ConditionalOnWebApplication
-@ConditionalOnProperty(prefix = "carnival.security.params", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "carnival.security.params-validating", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(RestfulSecurityParamsAutoConfig.Props.class)
 public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
 
@@ -95,7 +95,7 @@ public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.security.params")
+    @ConfigurationProperties(prefix = "carnival.security.params-validating")
     static class Props {
         private boolean enabled = true;
         private boolean debugMode = false;

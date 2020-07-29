@@ -26,7 +26,7 @@
         <module>carnival-spring-boot-starter-restful-flow</module>
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-params</module>
-        <module>carnival-spring-boot-starter-shield</module>
+        <module>carnival-spring-boot-starter-restful-security-responsebody</module>
     </modules>
     <packaging>pom</packaging>
 
