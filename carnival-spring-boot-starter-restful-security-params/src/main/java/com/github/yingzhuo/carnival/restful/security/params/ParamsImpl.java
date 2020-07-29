@@ -22,9 +22,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ParamsImpl implements Params {
-
     private final String nonce;
     private final Long timestamp;
     private final String sign;
+
+    public static void main(String[] args) {
+        System.out.println(
+                new ParamsImpl("123456", 1L, "123")
+        );
+    }
 
 }

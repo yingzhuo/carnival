@@ -9,9 +9,6 @@
  */
 package com.github.yingzhuo.carnival.restful.security.params;
 
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * @author 应卓
  * @since 1.6.30
@@ -19,16 +16,15 @@ import org.apache.commons.lang3.StringUtils;
 public interface ParamsValidatingAlgorithm {
 
     public static ParamsValidatingAlgorithm getDefault() {
-        return new ParamsValidatingAlgorithm() {
-        };
+        return new ParamsValidatingAlgorithmImpl();
     }
 
-    public default String encode(String parametersAsString) {
-        return DigestUtils.sha256Hex(DigestUtils.md5Hex(parametersAsString));
-    }
+    public String encode(String parametersAsString);
 
-    public default boolean matches(String hashedParameters, String sign) {
-        return StringUtils.equals(hashedParameters, sign);
+    public boolean matches(String hashedParameters, String sign);
+
+    public default boolean notMatches(String hashedParameters, String sign) {
+        return !matches(hashedParameters, sign);
     }
 
 }
