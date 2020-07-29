@@ -7,4 +7,4 @@ org.springframework.boot.env.EnvironmentPostProcessor=\
     com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Property,\
     com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.ConfigMap,\
     com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Secret,\
-    com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Git,
+    com.github.yingzhuo.carnival.config.env.ConventionEnvironmentPostProcessors.Git
