@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.restful.security.params;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * @author 应卓
@@ -20,16 +19,19 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
 public class ParamsImpl implements Params {
+
     private final String nonce;
     private final Long timestamp;
     private final String sign;
 
-    public static void main(String[] args) {
-        System.out.println(
-                new ParamsImpl("123456", 1L, "123")
-        );
+    @Override
+    public String toString() {
+        return "Params{" +
+                "nonce='" + nonce + '\'' +
+                ", timestamp=" + timestamp +
+                ", sign='" + sign + '\'' +
+                '}';
     }
 
 }
