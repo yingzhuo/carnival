@@ -84,7 +84,8 @@ public class ResponseBodyEncryptingFilter extends OncePerRequestFilter {
         }
     }
 
-    @Slf4j
+    // ----------------------------------------------------------------------------------------------------------------
+
     private static class DebugModeAlgorithm implements ResponseBodyEncryptingAlgorithm {
         private final ResponseBodyEncryptingAlgorithm algorithm;
 

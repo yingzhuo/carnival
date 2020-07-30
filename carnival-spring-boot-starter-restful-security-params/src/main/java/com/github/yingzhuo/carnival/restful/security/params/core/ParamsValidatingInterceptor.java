@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,11 +51,6 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
     private boolean debugMode = false;
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
-        ParamsValidatingContext.remove();
-    }
-
-    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 
         final String path = request.getRequestURI();
@@ -72,9 +66,6 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
             return true;
         }
 
-        // 清空上下文
-        ParamsValidatingContext.remove();
-
         final Params params = resolve(request);
         if (!params.isValid()) {
             if (debugMode) {
@@ -83,11 +74,10 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
             } else {
                 throw new InvalidRequestException("invalid request", request);
             }
-        } else {
-            ParamsValidatingContext.set(params);
         }
 
         final String parametersAsString = flatAndSort(request.getParameterMap(), signParameterName);
+        log.debug("params: {}", parametersAsString);
         final String hashedParameters = algorithm.encode(parametersAsString);
 
         // 检查签名

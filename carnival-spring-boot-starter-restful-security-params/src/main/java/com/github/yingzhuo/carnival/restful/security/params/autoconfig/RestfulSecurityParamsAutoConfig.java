@@ -9,9 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.params.autoconfig;
 
-import com.github.yingzhuo.carnival.restful.security.params.Params;
 import com.github.yingzhuo.carnival.restful.security.params.ParamsValidatingAlgorithm;
-import com.github.yingzhuo.carnival.restful.security.params.core.ParamsValidatingContext;
 import com.github.yingzhuo.carnival.restful.security.params.core.ParamsValidatingInterceptor;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,19 +20,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.convert.DurationUnit;
-import org.springframework.core.MethodParameter;
 import org.springframework.core.Ordered;
-import org.springframework.web.bind.support.WebDataBinderFactory;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -68,27 +60,6 @@ public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
         Optional.ofNullable(props.getResolver().getNonceHeaderName()).ifPresent(interceptor::setNonceHeaderName);
         Optional.ofNullable(props.getResolver().getTimestampHeaderName()).ifPresent(interceptor::setTimestampHeaderName);
         registry.addInterceptor(interceptor).order(props.getInterceptor().getOrder());
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new ParamsHandlerMethodArgumentResolver());
-    }
-
-    // ----------------------------------------------------------------------------------------------------------------
-
-    // since 1.6.30
-    private static class ParamsHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
-
-        @Override
-        public boolean supportsParameter(MethodParameter parameter) {
-            return parameter.getParameterType() == Params.class;
-        }
-
-        @Override
-        public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-            return ParamsValidatingContext.get();
-        }
     }
 
     // ----------------------------------------------------------------------------------------------------------------

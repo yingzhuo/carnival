@@ -17,21 +17,4 @@ import com.github.yingzhuo.carnival.restful.security.params.Params;
  */
 public final class ParamsValidatingContext {
 
-    private static final ThreadLocal<Params> HOLDER = new ThreadLocal<>();
-
-    private ParamsValidatingContext() {
-    }
-
-    static void set(Params params) {
-        HOLDER.set(params);
-    }
-
-    public static Params get() {
-        return HOLDER.get();
-    }
-
-    static void remove() {
-        HOLDER.remove();
-    }
-
 }
