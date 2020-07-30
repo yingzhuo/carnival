@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.restful.security.responsebody;
 
 import com.github.yingzhuo.carnival.restful.security.responsebody.algorithm.Base64ResponseBodyEncryptingAlgorithm;
 
+import java.nio.charset.StandardCharsets;
+
 /**
  * @author 应卓
  * @since 1.6.30
@@ -19,7 +21,7 @@ import com.github.yingzhuo.carnival.restful.security.responsebody.algorithm.Base
 public interface ResponseBodyEncryptingAlgorithm {
 
     public static ResponseBodyEncryptingAlgorithm getDefault() {
-        return new Base64ResponseBodyEncryptingAlgorithm();
+        return new Base64ResponseBodyEncryptingAlgorithm(1, StandardCharsets.UTF_8);
     }
 
     public String encrypt(String body);
