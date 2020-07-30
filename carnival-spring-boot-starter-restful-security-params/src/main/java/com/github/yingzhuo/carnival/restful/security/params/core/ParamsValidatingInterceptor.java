@@ -34,8 +34,8 @@ import java.util.TreeSet;
  * @author 应卓
  * @since 1.6.30
  */
-@Slf4j
 @Setter
+@Slf4j(topic = "troubleshooting")
 public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSupport {
 
     private final PathMatcher pathMatcher = new AntPathMatcher();
@@ -69,7 +69,7 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
         final Params params = resolve(request);
         if (!params.isValid()) {
             if (debugMode) {
-                log.warn("invalid Params's instance = {}", params);
+                log.debug("invalid Params's instance = {}", params);
                 return true;
             } else {
                 throw new InvalidRequestException("invalid request", request);
@@ -85,9 +85,9 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
 
         if (algorithm.notMatches(hashedParameters, sign)) {
             if (debugMode) {
-                log.warn("invalid sign");
-                log.warn("actual-sign = {}", sign);
-                log.warn("expected-sign = {}", hashedParameters);
+                log.debug("invalid sign");
+                log.debug("actual-sign = {}", sign);
+                log.debug("expected-sign = {}", hashedParameters);
                 return true;
             } else {
                 throw new InvalidSignException("invalid sign", request);
@@ -100,14 +100,16 @@ public class ParamsValidatingInterceptor extends AbstractHandlerInterceptorSuppo
             long diff = Math.abs(now - params.getTimestamp());
             if (diff > maxAllowedTimestampDiff.toMillis()) {
                 if (debugMode) {
-                    log.warn("invalid timestamp");
-                    log.warn("actual-timestamp = {}", params.getTimestamp());
-                    log.warn("server-timestamp = {}", now);
+                    log.debug("invalid timestamp");
+                    log.debug("actual-timestamp = {}", params.getTimestamp());
+                    log.debug("server-timestamp = {}", now);
                     return true;
                 } else {
                     throw new InvalidTimestampException("invalid timestamp", request);
                 }
             }
+        } else {
+            log.debug("timestamp checking is ignored");
         }
         return true;
     }

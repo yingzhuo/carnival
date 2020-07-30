@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.responsebody.core;
 
 import com.github.yingzhuo.carnival.restful.security.responsebody.ResponseBodyEncryptingAlgorithm;
+import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -30,8 +31,8 @@ import java.util.Set;
  * @author 应卓
  * @since 1.6.30
  */
-@Slf4j
 @Setter
+@Slf4j(topic = "troubleshooting")
 public class ResponseBodyEncryptingFilter extends OncePerRequestFilter {
 
     private final PathMatcher pathMatcher = new AntPathMatcher();
@@ -86,18 +87,15 @@ public class ResponseBodyEncryptingFilter extends OncePerRequestFilter {
 
     // ----------------------------------------------------------------------------------------------------------------
 
+    @AllArgsConstructor
     private static class DebugModeAlgorithm implements ResponseBodyEncryptingAlgorithm {
         private final ResponseBodyEncryptingAlgorithm algorithm;
-
-        public DebugModeAlgorithm(ResponseBodyEncryptingAlgorithm algorithm) {
-            this.algorithm = algorithm;
-        }
 
         @Override
         public String encrypt(String body) {
             String hashed = algorithm.encrypt(body);
-            log.warn("debug mode enabled! encrypted response body:");
-            log.warn(hashed);
+            log.debug("debug mode enabled! encrypted response body:");
+            log.debug(hashed);
             return body;
         }
     }

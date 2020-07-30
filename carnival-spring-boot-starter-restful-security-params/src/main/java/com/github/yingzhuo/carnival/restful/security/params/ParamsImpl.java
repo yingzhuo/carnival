@@ -9,29 +9,19 @@
  */
 package com.github.yingzhuo.carnival.restful.security.params;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @author 应卓
+ * @since 1.6.30
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class ParamsImpl implements Params {
-
-    private final String nonce;
-    private final Long timestamp;
-    private final String sign;
-
-    @Override
-    public String toString() {
-        return "Params{" +
-                "nonce='" + nonce + '\'' +
-                ", timestamp=" + timestamp +
-                ", sign='" + sign + '\'' +
-                '}';
-    }
-
+@ToString
+public class ParamsImpl implements MutableParams {
+    private String nonce;
+    private Long timestamp;
+    private String sign;
 }

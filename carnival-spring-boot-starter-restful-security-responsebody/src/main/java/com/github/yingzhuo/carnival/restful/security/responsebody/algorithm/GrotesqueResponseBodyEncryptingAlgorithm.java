@@ -19,7 +19,7 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.30
  */
-public class OddResponseBodyEncryptingAlgorithm implements ResponseBodyEncryptingAlgorithm {
+public class GrotesqueResponseBodyEncryptingAlgorithm implements ResponseBodyEncryptingAlgorithm {
 
     @Override
     public String encrypt(String body) {

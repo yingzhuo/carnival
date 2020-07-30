@@ -9,13 +9,11 @@
  */
 package com.github.yingzhuo.carnival.restful.security.params;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 1.6.30
  */
-public interface Params extends Serializable {
+public interface Params extends java.io.Serializable {
 
     public String getNonce();
 

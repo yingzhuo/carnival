@@ -48,7 +48,7 @@ public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         val interceptor = new ParamsValidatingInterceptor();
-        interceptor.setDebugMode(props.isDebugMode());
+        interceptor.setDebugMode(props.isTroubleshooting());
         interceptor.setExcludeAntPatterns(props.getInterceptor().getExcludeAntPatterns());
         Optional.ofNullable(algorithm).ifPresent(interceptor::setAlgorithm);
         Optional.ofNullable(props.getInterceptor().getExcludeAntPatterns()).ifPresent(interceptor::setExcludeAntPatterns);
@@ -69,7 +69,7 @@ public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
     @ConfigurationProperties(prefix = "carnival.security.params-validating")
     static class Props {
         private boolean enabled = true;
-        private boolean debugMode = false;
+        private boolean troubleshooting = false;
         private Interceptor interceptor = new Interceptor();
         private Resolver resolver = new Resolver();
         @DurationUnit(ChronoUnit.MINUTES)

@@ -44,7 +44,7 @@ public class ResponseBodyEncryptingAutoConfig {
         final ResponseBodyEncryptingFilter filter = new ResponseBodyEncryptingFilter();
         filter.setCharset(props.getEncryptingCharset());
         filter.setAlgorithm(algorithm != null ? algorithm : ResponseBodyEncryptingAlgorithm.getDefault());
-        filter.setDebugMode(props.isDebugMode());
+        filter.setDebugMode(props.isTroubleshooting());
         filter.setExcludeAntPatterns(props.getFilter().getExcludeAntPatterns());
         filter.init();
 
@@ -62,7 +62,7 @@ public class ResponseBodyEncryptingAutoConfig {
     @ConfigurationProperties(prefix = "carnival.security.response-body-encrypting")
     static class Props {
         private boolean enabled = true;
-        private boolean debugMode = false;
+        private boolean troubleshooting = false;
         private Charset encryptingCharset = StandardCharsets.UTF_8;
         private Filter filter = new Filter();
     }

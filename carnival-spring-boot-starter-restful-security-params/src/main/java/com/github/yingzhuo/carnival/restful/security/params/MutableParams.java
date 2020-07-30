@@ -7,14 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.restful.security.params.core;
-
-import com.github.yingzhuo.carnival.restful.security.params.Params;
+package com.github.yingzhuo.carnival.restful.security.params;
 
 /**
  * @author 应卓
- * @since 1.6.30
+ * @since 1.6.31
  */
-public final class ParamsValidatingContext {
+public interface MutableParams extends Params {
+
+    public void setNonce(String nonce);
+
+    public void setTimestamp(Long timestamp);
+
+    public void setSign(String sign);
 
 }
