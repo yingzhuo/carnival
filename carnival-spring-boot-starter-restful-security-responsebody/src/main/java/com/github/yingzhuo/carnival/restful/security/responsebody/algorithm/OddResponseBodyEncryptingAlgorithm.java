@@ -24,7 +24,7 @@ public class OddResponseBodyEncryptingAlgorithm implements ResponseBodyEncryptin
     @Override
     public String encrypt(String body) {
         body = StringUtils.reverse(body);
-        body = Base64.getEncoder().encodeToString(body.getBytes(StandardCharsets.UTF_8));
+        body = Base64.getUrlEncoder().encodeToString(body.getBytes(StandardCharsets.UTF_8));
         body = StringUtils.reverse(body);
         return body;
     }

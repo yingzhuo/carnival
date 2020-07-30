@@ -48,12 +48,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- commons -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>

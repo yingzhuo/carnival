@@ -46,7 +46,7 @@ public class Base64ResponseBodyEncryptingAlgorithm implements ResponseBodyEncryp
     }
 
     private String base64(String s) {
-        return Base64.getEncoder().encodeToString(s.getBytes(charset));
+        return Base64.getUrlEncoder().encodeToString(s.getBytes(charset));
     }
 
 }
