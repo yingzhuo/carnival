@@ -7,7 +7,7 @@
 ### 要求
 
 * Java 8+
-* SpringBoot 2.2.0+
+* SpringBoot 2.3.0+
 
 ### 下载
 
