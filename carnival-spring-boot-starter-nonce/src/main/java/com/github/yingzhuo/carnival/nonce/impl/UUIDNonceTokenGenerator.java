@@ -16,13 +16,13 @@ import java.util.UUID;
 
 /**
  * @author 应卓
- * @since 1.6.29
+ * @since 1.6.32
  */
-public class RandomNonceTokenGenerator implements NonceTokenGenerator {
+public class UUIDNonceTokenGenerator implements NonceTokenGenerator {
 
     @Override
     public NonceToken next() {
-        return new StringNonceToken(UUID.randomUUID().toString());
+        return new StringNonceToken(UUID.randomUUID().toString().replaceAll("-", ""));
     }
 
 }

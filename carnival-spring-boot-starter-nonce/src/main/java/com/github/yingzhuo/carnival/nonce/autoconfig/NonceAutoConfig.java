@@ -13,7 +13,7 @@ import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport
 import com.github.yingzhuo.carnival.nonce.*;
 import com.github.yingzhuo.carnival.nonce.exception.NonceTokenException;
 import com.github.yingzhuo.carnival.nonce.impl.NoopNonceTokenDao;
-import com.github.yingzhuo.carnival.nonce.impl.RandomNonceTokenGenerator;
+import com.github.yingzhuo.carnival.nonce.impl.UUIDNonceTokenGenerator;
 import com.github.yingzhuo.carnival.nonce.impl.SmartNonceTokenResolver;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,7 +49,7 @@ public class NonceAutoConfig implements WebMvcConfigurer {
     @Bean
     @ConditionalOnMissingBean
     public NonceTokenGenerator nonceTokenGenerator() {
-        return new RandomNonceTokenGenerator();
+        return new UUIDNonceTokenGenerator();
     }
 
     @Override
