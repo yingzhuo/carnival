@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.6.31</version>
+    <version>1.6.32</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -307,23 +307,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
                 <version>${slf4j.version}</version>
-            </dependency>
-
-            <!-- markdown -->
-            <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark</artifactId>
-                <version>0.62.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-util</artifactId>
-                <version>0.62.2</version>
-            </dependency>
-            <dependency>
-                <groupId>com.vladsch.flexmark</groupId>
-                <artifactId>flexmark-ext-tables</artifactId>
-                <version>0.62.2</version>
             </dependency>
 
             <!-- feign -->

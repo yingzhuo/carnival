@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.actuator.autoconfig;
 
-import com.github.yingzhuo.carnival.actuator.endpoint.HelpEndpoint;
-import com.github.yingzhuo.carnival.actuator.endpoint.NoteEndpoint;
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
+import com.github.yingzhuo.carnival.actuator.stateprobe.LivenessStateEndpoint;
+import com.github.yingzhuo.carnival.actuator.stateprobe.ReadinessStateEndpoint;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -28,28 +27,14 @@ import org.springframework.context.annotation.Bean;
 public class ActuatorCoreConfig {
 
     @Bean
-    @ConditionalOnAnyResource(resources = {
-            "classpath:help.md",
-            "classpath:HELP.md",
-            "classpath:META-INF/help.md",
-            "classpath:META-INF/HELP.md"
-    })
-    public HelpEndpoint helpEndpoint() {
-        return new HelpEndpoint();
+    public LivenessStateEndpoint livenessStateEndpoint() {
+        return new LivenessStateEndpoint();
     }
 
     @Bean
-    @ConditionalOnAnyResource(resources = {
-            "classpath:note.md",
-            "classpath:NOTE.md",
-            "classpath:META-INF/note.md",
-            "classpath:META-INF/NOTE.md"
-    })
-    public NoteEndpoint noteEndpoint() {
-        return new NoteEndpoint();
+    public ReadinessStateEndpoint readinessStateEndpoint() {
+        return new ReadinessStateEndpoint();
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Getter
     @Setter
