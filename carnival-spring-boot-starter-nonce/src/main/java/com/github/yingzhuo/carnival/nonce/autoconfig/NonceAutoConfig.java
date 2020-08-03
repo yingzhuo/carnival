@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @EnableConfigurationProperties(NonceAutoConfig.NonceProps.class)
 @ConditionalOnProperty(prefix = "carnival.nonce", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class NonceAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)

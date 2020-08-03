@@ -36,7 +36,7 @@ import static com.github.yingzhuo.carnival.mvc.ClientInfo.*;
  * @author 应卓
  * @since 1.6.14
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(MvcClientInfoAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.web-filter.client-info", name = "enabled", havingValue = "true")
 public class MvcClientInfoAutoConfig implements WebMvcConfigurer {

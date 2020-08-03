@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class RestfulSecurityBeanAutoConfig {
 
     @Bean

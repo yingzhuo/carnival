@@ -48,7 +48,7 @@ import java.util.Arrays;
  * @author 应卓
  */
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @EnableConfigurationProperties(PatchcaProps.class)
 public class PatchcaBeanAutoConfig {
 

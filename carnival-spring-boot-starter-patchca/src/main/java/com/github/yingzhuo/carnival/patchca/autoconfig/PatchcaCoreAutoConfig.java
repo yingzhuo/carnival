@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnProperty(prefix = "carnival.patchca", name = "enabled", havingValue = "true", matchIfMissing = true)
 @AutoConfigureAfter(PatchcaBeanAutoConfig.class)
 public class PatchcaCoreAutoConfig implements WebMvcConfigurer {

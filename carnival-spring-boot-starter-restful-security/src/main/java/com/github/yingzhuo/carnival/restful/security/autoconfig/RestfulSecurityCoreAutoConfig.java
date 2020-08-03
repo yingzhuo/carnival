@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @AutoConfigureAfter(RestfulSecurityBeanAutoConfig.class)
 public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 

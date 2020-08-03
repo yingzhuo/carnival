@@ -28,7 +28,7 @@ import java.util.Optional;
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class MvcCommonAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)

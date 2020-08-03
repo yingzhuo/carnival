@@ -31,7 +31,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.6.30
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnProperty(prefix = "carnival.security.response-body-encrypting", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(ResponseBodyEncryptingAutoConfig.Props.class)
 public class ResponseBodyEncryptingAutoConfig {

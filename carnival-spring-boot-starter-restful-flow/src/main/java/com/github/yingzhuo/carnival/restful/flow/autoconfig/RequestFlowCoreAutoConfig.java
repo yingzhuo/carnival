@@ -29,7 +29,7 @@ import java.time.Duration;
  * @author 应卓
  * @since 1.3.6
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class RequestFlowCoreAutoConfig implements WebMvcConfigurer {
 
     @Autowired(required = false)

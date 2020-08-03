@@ -34,7 +34,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.6.30
  */
-@ConditionalOnWebApplication
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnProperty(prefix = "carnival.security.params-validating", name = "enabled", havingValue = "true", matchIfMissing = true)
 @EnableConfigurationProperties(RestfulSecurityParamsAutoConfig.Props.class)
 public class RestfulSecurityParamsAutoConfig implements WebMvcConfigurer {
