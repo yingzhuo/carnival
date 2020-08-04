@@ -11,20 +11,13 @@ package com.github.yingzhuo.carnival.restful.security.factory;
 
 import com.auth0.jwt.algorithms.Algorithm;
 
-import java.util.function.Supplier;
-
 /**
  * @author 应卓
  * @since 1.6.0
  */
 @FunctionalInterface
-public interface AlgorithmFactory extends Supplier<Algorithm> {
+public interface AlgorithmFactory {
 
     public Algorithm create();
-
-    @Override
-    public default Algorithm get() {
-        return create();
-    }
 
 }

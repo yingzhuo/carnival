@@ -30,7 +30,7 @@ public abstract class AbstractHandlerInterceptorSupport implements HandlerInterc
         }
 
         final HandlerMethod handlerMethod = (HandlerMethod) handler;
-        final A annotation = ((HandlerMethod) handler).getMethodAnnotation(annotationType);
+        final A annotation = handlerMethod.getMethodAnnotation(annotationType);
         return Optional.ofNullable(annotation);
     }
 

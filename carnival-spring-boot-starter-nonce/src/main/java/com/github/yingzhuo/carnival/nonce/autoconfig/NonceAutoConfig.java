@@ -13,8 +13,8 @@ import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport
 import com.github.yingzhuo.carnival.nonce.*;
 import com.github.yingzhuo.carnival.nonce.exception.NonceTokenException;
 import com.github.yingzhuo.carnival.nonce.impl.NoopNonceTokenDao;
-import com.github.yingzhuo.carnival.nonce.impl.UUIDNonceTokenGenerator;
 import com.github.yingzhuo.carnival.nonce.impl.SmartNonceTokenResolver;
+import com.github.yingzhuo.carnival.nonce.impl.UUIDNonceTokenGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
