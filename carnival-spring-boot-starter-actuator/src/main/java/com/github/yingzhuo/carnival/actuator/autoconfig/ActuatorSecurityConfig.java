@@ -68,7 +68,7 @@ public class ActuatorSecurityConfig {
     static class StringToActuatorSecurityUserConverter implements Converter<String, ActuatorSecurityFilter.User> {
         @Override
         public ActuatorSecurityFilter.User convert(String source) {
-            String[] parts = source.split(":", 2);
+            String[] parts = source.trim().split(":", 2);
             ActuatorSecurityFilter.User user = new ActuatorSecurityFilter.User();
             user.setUsername(parts[0]);
             user.setPassword(parts[1]);
