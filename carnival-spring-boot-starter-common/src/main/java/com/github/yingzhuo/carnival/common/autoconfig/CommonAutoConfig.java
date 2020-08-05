@@ -96,13 +96,6 @@ public class CommonAutoConfig {
         return new StringToResourceOptionalConverter();
     }
 
-    @Bean
-    @ConfigurationPropertiesBinding
-    @ConditionalOnMissingBean
-    public StringToColorConverter stringToColorConverter() {
-        return new StringToColorConverter();
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
 
     @Bean

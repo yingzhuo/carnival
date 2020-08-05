@@ -21,7 +21,6 @@ public abstract class RequestInterruptedException extends RuntimeException {
 
     private final RequestMethod method;
     private final String path;
-    private final long timestamp = System.currentTimeMillis();
 
     public RequestInterruptedException(String message, HttpServletRequest request) {
         super(message);
@@ -35,10 +34,6 @@ public abstract class RequestInterruptedException extends RuntimeException {
 
     public String getPath() {
         return path;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
     }
 
 }

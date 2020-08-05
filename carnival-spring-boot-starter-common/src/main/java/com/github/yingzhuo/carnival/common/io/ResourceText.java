@@ -9,15 +9,12 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.github.yingzhuo.carnival.spring.ResourceUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
 
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -26,22 +23,26 @@ import java.nio.charset.StandardCharsets;
 public interface ResourceText extends Serializable {
 
     public static ResourceText of(String location) {
-        return new SimpleResourceText(location, StandardCharsets.UTF_8);
+        return new ResourceTextImpl(location, UTF_8);
     }
 
     public static ResourceText of(String location, Charset charset) {
-        return new SimpleResourceText(location, charset);
+        return new ResourceTextImpl(location, charset);
     }
 
     public static ResourceText of(Resource resource) {
-        return new SimpleResourceText(resource, StandardCharsets.UTF_8);
+        return new ResourceTextImpl(resource, UTF_8);
     }
 
     public static ResourceText of(Resource resource, Charset charset) {
-        return new SimpleResourceText(resource, charset);
+        return new ResourceTextImpl(resource, charset);
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
     public String getText();
+
+    public int getLength();
 
     public default String getTextAsOneLine() {
         return getText().replaceAll("\\n", "");
@@ -55,39 +56,6 @@ public interface ResourceText extends Serializable {
     // since 1.6.2
     public default String getTextAndStripWriteSpaces() {
         return getText().replaceAll("\\s", "");
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    static class SimpleResourceText implements ResourceText {
-
-        private final String text;
-
-        public SimpleResourceText(String location, Charset charset) {
-            this(ResourceUtils.loadResource(location), charset);
-        }
-
-        public SimpleResourceText(Resource resource, Charset charset) {
-            try {
-                if (!resource.exists() || !resource.isReadable()) {
-                    throw new IOException("Cannot open resource.");
-                }
-                this.text = IOUtils.toString(resource.getInputStream(), charset);
-                resource.getInputStream().close();
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-        }
-
-        @Override
-        public String getText() {
-            return this.text;
-        }
-
-        @Override
-        public String toString() {
-            return this.text;
-        }
     }
 
 }
