@@ -25,6 +25,7 @@
 * [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
 * [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
 * [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)
+* [carnival-spring-boot-starter-mustache](./carnival-spring-boot-starter-mustache)
 * [carnival-spring-boot-starter-mvc](./carnival-spring-boot-starter-mvc)
 * [carnival-spring-boot-starter-nonce](./carnival-spring-boot-starter-nonce)
 * [carnival-spring-boot-starter-openfeign](./carnival-spring-boot-starter-openfeign)

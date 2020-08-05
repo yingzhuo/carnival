@@ -17,6 +17,7 @@
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
+        <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-nonce</module>
         <module>carnival-spring-boot-starter-openfeign</module>
@@ -576,6 +577,13 @@
                 <groupId>net.coobird</groupId>
                 <artifactId>thumbnailator</artifactId>
                 <version>0.4.11</version>
+            </dependency>
+
+            <!-- mustache -->
+            <dependency>
+                <groupId>com.github.spullara.mustache.java</groupId>
+                <artifactId>compiler</artifactId>
+                <version>0.9.6</version>
             </dependency>
 
             <!-- commons -->
