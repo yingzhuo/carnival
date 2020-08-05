@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.actuator.stateprobe.ReadinessStateEndpoint;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -22,9 +23,10 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  * @since 1.6.5
  */
-@EnableConfigurationProperties(ActuatorCoreConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.actuator", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class ActuatorCoreConfig {
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+@ConditionalOnProperty(prefix = "carnival.actuator.state", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(ActuatorStateConfig.Props.class)
+public class ActuatorStateConfig {
 
     @Bean
     public LivenessStateEndpoint livenessStateEndpoint() {
@@ -38,7 +40,7 @@ public class ActuatorCoreConfig {
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.actuator")
+    @ConfigurationProperties(prefix = "carnival.actuator.state")
     static class Props {
         private boolean enabled = true;
     }

@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.actuator.autoconfig.ActuatorCoreConfig
+    com.github.yingzhuo.carnival.actuator.autoconfig.ActuatorStateConfig,\
+    com.github.yingzhuo.carnival.actuator.autoconfig.ActuatorSecurityConfig
