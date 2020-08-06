@@ -28,6 +28,13 @@ public final class MustacheUtils {
     private MustacheUtils() {
     }
 
+    public static String fromString(String template, Map<String, Object> context) {
+        if (context == null) {
+            context = new HashMap<>();
+        }
+        return SpringUtils.getBean(MustacheBean.class).render(template, context);
+    }
+
     public static String fromResource(String location, Map<String, Object> context) {
         String template = ResourceText.of(location).getText();
         if (context == null) {
