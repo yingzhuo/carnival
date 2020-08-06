@@ -17,7 +17,6 @@
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
-        <module>carnival-spring-boot-starter-mustache</module>
         <module>carnival-spring-boot-starter-mvc</module>
         <module>carnival-spring-boot-starter-nonce</module>
         <module>carnival-spring-boot-starter-openfeign</module>
@@ -28,6 +27,7 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-params</module>
         <module>carnival-spring-boot-starter-restful-security-responsebody</module>
+        <module>carnival-spring-boot-starter-stringtemplate</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -584,6 +584,13 @@
                 <groupId>com.github.spullara.mustache.java</groupId>
                 <artifactId>compiler</artifactId>
                 <version>0.9.6</version>
+            </dependency>
+
+            <!-- freemarker -->
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.30</version>
             </dependency>
 
             <!-- commons -->

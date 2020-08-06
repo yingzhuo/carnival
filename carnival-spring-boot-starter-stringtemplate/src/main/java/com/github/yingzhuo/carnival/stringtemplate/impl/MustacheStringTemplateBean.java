@@ -7,11 +7,12 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mustache;
+package com.github.yingzhuo.carnival.stringtemplate.impl;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
+import com.github.yingzhuo.carnival.stringtemplate.StringTemplateBean;
 import org.springframework.util.DigestUtils;
 
 import java.io.StringReader;
@@ -25,7 +26,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author 应卓
  * @since 1.6.33
  */
-public class MustacheBeanImpl implements MustacheBean {
+public class MustacheStringTemplateBean implements StringTemplateBean {
 
     @Override
     public String render(String templateContent, Map<String, Object> context) {

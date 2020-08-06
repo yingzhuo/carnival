@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mustache;
+package com.github.yingzhuo.carnival.stringtemplate;
 
 import java.util.Map;
 
@@ -16,7 +16,7 @@ import java.util.Map;
  * @since 1.6.33
  */
 @FunctionalInterface
-public interface MustacheBean {
+public interface StringTemplateBean {
 
     public String render(String templateContent, Map<String, Object> context);
 

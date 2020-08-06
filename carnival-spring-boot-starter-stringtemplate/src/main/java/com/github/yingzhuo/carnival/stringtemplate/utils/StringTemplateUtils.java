@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mustache.util;
+package com.github.yingzhuo.carnival.stringtemplate.utils;
 
 import com.github.yingzhuo.carnival.common.io.ResourceText;
-import com.github.yingzhuo.carnival.mustache.MustacheBean;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import com.github.yingzhuo.carnival.stringtemplate.StringTemplateBean;
 import org.springframework.core.io.Resource;
 
 import java.util.HashMap;
@@ -23,16 +23,16 @@ import static java.nio.charset.StandardCharsets.UTF_8;
  * @author 应卓
  * @since 1.6.33
  */
-public final class MustacheUtils {
+public final class StringTemplateUtils {
 
-    private MustacheUtils() {
+    private StringTemplateUtils() {
     }
 
     public static String fromString(String template, Map<String, Object> context) {
         if (context == null) {
             context = new HashMap<>();
         }
-        return SpringUtils.getBean(MustacheBean.class).render(template, context);
+        return SpringUtils.getBean(StringTemplateBean.class).render(template, context);
     }
 
     public static String fromResource(String location, Map<String, Object> context) {
@@ -40,7 +40,7 @@ public final class MustacheUtils {
         if (context == null) {
             context = new HashMap<>();
         }
-        return SpringUtils.getBean(MustacheBean.class).render(template, context);
+        return SpringUtils.getBean(StringTemplateBean.class).render(template, context);
     }
 
     public static String fromResource(Resource resource, Map<String, Object> context) {
@@ -48,7 +48,7 @@ public final class MustacheUtils {
         if (context == null) {
             context = new HashMap<>();
         }
-        return SpringUtils.getBean(MustacheBean.class).render(template, context);
+        return SpringUtils.getBean(StringTemplateBean.class).render(template, context);
     }
 
 }
