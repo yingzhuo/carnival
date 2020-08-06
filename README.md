@@ -18,7 +18,6 @@
 
 * [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
 * [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
-* [carnival-spring-boot-starter-config](./carnival-spring-boot-starter-config)
 * [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
 * [carnival-spring-boot-starter-etcd](./carnival-spring-boot-starter-etcd)
 * [carnival-spring-boot-starter-fastdfs](./carnival-spring-boot-starter-fastdfs)
