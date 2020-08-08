@@ -7,19 +7,19 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.config.constant;
+package com.github.yingzhuo.carnival.id.impl;
+
+import com.github.yingzhuo.carnival.id.LongIdGenerator;
 
 /**
  * @author 应卓
- * @since 1.6.15
+ * @since 1.7.0
  */
-public class NoSuchConstantException extends RuntimeException {
+public class TimestampLongIdGenerator implements LongIdGenerator {
 
-    public NoSuchConstantException() {
-    }
-
-    public NoSuchConstantException(String message) {
-        super(message);
+    @Override
+    public synchronized Long nextId() {
+        return System.currentTimeMillis();
     }
 
 }

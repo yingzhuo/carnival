@@ -14,28 +14,11 @@
 
 * 推荐使用[maven](https://search.maven.org/search?q=carnival)
 
-### 文档
+### 用例
 
-* [carnival-spring-boot-starter-actuator](./carnival-spring-boot-starter-actuator)
-* [carnival-spring-boot-starter-common](./carnival-spring-boot-starter-common)
-* [carnival-spring-boot-starter-config](./carnival-spring-boot-starter-config)
-* [carnival-spring-boot-starter-curator](./carnival-spring-boot-starter-curator)
-* [carnival-spring-boot-starter-etcd](./carnival-spring-boot-starter-etcd)
-* [carnival-spring-boot-starter-fastdfs](./carnival-spring-boot-starter-fastdfs)
-* [carnival-spring-boot-starter-id](./carnival-spring-boot-starter-id)
-* [carnival-spring-boot-starter-json](./carnival-spring-boot-starter-json)
-* [carnival-spring-boot-starter-localization-china](./carnival-spring-boot-starter-localization-china)
-* [carnival-spring-boot-starter-mvc](./carnival-spring-boot-starter-mvc)
-* [carnival-spring-boot-starter-nonce](./carnival-spring-boot-starter-nonce)
-* [carnival-spring-boot-starter-openfeign](./carnival-spring-boot-starter-openfeign)
-* [carnival-spring-boot-starter-password](./carnival-spring-boot-starter-password)
-* [carnival-spring-boot-starter-patchca](./carnival-spring-boot-starter-patchca)
-* [carnival-spring-boot-starter-redis](./carnival-spring-boot-starter-redis)
-* [carnival-spring-boot-starter-restful-flow](./carnival-spring-boot-starter-restful-flow)
-* [carnival-spring-boot-starter-restful-security](./carnival-spring-boot-starter-restful-security)
-* [carnival-spring-boot-starter-restful-security-params](./carnival-spring-boot-starter-restful-security-params)
-* [carnival-spring-boot-starter-restful-security-responsebody](./carnival-spring-boot-starter-restful-security-responsebody)
-* [carnival-spring-boot-starter-stringtemplate](./carnival-spring-boot-starter-stringtemplate)
+* carnival-spring-boot-starter-patchca
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless)
 
 ### 作者
 

@@ -6,11 +6,10 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.6.34</version>
+    <version>1.7.0</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
-        <module>carnival-spring-boot-starter-config</module>
         <module>carnival-spring-boot-starter-curator</module>
         <module>carnival-spring-boot-starter-etcd</module>
         <module>carnival-spring-boot-starter-fastdfs</module>
@@ -492,6 +491,13 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-x-discovery</artifactId>
                 <version>4.0.1</version>
+            </dependency>
+
+            <!-- env -->
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>spring-boot-stater-env</artifactId>
+                <version>1.3.0</version>
             </dependency>
 
             <!-- toml4j -->
