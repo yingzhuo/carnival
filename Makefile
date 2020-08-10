@@ -13,7 +13,7 @@ package:
 	@mvn -f $(CURDIR)/pom.xml clean package -Dmaven.test.skip=true
 
 deploy:
-	@mvn -f $(CURDIR)/pom.xml clean deploy -Psonar -Dmaven.test.skip=true
+	@mvn -f $(CURDIR)/pom.xml clean deploy -P Sonar -Dmaven.test.skip=true
 
 install:
 	@mvn -f $(CURDIR)/pom.xml clean install -Dmaven.test.skip=true
