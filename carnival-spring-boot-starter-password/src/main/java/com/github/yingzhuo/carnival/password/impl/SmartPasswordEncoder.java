@@ -10,6 +10,8 @@
 package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
+import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithm;
+import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithms;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 
 /**
@@ -18,15 +20,11 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
  */
 public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements PasswordEncoder {
 
-    public SmartPasswordEncoder(Algorithm encoding) {
-        this(encoding, null);
-    }
-
-    public SmartPasswordEncoder(Algorithm encoding, Algorithm unmapped) {
-        super(encoding.getId(), Algorithms.SUPPORTED_ALGORITHMS);
+    public SmartPasswordEncoder(PasswordEncoderAlgorithm encoding, PasswordEncoderAlgorithm unmapped) {
+        super(encoding.getId(), PasswordEncoderAlgorithms.SUPPORTED_ALGORITHMS);
 
         if (unmapped != null) {
-            setDefaultPasswordEncoderForMatches(Algorithms.SUPPORTED_ALGORITHMS.get(unmapped.getId()));
+            setDefaultPasswordEncoderForMatches(PasswordEncoderAlgorithms.SUPPORTED_ALGORITHMS.get(unmapped.getId()));
         }
     }
 

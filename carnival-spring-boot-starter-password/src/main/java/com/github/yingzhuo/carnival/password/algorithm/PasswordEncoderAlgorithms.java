@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.algorithm;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -21,19 +21,19 @@ import java.util.Map;
  * @author 应卓
  * @since 1.6.27
  */
-public final class Algorithms {
+public final class PasswordEncoderAlgorithms {
 
     public static final Map<String, PasswordEncoder> SUPPORTED_ALGORITHMS;
 
     static {
         final Map<String, PasswordEncoder> map = new HashMap<>();
-        for (Algorithm algorithm : Algorithm.values()) {
+        for (PasswordEncoderAlgorithm algorithm : PasswordEncoderAlgorithm.values()) {
             map.put(algorithm.getId(), algorithm.getPasswordEncoder());
         }
         SUPPORTED_ALGORITHMS = Collections.unmodifiableMap(map);
     }
 
-    private Algorithms() {
+    private PasswordEncoderAlgorithms() {
     }
 
 }

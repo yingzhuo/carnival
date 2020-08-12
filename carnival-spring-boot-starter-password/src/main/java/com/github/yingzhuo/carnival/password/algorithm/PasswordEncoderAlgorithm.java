@@ -7,8 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.algorithm;
 
+import com.github.yingzhuo.carnival.password.impl.Base64PasswordEncoder;
+import com.github.yingzhuo.carnival.password.impl.ReversePasswordEncoder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
@@ -19,7 +21,7 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
  * @since 1.6.27
  */
 @SuppressWarnings("deprecation")
-public enum Algorithm {
+public enum PasswordEncoderAlgorithm {
 
     bcrypt("bcrypt", new BCryptPasswordEncoder()),
     md5("MD5", new MessageDigestPasswordEncoder("MD5")),
@@ -37,7 +39,7 @@ public enum Algorithm {
     private final String id;
     private final PasswordEncoder passwordEncoder;
 
-    Algorithm(String id, PasswordEncoder passwordEncoder) {
+    PasswordEncoderAlgorithm(String id, PasswordEncoder passwordEncoder) {
         this.id = id;
         this.passwordEncoder = passwordEncoder;
     }

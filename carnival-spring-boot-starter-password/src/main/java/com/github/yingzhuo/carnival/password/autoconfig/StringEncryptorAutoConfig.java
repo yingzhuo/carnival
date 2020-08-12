@@ -9,28 +9,31 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
-import com.github.yingzhuo.carnival.password.PasswordEncoder;
-import com.github.yingzhuo.carnival.password.impl.SmartPasswordEncoder;
+import com.github.yingzhuo.carnival.password.SaltGenerator;
+import com.github.yingzhuo.carnival.password.StringEncryptor;
+import com.github.yingzhuo.carnival.password.impl.SaltGeneratorImpl;
 import com.github.yingzhuo.carnival.password.props.StarterProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 /**
  * @author 应卓
+ * @since 1.7.1
  */
-@EnableConfigurationProperties(StarterProps.class)
 @ConditionalOnProperty(prefix = "carnival.password", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class PasswordEncoderAutoConfig {
+public class StringEncryptorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public PasswordEncoder passwordEncoder(StarterProps props) {
-        return new SmartPasswordEncoder(
-                props.getPasswordEncoder().getEncoding(),
-                props.getPasswordEncoder().getUnmapped()
-        );
+    public SaltGenerator saltGenerator() {
+        return new SaltGeneratorImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public StringEncryptor stringEncryptor(StarterProps props) {
+        return props.getStringEncryptor().getAlgorithm();
     }
 
 }

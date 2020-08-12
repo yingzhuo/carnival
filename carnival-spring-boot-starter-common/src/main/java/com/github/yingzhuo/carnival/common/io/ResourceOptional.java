@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import com.github.yingzhuo.carnival.spring.ResourceUtils;
 import org.springframework.core.io.Resource;
 
 import java.io.*;
@@ -29,7 +28,7 @@ public interface ResourceOptional extends Closeable {
         if (locations == null || locations.length == 0) {
             return new AbsentResourceOptional();
         } else {
-            return new SimpleResourceOptional(locations);
+            return new ResourceOptionalImpl(locations);
         }
     }
 
@@ -151,52 +150,6 @@ public interface ResourceOptional extends Closeable {
         @Override
         public void close() {
             // NOP
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    static class SimpleResourceOptional implements ResourceOptional {
-        private Resource resource;
-        private String location;
-
-        public SimpleResourceOptional(String... locations) {
-            for (String location : locations) {
-                Resource it = ResourceUtils.loadResource(location);
-                if (it.exists() && it.isReadable()) {
-                    this.resource = it;
-                    this.location = location;
-                    return;
-                }
-            }
-        }
-
-        @Override
-        public String getLocation() {
-            if (isAbsent()) {
-                throw new NoSuchElementException("ResourceOptional is absent");
-            }
-            return location;
-        }
-
-        @Override
-        public Resource get() {
-            if (isAbsent()) {
-                throw new NoSuchElementException("ResourceOptional is absent");
-            }
-            return resource;
-        }
-
-        @Override
-        public boolean isPresent() {
-            return resource != null;
-        }
-
-        @Override
-        public void close() throws IOException {
-            if (isPresent()) {
-                get().getInputStream().close();
-            }
         }
     }
 
