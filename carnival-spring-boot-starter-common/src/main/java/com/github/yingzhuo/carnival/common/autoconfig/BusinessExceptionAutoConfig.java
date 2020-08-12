@@ -21,9 +21,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 import static com.github.yingzhuo.carnival.exception.business.BusinessExceptionMaps.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -62,7 +62,7 @@ public class BusinessExceptionAutoConfig {
     @Setter
     static final class I18n {
         private String[] basenames = null;
-        private Charset encoding = StandardCharsets.UTF_8;
+        private Charset encoding = UTF_8;
     }
 
 }

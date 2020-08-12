@@ -35,6 +35,7 @@ public final class StringTemplateUtils {
         return SpringUtils.getBean(StringTemplateBean.class).render(template, context);
     }
 
+    @Deprecated
     public static String fromResource(String location, Map<String, Object> context) {
         String template = ResourceText.of(location).getText();
         if (context == null) {
@@ -43,6 +44,7 @@ public final class StringTemplateUtils {
         return SpringUtils.getBean(StringTemplateBean.class).render(template, context);
     }
 
+    @Deprecated
     public static String fromResource(Resource resource, Map<String, Object> context) {
         String template = ResourceText.of(resource, UTF_8).getText();
         if (context == null) {

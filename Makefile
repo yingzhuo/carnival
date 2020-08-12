@@ -7,16 +7,16 @@ clean:
 	@mvn -f $(CURDIR)/pom.xml clean -q
 
 compile:
-	@mvn -f $(CURDIR)/pom.xml clean compile -Dmaven.test.skip=true
+	@mvn -f $(CURDIR)/pom.xml clean compile
 
 package:
-	@mvn -f $(CURDIR)/pom.xml clean package -Dmaven.test.skip=true
+	@mvn -f $(CURDIR)/pom.xml clean package
 
 deploy:
-	@mvn -f $(CURDIR)/pom.xml clean deploy -P Sonar -Dmaven.test.skip=true
+	@mvn -f $(CURDIR)/pom.xml clean deploy -P Sonar
 
 install:
-	@mvn -f $(CURDIR)/pom.xml clean install -Dmaven.test.skip=true
+	@mvn -f $(CURDIR)/pom.xml clean install
 
 version:
 	@mvn -f $(CURDIR)/pom.xml versions:set

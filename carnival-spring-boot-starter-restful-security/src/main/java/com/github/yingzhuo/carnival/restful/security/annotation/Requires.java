@@ -11,6 +11,9 @@ package com.github.yingzhuo.carnival.restful.security.annotation;
 
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)

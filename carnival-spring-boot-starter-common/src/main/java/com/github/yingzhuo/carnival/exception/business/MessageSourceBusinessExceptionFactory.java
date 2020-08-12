@@ -16,7 +16,8 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.util.StringUtils;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -35,7 +36,7 @@ public class MessageSourceBusinessExceptionFactory implements BusinessExceptionF
     }
 
     public MessageSourceBusinessExceptionFactory(String... basenames) {
-        this(basenames, StandardCharsets.UTF_8);
+        this(basenames, UTF_8);
     }
 
     public MessageSourceBusinessExceptionFactory(String[] basenames, Charset encoding) {

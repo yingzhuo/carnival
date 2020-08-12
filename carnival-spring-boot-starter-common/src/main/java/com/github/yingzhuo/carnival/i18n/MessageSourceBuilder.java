@@ -13,12 +13,13 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -27,7 +28,7 @@ import java.util.Set;
 public final class MessageSourceBuilder {
 
     private String[] basenames = new String[0];
-    private Charset encoding = StandardCharsets.UTF_8;
+    private Charset encoding = UTF_8;
     private boolean fallbackToSystemLocale = true;
     private boolean useCodeAsDefaultMessage = false;
     private Locale defaultLocale = null;

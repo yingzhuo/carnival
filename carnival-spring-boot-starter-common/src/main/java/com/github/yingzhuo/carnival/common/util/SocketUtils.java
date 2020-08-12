@@ -45,4 +45,5 @@ public final class SocketUtils {
     public static boolean isReachable(HostAndPort hostAndPort, int timeoutInMilliseconds) {
         return isReachable(hostAndPort.getHost(), hostAndPort.getPort(), timeoutInMilliseconds);
     }
+
 }
