@@ -22,10 +22,9 @@ import java.util.Map;
  */
 public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements PasswordEncoder {
 
-    private static final Map<String, org.springframework.security.crypto.password.PasswordEncoder> ID_TO_ENCODERS;
+    private static final Map<String, org.springframework.security.crypto.password.PasswordEncoder> ID_TO_ENCODERS = new HashMap<>();
 
     static {
-        ID_TO_ENCODERS = new HashMap<>();
         for (PasswordEncoderAlgorithm algorithm : PasswordEncoderAlgorithm.values()) {
             ID_TO_ENCODERS.put(algorithm.getId(), algorithm.getPasswordEncoder());
         }

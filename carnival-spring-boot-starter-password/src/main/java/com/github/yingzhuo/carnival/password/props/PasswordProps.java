@@ -22,7 +22,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "carnival.password")
-public class StarterProps {
+public class PasswordProps {
 
     private boolean enabled = true;
     private PasswordEncoder passwordEncoder = new PasswordEncoder();

@@ -17,7 +17,7 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  * @author 应卓
  * @since 1.6.2
  */
-public class ResourceLoaderUtils {
+public final class ResourceLoaderUtils {
 
     private static final ResourcePatternResolver DEFAULT = new PathMatchingResourcePatternResolver();
 
