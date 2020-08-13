@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.id.autoconfig;
 
-import com.github.yingzhuo.carnival.id.Algorithm;
+import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.impl.*;
 import lombok.Getter;
@@ -51,7 +51,7 @@ public class IdGeneratorAutoConfig {
                     log.warn("using random data-center-id: {}", dataCenterId);
                 }
 
-                if (props.getAlgorithm() == Algorithm.SNOWFLAKE) {
+                if (props.getAlgorithm() == IdGeneratorAlgorithm.SNOWFLAKE) {
                     return new SnowflakeLongIdGenerator(
                             workerId,
                             dataCenterId
@@ -82,7 +82,7 @@ public class IdGeneratorAutoConfig {
     @ConfigurationProperties(prefix = "carnival.id")
     static class Props {
         private boolean enabled = true;
-        private Algorithm algorithm = Algorithm.SNOWFLAKE;
+        private IdGeneratorAlgorithm algorithm = IdGeneratorAlgorithm.SNOWFLAKE;
         private Snowflake snowflake = new Snowflake();
     }
 

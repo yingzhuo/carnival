@@ -24,6 +24,7 @@ import java.security.SecureRandom;
  * @author 应卓
  * @since 1.0.6
  */
+@Deprecated
 public final class AESUtils {
 
     private AESUtils() {

@@ -15,8 +15,8 @@ package com.github.yingzhuo.carnival.password.algorithm;
  */
 public enum StringEncryptorAlgorithm {
 
-    simple,
+    standard,
     delux,
-    noop;
+    noop
 
 }

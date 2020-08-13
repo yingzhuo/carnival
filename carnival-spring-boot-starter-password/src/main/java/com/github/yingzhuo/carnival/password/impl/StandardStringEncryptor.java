@@ -16,7 +16,7 @@ import org.springframework.security.crypto.encrypt.Encryptors;
  * @author 应卓
  * @since 1.7.1
  */
-public class SimpleStringEncryptor implements StringEncryptor {
+public class StandardStringEncryptor implements StringEncryptor {
 
     @Override
     public String encrypt(String text, String password, String salt) {

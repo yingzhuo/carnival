@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.id;
 /**
  * @author 应卓
  */
-public enum Algorithm {
+public enum IdGeneratorAlgorithm {
 
     UUID_32,
 
@@ -22,8 +22,10 @@ public enum Algorithm {
 
     SNOWFLAKE_STRING,
 
+    @Deprecated
     TIMESTAMP,
 
+    @Deprecated
     TIMESTAMP_STRING;
 
 }

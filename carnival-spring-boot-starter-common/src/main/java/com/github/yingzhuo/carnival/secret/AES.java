@@ -21,6 +21,7 @@ import java.util.Set;
  * @author 应卓
  * @since 1.6.2
  */
+@Deprecated
 public interface AES {
 
     @Documented

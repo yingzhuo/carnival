@@ -68,12 +68,6 @@
             <artifactId>jackson-datatype-guava</artifactId>
         </dependency>
 
-        <!-- commons -->
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-        </dependency>
-
         <!-- junit -->
         <dependency>
             <groupId>junit</groupId>

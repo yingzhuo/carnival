@@ -21,6 +21,7 @@ import java.util.Set;
 /**
  * @author 应卓
  */
+@Deprecated
 public interface MD5 {
 
     @Documented
