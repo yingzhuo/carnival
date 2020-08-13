@@ -22,7 +22,6 @@ import java.lang.annotation.*;
  * @since 1.6.20
  */
 @Documented
-@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Conditional(ConditionalOnIstio.OnIstio.class)

@@ -20,20 +20,19 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.5.1
+ * @since 1.7.1
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnProd.OnProd.class)
-public @interface ConditionalOnProd {
+@Conditional(ConditionalOnQA.OnQA.class)
+public @interface ConditionalOnQA {
 
-    static final class OnProd implements Condition {
-
+    static final class OnQA implements Condition {
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
             final Environment env = context.getEnvironment();
-            return env.acceptsProfiles(Profiles.of("prod | production"));
+            return env.acceptsProfiles(Profiles.of("qa"));
         }
     }
 

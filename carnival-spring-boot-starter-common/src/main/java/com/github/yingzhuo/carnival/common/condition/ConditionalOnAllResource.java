@@ -23,7 +23,6 @@ import java.lang.annotation.*;
  * @author 应卓
  */
 @Documented
-@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Conditional(ConditionalOnAllResource.OnAllResource.class)

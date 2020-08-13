@@ -23,7 +23,6 @@ import java.lang.annotation.*;
  * @since 1.5.1
  */
 @Documented
-@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Conditional(ConditionalOnKubernetes.OnKubernetes.class)
