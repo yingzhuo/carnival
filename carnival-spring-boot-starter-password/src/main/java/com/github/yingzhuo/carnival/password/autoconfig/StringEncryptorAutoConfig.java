@@ -11,7 +11,10 @@ package com.github.yingzhuo.carnival.password.autoconfig;
 
 import com.github.yingzhuo.carnival.password.SaltGenerator;
 import com.github.yingzhuo.carnival.password.StringEncryptor;
+import com.github.yingzhuo.carnival.password.impl.DeluxStringEncryptor;
+import com.github.yingzhuo.carnival.password.impl.NoopStringEncryptor;
 import com.github.yingzhuo.carnival.password.impl.SaltGeneratorImpl;
+import com.github.yingzhuo.carnival.password.impl.SimpleStringEncryptor;
 import com.github.yingzhuo.carnival.password.props.StarterProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -33,7 +36,16 @@ public class StringEncryptorAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     public StringEncryptor stringEncryptor(StarterProps props) {
-        return props.getStringEncryptor().getAlgorithm();
+        switch (props.getStringEncryptor().getAlgorithm()) {
+            case noop:
+                return new NoopStringEncryptor();
+            case delux:
+                return new DeluxStringEncryptor();
+            case simple:
+                return new SimpleStringEncryptor();
+            default:
+                throw new AssertionError();
+        }
     }
 
 }

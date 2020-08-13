@@ -9,50 +9,14 @@
  */
 package com.github.yingzhuo.carnival.password.algorithm;
 
-import com.github.yingzhuo.carnival.password.StringEncryptor;
-import org.springframework.security.crypto.encrypt.Encryptors;
-
 /**
  * @author 应卓
  * @since 1.7.1
  */
-public enum StringEncryptorAlgorithm implements StringEncryptor {
+public enum StringEncryptorAlgorithm {
 
-    simple {
-        @Override
-        public String encrypt(String text, String password, String salt) {
-            return Encryptors.text(password, salt).encrypt(text);
-        }
-
-        @Override
-        public String decrypt(String encryptedText, String password, String salt) {
-            return Encryptors.text(password, salt).decrypt(encryptedText);
-        }
-    },
-
-    delux {
-        @Override
-        public String encrypt(String text, String password, String salt) {
-            return Encryptors.delux(password, salt).encrypt(text);
-        }
-
-        @Override
-        public String decrypt(String encryptedText, String password, String salt) {
-            return Encryptors.delux(password, salt).decrypt(encryptedText);
-        }
-    },
-
-    @Deprecated
-    noop {
-        @Override
-        public String encrypt(String text, String password, String salt) {
-            return Encryptors.noOpText().encrypt(text);
-        }
-
-        @Override
-        public String decrypt(String encryptedText, String password, String salt) {
-            return Encryptors.noOpText().decrypt(encryptedText);
-        }
-    };
+    simple,
+    delux,
+    noop;
 
 }
