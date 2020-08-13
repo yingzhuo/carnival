@@ -11,8 +11,10 @@ package com.github.yingzhuo.carnival.password.impl;
 
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
 import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithm;
-import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithms;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author 应卓
@@ -20,11 +22,24 @@ import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
  */
 public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements PasswordEncoder {
 
+    private static final Map<String, org.springframework.security.crypto.password.PasswordEncoder> ID_TO_ENCODERS;
+
+    static {
+        ID_TO_ENCODERS = new HashMap<>();
+        for (PasswordEncoderAlgorithm algorithm : PasswordEncoderAlgorithm.values()) {
+            ID_TO_ENCODERS.put(algorithm.getId(), algorithm.getPasswordEncoder());
+        }
+    }
+
+    public SmartPasswordEncoder() {
+        this(PasswordEncoderAlgorithm.md5, PasswordEncoderAlgorithm.md5);
+    }
+
     public SmartPasswordEncoder(PasswordEncoderAlgorithm encoding, PasswordEncoderAlgorithm unmapped) {
-        super(encoding.getId(), PasswordEncoderAlgorithms.SUPPORTED_ALGORITHMS);
+        super(encoding.getId(), ID_TO_ENCODERS);
 
         if (unmapped != null) {
-            setDefaultPasswordEncoderForMatches(PasswordEncoderAlgorithms.SUPPORTED_ALGORITHMS.get(unmapped.getId()));
+            setDefaultPasswordEncoderForMatches(ID_TO_ENCODERS.get(unmapped.getId()));
         }
     }
 

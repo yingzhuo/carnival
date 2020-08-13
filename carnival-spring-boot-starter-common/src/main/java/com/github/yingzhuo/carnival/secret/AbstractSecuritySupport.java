@@ -15,7 +15,6 @@ import java.util.Base64;
  * @author 应卓
  * @since 1.6.1
  */
-@Deprecated
 public abstract class AbstractSecuritySupport {
 
     protected static final String RSA = "RSA";

@@ -7,10 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.secret.rsa;
-
-import com.github.yingzhuo.carnival.secret.AbstractSecuritySupport;
-import com.github.yingzhuo.carnival.secret.KeyPair;
+package com.github.yingzhuo.carnival.secret;
 
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;

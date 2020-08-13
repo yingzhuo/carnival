@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.id.autoconfig;
 
-import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
 import com.github.yingzhuo.carnival.id.IdGenerator;
+import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
 import com.github.yingzhuo.carnival.id.impl.*;
 import lombok.Getter;
 import lombok.Setter;

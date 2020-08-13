@@ -7,9 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.secret.rsa;
-
-import com.github.yingzhuo.carnival.secret.AbstractSecuritySupport;
+package com.github.yingzhuo.carnival.secret;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
