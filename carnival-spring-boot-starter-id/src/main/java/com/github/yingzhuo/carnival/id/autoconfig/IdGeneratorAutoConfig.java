@@ -11,6 +11,8 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
+import com.github.yingzhuo.carnival.id.IdHash;
+import com.github.yingzhuo.carnival.id.hash.IdHashImpl;
 import com.github.yingzhuo.carnival.id.impl.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -77,6 +79,15 @@ public class IdGeneratorAutoConfig {
         }
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public IdHash idHash(Props props) {
+        return new IdHashImpl(
+                props.getHash().getSalt(),
+                props.getHash().getMinLength()
+        );
+    }
+
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.id")
@@ -84,6 +95,7 @@ public class IdGeneratorAutoConfig {
         private boolean enabled = true;
         private IdGeneratorAlgorithm algorithm = IdGeneratorAlgorithm.SNOWFLAKE;
         private Snowflake snowflake = new Snowflake();
+        private Hash hash = new Hash();
     }
 
     @Getter
@@ -94,4 +106,12 @@ public class IdGeneratorAutoConfig {
         private int length = -1;
         private char padCharacter = '0';
     }
+
+    @Getter
+    @Setter
+    static class Hash {
+        private String salt = Hash.class.getName();
+        private int minLength = 6;
+    }
+
 }

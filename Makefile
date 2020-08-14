@@ -26,6 +26,5 @@ version:
 github: clean
 	@git add .
 	@git commit -m "$(timestamp)"
-	@git push
 
 .PHONY: no_default clean compile package install deploy version github

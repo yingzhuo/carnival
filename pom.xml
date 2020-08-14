@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.7.1</version>
+    <version>1.7.2</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -569,6 +569,13 @@
                 <groupId>net.coobird</groupId>
                 <artifactId>thumbnailator</artifactId>
                 <version>0.4.11</version>
+            </dependency>
+
+            <!-- hashids -->
+            <dependency>
+                <groupId>org.hashids</groupId>
+                <artifactId>hashids</artifactId>
+                <version>1.0.3</version>
             </dependency>
 
             <!-- mustache -->
