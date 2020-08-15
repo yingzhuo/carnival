@@ -82,7 +82,8 @@ public class IdGeneratorAutoConfig {
     public IdHash idHash(Props props) {
         return new IdHashImpl(
                 props.getHash().getSalt(),
-                props.getHash().getMinLength()
+                props.getHash().getMinLength(),
+                props.getHash().getChars()
         );
     }
 
@@ -110,6 +111,7 @@ public class IdGeneratorAutoConfig {
     static class Hash {
         private String salt = Hash.class.getName();
         private int minLength = 6;
+        private String chars = "";
     }
 
 }

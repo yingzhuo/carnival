@@ -20,8 +20,12 @@ public class IdHashImpl implements IdHash {
 
     private final Hashids hashids;
 
-    public IdHashImpl(String salt, int minLength) {
-        this.hashids = new Hashids(salt, minLength);
+    public IdHashImpl(String salt, int minLength, String chars) {
+        if (chars == null || "".equals(chars)) {
+            this.hashids = new Hashids(salt, minLength);
+        } else {
+            this.hashids = new Hashids(salt, minLength, chars);
+        }
     }
 
     @Override
