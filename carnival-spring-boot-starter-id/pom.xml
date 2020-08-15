@@ -50,10 +50,10 @@
             <artifactId>junit</artifactId>
         </dependency>
 
-        <!-- hashids -->
+        <!-- codegen4j -->
         <dependency>
-            <groupId>org.hashids</groupId>
-            <artifactId>hashids</artifactId>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>codegen4j</artifactId>
         </dependency>
     </dependencies>
 

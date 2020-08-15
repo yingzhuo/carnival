@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.id.hash;
 
 import com.github.yingzhuo.carnival.id.IdHash;
-import org.hashids.Hashids;
+import com.github.yingzhuo.codegen4j.Hashids;
 
 /**
  * @author 应卓

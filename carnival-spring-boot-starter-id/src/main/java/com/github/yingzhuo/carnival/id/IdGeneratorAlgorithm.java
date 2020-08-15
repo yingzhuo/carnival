@@ -20,12 +20,6 @@ public enum IdGeneratorAlgorithm {
 
     SNOWFLAKE,
 
-    SNOWFLAKE_STRING,
-
-    @Deprecated
-    TIMESTAMP,
-
-    @Deprecated
-    TIMESTAMP_STRING;
+    SNOWFLAKE_STRING
 
 }

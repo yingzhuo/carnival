@@ -13,7 +13,9 @@ import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
 import com.github.yingzhuo.carnival.id.IdHash;
 import com.github.yingzhuo.carnival.id.hash.IdHashImpl;
-import com.github.yingzhuo.carnival.id.impl.*;
+import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
+import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -70,10 +72,6 @@ public class IdGeneratorAutoConfig {
                 return new UUIDGenerator(true);
             case UUID_36:
                 return new UUIDGenerator(false);
-            case TIMESTAMP:
-                return new TimestampLongIdGenerator();
-            case TIMESTAMP_STRING:
-                return new TimestampStringIdGenerator();
             default:
                 throw new AssertionError(); // 程序不可能运行到此处
         }

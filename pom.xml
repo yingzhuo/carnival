@@ -126,11 +126,6 @@
                 <artifactId>carnival-spring-boot-starter-json</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
-                <artifactId>carnival-spring-boot-starter-mvc</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <!-- spring-boot -->
             <dependency>
@@ -497,7 +492,14 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>spring-boot-stater-env</artifactId>
-                <version>1.3.0</version>
+                <version>[1.3.0,)</version>
+            </dependency>
+
+            <!-- codegen4j -->
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>codegen4j</artifactId>
+                <version>[0.0.2,)</version>
             </dependency>
 
             <!-- yaml -->
