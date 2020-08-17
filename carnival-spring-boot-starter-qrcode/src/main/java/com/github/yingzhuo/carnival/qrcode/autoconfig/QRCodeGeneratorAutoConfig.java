@@ -10,10 +10,13 @@
 package com.github.yingzhuo.carnival.qrcode.autoconfig;
 
 import com.github.yingzhuo.carnival.qrcode.QRCodeGenerator;
-import com.github.yingzhuo.carnival.qrcode.QRCodeGeneratorImpl;
-import com.github.yingzhuo.carnival.qrcode.props.Props;
+import com.github.yingzhuo.carnival.qrcode.impl.QRCodeGeneratorImpl;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -21,7 +24,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  * @since 1.7.3
  */
-@EnableConfigurationProperties(Props.class)
+@EnableConfigurationProperties(QRCodeGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.qrcode", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class QRCodeGeneratorAutoConfig {
 
@@ -29,10 +32,20 @@ public class QRCodeGeneratorAutoConfig {
     @ConditionalOnMissingBean
     public QRCodeGenerator qrCodeGenerator(Props props) {
         final QRCodeGeneratorImpl bean = new QRCodeGeneratorImpl();
-        bean.setDefaultErrorCorrectionLevel(props.getDefaults().getErrorCorrection());
-        bean.setDefaultSize(props.getDefaults().getSize());
-        bean.setDefaultMargin(props.getDefaults().getMargin());
+        bean.setDefaultSize(props.getDeafultSize());
+        bean.setDefaultMargin(props.getDefaultMargin());
+        bean.setDefaultErrorCorrectionLevel(props.getDefaultErrorCorrection());
         return bean;
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.qrcode")
+    static class Props {
+        private boolean enabled = true;
+        private ErrorCorrectionLevel defaultErrorCorrection = ErrorCorrectionLevel.H;
+        private int defaultMargin = 1;
+        private int deafultSize = 200;
     }
 
 }

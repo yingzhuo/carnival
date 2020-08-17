@@ -7,8 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.qrcode;
+package com.github.yingzhuo.carnival.qrcode.impl;
 
+import com.github.yingzhuo.carnival.qrcode.Logo;
+import com.github.yingzhuo.carnival.qrcode.QRCodeGenerator;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;

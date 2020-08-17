@@ -49,7 +49,7 @@ public class ImageHandlerMethodReturnValueHandler implements HandlerMethodReturn
         public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws IOException {
             response.setHeader("cache", "no-cache");
             final ServletOutputStream os = response.getOutputStream();
-            ImageIO.write(image.getImage(), "png", os);
+            ImageIO.write(image.getImage(), image.getFormat().getName(), os);
             os.flush();
             os.close();
         }
