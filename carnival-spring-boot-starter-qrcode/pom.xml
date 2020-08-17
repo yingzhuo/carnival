@@ -9,7 +9,7 @@
         <version>1.7.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>carnival-spring-boot-starter-password</artifactId>
+    <artifactId>carnival-spring-boot-starter-qrcode</artifactId>
 
     <dependencies>
         <!-- carnival -->
@@ -32,10 +32,14 @@
             <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
 
-        <!-- spring-security -->
+        <!-- zxing -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-crypto</artifactId>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
         </dependency>
 
         <!-- lombok -->
