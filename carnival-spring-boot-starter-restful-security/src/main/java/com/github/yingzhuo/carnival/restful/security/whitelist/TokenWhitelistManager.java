@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.whitelist;
 
+import com.github.yingzhuo.carnival.restful.security.token.StringToken;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
@@ -16,6 +17,10 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
  * @author 应卓
  */
 public interface TokenWhitelistManager {
+
+    public default void saveStringTokeValue(String tokenValue, UserDetails userDetails) {
+        save(StringToken.of(tokenValue), userDetails);
+    }
 
     public void save(Token token, UserDetails userDetails);
 
