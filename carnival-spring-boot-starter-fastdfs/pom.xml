@@ -49,12 +49,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- junit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-
         <!-- thumbnailator -->
         <dependency>
             <groupId>net.coobird</groupId>
