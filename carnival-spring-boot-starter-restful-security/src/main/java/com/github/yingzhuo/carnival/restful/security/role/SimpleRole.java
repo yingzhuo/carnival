@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * @author 应卓
  */
-public class SimpleRole implements Role {
+class SimpleRole implements Role {
 
     private final String name;
 

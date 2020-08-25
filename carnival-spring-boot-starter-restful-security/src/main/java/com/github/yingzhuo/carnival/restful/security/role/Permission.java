@@ -19,6 +19,7 @@ import java.io.Serializable;
  * @author 应卓
  * @see UserDetails
  */
+@FunctionalInterface
 public interface Permission extends Serializable {
 
     public static Permission of(String name) {
