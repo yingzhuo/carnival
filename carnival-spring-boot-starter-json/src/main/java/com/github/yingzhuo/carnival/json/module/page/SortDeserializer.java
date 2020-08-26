@@ -20,6 +20,7 @@ import org.springframework.data.domain.Sort;
  * @since 1.6.26
  */
 @Slf4j
+@Deprecated
 class SortDeserializer extends JsonDeserializer<Sort> {
 
     @Override
@@ -32,7 +33,7 @@ class SortDeserializer extends JsonDeserializer<Sort> {
 //            i++;
 //        }
 //        return Sort.by(orders);
-        log.info("'sort' property is ignored");
+        log.debug("'sort' property is ignored");
         return null;
     }
 
