@@ -56,7 +56,7 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
                     log.debug("\t\t{}", optionName);
                 } else {
                     for (String optionValue : optionValues) {
-                        if (hide(optionValue)) {
+                        if (hide(optionName)) {
                             optionValue = "[****]";
                         }
                         log.debug("\t\t{} = {}", optionName, optionValue);
