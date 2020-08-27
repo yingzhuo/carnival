@@ -56,6 +56,9 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
                     log.debug("\t\t{}", optionName);
                 } else {
                     for (String optionValue : optionValues) {
+                        if (hide(optionValue)) {
+                            optionValue = "[****]";
+                        }
                         log.debug("\t\t{} = {}", optionName, optionValue);
                     }
                 }
@@ -70,6 +73,12 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
         }
 
         log.debug(StringUtils.repeat('-', 120));
+    }
+
+    private boolean hide(String name) {
+        return StringUtils.containsIgnoreCase(name, "token") ||
+                StringUtils.containsIgnoreCase(name, "password") ||
+                StringUtils.containsIgnoreCase(name, "secret");
     }
 
 }
