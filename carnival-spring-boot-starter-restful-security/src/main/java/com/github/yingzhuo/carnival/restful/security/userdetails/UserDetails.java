@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.restful.security.userdetails;
 
+import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import com.github.yingzhuo.carnival.restful.security.role.Permission;
 import com.github.yingzhuo.carnival.restful.security.role.Role;
 
@@ -36,6 +37,8 @@ public interface UserDetails extends Serializable {
     public boolean isExpired();
 
     public boolean isLocked();
+
+    public Gender getGender();
 
     public Collection<Role> getRoles();
 
