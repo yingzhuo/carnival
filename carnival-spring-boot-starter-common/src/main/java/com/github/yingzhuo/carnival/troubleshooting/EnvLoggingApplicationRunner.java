@@ -22,7 +22,7 @@ import java.util.TreeMap;
  * @since 1.6.24
  */
 @Slf4j(topic = "troubleshooting")
-public class EnvLoggingApplicationRunner implements ApplicationRunner {
+public class EnvLoggingApplicationRunner extends AbstractTroubleshootingRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments ignored) {
@@ -42,8 +42,8 @@ public class EnvLoggingApplicationRunner implements ApplicationRunner {
         for (String name : env.keySet()) {
             String value = env.get(name);
 
-            if (hide(name)) {
-                value = "[****]";
+            if (isHiden(name)) {
+                value = HIDDEN_PWD;
             }
 
             log.debug("\t\t{} = {}", name, value);
@@ -52,9 +52,4 @@ public class EnvLoggingApplicationRunner implements ApplicationRunner {
         log.debug(StringUtils.repeat('-', 120));
     }
 
-    private boolean hide(String name) {
-        return StringUtils.containsIgnoreCase(name, "token") ||
-                StringUtils.containsIgnoreCase(name, "password") ||
-                StringUtils.containsIgnoreCase(name, "secret");
-    }
 }

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @since 1.6.24
  */
 @Slf4j(topic = "troubleshooting")
-public class ArgsLoggingApplicationRunner implements ApplicationRunner {
+public class ArgsLoggingApplicationRunner extends AbstractTroubleshootingRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
@@ -56,8 +56,8 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
                     log.debug("\t\t{}", optionName);
                 } else {
                     for (String optionValue : optionValues) {
-                        if (hide(optionName)) {
-                            optionValue = "[****]";
+                        if (isHiden(optionName)) {
+                            optionValue = HIDDEN_PWD;
                         }
                         log.debug("\t\t{} = {}", optionName, optionValue);
                     }
@@ -73,12 +73,6 @@ public class ArgsLoggingApplicationRunner implements ApplicationRunner {
         }
 
         log.debug(StringUtils.repeat('-', 120));
-    }
-
-    private boolean hide(String name) {
-        return StringUtils.containsIgnoreCase(name, "token") ||
-                StringUtils.containsIgnoreCase(name, "password") ||
-                StringUtils.containsIgnoreCase(name, "secret");
     }
 
 }
