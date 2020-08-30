@@ -22,7 +22,7 @@ import java.util.TreeMap;
  * @since 1.6.24
  */
 @Slf4j(topic = "troubleshooting")
-public class EnvLoggingApplicationRunner extends AbstractTroubleshootingRunner implements ApplicationRunner {
+public class EnvLoggingApplicationRunner extends AbstractTroubleshootingBean implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments ignored) {

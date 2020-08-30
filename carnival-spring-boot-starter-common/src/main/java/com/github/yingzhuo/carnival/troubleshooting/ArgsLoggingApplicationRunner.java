@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @since 1.6.24
  */
 @Slf4j(topic = "troubleshooting")
-public class ArgsLoggingApplicationRunner extends AbstractTroubleshootingRunner implements ApplicationRunner {
+public class ArgsLoggingApplicationRunner extends AbstractTroubleshootingBean implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {

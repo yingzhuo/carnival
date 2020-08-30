@@ -15,14 +15,15 @@ import org.apache.commons.lang3.StringUtils;
  * @author 应卓
  * @since 1.7.6
  */
-abstract class AbstractTroubleshootingRunner {
+abstract class AbstractTroubleshootingBean {
 
     protected static final String HIDDEN_PWD = "[****]";
 
     protected final boolean isHiden(String name) {
         return StringUtils.containsIgnoreCase(name, "token") ||
                 StringUtils.containsIgnoreCase(name, "password") ||
-                StringUtils.containsIgnoreCase(name, "secret");
+                StringUtils.containsIgnoreCase(name, "secret") ||
+                StringUtils.containsIgnoreCase(name, "pwd");
     }
 
 }
