@@ -10,8 +10,6 @@
 package com.github.yingzhuo.carnival.mvc.troubleshooting;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
-import com.github.yingzhuo.carnival.mvc.client.ClientInfoContext;
-import com.github.yingzhuo.carnival.mvc.client.ClientOSType;
 import com.github.yingzhuo.carnival.troubleshooting.IgnoreTroubleshooting;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -87,30 +85,6 @@ public class TroubleshootingInterceptor extends AbstractHandlerInterceptorSuppor
             String name = paramNames.nextElement();
             String value = request.getParameter(name);
             log.debug("\t\t{} = {}", name, value);
-        }
-
-        ClientOSType clientOSType = ClientInfoContext.getClientOSType();
-        String clientOSVersion = ClientInfoContext.getClientOSVersion();
-        String clientAppVersion = ClientInfoContext.getClientAppVersion();
-        String clientUsingBackendVersion = ClientInfoContext.getClientUsingBackendVersion();
-
-        if (clientOSType != null || clientOSVersion != null || clientAppVersion != null || clientUsingBackendVersion != null) {
-            log.debug("[Client Info]:");
-            if (clientOSType != null) {
-                log.debug("\t\tclient-os-type = {}", clientOSType);
-            }
-
-            if (clientOSVersion != null) {
-                log.debug("\t\tclient-os-version = {}", clientOSVersion);
-            }
-
-            if (clientAppVersion != null) {
-                log.debug("\t\tclient-app-version = {}", clientAppVersion);
-            }
-
-            if (clientUsingBackendVersion != null) {
-                log.debug("\t\tclient-using-backend-version = {}", clientUsingBackendVersion);
-            }
         }
 
         if (handlerMethod != null) {
