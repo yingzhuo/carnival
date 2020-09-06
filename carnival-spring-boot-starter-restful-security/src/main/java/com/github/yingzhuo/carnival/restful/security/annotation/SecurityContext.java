@@ -13,15 +13,14 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @since 1.7.7
  */
 @Documented
-@Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface UserDetailsProperty {
+public @interface SecurityContext {
 
-    public String value() default "";
-
-    public boolean ignoreExceptions() default false;
+    // SPEL
+    public String value() default "#userDetails";
 
 }
