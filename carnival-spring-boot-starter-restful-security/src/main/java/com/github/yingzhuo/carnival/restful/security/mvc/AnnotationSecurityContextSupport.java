@@ -23,6 +23,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  * @since 1.7.7
@@ -40,7 +42,7 @@ public class AnnotationSecurityContextSupport implements HandlerMethodArgumentRe
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
 
-        val spel = parameter.getParameterAnnotation(SecurityContext.class).value();
+        val spel = Objects.requireNonNull(parameter.getParameterAnnotation(SecurityContext.class)).value();
 
         if (spel.isEmpty()) return null;
 
@@ -48,12 +50,8 @@ public class AnnotationSecurityContextSupport implements HandlerMethodArgumentRe
         context.setVariable("userDetails", UserDetailsUtils.get());
         context.setVariable("token", TokenUtils.get());
 
-        try {
-            val exp = expressionResolver.parseExpression(spel);
-            return exp.getValue(context);
-        } catch (Throwable e) {
-            return null;
-        }
+        val exp = expressionResolver.parseExpression(spel);
+        return exp.getValue(context);
     }
 
 }
