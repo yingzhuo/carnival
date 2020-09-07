@@ -20,6 +20,11 @@ import org.springframework.context.annotation.Bean;
 public class RestfulSecurityBeanAutoConfig {
 
     @Bean
+    public RequiresAuthComponent requiresAuthComponent() {
+        return new RequiresAuthComponent();
+    }
+
+    @Bean
     public RequiresAuthenticationAuthComponent requiresAuthenticationAuthComponent() {
         return new RequiresAuthenticationAuthComponent();
     }
