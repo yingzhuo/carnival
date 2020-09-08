@@ -19,7 +19,7 @@ import java.lang.annotation.*;
  */
 @Documented
 @Inherited
-@Target(ElementType.TYPE)
+@Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DateStringValidator.class)
 public @interface DateString {

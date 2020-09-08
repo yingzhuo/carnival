@@ -30,7 +30,7 @@ public class DateStringValidator implements ConstraintValidator<DateString, Char
 
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
-        DateFormat dateFormat = new SimpleDateFormat(annotation.pattern());
+        final DateFormat dateFormat = new SimpleDateFormat(annotation.pattern());
         try {
             dateFormat.parse(value.toString());
             return true;
