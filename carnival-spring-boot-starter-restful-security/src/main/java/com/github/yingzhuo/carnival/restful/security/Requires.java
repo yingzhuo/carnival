@@ -25,6 +25,6 @@ import java.lang.annotation.*;
 public @interface Requires {
 
     // SpEL
-    public String value() default "true";
+    public String value();
 
 }

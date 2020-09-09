@@ -13,50 +13,31 @@ import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Optional;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 安全上下文
  *
  * @author 应卓
+ * @since 1.7.8
  */
-public final class RestfulSecurityContext {
+public interface RestfulSecurityContext {
 
-    private final static ThreadLocal<Token> tokenHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<UserDetails> userDetailsHolder = ThreadLocal.withInitial(() -> null);
-    private final static ThreadLocal<HttpServletRequest> requestHolder = ThreadLocal.withInitial(() -> null);
-
-    private RestfulSecurityContext() {
+    public static RestfulSecurityContext current() {
+        return ContextHolder.holder.get();
     }
 
-    public static Optional<Token> getToken() {
-        return Optional.ofNullable(tokenHolder.get());
+    public Token getToken();
+
+    public default String getTokenAsString() {
+        final Token token = getToken();
+        return token != null ? token.toString() : null;
     }
 
-    static void setToken(Token token) {
-        tokenHolder.set(token);
-    }
+    public UserDetails getUserDetails();
 
-    public static Optional<UserDetails> getUserDetails() {
-        return Optional.ofNullable(userDetailsHolder.get());
-    }
+    public HttpServletRequest getRequest();
 
-    static void setUserDetails(UserDetails userDetails) {
-        userDetailsHolder.set(userDetails);
-    }
-
-    public static HttpServletRequest getRequest() {
-        return requestHolder.get();
-    }
-
-    static void setRequest(HttpServletRequest request) {
-        requestHolder.set(request);
-    }
-
-    static void clean() {
-        tokenHolder.remove();
-        userDetailsHolder.remove();
-        requestHolder.remove();
-    }
+    public HttpServletResponse getResponse();
 
 }

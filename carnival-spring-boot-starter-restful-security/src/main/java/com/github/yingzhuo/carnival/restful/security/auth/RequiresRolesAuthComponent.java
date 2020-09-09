@@ -31,15 +31,15 @@ public class RequiresRolesAuthComponent implements AuthenticationComponent<Requi
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresRoles annotation) throws RestfulSecurityException {
         if (userDetails == null) {
-            throw new AuthenticationException(RestfulSecurityContext.getRequest());
+            throw new AuthenticationException(RestfulSecurityContext.current().getRequest());
         }
 
         if (userDetails.isLocked()) {
-            throw new UserDetailsLockedException(RestfulSecurityContext.getRequest());
+            throw new UserDetailsLockedException(RestfulSecurityContext.current().getRequest());
         }
 
         if (userDetails.isExpired()) {
-            throw new UserDetailsExpiredException(RestfulSecurityContext.getRequest());
+            throw new UserDetailsExpiredException(RestfulSecurityContext.current().getRequest());
         }
 
         final List<String> require = Arrays.asList(annotation.value());
@@ -47,11 +47,11 @@ public class RequiresRolesAuthComponent implements AuthenticationComponent<Requi
 
         if (annotation.logical() == Logical.ANY) {
             if (require.stream().noneMatch(actual::contains)) {
-                throw new AuthorizationException(RestfulSecurityContext.getRequest());
+                throw new AuthorizationException(RestfulSecurityContext.current().getRequest());
             }
         } else {
             if (!actual.containsAll(require)) {
-                throw new AuthorizationException(RestfulSecurityContext.getRequest());
+                throw new AuthorizationException(RestfulSecurityContext.current().getRequest());
             }
         }
     }

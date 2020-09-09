@@ -10,8 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.SecurityContext;
-import com.github.yingzhuo.carnival.restful.security.util.TokenUtils;
-import com.github.yingzhuo.carnival.restful.security.util.UserDetailsUtils;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import lombok.val;
 import org.springframework.core.MethodParameter;
 import org.springframework.expression.ExpressionParser;
@@ -46,10 +45,7 @@ public class AnnotationSecurityContextSupport implements HandlerMethodArgumentRe
 
         if (spel.isEmpty()) return null;
 
-        val context = new StandardEvaluationContext();
-        context.setVariable("userDetails", UserDetailsUtils.get());
-        context.setVariable("token", TokenUtils.get());
-
+        val context = new StandardEvaluationContext(RestfulSecurityContext.current());
         val exp = expressionResolver.parseExpression(spel);
         return exp.getValue(context);
     }

@@ -20,7 +20,7 @@ import java.lang.annotation.*;
 @Target(ElementType.PARAMETER)
 public @interface SecurityContext {
 
-    // SPEL
-    public String value() default "#userDetails";
+    // SpEL
+    public String value() default "#root";
 
 }

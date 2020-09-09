@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import com.github.yingzhuo.carnival.restful.security.util.UserDetailsUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -30,7 +30,11 @@ public class TypeUserDetailsSupport implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return UserDetailsUtils.get();
+        try {
+            return RestfulSecurityContext.current().getUserDetails();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

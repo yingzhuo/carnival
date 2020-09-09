@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.token.BytesToken;
-import com.github.yingzhuo.carnival.restful.security.util.TokenUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -30,7 +30,11 @@ public class TypeBytesTokenSupport implements HandlerMethodArgumentResolver {
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return (BytesToken) TokenUtils.get();
+        try {
+            return (BytesToken) RestfulSecurityContext.current().getToken();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

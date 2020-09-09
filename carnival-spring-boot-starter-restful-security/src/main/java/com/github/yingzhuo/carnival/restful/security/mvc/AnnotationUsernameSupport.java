@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.Username;
-import com.github.yingzhuo.carnival.restful.security.util.UserDetailsUtils;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -30,7 +30,11 @@ public class AnnotationUsernameSupport implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        return UserDetailsUtils.getUsername();
+        try {
+            return RestfulSecurityContext.current().getUserDetails().getUsername();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }

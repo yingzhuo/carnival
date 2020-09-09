@@ -10,9 +10,8 @@
 package com.github.yingzhuo.carnival.restful.security.mvc;
 
 import com.github.yingzhuo.carnival.restful.security.annotation.StringTokenValue;
+import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.token.StringToken;
-import com.github.yingzhuo.carnival.restful.security.token.Token;
-import com.github.yingzhuo.carnival.restful.security.util.TokenUtils;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -32,11 +31,11 @@ public class AnnotationStringTokenValueSupport implements HandlerMethodArgumentR
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
-        Token token = TokenUtils.get();
-        if (token instanceof StringToken) {
-            return ((StringToken) token).getValue();
+        try {
+            return ((StringToken) RestfulSecurityContext.current().getToken()).toString();
+        } catch (Exception e) {
+            return null;
         }
-        return null;
     }
 
 }

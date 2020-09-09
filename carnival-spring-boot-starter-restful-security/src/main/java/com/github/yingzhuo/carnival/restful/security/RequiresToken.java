@@ -23,5 +23,6 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Requires(RequiresTokenAuthComponent.class)
+@Deprecated
 public @interface RequiresToken {
 }

@@ -42,15 +42,15 @@ public abstract class AbstractJwtUserDetailsRealm implements UserDetailsRealm, A
             try {
                 return Optional.ofNullable(getUserDetails(token, verifier.verify(tokenValue)));
             } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
-                throw new AlgorithmMismatchException(RestfulSecurityContext.getRequest());
+                throw new AlgorithmMismatchException(RestfulSecurityContext.current().getRequest());
             } catch (com.auth0.jwt.exceptions.TokenExpiredException ex) {
-                throw new TokenExpiredException(RestfulSecurityContext.getRequest());
+                throw new TokenExpiredException(RestfulSecurityContext.current().getRequest());
             } catch (com.auth0.jwt.exceptions.SignatureVerificationException ex) {
-                throw new SignatureVerificationException(RestfulSecurityContext.getRequest());
+                throw new SignatureVerificationException(RestfulSecurityContext.current().getRequest());
             } catch (com.auth0.jwt.exceptions.InvalidClaimException ex) {
-                throw new InvalidClaimException(RestfulSecurityContext.getRequest());
+                throw new InvalidClaimException(RestfulSecurityContext.current().getRequest());
             } catch (com.auth0.jwt.exceptions.JWTDecodeException ex) {
-                throw new JwtDecodeException(RestfulSecurityContext.getRequest());
+                throw new JwtDecodeException(RestfulSecurityContext.current().getRequest());
             }
         }
 

@@ -52,6 +52,9 @@ interface RestfulSecurity {
             return;
         }
 
+        Token token = null;
+        UserDetails userDetails = null;
+
         final List<MethodCheckPoint> list = ReflectCache.get().get(handlerMethod.getMethod());
         if ((list == null || list.isEmpty()) && authenticationStrategy == AuthenticationStrategy.ANNOTATED_REQUESTS) {
             return;
@@ -59,33 +62,31 @@ interface RestfulSecurity {
 
         final Optional<Token> tokenOp = tokenParser.parse(new ServletWebRequest(request, response));
         if (tokenOp.isPresent()) {
-            Token token = tokenOp.get();
-            RestfulSecurityContext.setToken(token);
+            token = tokenOp.get();
+            ContextHolder.set(token);
 
             if (tokenBlacklistManager != null && tokenBlacklistManager.isBlacklisted(token)) {
                 throw new TokenBlacklistedException(request, token);
             }
 
             Optional<UserDetails> userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
-            RestfulSecurityContext.setUserDetails(userDetailsOp.orElse(null));
+            userDetails = userDetailsOp.orElse(null);
+            ContextHolder.set(userDetailsOp.orElse(null));
         }
 
         if (list != null) {
+            final Token finalToken = token;
+            final UserDetails finalUserDetails = userDetails;
             list.forEach(cp -> {
                 Annotation annotation = cp.getAnnotation();
                 AuthenticationComponent ac = cp.getAuthenticationComponent();
-                ac.authenticate(RestfulSecurityContext.getToken().orElse(null), RestfulSecurityContext.getUserDetails().orElse(null), annotation);
+                ac.authenticate(finalToken, finalUserDetails, annotation);
             });
         }
 
         if (tokenWhitelistManager != null) {
-            if (!tokenWhitelistManager.isWhitelisted(RestfulSecurityContext.getToken().orElse(null),
-                    RestfulSecurityContext.getUserDetails().orElse(null))) {
-                throw new TokenNotWhitelistedException(
-                        request,
-                        RestfulSecurityContext.getToken().orElse(null),
-                        RestfulSecurityContext.getUserDetails().orElse(null)
-                );
+            if (!tokenWhitelistManager.isWhitelisted(token, userDetails)) {
+                throw new TokenNotWhitelistedException(request, token, userDetails);
             }
         }
     }

@@ -21,12 +21,13 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
  * @author 应卓
  * @since 1.1.5
  */
+@Deprecated
 public class RequiresTokenAuthComponent implements AuthenticationComponent<RequiresToken> {
 
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresToken annotation) throws RestfulSecurityException {
         if (token == null) {
-            throw new TokenNotFoundException(RestfulSecurityContext.getRequest());
+            throw new TokenNotFoundException(RestfulSecurityContext.current().getRequest());
         }
     }
 

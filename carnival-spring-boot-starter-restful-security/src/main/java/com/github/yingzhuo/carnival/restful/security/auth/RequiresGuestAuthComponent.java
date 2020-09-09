@@ -26,7 +26,7 @@ public class RequiresGuestAuthComponent implements AuthenticationComponent<Requi
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresGuest annotation) throws RestfulSecurityException {
         if (userDetails != null) {
-            throw new AuthenticationException(RestfulSecurityContext.getRequest());
+            throw new AuthenticationException(RestfulSecurityContext.current().getRequest());
         }
     }
 

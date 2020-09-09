@@ -16,8 +16,6 @@ import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationExc
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
-import com.github.yingzhuo.carnival.restful.security.util.TokenUtils;
-import com.github.yingzhuo.carnival.restful.security.util.UserDetailsUtils;
 import lombok.val;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.SpelParserConfiguration;
@@ -37,14 +35,12 @@ public class RequiresAuthComponent implements AuthenticationComponent<Requires> 
     public void authenticate(Token token, UserDetails userDetails, Requires annotation) throws RestfulSecurityException {
         val spel = annotation.value();
 
-        val context = new StandardEvaluationContext();
-        context.setVariable("userDetails", UserDetailsUtils.get());
-        context.setVariable("token", TokenUtils.get());
-
+        val context = new StandardEvaluationContext(RestfulSecurityContext.current());
         val exp = expressionResolver.parseExpression(spel);
+        val res = exp.getValue(context, Boolean.class);
 
-        if (!exp.getValue(context, Boolean.class)) {
-            throw new AuthenticationException(RestfulSecurityContext.getRequest());
+        if (res == null || !res) {
+            throw new AuthenticationException(RestfulSecurityContext.current().getRequest());
         }
     }
 

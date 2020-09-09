@@ -28,15 +28,15 @@ public class RequiresAuthenticationAuthComponent implements AuthenticationCompon
     @Override
     public void authenticate(Token token, UserDetails userDetails, RequiresAuthentication annotation) throws RestfulSecurityException {
         if (userDetails == null) {
-            throw new AuthenticationException(RestfulSecurityContext.getRequest());
+            throw new AuthenticationException(RestfulSecurityContext.current().getRequest());
         }
 
         if (userDetails.isLocked()) {
-            throw new UserDetailsLockedException(RestfulSecurityContext.getRequest());
+            throw new UserDetailsLockedException(RestfulSecurityContext.current().getRequest());
         }
 
         if (userDetails.isExpired()) {
-            throw new UserDetailsExpiredException(RestfulSecurityContext.getRequest());
+            throw new UserDetailsExpiredException(RestfulSecurityContext.current().getRequest());
         }
     }
 
