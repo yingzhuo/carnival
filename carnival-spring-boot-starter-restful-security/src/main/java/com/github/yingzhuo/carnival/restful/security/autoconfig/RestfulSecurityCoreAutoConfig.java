@@ -72,7 +72,6 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         resolvers.add(new AnnotationUsernameSupport());
         resolvers.add(new AnnotationStringTokenValueSupport());
         resolvers.add(new AnnotationNativeUserSupport());
-        resolvers.add(new AnnotationPasswordSupport());
         resolvers.add(new AnnotationSecurityContextSupport());
 
         resolvers.add(new TypeUserDetailsSupport());

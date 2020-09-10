@@ -16,6 +16,7 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see RequiresRolesAuthComponent
  */
 @Documented
 @Inherited

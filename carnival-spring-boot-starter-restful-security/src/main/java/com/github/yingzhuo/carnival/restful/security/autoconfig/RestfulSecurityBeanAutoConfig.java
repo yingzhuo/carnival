@@ -44,9 +44,4 @@ public class RestfulSecurityBeanAutoConfig {
         return new RequiresGuestAuthComponent();
     }
 
-    @Bean
-    public RequiresTokenAuthComponent requiresTokenAuthenticationComponent() {
-        return new RequiresTokenAuthComponent();
-    }
-
 }

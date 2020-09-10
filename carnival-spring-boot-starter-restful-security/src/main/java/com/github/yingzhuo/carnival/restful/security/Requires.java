@@ -15,6 +15,7 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see RequiresAuthComponent
  * @since 1.7.7
  */
 @Documented
