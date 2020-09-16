@@ -101,10 +101,10 @@
 
         <spring.boot.version>2.3.3.RELEASE</spring.boot.version>
         <spring.version>5.2.9.RELEASE</spring.version>
-        <spring.seuciryt.version>5.4.0.RELEASE</spring.seuciryt.version>
+        <spring.seuciryt.version>5.4.0</spring.seuciryt.version>
         <jackson.version>2.11.2</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.51.Final</netty.version>
+        <netty.version>4.1.52.Final</netty.version>
         <feign.version>11.0</feign.version>
     </properties>
 
@@ -284,7 +284,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-crypto</artifactId>
-                <version>5.4.0</version>
+                <version>${spring.seuciryt.version}</version>
             </dependency>
 
             <!-- slf4j -->

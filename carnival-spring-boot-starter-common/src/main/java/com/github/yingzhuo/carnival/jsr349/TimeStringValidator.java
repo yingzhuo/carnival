@@ -30,6 +30,8 @@ public class TimeStringValidator implements ConstraintValidator<TimeString, Char
 
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
+        if (value == null) return true;
+
         try {
             LocalTime.parse(value, formatter);
             return true;
