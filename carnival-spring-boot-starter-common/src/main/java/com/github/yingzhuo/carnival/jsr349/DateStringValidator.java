@@ -29,6 +29,8 @@ public class DateStringValidator implements ConstraintValidator<DateString, Char
 
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
+        if (value == null) return true;
+
         try {
             formatter.parse(value);
             return true;

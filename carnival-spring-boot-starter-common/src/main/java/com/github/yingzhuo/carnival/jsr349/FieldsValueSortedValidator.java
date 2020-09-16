@@ -34,11 +34,11 @@ public class FieldsValueSortedValidator implements ConstraintValidator<FieldsVal
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
     public boolean isValid(Object value, ConstraintValidatorContext context) {
+        if (value == null) return true;
         Object fieldBefore = new BeanWrapperImpl(value).getPropertyValue(before);
         Object fieldAfter = new BeanWrapperImpl(value).getPropertyValue(after);
 
         if ((fieldBefore instanceof Comparable) && (fieldAfter instanceof Comparable)) {
-
             final int c = ((Comparable) fieldBefore).compareTo(fieldAfter);
             if (c == 0) return equalsAsOk;
             return c < 0;
