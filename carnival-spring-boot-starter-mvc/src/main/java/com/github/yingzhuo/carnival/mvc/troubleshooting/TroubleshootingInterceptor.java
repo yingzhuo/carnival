@@ -23,6 +23,7 @@ import java.lang.reflect.Method;
 import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * 日志输出拦截器 (不建议生产环境使用)
@@ -79,14 +80,18 @@ public class TroubleshootingInterceptor extends AbstractHandlerInterceptorSuppor
             log.debug("\t\t{}", getLocale());
         }
 
-        // TODO:
+        final Map<String, String[]> parameterMap = request.getParameterMap();
 
         log.debug("[Params]:");
         Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
             String name = paramNames.nextElement();
-            String value = request.getParameter(name);
-            log.debug("\t\t{} = {}", name, value);
+            String[] values = parameterMap.get(name);
+            if (values != null && values.length != 0) {
+                for (String value : values) {
+                    log.debug("\t\t{} = {}", name, value);
+                }
+            }
         }
 
         if (handlerMethod != null) {
