@@ -21,10 +21,13 @@ import java.util.function.Supplier;
  */
 @JsonIgnoreProperties("empty")
 @JsonView(Views.Normal.class)
+@Deprecated
 public class Json implements ApiResult<Payload> {
 
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
+    private String warnningMessage = null;
+    private boolean deprecated = false;
     private Payload payload = new Payload();
 
     public Json() {
@@ -57,6 +60,22 @@ public class Json implements ApiResult<Payload> {
         return this;
     }
 
+    @Deprecated
+    public Json deprecated(boolean deprecated) {
+        this.deprecated = deprecated;
+        return this;
+    }
+
+    public Json deprecated() {
+        this.deprecated = true;
+        return this;
+    }
+
+    public Json warnningMessage(String warnningMessage) {
+        this.warnningMessage = warnningMessage;
+        return this;
+    }
+
     @Override
     public String getCode() {
         return code;
@@ -65,6 +84,14 @@ public class Json implements ApiResult<Payload> {
     @Override
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    public boolean isDeprecated() {
+        return deprecated;
+    }
+
+    public String getWarnningMessage() {
+        return warnningMessage;
     }
 
     @Override
