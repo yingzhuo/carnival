@@ -17,8 +17,9 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Set;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -30,7 +31,7 @@ class ETCDClientFactory implements FactoryBean<Client>, InitializingBean, Dispos
     private Set<String> endpoints;
     private String username;
     private String password;
-    private Charset charset = StandardCharsets.UTF_8;
+    private Charset charset = UTF_8;
     private ETCDClientCustomizer builderCustomizer;
 
     @Override

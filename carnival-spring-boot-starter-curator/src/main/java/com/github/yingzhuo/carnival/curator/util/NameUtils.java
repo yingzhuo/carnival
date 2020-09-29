@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 
-import java.nio.charset.StandardCharsets;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * @author 应卓
@@ -60,7 +60,7 @@ public final class NameUtils extends AbstractUtils {
                     .withMode(CreateMode.PERSISTENT_SEQUENTIAL)
                     .forPath(path);
 
-            String name = new String(result.getBytes(StandardCharsets.UTF_8));
+            String name = new String(result.getBytes(UTF_8));
             return removePath ? name.substring(path.length()) : name;
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);

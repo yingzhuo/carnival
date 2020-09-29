@@ -21,7 +21,6 @@ import java.util.function.Supplier;
  */
 @JsonIgnoreProperties("empty")
 @JsonView(Views.Normal.class)
-@Deprecated
 public class Json implements ApiResult<Payload> {
 
     private String code = String.valueOf(HttpStatus.OK.value());
@@ -57,12 +56,6 @@ public class Json implements ApiResult<Payload> {
 
     public Json payload(String key, Object value) {
         payload.put(key, value);
-        return this;
-    }
-
-    @Deprecated
-    public Json deprecated(boolean deprecated) {
-        this.deprecated = deprecated;
         return this;
     }
 
