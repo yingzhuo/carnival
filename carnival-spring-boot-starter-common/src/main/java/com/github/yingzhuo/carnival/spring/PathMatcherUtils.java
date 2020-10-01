@@ -35,7 +35,7 @@ public final class PathMatcherUtils {
     }
 
     public static boolean anyMatch(String path, String... patterns) {
-        Assert.hasText(path, "path is Empty");
+        Assert.hasText(path, "path is empty");
         Assert.notEmpty(patterns, "patterns is empty");
 
         final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class, DEFAULT);
@@ -51,7 +51,7 @@ public final class PathMatcherUtils {
     }
 
     public static boolean allMatch(String path, String... patterns) {
-        Assert.hasText(path, "path is Empty");
+        Assert.hasText(path, "path is empty");
         Assert.notEmpty(patterns, "patterns is empty");
 
         final PathMatcher matcher = SpringUtils.getBean(PathMatcher.class, DEFAULT);
