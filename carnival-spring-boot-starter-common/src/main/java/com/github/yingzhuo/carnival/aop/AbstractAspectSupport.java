@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.spring;
+package com.github.yingzhuo.carnival.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -18,25 +18,21 @@ import java.lang.reflect.Method;
  * @author 应卓
  * @since 1.7.13
  */
-public final class AspectUtils {
+public abstract class AbstractAspectSupport {
 
-    private AspectUtils() {
-    }
-
-    public static Method getMethod(JoinPoint joinPoint) {
+    protected final Method getMethod(JoinPoint joinPoint) {
         return ((MethodSignature) joinPoint.getSignature()).getMethod();
     }
 
-    public static Class<?> getBeanType(JoinPoint joinPoint) {
+    protected final Class<?> getBeanType(JoinPoint joinPoint) {
         return joinPoint.getTarget().getClass();
     }
 
-    public static boolean isDeprecated(JoinPoint joinPoint) {
+    protected final boolean isDeprecated(JoinPoint joinPoint) {
         final Method method = getMethod(joinPoint);
         if (method.getAnnotation(Deprecated.class) != null) return true;
         final Class<?> beanType = getBeanType(joinPoint);
-        if (beanType.getAnnotation(Deprecated.class) != null) return true;
-        return false;
+        return beanType.getAnnotation(Deprecated.class) != null;
     }
 
 }
