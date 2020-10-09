@@ -56,7 +56,7 @@ public class ArgsLoggingApplicationRunner extends AbstractTroubleshootingBean im
                     log.debug("\t\t{}", optionName);
                 } else {
                     for (String optionValue : optionValues) {
-                        if (isHiden(optionName)) {
+                        if (isHidden(optionName)) {
                             optionValue = HIDDEN_PWD;
                         }
                         log.debug("\t\t{} = {}", optionName, optionValue);

@@ -19,7 +19,7 @@ abstract class AbstractTroubleshootingBean {
 
     protected static final String HIDDEN_PWD = "[****]";
 
-    protected final boolean isHiden(String name) {
+    protected final boolean isHidden(String name) {
         return StringUtils.containsIgnoreCase(name, "token") ||
                 StringUtils.containsIgnoreCase(name, "password") ||
                 StringUtils.containsIgnoreCase(name, "secret") ||

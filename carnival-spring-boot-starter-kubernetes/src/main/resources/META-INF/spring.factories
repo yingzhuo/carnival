@@ -1,0 +1,2 @@
+org.springframework.boot.env.EnvironmentPostProcessor=\
+    com.github.yingzhuo.carnival.kubernetes.env.KubernetesConventionEnvironmentPostProcessor

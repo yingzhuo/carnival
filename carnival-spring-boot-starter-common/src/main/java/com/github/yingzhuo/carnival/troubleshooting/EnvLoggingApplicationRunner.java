@@ -42,7 +42,7 @@ public class EnvLoggingApplicationRunner extends AbstractTroubleshootingBean imp
         for (String name : env.keySet()) {
             String value = env.get(name);
 
-            if (isHiden(name)) {
+            if (isHidden(name)) {
                 value = HIDDEN_PWD;
             }
 
