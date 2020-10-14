@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.7.13</version>
+    <version>1.7.14</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -102,10 +102,10 @@
 
         <spring.boot.version>2.3.4.RELEASE</spring.boot.version>
         <spring.version>5.2.9.RELEASE</spring.version>
-        <spring.seuciryt.version>5.4.0</spring.seuciryt.version>
+        <spring.seuciryt.version>5.4.1</spring.seuciryt.version>
         <jackson.version>2.11.3</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.52.Final</netty.version>
+        <netty.version>4.1.53.Final</netty.version>
         <feign.version>11.0</feign.version>
     </properties>
 
@@ -552,7 +552,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.12</version>
+                <version>1.18.14</version>
                 <scope>provided</scope>
             </dependency>
 
