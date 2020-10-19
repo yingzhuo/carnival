@@ -21,9 +21,9 @@ import java.util.Map;
 
 /**
  * @author 应卓
- * @since 1.7.13
+ * @since 1.7.14
  */
-public class KubernetesConventionEnvironmentPostProcessor implements EnvironmentPostProcessor {
+public class KubernetesServiceAccountEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     private static final String K8S_SERVICEACCOUNT_PATH = "file:/var/run/secrets/kubernetes.io/serviceaccount/";
 
@@ -41,6 +41,7 @@ public class KubernetesConventionEnvironmentPostProcessor implements Environment
         try {
             return ResourceText.of(K8S_SERVICEACCOUNT_PATH + "ca.crt").getText();
         } catch (UncheckedIOException e) {
+            // 找不到资源
             return "";
         }
     }
@@ -49,6 +50,7 @@ public class KubernetesConventionEnvironmentPostProcessor implements Environment
         try {
             return ResourceText.of(K8S_SERVICEACCOUNT_PATH + "namespace").getText();
         } catch (UncheckedIOException e) {
+            // 找不到资源
             return "";
         }
     }
@@ -57,6 +59,7 @@ public class KubernetesConventionEnvironmentPostProcessor implements Environment
         try {
             return ResourceText.of(K8S_SERVICEACCOUNT_PATH + "token").getText();
         } catch (UncheckedIOException e) {
+            // 找不到资源
             return "";
         }
     }
