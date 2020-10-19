@@ -34,9 +34,7 @@ public class KubernetesConfigMapEnvironmentPostProcessor extends AbstractConvent
                 "file:/home/spring/config/k8s",
                 "file:/home/spring/config/kubernetes",
                 "file:/home/spring/k8s",
-                "file:/home/spring/kubernetes",
-                "file:/opt/k8s",
-                "file:/opt/kubernetes",
+                "file:/home/spring/kubernetes"
         };
     }
 
