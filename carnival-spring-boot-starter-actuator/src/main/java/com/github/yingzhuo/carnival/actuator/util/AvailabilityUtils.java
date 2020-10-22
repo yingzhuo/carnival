@@ -35,8 +35,16 @@ public final class AvailabilityUtils {
         return getReadinessState() == ReadinessState.ACCEPTING_TRAFFIC;
     }
 
+    public static boolean isNotReady() {
+        return getReadinessState() == ReadinessState.REFUSING_TRAFFIC;
+    }
+
     public static boolean isLive() {
         return getLivenessState() == LivenessState.CORRECT;
+    }
+
+    public static boolean isNotLive() {
+        return getLivenessState() == LivenessState.BROKEN;
     }
 
 }

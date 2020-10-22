@@ -26,7 +26,7 @@ import java.util.Map;
 public class LivenessStateEndpoint extends AbstractStateEndpoint {
 
     @PostMapping("/{state}")
-    public Map<String, Object> excute(@PathVariable("state") String state) {
+    public Map<String, Object> execute(@PathVariable("state") String state) {
         final LivenessState s;
 
         try {
@@ -36,7 +36,7 @@ public class LivenessStateEndpoint extends AbstractStateEndpoint {
                 s = LivenessState.BROKEN;
             }
         } catch (IllegalArgumentException exception) {
-            return Collections.singletonMap("error", "unkown state '" + state + "'");
+            return Collections.singletonMap("error", "unknown state '" + state + "'");
         }
 
         AvailabilityChangeEvent.publish(applicationContext, s);
