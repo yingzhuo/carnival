@@ -29,22 +29,10 @@ public class KubernetesConfigMapEnvironmentPostProcessor extends AbstractConvent
     @Override
     protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
         return new String[]{
-                "file:/home/java/config/k8s",
-                "file:/home/java/config/kubernetes",
-                "file:/home/java/config/configmap",
-                "file:/home/java/config/config-map",
-                "file:/home/java/k8s",
-                "file:/home/java/kubernetes",
-                "file:/home/java/configmap",
-                "file:/home/java/config-map",
-                "file:/home/spring/config/k8s",
-                "file:/home/spring/config/kubernetes",
-                "file:/home/spring/config/configmap",
-                "file:/home/spring/config/config-map",
-                "file:/home/spring/k8s",
-                "file:/home/spring/kubernetes",
-                "file:/home/spring/configmap",
-                "file:/home/spring/config-map"
+                "file:/home/app/config/k8s",
+                "file:/home/app/config/kubernetes",
+                "file:/home/app/config/configmap",
+                "file:/home/app/config/config-map"
         };
     }
 
