@@ -65,12 +65,6 @@
             <email>yingzhor@gmail.com</email>
             <timezone>+8</timezone>
         </developer>
-        <developer>
-            <id>chth666</id>
-            <name>程泰恒</name>
-            <email>chth668@163.com</email>
-            <timezone>+8</timezone>
-        </developer>
     </developers>
 
     <distributionManagement>

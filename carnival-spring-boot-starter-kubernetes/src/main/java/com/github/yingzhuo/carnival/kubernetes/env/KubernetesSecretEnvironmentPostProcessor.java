@@ -15,22 +15,19 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @author 应卓
- * @since 1.7.14
+ * @since 1.7.16
  */
-public class KubernetesConfigMapEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
+public class KubernetesSecretEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
 
     @Override
     protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
-        return "kubernetes-config-map";
+        return "kubernetes-secret";
     }
 
     @Override
     protected String[] getLocationsPrefix(ConfigurableEnvironment environment, SpringApplication application) {
         return new String[]{
-                "file:/home/app/config/k8s",
-                "file:/home/app/config/kubernetes",
-                "file:/home/app/config/configmap",
-                "file:/home/app/config/config-map"
+                "file:/home/app/config/secret"
         };
     }
 
