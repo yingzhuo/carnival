@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.exception.business;
 
-import com.github.yingzhuo.springboot.env.postprocessor.AbstractConventionEnvironmentPostProcessor;
+import com.github.yingzhuo.springboot.env.postprocessor.AbstractPostProcessor;
 import com.github.yingzhuo.springboot.env.util.JarDir;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -18,7 +18,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @author 应卓
  * @since 1.6.15
  */
-public class BusinessExceptionEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
+public class BusinessExceptionEnvironmentPostProcessor extends AbstractPostProcessor {
 
     @Override
     protected String getName(ConfigurableEnvironment environment, SpringApplication application) {

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.kubernetes.env;
 
-import com.github.yingzhuo.springboot.env.postprocessor.AbstractConventionEnvironmentPostProcessor;
+import com.github.yingzhuo.springboot.env.postprocessor.AbstractPostProcessor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.core.env.ConfigurableEnvironment;
 
@@ -17,7 +17,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  * @author 应卓
  * @since 1.7.14
  */
-public class KubernetesConfigMapEnvironmentPostProcessor extends AbstractConventionEnvironmentPostProcessor {
+public class KubernetesConfigMapEnvironmentPostProcessor extends AbstractPostProcessor {
 
     @Override
     protected String getName(ConfigurableEnvironment environment, SpringApplication application) {
