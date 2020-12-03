@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.7.17</version>
+    <version>1.7.18</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -97,7 +97,7 @@
         <spring.boot.version>2.4.0</spring.boot.version>
         <spring.version>5.3.1</spring.version>
         <spring.seuciryt.version>5.4.1</spring.seuciryt.version>
-        <jackson.version>2.11.3</jackson.version>
+        <jackson.version>2.12.0</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.54.Final</netty.version>
         <feign.version>11.0</feign.version>
@@ -513,7 +513,7 @@
             <dependency>
                 <groupId>io.etcd</groupId>
                 <artifactId>jetcd-core</artifactId>
-                <version>0.5.3</version>
+                <version>0.5.4</version>
             </dependency>
 
             <!-- zxing -->
