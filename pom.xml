@@ -94,12 +94,12 @@
 
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.4.1</spring.boot.version>
-        <spring.version>5.3.2</spring.version>
+        <spring.boot.version>2.4.2</spring.boot.version>
+        <spring.version>5.3.3</spring.version>
         <spring.seuciryt.version>5.4.2</spring.seuciryt.version>
-        <jackson.version>2.12.0</jackson.version>
+        <jackson.version>2.12.1</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.55.Final</netty.version>
+        <netty.version>4.1.58.Final</netty.version>
         <feign.version>11.0</feign.version>
     </properties>
 
@@ -596,7 +596,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>30.0-jre</version>
+                <version>30.1-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
