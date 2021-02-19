@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.7.19</version>
+    <version>1.7.20</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -492,7 +492,7 @@
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
                 <artifactId>spring-boot-stater-env</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.1</version>
             </dependency>
 
             <!-- codegen4j -->
@@ -546,7 +546,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>1.18.18</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -554,7 +554,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.12.1</version>
+                <version>3.13.0</version>
             </dependency>
 
             <!-- gson -->
