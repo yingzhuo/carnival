@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.7.20</version>
+    <version>1.7.21</version>
     <modules>
         <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -539,7 +539,7 @@
             <dependency>
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
-                <version>3.5.8</version>
+                <version>3.5.9</version>
             </dependency>
 
             <!-- lombok -->

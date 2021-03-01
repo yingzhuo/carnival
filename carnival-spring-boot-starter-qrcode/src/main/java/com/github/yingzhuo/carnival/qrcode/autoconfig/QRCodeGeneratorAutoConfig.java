@@ -32,7 +32,7 @@ public class QRCodeGeneratorAutoConfig {
     @ConditionalOnMissingBean
     public QRCodeGenerator qrCodeGenerator(Props props) {
         final QRCodeGeneratorImpl bean = new QRCodeGeneratorImpl();
-        bean.setDefaultSize(props.getDeafultSize());
+        bean.setDefaultSize(props.getDefaultSize());
         bean.setDefaultMargin(props.getDefaultMargin());
         bean.setDefaultErrorCorrectionLevel(props.getDefaultErrorCorrection());
         return bean;
@@ -45,7 +45,7 @@ public class QRCodeGeneratorAutoConfig {
         private boolean enabled = true;
         private ErrorCorrectionLevel defaultErrorCorrection = ErrorCorrectionLevel.H;
         private int defaultMargin = 1;
-        private int deafultSize = 200;
+        private int defaultSize = 200;
     }
 
 }

@@ -25,7 +25,7 @@ public class Json implements ApiResult<Payload> {
 
     private String code = String.valueOf(HttpStatus.OK.value());
     private String errorMessage = null;
-    private String warnningMessage = null;
+    private String warningMessage = null;
     private boolean deprecated = false;
     private Payload payload = new Payload();
 
@@ -64,8 +64,8 @@ public class Json implements ApiResult<Payload> {
         return this;
     }
 
-    public Json warnningMessage(String warnningMessage) {
-        this.warnningMessage = warnningMessage;
+    public Json warningMessage(String warningMessage) {
+        this.warningMessage = warningMessage;
         return this;
     }
 
@@ -83,8 +83,8 @@ public class Json implements ApiResult<Payload> {
         return deprecated;
     }
 
-    public String getWarnningMessage() {
-        return warnningMessage;
+    public String getWarningMessage() {
+        return warningMessage;
     }
 
     @Override
