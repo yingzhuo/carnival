@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.etcd.ETCDActuatorAutoConfig,\
-    com.github.yingzhuo.carnival.etcd.ETCDCoreAutoConfig

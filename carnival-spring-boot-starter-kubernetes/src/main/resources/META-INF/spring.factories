@@ -1,3 +1,0 @@
-org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.kubernetes.env.KubernetesConfigMapEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.kubernetes.env.KubernetesServiceAccountEnvironmentPostProcessor

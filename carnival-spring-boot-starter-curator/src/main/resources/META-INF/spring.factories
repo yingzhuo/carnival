@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.curator.autoconfig.CuratorClientActuatorAutoConfig,\
-    com.github.yingzhuo.carnival.curator.autoconfig.CuratorClientAutoConfig
