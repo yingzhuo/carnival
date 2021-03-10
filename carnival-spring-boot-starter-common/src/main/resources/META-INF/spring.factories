@@ -1,6 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
-    com.github.yingzhuo.carnival.common.env.EnhancedRandomValueEnvironmentPostProcessor,\
-    com.github.yingzhuo.carnival.exception.business.BusinessExceptionEnvironmentPostProcessor
+    com.github.yingzhuo.carnival.common.env.EnhancedRandomValueEnvironmentPostProcessor
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.common.autoconfig.CommonAutoConfig,\
     com.github.yingzhuo.carnival.common.autoconfig.FormatterAutoConfig,\
