@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
+import lombok.val;
 import org.springframework.boot.SpringApplication;
 
 /**
@@ -21,8 +22,13 @@ public final class ShutdownUtils {
     private ShutdownUtils() {
     }
 
-    public static void initiate(int returnCode) {
+    public static void initiate(final int returnCode) {
         SpringApplication.exit(SpringUtils.getApplicationContext(), () -> returnCode);
+    }
+
+    public static void initiateAsynchronously(final int returnCode) {
+        val thread = new Thread(() -> SpringApplication.exit(SpringUtils.getApplicationContext(), () -> returnCode));
+        thread.start();
     }
 
 }

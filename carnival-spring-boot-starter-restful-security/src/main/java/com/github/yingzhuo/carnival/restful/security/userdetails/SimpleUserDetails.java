@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@ToString
+@ToString(exclude = {"password"})
 class SimpleUserDetails implements UserDetails {
 
     private Object id = null;
