@@ -43,7 +43,7 @@ public final class Logo implements Serializable {
         return compress;
     }
 
-    public static class Builder {
+    private static class Builder {
         private Image image;
         private boolean compress = true;
 

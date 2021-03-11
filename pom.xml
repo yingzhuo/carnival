@@ -25,7 +25,6 @@
         <module>carnival-spring-boot-starter-restful-security</module>
         <module>carnival-spring-boot-starter-restful-security-params</module>
         <module>carnival-spring-boot-starter-restful-security-responsebody</module>
-        <module>carnival-spring-boot-starter-stringtemplate</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -476,12 +475,12 @@
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
             </dependency>
             <dependency>
                 <groupId>com.google.zxing</groupId>
                 <artifactId>javase</artifactId>
-                <version>3.4.0</version>
+                <version>3.4.1</version>
             </dependency>
 
             <!-- aspectj -->
@@ -532,13 +531,6 @@
                 <groupId>net.coobird</groupId>
                 <artifactId>thumbnailator</artifactId>
                 <version>0.4.13</version>
-            </dependency>
-
-            <!-- mustache -->
-            <dependency>
-                <groupId>com.github.spullara.mustache.java</groupId>
-                <artifactId>compiler</artifactId>
-                <version>0.9.7</version>
             </dependency>
 
             <!-- commons -->
