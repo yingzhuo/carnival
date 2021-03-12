@@ -8,7 +8,6 @@
     <artifactId>carnival</artifactId>
     <version>1.8.0</version>
     <modules>
-        <module>carnival-spring-boot-starter-actuator</module>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-fastdfs</module>
         <module>carnival-spring-boot-starter-id</module>
@@ -92,7 +91,6 @@
 
         <spring.boot.version>2.4.3</spring.boot.version>
         <spring.version>5.3.4</spring.version>
-        <spring.seuciryt.version>5.4.5</spring.seuciryt.version>
         <jackson.version>2.12.2</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.60.Final</netty.version>
@@ -270,7 +268,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-crypto</artifactId>
-                <version>${spring.seuciryt.version}</version>
+                <version>5.4.5</version>
             </dependency>
 
             <!-- slf4j -->

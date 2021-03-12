@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.actuator.util;
+package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.boot.availability.ApplicationAvailability;
+import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.boot.availability.LivenessState;
 import org.springframework.boot.availability.ReadinessState;
 
@@ -45,6 +45,24 @@ public final class AvailabilityUtils {
 
     public static boolean isNotLive() {
         return getLivenessState() == LivenessState.BROKEN;
+    }
+
+    public static boolean setLivenessState(LivenessState state) {
+        try {
+            AvailabilityChangeEvent.publish(SpringUtils.getApplicationContext(), state);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean setReadinessState(ReadinessState state) {
+        try {
+            AvailabilityChangeEvent.publish(SpringUtils.getApplicationContext(), state);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }

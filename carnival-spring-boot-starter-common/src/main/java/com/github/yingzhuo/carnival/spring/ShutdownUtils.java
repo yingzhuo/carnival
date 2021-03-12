@@ -22,8 +22,16 @@ public final class ShutdownUtils {
     private ShutdownUtils() {
     }
 
+    public static void initiate() {
+        initiate(1);
+    }
+
     public static void initiate(final int returnCode) {
         SpringApplication.exit(SpringUtils.getApplicationContext(), () -> returnCode);
+    }
+
+    public static void initiateAsynchronously() {
+        initiateAsynchronously(1);
     }
 
     public static void initiateAsynchronously(final int returnCode) {
