@@ -26,11 +26,13 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@ToString(exclude = {"password"})
+@ToString(exclude = "password")
 class SimpleUserDetails implements UserDetails {
 
     private Object id = null;
     private String username = null;
+    private String emailAddress = null;
+    private String phoneNumber = null;
     private String password = null;
     private Gender gender = null;
     private boolean expired = false;

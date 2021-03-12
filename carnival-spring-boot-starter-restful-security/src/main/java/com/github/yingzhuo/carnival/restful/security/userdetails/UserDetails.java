@@ -32,6 +32,10 @@ public interface UserDetails extends Serializable {
 
     public String getUsername();
 
+    public String getEmailAddress();
+
+    public String getPhoneNumber();
+
     public String getPassword();
 
     public boolean isExpired();

@@ -49,6 +49,16 @@ public final class UserDetailsBuilder {
         return this;
     }
 
+    public UserDetailsBuilder emailAddress(String emailAddress) {
+        ud.setEmailAddress(emailAddress);
+        return this;
+    }
+
+    public UserDetailsBuilder phoneNumber(String phoneNumber) {
+        ud.setPhoneNumber(phoneNumber);
+        return this;
+    }
+
     public UserDetailsBuilder expired(boolean expired) {
         ud.setExpired(expired);
         return this;

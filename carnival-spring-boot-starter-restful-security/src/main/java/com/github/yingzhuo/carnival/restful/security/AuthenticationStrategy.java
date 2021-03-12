@@ -22,6 +22,6 @@ public enum AuthenticationStrategy {
     /**
      * 所有请求
      */
-    ALL_REQUESTS,
+    ALL_REQUESTS
 
 }
