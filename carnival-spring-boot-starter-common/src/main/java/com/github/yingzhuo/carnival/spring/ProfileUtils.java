@@ -14,8 +14,6 @@ import org.springframework.core.env.Profiles;
 import java.util.*;
 
 /**
- * Spring相关通用工具
- *
  * @author 应卓
  * @see SpringUtils
  */

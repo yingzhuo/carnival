@@ -14,6 +14,13 @@
 
 * 推荐使用[maven](https://search.maven.org/search?q=carnival)
 
+### 安装最新的版本
+
+```sh
+git clone git@github.com:yingzhuo/carnival.git
+mvn -f carnival/pom.xml clean install
+```
+
 ### 用例
 
 * carnival-spring-boot-starter-id
