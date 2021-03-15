@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.openfeign.autoconfig.FeignBeanAutoConfig,\
+    com.github.yingzhuo.carnival.openfeign.autoconfig.FeignClientAutoConfig

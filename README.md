@@ -36,9 +36,6 @@ mvn -f carnival/pom.xml clean install
 * carnival-spring-boot-starter-qrcode
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
 
-* carnival-spring-boot-starter-stringtemplate
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-stringtemplate](https://github.com/yingzhuo/carnival-examples/tree/master/examples-stringtemplate)
-
 ### 作者
 
 * 应卓 - [github](https://github.com/yingzhuo)
