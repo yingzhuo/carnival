@@ -42,6 +42,7 @@ public class JwtTokenInfo implements Serializable {
     // -----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
+        private final Map<String, Object> privateClaims = new HashMap<>(0);
         private String keyId;
         private String issuer;
         private String subject;
@@ -50,7 +51,6 @@ public class JwtTokenInfo implements Serializable {
         private Date notBefore;
         private Date issuedAt;
         private String jwtId;
-        private final Map<String, Object> privateClaims = new HashMap<>(0);
 
         private Builder() {
         }

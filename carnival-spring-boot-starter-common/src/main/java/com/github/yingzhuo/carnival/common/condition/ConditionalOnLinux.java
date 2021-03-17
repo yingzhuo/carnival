@@ -9,32 +9,33 @@
  */
 package com.github.yingzhuo.carnival.common.condition;
 
+import lombok.val;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.core.env.Environment;
-import org.springframework.core.env.Profiles;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.5.1
+ * @since 1.8.0
  */
-@Deprecated
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-@Conditional(ConditionalOnProd.OnProd.class)
-public @interface ConditionalOnProd {
+@Conditional(ConditionalOnLinux.OnLinux.class)
+public @interface ConditionalOnLinux {
 
-    static final class OnProd implements Condition {
+    static final class OnLinux implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            final Environment env = context.getEnvironment();
-            return env.acceptsProfiles(Profiles.of("prod | production"));
+            val osName = context.getEnvironment().getProperty("os.name");
+            if (osName == null) {
+                return false;
+            }
+            return osName.contains("nux") || osName.contains("aix");
         }
     }
 

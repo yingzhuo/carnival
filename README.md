@@ -24,20 +24,20 @@ mvn -f carnival/pom.xml clean install
 ### 用例
 
 * carnival-spring-boot-starter-id
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
 
 * carnival-spring-boot-starter-password
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder](https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder](https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder)
 
 * carnival-spring-boot-starter-patchca
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful)
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateful)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-patchca-stateless)
 
 * carnival-spring-boot-starter-qrcode
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
 
 * carnival-spring-boot-starter-restful-security
-  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security](https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security](https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security)
 
 ### 作者
 
