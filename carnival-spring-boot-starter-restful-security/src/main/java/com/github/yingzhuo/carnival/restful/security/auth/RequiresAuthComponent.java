@@ -14,10 +14,13 @@ import com.github.yingzhuo.carnival.restful.security.annotation.AuthenticationCo
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityContext;
 import com.github.yingzhuo.carnival.restful.security.exception.AuthenticationException;
 import com.github.yingzhuo.carnival.restful.security.exception.RestfulSecurityException;
+import com.github.yingzhuo.carnival.restful.security.exception.SpelException;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
 import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 import lombok.val;
+import org.springframework.expression.EvaluationException;
 import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.ParseException;
 import org.springframework.expression.spel.SpelParserConfiguration;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -33,8 +36,17 @@ public class RequiresAuthComponent implements AuthenticationComponent<Requires> 
 
     @Override
     public void authenticate(Token token, UserDetails userDetails, Requires annotation) throws RestfulSecurityException {
+        try {
+            doAuthenticate(token, userDetails, annotation);
+        } catch (ParseException | EvaluationException e) {
+            throw new SpelException(e.getMessage());
+        }
+    }
+
+    public void doAuthenticate(Token token, UserDetails userDetails, Requires annotation) throws RestfulSecurityException {
         val spel = annotation.value();
 
+        // TODO: 要考虑到表达式不是Boolean结果的情况，要抓异常并处理妥当
         val context = new StandardEvaluationContext(RestfulSecurityContext.current());
         val exp = expressionResolver.parseExpression(spel);
         val res = exp.getValue(context, Boolean.class);
