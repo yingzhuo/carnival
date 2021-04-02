@@ -91,7 +91,7 @@
         <spring.version>5.3.5</spring.version>
         <jackson.version>2.12.2</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.61.Final</netty.version>
+        <netty.version>4.1.62.Final</netty.version>
         <feign.version>11.0</feign.version>
     </properties>
 
