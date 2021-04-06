@@ -116,6 +116,10 @@ public final class AlgorithmFactories {
         return new ECDSA256AlgorithmFactory(publicKey, privateKey);
     }
 
+    public static AlgorithmFactory ecd256K(String publicKey, String privateKey) {
+        return new ECDSA256KAlgorithmFactory(publicKey, privateKey);
+    }
+
     public static AlgorithmFactory ecd384(String publicKey, String privateKey) {
         return new ECDSA384AlgorithmFactory(publicKey, privateKey);
     }
@@ -126,6 +130,10 @@ public final class AlgorithmFactories {
 
     public static AlgorithmFactory ecd256(ResourceText publicKey, ResourceText privateKey) {
         return new ECDSA256AlgorithmFactory(publicKey, privateKey);
+    }
+
+    public static AlgorithmFactory ecd256K(ResourceText publicKey, ResourceText privateKey) {
+        return new ECDSA256KAlgorithmFactory(publicKey, privateKey);
     }
 
     public static AlgorithmFactory ecd384(ResourceText publicKey, ResourceText privateKey) {
@@ -141,6 +149,16 @@ public final class AlgorithmFactories {
             throw new IllegalArgumentException("number range: [0,7]");
         }
         return new ECDSA256AlgorithmFactory(
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
+                ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
+        );
+    }
+
+    public static AlgorithmFactory predefinedEcdsa256K(int number) {
+        if (number < 0 || number > 7) {
+            throw new IllegalArgumentException("number range: [0,7]");
+        }
+        return new ECDSA256KAlgorithmFactory(
                 ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-public", number)),
                 ResourceText.of(String.format("classpath:com/github/yingzhuo/carnival/secret/predefined/ecdsa-%d-private", number))
         );
