@@ -12,6 +12,8 @@ package com.github.yingzhuo.carnival.restful.security.factory;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 
+import java.util.UUID;
+
 /**
  * @author 应卓
  * @since 1.6.1
@@ -38,6 +40,10 @@ public final class AlgorithmFactories {
         return () -> Algorithm.HMAC256(secret.getTextAsOneLineAndTrim());
     }
 
+    public static AlgorithmFactory hmac256WithRandomSecret() {
+        return hmac256(UUID.randomUUID().toString());
+    }
+
     public static AlgorithmFactory hmac384(String secret) {
         return () -> Algorithm.HMAC384(secret);
     }
@@ -46,12 +52,20 @@ public final class AlgorithmFactories {
         return () -> Algorithm.HMAC384(secret.getTextAsOneLineAndTrim());
     }
 
+    public static AlgorithmFactory hmac384WithRandomSecret() {
+        return hmac384(UUID.randomUUID().toString());
+    }
+
     public static AlgorithmFactory hmac512(String secret) {
         return () -> Algorithm.HMAC512(secret);
     }
 
     public static AlgorithmFactory hmac512(ResourceText secret) {
         return () -> Algorithm.HMAC512(secret.getTextAsOneLineAndTrim());
+    }
+
+    public static AlgorithmFactory hmac512WithRandomSecret() {
+        return hmac512(UUID.randomUUID().toString());
     }
 
     // RSA
