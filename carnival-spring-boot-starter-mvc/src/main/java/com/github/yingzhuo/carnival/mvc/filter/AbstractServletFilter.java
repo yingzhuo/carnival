@@ -27,7 +27,7 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
     protected static final String UTF_8 = "UTF-8";
 
-    private String[] skipPatterns;
+    private String[] skipPatterns;  // setter设置
 
     @Override
     protected final void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
