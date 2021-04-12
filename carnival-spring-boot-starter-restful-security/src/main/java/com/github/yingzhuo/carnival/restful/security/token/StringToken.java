@@ -35,7 +35,7 @@ public class StringToken implements Token {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return getValue();
     }
 

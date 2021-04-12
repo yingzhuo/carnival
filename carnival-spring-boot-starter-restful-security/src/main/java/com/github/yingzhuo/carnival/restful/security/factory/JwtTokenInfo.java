@@ -13,14 +13,17 @@ import lombok.Getter;
 
 import java.io.Serializable;
 import java.time.Duration;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
  * @author 应卓
  */
 @Getter
-public class JwtTokenInfo implements Serializable {
+public final class JwtTokenInfo implements Serializable {
 
     private String keyId;
     private String issuer;
@@ -39,10 +42,9 @@ public class JwtTokenInfo implements Serializable {
         return new Builder();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public static class Builder {
-        private final Map<String, Object> privateClaims = new HashMap<>(0);
+    // 创建器
+    public static final class Builder {
+        private final Map<String, Object> privateClaims = new HashMap<>();
         private String keyId;
         private String issuer;
         private String subject;
@@ -112,11 +114,6 @@ public class JwtTokenInfo implements Serializable {
 
         public Builder jwtId(String jwtId) {
             this.jwtId = jwtId;
-            return this;
-        }
-
-        public Builder putRandomPrivateClaim() {
-            this.putPrivateClaim("__random__", UUID.randomUUID().toString().replaceAll("-", ""));
             return this;
         }
 
