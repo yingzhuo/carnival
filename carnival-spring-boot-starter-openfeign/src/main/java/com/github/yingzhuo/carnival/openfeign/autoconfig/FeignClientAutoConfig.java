@@ -60,6 +60,11 @@ public class FeignClientAutoConfig implements ImportBeanDefinitionRegistrar, Env
 
     private Set<String> getBasePackage(AnnotationMetadata metadata) {
         final Map<String, Object> attrs = metadata.getAnnotationAttributes(EnableFeignClients.class.getName());
+
+        if (attrs == null || attrs.isEmpty()) {
+            return new HashSet<>();
+        }
+
         final Set<String> set = new HashSet<>();
         Collections.addAll(set, (String[]) attrs.get("basePackages"));
         Collections.addAll(set, (String[]) attrs.get("value"));
