@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.jsr349;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
+import java.util.Set;
 
 /**
  * @author 应卓
@@ -24,14 +25,21 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = EnumeratedStringValidator.class)
 public @interface EnumeratedString {
 
-    public String[] value();
+    public Class<? extends EnumeratedString.Factory> value();
 
     public boolean caseSensitive() default true;
+
+    public boolean cache() default true;
 
     public String message() default "{com.github.yingzhuo.carnival.jsr349.EnumeratedStringValidator.message}";
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
+
+    @FunctionalInterface
+    public static interface Factory {
+        public Set<String> set();
+    }
 
 }

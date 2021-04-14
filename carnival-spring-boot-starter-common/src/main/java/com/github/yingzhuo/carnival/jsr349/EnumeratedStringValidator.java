@@ -9,12 +9,14 @@
  */
 package com.github.yingzhuo.carnival.jsr349;
 
+import lombok.SneakyThrows;
+import lombok.val;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -23,7 +25,9 @@ import java.util.Set;
  */
 public class EnumeratedStringValidator implements ConstraintValidator<EnumeratedString, CharSequence> {
 
-    private final Set<String> options = new HashSet<>();
+    private static final Map<String, Set<String>> cache = new HashMap<>();
+
+    private Set<String> options = null;
     private boolean caseSensitive = false;
 
     @Override
@@ -31,6 +35,10 @@ public class EnumeratedStringValidator implements ConstraintValidator<Enumerated
 
         if (value == null) {
             return true;
+        }
+
+        if (options == null || options.isEmpty()) {
+            return false;
         }
 
         if (caseSensitive) {
@@ -50,8 +58,27 @@ public class EnumeratedStringValidator implements ConstraintValidator<Enumerated
     }
 
     @Override
+    @SneakyThrows
     public void initialize(EnumeratedString annotation) {
-        Collections.addAll(this.options, annotation.value());
+        val factoryType = annotation.value();
+
+        Set<String> set = null;
+
+        if (annotation.cache()) {
+            set = cache.get(factoryType.toString());
+        }
+
+        if (set != null) {
+            this.options = set;
+        } else {
+            val factory = factoryType.newInstance();
+            this.options = factory.set();
+
+            if (annotation.cache()) {
+                cache.put(factoryType.toString(), options);
+            }
+        }
+
         this.caseSensitive = annotation.caseSensitive();
     }
 
