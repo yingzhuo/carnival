@@ -27,7 +27,7 @@ public class Json implements ApiResult<Payload> {
     private String errorMessage = null;
     private String warningMessage = null;
     private boolean deprecated = false;
-    private final Payload payload = new Payload();
+    private Payload payload = new Payload();
 
     public Json() {
     }

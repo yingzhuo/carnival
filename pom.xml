@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.8.2</version>
+    <version>1.8.3</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-id</module>
@@ -88,7 +88,7 @@
         <java.version>1.8</java.version>
 
         <spring.boot.version>2.4.4</spring.boot.version>
-        <spring.version>5.3.5</spring.version>
+        <spring.version>5.3.6</spring.version>
         <jackson.version>2.12.3</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
         <netty.version>4.1.63.Final</netty.version>
@@ -266,7 +266,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-crypto</artifactId>
-                <version>5.4.5</version>
+                <version>5.4.6</version>
             </dependency>
 
             <!-- slf4j -->
