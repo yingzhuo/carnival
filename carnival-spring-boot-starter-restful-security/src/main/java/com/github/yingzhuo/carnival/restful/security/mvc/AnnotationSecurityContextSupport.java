@@ -45,7 +45,7 @@ public class AnnotationSecurityContextSupport implements HandlerMethodArgumentRe
 
         if (spel.isEmpty()) return null;
 
-        val context = new StandardEvaluationContext(RestfulSecurityContext.current());
+        val context = new StandardEvaluationContext(RestfulSecurityContext.current()); // 根对象: RestfulSecurityContext
         val exp = expressionResolver.parseExpression(spel);
         return exp.getValue(context);
     }

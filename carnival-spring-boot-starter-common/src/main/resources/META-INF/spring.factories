@@ -1,4 +1,5 @@
 org.springframework.boot.env.EnvironmentPostProcessor=\
+    com.github.yingzhuo.carnival.common.env.SpringIdEnvironmentPostProcessor,\
     com.github.yingzhuo.carnival.common.env.EnhancedRandomValueEnvironmentPostProcessor
 org.springframework.boot.diagnostics.FailureAnalyzer=\
     com.github.yingzhuo.carnival.failure.StartupFailureAnalyzer

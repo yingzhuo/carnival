@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.common.Unsafe;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -29,7 +28,6 @@ public final class RequestMappingUtils {
         return SpringUtils.getBean(RequestMappingHandlerMapping.class);
     }
 
-    @Unsafe
     public static HandlerMethod getHandlerMethod(HttpServletRequest request) {
         try {
             return (HandlerMethod) getRequestMappingHandlerMapping()

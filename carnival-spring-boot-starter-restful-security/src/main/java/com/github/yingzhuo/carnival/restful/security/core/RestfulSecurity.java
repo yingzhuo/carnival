@@ -71,7 +71,7 @@ interface RestfulSecurity {
 
             Optional<UserDetails> userDetailsOp = userDetailsRealm.loadUserDetails(tokenOp.get());
             userDetails = userDetailsOp.orElse(null);
-            ContextHolder.set(userDetailsOp.orElse(null));
+            ContextHolder.set(userDetails);
         }
 
         if (list != null) {
