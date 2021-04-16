@@ -11,9 +11,12 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.datamodel.*;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
+import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
+import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
@@ -107,6 +110,14 @@ public class CommonAutoConfig {
     @ConditionalOnMissingBean
     public ApplicationContextProvider applicationContextProvider() {
         return ApplicationContextProvider.INSTANCE;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    public SpringIdProvider springIdProvider(Environment environment) {
+        return new DefaultSpringIdProvider(environment);
     }
 
 }
