@@ -508,6 +508,13 @@
                 <version>1.2.2</version>
             </dependency>
 
+            <!-- yaml-parser -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.28</version>
+            </dependency>
+
             <!-- commons -->
             <dependency>
                 <groupId>com.google.guava</groupId>
