@@ -16,6 +16,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.Ordered;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  * @since 1.6.0
@@ -32,7 +34,7 @@ public class ForkDataSourceAspect implements Ordered {
     }
 
     public ForkDataSourceAspect(ForkDataSource forkDataSource, int order) {
-        this.forkDataSource = forkDataSource;
+        this.forkDataSource = Objects.requireNonNull(forkDataSource);
         this.order = order;
     }
 

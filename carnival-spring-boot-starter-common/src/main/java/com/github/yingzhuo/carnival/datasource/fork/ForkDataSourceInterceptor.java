@@ -11,30 +11,29 @@ package com.github.yingzhuo.carnival.datasource.fork;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.Ordered;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
+import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.6.0
  */
 @Slf4j
-public class ForkDataSourceInterceptor extends AbstractHandlerInterceptorSupport {
+public class ForkDataSourceInterceptor extends AbstractHandlerInterceptorSupport implements Ordered {
 
     private final ForkDataSource forkDataSource;
-
-    public ForkDataSourceInterceptor(DataSource dataSource) {
-        if (dataSource instanceof ForkDataSource) {
-            this.forkDataSource = (ForkDataSource) dataSource;
-        } else {
-            throw new IllegalArgumentException("dataSource is not type of " + ForkDataSource.class.getName() + ".");
-        }
-    }
+    private final int order;
 
     public ForkDataSourceInterceptor(ForkDataSource dataSource) {
-        this.forkDataSource = dataSource;
+        this(dataSource, 0);
+    }
+
+    public ForkDataSourceInterceptor(ForkDataSource dataSource, int order) {
+        this.forkDataSource = Objects.requireNonNull(dataSource);
+        this.order = order;
     }
 
     @Override
@@ -52,6 +51,11 @@ public class ForkDataSourceInterceptor extends AbstractHandlerInterceptorSupport
         if (forkDataSource != null) {
             forkDataSource.getLookup().reset();
         }
+    }
+
+    @Override
+    public int getOrder() {
+        return this.order;
     }
 
 }
