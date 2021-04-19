@@ -14,9 +14,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.Ordered;
 
 /**
  * @author 应卓
@@ -24,9 +22,19 @@ import org.springframework.context.ApplicationContextAware;
  */
 @Slf4j
 @Aspect
-public class ForkDataSourceAspect implements ApplicationContextAware {
+public class ForkDataSourceAspect implements Ordered {
 
-    private ForkDataSource forkDataSource;
+    private final ForkDataSource forkDataSource;
+    private final int order;
+
+    public ForkDataSourceAspect(ForkDataSource forkDataSource) {
+        this(forkDataSource, 0);
+    }
+
+    public ForkDataSourceAspect(ForkDataSource forkDataSource, int order) {
+        this.forkDataSource = forkDataSource;
+        this.order = order;
+    }
 
     @Around("@annotation(com.github.yingzhuo.carnival.datasource.fork.ForkDataSourceSwitch)")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
@@ -48,12 +56,8 @@ public class ForkDataSourceAspect implements ApplicationContextAware {
     }
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws NoSuchBeanDefinitionException {
-        try {
-            this.forkDataSource = applicationContext.getBean(ForkDataSource.class);
-        } catch (NoSuchBeanDefinitionException e) {
-            this.forkDataSource = null;
-        }
+    public int getOrder() {
+        return this.order;
     }
 
 }
