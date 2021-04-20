@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.common.env;
 
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.env.EnvironmentPostProcessor;
 import org.springframework.core.env.ConfigurableEnvironment;
@@ -19,13 +21,18 @@ import java.util.UUID;
 
 /**
  * @author 应卓
+ * @since 1.8.4
  */
+@Slf4j
 public class SpringIdEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {
+        val springId = UUID.randomUUID().toString();
+        val source = Collections.<String, Object>singletonMap("spring.id", springId);
         environment.getPropertySources()
-                .addLast(new MapPropertySource("springId", Collections.singletonMap("spring.id", UUID.randomUUID().toString())));
+                .addLast(new MapPropertySource("springId", source));
+        log.info("spring.id = {}", springId);
     }
 
 }

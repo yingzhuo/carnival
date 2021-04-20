@@ -16,9 +16,9 @@ import java.util.List;
  * @author 应卓
  * @since 1.8.4
  */
-public class CompositeSpringIdProvider implements SpringIdProvider {
+public final class CompositeSpringIdProvider implements SpringIdProvider {
 
-    public static CompositeSpringIdProvider getInstance(SpringIdProvider... providers) {
+    public static CompositeSpringIdProvider of(SpringIdProvider... providers) {
         return new CompositeSpringIdProvider(Arrays.asList(providers));
     }
 
