@@ -19,11 +19,13 @@ import org.springframework.core.io.Resource;
 public class LogoFactoryBean implements FactoryBean<Logo> {
 
     private Resource location;
+    private boolean compress = true;
 
     @Override
     public Logo getObject() {
         return Logo.builder()
                 .image(location)
+                .compress(compress)
                 .build();
     }
 
@@ -34,6 +36,10 @@ public class LogoFactoryBean implements FactoryBean<Logo> {
 
     public void setLocation(Resource location) {
         this.location = location;
+    }
+
+    public void setCompress(boolean compress) {
+        this.compress = compress;
     }
 
 }

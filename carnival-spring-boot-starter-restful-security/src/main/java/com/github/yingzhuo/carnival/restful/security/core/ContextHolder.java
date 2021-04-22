@@ -68,18 +68,29 @@ final class ContextHolder {
     @Getter
     @Setter
     static final class ContextImpl implements RestfulSecurityContext {
+
         private Token token;
         private UserDetails userDetails;
         private HttpServletRequest request;
         private HttpServletResponse response;
 
-        // alias
+        // alias 1
         public Token getT() {
             return getToken();
         }
 
-        // alias
+        // alias 2
+        public Token getTk() {
+            return getToken();
+        }
+
+        // alias 1
         public UserDetails getU() {
+            return getUserDetails();
+        }
+
+        // alias 2
+        public UserDetails getUd() {
             return getUserDetails();
         }
     }
