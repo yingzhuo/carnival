@@ -49,6 +49,12 @@
             <groupId>com.github.yingzhuo</groupId>
             <artifactId>codegen4j</artifactId>
         </dependency>
+
+        <!-- snowflake-client -->
+        <dependency>
+            <groupId>com.github.yingzhuo</groupId>
+            <artifactId>snowflake-java-client</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

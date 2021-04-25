@@ -21,6 +21,7 @@ import lombok.Setter;
 import lombok.var;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -31,6 +32,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnMissingClass({"com.github.yingzhuo.snowflake.Snowflake"})
 public class IdGeneratorAutoConfig {
 
     @Bean

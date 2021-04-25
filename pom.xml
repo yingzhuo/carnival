@@ -473,6 +473,14 @@
                 <version>3.4.1</version>
             </dependency>
 
+            <!-- snowflake-client -->
+            <dependency>
+                <groupId>com.github.yingzhuo</groupId>
+                <artifactId>snowflake-java-client</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+
             <!-- aspectj -->
             <dependency>
                 <groupId>org.aspectj</groupId>
