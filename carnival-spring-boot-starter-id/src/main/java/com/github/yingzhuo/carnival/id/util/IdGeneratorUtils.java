@@ -11,10 +11,7 @@ package com.github.yingzhuo.carnival.id.util;
 
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
-import lombok.val;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,17 +27,8 @@ public final class IdGeneratorUtils {
         return (T) ((IdGenerator<?>) SpringUtils.getBean(IdGenerator.class)).nextId();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public static <T> List<T> nextIds(int count) {
-        if (count <= 0) {
-            return Collections.emptyList();
-        }
-        val list = new ArrayList<T>(count);
-        for (int i = 0; i < count; i++) {
-            list.add(nextId());
-        }
-        return Collections.unmodifiableList(list);
+    public static <T> List<T> nextIds(int n) {
+        return (List<T>) ((IdGenerator<?>) SpringUtils.getBean(IdGenerator.class)).nextId(n);
     }
 
 }

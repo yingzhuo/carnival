@@ -12,20 +12,22 @@ package com.github.yingzhuo.carnival.id.impl;
 import com.github.yingzhuo.carnival.id.LongIdGenerator;
 import com.github.yingzhuo.snowflake.Snowflake;
 
+import java.util.List;
+
 /**
  * @author 应卓
  * @since 1.8.6
  */
 public class SnowflakeClientAdapter implements LongIdGenerator {
 
-    public static final SnowflakeClientAdapter INSTANCE = new SnowflakeClientAdapter();
-
-    private SnowflakeClientAdapter() {
-    }
-
     @Override
     public Long nextId() {
         return Snowflake.nextId();
+    }
+
+    @Override
+    public List<Long> nextId(int n) {
+        return Snowflake.nextIds(n);
     }
 
 }

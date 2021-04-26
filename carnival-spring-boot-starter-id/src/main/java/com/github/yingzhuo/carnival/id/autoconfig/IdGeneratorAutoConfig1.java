@@ -11,8 +11,6 @@ package com.github.yingzhuo.carnival.id.autoconfig;
 
 import com.github.yingzhuo.carnival.id.IdGenerator;
 import com.github.yingzhuo.carnival.id.IdGeneratorAlgorithm;
-import com.github.yingzhuo.carnival.id.IdHash;
-import com.github.yingzhuo.carnival.id.hash.IdHashImpl;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeLongIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
@@ -30,10 +28,10 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
-@ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(IdGeneratorAutoConfig1.Props.class)
+@ConditionalOnProperty(prefix = "carnival.id-generator", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnMissingClass({"com.github.yingzhuo.snowflake.Snowflake"})
-public class IdGeneratorAutoConfig {
+public class IdGeneratorAutoConfig1 {
 
     @Bean
     @ConditionalOnMissingBean
@@ -75,24 +73,14 @@ public class IdGeneratorAutoConfig {
         }
     }
 
-    @Bean
-    @ConditionalOnMissingBean
-    public IdHash idHash(Props props) {
-        return new IdHashImpl(
-                props.getHash().getSalt(),
-                props.getHash().getMinLength(),
-                props.getHash().getChars()
-        );
-    }
 
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.id")
+    @ConfigurationProperties(prefix = "carnival.generator")
     static class Props {
         private boolean enabled = true;
         private IdGeneratorAlgorithm algorithm = IdGeneratorAlgorithm.SNOWFLAKE;
         private Snowflake snowflake = new Snowflake();
-        private Hash hash = new Hash();
     }
 
     @Getter
@@ -102,14 +90,6 @@ public class IdGeneratorAutoConfig {
         private long dataCenterId = -1L;
         private int length = -1;
         private char padCharacter = '0';
-    }
-
-    @Getter
-    @Setter
-    static class Hash {
-        private String salt = Hash.class.getName();
-        private int minLength = 6;
-        private String chars = "";
     }
 
 }

@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.id.autoconfig.IdGeneratorAutoConfig,\
-    com.github.yingzhuo.carnival.id.autoconfig.SnowflakeClientAdapterAutoConfig
+    com.github.yingzhuo.carnival.id.autoconfig.IdGeneratorAutoConfig1,\
+    com.github.yingzhuo.carnival.id.autoconfig.IdGeneratorAutoConfig2,\
+    com.github.yingzhuo.carnival.id.autoconfig.IdHashAutoConfig
