@@ -73,10 +73,9 @@ public class IdGeneratorAutoConfig1 {
         }
     }
 
-
     @Getter
     @Setter
-    @ConfigurationProperties(prefix = "carnival.generator")
+    @ConfigurationProperties(prefix = "carnival.id-generator")
     static class Props {
         private boolean enabled = true;
         private IdGeneratorAlgorithm algorithm = IdGeneratorAlgorithm.SNOWFLAKE;

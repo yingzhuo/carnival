@@ -23,13 +23,13 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  * @since 1.8.7
  */
-@EnableConfigurationProperties(IdHashAutoConfig.Properties.class)
+@EnableConfigurationProperties(IdHashAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id-hash", name = "enabled", havingValue = "true", matchIfMissing = true)
 public class IdHashAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public IdHash idHash(Properties props) {
+    public IdHash idHash(Props props) {
         return new IdHashImpl(
                 props.getSalt(),
                 props.getMinLength(),
@@ -40,9 +40,9 @@ public class IdHashAutoConfig {
     @Getter
     @Setter
     @ConfigurationProperties(prefix = "carnival.id-hash")
-    static class Properties {
+    static class Props {
         private boolean enabled = true;
-        private String salt = Properties.class.getName();
+        private String salt = Props.class.getName();
         private int minLength = 6;
         private String chars = "";
     }
