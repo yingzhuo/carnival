@@ -32,8 +32,8 @@ import java.util.List;
 /**
  * @author 应卓
  */
-@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @AutoConfigureAfter(RestfulSecurityBeanAutoConfig.class)
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, ApplicationRunner {
 
     @Autowired(required = false)
