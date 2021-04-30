@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.userdetails.UserDetails;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
 
 /**
  * 安全上下文
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author 应卓
  * @since 1.7.8
  */
-public interface RestfulSecurityContext {
+public interface RestfulSecurityContext extends Serializable {
 
     public static RestfulSecurityContext current() {
         return ContextHolder.holder.get();

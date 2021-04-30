@@ -46,7 +46,6 @@ public class RequiresAuthComponent implements AuthenticationComponent<Requires> 
     public void doAuthenticate(Token token, UserDetails userDetails, Requires annotation) throws RestfulSecurityException {
         val spel = annotation.value();
 
-        // TODO: 要考虑到表达式不是Boolean结果的情况，要抓异常并处理妥当
         val context = new StandardEvaluationContext(RestfulSecurityContext.current());
         val exp = expressionResolver.parseExpression(spel);
         val res = exp.getValue(context, Boolean.class);

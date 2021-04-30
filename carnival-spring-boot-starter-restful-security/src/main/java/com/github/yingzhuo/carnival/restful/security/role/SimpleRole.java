@@ -19,7 +19,7 @@ class SimpleRole implements Role {
     private final String name;
 
     public SimpleRole(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override

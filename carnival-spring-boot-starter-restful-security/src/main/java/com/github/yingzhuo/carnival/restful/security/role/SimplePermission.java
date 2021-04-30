@@ -19,7 +19,7 @@ class SimplePermission implements Permission {
     private final String name;
 
     public SimplePermission(String name) {
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
     @Override
