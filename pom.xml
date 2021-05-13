@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.8.8</version>
+    <version>1.8.9</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-id</module>
@@ -70,6 +70,11 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <issueManagement>
+        <url>https://github.com/yingzhuo/carnival/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
 
     <repositories>
         <repository>
@@ -492,7 +497,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.15.0</version>
+                <version>3.16.0</version>
             </dependency>
 
             <!-- gson -->
