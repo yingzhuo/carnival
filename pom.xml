@@ -93,11 +93,11 @@
         <java.version>1.8</java.version>
 
         <spring.boot.version>2.4.5</spring.boot.version>
-        <spring.version>5.3.6</spring.version>
+        <spring.version>5.3.7</spring.version>
         <spring.security.version>5.4.6</spring.security.version>
         <jackson.version>2.12.3</jackson.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <netty.version>4.1.63.Final</netty.version>
+        <netty.version>4.1.64.Final</netty.version>
         <feign.version>11.2</feign.version>
     </properties>
 
