@@ -68,6 +68,8 @@ public class IdGeneratorAutoConfig1 {
                 return new UUIDGenerator(true);
             case UUID_36:
                 return new UUIDGenerator(false);
+            case NULL:
+                return (IdGenerator<Object>) () -> null;
             default:
                 throw new AssertionError(); // 程序不可能运行到此处
         }

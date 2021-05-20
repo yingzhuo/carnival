@@ -20,6 +20,11 @@ public enum IdGeneratorAlgorithm {
 
     SNOWFLAKE,
 
-    SNOWFLAKE_STRING
+    SNOWFLAKE_STRING,
+
+    /**
+     * @since 1.8.9
+     */
+    NULL
 
 }
