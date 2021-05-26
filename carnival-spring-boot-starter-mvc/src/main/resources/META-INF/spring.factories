@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.mvc.autoconfig.MvcCorsAutoConfig,\
     com.github.yingzhuo.carnival.mvc.autoconfig.MvcCommonAutoConfig
