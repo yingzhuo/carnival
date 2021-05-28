@@ -11,8 +11,11 @@ package com.github.yingzhuo.carnival.aop;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -26,6 +29,14 @@ public abstract class AbstractAspectSupport {
 
     protected final Class<?> getBeanType(JoinPoint joinPoint) {
         return joinPoint.getTarget().getClass();
+    }
+
+    protected final <A extends Annotation> Optional<A> getAnnotation(JoinPoint joinPoint, Class<A> annotationType) {
+        A annotation = AnnotationUtils.getAnnotation(getMethod(joinPoint), annotationType);
+        if (annotation == null) {
+            annotation = joinPoint.getTarget().getClass().getAnnotation(annotationType);
+        }
+        return Optional.ofNullable(annotation);
     }
 
     protected final boolean isDeprecated(JoinPoint joinPoint) {
