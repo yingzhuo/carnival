@@ -11,24 +11,28 @@ package com.github.yingzhuo.carnival.easyexcel.rowskip;
 
 import com.alibaba.excel.context.AnalysisContext;
 
-import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author 应卓
  * @since 1.9.2
  */
-public class RowNumberSkipStrategy implements RowSkipStrategy {
+public final class CompositeStrategy implements RowSkipStrategy {
 
-    private final Set<Integer> lineNumbers;
+    private final List<RowSkipStrategy> strategies;
 
-    public RowNumberSkipStrategy(Set<Integer> lineNumbers) {
-        this.lineNumbers = Objects.requireNonNull(lineNumbers);
+    public CompositeStrategy(List<RowSkipStrategy> strategies) {
+        this.strategies = strategies;
     }
 
     @Override
     public boolean skip(Object model, AnalysisContext context) {
-        return lineNumbers.contains(context.readRowHolder().getRowIndex());
-    }
+        if (strategies == null || strategies.isEmpty()) return false;
 
+        for (RowSkipStrategy strategy : strategies) {
+            if (strategy.skip(model, context)) return true;
+        }
+
+        return false;
+    }
 }

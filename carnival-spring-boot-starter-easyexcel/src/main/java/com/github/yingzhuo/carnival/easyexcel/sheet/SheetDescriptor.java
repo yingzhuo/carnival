@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.easyexcel.sheet;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @author 应卓
@@ -30,7 +29,7 @@ public interface SheetDescriptor extends Serializable {
 
     public Class<?> modelClass();
 
-    public List<RowSkipStrategy> rowSkipStrategies();
+    public RowSkipStrategy rowSkipStrategy();
 
     public default String description() {
         return null;

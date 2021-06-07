@@ -18,6 +18,10 @@ import com.alibaba.excel.context.AnalysisContext;
 @FunctionalInterface
 public interface RowSkipStrategy {
 
-    public boolean isSkip(Object model, AnalysisContext context);
+    public static RowSkipStrategiesBuilder builder() {
+        return RowSkipStrategiesBuilder.newInstance();
+    }
+
+    public boolean skip(Object model, AnalysisContext context);
 
 }

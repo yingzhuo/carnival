@@ -13,6 +13,7 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.github.yingzhuo.carnival.easyexcel.ReadingError;
+import com.github.yingzhuo.carnival.easyexcel.rowskip.FalseSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 import org.springframework.core.io.Resource;
 
@@ -30,26 +31,17 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     private final List<M> result = new LinkedList<M>();
     private final List<ReadingError> errors = new LinkedList<>();
 
-    private final List<RowSkipStrategy> rowSkipStrategies;
+    private final RowSkipStrategy skipStrategy;
     private final String filename;
 
-    public InMemoryListener(List<RowSkipStrategy> rowSkipStrategies, Resource resource) {
-        this.rowSkipStrategies = rowSkipStrategies != null ? Collections.emptyList() : Collections.emptyList();
+    public InMemoryListener(RowSkipStrategy skipStrategy, Resource resource) {
+        this.skipStrategy = Optional.ofNullable(skipStrategy).orElse(FalseSkipStrategy.INSTANCE);
         this.filename = Optional.ofNullable(resource).map(Resource::getFilename).orElse(null);
     }
 
     @Override
     public final void invoke(M model, AnalysisContext context) {
-        boolean skip = false;
-
-        for (RowSkipStrategy s : this.rowSkipStrategies) {
-            if (s.isSkip(model, context)) {
-                skip = true;
-                break;
-            }
-        }
-
-        if (!skip) {
+        if (!skipStrategy.skip(model, context)) {
             result.add(model);
         }
     }
@@ -62,28 +54,20 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     @Override
     public void onException(Exception ex, AnalysisContext context) throws Exception {
 
-        boolean skip = false;
-
-        for (RowSkipStrategy s : this.rowSkipStrategies) {
-            if (s.isSkip(null, context)) {
-                skip = true;
-                break;
+        if (!skipStrategy.skip(null, context)) {
+            if (ex instanceof ExcelDataConvertException) {
+                ReadingError error = new ReadingError();
+                error.setFilename(filename);
+                error.setSheetNumber(context.readSheetHolder().getSheetNo());
+                error.setSheetName(context.readSheetHolder().getSheetName());
+                error.setRowNumber(((ExcelDataConvertException) ex).getRowIndex() + 1);
+                error.setColNumber(((ExcelDataConvertException) ex).getColumnIndex() + 1);
+                error.setExceptionMessage(ex.getMessage());
+                error.setExceptionType(ex.getClass().getName());
+                errors.add(error);
+            } else {
+                throw ex;
             }
-        }
-
-        if (skip) return;
-
-        if (ex instanceof ExcelDataConvertException) {
-            ReadingError error = new ReadingError();
-            error.setFilename(filename);
-            error.setSheetNumber(context.readSheetHolder().getSheetNo());
-            error.setSheetName(context.readSheetHolder().getSheetName());
-            error.setRowNumber(((ExcelDataConvertException) ex).getRowIndex() + 1);
-            error.setColNumber(((ExcelDataConvertException) ex).getColumnIndex() + 1);
-            error.setExceptionMessage(ex.getMessage());
-            errors.add(error);
-        } else {
-            throw ex;
         }
     }
 

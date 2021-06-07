@@ -32,5 +32,6 @@ public class ReadingError implements Serializable {
     private int rowNumber;
     private int colNumber;
     private String exceptionMessage;
+    private String exceptionType;
 
 }

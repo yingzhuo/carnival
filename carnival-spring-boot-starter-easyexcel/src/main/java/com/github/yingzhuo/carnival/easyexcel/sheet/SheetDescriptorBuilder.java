@@ -9,10 +9,8 @@
  */
 package com.github.yingzhuo.carnival.easyexcel.sheet;
 
+import com.github.yingzhuo.carnival.easyexcel.rowskip.FalseSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author 应卓
@@ -20,7 +18,7 @@ import java.util.List;
  */
 public final class SheetDescriptorBuilder {
 
-    private final List<RowSkipStrategy> rowSkipStrategies = new ArrayList<>();
+    private RowSkipStrategy rowSkipStrategy = FalseSkipStrategy.INSTANCE;
     private int sheetNumber = 0;
     private int headerRowNumber = 1;
     private Class<?> modelClass;
@@ -34,12 +32,12 @@ public final class SheetDescriptorBuilder {
     }
 
     public SheetDescriptorBuilder sheetNumber(int sheetNumber) {
-        this.sheetNumber = sheetNumber;
+        this.sheetNumber = sheetNumber - 1; // sheetNumber从1开始
         return this;
     }
 
     public SheetDescriptorBuilder headerRowNumber(int headerRowNumber) {
-        this.headerRowNumber = headerRowNumber;
+        this.headerRowNumber = headerRowNumber; // headerRowNum从1开始
         return this;
     }
 
@@ -49,7 +47,7 @@ public final class SheetDescriptorBuilder {
     }
 
     public SheetDescriptorBuilder rowSkipStrategies(RowSkipStrategy strategy) {
-        this.rowSkipStrategies.add(strategy);
+        this.rowSkipStrategy = strategy;
         return this;
     }
 
@@ -76,8 +74,8 @@ public final class SheetDescriptorBuilder {
             }
 
             @Override
-            public List<RowSkipStrategy> rowSkipStrategies() {
-                return rowSkipStrategies;
+            public RowSkipStrategy rowSkipStrategy() {
+                return rowSkipStrategy;
             }
 
             @Override

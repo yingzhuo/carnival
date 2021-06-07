@@ -28,13 +28,13 @@ public final class RowSkipStrategiesBuilder {
     }
 
     public RowSkipStrategiesBuilder byRowNumber(int... rowNumbers) {
-        Set<Integer> set = Arrays.stream(rowNumbers).boxed().collect(Collectors.toSet());
+        Set<Integer> set = Arrays.stream(rowNumbers).map(n -> n - 1).boxed().collect(Collectors.toSet());
         this.strategies.add(new RowNumberSkipStrategy(set));
         return this;
     }
 
-    public List<RowSkipStrategy> build() {
-        return Collections.unmodifiableList(strategies);
+    public RowSkipStrategy build() {
+        return new CompositeStrategy(Collections.unmodifiableList(strategies));
     }
 
 }

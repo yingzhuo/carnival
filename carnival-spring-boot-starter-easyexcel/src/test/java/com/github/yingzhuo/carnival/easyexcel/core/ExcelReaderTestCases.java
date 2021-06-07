@@ -3,8 +3,11 @@ package com.github.yingzhuo.carnival.easyexcel.core;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.github.yingzhuo.carnival.easyexcel.ExcelReader;
 import com.github.yingzhuo.carnival.easyexcel.ReadingResult;
+import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.sheet.SheetDescriptor;
-import org.apache.commons.lang3.time.DateUtils;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.FileSystemResource;
 
@@ -16,18 +19,12 @@ public class ExcelReaderTestCases {
     private final ExcelReader excelReader = new DefaultExcelReader();
 
     @Test
-    public void test0() throws Exception {
-        System.out.println(
-                DateUtils.parseDate("2017-7-10", "yyyy-MM-dd")
-        );
-    }
-
-    @Test
-    public void test1() throws Throwable {
+    public void test1() {
         final SheetDescriptor descriptor = SheetDescriptor.builder()
-                .sheetNumber(0)
+                .sheetNumber(1)
                 .headerRowNumber(3)
                 .modelClass(Person.class)
+                .rowSkipStrategies(RowSkipStrategy.builder().byRowNumber(4).build())
                 .build();
 
         final ReadingResult<Person> readingResult = excelReader.read(
@@ -43,7 +40,9 @@ public class ExcelReaderTestCases {
         readingResult.getErrors().forEach(System.out::println);
     }
 
-
+    @Getter
+    @Setter
+    @ToString
     public static final class Person implements Serializable {
 
         @ExcelProperty(value = "名字")
@@ -57,48 +56,6 @@ public class ExcelReaderTestCases {
 
         @ExcelProperty(value = "出生日期", converter = Converters.Date.class)
         private Date dob;
-
-        @Override
-        public String toString() {
-            return "Person{" +
-                    "name='" + name + '\'' +
-                    ", age=" + age +
-                    ", salary=" + salary +
-                    ", dob=" + dob +
-                    '}';
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
-        public void setAge(Integer age) {
-            this.age = age;
-        }
-
-        public Long getSalary() {
-            return salary;
-        }
-
-        public void setSalary(Long salary) {
-            this.salary = salary;
-        }
-
-        public Date getDob() {
-            return dob;
-        }
-
-        public void setDob(Date dob) {
-            this.dob = dob;
-        }
     }
 
 }
