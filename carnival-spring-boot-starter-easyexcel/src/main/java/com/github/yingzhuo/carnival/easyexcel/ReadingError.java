@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.easyexcel;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -21,12 +24,13 @@ import java.io.Serializable;
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 public class ReadingError implements Serializable {
 
     private String filename;
     private int sheetNumber;
+    private String sheetName;
     private int rowNumber;
+    private int colNumber;
     private String exceptionMessage;
 
 }

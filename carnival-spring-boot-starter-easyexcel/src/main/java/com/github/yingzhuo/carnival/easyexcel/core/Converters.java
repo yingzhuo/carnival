@@ -22,25 +22,26 @@ import java.text.ParseException;
  * @author 应卓
  * @since 1.9.2
  */
+@SuppressWarnings("rawtypes")
 public final class Converters {
 
     private Converters() {
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * ExcelData to java.util.Date
      */
     public final static class Date extends AbstractExcelConverter<java.util.Date> {
 
-        private static java.util.Date ZERO;
+        private final static java.util.Date ZERO;
 
         static {
             try {
                 ZERO = DateUtils.parseDate("1900-01-01", "yyyy-MM-dd");
             } catch (ParseException e) {
-                ZERO = new java.util.Date();
+                throw new RuntimeException(e); // Never
             }
         }
 
@@ -50,10 +51,7 @@ public final class Converters {
         }
 
         @Override
-        public java.util.Date convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
-
-
-            System.out.println("adsl;fkjads;lfkjad;lfkj");
+        public java.util.Date convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             try {
                 return DateUtils.parseDate(
                         cellData.toString(),
@@ -99,10 +97,44 @@ public final class Converters {
         }
 
         @Override
-        public final java.lang.Long convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        public final java.lang.Long convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             return BigDecimal.INSTANCE
                     .convertToJavaData(cellData, contentProperty, globalConfiguration)
                     .longValue();
+        }
+    }
+
+    /**
+     * ExcelData to java.long.Double
+     */
+    public final static class Double extends AbstractExcelConverter<java.lang.Double> {
+        @Override
+        public Class supportJavaTypeKey() {
+            return java.lang.Double.class;
+        }
+
+        @Override
+        public java.lang.Double convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+            return BigDecimal.INSTANCE
+                    .convertToJavaData(cellData, contentProperty, globalConfiguration)
+                    .doubleValue();
+        }
+    }
+
+    /**
+     * ExcelData to java.math.BigInteger
+     */
+    public final static class BigInt extends AbstractExcelConverter<java.math.BigInteger> {
+        @Override
+        public Class supportJavaTypeKey() {
+            return java.lang.Float.class;
+        }
+
+        @Override
+        public java.math.BigInteger convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+            return BigDecimal.INSTANCE
+                    .convertToJavaData(cellData, contentProperty, globalConfiguration)
+                    .toBigInteger();
         }
     }
 

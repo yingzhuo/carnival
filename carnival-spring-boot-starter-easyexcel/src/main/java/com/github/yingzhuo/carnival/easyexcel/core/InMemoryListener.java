@@ -14,23 +14,28 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.github.yingzhuo.carnival.easyexcel.ReadingError;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
+import org.springframework.core.io.Resource;
 
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.9.2
  */
-public class InMemoryListener<M> extends AnalysisEventListener<M> {
+class InMemoryListener<M> extends AnalysisEventListener<M> {
 
     private final List<M> result = new LinkedList<M>();
     private final List<ReadingError> errors = new LinkedList<>();
-    private final List<RowSkipStrategy> rowSkipStrategies;
 
-    public InMemoryListener(List<RowSkipStrategy> rowSkipStrategies) {
+    private final List<RowSkipStrategy> rowSkipStrategies;
+    private final String filename;
+
+    public InMemoryListener(List<RowSkipStrategy> rowSkipStrategies, Resource resource) {
         this.rowSkipStrategies = rowSkipStrategies != null ? Collections.emptyList() : Collections.emptyList();
+        this.filename = Optional.ofNullable(resource).map(Resource::getFilename).orElse(null);
     }
 
     @Override
@@ -70,9 +75,11 @@ public class InMemoryListener<M> extends AnalysisEventListener<M> {
 
         if (ex instanceof ExcelDataConvertException) {
             ReadingError error = new ReadingError();
-            error.setFilename(null);
-            error.setSheetNumber(context.readSheetHolder().getRowIndex());
-            error.setRowNumber(context.readRowHolder().getRowIndex());
+            error.setFilename(filename);
+            error.setSheetNumber(context.readSheetHolder().getSheetNo());
+            error.setSheetName(context.readSheetHolder().getSheetName());
+            error.setRowNumber(((ExcelDataConvertException) ex).getRowIndex() + 1);
+            error.setColNumber(((ExcelDataConvertException) ex).getColumnIndex() + 1);
             error.setExceptionMessage(ex.getMessage());
             errors.add(error);
         } else {
@@ -85,6 +92,7 @@ public class InMemoryListener<M> extends AnalysisEventListener<M> {
         return Collections.unmodifiableList(result);
     }
 
+    // 注意，这个方法并不是public
     final List<ReadingError> getErrors() {
         return Collections.unmodifiableList(errors);
     }
