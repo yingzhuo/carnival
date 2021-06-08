@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.easyexcel.rowskip;
 
 import com.alibaba.excel.context.AnalysisContext;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,6 +19,16 @@ import java.util.List;
  * @since 1.9.2
  */
 public final class CompositeStrategy implements RowSkipStrategy {
+
+    /**
+     * @since 1.9.3
+     */
+    public static RowSkipStrategy of(RowSkipStrategy... strategies) {
+        if (strategies == null || strategies.length == 0) {
+            return FalseSkipStrategy.INSTANCE;
+        }
+        return new CompositeStrategy(Arrays.asList(strategies));
+    }
 
     private final List<RowSkipStrategy> strategies;
 
