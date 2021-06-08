@@ -21,6 +21,16 @@ public interface ReadingResult<M> extends Serializable {
 
     public List<M> getModels();
 
+    public default int getModelSize() {
+        List<M> models = getModels();
+        return models != null ? models.size() : 0;
+    }
+
     public List<ReadingError> getErrors();
+
+    public default int getErrorSize() {
+        List<ReadingError> errors = getErrors();
+        return errors != null ? errors.size() : 0;
+    }
 
 }

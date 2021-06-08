@@ -23,10 +23,7 @@ import java.text.ParseException;
  * @since 1.9.2
  */
 @SuppressWarnings("rawtypes")
-public final class Converters {
-
-    private Converters() {
-    }
+public interface Converters {
 
     // -----------------------------------------------------------------------------------------------------------------
 
