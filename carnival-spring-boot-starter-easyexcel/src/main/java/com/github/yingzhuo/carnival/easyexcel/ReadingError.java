@@ -21,7 +21,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class ReadingError implements Serializable {
 
     private String filename;
