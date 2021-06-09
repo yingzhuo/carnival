@@ -31,8 +31,26 @@ public interface SheetDescriptor extends Serializable {
 
     public RowSkipStrategy rowSkipStrategy();
 
+    /**
+     * @since 1.9.3
+     */
+    public default ErrorHandler errorHandler() {
+        return ErrorHandler.LIST;
+    }
+
     public default String description() {
         return null;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------
+
+    /**
+     * @author 应卓
+     * @since 1.9.3
+     */
+    public static enum ErrorHandler {
+        LIST,
+        SKIP;
     }
 
 }

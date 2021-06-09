@@ -15,6 +15,7 @@ import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.github.yingzhuo.carnival.easyexcel.ReadingError;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.FalseSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
+import com.github.yingzhuo.carnival.easyexcel.sheet.SheetDescriptor;
 import org.springframework.core.io.Resource;
 
 import java.util.Collections;
@@ -32,10 +33,12 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     private final List<ReadingError> errors = new LinkedList<>();
 
     private final RowSkipStrategy skipStrategy;
+    private final SheetDescriptor.ErrorHandler errorHandler;
     private final String filename;
 
-    public InMemoryListener(RowSkipStrategy skipStrategy, Resource resource) {
+    public InMemoryListener(RowSkipStrategy skipStrategy, SheetDescriptor.ErrorHandler errorHandler, Resource resource) {
         this.skipStrategy = Optional.ofNullable(skipStrategy).orElse(FalseSkipStrategy.INSTANCE);
+        this.errorHandler = Optional.ofNullable(errorHandler).orElse(SheetDescriptor.ErrorHandler.LIST);
         this.filename = Optional.ofNullable(resource).map(Resource::getFilename).orElse(null);
     }
 
@@ -55,6 +58,11 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     public void onException(Exception ex, AnalysisContext context) throws Exception {
 
         if (!skipStrategy.skip(null, context)) {
+
+            if (this.errorHandler == SheetDescriptor.ErrorHandler.SKIP) {
+                return;
+            }
+
             if (ex instanceof ExcelDataConvertException) {
                 ReadingError error = new ReadingError();
                 error.setFilename(filename);

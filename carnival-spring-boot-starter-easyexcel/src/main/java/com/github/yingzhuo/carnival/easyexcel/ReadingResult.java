@@ -33,4 +33,8 @@ public interface ReadingResult<M> extends Serializable {
         return errors != null ? errors.size() : 0;
     }
 
+    public default boolean hasError() {
+        return getErrorSize() > 0;
+    }
+
 }
