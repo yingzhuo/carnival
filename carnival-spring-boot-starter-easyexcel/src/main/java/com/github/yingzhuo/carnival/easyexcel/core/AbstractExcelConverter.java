@@ -27,7 +27,8 @@ abstract class AbstractExcelConverter<T> implements Converter<T> {
     }
 
     @Override
-    public final CellData convertToExcelData(T value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
+    public final CellData<T> convertToExcelData(T value, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
+        // 本工具不处理Excel写入，故不适用此方法
         throw new UnsupportedOperationException();
     }
 
