@@ -23,8 +23,7 @@ public class TrueSkipStrategy implements RowSkipStrategy {
     }
 
     @Override
-    public boolean skip(Object model, AnalysisContext context) {
+    public boolean skip(Object model, AnalysisContext context, Exception ex) {
         return true;
     }
-
 }

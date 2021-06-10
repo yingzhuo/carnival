@@ -44,7 +44,7 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
 
     @Override
     public final void invoke(M model, AnalysisContext context) {
-        if (!skipStrategy.skip(model, context)) {
+        if (!skipStrategy.skip(model, context, null)) {
             result.add(model);
         }
     }
@@ -55,28 +55,31 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     }
 
     @Override
-    public void onException(Exception ex, AnalysisContext context) throws Exception {
+    public void onException(Exception exception, AnalysisContext context) throws Exception {
 
-        if (!skipStrategy.skip(null, context)) {
-
-            if (this.errorHandler == SheetDescriptor.ErrorHandler.SKIP) {
-                return;
-            }
-
-            if (ex instanceof ExcelDataConvertException) {
-                ReadingError error = new ReadingError();
-                error.setFilename(filename);
-                error.setSheetNumber(context.readSheetHolder().getSheetNo());
-                error.setSheetName(context.readSheetHolder().getSheetName());
-                error.setRowNumber(((ExcelDataConvertException) ex).getRowIndex() + 1);
-                error.setColNumber(((ExcelDataConvertException) ex).getColumnIndex() + 1);
-                error.setExceptionMessage(ex.getMessage());
-                error.setExceptionType(ex.getClass().getName());
-                errors.add(error);
-            } else {
-                throw ex;
-            }
+        if (!(exception instanceof ExcelDataConvertException)) {
+            throw exception;
         }
+
+        if (skipStrategy.skip(exception, context, exception)) {
+            return;
+        }
+
+        if (errorHandler == SheetDescriptor.ErrorHandler.SKIP) {
+            return;
+        }
+
+        final ExcelDataConvertException ex = (ExcelDataConvertException) exception;
+        ReadingError error = new ReadingError();
+        error.setFilename(filename);
+        error.setSheetNumber(context.readSheetHolder().getSheetNo());
+        error.setSheetName(context.readSheetHolder().getSheetName());
+        error.setRowNumber(ex.getRowIndex() + 1);
+        error.setColNumber(ex.getColumnIndex() + 1);
+        error.setExceptionMessage(exception.getMessage());
+        error.setExceptionType(exception.getClass().getName());
+        errors.add(error);
+
     }
 
     // 注意，这个方法并不是public

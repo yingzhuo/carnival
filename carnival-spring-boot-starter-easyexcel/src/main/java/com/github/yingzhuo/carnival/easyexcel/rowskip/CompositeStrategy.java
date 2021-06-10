@@ -37,11 +37,11 @@ public final class CompositeStrategy implements RowSkipStrategy {
     }
 
     @Override
-    public boolean skip(Object model, AnalysisContext context) {
+    public boolean skip(Object model, AnalysisContext context, Exception ex) {
         if (strategies == null || strategies.isEmpty()) return false;
 
         for (RowSkipStrategy strategy : strategies) {
-            if (strategy.skip(model, context)) return true;
+            if (strategy.skip(model, context, ex)) return true;
         }
 
         return false;

@@ -27,7 +27,7 @@ public class RowNumberSkipStrategy implements RowSkipStrategy {
     }
 
     @Override
-    public boolean skip(Object model, AnalysisContext context) {
+    public boolean skip(Object model, AnalysisContext context, Exception ex) {
         return lineNumbers.contains(context.readRowHolder().getRowIndex());
     }
 

@@ -22,6 +22,6 @@ public interface RowSkipStrategy {
         return RowSkipStrategiesBuilder.newInstance();
     }
 
-    public boolean skip(Object model, AnalysisContext context);
+    public boolean skip(Object model, AnalysisContext context, Exception ex);
 
 }

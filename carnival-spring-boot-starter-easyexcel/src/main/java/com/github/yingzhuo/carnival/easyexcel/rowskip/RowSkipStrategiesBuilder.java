@@ -33,6 +33,16 @@ public final class RowSkipStrategiesBuilder {
         return this;
     }
 
+    public RowSkipStrategiesBuilder alwaysTrue() {
+        this.strategies.add(TrueSkipStrategy.ISNTANCE);
+        return this;
+    }
+
+    public RowSkipStrategiesBuilder alwaysFalse() {
+        this.strategies.add(FalseSkipStrategy.INSTANCE);
+        return this;
+    }
+
     public RowSkipStrategy build() {
         return new CompositeStrategy(Collections.unmodifiableList(strategies));
     }
