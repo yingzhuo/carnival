@@ -111,7 +111,7 @@ public interface Converters {
         }
 
         @Override
-        public java.lang.Double convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        public java.lang.Double convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             return BigDecimal.INSTANCE
                     .convertToJavaData(cellData, contentProperty, globalConfiguration)
                     .doubleValue();
@@ -128,7 +128,7 @@ public interface Converters {
         }
 
         @Override
-        public java.math.BigInteger convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) throws Exception {
+        public java.math.BigInteger convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             return BigDecimal.INSTANCE
                     .convertToJavaData(cellData, contentProperty, globalConfiguration)
                     .toBigInteger();
@@ -151,6 +151,26 @@ public interface Converters {
         public java.math.BigDecimal convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
             val s = StringUtils.remove(cellData.toString(), ",");
             return new java.math.BigDecimal(s);
+        }
+    }
+
+    /**
+     * ExcelData to java.math.BigDecimal
+     *
+     * @since 1.9.4
+     */
+    public final static class BigDecimal2 extends AbstractExcelConverter<java.math.BigDecimal> {
+
+        @Override
+        public Class supportJavaTypeKey() {
+            return java.math.BigDecimal.class;
+        }
+
+        @Override
+        public java.math.BigDecimal convertToJavaData(CellData cellData, ExcelContentProperty contentProperty, GlobalConfiguration globalConfiguration) {
+            return BigDecimal.INSTANCE
+                    .convertToJavaData(cellData, contentProperty, globalConfiguration)
+                    .divide(java.math.BigDecimal.ONE, 2, java.math.BigDecimal.ROUND_HALF_UP);
         }
     }
 
