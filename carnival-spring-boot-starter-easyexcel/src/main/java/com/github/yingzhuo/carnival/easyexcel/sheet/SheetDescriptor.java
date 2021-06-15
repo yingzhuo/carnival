@@ -23,10 +23,19 @@ public interface SheetDescriptor extends Serializable {
         return SheetDescriptorBuilder.builder();
     }
 
+    /**
+     * Number of sheet. Begin from 1
+     */
     int sheetNumber();
 
+    /**
+     * Number of header row. Begin from 1
+     */
     int headerRowNumber();
 
+    /**
+     * Class of Model
+     */
     public Class<?> modelClass();
 
     public RowSkipStrategy rowSkipStrategy();
@@ -48,7 +57,7 @@ public interface SheetDescriptor extends Serializable {
      * @author 应卓
      * @since 1.9.3
      */
-    public static enum ErrorHandler {
+    public enum ErrorHandler {
         LIST,
         SKIP;
     }

@@ -39,7 +39,7 @@ public class DefaultExcelReader implements ExcelReader {
 //                .excelType(ExcelTypeEnum.XLSX)
                 .build();
 
-        ReadSheet readSheet = EasyExcel.readSheet(descriptor.sheetNumber())
+        ReadSheet readSheet = EasyExcel.readSheet(descriptor.sheetNumber() - 1)
                 .headRowNumber(descriptor.headerRowNumber())
                 .build();
 

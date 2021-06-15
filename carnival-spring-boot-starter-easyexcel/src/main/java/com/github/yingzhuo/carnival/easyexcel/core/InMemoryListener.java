@@ -72,14 +72,13 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
         final ExcelDataConvertException ex = (ExcelDataConvertException) exception;
         ReadingError error = new ReadingError();
         error.setFilename(filename);
-        error.setSheetNumber(context.readSheetHolder().getSheetNo());
+        error.setSheetNumber(context.readSheetHolder().getSheetNo() + 1);
         error.setSheetName(context.readSheetHolder().getSheetName());
         error.setRowNumber(ex.getRowIndex() + 1);
         error.setColNumber(ex.getColumnIndex() + 1);
         error.setExceptionMessage(exception.getMessage());
         error.setExceptionType(exception.getClass().getName());
         errors.add(error);
-
     }
 
     // 注意，这个方法并不是public
