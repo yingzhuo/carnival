@@ -5,23 +5,23 @@
 
 # Carnival
 
-### 要求
+#### 要求
 
 * Java 8+
 * SpringBoot 2.3.0+
 
-### 下载
+#### 下载
 
 * 推荐使用[maven](https://search.maven.org/search?q=carnival)
 
-### 安装最新的版本
+#### 安装最新的版本
 
 ```sh
 git clone git@github.com:yingzhuo/carnival.git
 mvn -f carnival/pom.xml clean install
 ```
 
-### 用例
+#### 用例
 
 * carnival-spring-boot-starter-id
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
@@ -39,6 +39,10 @@ mvn -f carnival/pom.xml clean install
 * carnival-spring-boot-starter-restful-security
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security](https://github.com/yingzhuo/carnival-examples/tree/master/examples-restful-security)
 
-### 作者
+#### 作者
 
 * 应卓 - [github](https://github.com/yingzhuo)
+
+#### 许可证
+
+[Apache 2.0](LICENSE)
