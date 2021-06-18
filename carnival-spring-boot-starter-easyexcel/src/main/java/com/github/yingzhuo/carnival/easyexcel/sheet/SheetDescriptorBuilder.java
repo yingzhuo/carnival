@@ -22,7 +22,6 @@ public final class SheetDescriptorBuilder {
     private int sheetNumber = 0;
     private int headerRowNumber = 1;
     private Class<?> modelClass;
-    private String description;
 
     private SheetDescriptorBuilder() {
     }
@@ -51,11 +50,6 @@ public final class SheetDescriptorBuilder {
         return this;
     }
 
-    public SheetDescriptorBuilder description(String description) {
-        this.description = description;
-        return this;
-    }
-
     public SheetDescriptor build() {
         return new SheetDescriptor() {
             @Override
@@ -76,11 +70,6 @@ public final class SheetDescriptorBuilder {
             @Override
             public RowSkipStrategy rowSkipStrategy() {
                 return rowSkipStrategy;
-            }
-
-            @Override
-            public String description() {
-                return description;
             }
         };
     }
