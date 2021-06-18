@@ -13,6 +13,8 @@ import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.github.yingzhuo.carnival.easyexcel.ReadingError;
+import com.github.yingzhuo.carnival.easyexcel.filter.RowFilter;
+import com.github.yingzhuo.carnival.easyexcel.filter.TrueRowFilter;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.FalseSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.sheet.SheetDescriptor;
@@ -35,16 +37,18 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
     private final RowSkipStrategy skipStrategy;
     private final SheetDescriptor.ErrorHandler errorHandler;
     private final String filename;
+    private final RowFilter rowFilter;
 
-    public InMemoryListener(RowSkipStrategy skipStrategy, SheetDescriptor.ErrorHandler errorHandler, Resource resource) {
+    public InMemoryListener(RowSkipStrategy skipStrategy, SheetDescriptor.ErrorHandler errorHandler, RowFilter rowFilter, Resource resource) {
         this.skipStrategy = Optional.ofNullable(skipStrategy).orElse(FalseSkipStrategy.INSTANCE);
         this.errorHandler = Optional.ofNullable(errorHandler).orElse(SheetDescriptor.ErrorHandler.LIST);
         this.filename = Optional.ofNullable(resource).map(Resource::getFilename).orElse(null);
+        this.rowFilter = Optional.ofNullable(rowFilter).orElse(TrueRowFilter.INSTANCE);
     }
 
     @Override
     public final void invoke(M model, AnalysisContext context) {
-        if (!skipStrategy.skip(model, context, null)) {
+        if (!skipStrategy.skip(model, context, null) && rowFilter.doFilter(model)) {
             result.add(model);
         }
     }

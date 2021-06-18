@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.easyexcel.sheet;
 
+import com.github.yingzhuo.carnival.easyexcel.filter.RowFilter;
+import com.github.yingzhuo.carnival.easyexcel.filter.TrueRowFilter;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 
 import java.io.Serializable;
@@ -47,8 +49,11 @@ public interface SheetDescriptor extends Serializable {
         return ErrorHandler.LIST;
     }
 
-    public default String description() {
-        return null;
+    /**
+     * @since 1.9.5
+     */
+    public default RowFilter rowFilter() {
+        return TrueRowFilter.INSTANCE;
     }
 
     // ------------------------------------------------------------------------------------------------------------
@@ -59,7 +64,7 @@ public interface SheetDescriptor extends Serializable {
      */
     public enum ErrorHandler {
         LIST,
-        SKIP;
+        SKIP
     }
 
 }

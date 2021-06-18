@@ -33,7 +33,12 @@ public class DefaultExcelReader implements ExcelReader {
         Objects.requireNonNull(excelFile);
         Objects.requireNonNull(descriptor);
 
-        final InMemoryListener<M> listener = new InMemoryListener<>(descriptor.rowSkipStrategy(), descriptor.errorHandler(), excelFile);
+        final InMemoryListener<M> listener = new InMemoryListener<>(
+                descriptor.rowSkipStrategy(),
+                descriptor.errorHandler(),
+                descriptor.rowFilter(),
+                excelFile
+        );
 
         com.alibaba.excel.ExcelReader excelReader = EasyExcel.read(excelFile.getInputStream(), descriptor.modelClass(), listener)
 //                .excelType(ExcelTypeEnum.XLSX)
