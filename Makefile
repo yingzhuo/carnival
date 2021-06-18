@@ -31,5 +31,6 @@ version:
 github: clean
 	@git add .
 	@git commit -m "$(timestamp)"
+	@git push
 
 .PHONY: usage clean package install deploy version github

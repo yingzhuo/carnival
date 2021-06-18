@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.easyexcel.sheet;
 
 import com.github.yingzhuo.carnival.easyexcel.filter.RowFilter;
-import com.github.yingzhuo.carnival.easyexcel.filter.TrueRowFilter;
+import com.github.yingzhuo.carnival.easyexcel.filter.RowFilters;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 
 import java.io.Serializable;
@@ -53,7 +53,7 @@ public interface SheetDescriptor extends Serializable {
      * @since 1.9.5
      */
     public default RowFilter rowFilter() {
-        return TrueRowFilter.INSTANCE;
+        return RowFilters.TRUE;
     }
 
     // ------------------------------------------------------------------------------------------------------------

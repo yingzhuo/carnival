@@ -14,7 +14,7 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.alibaba.excel.exception.ExcelDataConvertException;
 import com.github.yingzhuo.carnival.easyexcel.ReadingError;
 import com.github.yingzhuo.carnival.easyexcel.filter.RowFilter;
-import com.github.yingzhuo.carnival.easyexcel.filter.TrueRowFilter;
+import com.github.yingzhuo.carnival.easyexcel.filter.RowFilters;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.FalseSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.rowskip.RowSkipStrategy;
 import com.github.yingzhuo.carnival.easyexcel.sheet.SheetDescriptor;
@@ -43,7 +43,7 @@ class InMemoryListener<M> extends AnalysisEventListener<M> {
         this.skipStrategy = Optional.ofNullable(skipStrategy).orElse(FalseSkipStrategy.INSTANCE);
         this.errorHandler = Optional.ofNullable(errorHandler).orElse(SheetDescriptor.ErrorHandler.LIST);
         this.filename = Optional.ofNullable(resource).map(Resource::getFilename).orElse(null);
-        this.rowFilter = Optional.ofNullable(rowFilter).orElse(TrueRowFilter.INSTANCE);
+        this.rowFilter = Optional.ofNullable(rowFilter).orElse(RowFilters.TRUE);
     }
 
     @Override

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.easyexcel.filter;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -33,6 +34,11 @@ public final class RowFilterChain implements RowFilter {
         if (filters != null && filters.length != 0) {
             Collections.addAll(chain, filters);
         }
+        return this;
+    }
+
+    public RowFilterChain add(Collection<RowFilter> filters) {
+        chain.addAll(filters);
         return this;
     }
 
