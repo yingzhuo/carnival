@@ -17,7 +17,7 @@ import org.springframework.core.convert.converter.Converter;
  */
 public class IdentityDescriptorConverter implements Converter<String, IdentityDescriptor> {
 
-    private IdentityParser identityParser;
+    private final IdentityParser identityParser;
 
     public IdentityDescriptorConverter(IdentityParser identityParser) {
         this.identityParser = identityParser != null ? identityParser : new IdentityParserImpl();

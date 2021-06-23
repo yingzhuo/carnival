@@ -9,9 +9,8 @@
  */
 package com.github.yingzhuo.carnival.localization.china.tool;
 
+import cn.hutool.core.util.IdcardUtil;
 import com.github.yingzhuo.carnival.common.datamodel.Gender;
-import com.github.yingzhuo.carnival.localization.china.jsr349.IdentityNumberConstraintValidator;
-import com.github.yingzhuo.carnival.localization.china.util.IdentityUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Optional;
@@ -28,17 +27,17 @@ public class IdentityParserImpl implements IdentityParser {
             return Optional.empty();
         }
 
-        if (!new IdentityNumberConstraintValidator().isValid(value, null)) {
+        if (!IdcardUtil.isValidCard(value)) {
             return Optional.empty();
         }
 
         try {
             return Optional.of(new SimpleIdentityDescriptor(
                     value,
-                    IdentityUtils.getProvince(value),
-                    IdentityUtils.isMale(value) ? Gender.MALE : Gender.FEMALE,
-                    IdentityUtils.getDateOfBirth(value),
-                    IdentityUtils.getAge(value)
+                    IdcardUtil.getProvinceByIdCard(value),
+                    IdcardUtil.getGenderByIdCard(value) == 1 ? Gender.MALE : Gender.FEMALE,
+                    IdcardUtil.getBirthDate(value),
+                    IdcardUtil.getAgeByIdCard(value)
             ));
         } catch (Exception e) {
             return Optional.empty();
