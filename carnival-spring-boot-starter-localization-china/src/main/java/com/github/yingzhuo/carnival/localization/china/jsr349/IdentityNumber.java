@@ -14,6 +14,8 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
+ * 检查身份证号码
+ *
  * @author 应卓
  */
 @Documented

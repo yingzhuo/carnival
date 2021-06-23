@@ -13,14 +13,33 @@ import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * @author 应卓
  * @since 1.9.6
  */
-public final class Setter {
+public final class GetterSetter {
 
-    private Setter() {
+    private GetterSetter() {
+    }
+
+    public static <T> T getProp(Object obj, String property) {
+        if (obj == null) return null;
+        BeanWrapper w = new BeanWrapperImpl(obj);
+        return (T) w.getPropertyValue(property);
+    }
+
+    public static <T> T getPropQuietly(Object obj, String property) {
+        try {
+            return getProp(obj, property);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static <T> T getPropQuietly(Object obj, String property, T defaultIfNull) {
+        return (T) Optional.ofNullable(getPropQuietly(obj, property)).orElse(defaultIfNull);
     }
 
     public static <T> T setProp(T obj, String property, Object value) {

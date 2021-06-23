@@ -14,17 +14,18 @@ import javax.validation.Payload;
 import java.lang.annotation.*;
 
 /**
- * 检查手机号
+ * 检查社会信用代码工具
  *
  * @author 应卓
+ * @since 1.9.6
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(validatedBy = PhoneNumberValidator.class)
-public @interface PhoneNumber {
+@Constraint(validatedBy = CreditCodeConstraintValidator.class)
+public @interface CreditCode {
 
-    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.PhoneNumber.message}";
+    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.CreditCode.message}";
 
     public Class<?>[] groups() default {};
 
