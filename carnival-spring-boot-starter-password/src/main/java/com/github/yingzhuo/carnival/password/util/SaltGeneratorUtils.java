@@ -21,7 +21,7 @@ public final class SaltGeneratorUtils {
     private SaltGeneratorUtils() {
     }
 
-    public static String generator() {
+    public static String generate() {
         return SpringUtils.getBean(SaltGenerator.class).generate();
     }
 

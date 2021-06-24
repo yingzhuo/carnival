@@ -32,7 +32,7 @@ public class PasswordProps {
     @Setter
     public static class PasswordEncoder {
         private PasswordEncoderAlgorithm encoding = PasswordEncoderAlgorithm.md5;
-        private PasswordEncoderAlgorithm unmapped = PasswordEncoderAlgorithm.md5;
+        private PasswordEncoderAlgorithm unmapped = PasswordEncoderAlgorithm.noop;
     }
 
     @Getter

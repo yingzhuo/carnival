@@ -9,6 +9,8 @@
  */
 package com.github.yingzhuo.carnival.password;
 
+import java.util.Arrays;
+
 /**
  * @author 应卓
  * @since 1.6.27
@@ -17,6 +19,14 @@ public interface PasswordEncoder extends org.springframework.security.crypto.pas
 
     public default boolean notMatches(CharSequence rawPassword, String encodedPassword) {
         return !matches(rawPassword, encodedPassword);
+    }
+
+    public default boolean anyMatch(CharSequence rawPassword, String... encodedPasswords) {
+        return Arrays.stream(encodedPasswords).anyMatch(encodedPassword -> matches(rawPassword, encodedPassword));
+    }
+
+    public default boolean noneMatch(CharSequence rawPassword, String... encodedPasswords) {
+        return Arrays.stream(encodedPasswords).noneMatch(encodedPassword -> matches(rawPassword, encodedPassword));
     }
 
     @Override
