@@ -20,7 +20,7 @@ import java.util.Date;
  * @author 应卓
  * @since 1.9.7
  */
-public class NotSameDateValidator implements ConstraintValidator<NotSameDate, Date> {
+public class NotSameDateValidator implements ConstraintValidator<NotSameDate, Object> {
 
     private String field;
     private String fieldMatch;
@@ -32,10 +32,11 @@ public class NotSameDateValidator implements ConstraintValidator<NotSameDate, Da
     }
 
     @Override
-    public boolean isValid(Date value, ConstraintValidatorContext context) {
+    public boolean isValid(Object value, ConstraintValidatorContext context) {
         if (value == null) return true;
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
+        if (fieldValue == null || fieldMatchValue == null) return false;
         return !DateUtils.isSameDay((Date) fieldValue, (Date) fieldMatchValue);
     }
 
