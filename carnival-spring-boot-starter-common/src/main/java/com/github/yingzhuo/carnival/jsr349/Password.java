@@ -52,25 +52,12 @@ public @interface Password {
         /**
          * 包含数字 (0-9)
          */
-        @Deprecated
-        NUMERIC,
-
-        /**
-         * 包含数字 (0-9)
-         */
         HAS_NUMERIC,
-
 
         /**
          * 包含且只包含数字 (0-9)
          */
         ONLY_NUMERIC,
-
-        /**
-         * 包含字母 (a-z, A-Z)
-         */
-        @Deprecated
-        ALPHABETIC,
 
         /**
          * 包含字母 (a-z, A-Z)

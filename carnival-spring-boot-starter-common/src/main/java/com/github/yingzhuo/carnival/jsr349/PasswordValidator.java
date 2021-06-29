@@ -108,12 +108,10 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
                 return hasLower && hasUpper && hasNumeric && hasSpecial;
             case AT_LEAST_TWO_KIND_OF_ALPHABETIC_AND_NUMERIC_AND_SPECIAL_CHARS:
                 return point >= 2;
-            case NUMERIC: // 下个版本将被删除
             case HAS_NUMERIC:
                 return hasNumeric;
             case ONLY_NUMERIC:
                 return hasNumeric && !hasAlphabetic && !hasSpecial;
-            case ALPHABETIC: // 下个版本将被删除
             case HAS_ALPHABETIC:
                 return hasAlphabetic;
             case ONLY_ALPHABETIC:
