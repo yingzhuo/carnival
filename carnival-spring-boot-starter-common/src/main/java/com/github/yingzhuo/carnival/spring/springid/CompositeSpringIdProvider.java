@@ -18,14 +18,14 @@ import java.util.List;
  */
 public final class CompositeSpringIdProvider implements SpringIdProvider {
 
-    public static CompositeSpringIdProvider of(SpringIdProvider... providers) {
-        return new CompositeSpringIdProvider(Arrays.asList(providers));
-    }
-
     private final List<SpringIdProvider> providers;
 
     public CompositeSpringIdProvider(List<SpringIdProvider> providers) {
         this.providers = providers;
+    }
+
+    public static CompositeSpringIdProvider of(SpringIdProvider... providers) {
+        return new CompositeSpringIdProvider(Arrays.asList(providers));
     }
 
     @Override

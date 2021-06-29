@@ -20,14 +20,14 @@ import java.util.List;
  */
 public final class RowFilterChain implements RowFilter {
 
-    public static RowFilterChain newInstance() {
-        return new RowFilterChain();
-    }
-
     private final List<RowFilter> chain;
 
     private RowFilterChain() {
         this.chain = new LinkedList<>();
+    }
+
+    public static RowFilterChain newInstance() {
+        return new RowFilterChain();
     }
 
     public RowFilterChain add(RowFilter... filters) {

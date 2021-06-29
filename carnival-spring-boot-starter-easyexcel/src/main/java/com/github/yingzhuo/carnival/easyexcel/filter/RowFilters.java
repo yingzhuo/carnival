@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.easyexcel.filter;
 
 import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author 应卓
@@ -21,6 +20,9 @@ public final class RowFilters {
     public static final RowFilter TRUE = m -> true;
     public static final RowFilter FALSE = m -> false;
 
+    private RowFilters() {
+    }
+
     public static RowFilter reverse(RowFilter filter) {
         return ReverserRowFilter.of(filter);
     }
@@ -29,13 +31,10 @@ public final class RowFilters {
         return RowFilterChain.newInstance().add(filters);
     }
 
-    public static RowFilter chain(Collection<RowFilter> filters) {
-        return RowFilterChain.newInstance().add(filters);
-    }
-
     // ----------------------------------------------------------------------------------------------------------------
 
-    private RowFilters() {
+    public static RowFilter chain(Collection<RowFilter> filters) {
+        return RowFilterChain.newInstance().add(filters);
     }
 
 }

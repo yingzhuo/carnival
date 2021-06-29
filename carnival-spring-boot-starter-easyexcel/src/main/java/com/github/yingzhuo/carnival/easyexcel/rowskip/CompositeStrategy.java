@@ -20,6 +20,12 @@ import java.util.List;
  */
 public final class CompositeStrategy implements RowSkipStrategy {
 
+    private final List<RowSkipStrategy> strategies;
+
+    public CompositeStrategy(List<RowSkipStrategy> strategies) {
+        this.strategies = strategies;
+    }
+
     /**
      * @since 1.9.3
      */
@@ -28,12 +34,6 @@ public final class CompositeStrategy implements RowSkipStrategy {
             return FalseSkipStrategy.INSTANCE;
         }
         return new CompositeStrategy(Arrays.asList(strategies));
-    }
-
-    private final List<RowSkipStrategy> strategies;
-
-    public CompositeStrategy(List<RowSkipStrategy> strategies) {
-        this.strategies = strategies;
     }
 
     @Override

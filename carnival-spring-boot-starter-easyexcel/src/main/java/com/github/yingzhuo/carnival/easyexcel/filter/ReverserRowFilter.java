@@ -17,14 +17,14 @@ import java.util.Objects;
  */
 public final class ReverserRowFilter implements RowFilter {
 
-    public static ReverserRowFilter of(RowFilter delegate) {
-        return new ReverserRowFilter(delegate);
-    }
-
     private final RowFilter delegate;
 
     public ReverserRowFilter(RowFilter delegate) {
         this.delegate = Objects.requireNonNull(delegate);
+    }
+
+    public static ReverserRowFilter of(RowFilter delegate) {
+        return new ReverserRowFilter(delegate);
     }
 
     @Override
