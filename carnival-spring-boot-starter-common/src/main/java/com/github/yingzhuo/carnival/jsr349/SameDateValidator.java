@@ -24,11 +24,13 @@ public class SameDateValidator implements ConstraintValidator<SameDate, Object> 
 
     private String field;
     private String fieldMatch;
+    private boolean errorIfNull;
 
     @Override
     public void initialize(SameDate annotation) {
         this.field = annotation.field();
         this.fieldMatch = annotation.fieldMatch();
+        this.errorIfNull = annotation.errorIfNull();
     }
 
     @Override
@@ -36,7 +38,9 @@ public class SameDateValidator implements ConstraintValidator<SameDate, Object> 
         if (value == null) return true;
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
-        if (fieldValue == null || fieldMatchValue == null) return false;
+        if (fieldValue == null || fieldMatchValue == null) {
+            return !errorIfNull;
+        }
         return DateUtils.isSameDay((Date) fieldValue, (Date) fieldMatchValue);
     }
 

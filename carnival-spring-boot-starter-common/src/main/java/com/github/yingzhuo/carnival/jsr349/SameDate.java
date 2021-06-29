@@ -31,6 +31,8 @@ public @interface SameDate {
 
     public String fieldMatch();
 
+    public boolean errorIfNull() default true;
+
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};

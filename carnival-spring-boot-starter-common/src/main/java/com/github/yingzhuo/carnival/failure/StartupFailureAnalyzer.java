@@ -14,6 +14,7 @@ import org.springframework.boot.diagnostics.FailureAnalysis;
 
 /**
  * @author 应卓
+ * @see StartupFailure
  * @since 1.8.1
  */
 public class StartupFailureAnalyzer extends AbstractFailureAnalyzer<StartupFailure> {

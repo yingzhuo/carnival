@@ -72,7 +72,7 @@ public class EnumeratedStringValidator implements ConstraintValidator<Enumerated
             this.options = set;
         } else {
             val factory = factoryType.newInstance();
-            this.options = factory.set();
+            this.options = factory.get();
 
             if (annotation.cache()) {
                 cache.put(factoryType.toString(), options);

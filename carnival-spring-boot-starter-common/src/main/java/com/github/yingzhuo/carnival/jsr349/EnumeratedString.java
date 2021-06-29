@@ -13,6 +13,7 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 import java.util.Set;
+import java.util.function.Supplier;
 
 /**
  * @author 应卓
@@ -38,8 +39,9 @@ public @interface EnumeratedString {
     public Class<? extends Payload>[] payload() default {};
 
     @FunctionalInterface
-    public static interface Factory {
-        public Set<String> set();
+    public static interface Factory extends Supplier<Set<String>> {
+        @Override
+        public Set<String> get();
     }
 
 }
