@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.9.7</version>
+    <version>1.9.8</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
@@ -502,7 +502,7 @@
             <dependency>
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
-                <version>3.16.0</version>
+                <version>3.17.0</version>
             </dependency>
 
             <!-- gson -->

@@ -13,6 +13,10 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+/**
+ * @author 应卓
+ * @since 1.6.13
+ */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
