@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.support;
 
 import com.github.yingzhuo.carnival.mvc.IpAddress;
+import com.github.yingzhuo.carnival.mvc.util.IPUtils;
 import lombok.val;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.StringUtils;
@@ -40,7 +41,7 @@ public class IpAddressHandlerMethodArgumentResolver implements HandlerMethodArgu
         String ip = null;
 
         if (request != null) {
-            ip = getIpAddress(request);
+            ip = IPUtils.getIpAddress(request);
             if (!StringUtils.hasText(ip)) {
                 ip = null;
             }
@@ -55,34 +56,4 @@ public class IpAddressHandlerMethodArgumentResolver implements HandlerMethodArgu
         }
     }
 
-    private String getIpAddress(HttpServletRequest request) {
-        String ip = request.getHeader("X-Forwarded-For");
-
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("WL-Proxy-Client-IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_CLIENT_IP");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-            }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-                ip = request.getRemoteAddr();
-            }
-        } else if (ip.length() > 15) {
-            String[] ips = ip.split(",");
-            for (String strIp : ips) {
-                if (!("unknown".equalsIgnoreCase(strIp))) {
-                    ip = strIp;
-                    break;
-                }
-            }
-        }
-        return ip;
-    }
 }
