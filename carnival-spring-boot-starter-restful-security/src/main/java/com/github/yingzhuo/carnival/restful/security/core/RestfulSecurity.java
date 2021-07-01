@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.restful.security.annotation.IgnoreToken;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenBlacklistedException;
 import com.github.yingzhuo.carnival.restful.security.exception.TokenNotWhitelistedException;
+import com.github.yingzhuo.carnival.restful.security.listener.Listener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.token.Token;
@@ -43,6 +44,7 @@ interface RestfulSecurity {
         final UserDetailsRealm userDetailsRealm = getUserDetailsRealm();
         final TokenWhitelistManager tokenWhitelistManager = getTokenWhitelistManager();
         final TokenBlacklistManager tokenBlacklistManager = getTokenBlacklistManager();
+        final Listener listener = getListener();
 
         if (handlerMethod == null) {
             return;
@@ -60,7 +62,8 @@ interface RestfulSecurity {
             return;
         }
 
-        final Optional<Token> tokenOp = tokenParser.parse(new ServletWebRequest(request, response));
+        ServletWebRequest servletWebRequest = new ServletWebRequest(request, response);
+        final Optional<Token> tokenOp = tokenParser.parse(servletWebRequest);
         if (tokenOp.isPresent()) {
             token = tokenOp.get();
             ContextHolder.set(token);
@@ -89,6 +92,10 @@ interface RestfulSecurity {
                 throw new TokenNotWhitelistedException(request, token, userDetails);
             }
         }
+
+        if (listener != null) {
+            listener.afterUserDetailsLoaded(servletWebRequest, token, userDetails);
+        }
     }
 
     public AuthenticationStrategy getAuthenticationStrategy();
@@ -100,5 +107,7 @@ interface RestfulSecurity {
     public TokenBlacklistManager getTokenBlacklistManager();
 
     public TokenWhitelistManager getTokenWhitelistManager();
+
+    public Listener getListener();
 
 }

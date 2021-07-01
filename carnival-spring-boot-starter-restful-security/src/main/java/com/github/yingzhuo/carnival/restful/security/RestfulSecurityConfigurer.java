@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.restful.security;
 
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.listener.Listener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
@@ -47,6 +48,10 @@ public interface RestfulSecurityConfigurer extends Ordered {
     }
 
     public default TokenWhitelistManager getTokenWhitelistManager() {
+        return null;
+    }
+
+    public default Listener getListener() {
         return null;
     }
 

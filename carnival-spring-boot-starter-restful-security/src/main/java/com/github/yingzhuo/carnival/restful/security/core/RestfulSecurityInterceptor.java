@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.restful.security.core;
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import com.github.yingzhuo.carnival.restful.security.AuthenticationStrategy;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
+import com.github.yingzhuo.carnival.restful.security.listener.Listener;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
 import com.github.yingzhuo.carnival.restful.security.whitelist.TokenWhitelistManager;
@@ -30,6 +31,7 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
     private UserDetailsRealm userDetailsRealm;
     private TokenBlacklistManager tokenBlacklistManager;
     private TokenWhitelistManager tokenWhitelistManager;
+    private Listener listener;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -93,6 +95,15 @@ public class RestfulSecurityInterceptor extends AbstractHandlerInterceptorSuppor
 
     public void setTokenWhitelistManager(TokenWhitelistManager tokenWhitelistManager) {
         this.tokenWhitelistManager = tokenWhitelistManager;
+    }
+
+    @Override
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
     }
 
 }

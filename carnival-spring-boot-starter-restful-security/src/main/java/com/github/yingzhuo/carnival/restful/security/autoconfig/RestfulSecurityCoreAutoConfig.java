@@ -14,6 +14,7 @@ import com.github.yingzhuo.carnival.restful.security.RestfulSecurityConfigurer;
 import com.github.yingzhuo.carnival.restful.security.blacklist.TokenBlacklistManager;
 import com.github.yingzhuo.carnival.restful.security.core.ReflectCache;
 import com.github.yingzhuo.carnival.restful.security.core.RestfulSecurityInterceptor;
+import com.github.yingzhuo.carnival.restful.security.listener.Listener;
 import com.github.yingzhuo.carnival.restful.security.mvc.*;
 import com.github.yingzhuo.carnival.restful.security.parser.TokenParser;
 import com.github.yingzhuo.carnival.restful.security.realm.UserDetailsRealm;
@@ -52,6 +53,9 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
     @Autowired(required = false)
     private TokenWhitelistManager injectedTokenWhitelistManager;
 
+    @Autowired(required = false)
+    private Listener injectedListener;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         final RestfulSecurityInterceptor interceptor = new RestfulSecurityInterceptor();
@@ -60,6 +64,7 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
         interceptor.setUserDetailsRealm(getUserDetailsRealm());
         interceptor.setTokenBlacklistManager(getTokenBlackListManager());
         interceptor.setTokenWhitelistManager(getTokenWhitelistManager());
+        interceptor.setListener(getListener());
 
         registry.addInterceptor(interceptor)
                 .addPathPatterns(getPathPatterns())
@@ -142,6 +147,13 @@ public class RestfulSecurityCoreAutoConfig implements WebMvcConfigurer, Applicat
             patterns = new String[]{"/**"};
         }
         return patterns;
+    }
+
+    private Listener getListener() {
+        if (injectedListener != null) {
+            return injectedListener;
+        }
+        return configurer.getListener();
     }
 
 }
