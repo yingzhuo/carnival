@@ -16,7 +16,9 @@ import java.util.regex.Pattern;
 
 /**
  * @author 应卓
+ * @deprecated 电话号码号段更新太平凡不建议用这种方式验证
  */
+@Deprecated
 public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
 
     // 2018-06-13

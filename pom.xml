@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.9.8</version>
+    <version>1.9.9</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
@@ -25,7 +25,6 @@
 
     <name>carnival</name>
     <url>https://github.com/yingzhuo/carnival</url>
-
     <description>spring-boot starters</description>
 
     <parent>
@@ -54,7 +53,6 @@
             <id>yingzhuo</id>
             <name>应卓</name>
             <email>yingzhor@gmail.com</email>
-            <timezone>+8</timezone>
         </developer>
     </developers>
 

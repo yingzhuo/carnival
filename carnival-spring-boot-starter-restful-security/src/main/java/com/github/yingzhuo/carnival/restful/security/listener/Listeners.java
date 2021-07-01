@@ -24,6 +24,9 @@ import java.util.List;
  */
 public final class Listeners {
 
+    private Listeners() {
+    }
+
     public static Listener nop() {
         return (request, token, userDetails) -> {
         };
@@ -34,11 +37,6 @@ public final class Listeners {
         Collections.addAll(list, listeners);
         OrderComparator.sort(list);
         return new ListenerChain(list);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    private Listeners() {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
