@@ -32,24 +32,18 @@ public class DateTimeConverter implements GenericConverter {
         CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
     }
 
-    public static final String[] PATTERN = {
+    public static final String[] PATTERNS = {
             "yyyy-MM-dd",
             "yyyy-MM-dd HH:mm:ss",
             "yyyy-MM-dd HH:mm:ss.SSS",
             "yyyy-MM-dd'T'HH:mm:ss",
             "yyyy-MM-dd'T'HH:mm:ss.SSS",
-            "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
-            "yyyy-MM-dd'T'HH:mm:ss.SSS Z",
             "yyyyMMdd",
             "yyMMddHHmmss",
             "yyMMddHHmmssSSS",
-            "dd/MM/yy",
-            "dd/MM/yyyy",
             "yyyy/MM/dd",
             "yyyy/MM/dd HH:mm:ss",
-            "yyyy/MM/dd HH:mm:ss.SSS",
-            "yyyy-MM",
-            "MM-dd"
+            "yyyy/MM/dd HH:mm:ss.SSS"
     };
 
     @Override
@@ -64,7 +58,7 @@ public class DateTimeConverter implements GenericConverter {
 
         final String text = source.toString();
         final Class<?> clz = targetType.getObjectType();
-        final Date date = DateUtils.parseDateStrictly(text, PATTERN);
+        final Date date = DateUtils.parseDateStrictly(text, PATTERNS);
 
         if (clz == Date.class) return date;
         if (clz == Calendar.class) return DateUtils.toCalendar(date);

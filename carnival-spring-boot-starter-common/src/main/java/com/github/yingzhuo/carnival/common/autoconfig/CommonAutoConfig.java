@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
 import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
+import com.github.yingzhuo.carnival.common.converter.XTimeConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
 import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
@@ -39,6 +40,13 @@ public class CommonAutoConfig {
     @ConfigurationPropertiesBinding
     public DateTimeConverter dateTimeConverter() {
         return new DateTimeConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public XTimeConverter xTimeConverter() {
+        return new XTimeConverter();
     }
 
     // ----------------------------------------------------------------------------------------------------------------
