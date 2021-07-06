@@ -9,10 +9,13 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
+import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
+import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
 import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.util.AntPathMatcher;
@@ -23,6 +26,22 @@ import org.springframework.util.PathMatcher;
  * @since 1.5.2
  */
 public class CommonAutoConfig {
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public ResourceConverter resourceConverter() {
+        return new ResourceConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public DateTimeConverter dateTimeConverter() {
+        return new DateTimeConverter();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Bean
     @ConditionalOnMissingBean

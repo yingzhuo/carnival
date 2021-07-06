@@ -10,12 +10,7 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.converter.CurrencyFormat;
-import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
-import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
-import org.springframework.context.annotation.Bean;
 import org.springframework.format.FormatterRegistry;
 
 /**
@@ -29,20 +24,6 @@ public class FormatterAutoConfig {
         if (registry != null) {
             registry.addFormatterForFieldAnnotation(new CurrencyFormat.FormatterFactory());
         }
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConfigurationPropertiesBinding
-    public ResourceConverter resourceConverter() {
-        return new ResourceConverter();
-    }
-
-    @Bean
-    @ConditionalOnMissingBean
-    @ConfigurationPropertiesBinding
-    public DateTimeConverter dateTimeConverter() {
-        return new DateTimeConverter();
     }
 
 }
