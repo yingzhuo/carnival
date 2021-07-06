@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.datamodel;
+package com.github.yingzhuo.carnival.common.converter;
 
 import org.springframework.format.AnnotationFormatterFactory;
 import org.springframework.format.Parser;
@@ -19,34 +19,36 @@ import java.util.Set;
 
 /**
  * @author 应卓
+ * @since 1.9.9
  */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
-public @interface IntCurrencyFormat {
+@SuppressWarnings("NullableProblems")
+public @interface CurrencyFormat {
 
     public int value() default 2;
 
-    public static final class FormatterFactory implements AnnotationFormatterFactory<IntCurrencyFormat> {
+    public static final class FormatterFactory implements AnnotationFormatterFactory<CurrencyFormat> {
 
         @Override
         public Set<Class<?>> getFieldTypes() {
             Set<Class<?>> set = new HashSet<>();
-            set.add(int.class);
-            set.add(Integer.class);
+            set.add(long.class);
+            set.add(Long.class);
             return set;
         }
 
         @Override
-        public Printer<?> getPrinter(IntCurrencyFormat annotation, Class<?> fieldType) {
-            return (Printer<Integer>) (object, locale) -> object.toString();
+        public Printer<?> getPrinter(CurrencyFormat annotation, Class<?> fieldType) {
+            return (Printer<Long>) (object, locale) -> object.toString();
         }
 
         @Override
-        public Parser<?> getParser(IntCurrencyFormat annotation, Class<?> fieldType) {
+        public Parser<?> getParser(CurrencyFormat annotation, Class<?> fieldType) {
             final int v = annotation.value();
-            return (Parser<Integer>) (text, locale) -> (int) (Double.parseDouble(text) * (int) Math.pow(10D, (double) v));
+            return (Parser<Long>) (text, locale) -> (long) (Double.parseDouble(text) * (int) Math.pow(10D, (double) v));
         }
     }
 
