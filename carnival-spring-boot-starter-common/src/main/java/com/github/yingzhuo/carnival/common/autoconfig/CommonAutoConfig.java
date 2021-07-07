@@ -9,9 +9,10 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
+import com.github.yingzhuo.carnival.common.converter.ByteArrayConverter;
 import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
+import com.github.yingzhuo.carnival.common.converter.DateTimeNewConverter;
 import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
-import com.github.yingzhuo.carnival.common.converter.XTimeConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
 import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
@@ -31,6 +32,13 @@ public class CommonAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
+    public ByteArrayConverter byteArrayConverter() {
+        return new ByteArrayConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
     public ResourceConverter resourceConverter() {
         return new ResourceConverter();
     }
@@ -45,8 +53,8 @@ public class CommonAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public XTimeConverter xTimeConverter() {
-        return new XTimeConverter();
+    public DateTimeNewConverter dateTimeNewConverter() {
+        return new DateTimeNewConverter();
     }
 
     // ----------------------------------------------------------------------------------------------------------------

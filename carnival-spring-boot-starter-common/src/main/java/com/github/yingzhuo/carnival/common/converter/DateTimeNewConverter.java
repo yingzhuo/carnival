@@ -20,10 +20,10 @@ import java.util.Set;
 
 /**
  * @author 应卓
- * @since 1.9.9
+ * @since 1.9.10
  */
 @SuppressWarnings("NullableProblems")
-public class XTimeConverter implements GenericConverter {
+public class DateTimeNewConverter implements GenericConverter {
 
     public static final String[] PATTERNS = {
             "yyyy-MM-dd",
