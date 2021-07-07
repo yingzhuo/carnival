@@ -48,7 +48,7 @@ public @interface CurrencyFormat {
         @Override
         public Parser<?> getParser(CurrencyFormat annotation, Class<?> fieldType) {
             final int v = annotation.value();
-            return (Parser<Long>) (text, locale) -> (long) (Double.parseDouble(text) * (int) Math.pow(10D, (double) v));
+            return (Parser<Long>) (text, locale) -> (long) (Double.parseDouble(text) * (int) Math.pow(10D, v));
         }
     }
 

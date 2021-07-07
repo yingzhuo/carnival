@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.common.converter;
 
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
+import com.github.yingzhuo.carnival.common.io.ResourceProperties;
 import com.github.yingzhuo.carnival.common.io.ResourceText;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
@@ -29,8 +30,9 @@ public class ResourceConverter implements GenericConverter {
 
     static {
         final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(CharSequence.class, ResourceText.class));
         set.add(new ConvertiblePair(CharSequence.class, ResourceOptional.class));
+        set.add(new ConvertiblePair(CharSequence.class, ResourceProperties.class));
+        set.add(new ConvertiblePair(CharSequence.class, ResourceText.class));
         CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
     }
 
@@ -46,6 +48,10 @@ public class ResourceConverter implements GenericConverter {
         Class<?> clz = targetType.getObjectType();
         if (clz == ResourceText.class) {
             return ResourceText.of(source.toString());
+        }
+
+        if (clz == ResourceProperties.class) {
+            return ResourceProperties.of(source.toString());
         }
 
         if (clz == ResourceOptional.class) {

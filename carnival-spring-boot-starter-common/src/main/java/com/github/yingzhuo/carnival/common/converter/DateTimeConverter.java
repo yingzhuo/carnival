@@ -23,15 +23,6 @@ import java.util.*;
 @SuppressWarnings("NullableProblems")
 public class DateTimeConverter implements GenericConverter {
 
-    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
-
-    static {
-        final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(CharSequence.class, Date.class));
-        set.add(new ConvertiblePair(CharSequence.class, Calendar.class));
-        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
-    }
-
     public static final String[] PATTERNS = {
             "yyyy-MM-dd",
             "yyyy-MM-dd HH:mm:ss",
@@ -45,6 +36,15 @@ public class DateTimeConverter implements GenericConverter {
             "yyyy/MM/dd HH:mm:ss",
             "yyyy/MM/dd HH:mm:ss.SSS"
     };
+
+    private static final Set<ConvertiblePair> CONVERTIBLE_PAIRS;
+
+    static {
+        final Set<ConvertiblePair> set = new HashSet<>();
+        set.add(new ConvertiblePair(CharSequence.class, Date.class));
+        set.add(new ConvertiblePair(CharSequence.class, Calendar.class));
+        CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
+    }
 
     @Override
     public Set<ConvertiblePair> getConvertibleTypes() {

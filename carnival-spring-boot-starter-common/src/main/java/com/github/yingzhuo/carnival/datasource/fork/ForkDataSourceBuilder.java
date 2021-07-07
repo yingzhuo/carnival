@@ -22,7 +22,7 @@ import java.util.Map;
 @Slf4j
 public class ForkDataSourceBuilder {
 
-    private Map<String, DataSource> map = new HashMap<>();
+    private final Map<String, DataSource> map = new HashMap<>();
     private String defaultDataSourceName = null;
 
     ForkDataSourceBuilder() {
