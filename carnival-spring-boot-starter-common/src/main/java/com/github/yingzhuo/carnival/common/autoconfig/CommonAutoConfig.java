@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.converter.ByteArrayConverter;
 import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
 import com.github.yingzhuo.carnival.common.converter.DateTimeNewConverter;
 import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
+import com.github.yingzhuo.carnival.datetime.DatePairConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
 import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
@@ -55,6 +56,15 @@ public class CommonAutoConfig {
     @ConfigurationPropertiesBinding
     public DateTimeNewConverter dateTimeNewConverter() {
         return new DateTimeNewConverter();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public DatePairConverter datePairConverter() {
+        return new DatePairConverter();
     }
 
     // ----------------------------------------------------------------------------------------------------------------
