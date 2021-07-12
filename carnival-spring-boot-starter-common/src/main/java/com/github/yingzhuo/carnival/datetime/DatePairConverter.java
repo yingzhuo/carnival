@@ -1,3 +1,12 @@
+/*
+ *  ____    _    ____  _   _ _____     ___    _
+ * / ___|  / \  |  _ \| \ | |_ _\ \   / / \  | |
+ * | |    / _ \ | |_) |  \| || | \ \ / / _ \ | |
+ * | |___/ ___ \|  _ <| |\  || |  \ V / ___ \| |___
+ * \____/_/   \_\_| \_\_| \_|___|  \_/_/   \_\_____|
+ *
+ * https://github.com/yingzhuo/carnival
+ */
 package com.github.yingzhuo.carnival.datetime;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -7,6 +16,7 @@ import java.text.ParseException;
 
 /**
  * @author 应卓
+ * @since 1.9.10
  */
 @SuppressWarnings("NullableProblems")
 public class DatePairConverter implements Converter<String, DatePair> {
@@ -32,7 +42,8 @@ public class DatePairConverter implements Converter<String, DatePair> {
             return null;
         }
 
-        String[] array = source.split(this.splitter, 2);
+        final String[] array = source.split(this.splitter, 2);
+
         try {
             return new DatePair(
                     DateUtils.parseDate(array[0], this.pattern),
