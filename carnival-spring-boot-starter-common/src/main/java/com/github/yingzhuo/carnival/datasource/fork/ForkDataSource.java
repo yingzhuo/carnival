@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class ForkDataSource implements DataSource, InitializingBean {
 
-    private final Map<String, DataSource> dataSourceMap = new HashMap<>();
+    private final Map<String, DataSource> map = new HashMap<>();
     private final Lookup lookup;
     private DataSource defaultDataSource;
     private String defaultDataSourceName;
@@ -40,12 +40,20 @@ public class ForkDataSource implements DataSource, InitializingBean {
         return new ForkDataSourceBuilder();
     }
 
-    void addDataSource(String dataSourceName, DataSource dataSource) {
-        this.dataSourceMap.put(dataSourceName, dataSource);
+    void add(String dataSourceName, DataSource dataSource) {
+        this.map.put(dataSourceName, dataSource);
     }
 
     public Lookup getLookup() {
         return this.lookup;
+    }
+
+    public int size() {
+        return map.size();
+    }
+
+    public boolean isEmpty() {
+        return map.isEmpty();
     }
 
     @Override
@@ -94,11 +102,11 @@ public class ForkDataSource implements DataSource, InitializingBean {
     }
 
     private DataSource current() {
-        if (dataSourceMap.size() == 1) {
-            return dataSourceMap.values().iterator().next();
+        if (map.size() == 1) {
+            return map.values().iterator().next();
         }
 
-        DataSource dataSource = dataSourceMap.getOrDefault(lookup.holder.get(), defaultDataSource);
+        DataSource dataSource = map.getOrDefault(lookup.holder.get(), defaultDataSource);
         Assert.notNull(dataSource, "no datasource found");
         return dataSource;
     }
@@ -106,7 +114,7 @@ public class ForkDataSource implements DataSource, InitializingBean {
     @Override
     public void afterPropertiesSet() {
         if (defaultDataSourceName != null) {
-            this.defaultDataSource = dataSourceMap.get(defaultDataSourceName);
+            this.defaultDataSource = map.get(defaultDataSourceName);
         }
     }
 

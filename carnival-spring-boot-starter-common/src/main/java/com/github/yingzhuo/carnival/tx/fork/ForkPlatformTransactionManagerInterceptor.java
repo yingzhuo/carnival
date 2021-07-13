@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datasource.fork;
+package com.github.yingzhuo.carnival.tx.fork;
 
 import com.github.yingzhuo.carnival.common.mvc.AbstractHandlerInterceptorSupport;
 import lombok.extern.slf4j.Slf4j;
@@ -15,45 +15,44 @@ import org.springframework.core.Ordered;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
 
 /**
  * @author 应卓
- * @since 1.6.0
+ * @since 1.9.11
  */
 @Slf4j
-public class ForkDataSourceInterceptor
+public class ForkPlatformTransactionManagerInterceptor
         extends AbstractHandlerInterceptorSupport
         implements Ordered {
 
     private static final int DEFAULT_ORDER = 0;
 
-    private final ForkDataSource forkDataSource;
+    private final ForkPlatformTransactionManager txManager;
     private final int order;
 
-    public ForkDataSourceInterceptor(ForkDataSource dataSource) {
-        this(dataSource, DEFAULT_ORDER);
+    public ForkPlatformTransactionManagerInterceptor(ForkPlatformTransactionManager txManager) {
+        this(txManager, DEFAULT_ORDER);
     }
 
-    public ForkDataSourceInterceptor(ForkDataSource dataSource, int order) {
-        this.forkDataSource = Objects.requireNonNull(dataSource);
+    public ForkPlatformTransactionManagerInterceptor(ForkPlatformTransactionManager txManager, int order) {
+        this.txManager = txManager;
         this.order = order;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        final ForkDataSourceSwitch annotation = super.getMethodOrClassAnnotation(ForkDataSourceSwitch.class, handler).orElse(null);
-        if (annotation != null && forkDataSource != null) {
-            log.trace("datasource switch to {}", annotation.value());
-            forkDataSource.getLookup().set(annotation.value());
+        final ForkPlatformTransactionManagerSwitch annotation = super.getMethodOrClassAnnotation(ForkPlatformTransactionManagerSwitch.class, handler).orElse(null);
+        if (annotation != null && txManager != null) {
+            log.trace("tx-manager switch to {}", annotation.value());
+            txManager.getLookup().set(annotation.value());
         }
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        if (forkDataSource != null) {
-            forkDataSource.getLookup().reset();
+        if (txManager != null) {
+            txManager.getLookup().reset();
         }
     }
 

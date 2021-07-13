@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.datasource.fork;
 
-import lombok.extern.slf4j.Slf4j;
-
 import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,6 @@ import java.util.Map;
  * @author 应卓
  * @since 1.6.0
  */
-@Slf4j
 public class ForkDataSourceBuilder {
 
     private final Map<String, DataSource> map = new HashMap<>();
@@ -64,7 +61,7 @@ public class ForkDataSourceBuilder {
         ForkDataSource dataSource = new ForkDataSource(this.defaultDataSourceName);
         for (String name : map.keySet()) {
             DataSource ds = map.get(name);
-            dataSource.addDataSource(name, ds);
+            dataSource.add(name, ds);
         }
         return dataSource;
     }
