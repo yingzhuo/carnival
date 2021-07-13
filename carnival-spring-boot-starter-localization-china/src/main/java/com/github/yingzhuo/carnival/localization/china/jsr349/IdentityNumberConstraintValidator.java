@@ -17,16 +17,16 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * @author 应卓
  */
-public class IdentityNumberConstraintValidator implements ConstraintValidator<IdentityNumber, String> {
+public class IdentityNumberConstraintValidator implements ConstraintValidator<IdentityNumber, CharSequence> {
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
 
         if (value == null) {
             return true;
         }
 
-        return IdcardUtil.isValidCard(value);
+        return IdcardUtil.isValidCard(value.toString());
     }
 
 }

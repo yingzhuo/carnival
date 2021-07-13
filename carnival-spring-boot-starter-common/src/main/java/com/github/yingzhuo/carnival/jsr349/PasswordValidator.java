@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 /**
  * @author 应卓
  */
-public class PasswordValidator implements ConstraintValidator<Password, String> {
+public class PasswordValidator implements ConstraintValidator<Password, CharSequence> {
 
     private Password.Complexity complexity;
     private Set<Character> specialChars;
@@ -44,7 +44,7 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
     }
 
     @Override
-    public boolean isValid(String password, ConstraintValidatorContext context) {
+    public boolean isValid(CharSequence password, ConstraintValidatorContext context) {
 
         if (password == null) {
             return true;
@@ -59,7 +59,9 @@ public class PasswordValidator implements ConstraintValidator<Password, String> 
             return true;
         }
 
-        val chars = toCharStream(password).collect(Collectors.toSet());
+        val chars = toCharStream(password.toString())
+                .collect(Collectors.toSet());
+
         var hasNumeric = false;
         var hasAlphabetic = false;
         var hasUpper = false;

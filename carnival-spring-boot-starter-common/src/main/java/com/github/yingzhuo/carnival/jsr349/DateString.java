@@ -13,13 +13,15 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+import static java.lang.annotation.ElementType.*;
+
 /**
  * @author 应卓
  * @since 1.7.7
  */
 @Documented
 @Inherited
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = DateStringValidator.class)
 public @interface DateString {

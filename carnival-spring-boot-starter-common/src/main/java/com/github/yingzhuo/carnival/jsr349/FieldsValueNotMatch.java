@@ -13,13 +13,15 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
+import static java.lang.annotation.ElementType.*;
+
 /**
  * @author 应卓
  */
 @Repeatable(FieldsValueNotMatch.List.class)
 @Documented
 @Inherited
-@Target(ElementType.TYPE)
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = FieldsValueNotMatchValidator.class)
 public @interface FieldsValueNotMatch {
@@ -36,7 +38,7 @@ public @interface FieldsValueNotMatch {
 
     @Inherited
     @Documented
-    @Target(ElementType.TYPE)
+    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
     @Retention(RetentionPolicy.RUNTIME)
     @interface List {
         FieldsValueNotMatch[] value();

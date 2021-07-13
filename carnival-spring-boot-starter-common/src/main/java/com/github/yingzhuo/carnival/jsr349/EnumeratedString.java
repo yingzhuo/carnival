@@ -15,13 +15,16 @@ import java.lang.annotation.*;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import static java.lang.annotation.ElementType.*;
+import static java.lang.annotation.ElementType.TYPE_USE;
+
 /**
  * @author 应卓
  * @since 1.8.2
  */
 @Documented
 @Inherited
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = EnumeratedStringValidator.class)
 public @interface EnumeratedString {
