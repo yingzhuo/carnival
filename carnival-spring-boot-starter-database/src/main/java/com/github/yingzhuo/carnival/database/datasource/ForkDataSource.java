@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datasource.fork;
+package com.github.yingzhuo.carnival.database.datasource;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 /**
  * @author 应卓
- * @since 1.6.0
+ * @since 1.9.11
  */
 public class ForkDataSource implements DataSource, InitializingBean {
 

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.tx.fork;
+package com.github.yingzhuo.carnival.database.tx;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.PlatformTransactionManager;

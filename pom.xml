@@ -9,6 +9,7 @@
     <version>1.9.11</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
+        <module>carnival-spring-boot-starter-database</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>

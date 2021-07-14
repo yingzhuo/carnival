@@ -7,18 +7,18 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.datasource.fork;
+package com.github.yingzhuo.carnival.database.datasource;
 
 import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @since 1.6.0
+ * @since 1.9.11
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface ForkDataSourceSwitch {
 
     public String value();

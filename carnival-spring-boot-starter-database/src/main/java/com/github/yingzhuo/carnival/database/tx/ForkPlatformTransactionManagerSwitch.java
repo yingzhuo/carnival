@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.tx.fork;
+package com.github.yingzhuo.carnival.database.tx;
 
 import java.lang.annotation.*;
 
@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface ForkPlatformTransactionManagerSwitch {
 
     public String value();
