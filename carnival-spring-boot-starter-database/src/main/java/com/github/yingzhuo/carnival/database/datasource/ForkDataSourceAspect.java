@@ -38,7 +38,7 @@ public class ForkDataSourceAspect implements Ordered {
         this.order = order;
     }
 
-    @Around("@annotation(com.github.yingzhuo.carnival.datasource.fork.ForkDataSourceSwitch)")
+    @Around("@annotation(com.github.yingzhuo.carnival.database.datasource.ForkDataSourceSwitch)")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
         final ForkDataSourceSwitch annotation = ((MethodSignature) pjp.getSignature()).getMethod().getAnnotation(ForkDataSourceSwitch.class);

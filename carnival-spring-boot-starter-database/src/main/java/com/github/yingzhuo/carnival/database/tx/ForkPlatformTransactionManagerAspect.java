@@ -36,7 +36,7 @@ public class ForkPlatformTransactionManagerAspect implements Ordered {
         this.order = order;
     }
 
-    @Around("@annotation(com.github.yingzhuo.carnival.tx.fork.ForkPlatformTransactionManagerSwitch)")
+    @Around("@annotation(com.github.yingzhuo.carnival.database.tx.ForkPlatformTransactionManagerSwitch)")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
 
         final ForkPlatformTransactionManagerSwitch annotation = ((MethodSignature) pjp.getSignature()).getMethod().getAnnotation(ForkPlatformTransactionManagerSwitch.class);
