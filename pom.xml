@@ -92,8 +92,8 @@
         <spring.boot.version>2.5.2</spring.boot.version>
         <spring.version>5.3.9</spring.version>
         <spring.security.version>5.5.1</spring.security.version>
-        <jackson.version>2.12.3</jackson.version>
-        <slf4j.version>1.7.30</slf4j.version>
+        <jackson.version>2.12.4</jackson.version>
+        <slf4j.version>1.7.31</slf4j.version>
         <netty.version>4.1.65.Final</netty.version>
         <feign.version>11.2</feign.version>
     </properties>
@@ -553,7 +553,7 @@
             <dependency>
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
-                <version>2.10.0</version>
+                <version>2.11.0</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
