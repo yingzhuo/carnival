@@ -11,10 +11,7 @@ package com.github.yingzhuo.carnival.exception;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.github.yingzhuo.carnival.common.util.StringFormatter.format;
 
@@ -94,6 +91,17 @@ public final class SelfConsistent {
     public static void notEmpty(Map<?, ?> map, String message, Object... params) {
         notNull(map, message, params);
         if (map.isEmpty()) {
+            throw new SelfConsistentException(format(message, params));
+        }
+    }
+
+    public static void notEmpty(Optional<?> optional) {
+        notEmpty(optional, null);
+    }
+
+    public static void notEmpty(Optional<?> optional, String message, Object... params) {
+        notNull(optional, message, params);
+        if (!optional.isPresent()) {
             throw new SelfConsistentException(format(message, params));
         }
     }

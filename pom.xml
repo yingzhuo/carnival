@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.9.12-1</version>
+    <version>1.9.13</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-database</module>
@@ -94,7 +94,7 @@
         <spring.security.version>5.5.1</spring.security.version>
         <jackson.version>2.12.4</jackson.version>
         <slf4j.version>1.7.31</slf4j.version>
-        <netty.version>4.1.65.Final</netty.version>
+        <netty.version>4.1.66.Final</netty.version>
         <feign.version>11.2</feign.version>
     </properties>
 
@@ -494,7 +494,7 @@
             <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
-                <version>1.9.6</version>
+                <version>1.9.7</version>
             </dependency>
 
             <!-- jwt -->
