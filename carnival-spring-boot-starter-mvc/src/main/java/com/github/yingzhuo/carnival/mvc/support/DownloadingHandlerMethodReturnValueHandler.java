@@ -16,6 +16,7 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.servlet.View;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
@@ -34,27 +35,28 @@ public class DownloadingHandlerMethodReturnValueHandler implements HandlerMethod
     }
 
     @Override
-    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
-        mavContainer.setView(new DownloadingView((DownloadingFile) returnValue));
+    public void handleReturnValue(Object returnValue, MethodParameter returnType, ModelAndViewContainer mavContainer, NativeWebRequest webRequest) {
+        mavContainer.setView(new DownloadingFileView((DownloadingFile) returnValue));
     }
 
-    private static class DownloadingView implements View {
+    private static class DownloadingFileView implements View {
 
         private final DownloadingFile df;
 
-        public DownloadingView(DownloadingFile df) {
+        public DownloadingFileView(DownloadingFile df) {
             this.df = Objects.requireNonNull(df);
         }
 
         @Override
         public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
             final String filename = new String(df.getFilename().getBytes(StandardCharsets.UTF_8), df.getFilenameCharset());
+            final ServletOutputStream os = response.getOutputStream();
             response.setCharacterEncoding("UTF-8");
             response.setContentType("multipart/form-data");
             response.setHeader("Content-Disposition", "attachment;fileName=" + filename);
             response.setContentLength(df.getContent().length);
-            IOUtils.write(df.getContent(), response.getOutputStream());
-            IOUtils.closeQuietly(response.getOutputStream());
+            IOUtils.write(df.getContent(), os);
+            IOUtils.closeQuietly(os);
         }
     }
 

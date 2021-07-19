@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.mvc.support;
 
+import com.github.yingzhuo.carnival.common.util.HexUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -41,9 +42,12 @@ public final class DownloadingFile {
     private Charset filenameCharset = StandardCharsets.ISO_8859_1;
 
     public static class Builder {
-        private byte[] content;
-        private String filename = "downloading-file";
+        private byte[] content = new byte[0];
+        private String filename = "file";
         private Charset filenameCharset = StandardCharsets.ISO_8859_1;
+
+        Builder() {
+        }
 
         @SneakyThrows
         public Builder content(Resource content) {
@@ -55,6 +59,11 @@ public final class DownloadingFile {
 
         public Builder content(byte[] content) {
             this.content = content;
+            return this;
+        }
+
+        public Builder content(String hexString) {
+            this.content = HexUtils.decode(hexString);
             return this;
         }
 
