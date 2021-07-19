@@ -73,8 +73,8 @@ public final class MessageSourceBuilder {
 
     public MessageSource build() {
         final Set<String> names = new HashSet<>(Arrays.asList(basenames));
-        names.add("classpath:com/github/yingzhuo/carnival/jsr349/ValidationMessages");
-        names.add("classpath:com/github/yingzhuo/carnival/localization/china/jsr349/ValidationMessages");
+        names.add("classpath:com/github/yingzhuo/carnival/jsr380/ValidationMessages");
+        names.add("classpath:com/github/yingzhuo/carnival/localization/china/jsr380/ValidationMessages");
 
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setDefaultEncoding(encoding.displayName());
