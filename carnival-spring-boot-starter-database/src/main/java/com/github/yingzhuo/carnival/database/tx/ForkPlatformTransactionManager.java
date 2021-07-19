@@ -25,17 +25,16 @@ import java.util.Map;
  */
 public class ForkPlatformTransactionManager implements PlatformTransactionManager, InitializingBean {
 
-    public static ForkPlatformTransactionManagerBuilder builder() {
-        return new ForkPlatformTransactionManagerBuilder();
-    }
-
     private final Map<String, PlatformTransactionManager> map = new HashMap<>();
     private final Lookup lookup;
     private PlatformTransactionManager defaultTxManager;
     private String defaultTxManagerName;
-
     public ForkPlatformTransactionManager(String defaultTxManagerName) {
         this.lookup = new Lookup(defaultTxManagerName);
+    }
+
+    public static ForkPlatformTransactionManagerBuilder builder() {
+        return new ForkPlatformTransactionManagerBuilder();
     }
 
     public Lookup getLookup() {

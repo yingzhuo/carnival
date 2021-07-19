@@ -7,44 +7,41 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.jsr380;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
-import java.util.Set;
-import java.util.function.Supplier;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.TYPE_USE;
 
 /**
  * @author 应卓
- * @since 1.8.2
  */
+@Repeatable(FieldsValueNotMatch.List.class)
 @Documented
 @Inherited
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = EnumeratedStringValidator.class)
-public @interface EnumeratedString {
+@Constraint(validatedBy = FieldsValueNotMatchValidator.class)
+public @interface FieldsValueNotMatch {
 
-    public Class<? extends EnumeratedString.Factory> value();
+    public String message() default "{com.github.yingzhuo.carnival.jsr349.FieldsValueNotMatch.message}";
 
-    public boolean caseSensitive() default true;
+    public String field();
 
-    public boolean cache() default true;
-
-    public String message() default "{com.github.yingzhuo.carnival.jsr349.EnumeratedStringValidator.message}";
+    public String fieldMatch();
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
 
-    @FunctionalInterface
-    public static interface Factory extends Supplier<Set<String>> {
-        @Override
-        public Set<String> get();
+    @Inherited
+    @Documented
+    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueNotMatch[] value();
     }
 
 }

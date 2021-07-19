@@ -22,10 +22,10 @@ import java.util.*;
  */
 public final class DatePair implements Iterable<Date>, Serializable {
 
+    private final Set<Date> set;
     private Date l;
     private Date r;
     private List<Date> list = new ArrayList<>();
-    private final Set<Date> set;
 
     public DatePair(Date l, Date r) {
         Objects.requireNonNull(l);

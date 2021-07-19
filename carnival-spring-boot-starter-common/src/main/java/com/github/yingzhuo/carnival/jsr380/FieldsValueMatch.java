@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.jsr380;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -17,21 +17,31 @@ import static java.lang.annotation.ElementType.*;
 
 /**
  * @author 应卓
- * @since 1.7.7
  */
+@Repeatable(FieldsValueMatch.List.class)
 @Documented
 @Inherited
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = DateStringValidator.class)
-public @interface DateString {
+@Constraint(validatedBy = FieldsValueMatchValidator.class)
+public @interface FieldsValueMatch {
 
-    public String pattern();
+    public String message() default "{com.github.yingzhuo.carnival.jsr349.FieldsValueMatch.message}";
 
-    public String message() default "{com.github.yingzhuo.carnival.jsr349.DateStringValidator.message}";
+    public String field();
+
+    public String fieldMatch();
 
     public Class<?>[] groups() default {};
 
     public Class<? extends Payload>[] payload() default {};
+
+    @Inherited
+    @Documented
+    @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface List {
+        FieldsValueMatch[] value();
+    }
 
 }

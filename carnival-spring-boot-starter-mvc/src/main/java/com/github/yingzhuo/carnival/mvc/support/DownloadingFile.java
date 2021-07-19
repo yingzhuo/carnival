@@ -30,16 +30,15 @@ import static org.apache.commons.io.IOUtils.toByteArray;
 @Setter
 public final class DownloadingFile {
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    DownloadingFile() {
-    }
-
     private byte[] content;
     private String filename;
     private Charset filenameCharset = StandardCharsets.ISO_8859_1;
+    DownloadingFile() {
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private byte[] content = new byte[0];

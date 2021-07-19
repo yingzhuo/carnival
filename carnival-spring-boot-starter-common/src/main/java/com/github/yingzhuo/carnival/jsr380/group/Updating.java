@@ -7,10 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349.group;
+package com.github.yingzhuo.carnival.jsr380.group;
 
 /**
  * @author 应卓
  */
-public interface Reading {
+public interface Updating {
 }

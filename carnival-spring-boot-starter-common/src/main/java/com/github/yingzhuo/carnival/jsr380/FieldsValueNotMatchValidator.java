@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.jsr349;
+package com.github.yingzhuo.carnival.jsr380;
 
 import org.springframework.beans.BeanWrapperImpl;
 
@@ -18,13 +18,13 @@ import java.util.Objects;
 /**
  * @author 应卓
  */
-public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValueMatch, Object> {
+public class FieldsValueNotMatchValidator implements ConstraintValidator<FieldsValueNotMatch, Object> {
 
     private String field;
     private String fieldMatch;
 
     @Override
-    public void initialize(FieldsValueMatch annotation) {
+    public void initialize(FieldsValueNotMatch annotation) {
         this.field = annotation.field();
         this.fieldMatch = annotation.fieldMatch();
     }
@@ -34,7 +34,7 @@ public class FieldsValueMatchValidator implements ConstraintValidator<FieldsValu
         if (value == null) return true;
         Object fieldValue = new BeanWrapperImpl(value).getPropertyValue(field);
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
-        return Objects.equals(fieldValue, fieldMatchValue);
+        return !Objects.equals(fieldValue, fieldMatchValue);
     }
 
 }

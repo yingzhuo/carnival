@@ -7,18 +7,17 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.localization.china.jsr349;
+package com.github.yingzhuo.carnival.localization.china.jsr380;
 
-import cn.hutool.core.util.CreditCodeUtil;
+import cn.hutool.core.util.IdcardUtil;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * @author 应卓
- * @since 1.9.6
  */
-public class CreditCodeConstraintValidator implements ConstraintValidator<CreditCode, CharSequence> {
+public class IdentityNumberConstraintValidator implements ConstraintValidator<IdentityNumber, CharSequence> {
 
     @Override
     public boolean isValid(CharSequence value, ConstraintValidatorContext context) {
@@ -27,7 +26,7 @@ public class CreditCodeConstraintValidator implements ConstraintValidator<Credit
             return true;
         }
 
-        return CreditCodeUtil.isCreditCode(value.toString());
+        return IdcardUtil.isValidCard(value.toString());
     }
 
 }

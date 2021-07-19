@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.localization.china.jsr349;
+package com.github.yingzhuo.carnival.localization.china.jsr380;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -19,18 +19,24 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.*;
 
 /**
- * 检查社会信用代码工具
+ * 检查身份证号码
  *
  * @author 应卓
- * @since 1.9.6
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE})
-@Constraint(validatedBy = CreditCodeConstraintValidator.class)
-public @interface CreditCode {
+@Constraint(validatedBy = IdentityNumberConstraintValidator.class)
+public @interface IdentityNumber {
 
-    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.CreditCode.message}";
+    public String message() default "{com.github.yingzhuo.carnival.localization.china.jsr349.IdentityNumber.message}";
+
+    /**
+     * 兼容15位老身份证号码
+     *
+     * @return true表示兼容
+     */
+    public boolean compatibility15() default true;
 
     public Class<?>[] groups() default {};
 
