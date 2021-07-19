@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.image;
+package com.github.yingzhuo.carnival.mvc.support;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * @author 应卓
- * @since 1.6.16
+ * @since 1.9.13
  */
 public class ImageHandlerMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
 

@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.image;
+package com.github.yingzhuo.carnival.mvc.support;
 
 import lombok.*;
 
@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 /**
  * @author 应卓
- * @since 1.6.16
+ * @since 1.9.13
  */
 @Getter
 @Setter
@@ -28,8 +28,7 @@ public final class Image implements Serializable {
     private Format format;
     private BufferedImage image;
 
-    public enum Format {
-
+    public static enum Format {
         PNG("png"),
         JPG("jpg"),
         JPEG("jpeg"),

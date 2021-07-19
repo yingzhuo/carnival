@@ -9,7 +9,10 @@
  */
 package com.github.yingzhuo.carnival.mvc.util;
 
+import org.springframework.web.context.request.NativeWebRequest;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -49,6 +52,10 @@ public final class IPUtils {
             }
         }
         return ip;
+    }
+
+    public static String getIpAddress(NativeWebRequest request) {
+        return getIpAddress(Objects.requireNonNull(request.getNativeRequest(HttpServletRequest.class)));
     }
 
 }

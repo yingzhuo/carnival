@@ -9,7 +9,8 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.image.ImageHandlerMethodReturnValueHandler;
+import com.github.yingzhuo.carnival.mvc.support.DownloadingHandlerMethodReturnValueHandler;
+import com.github.yingzhuo.carnival.mvc.support.ImageHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class MvcCommonAutoConfig implements WebMvcConfigurer {
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
+        handlers.add(new DownloadingHandlerMethodReturnValueHandler());
         handlers.add(new ImageHandlerMethodReturnValueHandler());
     }
 
