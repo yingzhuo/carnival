@@ -33,6 +33,7 @@ public final class DownloadingFile {
     private byte[] content;
     private String filename;
     private Charset filenameCharset = StandardCharsets.ISO_8859_1;
+
     DownloadingFile() {
     }
 

@@ -16,11 +16,11 @@ import java.util.Objects;
 
 /**
  * @author 应卓
- * @since 1.9.8
+ * @since 1.9.14
  */
-public final class IPUtils {
+public final class IPAddressUtils {
 
-    private IPUtils() {
+    private IPAddressUtils() {
     }
 
     public static String getIpAddress(HttpServletRequest request) {

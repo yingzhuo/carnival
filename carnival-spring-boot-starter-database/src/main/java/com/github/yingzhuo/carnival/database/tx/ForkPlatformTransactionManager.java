@@ -29,6 +29,7 @@ public class ForkPlatformTransactionManager implements PlatformTransactionManage
     private final Lookup lookup;
     private PlatformTransactionManager defaultTxManager;
     private String defaultTxManagerName;
+
     public ForkPlatformTransactionManager(String defaultTxManagerName) {
         this.lookup = new Lookup(defaultTxManagerName);
     }

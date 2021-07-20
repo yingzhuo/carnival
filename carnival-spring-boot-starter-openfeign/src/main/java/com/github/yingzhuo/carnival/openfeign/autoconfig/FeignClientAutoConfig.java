@@ -36,6 +36,7 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 1.6.17
  */
+@SuppressWarnings("NullableProblems")
 @AutoConfigureAfter(FeignBeanAutoConfig.class)
 public class FeignClientAutoConfig implements ImportBeanDefinitionRegistrar, EnvironmentAware, ResourceLoaderAware {
 

@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.support;
 
 import com.github.yingzhuo.carnival.mvc.IpAddress;
-import com.github.yingzhuo.carnival.mvc.util.IPUtils;
+import com.github.yingzhuo.carnival.mvc.util.IPAddressUtils;
 import lombok.val;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.StringUtils;
@@ -41,7 +41,7 @@ public class IpAddressHandlerMethodArgumentResolver implements HandlerMethodArgu
         String ip = null;
 
         if (request != null) {
-            ip = IPUtils.getIpAddress(request);
+            ip = IPAddressUtils.getIpAddress(request);
             if (!StringUtils.hasText(ip)) {
                 ip = null;
             }
