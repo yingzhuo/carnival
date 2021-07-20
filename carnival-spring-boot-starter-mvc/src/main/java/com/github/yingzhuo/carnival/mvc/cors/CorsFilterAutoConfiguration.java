@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.log;
+package com.github.yingzhuo.carnival.mvc.cors;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -17,17 +17,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * @author 应卓
- * @since 1.9.14
  */
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-class LogFilterAutoConfiguration implements WebMvcConfigurer {
+class CorsFilterAutoConfiguration implements WebMvcConfigurer {
 
     @Bean
-    FilterRegistrationBean<LogFilter> logFilterFilterRegistrationBean() {
-        FilterRegistrationBean<LogFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new LogFilter());
-        bean.setName(LogFilter.class.getName());
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 200);
+    FilterRegistrationBean<CorsFilter> logFilterFilterRegistrationBean() {
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
+        bean.setFilter(new CorsFilter());
+        bean.setName(CorsFilter.class.getName());
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 100);
         bean.addUrlPatterns("/*");
         return bean;
     }

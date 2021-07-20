@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.log;
+package com.github.yingzhuo.carnival.mvc.cors;
 
 import org.springframework.context.annotation.Import;
 
@@ -18,10 +18,9 @@ import java.lang.annotation.Target;
 
 /**
  * @author 应卓
- * @since 1.9.14
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(LogFilterAutoConfiguration.class)
-public @interface EnableLogFilter {
+@Import(CorsFilterAutoConfiguration.class)
+public @interface EnableCorsFilter {
 }
