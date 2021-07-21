@@ -23,14 +23,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 class LogFilterAutoConfiguration implements WebMvcConfigurer {
 
     static int defaultOrder = Ordered.HIGHEST_PRECEDENCE + 200;
+    static String[] defaultUrlPattern = new String[0];
+    static String[] defaultSkipAntPattern = new String[0];
 
     @Bean
     FilterRegistrationBean<LogFilter> logFilterFilterRegistrationBean() {
         FilterRegistrationBean<LogFilter> bean = new FilterRegistrationBean<>();
-        bean.setFilter(new LogFilter());
+        LogFilter logFilter = new LogFilter();
+        logFilter.setSkipPatterns(defaultSkipAntPattern);
+        bean.setFilter(logFilter);
         bean.setName(LogFilter.class.getName());
         bean.setOrder(defaultOrder);
-        bean.addUrlPatterns("/*");
+        bean.addUrlPatterns(defaultUrlPattern);
         return bean;
     }
 

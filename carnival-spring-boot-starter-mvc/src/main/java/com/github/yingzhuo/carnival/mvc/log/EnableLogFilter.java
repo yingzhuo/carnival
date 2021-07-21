@@ -26,6 +26,10 @@ import java.lang.annotation.Target;
 @Import(EnableLogFilterImportSelector.class)
 public @interface EnableLogFilter {
 
+    public String[] urlPattern() default {"/*"};
+
+    public String[] skipAntPattern() default {"/**/favicon.ico", "/actuator", "/actuator/**"};
+
     public int order() default Ordered.HIGHEST_PRECEDENCE + 200;
 
 }

@@ -27,6 +27,8 @@ class EnableLogFilterImportSelector implements ImportSelector {
                 AnnotationAttributesUtils.toAnnotationAttributes(metadata, EnableLogFilter.class);
 
         LogFilterAutoConfiguration.defaultOrder = attributes.getNumber("order");
+        LogFilterAutoConfiguration.defaultUrlPattern = attributes.getStringArray("urlPattern");
+        LogFilterAutoConfiguration.defaultSkipAntPattern = attributes.getStringArray("skipAntPattern");
 
         return new String[]{LogFilterAutoConfiguration.class.getName()};
     }
