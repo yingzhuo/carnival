@@ -21,12 +21,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 class CorsFilterAutoConfiguration implements WebMvcConfigurer {
 
+    static int defaultOrder = Ordered.HIGHEST_PRECEDENCE + 100;
+
     @Bean
     FilterRegistrationBean<CorsFilter> logFilterFilterRegistrationBean() {
         FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new CorsFilter());
         bean.setName(CorsFilter.class.getName());
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 100);
+        bean.setOrder(defaultOrder);
         bean.addUrlPatterns("/*");
         return bean;
     }

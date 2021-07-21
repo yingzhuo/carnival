@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.cors;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,6 +22,9 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(CorsFilterAutoConfiguration.class)
+@Import(EnableCorsFilterImportSelector.class)
 public @interface EnableCorsFilter {
+
+    public int order() default Ordered.HIGHEST_PRECEDENCE + 100;
+
 }

@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.log;
 
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,6 +23,9 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Import(LogFilterAutoConfiguration.class)
+@Import(EnableLogFilterImportSelector.class)
 public @interface EnableLogFilter {
+
+    public int order() default Ordered.HIGHEST_PRECEDENCE + 200;
+
 }

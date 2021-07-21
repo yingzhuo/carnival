@@ -22,12 +22,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 class LogFilterAutoConfiguration implements WebMvcConfigurer {
 
+    static int defaultOrder = Ordered.HIGHEST_PRECEDENCE + 200;
+
     @Bean
     FilterRegistrationBean<LogFilter> logFilterFilterRegistrationBean() {
         FilterRegistrationBean<LogFilter> bean = new FilterRegistrationBean<>();
         bean.setFilter(new LogFilter());
         bean.setName(LogFilter.class.getName());
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE + 200);
+        bean.setOrder(defaultOrder);
         bean.addUrlPatterns("/*");
         return bean;
     }
