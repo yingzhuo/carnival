@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.9.14</version>
+    <version>1.10.0</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-database</module>
@@ -20,7 +20,6 @@
         <module>carnival-spring-boot-starter-patchca</module>
         <module>carnival-spring-boot-starter-qrcode</module>
         <module>carnival-spring-boot-starter-redis</module>
-        <module>carnival-spring-boot-starter-restful-security</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -89,13 +88,13 @@
 
         <java.version>1.8</java.version>
 
-        <spring.boot.version>2.5.2</spring.boot.version>
+        <spring.boot.version>2.5.3</spring.boot.version>
         <spring.version>5.3.9</spring.version>
         <spring.security.version>5.5.1</spring.security.version>
         <jackson.version>2.12.4</jackson.version>
         <slf4j.version>1.7.31</slf4j.version>
         <netty.version>4.1.66.Final</netty.version>
-        <feign.version>11.4</feign.version>
+        <feign.version>11.5</feign.version>
     </properties>
 
     <dependencyManagement>
@@ -437,18 +436,6 @@
                 <version>1.5.1</version>
             </dependency>
 
-            <!-- logback -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>1.2.3</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
-            </dependency>
-
             <!-- codegen4j -->
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
@@ -488,13 +475,6 @@
                 <artifactId>snowflake-java-client</artifactId>
                 <version>1.1.1-1</version>
                 <scope>provided</scope>
-            </dependency>
-
-            <!-- aspectj -->
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjweaver</artifactId>
-                <version>1.9.7</version>
             </dependency>
 
             <!-- jwt -->
