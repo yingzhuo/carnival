@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.0</version>
+    <version>1.10.1</version>
     <modules>
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-database</module>
@@ -92,7 +92,7 @@
         <spring.version>5.3.9</spring.version>
         <spring.security.version>5.5.1</spring.security.version>
         <jackson.version>2.12.4</jackson.version>
-        <slf4j.version>1.7.31</slf4j.version>
+        <slf4j.version>1.7.32</slf4j.version>
         <netty.version>4.1.66.Final</netty.version>
         <feign.version>11.5</feign.version>
     </properties>
