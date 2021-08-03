@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.security.authentication;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 
 /**
  * @author 应卓
@@ -20,6 +21,6 @@ import org.springframework.security.core.Authentication;
 public interface TokenAuthenticationManager extends AuthenticationManager {
 
     @Override
-    public Authentication authenticate(Authentication authentication);
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException;
 
 }

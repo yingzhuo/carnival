@@ -28,14 +28,6 @@ public class StringToken extends AbstractAuthenticationToken implements Token {
     private final UserDetails userDetails;
     private final String tokenValue;
 
-    private static Collection<GrantedAuthority> getAuthorities(UserDetails userDetails) {
-        if (userDetails == null) {
-            return NO_AUTHORITIES;
-        }
-        final Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        return authorities == null ? NO_AUTHORITIES : Collections.unmodifiableCollection(authorities);
-    }
-
     public StringToken(Object tokenValue) {
         this(null, tokenValue);
     }
@@ -45,6 +37,14 @@ public class StringToken extends AbstractAuthenticationToken implements Token {
         this.userDetails = userDetails;
         this.tokenValue = tokenValue != null ? tokenValue.toString() : "";
         this.setAuthenticated(false);
+    }
+
+    private static Collection<GrantedAuthority> getAuthorities(UserDetails userDetails) {
+        if (userDetails == null) {
+            return NO_AUTHORITIES;
+        }
+        final Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+        return authorities == null ? NO_AUTHORITIES : Collections.unmodifiableCollection(authorities);
     }
 
     @Override

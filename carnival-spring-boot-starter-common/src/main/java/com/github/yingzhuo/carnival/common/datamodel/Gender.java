@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.common.datamodel;
 
 /**
  * @author 应卓
+ * @since 1.0.0
  */
 public enum Gender {
 
