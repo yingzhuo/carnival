@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.security.dsl;
 
 import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilter;
+import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterCustomizer;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
 import com.github.yingzhuo.carnival.spring.BeanFinder;
 import org.springframework.context.ApplicationContext;
@@ -27,20 +28,28 @@ import java.util.Optional;
 class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL, HttpSecurity> {
 
     @Override
-    public void configure(HttpSecurity http) {
+    public void configure(HttpSecurity http) throws Exception {
 
         final BeanFinder beanFinder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
         Optional<TokenResolver> tokenResolverOption = beanFinder.getOneOrPrimaryQuietly(TokenResolver.class);
         Optional<TokenAuthenticationManager> tokenAuthenticationManagerOption = beanFinder.getOneOrPrimaryQuietly(TokenAuthenticationManager.class);
 
         if (tokenResolverOption.isPresent() && tokenAuthenticationManagerOption.isPresent()) {
-            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(
+            TokenAuthenticationFilter filter = new TokenAuthenticationFilter(
                     tokenResolverOption.get(),
                     tokenAuthenticationManagerOption.get()
             );
 
-            http.setSharedObject(TokenAuthenticationFilter.class, filter);
-            http.addFilterAfter(filter, BasicAuthenticationFilter.class);
+            Optional<TokenAuthenticationFilterCustomizer> customizerOption = beanFinder.getOneOrPrimaryQuietly(TokenAuthenticationFilterCustomizer.class);
+            if (customizerOption.isPresent()) {
+                filter = customizerOption.get().customize(filter);
+            }
+
+            if (filter != null) {
+                filter.afterPropertiesSet();
+                http.setSharedObject(TokenAuthenticationFilter.class, filter);
+                http.addFilterAfter(filter, BasicAuthenticationFilter.class);
+            }
         }
     }
 

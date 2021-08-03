@@ -48,8 +48,9 @@ public class StringToken extends AbstractAuthenticationToken implements Token {
     }
 
     @Override
-    public Object getTokenValue() {
-        return this.tokenValue;
+    @SuppressWarnings("unchecked")
+    public <T> T getTokenValue() {
+        return (T) this.tokenValue;
     }
 
     @Override

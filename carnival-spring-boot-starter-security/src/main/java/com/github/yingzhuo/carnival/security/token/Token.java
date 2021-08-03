@@ -20,7 +20,7 @@ import java.io.Serializable;
  */
 public interface Token extends Authentication, Serializable {
 
-    public Object getTokenValue();
+    public <T> T getTokenValue();
 
     public UserDetails getUserDetails();
 

@@ -29,6 +29,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -43,8 +44,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private RememberMeServices rememberMeServices;
 
     public TokenAuthenticationFilter(TokenResolver tokenResolver, TokenAuthenticationManager authenticationManager) {
-        this.tokenResolver = tokenResolver;
-        this.authenticationManager = authenticationManager;
+        this.tokenResolver = Objects.requireNonNull(tokenResolver);
+        this.authenticationManager = Objects.requireNonNull(authenticationManager);
     }
 
     @Override
@@ -118,6 +119,5 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         }
         return (existingAuth instanceof AnonymousAuthenticationToken);
     }
-
 
 }

@@ -71,7 +71,7 @@ public abstract class JwtAuthenticationManager implements TokenAuthenticationMan
                 throw new CredentialsExpiredException(null);
             }
 
-            StringToken newToken = new StringToken(userDetails, tokenValue);
+            final StringToken newToken = new StringToken(userDetails, tokenValue);
             newToken.setDetails(null);
             newToken.setAuthenticated(true);
             return newToken;
