@@ -19,14 +19,20 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.10.2
  */
-public class ParamTokenResolver implements TokenResolver {
+public class QueryTokenResolver implements TokenResolver {
+
+    protected static final String EMPTY_PREFIX = "";
 
     private final String paramName;
     private final String prefix;
     private final int prefixLen;
 
-    public ParamTokenResolver(String paramName, String prefix) {
-        if (prefix == null) prefix = "";
+    public QueryTokenResolver(String paramName) {
+        this(paramName, EMPTY_PREFIX);
+    }
+
+    public QueryTokenResolver(String paramName, String prefix) {
+        if (prefix == null) prefix = EMPTY_PREFIX;
         this.paramName = paramName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();

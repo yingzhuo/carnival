@@ -10,14 +10,14 @@
 package com.github.yingzhuo.carnival.security.jwt.algorithm;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.SmartFactoryBean;
 
 /**
  * @author 应卓
  * @since 1.10.2
  */
 @FunctionalInterface
-public interface AlgorithmFactory extends FactoryBean<Algorithm> {
+public interface AlgorithmFactory extends SmartFactoryBean<Algorithm> {
 
     @Override
     public default Class<?> getObjectType() {
@@ -26,6 +26,16 @@ public interface AlgorithmFactory extends FactoryBean<Algorithm> {
 
     @Override
     public default boolean isSingleton() {
+        return true;
+    }
+
+    @Override
+    public default boolean isPrototype() {
+        return false;
+    }
+
+    @Override
+    public default boolean isEagerInit() {
         return true;
     }
 

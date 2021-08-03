@@ -21,12 +21,18 @@ import java.util.Optional;
  */
 public class HeaderTokenResolver implements TokenResolver {
 
+    protected static final String EMPTY_PREFIX = "";
+
     private final String headerName;
     private final String prefix;
     private final int prefixLen;
 
+    public HeaderTokenResolver(String headerName) {
+        this(headerName, EMPTY_PREFIX);
+    }
+
     public HeaderTokenResolver(String headerName, String prefix) {
-        if (prefix == null) prefix = "";
+        if (prefix == null) prefix = EMPTY_PREFIX;
         this.headerName = headerName;
         this.prefix = prefix;
         this.prefixLen = prefix.length();
