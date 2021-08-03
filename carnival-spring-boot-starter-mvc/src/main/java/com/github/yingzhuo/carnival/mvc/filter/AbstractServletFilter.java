@@ -10,7 +10,7 @@
 package com.github.yingzhuo.carnival.mvc.filter;
 
 import com.github.yingzhuo.carnival.spring.JacksonUtils;
-import com.github.yingzhuo.carnival.spring.PathMatcherUtils;
+import org.springframework.lang.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -27,17 +27,12 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
 
     protected static final String UTF_8 = "UTF-8";
 
-    private String[] skipPatterns;  // setter设置
-
     @Override
-    protected final void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected final void doFilterInternal(@NonNull HttpServletRequest request,
+                                          @NonNull HttpServletResponse response,
+                                          @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         final String path = request.getRequestURI();
-
-        if (skipPatterns != null && skipPatterns.length > 0 && PathMatcherUtils.anyMatch(path, skipPatterns)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         if (doFilter(request, response)) {
             filterChain.doFilter(request, response);
@@ -65,10 +60,6 @@ public abstract class AbstractServletFilter extends OncePerRequestFilter {
         response.setCharacterEncoding(UTF_8);
         response.getWriter().print(html);
         response.getWriter().flush();
-    }
-
-    public final void setSkipPatterns(String... skipPatters) {
-        this.skipPatterns = skipPatters;
     }
 
 }

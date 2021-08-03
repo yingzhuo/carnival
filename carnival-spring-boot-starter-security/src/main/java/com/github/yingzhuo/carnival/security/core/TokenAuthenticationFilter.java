@@ -70,12 +70,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                         rememberMeServices.loginSuccess(request, response, authentication);
                     }
 
+                    onSuccessfulAuthentication(request, response, authentication);
+
                 } catch (AuthenticationException e) {
                     SecurityContextHolder.clearContext();
 
                     if (rememberMeServices != null) {
                         rememberMeServices.loginFail(request, response);
                     }
+
+                    onUnsuccessfulAuthentication(request, response, e);
 
                     if (authenticationEntryPoint != null) {
                         authenticationEntryPoint.commence(request, response, e);
@@ -110,6 +114,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     public void setRememberMeServices(RememberMeServices rememberMeServices) {
         this.rememberMeServices = rememberMeServices;
+    }
+
+    protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                              Authentication authResult) {
+        // NOP
+    }
+
+    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                                AuthenticationException failed) {
+        // NOP
     }
 
     protected final boolean authenticationIsRequired() {

@@ -39,7 +39,7 @@ public final class BeanFinder {
         return new BeanFinder(context);
     }
 
-    public <T> T getOneOrPrimary(Class<T> beanType) {
+    public <T> T getPrimary(Class<T> beanType) {
         try {
             return context.getBean(beanType);
         } catch (BeansException e) {
@@ -47,9 +47,9 @@ public final class BeanFinder {
         }
     }
 
-    public <T> Optional<T> getOneOrPrimaryQuietly(Class<T> beanType) {
+    public <T> Optional<T> getPrimaryQuietly(Class<T> beanType) {
         try {
-            return Optional.of(getOneOrPrimary(beanType));
+            return Optional.of(getPrimary(beanType));
         } catch (Exception e) {
             return Optional.empty();
         }
