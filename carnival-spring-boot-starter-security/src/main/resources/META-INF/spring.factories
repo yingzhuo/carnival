@@ -1,2 +1,4 @@
 org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer=\
     com.github.yingzhuo.carnival.security.dsl.CustomHttpSecurityDSL
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.github.yingzhuo.carnival.security.autoconfig.JwtFactoryAutoConfig

@@ -78,10 +78,11 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
                     if (authenticationEntryPoint != null) {
                         authenticationEntryPoint.commence(request, response, e);
+                        return;
                     }
                 }
             }
-        } else {
+
             chain.doFilter(request, response);
         }
     }

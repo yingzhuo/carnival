@@ -15,7 +15,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.security.exception.*;
 import com.github.yingzhuo.carnival.security.token.StringToken;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author 应卓
  * @since 1.10.2
  */
-public abstract class JwtAuthenticationManager implements AuthenticationManager {
+public abstract class JwtAuthenticationManager implements TokenAuthenticationManager {
 
     private final Algorithm algorithm;
 
