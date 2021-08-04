@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
@@ -29,7 +28,7 @@ public interface UserDetailsPlus extends UserDetails {
 
     public String getNickname();
 
-    public Gender getGender();
+    public <T> T getGender();
 
     public <T> T getAvatar();
 

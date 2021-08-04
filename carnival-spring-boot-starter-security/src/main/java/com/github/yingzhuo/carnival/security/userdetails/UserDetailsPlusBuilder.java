@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
@@ -32,7 +31,7 @@ public final class UserDetailsPlusBuilder {
     private final Map<String, Object> externalData = new HashMap<>();
     private Object id;
     private String nickname;
-    private Gender gender;
+    private Object gender;
     private Object avatar;
     private Object nativeUser;
     private String email;
@@ -115,7 +114,7 @@ public final class UserDetailsPlusBuilder {
         return this;
     }
 
-    public UserDetailsPlusBuilder gender(Gender gender) {
+    public UserDetailsPlusBuilder gender(Object gender) {
         this.gender = gender;
         return this;
     }

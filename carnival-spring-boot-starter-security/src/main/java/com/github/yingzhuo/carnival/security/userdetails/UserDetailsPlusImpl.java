@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.security.userdetails;
 
-import com.github.yingzhuo.carnival.common.datamodel.Gender;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,7 +24,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
     private final UserDetails delegate;
     private final Object id;
     private final String nickname;
-    private final Gender gender;
+    private final Object gender;
     private final Object avatar;
     private final Object nativeUser;
     private final String email;
@@ -37,7 +36,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
     UserDetailsPlusImpl(UserDetails delegate,
                         Object id,
                         String nickname,
-                        Gender gender,
+                        Object gender,
                         Object avatar,
                         Object nativeUser,
                         String email,
@@ -69,8 +68,8 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
     }
 
     @Override
-    public Gender getGender() {
-        return gender;
+    public <T> T getGender() {
+        return (T) gender;
     }
 
     @Override
