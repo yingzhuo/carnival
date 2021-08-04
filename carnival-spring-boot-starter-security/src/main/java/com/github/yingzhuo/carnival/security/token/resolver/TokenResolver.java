@@ -74,7 +74,7 @@ public interface TokenResolver {
         }
 
         public TokenResolver build() {
-            if (!list.isEmpty()) {
+            if (list.isEmpty()) {
                 return request -> Optional.empty();
             }
             return new ChainedTokenResolver(list);

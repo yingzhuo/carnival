@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.security.core;
 import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.token.Token;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -36,6 +37,7 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.10.2
  */
+@Slf4j
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenResolver tokenResolver;
@@ -86,6 +88,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                         return;
                     }
                 }
+            } else {
+                log.debug("token cannot be resolved.");
             }
 
             chain.doFilter(request, response);
@@ -118,12 +122,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               Authentication authResult) {
-        // NOP
+        log.debug("Successful Authentication");
     }
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException failed) {
-        // NOP
+        log.debug("Unsuccessful Authentication");
     }
 
     protected final boolean authenticationIsRequired() {
