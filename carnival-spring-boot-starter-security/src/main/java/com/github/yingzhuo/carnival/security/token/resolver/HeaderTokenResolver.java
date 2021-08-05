@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.token.resolver;
 
-import com.github.yingzhuo.carnival.security.token.StringToken;
+import com.github.yingzhuo.carnival.security.token.MutableToken;
 import com.github.yingzhuo.carnival.security.token.Token;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -53,7 +53,9 @@ public class HeaderTokenResolver implements TokenResolver {
             headerValue += ".";
         }
 
-        return Optional.of(new StringToken(headerValue));
+        MutableToken token = new MutableToken();
+        token.setKey(headerValue);
+        return Optional.of(token);
     }
 
 }

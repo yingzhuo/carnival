@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 /**
  * @author 应卓
+ * @since 1.10.3
  */
 public final class JwtFactoryUtils {
 

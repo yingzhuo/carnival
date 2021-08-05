@@ -77,7 +77,7 @@ public interface TokenResolver {
             if (list.isEmpty()) {
                 return request -> Optional.empty();
             }
-            return new ChainedTokenResolver(list);
+            return new CompositeTokenResolver(list);
         }
     }
 

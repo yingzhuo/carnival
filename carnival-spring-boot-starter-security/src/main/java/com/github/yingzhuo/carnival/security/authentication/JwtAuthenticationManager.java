@@ -14,7 +14,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.github.yingzhuo.carnival.security.exception.*;
-import com.github.yingzhuo.carnival.security.token.StringToken;
+import com.github.yingzhuo.carnival.security.token.MutableToken;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
@@ -37,16 +37,16 @@ public abstract class JwtAuthenticationManager implements TokenAuthenticationMan
 
     @Override
     public final Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof StringToken)) {
+        if (!(authentication instanceof MutableToken)) {
             throw new UnsupportedTokenException(null);
         }
 
-        final StringToken token = (StringToken) authentication;
+        final MutableToken token = (MutableToken) authentication;
 
         try {
             final JWTVerifier verifier = JWT.require(algorithm).build();
 
-            String tokenValue = token.toString();
+            String tokenValue = token.getKey();
             DecodedJWT jwt = verifier.verify(tokenValue);
 
             final UserDetails userDetails = doAuthenticate(tokenValue, jwt);
@@ -71,10 +71,10 @@ public abstract class JwtAuthenticationManager implements TokenAuthenticationMan
                 throw new CredentialsExpiredException(null);
             }
 
-            final StringToken newToken = new StringToken(userDetails, tokenValue);
-            newToken.setDetails(null);
-            newToken.setAuthenticated(true);
-            return newToken;
+            token.setUserDetails(userDetails);
+            token.setDetails(null);
+            token.setAuthenticated(true);
+            return token;
 
         } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
             throw new AlgorithmMismatchException(ex.getMessage(), ex);

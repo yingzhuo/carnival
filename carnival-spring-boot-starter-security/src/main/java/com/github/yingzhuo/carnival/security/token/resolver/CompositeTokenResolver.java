@@ -16,19 +16,23 @@ import java.util.*;
 
 /**
  * @author 应卓
- * @since 1.10.2
+ * @since 1.10.3
  */
-public class ChainedTokenResolver implements TokenResolver {
+public final class CompositeTokenResolver implements TokenResolver {
 
     private final List<TokenResolver> resolvers = new ArrayList<>();
 
-    public ChainedTokenResolver(TokenResolver... resolvers) {
+    public static CompositeTokenResolver of(TokenResolver... resolvers) {
+        return new CompositeTokenResolver(resolvers);
+    }
+
+    public CompositeTokenResolver(TokenResolver... resolvers) {
         if (resolvers != null) {
             this.resolvers.addAll(Arrays.asList(resolvers));
         }
     }
 
-    public ChainedTokenResolver(Collection<TokenResolver> resolvers) {
+    public CompositeTokenResolver(Collection<TokenResolver> resolvers) {
         if (resolvers != null && !resolvers.isEmpty()) {
             this.resolvers.addAll(resolvers);
         }
