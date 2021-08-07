@@ -21,6 +21,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 应卓
  * @since 1.10.2
@@ -32,15 +35,14 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
 
         final BeanFinder beanFinder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
 
-        final TokenResolver tokenResolver = beanFinder.getPrimaryQuietly(TokenResolver.class)
-                .orElse(BearerTokenResolver.INSTANCE);
-
-        final TokenAuthenticationManager authManager = beanFinder.getPrimaryQuietly(TokenAuthenticationManager.class)
-                .orElse(null);
+        final TokenResolver tokenResolver = getTokenResolver(beanFinder);
+        final TokenAuthenticationManager authManager = getTokenAuthenticationManager(beanFinder);
 
         if (authManager != null) {
+            final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
+
             TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, authManager);
-            filter.setAuthenticationEntryPoint(beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null));
+            filter.setAuthenticationEntryPoint(entryPoint);
 
             TokenAuthenticationFilterCustomizer customizer = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterCustomizer.class)
                     .orElse(null);
@@ -55,6 +57,20 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
                 http.addFilterAfter(filter, BasicAuthenticationFilter.class);
             }
         }
+    }
+
+    private TokenResolver getTokenResolver(BeanFinder beanFinder) {
+        List<TokenResolver> list = new ArrayList<>(beanFinder.getMultipleQuietly(TokenResolver.class));
+        if (!list.isEmpty()) {
+            return TokenResolver.builder()
+                    .add(list)
+                    .build();
+        }
+        return BearerTokenResolver.INSTANCE;
+    }
+
+    private TokenAuthenticationManager getTokenAuthenticationManager(BeanFinder beanFinder) {
+        return beanFinder.getPrimaryQuietly(TokenAuthenticationManager.class).orElse(null);
     }
 
 }

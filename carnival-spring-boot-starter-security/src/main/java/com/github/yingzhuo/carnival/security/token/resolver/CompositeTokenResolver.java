@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.security.token.resolver;
 
 import com.github.yingzhuo.carnival.security.token.Token;
+import org.springframework.core.OrderComparator;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.*;
@@ -26,16 +27,22 @@ public final class CompositeTokenResolver implements TokenResolver {
         if (resolvers != null) {
             this.resolvers.addAll(Arrays.asList(resolvers));
         }
+        init();
     }
 
     public CompositeTokenResolver(Collection<TokenResolver> resolvers) {
         if (resolvers != null && !resolvers.isEmpty()) {
             this.resolvers.addAll(resolvers);
         }
+        init();
     }
 
     public static CompositeTokenResolver of(TokenResolver... resolvers) {
         return new CompositeTokenResolver(resolvers);
+    }
+
+    private void init() {
+        OrderComparator.sort(resolvers);
     }
 
     @Override

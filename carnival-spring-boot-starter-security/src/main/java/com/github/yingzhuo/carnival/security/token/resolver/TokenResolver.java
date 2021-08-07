@@ -10,25 +10,28 @@
 package com.github.yingzhuo.carnival.security.token.resolver;
 
 import com.github.yingzhuo.carnival.security.token.Token;
+import org.springframework.core.Ordered;
 import org.springframework.web.context.request.NativeWebRequest;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author 应卓
  * @since 1.10.2
  */
 @FunctionalInterface
-public interface TokenResolver {
+public interface TokenResolver extends Ordered {
 
     public static Builder builder() {
         return new Builder();
     }
 
     public Optional<Token> resolve(NativeWebRequest request);
+
+    @Override
+    public default int getOrder() {
+        return 0;
+    }
 
     public static class Builder {
         private final List<TokenResolver> list = new ArrayList<>();
@@ -39,6 +42,13 @@ public interface TokenResolver {
         public Builder add(TokenResolver... resolvers) {
             if (resolvers != null && resolvers.length != 0) {
                 list.addAll(Arrays.asList(resolvers));
+            }
+            return this;
+        }
+
+        public Builder add(Collection<TokenResolver> resolvers) {
+            if (resolvers != null && !resolvers.isEmpty()) {
+                list.addAll(resolvers);
             }
             return this;
         }
@@ -75,7 +85,10 @@ public interface TokenResolver {
 
         public TokenResolver build() {
             if (list.isEmpty()) {
-                return request -> Optional.empty();
+                return EmptyTokenResolver.INSTANCE;
+            }
+            if (list.size() == 1) {
+                return list.get(0);
             }
             return new CompositeTokenResolver(list);
         }

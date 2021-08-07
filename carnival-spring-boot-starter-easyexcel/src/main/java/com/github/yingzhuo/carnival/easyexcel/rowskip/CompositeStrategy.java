@@ -46,4 +46,5 @@ public final class CompositeStrategy implements RowSkipStrategy {
 
         return false;
     }
+
 }
