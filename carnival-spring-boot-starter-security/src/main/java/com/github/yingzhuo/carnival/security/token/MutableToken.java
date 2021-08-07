@@ -40,11 +40,6 @@ public class MutableToken implements Token {
     }
 
     @Override
-    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        this.authenticated = isAuthenticated;
-    }
-
-    @Override
     public String getName() {
         if (userDetails == null) {
             return "";
@@ -101,6 +96,11 @@ public class MutableToken implements Token {
     @Override
     public boolean isAuthenticated() {
         return authenticated;
+    }
+
+    @Override
+    public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
+        this.authenticated = isAuthenticated;
     }
 
     @Override

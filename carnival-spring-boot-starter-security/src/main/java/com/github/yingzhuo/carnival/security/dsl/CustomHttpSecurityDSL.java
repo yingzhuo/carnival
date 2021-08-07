@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.security.dsl;
 import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilter;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterCustomizer;
+import com.github.yingzhuo.carnival.security.errorhandler.TokenAuthenticationEntryPoint;
 import com.github.yingzhuo.carnival.security.token.resolver.BearerTokenResolver;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
 import com.github.yingzhuo.carnival.spring.BeanFinder;
@@ -39,6 +40,7 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
 
         if (authManager != null) {
             TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, authManager);
+            filter.setAuthenticationEntryPoint(beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null));
 
             TokenAuthenticationFilterCustomizer customizer = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterCustomizer.class)
                     .orElse(null);

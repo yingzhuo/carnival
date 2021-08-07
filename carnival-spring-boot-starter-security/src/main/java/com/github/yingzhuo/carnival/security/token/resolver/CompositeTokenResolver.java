@@ -22,10 +22,6 @@ public final class CompositeTokenResolver implements TokenResolver {
 
     private final List<TokenResolver> resolvers = new ArrayList<>();
 
-    public static CompositeTokenResolver of(TokenResolver... resolvers) {
-        return new CompositeTokenResolver(resolvers);
-    }
-
     public CompositeTokenResolver(TokenResolver... resolvers) {
         if (resolvers != null) {
             this.resolvers.addAll(Arrays.asList(resolvers));
@@ -36,6 +32,10 @@ public final class CompositeTokenResolver implements TokenResolver {
         if (resolvers != null && !resolvers.isEmpty()) {
             this.resolvers.addAll(resolvers);
         }
+    }
+
+    public static CompositeTokenResolver of(TokenResolver... resolvers) {
+        return new CompositeTokenResolver(resolvers);
     }
 
     @Override
