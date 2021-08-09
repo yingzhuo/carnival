@@ -27,7 +27,7 @@ public class UserAgentHandlerMethodArgumentResolver implements HandlerMethodArgu
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return UserAgent.class.isAssignableFrom(parameter.getParameterType());
+        return UserAgent.class == parameter.getParameterType();
     }
 
     @Override
