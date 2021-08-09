@@ -7,14 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.security.core;
+package com.github.yingzhuo.carnival.security.jwt;
+
+import com.auth0.jwt.interfaces.Verification;
 
 /**
  * @author 应卓
- * @since 1.10.3
+ * @since 1.10.5
  */
-public interface TokenAuthenticationFilterCustomizer {
+public interface JwtCustomizer {
 
-    public TokenAuthenticationFilter customize(TokenAuthenticationFilter filter);
+    public Verification customize(Verification verifier);
 
 }

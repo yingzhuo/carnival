@@ -13,7 +13,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.Verification;
 import com.github.yingzhuo.carnival.security.exception.*;
+import com.github.yingzhuo.carnival.security.jwt.JwtCustomizer;
 import com.github.yingzhuo.carnival.security.token.MutableToken;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.CredentialsExpiredException;
@@ -23,6 +25,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Objects;
+
 /**
  * @author 应卓
  * @since 1.10.2
@@ -30,9 +34,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 public abstract class JwtAuthenticationManager implements TokenAuthenticationManager {
 
     private final Algorithm algorithm;
+    private final JwtCustomizer jwtCustomizer;
 
     public JwtAuthenticationManager(Algorithm algorithm) {
-        this.algorithm = algorithm;
+        this(algorithm, null);
+    }
+
+    public JwtAuthenticationManager(Algorithm algorithm, JwtCustomizer jwtCustomizer) {
+        this.algorithm = Objects.requireNonNull(algorithm);
+        this.jwtCustomizer = jwtCustomizer != null ? jwtCustomizer : v -> v;
     }
 
     @Override
@@ -44,7 +54,8 @@ public abstract class JwtAuthenticationManager implements TokenAuthenticationMan
         final MutableToken token = (MutableToken) authentication;
 
         try {
-            final JWTVerifier verifier = JWT.require(algorithm).build();
+            final Verification verification = JWT.require(algorithm);
+            final JWTVerifier verifier = jwtCustomizer.customize(verification).build();
 
             String tokenValue = token.getKey();
             DecodedJWT jwt = verifier.verify(tokenValue);
