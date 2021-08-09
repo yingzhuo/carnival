@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.mvc.autoconfig;
 import com.github.yingzhuo.carnival.mvc.support.DownloadingHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.ImageHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
+import com.github.yingzhuo.carnival.mvc.support.UserAgentHandlerMethodArgumentResolver;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -50,6 +51,7 @@ public class MvcCommonAutoConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new IpAddressHandlerMethodArgumentResolver());
+        resolvers.add(new UserAgentHandlerMethodArgumentResolver());
     }
 
     @Override

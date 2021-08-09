@@ -48,6 +48,12 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-http</artifactId>
+        </dependency>
+
         <!-- commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
