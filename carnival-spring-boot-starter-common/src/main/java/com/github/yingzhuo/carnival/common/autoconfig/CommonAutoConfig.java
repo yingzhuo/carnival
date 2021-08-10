@@ -15,10 +15,12 @@ import com.github.yingzhuo.carnival.common.converter.DateTimeNewConverter;
 import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
 import com.github.yingzhuo.carnival.datetime.DatePairConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
+import com.github.yingzhuo.carnival.spring.BeanFinder;
 import com.github.yingzhuo.carnival.spring.springid.DefaultSpringIdProvider;
 import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.util.AntPathMatcher;
@@ -85,6 +87,13 @@ public class CommonAutoConfig {
     @ConditionalOnMissingBean
     public SpringIdProvider springIdProvider(Environment environment) {
         return new DefaultSpringIdProvider(environment);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    public BeanFinder beanFinder(ApplicationContext context) {
+        return new BeanFinder(context);
     }
 
 }

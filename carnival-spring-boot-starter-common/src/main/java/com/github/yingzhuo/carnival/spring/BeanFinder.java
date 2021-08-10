@@ -13,7 +13,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.OrderComparator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -55,11 +58,12 @@ public final class BeanFinder {
         }
     }
 
+    // 注意，此处返回时可变集合
     public <T> List<T> getMultiple(Class<T> beanType) {
         try {
             final List<T> beans = new ArrayList<>(context.getBeansOfType(beanType).values());
             OrderComparator.sort(beans);
-            return Collections.unmodifiableList(beans);
+            return beans;
         } catch (BeansException e) {
             throw new IllegalArgumentException(e);
         }
@@ -71,6 +75,10 @@ public final class BeanFinder {
         } catch (IllegalArgumentException e) {
             return new ArrayList<>();
         }
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return this.context;
     }
 
 }
