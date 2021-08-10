@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.password.algorithm;
 
 import com.github.yingzhuo.carnival.password.impl.Base64PasswordEncoder;
 import com.github.yingzhuo.carnival.password.impl.ReversePasswordEncoder;
+import com.github.yingzhuo.carnival.password.impl.SM3PasswordEncoder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.*;
@@ -32,6 +33,7 @@ public enum PasswordEncoderAlgorithm {
     sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
     argon2("argon2", new Argon2PasswordEncoder()),
     ldap("ldap", new LdapShaPasswordEncoder()),
+    sm3("sm3", new SM3PasswordEncoder()),
     base64("base64", new Base64PasswordEncoder()),
     reverse("reverse", new ReversePasswordEncoder()),
     noop("noop", NoOpPasswordEncoder.getInstance());
