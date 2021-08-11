@@ -58,7 +58,7 @@ public final class BeanFinder {
         }
     }
 
-    // 注意，此处返回时可变集合
+    // 注意，此处返回是可变集合
     public <T> List<T> getMultiple(Class<T> beanType) {
         try {
             final List<T> beans = new ArrayList<>(context.getBeansOfType(beanType).values());

@@ -30,6 +30,10 @@ public class MutableToken implements Token {
     private String extendedInformation;
     private boolean authenticated = false;
 
+    public static MutableTokenBuilder builder() {
+        return new MutableTokenBuilder();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (userDetails == null) {
@@ -50,10 +54,12 @@ public class MutableToken implements Token {
         return "";
     }
 
+    @Override
     public UserDetails getUserDetails() {
         return userDetails;
     }
 
+    @Override
     public void setUserDetails(UserDetails userDetails) {
         this.userDetails = userDetails;
     }

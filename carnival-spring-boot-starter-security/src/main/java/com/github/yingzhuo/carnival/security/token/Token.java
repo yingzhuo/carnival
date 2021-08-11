@@ -9,11 +9,15 @@
  */
 package com.github.yingzhuo.carnival.security.token;
 
+import com.github.yingzhuo.carnival.security.userdetails.MutableUserDetailsable;
+import org.springframework.security.core.Authentication;
+
 /**
  * @author 应卓
  * @since 1.10.2
  */
 public interface Token extends
-        org.springframework.security.core.Authentication,
-        org.springframework.security.core.token.Token {
+        org.springframework.security.core.token.Token,
+        Authentication,
+        MutableUserDetailsable {
 }
