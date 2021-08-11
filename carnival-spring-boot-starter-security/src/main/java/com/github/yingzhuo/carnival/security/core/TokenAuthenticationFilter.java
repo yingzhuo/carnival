@@ -92,8 +92,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 log.debug("token cannot be resolved.");
             }
 
-            chain.doFilter(request, response);
         }
+
+        chain.doFilter(request, response);
     }
 
     public TokenResolver getTokenResolver() {
