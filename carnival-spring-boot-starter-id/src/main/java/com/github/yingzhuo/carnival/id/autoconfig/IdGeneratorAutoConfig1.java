@@ -40,8 +40,8 @@ public class IdGeneratorAutoConfig1 {
             case SNOWFLAKE:
             case SNOWFLAKE_STRING:
 
-                var workerId = props.getSnowflake().getWorkerId();
-                var dataCenterId = props.getSnowflake().getDataCenterId();
+                long workerId = props.getSnowflake().getWorkerId();
+                long dataCenterId = props.getSnowflake().getDataCenterId();
 
                 if (workerId < 1) {
                     workerId = RandomUtils.nextInt(0, 32);

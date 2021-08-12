@@ -9,9 +9,6 @@
  */
 package com.github.yingzhuo.carnival.jsr380;
 
-import lombok.val;
-import lombok.var;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Set;
@@ -59,14 +56,14 @@ public class PasswordValidator implements ConstraintValidator<Password, CharSequ
             return true;
         }
 
-        val chars = toCharStream(password.toString())
+        Set<Character> chars = toCharStream(password.toString())
                 .collect(Collectors.toSet());
 
-        var hasNumeric = false;
-        var hasAlphabetic = false;
-        var hasUpper = false;
-        var hasLower = false;
-        var hasSpecial = false;
+        boolean hasNumeric = false;
+        boolean hasAlphabetic = false;
+        boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasSpecial = false;
 
         int point = 0;
 
