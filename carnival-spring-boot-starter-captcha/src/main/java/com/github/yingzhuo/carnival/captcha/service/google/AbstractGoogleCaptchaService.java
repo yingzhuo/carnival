@@ -7,23 +7,25 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package org.patchca.service;
+package com.github.yingzhuo.carnival.captcha.service.google;
 
-import com.github.yingzhuo.carnival.patchca.CaptchaService;
-import org.patchca.background.BackgroundFactory;
-import org.patchca.color.ColorFactory;
-import org.patchca.filter.FilterFactory;
-import org.patchca.font.FontFactory;
-import org.patchca.text.renderer.TextRenderer;
-import org.patchca.word.WordFactory;
+import com.github.yingzhuo.carnival.captcha.Captcha;
+import com.github.yingzhuo.carnival.captcha.CaptchaService;
+import com.github.yingzhuo.carnival.captcha.service.google.background.BackgroundFactory;
+import com.github.yingzhuo.carnival.captcha.service.google.color.ColorFactory;
+import com.github.yingzhuo.carnival.captcha.service.google.filter.FilterFactory;
+import com.github.yingzhuo.carnival.captcha.service.google.font.FontFactory;
+import com.github.yingzhuo.carnival.captcha.service.google.renderer.TextRenderer;
+import com.github.yingzhuo.carnival.captcha.service.google.word.WordFactory;
 
 import java.awt.image.BufferedImage;
 import java.util.UUID;
 
 /**
  * @author Piotr Piastucki
+ * @since 1.10.6
  */
-public abstract class AbstractCaptchaService implements CaptchaService {
+public abstract class AbstractGoogleCaptchaService implements CaptchaService {
 
     protected FontFactory fontFactory;
     protected WordFactory wordFactory;

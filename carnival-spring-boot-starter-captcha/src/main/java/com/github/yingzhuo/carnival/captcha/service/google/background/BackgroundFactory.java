@@ -7,18 +7,17 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package org.patchca.service;
+package com.github.yingzhuo.carnival.captcha.service.google.background;
+
+import java.awt.image.BufferedImage;
 
 /**
  * @author Piotr Piastucki
+ * @since 1.10.6
  */
 @FunctionalInterface
-public interface CaptchaService {
+public interface BackgroundFactory {
 
-    public Captcha getCaptcha();
-
-    public default EncodedCaptcha getEncodedCaptcha() {
-        return new EncodedCaptcha(getCaptcha());
-    }
+    public void fillBackground(BufferedImage dest);
 
 }

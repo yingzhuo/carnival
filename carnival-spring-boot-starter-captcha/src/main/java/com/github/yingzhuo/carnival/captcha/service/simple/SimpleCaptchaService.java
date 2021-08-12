@@ -7,9 +7,10 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package org.patchca.service;
+package com.github.yingzhuo.carnival.captcha.service.simple;
 
-import com.github.yingzhuo.carnival.patchca.CaptchaService;
+import com.github.yingzhuo.carnival.captcha.Captcha;
+import com.github.yingzhuo.carnival.captcha.CaptchaService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,7 @@ import java.util.UUID;
  * 简易实现，只适合极少数应用
  *
  * @author 应卓
- * @since 1.6.2
+ * @since 1.10.6
  */
 @Deprecated
 public class SimpleCaptchaService implements CaptchaService {

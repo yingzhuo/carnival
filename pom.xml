@@ -21,6 +21,7 @@
         <module>carnival-spring-boot-starter-qrcode</module>
         <module>carnival-spring-boot-starter-redis</module>
         <module>carnival-spring-boot-starter-security</module>
+        <module>carnival-spring-boot-starter-captcha</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -541,6 +542,11 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-captcha</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
 

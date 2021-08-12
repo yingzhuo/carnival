@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.patchca.autoconfig;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.CaptchaService;
 import com.github.yingzhuo.carnival.patchca.dao.HttpSessionCaptchaDao;
 import com.github.yingzhuo.carnival.patchca.dao.MapCaptchaDao;
 import com.github.yingzhuo.carnival.patchca.handler.DefaultStatefulCaptchaHandler;
@@ -27,7 +28,6 @@ import org.patchca.filter.FilterType;
 import org.patchca.filter.predefined.*;
 import org.patchca.font.FontFactory;
 import org.patchca.font.RandomFontFactory;
-import org.patchca.service.CaptchaService;
 import org.patchca.service.ConfigurableCaptchaService;
 import org.patchca.size.SingleSizeFactory;
 import org.patchca.size.SizeFactory;

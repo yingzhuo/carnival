@@ -11,11 +11,11 @@ package com.github.yingzhuo.carnival.patchca.autoconfig;
 
 import com.github.yingzhuo.carnival.patchca.CaptchaDao;
 import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
+import com.github.yingzhuo.carnival.patchca.CaptchaService;
 import com.github.yingzhuo.carnival.patchca.SessionPatchca;
 import com.github.yingzhuo.carnival.patchca.core.PatchcaCoreFilter;
 import com.github.yingzhuo.carnival.patchca.props.PatchcaProps;
 import lombok.val;
-import org.patchca.service.CaptchaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

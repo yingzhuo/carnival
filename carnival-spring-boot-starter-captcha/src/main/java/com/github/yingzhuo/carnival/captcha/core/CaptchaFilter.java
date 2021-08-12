@@ -7,13 +7,12 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.patchca.core;
+package com.github.yingzhuo.carnival.captcha.core;
 
-import com.github.yingzhuo.carnival.patchca.CaptchaDao;
-import com.github.yingzhuo.carnival.patchca.CaptchaHandler;
-import com.github.yingzhuo.carnival.patchca.CaptchaService;
-import lombok.extern.slf4j.Slf4j;
-import org.patchca.service.Captcha;
+import com.github.yingzhuo.carnival.captcha.Captcha;
+import com.github.yingzhuo.carnival.captcha.CaptchaDao;
+import com.github.yingzhuo.carnival.captcha.CaptchaHandler;
+import com.github.yingzhuo.carnival.captcha.CaptchaService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -24,9 +23,9 @@ import java.io.IOException;
 
 /**
  * @author 应卓
+ * @since 1.10.6
  */
-@Slf4j
-public class PatchcaCoreFilter extends OncePerRequestFilter {
+public class CaptchaFilter extends OncePerRequestFilter {
 
     private CaptchaService captchaService;
     private CaptchaDao captchaDao;
@@ -35,7 +34,6 @@ public class PatchcaCoreFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         final Captcha captcha = captchaService.getCaptcha();
-        log.debug("accessKey='{}', captcha='{}'", captcha.getAccessKey(), captcha.getCaptcha());
         this.captchaDao.save(captcha.getAccessKey(), captcha.getCaptcha());
         this.captchaHandler.handle(captcha, request, response);
     }

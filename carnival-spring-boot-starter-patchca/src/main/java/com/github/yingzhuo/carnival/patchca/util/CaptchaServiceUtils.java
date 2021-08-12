@@ -9,9 +9,9 @@
  */
 package com.github.yingzhuo.carnival.patchca.util;
 
+import com.github.yingzhuo.carnival.patchca.CaptchaService;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.patchca.service.Captcha;
-import org.patchca.service.CaptchaService;
 import org.patchca.service.EncodedCaptcha;
 
 /**
@@ -28,7 +28,7 @@ public final class CaptchaServiceUtils {
     }
 
     public static EncodedCaptcha getEncodedCaptcha() {
-        return SpringUtils.getBean(CaptchaService.class).getEncodedCaptcha();
+        return SpringUtils.getBean(CaptchaService.class).toEncodedCaptcha();
     }
 
 }

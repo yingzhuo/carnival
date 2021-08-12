@@ -9,7 +9,7 @@
         <version>1.10.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>carnival-spring-boot-starter-patchca</artifactId>
+    <artifactId>carnival-spring-boot-starter-captcha</artifactId>
 
     <dependencies>
         <!-- carnival -->
@@ -56,6 +56,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <!-- hutool -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-captcha</artifactId>
         </dependency>
 
         <!-- commons -->
