@@ -19,12 +19,12 @@ import java.lang.annotation.*;
  * @author 应卓
  * @see UserDetails
  * @see UserDetailsPlus
- * @since 1.10.2
+ * @since 1.10.7
  */
 @Inherited
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
-@AuthenticationPrincipal(expression = "#root.externalData")
-public @interface CurrentUserExternalData {
+@AuthenticationPrincipal(expression = "#root.extendedData")
+public @interface CurrentUserExtendedData {
 }

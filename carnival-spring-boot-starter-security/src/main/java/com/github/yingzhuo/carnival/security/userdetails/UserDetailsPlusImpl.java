@@ -12,7 +12,9 @@ package com.github.yingzhuo.carnival.security.userdetails;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author 应卓
@@ -31,7 +33,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
     private final String phoneNumber;
     private final Date dateOfBirth;
     private final String bioInfo;
-    private final Map<String, Object> externalData;
+    private final ExtendedData externalData;
 
     UserDetailsPlusImpl(UserDetails delegate,
                         Object id,
@@ -43,7 +45,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
                         String phoneNumber,
                         Date dateOfBirth,
                         String bioInfo,
-                        Map<String, Object> ed) {
+                        ExtendedData externalData) {
         this.delegate = Objects.requireNonNull(delegate);
         this.id = id;
         this.nickname = nickname;
@@ -54,7 +56,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
         this.phoneNumber = phoneNumber;
         this.dateOfBirth = dateOfBirth;
         this.bioInfo = bioInfo;
-        this.externalData = ed != null ? Collections.unmodifiableMap(ed) : Collections.emptyMap();
+        this.externalData = externalData != null ? externalData : ExtendedData.newInstance();
     }
 
     @Override
@@ -103,7 +105,7 @@ class UserDetailsPlusImpl implements UserDetailsPlus {
     }
 
     @Override
-    public Map<String, Object> getExternalData() {
+    public ExtendedData getExtendedData() {
         return externalData;
     }
 

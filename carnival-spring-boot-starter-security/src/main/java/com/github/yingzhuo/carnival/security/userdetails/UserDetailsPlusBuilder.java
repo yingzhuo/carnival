@@ -15,8 +15,6 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 /**
@@ -28,7 +26,7 @@ public final class UserDetailsPlusBuilder {
     private static final String DEFAULT_PASSWORD = "<NO PASSWORD>";
 
     private final User.UserBuilder userBuilder = User.builder();
-    private final Map<String, Object> externalData = new HashMap<>();
+    private final ExtendedData extendedData = ExtendedData.newInstance();
     private Object id;
     private String nickname;
     private Object gender;
@@ -150,7 +148,7 @@ public final class UserDetailsPlusBuilder {
     }
 
     public UserDetailsPlusBuilder putExternalData(String key, Object value) {
-        this.externalData.put(key, value);
+        this.extendedData.put(key, value);
         return this;
     }
 
@@ -169,7 +167,7 @@ public final class UserDetailsPlusBuilder {
                 this.phoneNumber,
                 this.dateOfBirth,
                 this.biography,
-                this.externalData
+                this.extendedData
         );
     }
 

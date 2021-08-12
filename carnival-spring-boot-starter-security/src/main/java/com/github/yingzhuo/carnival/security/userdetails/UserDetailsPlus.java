@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.security.userdetails;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
-import java.util.Map;
 
 /**
  * @author 应卓
@@ -42,6 +41,6 @@ public interface UserDetailsPlus extends UserDetails {
 
     public String getBiography();
 
-    public Map<String, Object> getExternalData();
+    public ExtendedData getExtendedData();
 
 }
