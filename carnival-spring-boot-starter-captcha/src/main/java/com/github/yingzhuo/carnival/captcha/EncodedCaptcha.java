@@ -26,7 +26,7 @@ import java.util.Base64;
  */
 @Getter
 @Setter
-public class EncodedCaptcha extends Captcha {
+public final class EncodedCaptcha extends Captcha {
 
     private String encodeImage;
 

@@ -39,6 +39,7 @@ import static feign.Util.emptyToNull;
 import static org.springframework.core.annotation.AnnotatedElementUtils.findMergedAnnotation;
 
 /**
+ * @author 应卓
  * @since 1.6.17
  */
 public class SpringContract extends Contract.BaseContract

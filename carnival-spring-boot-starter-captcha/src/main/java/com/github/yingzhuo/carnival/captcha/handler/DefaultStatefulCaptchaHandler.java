@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.captcha.handler;
 
-
 import com.github.yingzhuo.carnival.captcha.Captcha;
 import com.github.yingzhuo.carnival.captcha.CaptchaHandler;
 

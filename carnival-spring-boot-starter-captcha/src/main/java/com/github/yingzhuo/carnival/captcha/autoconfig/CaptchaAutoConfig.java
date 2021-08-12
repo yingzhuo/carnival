@@ -12,15 +12,17 @@ package com.github.yingzhuo.carnival.captcha.autoconfig;
 import com.github.yingzhuo.carnival.captcha.CaptchaDao;
 import com.github.yingzhuo.carnival.captcha.CaptchaHandler;
 import com.github.yingzhuo.carnival.captcha.CaptchaService;
+import com.github.yingzhuo.carnival.captcha.config.CaptchaFilterConfig;
+import com.github.yingzhuo.carnival.captcha.config.CaptchaFilterConfigSupplier;
 import com.github.yingzhuo.carnival.captcha.core.CaptchaFilter;
 import com.github.yingzhuo.carnival.captcha.dao.HttpSessionCaptchaDao;
 import com.github.yingzhuo.carnival.captcha.handler.DefaultStatefulCaptchaHandler;
 import com.github.yingzhuo.carnival.captcha.service.google.GoogleCaptchaService;
+import com.github.yingzhuo.carnival.captcha.web.SessionCaptchaHandlerMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.Ordered;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -42,6 +44,9 @@ class CaptchaAutoConfig implements WebMvcConfigurer {
     @Autowired(required = false)
     private CaptchaService service = new GoogleCaptchaService();
 
+    @Autowired(required = false)
+    private CaptchaFilterConfigSupplier configSupplier = CaptchaFilterConfig::new;
+
     @Bean
     public FilterRegistrationBean<CaptchaFilter> patchcaFilter() {
         final CaptchaFilter filter = new CaptchaFilter();
@@ -49,16 +54,17 @@ class CaptchaAutoConfig implements WebMvcConfigurer {
         filter.setCaptchaHandler(handler);
         filter.setCaptchaService(service);
 
+        final CaptchaFilterConfig conf = configSupplier.get();
         final FilterRegistrationBean<CaptchaFilter> bean = new FilterRegistrationBean<>(filter);
-        bean.setName(CaptchaFilter.class.getName());
-        bean.setOrder(Ordered.LOWEST_PRECEDENCE);
-        bean.addUrlPatterns("/captcha"); // TODO:
+        bean.setName(conf.getFilterName());
+        bean.setOrder(conf.getOrder());
+        bean.addUrlPatterns(conf.getUrlPatterns());
         return bean;
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        // TODO: 支持元注释
+        resolvers.add(new SessionCaptchaHandlerMethodArgumentResolver());
     }
 
 }

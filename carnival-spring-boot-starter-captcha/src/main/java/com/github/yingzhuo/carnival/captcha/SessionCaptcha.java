@@ -13,11 +13,13 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see com.github.yingzhuo.carnival.captcha.handler.DefaultStatefulCaptchaHandler
+ * @see com.github.yingzhuo.carnival.captcha.dao.HttpSessionCaptchaDao
  * @since 1.10.6
  */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface SessionPatchca {
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface SessionCaptcha {
 }

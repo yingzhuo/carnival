@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.captcha.handler;
 
-
 import com.github.yingzhuo.carnival.captcha.EncodedCaptcha;
 
 import javax.servlet.ServletOutputStream;
