@@ -16,7 +16,6 @@ import com.github.yingzhuo.carnival.id.impl.SnowflakeStringIdGenerator;
 import com.github.yingzhuo.carnival.id.impl.UUIDGenerator;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.var;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;

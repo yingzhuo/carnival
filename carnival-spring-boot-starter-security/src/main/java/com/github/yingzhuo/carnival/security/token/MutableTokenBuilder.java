@@ -25,6 +25,7 @@ public class MutableTokenBuilder {
     private long creationTime = System.currentTimeMillis();
     private String extendedInformation = null;
     private boolean authenticated = false;
+
     MutableTokenBuilder() {
     }
 
