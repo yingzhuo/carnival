@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 
 /**
  * @author Piotr Piastucki
+ * @author 应卓
  * @since 1.10.6
  */
 public class SingleColorBackgroundFactory implements BackgroundFactory {

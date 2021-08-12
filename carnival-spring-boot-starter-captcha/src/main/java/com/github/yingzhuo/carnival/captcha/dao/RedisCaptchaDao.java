@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.captcha.dao;
 
 import com.github.yingzhuo.carnival.captcha.CaptchaDao;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -27,9 +28,6 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
     private String keySuffix = "";
     private StringRedisTemplate template;
 
-    public RedisCaptchaDao() {
-    }
-
     public RedisCaptchaDao(RedisConnectionFactory connectionFactory, Duration timeToLive) {
         this.template = new StringRedisTemplate(connectionFactory);
         this.timeToLive = timeToLive;
@@ -38,8 +36,8 @@ public class RedisCaptchaDao implements CaptchaDao, InitializingBean {
     public RedisCaptchaDao(RedisConnectionFactory connectionFactory, Duration timeToLive, String keyPrefix, String keySuffix) {
         this.template = new StringRedisTemplate(connectionFactory);
         this.timeToLive = timeToLive;
-        this.keyPrefix = keyPrefix;
-        this.keySuffix = keySuffix;
+        this.keyPrefix = ObjectUtils.defaultIfNull(keyPrefix, "");
+        this.keySuffix = ObjectUtils.defaultIfNull(keySuffix, "");
     }
 
     @Override

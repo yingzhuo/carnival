@@ -18,7 +18,11 @@ import com.github.yingzhuo.carnival.spring.ServletUtils;
  */
 public class HttpSessionCaptchaDao implements CaptchaDao {
 
-    public static final String ATTRIBUTE_NAME = "com.github.yingzhuo.carnival.captcha.CaptchaSessionAttribute";
+    public static final String ATTRIBUTE_NAME;
+
+    static {
+        ATTRIBUTE_NAME = HttpSessionCaptchaDao.class.getName() + "#ATTRIBUTE_NAME";
+    }
 
     @Override
     public void save(String unused, String captcha) {

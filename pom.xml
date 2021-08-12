@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.6</version>
+    <version>1.10.7</version>
     <modules>
         <module>carnival-spring-boot-starter-captcha</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -97,6 +97,7 @@
         <netty.version>4.1.66.Final</netty.version>
         <feign.version>11.6</feign.version>
         <hutool.version>5.7.7</hutool.version>
+        <logback.version>1.2.5</logback.version>
     </properties>
 
     <dependencyManagement>
@@ -547,6 +548,7 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-captcha</artifactId>
                 <version>${hutool.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <!-- bouncy-castle -->
@@ -554,6 +556,18 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15to18</artifactId>
                 <version>1.69</version>
+            </dependency>
+
+            <!-- logback -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
 
             <!-- commons -->
