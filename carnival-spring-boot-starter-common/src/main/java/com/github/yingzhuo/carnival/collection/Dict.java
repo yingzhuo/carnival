@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.common.util;
+package com.github.yingzhuo.carnival.collection;
 
 import java.util.HashMap;
 import java.util.Map;

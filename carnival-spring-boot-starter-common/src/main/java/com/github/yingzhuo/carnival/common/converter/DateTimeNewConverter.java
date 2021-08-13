@@ -109,9 +109,7 @@ public class DateTimeNewConverter implements GenericConverter {
             } catch (Exception e) {
                 continue;
             }
-            if (result != null) {
-                return result;
-            }
+            return result;
         }
         throw new IllegalArgumentException();
     }
