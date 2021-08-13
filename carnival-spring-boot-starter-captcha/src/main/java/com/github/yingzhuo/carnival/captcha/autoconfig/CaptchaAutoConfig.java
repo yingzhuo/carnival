@@ -45,8 +45,7 @@ class CaptchaAutoConfig implements WebMvcConfigurer {
     private CaptchaService service = new GoogleCaptchaService();
 
     @Autowired(required = false)
-    private CaptchaFilterConfigSupplier configSupplier = new CaptchaFilterConfigSupplier() {
-    };
+    private CaptchaFilterConfigSupplier configSupplier = CaptchaFilterConfig::new;
 
     @Bean
     public FilterRegistrationBean<CaptchaFilter> patchcaFilter() {

@@ -14,14 +14,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.core.Ordered;
 
+import java.io.Serializable;
+
 /**
  * @author 应卓
  * @since 1.10.6
  */
 @Getter
 @Setter
-public class CaptchaFilterConfig {
+public class CaptchaFilterConfig implements Serializable {
+
     private String[] urlPatterns = new String[]{"/captcha"};
     private String filterName = CaptchaFilter.class.getName();
     private int order = Ordered.LOWEST_PRECEDENCE;
+
 }
