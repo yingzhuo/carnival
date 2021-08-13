@@ -548,7 +548,6 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-captcha</artifactId>
                 <version>${hutool.version}</version>
-                <scope>provided</scope>
             </dependency>
 
             <!-- bouncy-castle -->

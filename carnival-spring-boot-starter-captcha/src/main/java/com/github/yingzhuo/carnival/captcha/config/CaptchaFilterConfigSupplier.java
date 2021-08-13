@@ -15,6 +15,11 @@ import java.util.function.Supplier;
  * @author 应卓
  * @since 1.10.6
  */
-@FunctionalInterface
 public interface CaptchaFilterConfigSupplier extends Supplier<CaptchaFilterConfig> {
+
+    @Override
+    public default CaptchaFilterConfig get() {
+        return new CaptchaFilterConfig();
+    }
+
 }
