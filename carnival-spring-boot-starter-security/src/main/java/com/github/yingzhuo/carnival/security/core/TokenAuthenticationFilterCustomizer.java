@@ -13,6 +13,7 @@ package com.github.yingzhuo.carnival.security.core;
  * @author 应卓
  * @since 1.10.3
  */
+@FunctionalInterface
 public interface TokenAuthenticationFilterCustomizer {
 
     public TokenAuthenticationFilter customize(TokenAuthenticationFilter filter);

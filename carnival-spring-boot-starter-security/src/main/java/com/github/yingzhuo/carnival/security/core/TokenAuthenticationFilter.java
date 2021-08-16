@@ -12,7 +12,7 @@ package com.github.yingzhuo.carnival.security.core;
 import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.token.Token;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.log.LogMessage;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -37,7 +37,6 @@ import java.util.Optional;
  * @author 应卓
  * @since 1.10.2
  */
-@Slf4j
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenResolver tokenResolver;
@@ -67,6 +66,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     }
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
+                    if (this.logger.isDebugEnabled()) {
+                        this.logger.debug(LogMessage.format("Set SecurityContextHolder to %s", authentication));
+                    }
 
                     if (rememberMeServices != null) {
                         rememberMeServices.loginSuccess(request, response, authentication);
@@ -89,9 +91,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
             } else {
-                log.debug("token cannot be resolved.");
+                if (this.logger.isDebugEnabled()) {
+                    logger.debug("Token cannot be resolved. Nothing to do.");
+                }
             }
-
         }
 
         chain.doFilter(request, response);
@@ -123,12 +126,12 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               Authentication authResult) {
-        log.debug("Successful Authentication");
+        logger.debug("Successful Authentication");
     }
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException failed) {
-        log.debug("Unsuccessful Authentication");
+        logger.debug("Unsuccessful Authentication");
     }
 
     protected final boolean authenticationIsRequired() {

@@ -32,18 +32,10 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-
         final BeanFinder beanFinder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
+        TokenAuthenticationFilter filter = this.getTokenAuthenticationFilter(beanFinder);
 
-        final TokenResolver tokenResolver = getTokenResolver(beanFinder);
-        final TokenAuthenticationManager authManager = getTokenAuthenticationManager(beanFinder);
-
-        if (authManager != null) {
-            final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
-
-            TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, authManager);
-            filter.setAuthenticationEntryPoint(entryPoint);
-
+        if (filter != null) {
             TokenAuthenticationFilterCustomizer customizer = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterCustomizer.class)
                     .orElse(null);
 
@@ -56,6 +48,28 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
                 http.setSharedObject(TokenAuthenticationFilter.class, filter);
                 http.addFilterAfter(filter, BasicAuthenticationFilter.class);
             }
+        }
+    }
+
+    private TokenAuthenticationFilter getTokenAuthenticationFilter(BeanFinder beanFinder) throws Exception {
+        // spring 上下文之中有该实例
+        TokenAuthenticationFilter filter = beanFinder.getPrimaryQuietly(TokenAuthenticationFilter.class).orElse(null);
+        if (filter != null) {
+            return filter;
+        }
+
+        // 没有的话，尝试新建一个
+        final TokenResolver tokenResolver = getTokenResolver(beanFinder);
+        final TokenAuthenticationManager authManager = getTokenAuthenticationManager(beanFinder);
+        final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
+
+        if (tokenResolver != null && authManager != null) {
+            filter = new TokenAuthenticationFilter(tokenResolver, authManager);
+            filter.setAuthenticationEntryPoint(entryPoint);
+            filter.afterPropertiesSet();
+            return filter;
+        } else {
+            return null;
         }
     }
 
