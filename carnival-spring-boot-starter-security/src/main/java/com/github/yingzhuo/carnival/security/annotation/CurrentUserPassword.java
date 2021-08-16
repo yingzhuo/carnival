@@ -18,6 +18,7 @@ import java.lang.annotation.*;
 /**
  * @author 应卓
  * @see UserDetails
+ * @see UserDetails#getPassword()
  * @see UserDetailsPlus
  * @since 1.10.2
  */

@@ -10,20 +10,18 @@
 package com.github.yingzhuo.carnival.security.userdetails;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author 应卓
  * @since 1.10.7
  */
-public final class ExtendedData extends HashMap<String, Object> implements Map<String, Object> {
+public final class ExtendedData extends HashMap<String, Object> {
+
+    private ExtendedData() {
+    }
 
     public static ExtendedData newInstance() {
         return new ExtendedData();
-    }
-
-    private ExtendedData() {
-        super();
     }
 
     public ExtendedData add(String key, Object value) {

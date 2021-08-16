@@ -11,8 +11,12 @@ package com.github.yingzhuo.carnival.security.token.resolver;
 
 import com.github.yingzhuo.carnival.security.token.Token;
 import org.springframework.core.Ordered;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -20,7 +24,7 @@ import java.util.*;
  * @since 1.10.2
  */
 @FunctionalInterface
-public interface TokenResolver extends Ordered {
+public interface TokenResolver extends Ordered, AuthenticationConverter {
 
     public static Builder builder() {
         return new Builder();
@@ -32,6 +36,13 @@ public interface TokenResolver extends Ordered {
     public default int getOrder() {
         return 0;
     }
+
+    @Override
+    public default Authentication convert(HttpServletRequest request) {
+        return resolve(new ServletWebRequest(request)).orElse(null);
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
         private final List<TokenResolver> list = new ArrayList<>();

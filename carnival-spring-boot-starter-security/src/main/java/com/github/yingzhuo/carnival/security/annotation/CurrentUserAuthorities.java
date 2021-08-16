@@ -19,6 +19,7 @@ import java.lang.annotation.*;
  * @author 应卓
  * @see UserDetails
  * @see UserDetailsPlus
+ * @see UserDetails#getAuthorities()
  * @since 1.10.2
  */
 @Inherited
