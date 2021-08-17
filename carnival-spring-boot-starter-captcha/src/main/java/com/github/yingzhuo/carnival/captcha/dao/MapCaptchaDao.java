@@ -21,6 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author 应卓
  * @since 1.10.8
  */
+@Deprecated
 public class MapCaptchaDao implements CaptchaDao, InitializingBean {
 
     private final Map<String, String> map = new ConcurrentHashMap<>();

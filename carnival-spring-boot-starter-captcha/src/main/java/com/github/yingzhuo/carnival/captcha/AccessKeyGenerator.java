@@ -7,16 +7,21 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.security.core;
+package com.github.yingzhuo.carnival.captcha;
+
+import java.util.UUID;
 
 /**
  * @author 应卓
- * @since 1.10.3
+ * @since 1.10.8
  */
-@Deprecated
 @FunctionalInterface
-public interface TokenAuthenticationFilterCustomizer {
+public interface AccessKeyGenerator {
 
-    public TokenAuthenticationFilter customize(TokenAuthenticationFilter filter);
+    public static AccessKeyGenerator getDefault() {
+        return () -> UUID.randomUUID().toString();
+    }
+
+    public String generate();
 
 }

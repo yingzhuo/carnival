@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.captcha.service.google;
 
+import com.github.yingzhuo.carnival.captcha.AccessKeyGenerator;
 import com.github.yingzhuo.carnival.captcha.Captcha;
 import com.github.yingzhuo.carnival.captcha.CaptchaService;
 import com.github.yingzhuo.carnival.captcha.service.google.background.BackgroundFactory;
@@ -19,7 +20,6 @@ import com.github.yingzhuo.carnival.captcha.service.google.renderer.TextRenderer
 import com.github.yingzhuo.carnival.captcha.service.google.word.WordFactory;
 
 import java.awt.image.BufferedImage;
-import java.util.UUID;
 
 /**
  * @author Piotr Piastucki
@@ -35,6 +35,7 @@ public abstract class AbstractGoogleCaptchaService implements CaptchaService {
     protected FilterFactory filterFactory;
     protected int width;
     protected int height;
+    protected AccessKeyGenerator accessKeyGenerator;
 
     public FontFactory getFontFactory() {
         return fontFactory;
@@ -84,6 +85,14 @@ public abstract class AbstractGoogleCaptchaService implements CaptchaService {
         this.filterFactory = filterFactory;
     }
 
+    public AccessKeyGenerator getAccessKeyGenerator() {
+        return accessKeyGenerator;
+    }
+
+    public void setAccessKeyGenerator(AccessKeyGenerator accessKeyGenerator) {
+        this.accessKeyGenerator = accessKeyGenerator;
+    }
+
     public int getWidth() {
         return width;
     }
@@ -107,8 +116,7 @@ public abstract class AbstractGoogleCaptchaService implements CaptchaService {
         String word = wordFactory.getNextWord();
         textRenderer.draw(word, bufImage, fontFactory, colorFactory);
         bufImage = filterFactory.apply(bufImage);
-        String accessKey = UUID.randomUUID().toString();
-        return new Captcha(accessKey, word, bufImage);
+        return new Captcha(accessKeyGenerator.generate(), word, bufImage);
     }
 
 }

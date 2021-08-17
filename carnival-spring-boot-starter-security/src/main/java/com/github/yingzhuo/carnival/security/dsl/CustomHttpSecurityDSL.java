@@ -28,6 +28,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.10.2
  */
+@SuppressWarnings("deprecation")
 class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL, HttpSecurity> {
 
     @Override

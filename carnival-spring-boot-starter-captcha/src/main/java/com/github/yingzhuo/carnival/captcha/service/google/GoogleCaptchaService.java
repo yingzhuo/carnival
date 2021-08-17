@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.captcha.service.google;
 
+import com.github.yingzhuo.carnival.captcha.AccessKeyGenerator;
 import com.github.yingzhuo.carnival.captcha.CaptchaService;
 import com.github.yingzhuo.carnival.captcha.service.google.background.SingleColorBackgroundFactory;
 import com.github.yingzhuo.carnival.captcha.service.google.color.RandomColorFactory;
@@ -35,6 +36,7 @@ public class GoogleCaptchaService extends AbstractGoogleCaptchaService implement
         textRenderer.setRightMargin(10);
         width = 160;
         height = 70;
+        accessKeyGenerator = AccessKeyGenerator.getDefault();
     }
 
 }

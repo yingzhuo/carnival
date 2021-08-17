@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.captcha.service.hutool;
 
 import cn.hutool.captcha.ICaptcha;
+import com.github.yingzhuo.carnival.captcha.AccessKeyGenerator;
 import com.github.yingzhuo.carnival.captcha.Captcha;
 import com.github.yingzhuo.carnival.captcha.CaptchaService;
 
@@ -19,7 +20,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.util.UUID;
 
 /**
  * @author 应卓
@@ -27,13 +27,23 @@ import java.util.UUID;
  */
 public abstract class AbstractHutoolCaptchaService implements CaptchaService {
 
+    private final AccessKeyGenerator accessKeyGenerator;
+
+    public AbstractHutoolCaptchaService() {
+        this(null);
+    }
+
+    public AbstractHutoolCaptchaService(AccessKeyGenerator accessKeyGenerator) {
+        this.accessKeyGenerator = accessKeyGenerator != null ? accessKeyGenerator : AccessKeyGenerator.getDefault();
+    }
+
     @Override
     public final Captcha getCaptcha() {
         final ICaptcha c = createCaptcha();
 
         final Captcha captcha = new Captcha();
         captcha.setCaptcha(c.getCode());
-        captcha.setAccessKey(UUID.randomUUID().toString());
+        captcha.setAccessKey(accessKeyGenerator.generate());
         captcha.setImage(toBufferedImage(c));
         return captcha;
     }
