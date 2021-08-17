@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.common.condition;
 
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
-import lombok.val;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
@@ -29,25 +28,26 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnNoneResource.OnNoneResource.class)
 public @interface ConditionalOnNoneResource {
 
-    public String[] locations();
+    public String[] value();
 
     static final class OnNoneResource implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            val locations = getLocations(metadata);
+            final String[] locations = getLocations(metadata);
             try (ResourceOptional resourceOption = ResourceOptional.of(locations)) {
                 return resourceOption.isAbsent();
             } catch (IOException e) {
-                return true;
+                return false;
             }
         }
 
         private String[] getLocations(AnnotatedTypeMetadata metadata) {
             try {
-                val aas = AnnotationAttributes.fromMap(
+                final AnnotationAttributes attributes = AnnotationAttributes.fromMap(
                         metadata.getAnnotationAttributes(ConditionalOnNoneResource.class.getName()));
-                return aas.getStringArray("locations");
+                if (attributes == null) return new String[0];
+                return attributes.getStringArray("value");
             } catch (Exception e) {
                 return new String[0];
             }

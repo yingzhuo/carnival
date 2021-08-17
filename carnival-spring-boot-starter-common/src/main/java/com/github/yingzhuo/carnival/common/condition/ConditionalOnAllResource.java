@@ -21,6 +21,7 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
+ * @see org.springframework.boot.autoconfigure.condition.ConditionalOnResource
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
@@ -28,13 +29,13 @@ import java.lang.annotation.*;
 @Conditional(ConditionalOnAllResource.OnAllResource.class)
 public @interface ConditionalOnAllResource {
 
-    public String[] resources();
+    public String[] value();
 
     static final class OnAllResource implements Condition {
 
         @Override
         public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-            val locations = getLocations(metadata);
+            final String[] locations = getLocations(metadata);
 
             for (String location : locations) {
                 try {
@@ -52,9 +53,10 @@ public @interface ConditionalOnAllResource {
 
         private String[] getLocations(AnnotatedTypeMetadata metadata) {
             try {
-                val aas = AnnotationAttributes.fromMap(
+                final AnnotationAttributes attributes = AnnotationAttributes.fromMap(
                         metadata.getAnnotationAttributes(ConditionalOnAllResource.class.getName()));
-                return aas.getStringArray("resources");
+                if (attributes == null) return new String[0];
+                return attributes.getStringArray("value");
             } catch (Exception e) {
                 return new String[0];
             }
