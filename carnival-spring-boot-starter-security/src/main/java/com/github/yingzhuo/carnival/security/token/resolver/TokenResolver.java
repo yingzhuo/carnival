@@ -94,6 +94,12 @@ public interface TokenResolver extends Ordered, AuthenticationConverter {
             return this;
         }
 
+        // since 1.10.9
+        public Builder fixed(String token) {
+            list.add(FixedTokenResolver.of(token));
+            return this;
+        }
+
         public TokenResolver build() {
             if (list.isEmpty()) {
                 return EmptyTokenResolver.INSTANCE;
