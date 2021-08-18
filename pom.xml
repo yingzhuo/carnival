@@ -91,12 +91,12 @@
 
         <spring.boot.version>2.5.3</spring.boot.version>
         <spring.version>5.3.9</spring.version>
-        <spring.security.version>5.5.1</spring.security.version>
+        <spring.security.version>5.5.2</spring.security.version>
         <jackson.version>2.12.4</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
         <netty.version>4.1.66.Final</netty.version>
         <feign.version>11.6</feign.version>
-        <hutool.version>5.7.8</hutool.version>
+        <hutool.version>5.7.9</hutool.version>
         <logback.version>1.2.5</logback.version>
     </properties>
 

@@ -21,10 +21,6 @@ import java.util.Optional;
  */
 public final class FixedTokenResolver implements TokenResolver {
 
-    public static FixedTokenResolver of(String key) {
-        return new FixedTokenResolver(key);
-    }
-
     private final Token token;
 
     private FixedTokenResolver(final String key) {
@@ -35,6 +31,10 @@ public final class FixedTokenResolver implements TokenResolver {
                 .userDetails(null)
                 .creationTime(System.currentTimeMillis())
                 .build();
+    }
+
+    public static FixedTokenResolver of(String key) {
+        return new FixedTokenResolver(key);
     }
 
     @Override

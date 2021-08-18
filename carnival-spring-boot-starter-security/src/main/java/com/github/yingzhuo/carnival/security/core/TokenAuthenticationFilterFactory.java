@@ -11,12 +11,11 @@ package com.github.yingzhuo.carnival.security.core;
 
 /**
  * @author 应卓
- * @since 1.10.3
+ * @since 1.10.9
  */
-@Deprecated
 @FunctionalInterface
-public interface TokenAuthenticationFilterCustomizer {
+public interface TokenAuthenticationFilterFactory {
 
-    public TokenAuthenticationFilter customize(TokenAuthenticationFilter filter);
+    public TokenAuthenticationFilter create();
 
 }

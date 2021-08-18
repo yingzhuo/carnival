@@ -11,7 +11,7 @@ package com.github.yingzhuo.carnival.security.dsl;
 
 import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilter;
-import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterCustomizer;
+import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterFactory;
 import com.github.yingzhuo.carnival.security.errorhandler.TokenAuthenticationEntryPoint;
 import com.github.yingzhuo.carnival.security.token.resolver.BearerTokenResolver;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
@@ -28,7 +28,6 @@ import java.util.List;
  * @author 应卓
  * @since 1.10.2
  */
-@SuppressWarnings("deprecation")
 class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL, HttpSecurity> {
 
     @Override
@@ -37,26 +36,16 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
         TokenAuthenticationFilter filter = this.getTokenAuthenticationFilter(beanFinder);
 
         if (filter != null) {
-            TokenAuthenticationFilterCustomizer customizer = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterCustomizer.class)
-                    .orElse(null);
-
-            if (customizer != null) {
-                filter = customizer.customize(filter);
-            }
-
-            if (filter != null) {
-                filter.afterPropertiesSet();
-                http.setSharedObject(TokenAuthenticationFilter.class, filter);
-                http.addFilterAfter(filter, BasicAuthenticationFilter.class);
-            }
+            filter.afterPropertiesSet();
+            http.setSharedObject(TokenAuthenticationFilter.class, filter);
+            http.addFilterAfter(filter, BasicAuthenticationFilter.class);
         }
     }
 
     private TokenAuthenticationFilter getTokenAuthenticationFilter(BeanFinder beanFinder) throws Exception {
-        // spring 上下文之中有该实例
-        TokenAuthenticationFilter filter = beanFinder.getPrimaryQuietly(TokenAuthenticationFilter.class).orElse(null);
-        if (filter != null) {
-            return filter;
+        final TokenAuthenticationFilterFactory factory = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterFactory.class).orElse(null);
+        if (factory != null) {
+            return factory.create();
         }
 
         // 没有的话，尝试新建一个
@@ -65,7 +54,7 @@ class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL
         final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
 
         if (tokenResolver != null && authManager != null) {
-            filter = new TokenAuthenticationFilter(tokenResolver, authManager);
+            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, authManager);
             filter.setAuthenticationEntryPoint(entryPoint);
             filter.afterPropertiesSet();
             return filter;

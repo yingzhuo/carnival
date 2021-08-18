@@ -9,13 +9,13 @@
  */
 package com.github.yingzhuo.carnival.captcha.service.simple;
 
+import com.github.yingzhuo.carnival.captcha.AccessKeyGenerator;
 import com.github.yingzhuo.carnival.captcha.Captcha;
 import com.github.yingzhuo.carnival.captcha.CaptchaService;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-import java.util.UUID;
 
 /**
  * 简易实现，只适合极少数应用
@@ -27,6 +27,7 @@ import java.util.UUID;
 public class SimpleCaptchaService implements CaptchaService {
 
     private static final Random RANDOM = new Random();
+    private AccessKeyGenerator accessKeyGenerator = AccessKeyGenerator.getDefault();
     private int length = 6;
     private int width = 100;
     private int height = 18;
@@ -75,7 +76,7 @@ public class SimpleCaptchaService implements CaptchaService {
         }
         g.dispose();
 
-        return new Captcha(UUID.randomUUID().toString(), captchaValue.toString(), image);
+        return new Captcha(accessKeyGenerator.generate(), captchaValue.toString(), image);
     }
 
     private char getRandomChar() {
@@ -116,6 +117,10 @@ public class SimpleCaptchaService implements CaptchaService {
 
     public void setFont(String font) {
         this.font = font;
+    }
+
+    public void setAccessKeyGenerator(AccessKeyGenerator accessKeyGenerator) {
+        this.accessKeyGenerator = accessKeyGenerator;
     }
 
 }
