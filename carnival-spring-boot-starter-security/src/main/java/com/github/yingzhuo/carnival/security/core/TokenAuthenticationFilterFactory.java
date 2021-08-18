@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.security.core;
 
 /**
  * @author 应卓
+ * @see TokenAuthenticationFilter
  * @since 1.10.9
  */
 @FunctionalInterface

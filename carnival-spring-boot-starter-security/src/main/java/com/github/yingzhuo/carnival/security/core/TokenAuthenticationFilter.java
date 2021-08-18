@@ -35,6 +35,7 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see TokenAuthenticationFilterFactory
  * @since 1.10.2
  */
 public class TokenAuthenticationFilter extends OncePerRequestFilter {

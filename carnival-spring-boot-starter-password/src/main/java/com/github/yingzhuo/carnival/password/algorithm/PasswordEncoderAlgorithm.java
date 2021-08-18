@@ -33,7 +33,7 @@ public enum PasswordEncoderAlgorithm {
     sha256("SHA-256", new MessageDigestPasswordEncoder("SHA-256")),
     argon2("argon2", new Argon2PasswordEncoder()),
     ldap("ldap", new LdapShaPasswordEncoder()),
-    sm3("sm3", new SM3PasswordEncoder()),
+    sm3("SM3", new SM3PasswordEncoder()),
     base64("base64", new Base64PasswordEncoder()),
     reverse("reverse", new ReversePasswordEncoder()),
     noop("noop", NoOpPasswordEncoder.getInstance());
