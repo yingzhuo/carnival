@@ -56,17 +56,20 @@ public final class ConfigurableLogger {
             switch (level) {
                 case TRACE:
                     trace(format, args);
+                    break;
                 case DEBUG:
                     debug(format, args);
+                    break;
                 case INFO:
                     info(format, args);
+                    break;
                 case WARN:
                     warn(format, args);
+                    break;
                 case FATAL:
                 case ERROR:
                     error(format, args);
-                case OFF:
-                    // nop
+                    break;
                 default:
                     // nop
             }
