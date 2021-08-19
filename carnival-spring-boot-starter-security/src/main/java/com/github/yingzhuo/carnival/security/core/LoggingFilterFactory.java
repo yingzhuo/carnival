@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.security.core;
 
 /**
  * @author 应卓
+ * @see LoggingFilter
  * @since 1.10.10
  */
 @FunctionalInterface

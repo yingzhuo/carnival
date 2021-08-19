@@ -23,11 +23,12 @@ import java.io.IOException;
 
 /**
  * @author 应卓
+ * @see LoggingFilterFactory
  * @since 1.10.10
  */
 public class LoggingFilter extends OncePerRequestFilter {
 
-    private ConfigurableLogger log;
+    private final ConfigurableLogger log;
 
     public LoggingFilter(ConfigurableLogger log) {
         this.log = log;

@@ -11,23 +11,26 @@ package com.github.yingzhuo.carnival.common.log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.logging.LogLevel;
+
+import java.util.Objects;
 
 /**
  * @author 应卓
  * @since 1.10.10
  */
-public class ConfigurableLogger {
+public final class ConfigurableLogger {
+
+    private final Logger log;
+    private final LogLevel level;
+
+    private ConfigurableLogger(String loggerName, LogLevel level) {
+        this.level = Objects.requireNonNull(level);
+        this.log = LoggerFactory.getLogger(Objects.requireNonNull(loggerName));
+    }
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    private final Logger log;
-    private final LoggerLevel level;
-
-    private ConfigurableLogger(String loggerName, LoggerLevel level) {
-        this.log = LoggerFactory.getLogger(loggerName);
-        this.level = level != null ? level : LoggerLevel.DEBUG;
     }
 
     public boolean isEnabled() {
@@ -41,6 +44,7 @@ public class ConfigurableLogger {
             case WARN:
                 return log.isWarnEnabled();
             case ERROR:
+            case FATAL:
                 return log.isErrorEnabled();
             default:
                 return false;
@@ -58,8 +62,11 @@ public class ConfigurableLogger {
                     info(format, args);
                 case WARN:
                     warn(format, args);
+                case FATAL:
                 case ERROR:
                     error(format, args);
+                case OFF:
+                    // nop
                 default:
                     // nop
             }
@@ -89,13 +96,13 @@ public class ConfigurableLogger {
     // ----------------------------------------------------------------------------------------------------------------
 
     public static class Builder {
+        private LogLevel level = LogLevel.DEBUG;
+        private String loggerName = ConfigurableLogger.class.getName();
+
         private Builder() {
         }
 
-        private LoggerLevel level = LoggerLevel.DEBUG;
-        private String loggerName = ConfigurableLogger.class.getName();
-
-        public Builder level(LoggerLevel level) {
+        public Builder level(LogLevel level) {
             this.level = level;
             return this;
         }

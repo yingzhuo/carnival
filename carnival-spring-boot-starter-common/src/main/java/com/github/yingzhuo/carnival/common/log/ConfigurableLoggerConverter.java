@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.log;
 
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.core.convert.converter.Converter;
 
 /**
@@ -25,7 +26,7 @@ public class ConfigurableLoggerConverter implements Converter<String, Configurab
         }
 
         return ConfigurableLogger.builder()
-                .level(LoggerLevel.valueOf(parts[0].toUpperCase()))
+                .level(LogLevel.valueOf(parts[0].toUpperCase()))
                 .name(parts[1])
                 .build();
     }
