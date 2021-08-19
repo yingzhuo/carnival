@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * Another HashMap
+ *
  * @author 应卓
  * @since 1.10.5
  */
@@ -26,7 +28,13 @@ public class Dict extends HashMap<String, Object> implements Map<String, Object>
         return new Dict();
     }
 
+    @Deprecated
     public Dict put(String key, Object value) {
+        super.put(key, value);
+        return this;
+    }
+
+    public Dict add(String key, Object value) {
         super.put(key, value);
         return this;
     }

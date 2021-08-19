@@ -28,7 +28,7 @@ import java.util.List;
  * @author 应卓
  * @since 1.10.2
  */
-class CustomHttpSecurityDSL extends AbstractHttpConfigurer<CustomHttpSecurityDSL, HttpSecurity> {
+class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<TokenAuthenticationCustomHttpSecurityDSL, HttpSecurity> {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {

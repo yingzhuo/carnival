@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.common.converter.ByteArrayConverter;
 import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
 import com.github.yingzhuo.carnival.common.converter.DateTimeNewConverter;
 import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
+import com.github.yingzhuo.carnival.common.log.ConfigurableLoggerConverter;
 import com.github.yingzhuo.carnival.datetime.DatePairConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
 import com.github.yingzhuo.carnival.spring.BeanFinder;
@@ -67,6 +68,15 @@ public class CommonAutoConfig {
     @ConfigurationPropertiesBinding
     public DatePairConverter datePairConverter() {
         return new DatePairConverter();
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    public ConfigurableLoggerConverter configurableLoggerConverter() {
+        return new ConfigurableLoggerConverter();
     }
 
     // ----------------------------------------------------------------------------------------------------------------
