@@ -152,7 +152,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 return provider.authenticate(token);
             }
         }
-
         return null;
     }
 

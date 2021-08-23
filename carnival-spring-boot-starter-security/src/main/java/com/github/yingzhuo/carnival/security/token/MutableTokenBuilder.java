@@ -44,12 +44,12 @@ public class MutableTokenBuilder {
         return this;
     }
 
-    public MutableTokenBuilder creationTime(Date creationTime) {
+    public MutableTokenBuilder keyCreationTime(Date creationTime) {
         this.creationTime = creationTime.getTime();
         return this;
     }
 
-    public MutableTokenBuilder creationTime(long creationTime) {
+    public MutableTokenBuilder keyCreationTime(long creationTime) {
         this.creationTime = creationTime;
         return this;
     }
@@ -71,7 +71,7 @@ public class MutableTokenBuilder {
         token.setDetails(this.details);
         token.setExtendedInformation(this.extendedInformation);
         token.setAuthenticated(this.authenticated);
-        token.setCreationTime(this.creationTime);
+        token.setKeyCreationTime(this.creationTime);
         return token;
     }
 

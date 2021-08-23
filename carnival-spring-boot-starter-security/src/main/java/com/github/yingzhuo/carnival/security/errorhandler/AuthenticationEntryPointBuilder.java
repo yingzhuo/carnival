@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.errorhandler;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -29,8 +30,8 @@ public final class AuthenticationEntryPointBuilder {
 
     private final LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> map = new LinkedHashMap<>();
     private AuthenticationEntryPoint defaultEntryPoint;
+
     private AuthenticationEntryPointBuilder() {
-        super();
     }
 
     public static AuthenticationEntryPointBuilder newInstance() {
@@ -50,8 +51,8 @@ public final class AuthenticationEntryPointBuilder {
         return add(new AntPathRequestMatcher(antPattern), delegate);
     }
 
-    public AuthenticationEntryPointBuilder ant(String antPattern, String httpMethod, AuthenticationEntryPoint delegate) {
-        return add(new AntPathRequestMatcher(antPattern, httpMethod), delegate);
+    public AuthenticationEntryPointBuilder ant(HttpMethod httpMethod, String antPattern, AuthenticationEntryPoint delegate) {
+        return add(new AntPathRequestMatcher(antPattern, httpMethod.toString()), delegate);
     }
 
     public AuthenticationEntryPointBuilder defaultEntryPoint(AuthenticationEntryPoint defaultEntryPoint) {

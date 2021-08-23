@@ -26,7 +26,7 @@ public class MutableToken implements Token {
     private UserDetails userDetails;
     private String key;
     private Object details;
-    private long creationTime = System.currentTimeMillis();
+    private long keyCreationTime = System.currentTimeMillis();
     private String extendedInformation;
     private boolean authenticated = false;
 
@@ -69,6 +69,7 @@ public class MutableToken implements Token {
         return key;
     }
 
+    @Override
     public void setKey(String key) {
         this.key = key;
     }
@@ -78,16 +79,9 @@ public class MutableToken implements Token {
         return details;
     }
 
+    @Override
     public void setDetails(Object details) {
         this.details = details;
-    }
-
-    public long getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(long creationTime) {
-        this.creationTime = creationTime;
     }
 
     @Override
@@ -95,6 +89,7 @@ public class MutableToken implements Token {
         return extendedInformation;
     }
 
+    @Override
     public void setExtendedInformation(String extendedInformation) {
         this.extendedInformation = extendedInformation;
     }
@@ -121,7 +116,12 @@ public class MutableToken implements Token {
 
     @Override
     public long getKeyCreationTime() {
-        return creationTime;
+        return keyCreationTime;
+    }
+
+    @Override
+    public void setKeyCreationTime(long keyCreationTime) {
+        this.keyCreationTime = keyCreationTime;
     }
 
     @Override

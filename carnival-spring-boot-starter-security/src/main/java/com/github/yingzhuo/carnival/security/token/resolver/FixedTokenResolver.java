@@ -29,7 +29,7 @@ public final class FixedTokenResolver implements TokenResolver {
                 .authenticated(false)
                 .details(null)
                 .userDetails(null)
-                .creationTime(System.currentTimeMillis())
+                .keyCreationTime(System.currentTimeMillis())
                 .build();
     }
 

@@ -17,10 +17,8 @@ import com.auth0.jwt.interfaces.Verification;
 import com.github.yingzhuo.carnival.security.exception.*;
 import com.github.yingzhuo.carnival.security.jwt.JwtCustomizer;
 import com.github.yingzhuo.carnival.security.token.MutableToken;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
+import com.github.yingzhuo.carnival.security.token.Token;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,7 +29,7 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.10.2
  */
-public abstract class JwtAuthenticationProvider implements TokenAuthenticationProvider {
+public abstract class JwtAuthenticationProvider implements AuthenticationProvider {
 
     private final Algorithm algorithm;
     private final JwtCustomizer jwtCustomizer;
@@ -47,16 +45,16 @@ public abstract class JwtAuthenticationProvider implements TokenAuthenticationPr
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return MutableToken.class.isAssignableFrom(authentication);
+        return Token.class.isAssignableFrom(authentication);
     }
 
     @Override
     public final Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (!(authentication instanceof MutableToken)) {
-            throw new UnsupportedTokenException(null);
+        if (!supports(authentication.getClass())) {
+            return null;
         }
 
-        final MutableToken token = (MutableToken) authentication;
+        final Token token = (Token) authentication;
 
         try {
             final Verification verification = JWT.require(algorithm);
