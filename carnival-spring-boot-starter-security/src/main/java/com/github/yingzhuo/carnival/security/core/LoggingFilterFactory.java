@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.security.core;
 /**
  * @author 应卓
  * @see LoggingFilter
+ * @see org.springframework.context.ApplicationContext
  * @since 1.10.10
  */
 @FunctionalInterface

@@ -9,13 +9,13 @@
  */
 package com.github.yingzhuo.carnival.security.core;
 
-import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.token.Token;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
 import org.springframework.core.log.LogMessage;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +30,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -41,13 +42,13 @@ import java.util.Optional;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenResolver tokenResolver;
-    private final TokenAuthenticationManager authenticationManager;
+    private final List<AuthenticationProvider> authenticationProviders;
     private AuthenticationEntryPoint authenticationEntryPoint;
     private RememberMeServices rememberMeServices;
 
-    public TokenAuthenticationFilter(TokenResolver tokenResolver, TokenAuthenticationManager authenticationManager) {
+    public TokenAuthenticationFilter(TokenResolver tokenResolver, List<AuthenticationProvider> authenticationProviders) {
         this.tokenResolver = Objects.requireNonNull(tokenResolver);
-        this.authenticationManager = Objects.requireNonNull(authenticationManager);
+        this.authenticationProviders = Objects.requireNonNull(authenticationProviders);
     }
 
     @Override
@@ -59,7 +60,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             Optional<Token> tokenOption = tokenResolver.resolve(new ServletWebRequest(request, response));
             if (tokenOption.isPresent()) {
                 try {
-                    Authentication authentication = authenticationManager.authenticate(tokenOption.get());
+                    final Authentication authentication = this.doAuthenticate(tokenOption.get());
+
+                    if (authentication == null) {
+                        chain.doFilter(request, response);
+                        return;
+                    }
+
                     authentication.setAuthenticated(true);
 
                     if (authentication instanceof AbstractAuthenticationToken) {
@@ -96,6 +103,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                     logger.debug("Token cannot be resolved. Nothing to do.");
                 }
             }
+        } else {
+            if (this.logger.isDebugEnabled()) {
+                logger.debug("Authentication NOT Required");
+            }
         }
 
         chain.doFilter(request, response);
@@ -105,8 +116,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         return tokenResolver;
     }
 
-    public TokenAuthenticationManager getAuthenticationManager() {
-        return authenticationManager;
+    public List<AuthenticationProvider> getAuthenticationProviders() {
+        return authenticationProviders;
     }
 
     public AuthenticationEntryPoint getAuthenticationEntryPoint() {
@@ -133,6 +144,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException failed) {
         logger.debug("Unsuccessful Authentication");
+    }
+
+    protected final Authentication doAuthenticate(Token token) {
+        for (AuthenticationProvider provider : authenticationProviders) {
+            if (provider.supports(token.getClass())) {
+                return provider.authenticate(token);
+            }
+        }
+
+        return null;
     }
 
     protected final boolean authenticationIsRequired() {

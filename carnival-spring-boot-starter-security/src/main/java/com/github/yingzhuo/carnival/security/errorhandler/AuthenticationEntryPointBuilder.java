@@ -27,15 +27,14 @@ import java.util.LinkedHashMap;
  */
 public final class AuthenticationEntryPointBuilder {
 
-    public static AuthenticationEntryPointBuilder newInstance() {
-        return new AuthenticationEntryPointBuilder();
-    }
-
     private final LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> map = new LinkedHashMap<>();
     private AuthenticationEntryPoint defaultEntryPoint;
-
     private AuthenticationEntryPointBuilder() {
         super();
+    }
+
+    public static AuthenticationEntryPointBuilder newInstance() {
+        return new AuthenticationEntryPointBuilder();
     }
 
     public AuthenticationEntryPointBuilder add(RequestMatcher matcher, AuthenticationEntryPoint delegate) {

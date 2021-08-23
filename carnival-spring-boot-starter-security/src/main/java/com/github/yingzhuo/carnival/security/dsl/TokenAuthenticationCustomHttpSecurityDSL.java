@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.security.dsl;
 
-import com.github.yingzhuo.carnival.security.authentication.TokenAuthenticationManager;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilter;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterFactory;
 import com.github.yingzhuo.carnival.security.errorhandler.TokenAuthenticationEntryPoint;
@@ -17,11 +16,11 @@ import com.github.yingzhuo.carnival.security.token.resolver.BearerTokenResolver;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
 import com.github.yingzhuo.carnival.spring.BeanFinder;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,11 +49,11 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
 
         // 没有的话，尝试新建一个
         final TokenResolver tokenResolver = getTokenResolver(beanFinder);
-        final TokenAuthenticationManager authManager = getTokenAuthenticationManager(beanFinder);
+        final List<AuthenticationProvider> providers = getAuthenticationProviders(beanFinder);
         final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
 
-        if (tokenResolver != null && authManager != null) {
-            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, authManager);
+        if (tokenResolver != null && !providers.isEmpty()) {
+            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, providers);
             filter.setAuthenticationEntryPoint(entryPoint);
             filter.afterPropertiesSet();
             return filter;
@@ -64,17 +63,17 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
     }
 
     private TokenResolver getTokenResolver(BeanFinder beanFinder) {
-        List<TokenResolver> list = new ArrayList<>(beanFinder.getMultipleQuietly(TokenResolver.class));
+        final List<TokenResolver> list = beanFinder.getMultipleQuietly(TokenResolver.class);
         if (!list.isEmpty()) {
             return TokenResolver.builder()
                     .add(list)
                     .build();
         }
-        return BearerTokenResolver.INSTANCE;
+        return BearerTokenResolver.INSTANCE; // 标准
     }
 
-    private TokenAuthenticationManager getTokenAuthenticationManager(BeanFinder beanFinder) {
-        return beanFinder.getPrimaryQuietly(TokenAuthenticationManager.class).orElse(null);
+    private List<AuthenticationProvider> getAuthenticationProviders(BeanFinder beanFinder) {
+        return beanFinder.getMultiple(AuthenticationProvider.class);
     }
 
 }

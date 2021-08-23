@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.authentication;
 
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 
@@ -17,10 +17,12 @@ import org.springframework.security.core.AuthenticationException;
  * @author 应卓
  * @since 1.10.2
  */
-@FunctionalInterface
-public interface TokenAuthenticationManager extends AuthenticationManager {
+public interface TokenAuthenticationProvider extends AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException;
+
+    @Override
+    public boolean supports(Class<?> authentication);
 
 }

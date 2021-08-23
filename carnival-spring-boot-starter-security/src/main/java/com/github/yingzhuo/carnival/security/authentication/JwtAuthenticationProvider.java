@@ -31,18 +31,23 @@ import java.util.Objects;
  * @author 应卓
  * @since 1.10.2
  */
-public abstract class JwtAuthenticationManager implements TokenAuthenticationManager {
+public abstract class JwtAuthenticationProvider implements TokenAuthenticationProvider {
 
     private final Algorithm algorithm;
     private final JwtCustomizer jwtCustomizer;
 
-    public JwtAuthenticationManager(Algorithm algorithm) {
+    public JwtAuthenticationProvider(Algorithm algorithm) {
         this(algorithm, null);
     }
 
-    public JwtAuthenticationManager(Algorithm algorithm, JwtCustomizer jwtCustomizer) {
+    public JwtAuthenticationProvider(Algorithm algorithm, JwtCustomizer jwtCustomizer) {
         this.algorithm = Objects.requireNonNull(algorithm);
         this.jwtCustomizer = jwtCustomizer != null ? jwtCustomizer : v -> v;
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return MutableToken.class.isAssignableFrom(authentication);
     }
 
     @Override
@@ -105,4 +110,5 @@ public abstract class JwtAuthenticationManager implements TokenAuthenticationMan
     public Algorithm getAlgorithm() {
         return algorithm;
     }
+
 }
