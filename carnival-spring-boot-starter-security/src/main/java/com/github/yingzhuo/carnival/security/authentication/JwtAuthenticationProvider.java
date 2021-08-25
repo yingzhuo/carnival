@@ -16,7 +16,6 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import com.github.yingzhuo.carnival.security.exception.*;
 import com.github.yingzhuo.carnival.security.jwt.JwtCustomizer;
-import com.github.yingzhuo.carnival.security.token.MutableToken;
 import com.github.yingzhuo.carnival.security.token.Token;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;

@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.security.token;
 
 import com.github.yingzhuo.carnival.security.userdetails.MutableUserDetailsable;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 
@@ -43,5 +44,11 @@ public interface Token extends
     public String getExtendedInformation();
 
     public void setExtendedInformation(String extendedInformation);
+
+    @Override
+    public UserDetails getUserDetails();
+
+    @Override
+    public void setUserDetails(UserDetails userDetails);
 
 }
