@@ -23,7 +23,6 @@ import java.util.Random;
  * @author 应卓
  * @since 1.10.6
  */
-@Deprecated
 public class SimpleCaptchaService implements CaptchaService {
 
     private static final Random RANDOM = new Random();
