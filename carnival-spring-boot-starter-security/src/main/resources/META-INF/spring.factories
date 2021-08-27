@@ -2,4 +2,5 @@ org.springframework.security.config.annotation.web.configurers.AbstractHttpConfi
     com.github.yingzhuo.carnival.security.dsl.LoggingCustomHttpSecurityDSL,\
     com.github.yingzhuo.carnival.security.dsl.TokenAuthenticationCustomHttpSecurityDSL
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.security.autoconfig.JwtFactoryAutoConfig
+    com.github.yingzhuo.carnival.security.autoconfig.JwtFactoryAutoConfig,\
+    com.github.yingzhuo.carnival.security.autoconfig.RoleHierarchyAutoConfig
