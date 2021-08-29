@@ -12,6 +12,7 @@
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-database</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
+        <module>carnival-spring-boot-starter-graphql</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
@@ -555,6 +556,13 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15to18</artifactId>
                 <version>1.69</version>
+            </dependency>
+
+            <!-- graphql -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java</artifactId>
+                <version>17.2</version>
             </dependency>
 
             <!-- logback -->
