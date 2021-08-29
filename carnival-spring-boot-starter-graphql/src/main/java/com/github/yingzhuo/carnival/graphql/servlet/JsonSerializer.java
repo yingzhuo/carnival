@@ -9,6 +9,10 @@
  */
 package com.github.yingzhuo.carnival.graphql.servlet;
 
+/**
+ * @author 应卓
+ * @since 1.10.14
+ */
 public interface JsonSerializer {
 
     /**

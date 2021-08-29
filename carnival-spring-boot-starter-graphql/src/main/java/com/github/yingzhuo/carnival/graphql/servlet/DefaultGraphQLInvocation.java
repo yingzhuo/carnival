@@ -19,6 +19,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * @author 应卓
+ * @since 1.10.14
  */
 public class DefaultGraphQLInvocation implements GraphQLInvocation {
 

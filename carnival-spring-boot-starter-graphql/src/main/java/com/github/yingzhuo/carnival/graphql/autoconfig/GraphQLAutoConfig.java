@@ -45,9 +45,9 @@ public class GraphQLAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     SchemaText schemaText() {
-        SchemaTextBuilder builder = SchemaText.builder();
-        for (String location : ConfigHolder.sdl) {
-            builder = builder.append(resourceLoader.getResource(location));
+        final SchemaTextBuilder builder = SchemaText.builder();
+        for (String location : ConfigHolder.schemaLocations) {
+            builder.append(resourceLoader.getResource(location), ConfigHolder.schemaCharset);
         }
         return builder.build();
     }

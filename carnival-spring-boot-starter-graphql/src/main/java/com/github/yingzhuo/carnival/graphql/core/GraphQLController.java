@@ -44,7 +44,8 @@ public class GraphQLController {
         this.jsonSerializer = jsonSerializer;
     }
 
-    @RequestMapping(value = "${graphql.url:graphql}",
+    @RequestMapping(
+            value = "${graphql.url:graphql}",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )

@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
 
 /**
  * @author 应卓
@@ -31,20 +30,6 @@ public final class SchemaTextBuilder {
 
     public SchemaTextBuilder append(String text) {
         this.buffer.append(text);
-        return this;
-    }
-
-    public SchemaTextBuilder append(Collection<String> textCollection) {
-        for (String text : textCollection) {
-            this.buffer.append(text);
-        }
-        return this;
-    }
-
-    public SchemaTextBuilder append(String... textArray) {
-        for (String text : textArray) {
-            this.buffer.append(text);
-        }
         return this;
     }
 

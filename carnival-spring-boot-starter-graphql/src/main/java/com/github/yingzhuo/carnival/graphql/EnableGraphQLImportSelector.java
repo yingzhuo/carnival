@@ -15,6 +15,8 @@ import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.nio.charset.Charset;
+
 /**
  * @author 应卓
  * @since 1.10.14
@@ -27,8 +29,13 @@ class EnableGraphQLImportSelector implements ImportSelector {
                 importing.getAnnotationAttributes(EnableGraphQL.class.getName())
         );
 
+        if (attributes == null) {
+            return new String[0];
+        }
+
         ConfigHolder.url = attributes.getString("url");
-        ConfigHolder.sdl = attributes.getStringArray("sdl");
+        ConfigHolder.schemaLocations = attributes.getStringArray("schemaLocations");
+        ConfigHolder.schemaCharset = Charset.forName(attributes.getString("schemaCharset"));
 
         System.setProperty("graphql.url", ConfigHolder.url);
 

@@ -17,6 +17,7 @@ import java.util.Map;
 
 /**
  * @author 应卓
+ * @since 1.10.14
  */
 public class GraphQLInvocationData implements Serializable {
 

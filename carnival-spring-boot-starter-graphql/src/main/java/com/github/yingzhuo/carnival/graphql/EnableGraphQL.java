@@ -26,6 +26,8 @@ public @interface EnableGraphQL {
 
     public String url() default "graphql";
 
-    public String[] sdl() default "classpath:schema.graphqls";
+    public String[] schemaLocations() default "classpath:schema.graphqls";
+
+    public String schemaCharset() default "UTF-8";
 
 }

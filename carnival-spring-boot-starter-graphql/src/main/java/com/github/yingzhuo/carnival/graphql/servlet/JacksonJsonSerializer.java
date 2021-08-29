@@ -16,6 +16,7 @@ import java.io.UncheckedIOException;
 
 /**
  * @author 应卓
+ * @since 1.10.14
  */
 public class JacksonJsonSerializer implements JsonSerializer {
 
