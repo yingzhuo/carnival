@@ -158,12 +158,17 @@ public class GraphQLController {
             Map<String, Object> variables,
             WebRequest webRequest) {
 
-        InvokeContext.OperationNameHolder.set(operationName);
-        InvokeContext.VariablesHolder.set(Variables.fromMap(variables));
+        try {
+            InvokeContext.OperationNameHolder.set(operationName);
+            InvokeContext.VariablesHolder.set(Variables.fromMap(variables));
 
-        GraphQLInvocationData invocationData = new GraphQLInvocationData(query, operationName, variables);
-        CompletableFuture<ExecutionResult> executionResult = graphQLInvocation.invoke(invocationData, webRequest);
-        return executionResultHandler.handleExecutionResult(executionResult);
+            GraphQLInvocationData invocationData = new GraphQLInvocationData(query, operationName, variables);
+            CompletableFuture<ExecutionResult> executionResult = graphQLInvocation.invoke(invocationData, webRequest);
+            return executionResultHandler.handleExecutionResult(executionResult);
+        } finally {
+            InvokeContext.cleanup();
+        }
+
     }
 
 }

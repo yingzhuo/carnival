@@ -31,6 +31,15 @@ public final class InvokeContext {
     public static final ThreadLocal<String> OperationNameHolder = ThreadLocal.withInitial(() -> null);
     public static final ThreadLocal<Variables> VariablesHolder = ThreadLocal.withInitial(() -> null);
 
+    public static void cleanup() {
+        MethodParameterHolder.remove();
+        ModelAndViewContainerHolder.remove();
+        NativeWebRequestHolder.remove();
+        WebDataBinderFactoryHolder.remove();
+        OperationNameHolder.remove();
+        VariablesHolder.remove();
+    }
+
     private InvokeContext() {
     }
 
