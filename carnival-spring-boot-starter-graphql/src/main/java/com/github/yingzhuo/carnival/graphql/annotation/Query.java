@@ -18,7 +18,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 public @interface Query {
 
     public String value() default "";

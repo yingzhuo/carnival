@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.graphql.core;
 
 import com.github.yingzhuo.carnival.graphql.annotation.Argument;
+import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -27,19 +28,16 @@ class ReflectionDataFetcher implements DataFetcher<Object> {
     private final List<Argument> argumentAnnotations;
     private final Object bean;
     private final Method method;
-    private final List<HandlerMethodArgumentResolver> handlerMethodArgumentResolvers;
     private final int parameterCount;
 
     public ReflectionDataFetcher(List<Argument> argumentAnnotations,
                                  Object bean,
-                                 Method method,
-                                 List<HandlerMethodArgumentResolver> handlerMethodArgumentResolvers) {
+                                 Method method) {
 
         this.argumentAnnotations = argumentAnnotations;
         this.bean = bean;
         this.method = method;
         this.parameterCount = method.getParameterCount();
-        this.handlerMethodArgumentResolvers = handlerMethodArgumentResolvers;
         this.method.setAccessible(true);
     }
 
@@ -77,7 +75,7 @@ class ReflectionDataFetcher implements DataFetcher<Object> {
 
     private Object getParameterFromHandlerMethodArgumentResolvers()
             throws Exception {
-        for (HandlerMethodArgumentResolver resolver : handlerMethodArgumentResolvers) {
+        for (HandlerMethodArgumentResolver resolver : RequestMappingUtils.getHandlerMethodArgumentResolvers()) {
             if (resolver.supportsParameter(InvokeContext.METHOD_PARAMETER_HOLDER.get())) {
                 return resolver.resolveArgument(
                         InvokeContext.METHOD_PARAMETER_HOLDER.get(),

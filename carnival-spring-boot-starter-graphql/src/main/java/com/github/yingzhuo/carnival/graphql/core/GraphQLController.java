@@ -43,8 +43,9 @@ public class GraphQLController {
         this.jsonSerializer = jsonSerializer;
     }
 
-    @PostMapping(
+    @RequestMapping(
             value = "${graphql.url:graphql}",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Object graphqlPOST(
@@ -57,7 +58,7 @@ public class GraphQLController {
             InvokeContext ignored) {
 
         MediaType mediaType = null;
-        if (!StringUtils.hasLength(contentType)) {
+        if (StringUtils.hasLength(contentType)) {
             try {
                 mediaType = MediaType.parseMediaType(contentType);
             } catch (InvalidMediaTypeException ignore) {
@@ -106,8 +107,9 @@ public class GraphQLController {
         throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Could not process GraphQL request");
     }
 
-    @GetMapping(
+    @RequestMapping(
             value = "${graphql.url:graphql}",
+            method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Object graphqlGET(

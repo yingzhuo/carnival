@@ -13,7 +13,6 @@ import com.github.yingzhuo.carnival.graphql.annotation.Action;
 import com.github.yingzhuo.carnival.graphql.annotation.Argument;
 import com.github.yingzhuo.carnival.graphql.annotation.Query;
 import com.github.yingzhuo.carnival.graphql.schema.SchemaText;
-import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
 import graphql.GraphQL;
 import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLSchema;
@@ -95,7 +94,7 @@ public class GraphQLFactoryBean implements FactoryBean<GraphQL>, BeanPostProcess
             arguments.add(argument);
         }
 
-        final DataFetcher<?> dataFetcher = new ReflectionDataFetcher(arguments, bean, method, RequestMappingUtils.getHandlerMethodArgumentResolvers());
+        final DataFetcher<?> dataFetcher = new ReflectionDataFetcher(arguments, bean, method);
         return Entry.newInstance(name, dataFetcher);
     }
 
