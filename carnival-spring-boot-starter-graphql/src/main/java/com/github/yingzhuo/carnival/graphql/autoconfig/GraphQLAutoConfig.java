@@ -12,6 +12,7 @@ package com.github.yingzhuo.carnival.graphql.autoconfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.yingzhuo.carnival.graphql.core.GraphQLController;
 import com.github.yingzhuo.carnival.graphql.core.GraphQLFactoryBean;
+import com.github.yingzhuo.carnival.graphql.core.RuntimeWiringCustomizer;
 import com.github.yingzhuo.carnival.graphql.schema.SchemaText;
 import com.github.yingzhuo.carnival.graphql.schema.SchemaTextBuilder;
 import com.github.yingzhuo.carnival.graphql.servlet.*;
@@ -70,8 +71,8 @@ public class GraphQLAutoConfig implements WebMvcConfigurer {
 
     @Bean
     @ConditionalOnMissingBean(GraphQL.class)
-    public GraphQLFactoryBean graphQL(SchemaText schemaText) {
-        return new GraphQLFactoryBean(schemaText);
+    public GraphQLFactoryBean graphQL(SchemaText schemaText, RuntimeWiringCustomizer runtimeWiringCustomizer) {
+        return new GraphQLFactoryBean(schemaText, runtimeWiringCustomizer);
     }
 
     @Bean
@@ -84,6 +85,12 @@ public class GraphQLAutoConfig implements WebMvcConfigurer {
     @ConditionalOnMissingBean
     GraphQLController graphQLController(GraphQLInvocation graphQLInvocation, ExecutionResultHandler executionResultHandler, JsonSerializer jsonSerializer) {
         return new GraphQLController(graphQLInvocation, executionResultHandler, jsonSerializer);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    RuntimeWiringCustomizer runtimeWiringCustomizer() {
+        return b -> b;
     }
 
     @Override

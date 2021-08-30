@@ -15,6 +15,7 @@ import com.github.yingzhuo.carnival.graphql.annotation.OperationName;
 import com.github.yingzhuo.carnival.graphql.annotation.Query;
 import com.github.yingzhuo.carnival.graphql.schema.SchemaText;
 import graphql.GraphQL;
+import graphql.scalars.ExtendedScalars;
 import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.*;
@@ -39,10 +40,12 @@ import java.util.Map;
 public class GraphQLFactoryBean implements FactoryBean<GraphQL>, BeanPostProcessor {
 
     private final SchemaText schemaText;
+    private final RuntimeWiringCustomizer runtimeWiringCustomizer;
     private final Map<String, DataFetcher<?>> dataFetcherMap = new HashMap<>();
 
-    public GraphQLFactoryBean(SchemaText schemaText) {
+    public GraphQLFactoryBean(SchemaText schemaText, RuntimeWiringCustomizer runtimeWiringCustomizer) {
         this.schemaText = schemaText;
+        this.runtimeWiringCustomizer = runtimeWiringCustomizer;
     }
 
     @Override
@@ -117,7 +120,23 @@ public class GraphQLFactoryBean implements FactoryBean<GraphQL>, BeanPostProcess
     }
 
     private RuntimeWiring buildWiring() {
-        final RuntimeWiring.Builder builder = RuntimeWiring.newRuntimeWiring();
+        RuntimeWiring.Builder builder = RuntimeWiring
+                .newRuntimeWiring()
+                .scalar(ExtendedScalars.Date)
+                .scalar(ExtendedScalars.DateTime)
+                .scalar(ExtendedScalars.Time)
+                .scalar(ExtendedScalars.Object)
+                .scalar(ExtendedScalars.Url)
+                .scalar(ExtendedScalars.Json)
+                .scalar(ExtendedScalars.GraphQLByte)
+                .scalar(ExtendedScalars.GraphQLBigDecimal)
+                .scalar(ExtendedScalars.GraphQLChar)
+                .scalar(ExtendedScalars.GraphQLLong)
+                .scalar(ExtendedScalars.GraphQLShort)
+                .scalar(ExtendedScalars.GraphQLBigInteger)
+                .scalar(ExtendedScalars.Locale);
+
+        builder = runtimeWiringCustomizer.customize(builder);
 
         for (String name : this.dataFetcherMap.keySet()) {
             final DataFetcher<?> dataFetcher = this.dataFetcherMap.get(name);
