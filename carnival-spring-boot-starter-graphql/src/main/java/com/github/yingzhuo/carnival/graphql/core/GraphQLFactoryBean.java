@@ -11,6 +11,7 @@ package com.github.yingzhuo.carnival.graphql.core;
 
 import com.github.yingzhuo.carnival.graphql.annotation.Action;
 import com.github.yingzhuo.carnival.graphql.annotation.Argument;
+import com.github.yingzhuo.carnival.graphql.annotation.OperationName;
 import com.github.yingzhuo.carnival.graphql.annotation.Query;
 import com.github.yingzhuo.carnival.graphql.schema.SchemaText;
 import graphql.GraphQL;
@@ -88,13 +89,15 @@ public class GraphQLFactoryBean implements FactoryBean<GraphQL>, BeanPostProcess
         final String name = getQueryName(query, method);
 
         final List<Argument> arguments = new ArrayList<>(method.getParameterCount());
+        final List<OperationName> operationNames = new ArrayList<>(method.getParameterCount());
+
         for (int i = 0; i < method.getParameterCount(); i++) {
             final MethodParameter mp = new MethodParameter(method, i);
-            Argument argument = mp.getParameterAnnotation(Argument.class);
-            arguments.add(argument);
+            arguments.add(mp.getParameterAnnotation(Argument.class));
+            operationNames.add(mp.getParameterAnnotation(OperationName.class));
         }
 
-        final DataFetcher<?> dataFetcher = new ReflectionDataFetcher(arguments, bean, method);
+        final DataFetcher<?> dataFetcher = new ReflectionDataFetcher(arguments, operationNames, bean, method);
         return Entry.newInstance(name, dataFetcher);
     }
 

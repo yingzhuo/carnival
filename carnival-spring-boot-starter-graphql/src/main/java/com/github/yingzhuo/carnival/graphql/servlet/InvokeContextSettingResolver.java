@@ -39,10 +39,10 @@ public final class InvokeContextSettingResolver implements HandlerMethodArgument
             ModelAndViewContainer mavContainer,
             NativeWebRequest webRequest,
             WebDataBinderFactory binderFactory) {
-        InvokeContext.METHOD_PARAMETER_HOLDER.set(parameter);
-        InvokeContext.MAV_CONTAINER_HOLDER.set(mavContainer);
-        InvokeContext.REQUEST_HOLDER.set(webRequest);
-        InvokeContext.WEB_DATA_BINDER_FACTORY_HOLDER.set(binderFactory);
+        InvokeContext.MethodParameterHolder.set(parameter);
+        InvokeContext.ModelAndViewContainerHolder.set(mavContainer);
+        InvokeContext.NativeWebRequestHolder.set(webRequest);
+        InvokeContext.WebDataBinderFactoryHolder.set(binderFactory);
         return InvokeContext.INSTANCE;
     }
 

@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.graphql.core;
 
+import com.github.yingzhuo.carnival.graphql.request.Variables;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -23,10 +24,12 @@ public final class InvokeContext {
 
     public static final InvokeContext INSTANCE = new InvokeContext();
 
-    public static final ThreadLocal<MethodParameter> METHOD_PARAMETER_HOLDER = ThreadLocal.withInitial(() -> null);
-    public static final ThreadLocal<ModelAndViewContainer> MAV_CONTAINER_HOLDER = ThreadLocal.withInitial(() -> null);
-    public static final ThreadLocal<NativeWebRequest> REQUEST_HOLDER = ThreadLocal.withInitial(() -> null);
-    public static final ThreadLocal<WebDataBinderFactory> WEB_DATA_BINDER_FACTORY_HOLDER = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<MethodParameter> MethodParameterHolder = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<ModelAndViewContainer> ModelAndViewContainerHolder = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<NativeWebRequest> NativeWebRequestHolder = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<WebDataBinderFactory> WebDataBinderFactoryHolder = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<String> OperationNameHolder = ThreadLocal.withInitial(() -> null);
+    public static final ThreadLocal<Variables> VariablesHolder = ThreadLocal.withInitial(() -> null);
 
     private InvokeContext() {
     }

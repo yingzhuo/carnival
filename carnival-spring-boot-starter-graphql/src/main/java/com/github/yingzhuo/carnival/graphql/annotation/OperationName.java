@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.graphql.annotation;
 
-import org.springframework.stereotype.Component;
-
 import java.lang.annotation.*;
 
 /**
@@ -20,7 +18,6 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.TYPE)
-@Component
-public @interface Action {
+@Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+public @interface OperationName {
 }

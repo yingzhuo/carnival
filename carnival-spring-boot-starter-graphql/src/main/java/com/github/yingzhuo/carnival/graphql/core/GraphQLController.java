@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.graphql.core;
 
+import com.github.yingzhuo.carnival.graphql.request.Variables;
 import com.github.yingzhuo.carnival.graphql.servlet.*;
 import graphql.ExecutionResult;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,8 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * GraphQL基于HTTP，所有请求入口
+ *
  * @author 应卓
  */
 @RestController
@@ -154,6 +157,10 @@ public class GraphQLController {
             String operationName,
             Map<String, Object> variables,
             WebRequest webRequest) {
+
+        InvokeContext.OperationNameHolder.set(operationName);
+        InvokeContext.VariablesHolder.set(Variables.fromMap(variables));
+
         GraphQLInvocationData invocationData = new GraphQLInvocationData(query, operationName, variables);
         CompletableFuture<ExecutionResult> executionResult = graphQLInvocation.invoke(invocationData, webRequest);
         return executionResultHandler.handleExecutionResult(executionResult);

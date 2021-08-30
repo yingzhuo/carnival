@@ -10,6 +10,8 @@
 package com.github.yingzhuo.carnival.graphql.core;
 
 import com.github.yingzhuo.carnival.graphql.annotation.Argument;
+import com.github.yingzhuo.carnival.graphql.annotation.OperationName;
+import com.github.yingzhuo.carnival.graphql.request.Variables;
 import com.github.yingzhuo.carnival.spring.RequestMappingUtils;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
@@ -26,15 +28,18 @@ import java.util.List;
 class ReflectionDataFetcher implements DataFetcher<Object> {
 
     private final List<Argument> argumentAnnotations;
+    private final List<OperationName> operationNameAnnotations;
     private final Object bean;
     private final Method method;
     private final int parameterCount;
 
     public ReflectionDataFetcher(List<Argument> argumentAnnotations,
+                                 List<OperationName> operationNameAnnotations,
                                  Object bean,
                                  Method method) {
 
         this.argumentAnnotations = argumentAnnotations;
+        this.operationNameAnnotations = operationNameAnnotations;
         this.bean = bean;
         this.method = method;
         this.parameterCount = method.getParameterCount();
@@ -56,12 +61,28 @@ class ReflectionDataFetcher implements DataFetcher<Object> {
         final List<Object> params = new ArrayList<>(parameterCount);
 
         for (int i = 0; i < parameterCount; i++) {
+
+            if (method.getParameterTypes()[i] == Variables.class) {
+                params.add(InvokeContext.VariablesHolder.get());
+                continue;
+            }
+
             Argument argumentAnnotation = argumentAnnotations.get(i);
+            OperationName operationNameAnnotation = operationNameAnnotations.get(i);
+
+            // 参数上有 @Argument
             if (argumentAnnotation != null) {
                 params.add(getParameterFromDataFetchingEnvironment(env, argumentAnnotation));
-            } else {
-                params.add(getParameterFromHandlerMethodArgumentResolvers());
+                continue;
             }
+
+            // 参数上有 @OperationName
+            if (operationNameAnnotation != null) {
+                params.add(InvokeContext.OperationNameHolder.get());
+                continue;
+            }
+
+            params.add(getParameterFromHandlerMethodArgumentResolvers());
         }
 
         return params.toArray();
@@ -76,12 +97,12 @@ class ReflectionDataFetcher implements DataFetcher<Object> {
     private Object getParameterFromHandlerMethodArgumentResolvers()
             throws Exception {
         for (HandlerMethodArgumentResolver resolver : RequestMappingUtils.getHandlerMethodArgumentResolvers()) {
-            if (resolver.supportsParameter(InvokeContext.METHOD_PARAMETER_HOLDER.get())) {
+            if (resolver.supportsParameter(InvokeContext.MethodParameterHolder.get())) {
                 return resolver.resolveArgument(
-                        InvokeContext.METHOD_PARAMETER_HOLDER.get(),
-                        InvokeContext.MAV_CONTAINER_HOLDER.get(),
-                        InvokeContext.REQUEST_HOLDER.get(),
-                        InvokeContext.WEB_DATA_BINDER_FACTORY_HOLDER.get()
+                        InvokeContext.MethodParameterHolder.get(),
+                        InvokeContext.ModelAndViewContainerHolder.get(),
+                        InvokeContext.NativeWebRequestHolder.get(),
+                        InvokeContext.WebDataBinderFactoryHolder.get()
                 );
             }
         }
