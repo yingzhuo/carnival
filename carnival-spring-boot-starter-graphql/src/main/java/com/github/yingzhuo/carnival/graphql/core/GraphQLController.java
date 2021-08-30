@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
@@ -44,9 +43,8 @@ public class GraphQLController {
         this.jsonSerializer = jsonSerializer;
     }
 
-    @RequestMapping(
+    @PostMapping(
             value = "${graphql.url:graphql}",
-            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public Object graphqlPOST(
@@ -55,7 +53,8 @@ public class GraphQLController {
             @RequestParam(value = "operationName", required = false) String operationName,
             @RequestParam(value = "variables", required = false) String variablesJson,
             @RequestBody(required = false) String body,
-            WebRequest webRequest) throws IOException {
+            WebRequest webRequest,
+            InvokeContext ignored) {
 
         MediaType mediaType = null;
         if (!StringUtils.hasLength(contentType)) {
@@ -107,14 +106,16 @@ public class GraphQLController {
         throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "Could not process GraphQL request");
     }
 
-    @RequestMapping(value = "${graphql.url:graphql}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "${graphql.url:graphql}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public Object graphqlGET(
             @RequestParam("query") String query,
             @RequestParam(value = "operationName", required = false) String operationName,
             @RequestParam(value = "variables", required = false) String variablesJson,
-            WebRequest webRequest) {
+            WebRequest webRequest,
+            InvokeContext ignored) {
 
         // https://graphql.org/learn/serving-over-http/#get-request
         //

@@ -22,13 +22,17 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 /**
  * @author 应卓
  * @since 1.10.14
  */
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class GraphQLAutoConfig {
+public class GraphQLAutoConfig implements WebMvcConfigurer {
 
     @Autowired
     private ResourceLoader resourceLoader;
@@ -80,6 +84,11 @@ public class GraphQLAutoConfig {
     @ConditionalOnMissingBean
     GraphQLController graphQLController(GraphQLInvocation graphQLInvocation, ExecutionResultHandler executionResultHandler, JsonSerializer jsonSerializer) {
         return new GraphQLController(graphQLInvocation, executionResultHandler, jsonSerializer);
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(InvokeContextSettingResolver.INSTANCE);
     }
 
 }
