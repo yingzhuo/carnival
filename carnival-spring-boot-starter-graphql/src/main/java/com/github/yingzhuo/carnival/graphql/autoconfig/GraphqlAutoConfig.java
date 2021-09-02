@@ -33,7 +33,10 @@ class GraphqlAutoConfig implements RuntimeWiringConfigurer {
                 .scalar(ExtendedScalars.GraphQLShort)
                 .scalar(ExtendedScalars.Date)
                 .scalar(ExtendedScalars.DateTime)
-                .scalar(ExtendedScalars.Time);
+                .scalar(ExtendedScalars.Time)
+                .scalar(ExtendedScalars.Json)
+                .scalar(ExtendedScalars.Url)
+                .scalar(ExtendedScalars.Locale);
     }
 
     @Bean

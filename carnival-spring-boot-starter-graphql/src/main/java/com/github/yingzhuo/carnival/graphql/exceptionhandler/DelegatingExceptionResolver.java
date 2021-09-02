@@ -15,9 +15,11 @@ import graphql.schema.DataFetchingEnvironment;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.OrderComparator;
 import org.springframework.graphql.execution.DataFetcherExceptionResolver;
 import reactor.core.publisher.Mono;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,18 +29,16 @@ import java.util.List;
 public class DelegatingExceptionResolver implements DataFetcherExceptionResolver, InitializingBean, ApplicationContextAware {
 
     private BeanFinder beanFinder;
-    private List<ExceptionResolver> exceptionResolvers;
+    private final List<ExceptionResolver> exceptionResolvers = new ArrayList<>();
 
     @Override
     public Mono<List<GraphQLError>> resolveException(Throwable exception, DataFetchingEnvironment environment) {
-
         for (ExceptionResolver resolver : exceptionResolvers) {
             if (resolver.support(exception)) {
                 final List<GraphQLError> errors = resolver.resolve(exception, environment);
                 return Mono.fromCallable(() -> errors);
             }
         }
-
         return Mono.empty();
     }
 
@@ -49,7 +49,14 @@ public class DelegatingExceptionResolver implements DataFetcherExceptionResolver
 
     @Override
     public void afterPropertiesSet() {
-        this.exceptionResolvers = beanFinder.getMultipleQuietly(ExceptionResolver.class);
+        exceptionResolvers.addAll(beanFinder.getMultipleQuietly(ExceptionResolver.class));
+
+        ExceptionResolverCollection collection = beanFinder.getPrimaryQuietly(ExceptionResolverCollection.class).orElse(null);
+        if (collection != null) {
+            exceptionResolvers.addAll(collection.getExceptionResolvers());
+        }
+
+        OrderComparator.sort(exceptionResolvers);
     }
 
 }
