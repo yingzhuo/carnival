@@ -12,6 +12,7 @@
         <module>carnival-spring-boot-starter-common</module>
         <module>carnival-spring-boot-starter-database</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
+        <module>carnival-spring-boot-starter-graphql</module>
         <module>carnival-spring-boot-starter-id</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
@@ -78,8 +79,13 @@
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
+        </repository>
+        <repository>
+            <id>spring-snapshots</id>
+            <name>Spring Snapshots</name>
+            <url>https://repo.spring.io/snapshot</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
         </repository>
     </repositories>
@@ -92,7 +98,7 @@
         <spring.boot.version>2.5.4</spring.boot.version>
         <spring.version>5.3.9</spring.version>
         <spring.security.version>5.5.2</spring.security.version>
-        <jackson.version>2.12.4</jackson.version>
+        <jackson.version>2.12.5</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
         <netty.version>4.1.67.Final</netty.version>
         <feign.version>11.6</feign.version>
@@ -292,6 +298,25 @@
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-crypto</artifactId>
                 <version>${spring.security.version}</version>
+            </dependency>
+
+            <!-- spring-graphql -->
+            <dependency>
+                <groupId>org.springframework.experimental</groupId>
+                <artifactId>graphql-spring-boot-starter</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+
+            <!-- graphql-java -->
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java</artifactId>
+                <version>17.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.graphql-java</groupId>
+                <artifactId>graphql-java-extended-scalars</artifactId>
+                <version>17.0</version>
             </dependency>
 
             <!-- slf4j -->
