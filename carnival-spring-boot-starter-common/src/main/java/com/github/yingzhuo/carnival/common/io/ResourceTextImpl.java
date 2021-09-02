@@ -10,8 +10,8 @@
 package com.github.yingzhuo.carnival.common.io;
 
 import com.github.yingzhuo.carnival.spring.ResourceUtils;
-import org.apache.commons.io.IOUtils;
 import org.springframework.core.io.Resource;
+import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -35,7 +35,7 @@ class ResourceTextImpl implements ResourceText {
             if (!resource.exists() || !resource.isReadable()) {
                 throw new IOException("Cannot open resource.");
             }
-            this.text = IOUtils.toString(resource.getInputStream(), charset);
+            this.text = StreamUtils.copyToString(resource.getInputStream(), charset);
             this.length = this.text.length();
             resource.getInputStream().close();
         } catch (IOException e) {
