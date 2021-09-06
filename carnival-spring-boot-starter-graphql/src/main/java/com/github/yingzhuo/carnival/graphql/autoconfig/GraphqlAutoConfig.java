@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.graphql.autoconfig;
 
 import com.github.yingzhuo.carnival.graphql.exceptionhandler.DelegatingExceptionResolver;
+import com.github.yingzhuo.carnival.graphql.scalar.VoidScalarType;
 import graphql.scalars.ExtendedScalars;
 import graphql.schema.idl.RuntimeWiring;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,7 +37,8 @@ class GraphqlAutoConfig implements RuntimeWiringConfigurer {
                 .scalar(ExtendedScalars.Time)
                 .scalar(ExtendedScalars.Json)
                 .scalar(ExtendedScalars.Url)
-                .scalar(ExtendedScalars.Locale);
+                .scalar(ExtendedScalars.Locale)
+                .scalar(VoidScalarType.INSTANCE);
     }
 
     @Bean
