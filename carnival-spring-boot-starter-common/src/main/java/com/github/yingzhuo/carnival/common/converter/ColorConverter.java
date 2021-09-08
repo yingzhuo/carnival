@@ -9,21 +9,28 @@
  */
 package com.github.yingzhuo.carnival.common.converter;
 
-import com.github.yingzhuo.carnival.common.util.HexUtils;
 import org.springframework.core.convert.converter.Converter;
+
+import java.awt.*;
 
 /**
  * @author 应卓
- * @since 1.9.10
+ * @since 1.10.16
  */
-@SuppressWarnings("NullableProblems")
-public class ByteArrayConverter implements Converter<CharSequence, byte[]> {
+public class ColorConverter implements Converter<String, Color> {
 
     @Override
-    public byte[] convert(CharSequence source) {
+    public Color convert(String source) {
         try {
-            return HexUtils.decode(source);
-        } catch (Exception e) {
+            if (source.startsWith("#")) {
+                source = source.substring(1);
+            }
+
+            int red = Integer.parseInt(source.substring(0, 2), 16);
+            int green = Integer.parseInt(source.substring(2, 4), 16);
+            int blue = Integer.parseInt(source.substring(4, 6), 16);
+            return new Color(red, green, blue);
+        } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e.getMessage(), e);
         }
     }

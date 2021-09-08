@@ -58,32 +58,35 @@ public class DateTimeNewConverter implements GenericConverter {
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        if (source == null) return null;
 
-        final String text = source.toString();
-        final Class<?> clz = targetType.getObjectType();
+        try {
+            final String text = source.toString();
+            final Class<?> clz = targetType.getObjectType();
 
-        if (clz == LocalDate.class) {
-            return parseLocalDate(text, PATTERNS);
+            if (clz == LocalDate.class) {
+                return parseLocalDate(text, PATTERNS);
+            }
+
+            if (clz == LocalDateTime.class) {
+                return parseLocalDateTime(text, PATTERNS);
+            }
+
+            if (clz == Year.class) {
+                return Year.parse(text, DateTimeFormatter.ofPattern("yyyy"));
+            }
+
+            if (clz == YearMonth.class) {
+                return YearMonth.parse(text, DateTimeFormatter.ofPattern("yyyy-MM"));
+            }
+
+            if (clz == MonthDay.class) {
+                return MonthDay.parse(text, DateTimeFormatter.ofPattern("MM-dd"));
+            }
+
+            return null;
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
         }
-
-        if (clz == LocalDateTime.class) {
-            return parseLocalDateTime(text, PATTERNS);
-        }
-
-        if (clz == Year.class) {
-            return Year.parse(text, DateTimeFormatter.ofPattern("yyyy"));
-        }
-
-        if (clz == YearMonth.class) {
-            return YearMonth.parse(text, DateTimeFormatter.ofPattern("yyyy-MM"));
-        }
-
-        if (clz == MonthDay.class) {
-            return MonthDay.parse(text, DateTimeFormatter.ofPattern("MM-dd"));
-        }
-
-        return null;
     }
 
     private LocalDate parseLocalDate(String text, String... patterns) {

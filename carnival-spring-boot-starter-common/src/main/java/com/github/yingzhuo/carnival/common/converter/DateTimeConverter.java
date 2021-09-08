@@ -14,6 +14,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -52,18 +53,19 @@ public class DateTimeConverter implements GenericConverter {
     }
 
     @Override
-    @SneakyThrows
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        if (source == null) return null;
+        try {
+            final String text = source.toString();
+            final Class<?> clz = targetType.getObjectType();
+            final Date date = DateUtils.parseDateStrictly(text, PATTERNS);
 
-        final String text = source.toString();
-        final Class<?> clz = targetType.getObjectType();
-        final Date date = DateUtils.parseDateStrictly(text, PATTERNS);
+            if (clz == Date.class) return date;
+            if (clz == Calendar.class) return DateUtils.toCalendar(date);
 
-        if (clz == Date.class) return date;
-        if (clz == Calendar.class) return DateUtils.toCalendar(date);
-
-        throw new AssertionError(); // 不可能运行到此处
+            throw new AssertionError();
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e.getMessage(), e);
+        }
     }
 
 }

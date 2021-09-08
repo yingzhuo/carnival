@@ -31,11 +31,11 @@ import static com.github.yingzhuo.carnival.exception.business.BusinessExceptionM
         Map3.class
 })
 @ConditionalOnProperty(prefix = "carnival.business-exception", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class BusinessExceptionAutoConfig {
+class BusinessExceptionAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public BusinessExceptionFactory businessExceptionFactory(Props props, Map1 map1, Map2 map2, Map3 map3) {
+    BusinessExceptionFactory businessExceptionFactory(Props props, Map1 map1, Map2 map2, Map3 map3) {
         return new MapBusinessExceptionFactory(merge(map1, map2, map3));
     }
 

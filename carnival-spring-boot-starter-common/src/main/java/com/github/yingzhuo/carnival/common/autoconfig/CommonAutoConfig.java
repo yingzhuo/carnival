@@ -9,10 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.autoconfig;
 
-import com.github.yingzhuo.carnival.common.converter.ByteArrayConverter;
-import com.github.yingzhuo.carnival.common.converter.DateTimeConverter;
-import com.github.yingzhuo.carnival.common.converter.DateTimeNewConverter;
-import com.github.yingzhuo.carnival.common.converter.ResourceConverter;
+import com.github.yingzhuo.carnival.common.converter.*;
 import com.github.yingzhuo.carnival.common.log.ConfigurableLoggerConverter;
 import com.github.yingzhuo.carnival.datetime.DatePairConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
@@ -31,34 +28,41 @@ import org.springframework.util.PathMatcher;
  * @author 应卓
  * @since 1.5.2
  */
-public class CommonAutoConfig {
+class CommonAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public ByteArrayConverter byteArrayConverter() {
+    ByteArrayConverter byteArrayConverter() {
         return new ByteArrayConverter();
     }
 
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public ResourceConverter resourceConverter() {
+    ResourceConverter resourceConverter() {
         return new ResourceConverter();
     }
 
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public DateTimeConverter dateTimeConverter() {
+    DateTimeConverter dateTimeConverter() {
         return new DateTimeConverter();
     }
 
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public DateTimeNewConverter dateTimeNewConverter() {
+    DateTimeNewConverter dateTimeNewConverter() {
         return new DateTimeNewConverter();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    @ConfigurationPropertiesBinding
+    ColorConverter colorConverter() {
+        return new ColorConverter();
     }
 
     // ----------------------------------------------------------------------------------------------------------------
@@ -66,7 +70,7 @@ public class CommonAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public DatePairConverter datePairConverter() {
+    DatePairConverter datePairConverter() {
         return new DatePairConverter();
     }
 
@@ -75,7 +79,7 @@ public class CommonAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    public ConfigurableLoggerConverter configurableLoggerConverter() {
+    ConfigurableLoggerConverter configurableLoggerConverter() {
         return new ConfigurableLoggerConverter();
     }
 
@@ -83,26 +87,26 @@ public class CommonAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    public PathMatcher pathMatcher() {
+    PathMatcher pathMatcher() {
         return new AntPathMatcher();
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public ApplicationContextProvider applicationContextProvider() {
+    ApplicationContextProvider applicationContextProvider() {
         return ApplicationContextProvider.INSTANCE;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public SpringIdProvider springIdProvider(Environment environment) {
+    SpringIdProvider springIdProvider(Environment environment) {
         return new DefaultSpringIdProvider(environment);
     }
 
     // ----------------------------------------------------------------------------------------------------------------
 
     @Bean
-    public BeanFinder beanFinder(ApplicationContext context) {
+    BeanFinder beanFinder(ApplicationContext context) {
         return new BeanFinder(context);
     }
 

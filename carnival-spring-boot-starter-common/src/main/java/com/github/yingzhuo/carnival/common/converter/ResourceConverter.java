@@ -43,8 +43,6 @@ public class ResourceConverter implements GenericConverter {
 
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
-        if (source == null) return null;
-
         Class<?> clz = targetType.getObjectType();
         if (clz == ResourceText.class) {
             return ResourceText.of(source.toString());
@@ -58,7 +56,7 @@ public class ResourceConverter implements GenericConverter {
             return ResourceOptional.of(source.toString());
         }
 
-        throw new AssertionError(); // 不可能运行到此处
+        throw new AssertionError();
     }
 
 }

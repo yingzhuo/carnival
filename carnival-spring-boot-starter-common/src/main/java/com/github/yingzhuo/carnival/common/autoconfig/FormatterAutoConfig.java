@@ -17,7 +17,7 @@ import org.springframework.format.FormatterRegistry;
  * @author 应卓
  * @since 1.6.6
  */
-public class FormatterAutoConfig {
+class FormatterAutoConfig {
 
     @Autowired(required = false)
     public void config(FormatterRegistry registry) {

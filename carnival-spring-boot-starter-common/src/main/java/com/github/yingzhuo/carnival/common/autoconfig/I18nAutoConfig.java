@@ -19,7 +19,7 @@ import org.springframework.context.support.MessageSourceAccessor;
  * @author 应卓
  * @since 1.6.13
  */
-public class I18nAutoConfig {
+class I18nAutoConfig {
 
     @Bean
     @ConditionalOnBean(MessageSource.class)
