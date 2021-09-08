@@ -28,8 +28,8 @@ import java.util.List;
  */
 public class DelegatingExceptionResolver implements DataFetcherExceptionResolver, InitializingBean, ApplicationContextAware {
 
-    private BeanFinder beanFinder;
     private final List<ExceptionResolver> exceptionResolvers = new ArrayList<>();
+    private BeanFinder beanFinder;
 
     @Override
     public Mono<List<GraphQLError>> resolveException(Throwable exception, DataFetchingEnvironment environment) {
