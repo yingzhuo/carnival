@@ -13,7 +13,7 @@ import graphql.schema.*;
 
 /**
  * @author 应卓
- * @since 1.10.16
+ * @since 1.10.15
  */
 public final class VoidScalarType {
 
