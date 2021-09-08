@@ -34,7 +34,7 @@ public class DelegatingExceptionResolver implements DataFetcherExceptionResolver
     @Override
     public Mono<List<GraphQLError>> resolveException(Throwable exception, DataFetchingEnvironment environment) {
         for (ExceptionResolver resolver : exceptionResolvers) {
-            if (resolver.support(exception)) {
+            if (resolver.supports(exception)) {
                 final List<GraphQLError> errors = resolver.resolve(exception, environment);
                 return Mono.fromCallable(() -> errors);
             }
@@ -50,12 +50,6 @@ public class DelegatingExceptionResolver implements DataFetcherExceptionResolver
     @Override
     public void afterPropertiesSet() {
         exceptionResolvers.addAll(beanFinder.getMultipleQuietly(ExceptionResolver.class));
-
-        ExceptionResolverCollection collection = beanFinder.getPrimaryQuietly(ExceptionResolverCollection.class).orElse(null);
-        if (collection != null) {
-            exceptionResolvers.addAll(collection.getExceptionResolvers());
-        }
-
         OrderComparator.sort(exceptionResolvers);
     }
 

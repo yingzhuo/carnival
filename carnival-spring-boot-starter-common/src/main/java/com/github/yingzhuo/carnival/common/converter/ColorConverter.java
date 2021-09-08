@@ -17,18 +17,20 @@ import java.awt.*;
  * @author 应卓
  * @since 1.10.16
  */
-public class ColorConverter implements Converter<String, Color> {
+public class ColorConverter implements Converter<CharSequence, Color> {
 
     @Override
-    public Color convert(String source) {
+    public Color convert(CharSequence source) {
+
         try {
-            if (source.startsWith("#")) {
-                source = source.substring(1);
+            String s = source.toString();
+            if (s.startsWith("#")) {
+                s = s.substring(1);
             }
 
-            int red = Integer.parseInt(source.substring(0, 2), 16);
-            int green = Integer.parseInt(source.substring(2, 4), 16);
-            int blue = Integer.parseInt(source.substring(4, 6), 16);
+            int red = Integer.parseInt(s.substring(0, 2), 16);
+            int green = Integer.parseInt(s.substring(2, 4), 16);
+            int blue = Integer.parseInt(s.substring(4, 6), 16);
             return new Color(red, green, blue);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(e.getMessage(), e);

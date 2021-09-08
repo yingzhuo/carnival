@@ -12,8 +12,6 @@ package com.github.yingzhuo.carnival.graphql.exceptionhandler;
 import graphql.ErrorClassification;
 import graphql.GraphQLError;
 
-import java.util.Objects;
-
 /**
  * @author 应卓
  * @see graphql.ErrorType
@@ -34,26 +32,17 @@ public final class ErrorType {
     }
 
     public static ErrorClassification of(final String type) {
-        return new StringErrorClassification(type);
-    }
+        return new ErrorClassification() {
+            @Override
+            public Object toSpecification(GraphQLError error) {
+                return type;
+            }
 
-    private static class StringErrorClassification implements ErrorClassification {
-
-        private final String type;
-
-        public StringErrorClassification(String type) {
-            this.type = Objects.requireNonNull(type);
-        }
-
-        @Override
-        public Object toSpecification(GraphQLError error) {
-            return this.type;
-        }
-
-        @Override
-        public String toString() {
-            return this.type;
-        }
+            @Override
+            public String toString() {
+                return type;
+            }
+        };
     }
 
 }

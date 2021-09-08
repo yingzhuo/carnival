@@ -21,7 +21,7 @@ import java.util.List;
  */
 public interface ExceptionResolver extends Ordered {
 
-    public boolean support(Throwable exception);
+    public boolean supports(Throwable exception);
 
     public List<GraphQLError> resolve(Throwable exception, DataFetchingEnvironment environment);
 

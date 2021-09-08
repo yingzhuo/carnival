@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.graphql.exceptionhandler;
 
-import graphql.ErrorType;
+import com.github.yingzhuo.carnival.exception.business.BusinessException;
 import graphql.GraphQLError;
 import graphql.GraphqlErrorBuilder;
 import graphql.schema.DataFetchingEnvironment;
@@ -29,13 +29,19 @@ public final class ExceptionHandlerUtils {
     private ExceptionHandlerUtils() {
     }
 
-    public static List<GraphQLError> handle(DataFetchingEnvironment environment, ConstraintViolationException exception) {
+    public static List<GraphQLError> handle(
+            final DataFetchingEnvironment environment,
+            final ConstraintViolationException exception) {
         return handle(environment, exception, true);
     }
 
-    public static List<GraphQLError> handle(DataFetchingEnvironment environment, ConstraintViolationException exception, boolean joinMessage) {
+    public static List<GraphQLError> handle(
+            final DataFetchingEnvironment environment,
+            final ConstraintViolationException exception,
+            final boolean joinMessage) {
         if (joinMessage) {
-            final String msg = exception.getConstraintViolations().stream()
+            final String msg = exception.getConstraintViolations()
+                    .stream()
                     .map(ConstraintViolation::getMessage)
                     .sorted()
                     .collect(Collectors.joining(","));
@@ -43,7 +49,7 @@ public final class ExceptionHandlerUtils {
             return Collections.singletonList(
                     GraphqlErrorBuilder
                             .newError(environment)
-                            .errorType(ErrorType.ValidationError)
+                            .errorType(ErrorType.BAD_REQUEST)
                             .message(msg)
                             .build()
             );
@@ -53,11 +59,23 @@ public final class ExceptionHandlerUtils {
                     .sorted()
                     .map(msg -> GraphqlErrorBuilder
                             .newError(environment)
-                            .errorType(ErrorType.ValidationError)
+                            .errorType(ErrorType.BAD_REQUEST)
                             .message(msg)
                             .build()
                     ).collect(Collectors.toList());
         }
+    }
+
+    public static List<GraphQLError> handle(
+            final DataFetchingEnvironment environment,
+            final BusinessException exception) {
+        return Collections.singletonList(
+                GraphqlErrorBuilder
+                        .newError(environment)
+                        .errorType(ErrorType.BUSINESS_ERROR)
+                        .message(exception.getMessage())
+                        .build()
+        );
     }
 
 }
