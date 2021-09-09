@@ -12,37 +12,55 @@ package com.github.yingzhuo.carnival.graphql.util;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 import org.springframework.graphql.execution.ThreadLocalAccessor;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author 应卓
  * @see org.springframework.graphql.execution.ThreadLocalAccessor
+ * @see org.springframework.graphql.execution.ThreadLocalAccessor#composite
  * @since 1.10.16
  */
+@SuppressWarnings("unchecked")
 public final class ThreadLocalAccessorUtils {
 
     private ThreadLocalAccessorUtils() {
     }
 
-    public static Map<String, Object> extract() {
-
+    public static ThreadLocalAccessor getAccessor() {
         final List<ThreadLocalAccessor> accessors = SpringUtils.getBeanList(ThreadLocalAccessor.class);
-
         if (accessors.isEmpty()) {
+            return null;
+        } else if (accessors.size() == 1) {
+            return accessors.get(0);
+        } else {
+            return ThreadLocalAccessor.composite(accessors);
+        }
+    }
+
+    public static Map<String, Object> extract() {
+        final ThreadLocalAccessor accessor = getAccessor();
+        if (accessor == null) {
             return Collections.emptyMap();
         }
 
         final Map<String, Object> map = new HashMap<>();
-        accessors.forEach(accessor -> accessor.extractValues(map));
+        accessor.extractValues(map);
         return Collections.unmodifiableMap(map);
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T extractObject(Class<T> objectType) {
-        return (T) extract().get(objectType.getName());
+        return extractObject(objectType, null);
     }
 
+    public static <T> T extractObject(Class<T> objectType, T defaultIfNull) {
+        return extractObject(objectType.getName(), defaultIfNull);
+    }
+
+    public static <T> T extractObject(String name) {
+        return extractObject(name, null);
+    }
+
+    public static <T> T extractObject(String name, T defaultIfNull) {
+        return Optional.ofNullable((T) extract().get(name)).orElse(defaultIfNull);
+    }
 }
