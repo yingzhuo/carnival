@@ -13,8 +13,6 @@ import com.github.yingzhuo.carnival.security.userdetails.MutableUserDetailsable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
-
 /**
  * @author 应卓
  * @since 1.10.2
@@ -22,8 +20,7 @@ import java.io.Serializable;
 public interface Token extends
         org.springframework.security.core.token.Token,
         Authentication,
-        MutableUserDetailsable,
-        Serializable {
+        MutableUserDetailsable {
 
     @Override
     public String getKey();
