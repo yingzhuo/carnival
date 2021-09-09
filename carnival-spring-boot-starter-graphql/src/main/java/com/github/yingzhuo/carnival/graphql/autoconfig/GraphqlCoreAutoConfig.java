@@ -21,7 +21,7 @@ import org.springframework.graphql.execution.RuntimeWiringConfigurer;
  * @author 应卓
  * @since 1.10.14
  */
-class GraphqlAutoConfig implements RuntimeWiringConfigurer {
+class GraphqlCoreAutoConfig implements RuntimeWiringConfigurer {
 
     @Override
     public void configure(RuntimeWiring.Builder builder) {

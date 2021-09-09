@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.graphql.autoconfig.GraphqlAutoConfig
+    com.github.yingzhuo.carnival.graphql.autoconfig.GraphqlCoreAutoConfig,\
+    com.github.yingzhuo.carnival.graphql.autoconfig.GraphqlHttpAutoConfig

@@ -20,13 +20,13 @@ import graphql.GraphQLError;
  */
 public final class ErrorType {
 
-    public static final ErrorClassification BAD_REQUEST = of("BAD_REQUEST");
+    public static final ErrorClassification BAD_REQUEST = of("BAD REQUEST");
     public static final ErrorClassification UNAUTHORIZED = of("UNAUTHORIZED");
     public static final ErrorClassification FORBIDDEN = of("FORBIDDEN");
-    public static final ErrorClassification UNAUTHORIZED_OR_FORBIDDEN = of("UNAUTHORIZED_OR_FORBIDDEN");
-    public static final ErrorClassification INTERNAL_ERROR = of("INTERNAL_ERROR");
-    public static final ErrorClassification OPERATION_NOT_SUPPORTED = of("OPERATION_NOT_SUPPORTED");
-    public static final ErrorClassification BUSINESS_ERROR = of("BUSINESS_ERROR");
+    public static final ErrorClassification UNAUTHORIZED_OR_FORBIDDEN = of("UNAUTHORIZED OR FORBIDDEN");
+    public static final ErrorClassification INTERNAL_ERROR = of("INTERNAL ERROR");
+    public static final ErrorClassification OPERATION_NOT_SUPPORTED = of("OPERATION NOT SUPPORTED");
+    public static final ErrorClassification BUSINESS_ERROR = of("BUSINESS ERROR");
 
     private ErrorType() {
     }

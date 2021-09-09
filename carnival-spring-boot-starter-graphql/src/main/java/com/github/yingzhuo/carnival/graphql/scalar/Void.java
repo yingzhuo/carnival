@@ -15,6 +15,7 @@ import java.io.Serializable;
  * @author 应卓
  * @since 1.10.15
  */
+@Deprecated
 public class Void implements Serializable {
 
     public static final Void INSTANCE = new Void();

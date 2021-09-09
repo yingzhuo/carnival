@@ -15,6 +15,7 @@ import graphql.schema.*;
  * @author 应卓
  * @since 1.10.15
  */
+@Deprecated
 public final class VoidScalarType {
 
     private static final Coercing<Object, Object> VOID_COERCING = new Coercing<Object, Object>() {
