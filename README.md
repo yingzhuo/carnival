@@ -23,21 +23,24 @@ mvn -f carnival/pom.xml clean install
 
 #### 用例
 
+* carnival-spring-boot-starter-graphql
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql](https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql)
+
 * carnival-spring-boot-starter-id
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
 
 * carnival-spring-boot-starter-password
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder](https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder](https://github.com/yingzhuo/carnival-examples/tree/master/examples-password-encoder)
 
 * carnival-spring-boot-starter-captcha
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful)
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless)
 
 * carnival-spring-boot-starter-qrcode
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
 
 * carnival-spring-boot-starter-security
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-security-jwt](https://github.com/yingzhuo/carnival-examples/tree/master/examples-security-jwt)
+  * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-security-jwt](https://github.com/yingzhuo/carnival-examples/tree/master/examples-security-jwt)
 
 #### 作者
 
