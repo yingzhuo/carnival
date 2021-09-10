@@ -52,12 +52,20 @@ public final class AlgorithmFactories {
         return new ECDSA256AlgorithmFactory(publicKey, privateKey);
     }
 
+    public static AlgorithmFactory ecdsa256k(final String publicKey, final String privateKey) {
+        return new ECDSA256KAlgorithmFactory(publicKey, privateKey);
+    }
+
     public static AlgorithmFactory ecdsa384(final String publicKey, final String privateKey) {
         return new ECDSA384AlgorithmFactory(publicKey, privateKey);
     }
 
     public static AlgorithmFactory ecdsa512(final String publicKey, final String privateKey) {
         return new ECDSA512AlgorithmFactory(publicKey, privateKey);
+    }
+
+    public static AlgorithmFactory fromPemFile(PemFileAlgorithmFactory.Alg alg, final String publicKey, final String privateKey) {
+        return new PemFileAlgorithmFactory(alg, publicKey, privateKey);
     }
 
 }
