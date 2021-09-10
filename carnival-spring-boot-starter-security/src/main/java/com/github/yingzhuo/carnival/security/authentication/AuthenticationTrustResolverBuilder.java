@@ -25,7 +25,8 @@ import java.util.function.Predicate;
  * @see com.github.yingzhuo.carnival.security.authentication.AuthenticationTrustResolverImpl
  * @see RememberMeAuthenticationToken
  * @see AnonymousAuthenticationToken
- * @see com.github.yingzhuo.carnival.security.token.MutableToken
+ * @see com.github.yingzhuo.carnival.security.token.Token
+ * @see com.github.yingzhuo.carnival.security.token.TokenAuthenticationToken
  * @since 1.10.17
  */
 public final class AuthenticationTrustResolverBuilder {

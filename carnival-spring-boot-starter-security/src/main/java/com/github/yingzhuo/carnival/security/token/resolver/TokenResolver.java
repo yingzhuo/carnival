@@ -9,10 +9,10 @@
  */
 package com.github.yingzhuo.carnival.security.token.resolver;
 
-import com.github.yingzhuo.carnival.common.io.ResourceText;
 import com.github.yingzhuo.carnival.security.token.Token;
 import org.springframework.core.Ordered;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -95,15 +95,9 @@ public interface TokenResolver extends Ordered, AuthenticationConverter {
             return this;
         }
 
-        // since 1.10.9
-        public Builder fixed(String token) {
-            list.add(FixedTokenResolver.of(token));
+        public Builder fixed(UserDetails userDetails) {
+            list.add(new FixedUserTokenParser(userDetails));
             return this;
-        }
-
-        // since 1.10.12
-        public Builder fixedFromResource(String location) {
-            return fixed(ResourceText.of(location).getText());
         }
 
         public TokenResolver build() {

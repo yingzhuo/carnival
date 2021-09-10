@@ -17,6 +17,7 @@ import com.auth0.jwt.interfaces.Verification;
 import com.github.yingzhuo.carnival.security.exception.*;
 import com.github.yingzhuo.carnival.security.jwt.JwtCustomizer;
 import com.github.yingzhuo.carnival.security.token.Token;
+import com.github.yingzhuo.carnival.security.token.TokenAuthenticationToken;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -84,10 +85,9 @@ public abstract class JwtAuthenticationProvider implements AuthenticationProvide
                 throw new CredentialsExpiredException(null);
             }
 
-            token.setUserDetails(userDetails);
-            token.setDetails(null);
-            token.setAuthenticated(true);
-            return token;
+            final TokenAuthenticationToken newToken = new TokenAuthenticationToken(token.getKey(), userDetails);
+            newToken.setAuthenticated(true);
+            return newToken;
 
         } catch (com.auth0.jwt.exceptions.AlgorithmMismatchException ex) {
             throw new AlgorithmMismatchException(ex.getMessage(), ex);

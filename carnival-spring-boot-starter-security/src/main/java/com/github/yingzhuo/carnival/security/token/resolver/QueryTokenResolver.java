@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.security.token.resolver;
 
-import com.github.yingzhuo.carnival.security.token.MutableToken;
 import com.github.yingzhuo.carnival.security.token.Token;
+import com.github.yingzhuo.carnival.security.token.TokenAuthenticationToken;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import java.util.Optional;
@@ -52,9 +52,7 @@ public class QueryTokenResolver implements TokenResolver {
             paramValue += ".";
         }
 
-        MutableToken token = new MutableToken();
-        token.setKey(paramValue);
-        return Optional.of(token);
+        return Optional.of(new TokenAuthenticationToken(paramValue));
     }
 
 }
