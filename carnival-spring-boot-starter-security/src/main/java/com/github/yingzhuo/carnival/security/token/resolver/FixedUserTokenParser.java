@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.security.token.resolver;
 
+import com.github.yingzhuo.carnival.security.token.FixedUserToken;
 import com.github.yingzhuo.carnival.security.token.Token;
-import com.github.yingzhuo.carnival.security.token.TokenAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.request.NativeWebRequest;
 
@@ -31,7 +31,7 @@ public class FixedUserTokenParser implements TokenResolver {
 
     @Override
     public Optional<Token> resolve(NativeWebRequest request) {
-        return Optional.of(new TokenAuthenticationToken("<Fixed Token>", userDetails));
+        return Optional.of(new FixedUserToken(userDetails));
     }
 
 }
