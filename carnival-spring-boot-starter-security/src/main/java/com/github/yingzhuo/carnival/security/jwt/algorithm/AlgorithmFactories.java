@@ -64,8 +64,12 @@ public final class AlgorithmFactories {
         return new ECDSA512AlgorithmFactory(publicKey, privateKey);
     }
 
-    public static AlgorithmFactory fromPemFile(PemFileAlgorithmFactory.Alg alg, final String publicKey, final String privateKey) {
-        return new PemFileAlgorithmFactory(alg, publicKey, privateKey);
+    public static AlgorithmFactory fromPemFile(PemFileAlgorithmFactory.Alg alg, final String publicKeyLocation, final String privateKeyLocation) {
+        return new PemFileAlgorithmFactory(alg, publicKeyLocation, privateKeyLocation);
+    }
+
+    public static AlgorithmFactory random() {
+        return new RandomAlgorithmFactory();
     }
 
 }

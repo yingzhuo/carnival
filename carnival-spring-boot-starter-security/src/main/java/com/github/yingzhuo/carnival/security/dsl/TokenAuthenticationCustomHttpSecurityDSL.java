@@ -19,6 +19,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.web.authentication.NullRememberMeServices;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.List;
@@ -47,7 +49,6 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
             return factory.create();
         }
 
-        // 没有的话，尝试新建一个
         final TokenResolver tokenResolver = getTokenResolver(beanFinder);
         final List<AuthenticationProvider> providers = getAuthenticationProviders(beanFinder);
         final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
@@ -55,6 +56,7 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
         if (tokenResolver != null && !providers.isEmpty()) {
             final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, providers);
             filter.setAuthenticationEntryPoint(entryPoint);
+            filter.setRememberMeServices(getRememberMeServices(beanFinder));
             filter.afterPropertiesSet();
             return filter;
         } else {
@@ -74,6 +76,10 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
 
     private List<AuthenticationProvider> getAuthenticationProviders(BeanFinder beanFinder) {
         return beanFinder.getMultiple(AuthenticationProvider.class);
+    }
+
+    private RememberMeServices getRememberMeServices(BeanFinder beanFinder) {
+        return beanFinder.getPrimaryQuietly(RememberMeServices.class).orElse(new NullRememberMeServices());
     }
 
 }

@@ -94,7 +94,7 @@ public final class PemFileAlgorithmFactory implements AlgorithmFactory, Initiali
         Assert.notNull(publicPemFile, "publicPemFile is null");
     }
 
-    public static enum Alg {
+    public enum Alg {
         ECDSA256,
         ECDSA256K,
         ECDSA384,
