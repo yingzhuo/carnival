@@ -22,7 +22,6 @@ import java.util.function.Predicate;
  * @author 应卓
  * @see org.springframework.security.authentication.AuthenticationTrustResolver
  * @see org.springframework.security.authentication.AuthenticationTrustResolverImpl
- * @see com.github.yingzhuo.carnival.security.authentication.AuthenticationTrustResolverImpl
  * @see RememberMeAuthenticationToken
  * @see AnonymousAuthenticationToken
  * @see com.github.yingzhuo.carnival.security.token.Token
@@ -72,6 +71,39 @@ public final class AuthenticationTrustResolverBuilder {
                 rememberMePredicates
         );
     }
+
+    // ---------------------------------------------------------------------------------------------------------------
+
+    private static class AuthenticationTrustResolverImpl implements AuthenticationTrustResolver {
+
+        private final Set<Predicate<Authentication>> anonymousPredicates;
+        private final Set<Predicate<Authentication>> rememberMePredicates;
+
+        AuthenticationTrustResolverImpl(Set<Predicate<Authentication>> anonymousPredicates, Set<Predicate<Authentication>> rememberMePredicates) {
+            this.anonymousPredicates = anonymousPredicates;
+            this.rememberMePredicates = rememberMePredicates;
+        }
+
+        @Override
+        public boolean isAnonymous(Authentication authentication) {
+            if (authentication == null) {
+                return false;
+            }
+            return anonymousPredicates.stream()
+                    .anyMatch(predicate -> predicate.test(authentication));
+        }
+
+        @Override
+        public boolean isRememberMe(Authentication authentication) {
+            if (authentication == null) {
+                return false;
+            }
+            return rememberMePredicates.stream()
+                    .anyMatch(predicate -> predicate.test(authentication));
+        }
+
+    }
+
 
     // ---------------------------------------------------------------------------------------------------------------
 
