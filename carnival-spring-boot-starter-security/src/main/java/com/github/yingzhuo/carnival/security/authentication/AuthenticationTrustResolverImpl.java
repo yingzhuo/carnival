@@ -19,7 +19,7 @@ import java.util.function.Predicate;
  * @author 应卓
  * @since 1.10.17
  */
-public class AuthenticationTrustResolverImpl implements AuthenticationTrustResolver {
+class AuthenticationTrustResolverImpl implements AuthenticationTrustResolver {
 
     private final Set<Predicate<Authentication>> anonymousPredicates;
     private final Set<Predicate<Authentication>> rememberMePredicates;
