@@ -10,8 +10,10 @@
 package com.github.yingzhuo.carnival.security.token;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author 应卓
@@ -27,8 +29,8 @@ public class TokenAuthenticationToken extends AbstractAuthenticationToken implem
     }
 
     public TokenAuthenticationToken(String key, UserDetails userDetails) {
-        super(userDetails != null ? userDetails.getAuthorities() : AuthorityUtils.NO_AUTHORITIES);
-        this.key = key;
+        super(Optional.ofNullable(userDetails).map(UserDetails::getAuthorities).orElse(null));
+        this.key = Objects.requireNonNull(key);
         this.userDetails = userDetails;
     }
 
