@@ -22,6 +22,7 @@
         <module>carnival-spring-boot-starter-qrcode</module>
         <module>carnival-spring-boot-starter-redis</module>
         <module>carnival-spring-boot-starter-security</module>
+        <module>carnival-spring-boot-starter-support</module>
     </modules>
     <packaging>pom</packaging>
 
