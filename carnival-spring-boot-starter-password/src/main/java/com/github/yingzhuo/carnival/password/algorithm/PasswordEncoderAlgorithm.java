@@ -19,8 +19,8 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 /**
  * @author 应卓
- * @since 1.6.27
  * @see org.springframework.security.crypto.factory.PasswordEncoderFactories
+ * @since 1.6.27
  */
 @SuppressWarnings("deprecation")
 public enum PasswordEncoderAlgorithm {
