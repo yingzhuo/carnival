@@ -20,22 +20,15 @@ import java.util.Optional;
 
 /**
  * @author 应卓
+ * @see ApplicationContext
  * @since 1.6.21
  */
 public final class BeanFinder {
 
     private final ApplicationContext context;
 
-    public BeanFinder() {
-        this.context = Objects.requireNonNull(SpringUtils.getApplicationContext());
-    }
-
     public BeanFinder(ApplicationContext applicationContext) {
         this.context = Objects.requireNonNull(applicationContext);
-    }
-
-    public static BeanFinder newInstance() {
-        return new BeanFinder();
     }
 
     public static BeanFinder newInstance(ApplicationContext context) {
@@ -50,6 +43,14 @@ public final class BeanFinder {
         }
     }
 
+    public <T> T getPrimary(Class<T> beanType, String beanName) {
+        try {
+            return context.getBean(beanName, beanType);
+        } catch (BeansException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
     public <T> Optional<T> getPrimaryQuietly(Class<T> beanType) {
         try {
             return Optional.of(getPrimary(beanType));
@@ -58,7 +59,14 @@ public final class BeanFinder {
         }
     }
 
-    // 注意，此处返回是可变集合
+    public <T> Optional<T> getPrimaryQuietly(Class<T> beanType, String beanName) {
+        try {
+            return Optional.of(getPrimary(beanType, beanName));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
     public <T> List<T> getMultiple(Class<T> beanType) {
         try {
             final List<T> beans = new ArrayList<>(context.getBeansOfType(beanType).values());
@@ -75,10 +83,6 @@ public final class BeanFinder {
         } catch (IllegalArgumentException e) {
             return new ArrayList<>();
         }
-    }
-
-    public ApplicationContext getApplicationContext() {
-        return this.context;
     }
 
 }
