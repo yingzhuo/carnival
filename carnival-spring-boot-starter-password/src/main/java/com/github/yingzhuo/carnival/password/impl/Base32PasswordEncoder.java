@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password.impl;
 
-import cn.hutool.core.codec.Base64;
+import cn.hutool.core.codec.Base32;
 import com.github.yingzhuo.carnival.password.PasswordEncoder;
 
 import java.nio.charset.Charset;
@@ -17,28 +17,28 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author 应卓
- * @since 1.6.28
+ * @since 1.10.19
  */
-public class Base64PasswordEncoder implements PasswordEncoder {
+public class Base32PasswordEncoder implements PasswordEncoder {
 
     private final Charset charset;
 
-    public Base64PasswordEncoder() {
+    public Base32PasswordEncoder() {
         this(StandardCharsets.UTF_8);
     }
 
-    public Base64PasswordEncoder(Charset charset) {
+    public Base32PasswordEncoder(Charset charset) {
         this.charset = charset;
     }
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return Base64.encode(rawPassword, charset);
+        return Base32.encode(rawPassword.toString(), charset);
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return Base64.decodeStr(encodedPassword, charset).equals(rawPassword.toString());
+        return Base32.decodeStr(encodedPassword, charset).equals(rawPassword.toString());
     }
 
 }
