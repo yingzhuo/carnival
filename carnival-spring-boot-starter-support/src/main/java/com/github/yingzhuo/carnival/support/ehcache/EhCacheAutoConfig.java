@@ -9,10 +9,13 @@
  */
 package com.github.yingzhuo.carnival.support.ehcache;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnResource;
-import com.github.yingzhuo.carnival.common.io.ResourceOptional;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 
@@ -20,27 +23,23 @@ import org.springframework.core.io.Resource;
  * @author 应卓
  * @since 1.10.19
  */
-@ConditionalOnResource(
-        value = {
-                "classpath:echcache.xml",
-                "classpath:META-INF/echcache.xml",
-                "classpath:config/echcache.xml"
-        },
-        existence = ConditionalOnResource.Existence.ANY,
-        type = ConditionalOnResource.Type.FILE
-)
+@EnableConfigurationProperties(EhCacheAutoConfig.Props.class)
 @ConditionalOnClass(name = "org.ehcache.CacheManager")
 @ConditionalOnMissingBean(name = "org.ehcache.CacheManager")
+@ConditionalOnProperty(prefix = "carnival.support.ehcache", name = "enabled", havingValue = "true", matchIfMissing = false)
 class EhCacheAutoConfig {
 
     @Bean
-    CacheManagerFactoryBean cacheManagerFactoryBean() {
-        final Resource xml = ResourceOptional.of(
-                "classpath:echcache.xml",
-                "classpath:META-INF/echcache.xml",
-                "classpath:config/echcache.xml"
-        ).get();
-        return new CacheManagerFactoryBean(xml);
+    CacheManagerFactoryBean cacheManagerFactoryBean(Props props) {
+        return new CacheManagerFactoryBean(props.getXmlLocation());
+    }
+
+    @Getter
+    @Setter
+    @ConfigurationProperties(prefix = "carnival.support.ehcache")
+    static class Props {
+        private boolean enabled = false;
+        private Resource xmlLocation;
     }
 
 }

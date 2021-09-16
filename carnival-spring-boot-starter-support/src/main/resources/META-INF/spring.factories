@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    com.github.yingzhuo.carnival.support.ehcache.EhCacheAutoConfig
+    com.github.yingzhuo.carnival.support.ehcache.EhCacheAutoConfig,\
+    com.github.yingzhuo.carnival.support.handlebars.HandlebarsAutoConfig

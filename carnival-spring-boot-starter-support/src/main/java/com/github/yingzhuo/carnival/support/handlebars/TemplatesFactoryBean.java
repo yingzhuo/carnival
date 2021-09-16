@@ -18,24 +18,24 @@ import java.util.Collections;
  * @author 应卓
  * @since 1.10.20
  */
-public class TemplateFactoryBean implements FactoryBean<Templates> {
+public class TemplatesFactoryBean implements FactoryBean<Templates> {
 
     private final Handlebars handlebars;
     private final String[] locations;
 
-    public TemplateFactoryBean(Handlebars handlebars, String... locations) {
+    public TemplatesFactoryBean(Handlebars handlebars, String... locations) {
         this.handlebars = handlebars;
         this.locations = locations;
     }
 
     @Override
     public Templates getObject() throws Exception {
-        final Templates tmps = new Templates();
+        final Templates templates = new Templates();
         for (String location : locations) {
-            tmps.map.put(location, handlebars.compile(location));
+            templates.map.put(location, handlebars.compile(location));
         }
-        tmps.map = Collections.unmodifiableMap(tmps.map);
-        return tmps;
+        templates.map = Collections.unmodifiableMap(templates.map);
+        return templates;
     }
 
     @Override
