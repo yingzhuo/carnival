@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.support.ehcache;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnResource;
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -20,11 +20,15 @@ import org.springframework.core.io.Resource;
  * @author 应卓
  * @since 1.10.19
  */
-@ConditionalOnAnyResource({
-        "classpath:echcache.xml",
-        "classpath:META-INF/echcache.xml",
-        "classpath:config/echcache.xml"
-})
+@ConditionalOnResource(
+        value = {
+                "classpath:echcache.xml",
+                "classpath:META-INF/echcache.xml",
+                "classpath:config/echcache.xml"
+        },
+        existence = ConditionalOnResource.Existence.ANY,
+        type = ConditionalOnResource.Type.FILE
+)
 @ConditionalOnClass(name = "org.ehcache.CacheManager")
 @ConditionalOnMissingBean(name = "org.ehcache.CacheManager")
 class EhCacheAutoConfig {

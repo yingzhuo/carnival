@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.autoconfig;
 
-import com.github.yingzhuo.carnival.common.condition.ConditionalOnAnyResource;
+import com.github.yingzhuo.carnival.common.condition.ConditionalOnResource;
 import com.github.yingzhuo.carnival.common.io.ResourceOptional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -24,14 +24,18 @@ class RoleHierarchyAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnAnyResource({
-            "classpath:/role.hierarchy",
-            "classpath:/role.hierarchy.txt",
-            "classpath:/META-INF/role.hierarchy",
-            "classpath:/META-INF/role.hierarchy.txt",
-            "classpath:/config/role.hierarchy",
-            "classpath:/config/role.hierarchy.txt"
-    })
+    @ConditionalOnResource(
+            value = {
+                    "classpath:/role.hierarchy",
+                    "classpath:/role.hierarchy.txt",
+                    "classpath:/META-INF/role.hierarchy",
+                    "classpath:/META-INF/role.hierarchy.txt",
+                    "classpath:/config/role.hierarchy",
+                    "classpath:/config/role.hierarchy.txt"
+            },
+            existence = ConditionalOnResource.Existence.ANY,
+            type = ConditionalOnResource.Type.FILE
+    )
     RoleHierarchy roleHierarchy() {
         final RoleHierarchyImpl bean = new RoleHierarchyImpl();
         bean.setHierarchy(

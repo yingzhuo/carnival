@@ -38,6 +38,13 @@
             <artifactId>ehcache</artifactId>
             <scope>provided</scope>
         </dependency>
+
+        <!-- handlebars -->
+        <dependency>
+            <groupId>com.github.jknack</groupId>
+            <artifactId>handlebars</artifactId>
+<!--            <scope>provided</scope>-->
+        </dependency>
     </dependencies>
 
 </project>

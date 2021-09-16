@@ -600,6 +600,13 @@
                 <version>${logback.version}</version>
             </dependency>
 
+            <!-- handlebars -->
+            <dependency>
+                <groupId>com.github.jknack</groupId>
+                <artifactId>handlebars</artifactId>
+                <version>4.2.0</version>
+            </dependency>
+
             <!-- javax-api -->
             <dependency>
                 <groupId>javax.validation</groupId>
