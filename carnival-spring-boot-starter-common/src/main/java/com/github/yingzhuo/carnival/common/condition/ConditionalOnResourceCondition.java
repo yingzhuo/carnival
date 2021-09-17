@@ -28,7 +28,7 @@ class ConditionalOnResourceCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResource.class.getName()));
+        final AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResource.class.getName()));
         final String[] locations = attributes.getStringArray("value");
 
         if (locations.length == 0) {
@@ -52,20 +52,26 @@ class ConditionalOnResourceCondition implements Condition {
                 break;
         }
 
+        if (!c1) return false;
+
         boolean c2 = false;
         switch (type) {
             case ANY:
                 c2 = true;
                 break;
             case FILE:
-                c2 = convert(loader, locations).allMatch(this::isFile);
+                c2 = convert(loader, locations)
+                        .filter(Resource::exists)
+                        .allMatch(this::isFile);
                 break;
             case DIRECTORY:
-                c2 = convert(loader, locations).allMatch(this::isDirectory);
+                c2 = convert(loader, locations)
+                        .filter(Resource::exists)
+                        .allMatch(this::isDirectory);
                 break;
         }
 
-        return c1 && c2;
+        return c2;
     }
 
     private Stream<Resource> convert(ResourceLoader resourceLoader, String[] locations) {
