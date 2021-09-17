@@ -9,56 +9,55 @@
  */
 package com.github.yingzhuo.carnival.common.io;
 
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.Assert;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.StreamUtils;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.UncheckedIOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 /**
  * @author 应卓
+ * @see ResourceOptionBuilder
  * @since 1.10.21
  */
-public final class ResourceOption {
+public final class ResourceOption implements Serializable {
 
-    private final List<String> locations;
-    private final ResourceLoader resourceLoader;
-    private final List<Resource> resources;
-    private final Optional<Resource> firstExists;
-    private final Optional<Resource> firstFile;
-    private final Optional<Resource> firstDir;
+    private final List<Resource> allResources;
+    private final Resource firstExists;
+    private final String firstExistsLocation;
+    private final Resource firstFile;
+    private final String firstFileLocation;
+    private final Resource firstDirectory;
+    private final String firstDirectoryLocation;
 
-    public ResourceOption(List<String> locations) {
-        this(locations, new DefaultResourceLoader(ClassUtils.getDefaultClassLoader()));
+    ResourceOption(List<Resource> allResources, Resource firstExists, String firstExistsLocation, Resource firstFile, String firstFileLocation, Resource firstDirectory, String firstDirectoryLocation) {
+        this.allResources = allResources;
+        this.firstExists = firstExists;
+        this.firstExistsLocation = firstExistsLocation;
+        this.firstFile = firstFile;
+        this.firstFileLocation = firstFileLocation;
+        this.firstDirectory = firstDirectory;
+        this.firstDirectoryLocation = firstDirectoryLocation;
     }
 
-    public ResourceOption(List<String> locations, ResourceLoader resourceLoader) {
-        Assert.notNull(locations, "locations is null");
-        Assert.noNullElements(locations, "locations has null element(s)");
-        Assert.notNull(resourceLoader, "resourceLoader is null");
+    public static ResourceOptionBuilder builder() {
+        return new ResourceOptionBuilder(null);
+    }
 
-        this.locations = locations;
-        this.resourceLoader = resourceLoader;
-        this.resources = this.locations.stream().map(this.resourceLoader::getResource).collect(Collectors.toList());
-        this.firstExists = this.resources.stream().filter(Resource::exists).findFirst();
-        this.firstFile = this.resources.stream().filter(Resource::exists).filter(Resource::isFile).findFirst();
-        this.firstDir = this.resources.stream().filter(Resource::exists).filter(resource -> !resource.isFile()).findFirst();
+    public static ResourceOptionBuilder builder(ResourceLoader resourceLoader) {
+        return new ResourceOptionBuilder(resourceLoader);
     }
 
     public static ResourceOption of(String... locations) {
-        return new ResourceOption(Arrays.asList(locations));
+        return builder().add(locations).build();
     }
 
     public static ResourceOption fromCommaSeparatedString(String string) {
@@ -66,7 +65,7 @@ public final class ResourceOption {
     }
 
     public boolean isPresent() {
-        return firstExists.isPresent();
+        return firstExists != null;
     }
 
     public boolean isAbsent() {
@@ -74,19 +73,19 @@ public final class ResourceOption {
     }
 
     public void ifPresent(Consumer<? super Resource> consumer) {
-        this.firstExists.ifPresent(consumer);
+        Optional.ofNullable(this.firstExists).ifPresent(consumer);
     }
 
     public Optional<Resource> firstExists() {
-        return this.firstExists;
+        return Optional.ofNullable(firstExists);
     }
 
     public Optional<Resource> firstFile() {
-        return this.firstFile;
+        return Optional.ofNullable(firstFile);
     }
 
     public Optional<Resource> firstDirectory() {
-        return this.firstDir;
+        return Optional.ofNullable(firstDirectory);
     }
 
     public String asText() {
@@ -95,7 +94,7 @@ public final class ResourceOption {
 
     public String asText(Charset charset) {
         try {
-            return StreamUtils.copyToString(this.firstFile.get().getInputStream(), charset);
+            return StreamUtils.copyToString(firstFile().get().getInputStream(), charset);
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -121,9 +120,9 @@ public final class ResourceOption {
         try {
             Properties properties = new Properties();
             if (xmlFormat) {
-                properties.loadFromXML(this.firstFile.get().getInputStream());
+                properties.loadFromXML(firstFile().get().getInputStream());
             } else {
-                properties.load(this.firstFile.get().getInputStream());
+                properties.load(firstFile().get().getInputStream());
             }
             return properties;
         } catch (IOException e) {
@@ -141,6 +140,22 @@ public final class ResourceOption {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<Resource> getAllResources() {
+        return allResources;
+    }
+
+    public String firstExistsLocation() {
+        return firstExistsLocation;
+    }
+
+    public String firstFileLocation() {
+        return firstFileLocation;
+    }
+
+    public String firstDirectoryLocation() {
+        return firstDirectoryLocation;
     }
 
 }

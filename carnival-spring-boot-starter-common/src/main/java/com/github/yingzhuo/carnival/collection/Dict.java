@@ -10,7 +10,6 @@
 package com.github.yingzhuo.carnival.collection;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Another HashMap
@@ -19,7 +18,7 @@ import java.util.Map;
  * @since 1.10.5
  */
 @SuppressWarnings("unchecked")
-public class Dict extends HashMap<String, Object> implements Map<String, Object> {
+public final class Dict extends HashMap<String, Object> {
 
     private Dict() {
     }
