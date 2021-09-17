@@ -146,16 +146,16 @@ public final class ResourceOption implements Serializable {
         return allResources;
     }
 
-    public String firstExistsLocation() {
-        return firstExistsLocation;
+    public Optional<String> firstExistsLocation() {
+        return Optional.ofNullable(firstExistsLocation);
     }
 
-    public String firstFileLocation() {
-        return firstFileLocation;
+    public Optional<String> firstFileLocation() {
+        return Optional.ofNullable(firstFileLocation);
     }
 
-    public String firstDirectoryLocation() {
-        return firstDirectoryLocation;
+    public Optional<String> firstDirectoryLocation() {
+        return Optional.ofNullable(firstDirectoryLocation);
     }
 
 }
