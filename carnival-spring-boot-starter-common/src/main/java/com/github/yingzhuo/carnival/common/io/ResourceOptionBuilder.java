@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -80,6 +81,7 @@ public final class ResourceOptionBuilder {
 
         return new ResourceOption(
                 Collections.unmodifiableList(allResources),
+                Collections.unmodifiableList(allResources.stream().filter(Resource::exists).collect(Collectors.toList())),
                 this.firstExists,
                 this.firstExistsLocation,
                 this.firstFile,

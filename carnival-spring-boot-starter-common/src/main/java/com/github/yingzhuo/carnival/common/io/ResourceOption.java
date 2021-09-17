@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 public final class ResourceOption implements Serializable {
 
     private final List<Resource> allResources;
+    private final List<Resource> allExistsResources;
     private final Resource firstExists;
     private final String firstExistsLocation;
     private final Resource firstFile;
@@ -38,8 +39,9 @@ public final class ResourceOption implements Serializable {
     private final Resource firstDirectory;
     private final String firstDirectoryLocation;
 
-    ResourceOption(List<Resource> allResources, Resource firstExists, String firstExistsLocation, Resource firstFile, String firstFileLocation, Resource firstDirectory, String firstDirectoryLocation) {
+    ResourceOption(List<Resource> allResources, List<Resource> allExistsResources, Resource firstExists, String firstExistsLocation, Resource firstFile, String firstFileLocation, Resource firstDirectory, String firstDirectoryLocation) {
         this.allResources = allResources;
+        this.allExistsResources = allExistsResources;
         this.firstExists = firstExists;
         this.firstExistsLocation = firstExistsLocation;
         this.firstFile = firstFile;
@@ -142,8 +144,28 @@ public final class ResourceOption implements Serializable {
         }
     }
 
-    public List<Resource> getAllResources() {
+    public byte[] asBytes() {
+        try {
+            return StreamUtils.copyToByteArray(firstFile().get().getInputStream());
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    public byte[] asBytesQuietly() {
+        try {
+            return asBytes();
+        } catch (Exception e) {
+            return new byte[0];
+        }
+    }
+
+    public List<Resource> allResources() {
         return allResources;
+    }
+
+    public List<Resource> allExistsResource() {
+        return allExistsResources;
     }
 
     public Optional<String> firstExistsLocation() {
