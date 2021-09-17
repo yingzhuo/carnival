@@ -9,9 +9,7 @@
  */
 package com.github.yingzhuo.carnival.common.converter;
 
-import com.github.yingzhuo.carnival.common.io.ResourceOptional;
-import com.github.yingzhuo.carnival.common.io.ResourceProperties;
-import com.github.yingzhuo.carnival.common.io.ResourceText;
+import com.github.yingzhuo.carnival.common.io.ResourceOption;
 import org.springframework.core.convert.TypeDescriptor;
 import org.springframework.core.convert.converter.GenericConverter;
 
@@ -21,7 +19,7 @@ import java.util.Set;
 
 /**
  * @author 应卓
- * @since 1.9.9
+ * @since 1.10.21
  */
 @SuppressWarnings("NullableProblems")
 public class ResourceConverter implements GenericConverter {
@@ -30,9 +28,7 @@ public class ResourceConverter implements GenericConverter {
 
     static {
         final Set<ConvertiblePair> set = new HashSet<>();
-        set.add(new ConvertiblePair(CharSequence.class, ResourceOptional.class));
-        set.add(new ConvertiblePair(CharSequence.class, ResourceProperties.class));
-        set.add(new ConvertiblePair(CharSequence.class, ResourceText.class));
+        set.add(new ConvertiblePair(CharSequence.class, ResourceOption.class));
         CONVERTIBLE_PAIRS = Collections.unmodifiableSet(set);
     }
 
@@ -44,16 +40,8 @@ public class ResourceConverter implements GenericConverter {
     @Override
     public Object convert(Object source, TypeDescriptor sourceType, TypeDescriptor targetType) {
         Class<?> clz = targetType.getObjectType();
-        if (clz == ResourceText.class) {
-            return ResourceText.of(source.toString());
-        }
-
-        if (clz == ResourceProperties.class) {
-            return ResourceProperties.of(source.toString());
-        }
-
-        if (clz == ResourceOptional.class) {
-            return ResourceOptional.of(source.toString());
+        if (clz == ResourceOption.class) {
+            return ResourceOption.fromCommaSeparatedString(source.toString());
         }
 
         throw new AssertionError();

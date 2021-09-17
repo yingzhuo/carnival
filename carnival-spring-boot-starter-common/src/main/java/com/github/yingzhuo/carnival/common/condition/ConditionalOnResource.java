@@ -39,11 +39,11 @@ public @interface ConditionalOnResource {
      */
     public Type type() default Type.ANY;
 
-    public static enum Existence {
+    public enum Existence {
         ALL, NONE, ANY
     }
 
-    public static enum Type {
+    public enum Type {
         FILE, DIRECTORY, ANY
     }
 

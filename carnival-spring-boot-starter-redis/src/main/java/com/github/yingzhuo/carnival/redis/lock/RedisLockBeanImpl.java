@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.redis.lock;
 
-import com.github.yingzhuo.carnival.common.io.ResourceText;
+import com.github.yingzhuo.carnival.common.io.ResourceOption;
 import com.github.yingzhuo.carnival.redis.support.AbstractLockBean;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -26,8 +26,8 @@ import java.util.Collections;
 public class RedisLockBeanImpl extends AbstractLockBean implements RedisLockBean {
 
     private final StringRedisTemplate template;
-    private final String lockScript = ResourceText.of("classpath:/lua-script/lock/lock.lua").getText();
-    private final String unlockScript = ResourceText.of("classpath:/lua-script/lock/release.lua").getText();
+    private final String lockScript = ResourceOption.of("classpath:/lua-script/lock/lock.lua").asText();
+    private final String unlockScript = ResourceOption.of("classpath:/lua-script/lock/release.lua").asText();
 
     public RedisLockBeanImpl(RedisConnectionFactory factory) {
         this.template = new StringRedisTemplate(factory);
