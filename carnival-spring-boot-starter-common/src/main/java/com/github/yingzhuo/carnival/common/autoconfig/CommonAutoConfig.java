@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.common.autoconfig;
 
 import com.github.yingzhuo.carnival.common.converter.*;
+import com.github.yingzhuo.carnival.common.io.ResourceOptionConverter;
 import com.github.yingzhuo.carnival.common.log.ConfigurableLoggerConverter;
 import com.github.yingzhuo.carnival.datetime.DatePairConverter;
 import com.github.yingzhuo.carnival.spring.ApplicationContextProvider;
@@ -41,8 +42,8 @@ class CommonAutoConfig {
     @Bean
     @ConditionalOnMissingBean
     @ConfigurationPropertiesBinding
-    ResourceConverter resourceConverter() {
-        return new ResourceConverter();
+    ResourceOptionConverter resourceOptionConverter() {
+        return new ResourceOptionConverter();
     }
 
     @Bean
