@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.dsl;
 
+import com.github.yingzhuo.carnival.security.authentication.CompositeAuthenticationProvider;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilter;
 import com.github.yingzhuo.carnival.security.core.TokenAuthenticationFilterFactory;
 import com.github.yingzhuo.carnival.security.errorhandler.TokenAuthenticationEntryPoint;
@@ -55,10 +56,9 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
         final TokenAuthenticationEntryPoint entryPoint = finder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
 
         if (tokenResolver != null && !providers.isEmpty()) {
-            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, providers);
+            final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, new CompositeAuthenticationProvider(providers));
             filter.setAuthenticationEntryPoint(entryPoint);
             filter.setRememberMeServices(getRememberMeServices(finder));
-            filter.afterPropertiesSet();
             return filter;
         } else {
             return null;
@@ -79,8 +79,8 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
         return finder.getMultiple(AuthenticationProvider.class);
     }
 
-    private RememberMeServices getRememberMeServices(BeanFinder beanFinder) {
-        return beanFinder.getPrimaryQuietly(RememberMeServices.class).orElse(null);
+    private RememberMeServices getRememberMeServices(BeanFinder finder) {
+        return finder.getPrimaryQuietly(RememberMeServices.class).orElse(null);
     }
 
 }
