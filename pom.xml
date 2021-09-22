@@ -14,6 +14,7 @@
         <module>carnival-spring-boot-starter-easyexcel</module>
         <module>carnival-spring-boot-starter-graphql</module>
         <module>carnival-spring-boot-starter-id</module>
+        <module>carnival-spring-boot-starter-jpa</module>
         <module>carnival-spring-boot-starter-json</module>
         <module>carnival-spring-boot-starter-localization-china</module>
         <module>carnival-spring-boot-starter-mvc</module>
@@ -97,13 +98,13 @@
         <java.version>1.8</java.version>
 
         <spring.boot.version>2.5.4</spring.boot.version>
-        <spring.version>5.3.9</spring.version>
+        <spring.version>5.3.10</spring.version>
         <spring.security.version>5.5.2</spring.security.version>
         <jackson.version>2.12.5</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
         <netty.version>4.1.68.Final</netty.version>
         <feign.version>11.6</feign.version>
-        <hutool.version>5.7.12</hutool.version>
+        <hutool.version>5.7.13</hutool.version>
         <logback.version>1.2.6</logback.version>
     </properties>
 
@@ -598,6 +599,13 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
+            </dependency>
+
+            <!-- snakeyaml -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>1.29</version>
             </dependency>
 
             <!-- handlebars -->
