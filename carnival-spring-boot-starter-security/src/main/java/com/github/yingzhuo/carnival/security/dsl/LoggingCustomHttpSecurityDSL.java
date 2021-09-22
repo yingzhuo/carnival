@@ -27,17 +27,17 @@ class LoggingCustomHttpSecurityDSL extends AbstractHttpConfigurer<LoggingCustomH
 
     @Override
     public void configure(HttpSecurity http) {
-        final BeanFinder beanFinder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
+        final BeanFinder finder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
 
-        final LoggingFilter filter = getLoggingFilter(beanFinder);
+        final LoggingFilter filter = getLoggingFilter(finder);
         if (filter != null) {
             http.addFilterBefore(filter, BasicAuthenticationFilter.class);
             http.setSharedObject(LoggingFilter.class, filter);
         }
     }
 
-    private LoggingFilter getLoggingFilter(BeanFinder beanFinder) {
-        LoggingFilterFactory factory = beanFinder.getPrimaryQuietly(LoggingFilterFactory.class).orElse(null);
+    private LoggingFilter getLoggingFilter(BeanFinder finder) {
+        LoggingFilterFactory factory = finder.getPrimaryQuietly(LoggingFilterFactory.class).orElse(null);
         return factory != null ?
                 factory.create() :
                 null;

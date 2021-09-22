@@ -19,7 +19,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.web.authentication.NullRememberMeServices;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -35,8 +34,8 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        final BeanFinder beanFinder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
-        TokenAuthenticationFilter filter = this.getTokenAuthenticationFilter(beanFinder);
+        final BeanFinder finder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
+        TokenAuthenticationFilter filter = this.getTokenAuthenticationFilter(finder);
 
         if (filter != null) {
             filter.afterPropertiesSet();
@@ -45,20 +44,20 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
         }
     }
 
-    private TokenAuthenticationFilter getTokenAuthenticationFilter(BeanFinder beanFinder) throws Exception {
-        final TokenAuthenticationFilterFactory factory = beanFinder.getPrimaryQuietly(TokenAuthenticationFilterFactory.class).orElse(null);
+    private TokenAuthenticationFilter getTokenAuthenticationFilter(BeanFinder finder) throws Exception {
+        final TokenAuthenticationFilterFactory factory = finder.getPrimaryQuietly(TokenAuthenticationFilterFactory.class).orElse(null);
         if (factory != null) {
             return factory.create();
         }
 
-        final TokenResolver tokenResolver = getTokenResolver(beanFinder);
-        final List<AuthenticationProvider> providers = getAuthenticationProviders(beanFinder);
-        final TokenAuthenticationEntryPoint entryPoint = beanFinder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
+        final TokenResolver tokenResolver = getTokenResolver(finder);
+        final List<AuthenticationProvider> providers = getAuthenticationProviders(finder);
+        final TokenAuthenticationEntryPoint entryPoint = finder.getPrimaryQuietly(TokenAuthenticationEntryPoint.class).orElse(null);
 
         if (tokenResolver != null && !providers.isEmpty()) {
             final TokenAuthenticationFilter filter = new TokenAuthenticationFilter(tokenResolver, providers);
             filter.setAuthenticationEntryPoint(entryPoint);
-            filter.setRememberMeServices(getRememberMeServices(beanFinder));
+            filter.setRememberMeServices(getRememberMeServices(finder));
             filter.afterPropertiesSet();
             return filter;
         } else {
@@ -66,22 +65,22 @@ class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<To
         }
     }
 
-    private TokenResolver getTokenResolver(BeanFinder beanFinder) {
-        final List<TokenResolver> list = beanFinder.getMultipleQuietly(TokenResolver.class);
+    private TokenResolver getTokenResolver(BeanFinder finder) {
+        final List<TokenResolver> list = finder.getMultipleQuietly(TokenResolver.class);
         if (!list.isEmpty()) {
             return TokenResolver.builder()
                     .add(list)
                     .build();
         }
-        return BearerTokenResolver.INSTANCE; // 标准
+        return BearerTokenResolver.INSTANCE;
     }
 
-    private List<AuthenticationProvider> getAuthenticationProviders(BeanFinder beanFinder) {
-        return beanFinder.getMultiple(AuthenticationProvider.class);
+    private List<AuthenticationProvider> getAuthenticationProviders(BeanFinder finder) {
+        return finder.getMultiple(AuthenticationProvider.class);
     }
 
     private RememberMeServices getRememberMeServices(BeanFinder beanFinder) {
-        return beanFinder.getPrimaryQuietly(RememberMeServices.class).orElse(new NullRememberMeServices());
+        return beanFinder.getPrimaryQuietly(RememberMeServices.class).orElse(null);
     }
 
 }
