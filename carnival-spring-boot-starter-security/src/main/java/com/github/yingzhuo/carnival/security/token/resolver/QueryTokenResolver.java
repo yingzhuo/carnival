@@ -23,9 +23,9 @@ public class QueryTokenResolver implements TokenResolver {
 
     protected static final String EMPTY_PREFIX = "";
 
-    private final String paramName;
-    private final String prefix;
-    private final int prefixLen;
+    protected final String paramName;
+    protected final String prefix;
+    protected final int prefixLen;
 
     public QueryTokenResolver(String paramName) {
         this(paramName, EMPTY_PREFIX);

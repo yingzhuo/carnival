@@ -23,9 +23,9 @@ public class HeaderTokenResolver implements TokenResolver {
 
     protected static final String EMPTY_PREFIX = "";
 
-    private final String headerName;
-    private final String prefix;
-    private final int prefixLen;
+    protected final String headerName;
+    protected final String prefix;
+    protected final int prefixLen;
 
     public HeaderTokenResolver(String headerName) {
         this(headerName, EMPTY_PREFIX);

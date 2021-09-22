@@ -19,6 +19,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 /**
  * @author 应卓
+ * @see LoggingFilter
+ * @see LoggingFilterFactory
  * @since 1.10.10
  */
 class LoggingCustomHttpSecurityDSL extends AbstractHttpConfigurer<LoggingCustomHttpSecurityDSL, HttpSecurity> {

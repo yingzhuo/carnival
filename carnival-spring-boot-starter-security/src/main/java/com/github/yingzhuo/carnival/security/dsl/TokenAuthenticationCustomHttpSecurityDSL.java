@@ -27,6 +27,8 @@ import java.util.List;
 
 /**
  * @author 应卓
+ * @see TokenAuthenticationFilter
+ * @see TokenAuthenticationFilterFactory
  * @since 1.10.2
  */
 class TokenAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<TokenAuthenticationCustomHttpSecurityDSL, HttpSecurity> {

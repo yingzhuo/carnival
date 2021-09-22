@@ -9,18 +9,41 @@
  */
 package com.github.yingzhuo.carnival.security.token.resolver;
 
-import org.springframework.http.HttpHeaders;
+import com.github.yingzhuo.carnival.security.token.Token;
+import com.github.yingzhuo.carnival.security.token.UsernamePasswordTokenAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.authentication.www.BasicAuthenticationConverter;
+import org.springframework.web.context.request.NativeWebRequest;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 /**
  * @author 应卓
- * @since 1.10.3
+ * @since 1.10.22
  */
-public final class BasicTokenResolver extends HeaderTokenResolver {
+public final class BasicTokenResolver implements TokenResolver {
 
     public static final BasicTokenResolver INSTANCE = new BasicTokenResolver();
 
-    private BasicTokenResolver() {
-        super(HttpHeaders.AUTHORIZATION, "Basic ");
+    private final BasicAuthenticationConverter converter = new BasicAuthenticationConverter();
+
+    @Override
+    public Optional<Token> resolve(NativeWebRequest request) {
+        try {
+            UsernamePasswordAuthenticationToken token = converter.convert(request.getNativeRequest(HttpServletRequest.class));
+
+            if (token == null) {
+                return Optional.empty();
+            }
+
+            return Optional.of(new UsernamePasswordTokenAuthenticationToken(
+                    (String) token.getPrincipal(),
+                    (String) token.getCredentials()
+            ));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
 }
