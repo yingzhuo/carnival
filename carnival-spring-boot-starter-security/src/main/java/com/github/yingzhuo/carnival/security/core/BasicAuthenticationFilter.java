@@ -115,12 +115,10 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               Authentication authResult) {
-        logger.debug("Successful Authentication");
     }
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException failed) {
-        logger.debug("Unsuccessful Authentication");
     }
 
     public void setAuthenticationEntryPoint(AuthenticationEntryPoint authenticationEntryPoint) {

@@ -98,14 +98,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                         return;
                     }
                 }
-            } else {
-                if (this.logger.isDebugEnabled()) {
-                    logger.debug("Token cannot be resolved. Nothing to do.");
-                }
-            }
-        } else {
-            if (this.logger.isDebugEnabled()) {
-                logger.debug("Authentication NOT Required");
             }
         }
 
@@ -138,12 +130,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               Authentication authResult) {
-        logger.debug("Successful Authentication");
     }
 
     protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                                 AuthenticationException failed) {
-        logger.debug("Unsuccessful Authentication");
     }
 
     protected final Authentication doAuthenticate(Token token) {
