@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.core;
 
+import com.github.yingzhuo.carnival.security.authentication.JwtAuthenticationProvider;
 import com.github.yingzhuo.carnival.security.token.resolver.TokenResolver;
 import org.springframework.security.authentication.AuthenticationProvider;
 
@@ -18,6 +19,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
  * @since 1.10.2
  */
 public class TokenAuthenticationFilter extends AbstractAuthenticationFilter {
+
+    public TokenAuthenticationFilter(TokenResolver tokenResolver, JwtAuthenticationProvider authenticationProvider) {
+        this(tokenResolver, (AuthenticationProvider) authenticationProvider);
+    }
 
     public TokenAuthenticationFilter(TokenResolver tokenResolver, AuthenticationProvider authenticationProvider) {
         super(tokenResolver, authenticationProvider);

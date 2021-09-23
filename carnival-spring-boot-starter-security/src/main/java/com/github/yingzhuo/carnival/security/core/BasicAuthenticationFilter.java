@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.core;
 
+import com.github.yingzhuo.carnival.security.authentication.BasicAuthenticationProvider;
 import com.github.yingzhuo.carnival.security.token.resolver.BasicTokenResolver;
 import org.springframework.security.authentication.AuthenticationProvider;
 
@@ -18,6 +19,10 @@ import org.springframework.security.authentication.AuthenticationProvider;
  * @since 1.10.22
  */
 public class BasicAuthenticationFilter extends AbstractAuthenticationFilter {
+
+    public BasicAuthenticationFilter(BasicAuthenticationProvider authenticationProvider) {
+        this((AuthenticationProvider) authenticationProvider);
+    }
 
     public BasicAuthenticationFilter(AuthenticationProvider authenticationProvider) {
         super(BasicTokenResolver.INSTANCE, authenticationProvider);
