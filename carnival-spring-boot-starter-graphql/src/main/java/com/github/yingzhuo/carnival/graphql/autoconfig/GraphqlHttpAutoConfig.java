@@ -13,10 +13,6 @@ import com.github.yingzhuo.carnival.graphql.threadlocal.RequestAttributesThreadL
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
-import org.springframework.graphql.execution.ThreadLocalAccessor;
-
-import java.util.List;
 
 /**
  * @author 应卓
@@ -29,12 +25,6 @@ class GraphqlHttpAutoConfig {
     @ConditionalOnMissingBean
     RequestAttributesThreadLocalAccessor requestAttributesAccessor() {
         return new RequestAttributesThreadLocalAccessor();
-    }
-
-    @Bean
-    @Primary
-    ThreadLocalAccessor compositeThreadLocalAccessor(List<ThreadLocalAccessor> accessors) {
-        return ThreadLocalAccessor.composite(accessors);
     }
 
 }
