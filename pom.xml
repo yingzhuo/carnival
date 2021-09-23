@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.23</version>
+    <version>1.10.24</version>
     <modules>
         <module>carnival-spring-boot-starter-captcha</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -493,6 +493,18 @@
                 <version>1.5.1</version>
             </dependency>
 
+            <!-- byte-buddy -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>1.10.22</version>
+            </dependency>
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy-agent</artifactId>
+                <version>1.10.22</version>
+            </dependency>
+
             <!-- codegen4j -->
             <dependency>
                 <groupId>com.github.yingzhuo</groupId>
@@ -589,6 +601,20 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15to18</artifactId>
                 <version>1.69</version>
+            </dependency>
+
+            <!-- asm -->
+            <dependency>
+                <groupId>org.ow2.asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>5.0.4</version>
+            </dependency>
+
+            <!-- reactive -->
+            <dependency>
+                <groupId>org.reactivestreams</groupId>
+                <artifactId>reactive-streams</artifactId>
+                <version>1.0.3</version>
             </dependency>
 
             <!-- logback -->
