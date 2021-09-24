@@ -9,7 +9,12 @@
  */
 package com.github.yingzhuo.carnival.jpa.support;
 
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
+
 import javax.persistence.EntityManager;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -22,6 +27,30 @@ public abstract class JpaDaoSupport {
 
     protected JpaDaoSupport(EntityManager em) {
         this.em = Objects.requireNonNull(em);
+    }
+
+    protected final boolean isNotNull(Object obj) {
+        return obj != null;
+    }
+
+    protected final <T> boolean isNotEmpty(T[] xs) {
+        return isNotNull(xs) && xs.length != 0;
+    }
+
+    protected final <T> boolean isNotEmpty(Collection<T> xs) {
+        return !CollectionUtils.isEmpty(xs);
+    }
+
+    protected final <K, V> boolean isNotEmpty(Map<K, V> xs) {
+        return !CollectionUtils.isEmpty(xs);
+    }
+
+    protected final boolean isNotEmpty(String s) {
+        return StringUtils.hasLength(s);
+    }
+
+    protected final boolean isNotBlank(String s) {
+        return StringUtils.hasText(s);
     }
 
 }
