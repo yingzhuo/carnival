@@ -20,4 +20,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER})
 public @interface NormalizedKeyword {
+
+    public boolean left() default true;
+
+    public boolean right() default true;
+
 }

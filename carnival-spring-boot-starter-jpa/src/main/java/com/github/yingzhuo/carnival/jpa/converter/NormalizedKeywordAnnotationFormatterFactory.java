@@ -36,7 +36,15 @@ public class NormalizedKeywordAnnotationFormatterFactory implements AnnotationFo
 
     @Override
     public Parser<?> getParser(NormalizedKeyword annotation, Class<?> fieldType) {
-        return (Parser<String>) (text, locale) -> Keywords.normalize(text);
+        return (Parser<String>) (text, locale) -> {
+            if (annotation.left()) {
+                text = Keywords.normalizeLeft(text);
+            }
+            if (annotation.right()) {
+                text = Keywords.normalizeRight(text);
+            }
+            return text;
+        };
     }
 
 }

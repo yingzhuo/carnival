@@ -13,9 +13,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author 应卓
@@ -28,6 +27,8 @@ public abstract class JpaDaoSupport {
     protected JpaDaoSupport(EntityManager em) {
         this.em = Objects.requireNonNull(em);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     protected final boolean isNotNull(Object obj) {
         return obj != null;
@@ -51,6 +52,25 @@ public abstract class JpaDaoSupport {
 
     protected final boolean isNotBlank(String s) {
         return StringUtils.hasText(s);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    protected final <T> Set<T> toSet(T[] xs) {
+        if (!isNotNull(xs)) {
+            return new HashSet<>();
+        }
+        return Arrays.stream(xs).collect(Collectors.toSet());
+    }
+
+    protected final <T> Set<T> toSet(Collection<T> xs) {
+        if (!isNotNull(xs)) {
+            return new HashSet<>();
+        }
+        if (xs instanceof Set) {
+            return (Set<T>) xs;
+        }
+        return new HashSet<>(xs);
     }
 
 }
