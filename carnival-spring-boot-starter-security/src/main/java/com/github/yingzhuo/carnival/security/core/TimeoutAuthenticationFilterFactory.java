@@ -13,6 +13,7 @@ package com.github.yingzhuo.carnival.security.core;
  * @author 应卓
  * @since 1.10.25
  */
+@FunctionalInterface
 public interface TimeoutAuthenticationFilterFactory {
 
     public TimeoutAuthenticationFilter create();

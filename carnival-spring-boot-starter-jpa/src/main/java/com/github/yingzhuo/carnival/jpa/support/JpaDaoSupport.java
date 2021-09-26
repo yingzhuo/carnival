@@ -81,5 +81,5 @@ public abstract class JpaDaoSupport {
     protected final PredicationSet newPredicationSet() {
         return PredicationSet.newInstance();
     }
-    
+
 }

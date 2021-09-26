@@ -23,11 +23,11 @@ public final class PredicationSet implements Serializable {
 
     private final List<Predicate> list = new ArrayList<>();
 
-    public static PredicationSet newInstance() {
-        return new PredicationSet();
+    private PredicationSet() {
     }
 
-    private PredicationSet() {
+    public static PredicationSet newInstance() {
+        return new PredicationSet();
     }
 
     public PredicationSet add(Predicate predicate, Predicate... more) {

@@ -30,17 +30,19 @@ import java.util.*;
 public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
 
     private final long timeout;
+    private final String notTimeoutRoleName;
 
-    public TimeoutAuthenticationFilter(String timeout) throws ParseException {
-        this(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeout));
+    public TimeoutAuthenticationFilter(String notTimeoutRoleName, String timeout) throws ParseException {
+        this(notTimeoutRoleName, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeout));
     }
 
-    public TimeoutAuthenticationFilter(Date timeout) {
-        this(timeout.getTime());
+    public TimeoutAuthenticationFilter(String notTimeoutRoleName, Date timeout) {
+        this(notTimeoutRoleName, timeout.getTime());
     }
 
-    public TimeoutAuthenticationFilter(long timeout) {
+    public TimeoutAuthenticationFilter(String notTimeoutRoleName, long timeout) {
         this.timeout = timeout;
+        this.notTimeoutRoleName = Objects.requireNonNull(notTimeoutRoleName);
     }
 
     @Override
@@ -49,7 +51,7 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
         final Authentication authentication = getCurrentAuthentication();
         if (timeout > 0 && authentication != null && timeout > System.currentTimeMillis()) {
             SecurityContextHolder.clearContext();
-            Authentication newOne = new MagicAuthentication(authentication);
+            Authentication newOne = new MagicAuthentication(authentication, notTimeoutRoleName);
             SecurityContextHolder.getContext().setAuthentication(newOne);
         }
 
@@ -62,15 +64,17 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
 
     private static final class MagicAuthentication implements Authentication {
         private final Authentication auth;
+        private final String notTimeoutRoleName;
 
-        public MagicAuthentication(Authentication auth) {
-            this.auth = Objects.requireNonNull(auth);
+        public MagicAuthentication(Authentication auth, String notTimeoutRoleName) {
+            this.auth = auth;
+            this.notTimeoutRoleName = notTimeoutRoleName;
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
             final List<GrantedAuthority> list = new ArrayList<>(auth.getAuthorities());
-            list.add(() -> "ROLE_NOT_TIMEOUT");
+            list.add(() -> notTimeoutRoleName);
             return list;
         }
 
