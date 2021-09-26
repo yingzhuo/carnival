@@ -26,11 +26,12 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 class LoggingCustomHttpSecurityDSL extends AbstractHttpConfigurer<LoggingCustomHttpSecurityDSL, HttpSecurity> {
 
     @Override
-    public void configure(HttpSecurity http) {
+    public void configure(HttpSecurity http) throws Exception {
         final BeanFinder finder = BeanFinder.newInstance(http.getSharedObject(ApplicationContext.class));
 
         final LoggingFilter filter = getLoggingFilter(finder);
         if (filter != null) {
+            filter.afterPropertiesSet();
             http.addFilterBefore(filter, BasicAuthenticationFilter.class);
             http.setSharedObject(LoggingFilter.class, filter);
         }

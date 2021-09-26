@@ -13,8 +13,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -28,6 +31,7 @@ public abstract class JpaDaoSupport {
         this.em = Objects.requireNonNull(em);
     }
 
+    // null / empty
     // -----------------------------------------------------------------------------------------------------------------
 
     protected final boolean isNotNull(Object obj) {
@@ -54,23 +58,28 @@ public abstract class JpaDaoSupport {
         return StringUtils.hasText(s);
     }
 
+    // to stream
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected final <T> Set<T> toSet(T[] xs) {
-        if (!isNotNull(xs)) {
-            return new HashSet<>();
+    protected final <T> Stream<T> toStream(T[] xs) {
+        if (isNotNull(xs)) {
+            return Arrays.stream(xs);
         }
-        return Arrays.stream(xs).collect(Collectors.toSet());
+        return Stream.empty();
     }
 
-    protected final <T> Set<T> toSet(Collection<T> xs) {
-        if (!isNotNull(xs)) {
-            return new HashSet<>();
+    protected final <T> Stream<T> toStream(Collection<T> xs) {
+        if (isNotNull(xs)) {
+            return xs.stream();
         }
-        if (xs instanceof Set) {
-            return (Set<T>) xs;
-        }
-        return new HashSet<>(xs);
+        return Stream.empty();
     }
 
+    //
+    // -----------------------------------------------------------------------------------------------------------------
+
+    protected final PredicationSet newPredicationSet() {
+        return PredicationSet.newInstance();
+    }
+    
 }
