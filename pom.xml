@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.25</version>
+    <version>1.10.26</version>
     <modules>
         <module>carnival-spring-boot-starter-captcha</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -320,13 +320,6 @@
                 <artifactId>graphql-java-extended-scalars</artifactId>
                 <version>17.0</version>
             </dependency>
-            <!--
-            <dependency>
-                <groupId>com.graphql-java</groupId>
-                <artifactId>graphql-java-extended-validation</artifactId>
-                <version>17.0</version>
-            </dependency>
-            -->
 
             <!-- slf4j -->
             <dependency>
@@ -640,7 +633,7 @@
             <dependency>
                 <groupId>com.github.jknack</groupId>
                 <artifactId>handlebars</artifactId>
-                <version>4.2.0</version>
+                <version>4.2.1</version>
             </dependency>
 
             <!-- javax-api -->
@@ -654,7 +647,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>30.1.1-jre</version>
+                <version>31.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

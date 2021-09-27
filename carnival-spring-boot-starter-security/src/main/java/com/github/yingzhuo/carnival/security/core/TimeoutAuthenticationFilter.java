@@ -19,8 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -31,10 +29,6 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
 
     private final long timeout;
     private final String notTimeoutRoleName;
-
-    public TimeoutAuthenticationFilter(String notTimeoutRoleName, String timeout) throws ParseException {
-        this(notTimeoutRoleName, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(timeout));
-    }
 
     public TimeoutAuthenticationFilter(String notTimeoutRoleName, Date timeout) {
         this(notTimeoutRoleName, timeout.getTime());
@@ -108,4 +102,5 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
             return auth.getName();
         }
     }
+
 }
