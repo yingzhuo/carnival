@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.security.core;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -29,6 +31,23 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
 
     private final long timeout;
     private final String notTimeoutRoleName;
+
+    private static final String[] patterns = new String[]{
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd"
+    };
+
+    private static Date parseDate(String timeout) {
+        try {
+            return DateUtils.parseDate(timeout, patterns);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+    }
+
+    public TimeoutAuthenticationFilter(String notTimeoutRoleName, String timeout) {
+        this(notTimeoutRoleName, parseDate(timeout));
+    }
 
     public TimeoutAuthenticationFilter(String notTimeoutRoleName, Date timeout) {
         this(notTimeoutRoleName, timeout.getTime());

@@ -30,10 +30,6 @@ public class SmartPasswordEncoder extends DelegatingPasswordEncoder implements P
         }
     }
 
-    public SmartPasswordEncoder() {
-        this(PasswordEncoderAlgorithm.md5, PasswordEncoderAlgorithm.md5);
-    }
-
     public SmartPasswordEncoder(PasswordEncoderAlgorithm encoding, PasswordEncoderAlgorithm unmapped) {
         super(encoding.getId(), ID_TO_ENCODERS);
 
