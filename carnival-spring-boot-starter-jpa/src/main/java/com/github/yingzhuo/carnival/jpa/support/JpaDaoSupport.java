@@ -75,11 +75,11 @@ public abstract class JpaDaoSupport {
         return Stream.empty();
     }
 
-    //
+    // predicate list
     // -----------------------------------------------------------------------------------------------------------------
 
-    protected final PredicationSet newPredicationSet() {
-        return PredicationSet.newInstance();
+    protected final PredicationList newPredicationList() {
+        return PredicationList.newInstance();
     }
 
 }

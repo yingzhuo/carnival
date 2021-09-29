@@ -19,26 +19,28 @@ import java.util.List;
  * @author 应卓
  * @since 1.10.25
  */
-public final class PredicationSet implements Serializable {
+public final class PredicationList implements Serializable {
 
     private final List<Predicate> list = new ArrayList<>();
 
-    private PredicationSet() {
+    private PredicationList() {
     }
 
-    public static PredicationSet newInstance() {
-        return new PredicationSet();
+    public static PredicationList newInstance() {
+        return new PredicationList();
     }
 
-    public PredicationSet add(Predicate predicate, Predicate... more) {
-        list.add(predicate);
+    public PredicationList add(Predicate predicate, Predicate... more) {
+        if (predicate != null) {
+            list.add(predicate);
+        }
         if (more != null && more.length != 0) {
             list.addAll(Arrays.asList(more));
         }
         return this;
     }
 
-    public PredicationSet clear() {
+    public PredicationList clear() {
         list.clear();
         return this;
     }

@@ -29,21 +29,12 @@ import java.util.*;
  */
 public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
 
-    private final long timeout;
-    private final String notTimeoutRoleName;
-
     private static final String[] patterns = new String[]{
             "yyyy-MM-dd HH:mm:ss",
             "yyyy-MM-dd"
     };
-
-    private static Date parseDate(String timeout) {
-        try {
-            return DateUtils.parseDate(timeout, patterns);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
-    }
+    private final long timeout;
+    private final String notTimeoutRoleName;
 
     public TimeoutAuthenticationFilter(String notTimeoutRoleName, String timeout) {
         this(notTimeoutRoleName, parseDate(timeout));
@@ -56,6 +47,14 @@ public class TimeoutAuthenticationFilter extends OncePerRequestFilter {
     public TimeoutAuthenticationFilter(String notTimeoutRoleName, long timeout) {
         this.timeout = timeout;
         this.notTimeoutRoleName = Objects.requireNonNull(notTimeoutRoleName);
+    }
+
+    private static Date parseDate(String timeout) {
+        try {
+            return DateUtils.parseDate(timeout, patterns);
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
     }
 
     @Override
