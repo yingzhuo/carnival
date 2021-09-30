@@ -7,10 +7,9 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.encoder;
 
 import cn.hutool.core.codec.Base64;
-import com.github.yingzhuo.carnival.password.PasswordEncoder;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

@@ -7,9 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.encryptor;
 
-import com.github.yingzhuo.carnival.password.StringEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
 
 /**

@@ -7,24 +7,26 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.encoder;
 
-import com.github.yingzhuo.carnival.password.PasswordEncoder;
+import cn.hutool.crypto.digest.DigestUtil;
+import cn.hutool.crypto.digest.Digester;
 
 /**
  * @author 应卓
- * @since 1.6.28
+ * @since 1.10.5
  */
-public final class ReversePasswordEncoder implements PasswordEncoder {
+public class SM3PasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        return new StringBuilder(rawPassword).reverse().toString();
+        Digester digester = DigestUtil.digester("sm3");
+        return digester.digestHex(rawPassword.toString());
     }
 
     @Override
     public boolean matches(CharSequence rawPassword, String encodedPassword) {
-        return encode(rawPassword).equals(encodedPassword);
+        return encodedPassword.equals(encode(rawPassword));
     }
 
 }

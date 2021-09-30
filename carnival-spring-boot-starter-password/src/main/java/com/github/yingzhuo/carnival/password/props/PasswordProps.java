@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.password.props;
 
-import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithm;
-import com.github.yingzhuo.carnival.password.algorithm.StringEncryptorAlgorithm;
+import com.github.yingzhuo.carnival.password.encoder.PasswordEncoderAlgorithm;
+import com.github.yingzhuo.carnival.password.encryptor.StringEncryptorAlgorithm;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -31,14 +31,14 @@ public class PasswordProps {
     @Getter
     @Setter
     public static class PasswordEncoder {
-        private PasswordEncoderAlgorithm encoding = PasswordEncoderAlgorithm.md5;
-        private PasswordEncoderAlgorithm unmapped = PasswordEncoderAlgorithm.noop;
+        private PasswordEncoderAlgorithm encoding = PasswordEncoderAlgorithm.bcrypt;
+        private PasswordEncoderAlgorithm unmapped = PasswordEncoderAlgorithm.bcrypt;
     }
 
     @Getter
     @Setter
     public static class StringEncryptor {
-        private StringEncryptorAlgorithm algorithm = StringEncryptorAlgorithm.delux;
+        private StringEncryptorAlgorithm algorithm = StringEncryptorAlgorithm.standard;
     }
 
 }

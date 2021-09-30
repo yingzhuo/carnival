@@ -7,11 +7,11 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.algorithm;
+package com.github.yingzhuo.carnival.password.encoder;
 
-import com.github.yingzhuo.carnival.password.impl.*;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.*;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
@@ -40,9 +40,9 @@ public enum PasswordEncoderAlgorithm {
     noop("noop", NoOpPasswordEncoder.getInstance());
 
     private final String id;
-    private final PasswordEncoder passwordEncoder;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    PasswordEncoderAlgorithm(String id, PasswordEncoder passwordEncoder) {
+    PasswordEncoderAlgorithm(String id, org.springframework.security.crypto.password.PasswordEncoder passwordEncoder) {
         this.id = id;
         this.passwordEncoder = passwordEncoder;
     }

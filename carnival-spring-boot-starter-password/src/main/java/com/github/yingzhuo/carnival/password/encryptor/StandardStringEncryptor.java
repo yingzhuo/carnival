@@ -7,25 +7,24 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.encryptor;
 
-import com.github.yingzhuo.carnival.password.StringEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
 
 /**
  * @author 应卓
  * @since 1.7.1
  */
-public class NoopStringEncryptor implements StringEncryptor {
+public class StandardStringEncryptor implements StringEncryptor {
 
     @Override
     public String encrypt(String text, String password, String salt) {
-        return Encryptors.noOpText().encrypt(text);
+        return Encryptors.text(password, salt).encrypt(text);
     }
 
     @Override
     public String decrypt(String encryptedText, String password, String salt) {
-        return Encryptors.noOpText().decrypt(encryptedText);
+        return Encryptors.text(password, salt).decrypt(encryptedText);
     }
 
 }

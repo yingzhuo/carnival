@@ -7,15 +7,19 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password;
+package com.github.yingzhuo.carnival.password.encryptor;
+
+import org.springframework.security.crypto.keygen.KeyGenerators;
 
 /**
  * @author 应卓
  * @since 1.7.1
  */
-@FunctionalInterface
-public interface SaltGenerator {
+public class SaltGeneratorImpl implements SaltGenerator {
 
-    public String generate();
+    @Override
+    public String generate() {
+        return KeyGenerators.string().generateKey();
+    }
 
 }

@@ -7,16 +7,16 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.algorithm;
+package com.github.yingzhuo.carnival.password.encryptor;
 
 /**
  * @author 应卓
  * @since 1.7.1
  */
-public enum StringEncryptorAlgorithm {
+public interface StringEncryptor {
 
-    standard,
-    delux,
-    noop
+    public String encrypt(String text, String password, String salt);
+
+    public String decrypt(String encryptedText, String password, String salt);
 
 }

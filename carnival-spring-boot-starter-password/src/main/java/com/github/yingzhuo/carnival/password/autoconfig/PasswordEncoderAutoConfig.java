@@ -9,8 +9,8 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
-import com.github.yingzhuo.carnival.password.PasswordEncoder;
-import com.github.yingzhuo.carnival.password.impl.SmartPasswordEncoder;
+import com.github.yingzhuo.carnival.password.encoder.PasswordEncoder;
+import com.github.yingzhuo.carnival.password.encoder.SmartPasswordEncoder;
 import com.github.yingzhuo.carnival.password.props.PasswordProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password.util;
 
-import com.github.yingzhuo.carnival.password.StringEncryptor;
+import com.github.yingzhuo.carnival.password.encryptor.StringEncryptor;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 /**

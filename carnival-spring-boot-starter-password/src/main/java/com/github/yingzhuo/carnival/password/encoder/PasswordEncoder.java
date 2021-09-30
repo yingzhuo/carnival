@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password;
+package com.github.yingzhuo.carnival.password.encoder;
 
 import java.util.Arrays;
 

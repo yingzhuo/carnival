@@ -7,10 +7,8 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.impl;
+package com.github.yingzhuo.carnival.password.encoder;
 
-import com.github.yingzhuo.carnival.password.PasswordEncoder;
-import com.github.yingzhuo.carnival.password.algorithm.PasswordEncoderAlgorithm;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 
 import java.util.HashMap;

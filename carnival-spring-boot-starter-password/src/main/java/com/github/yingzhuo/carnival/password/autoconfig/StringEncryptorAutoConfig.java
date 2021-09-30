@@ -9,12 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password.autoconfig;
 
-import com.github.yingzhuo.carnival.password.SaltGenerator;
-import com.github.yingzhuo.carnival.password.StringEncryptor;
-import com.github.yingzhuo.carnival.password.impl.DeluxStringEncryptor;
-import com.github.yingzhuo.carnival.password.impl.NoopStringEncryptor;
-import com.github.yingzhuo.carnival.password.impl.SaltGeneratorImpl;
-import com.github.yingzhuo.carnival.password.impl.StandardStringEncryptor;
+import com.github.yingzhuo.carnival.password.encryptor.*;
 import com.github.yingzhuo.carnival.password.props.PasswordProps;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

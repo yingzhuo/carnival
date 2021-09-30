@@ -9,7 +9,7 @@
  */
 package com.github.yingzhuo.carnival.password.util;
 
-import com.github.yingzhuo.carnival.password.SaltGenerator;
+import com.github.yingzhuo.carnival.password.encryptor.SaltGenerator;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
 
 /**
