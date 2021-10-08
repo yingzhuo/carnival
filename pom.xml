@@ -100,7 +100,7 @@
         <spring.boot.version>2.5.5</spring.boot.version>
         <spring.version>5.3.10</spring.version>
         <spring.security.version>5.5.2</spring.security.version>
-        <jackson.version>2.12.5</jackson.version>
+        <jackson.version>2.13.0</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
         <netty.version>4.1.68.Final</netty.version>
         <feign.version>11.6</feign.version>
@@ -669,7 +669,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.20</version>
+                <version>1.18.22</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
