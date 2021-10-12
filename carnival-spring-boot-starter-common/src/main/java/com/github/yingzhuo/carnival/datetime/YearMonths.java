@@ -41,4 +41,16 @@ public final class YearMonths {
         return add(pattern, yearMonth, -n);
     }
 
+    public static int length(String yearMonth) {
+        return length(DEFAULT_PATTERN, yearMonth);
+    }
+
+    public static int length(String pattern, String yearMonth) {
+        return YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern(pattern)).lengthOfMonth();
+    }
+
+    public static boolean isLeap(String pattern, String yearMonth) {
+        return YearMonth.parse(yearMonth, DateTimeFormatter.ofPattern(pattern)).isLeapYear();
+    }
+
 }
