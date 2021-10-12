@@ -21,11 +21,11 @@ import java.text.ParseException;
  */
 public final class Weeks {
 
-    private Weeks() {
-    }
-
     private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-DD";
     private static final String DEFAULT_DELIMITER = "_";
+
+    private Weeks() {
+    }
 
     public static String add(String week, int n) {
         return add(DEFAULT_DATE_PATTERN, DEFAULT_DELIMITER, week, n);

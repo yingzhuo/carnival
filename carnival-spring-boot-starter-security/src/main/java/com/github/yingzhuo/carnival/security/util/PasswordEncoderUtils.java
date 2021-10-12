@@ -7,14 +7,14 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.password.util;
+package com.github.yingzhuo.carnival.security.util;
 
-import com.github.yingzhuo.carnival.password.encoder.PasswordEncoder;
 import com.github.yingzhuo.carnival.spring.SpringUtils;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author 应卓
- * @since 1.6.27
+ * @since 1.10.28
  */
 public final class PasswordEncoderUtils {
 
@@ -30,7 +30,7 @@ public final class PasswordEncoderUtils {
     }
 
     public static boolean notMatches(CharSequence rawPassword, String encodedPassword) {
-        return SpringUtils.getBean(PasswordEncoder.class).notMatches(rawPassword, encodedPassword);
+        return !matches(rawPassword, encodedPassword);
     }
 
 }
