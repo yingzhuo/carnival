@@ -9,11 +9,9 @@
  */
 package com.github.yingzhuo.carnival.datetime;
 
-import lombok.var;
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * @author 应卓
@@ -21,40 +19,34 @@ import java.text.ParseException;
  */
 public final class Weeks {
 
-    private static final String DEFAULT_DATE_PATTERN = "yyyy-MM-DD";
-    private static final String DEFAULT_DELIMITER = "_";
+    private static final DateTimeFormatter YEAR_WEEK = DateTimeFormatter.ofPattern("YYYY-w-e", Locale.getDefault());
+    private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.getDefault());
 
     private Weeks() {
     }
 
-    public static String add(String week, int n) {
-        return add(DEFAULT_DATE_PATTERN, DEFAULT_DELIMITER, week, n);
+    public static String create(int year, int week) {
+        final LocalDate date = LocalDate.parse(year + "-" + week + "-1", YEAR_WEEK);
+        return String.format("%s<=>%s",
+                DATE.format(date),
+                DATE.format(date.plusDays(6))
+        );
     }
 
-    public static String add(String datePattern, String delimiter, String week, int n) {
-        try {
-            String[] parts = week.split(delimiter, 2);
-            var d1 = DateUtils.parseDate(parts[0], datePattern);
-            var d2 = DateUtils.parseDate(parts[1], datePattern);
-            d1 = DateUtils.addDays(d1, 7 * n);
-            d2 = DateUtils.addDays(d1, 7 * n);
-            return String.format(
-                    "%s%s%s",
-                    DateFormatUtils.format(d1, datePattern),
-                    delimiter,
-                    DateFormatUtils.format(d2, datePattern)
-            );
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e.getMessage(), e);
-        }
+    public static String add(String week, int n) {
+        LocalDate date = LocalDate.parse(week.split("<=>", 2)[0], DATE);
+        return String.format("%s<=>%s",
+                DATE.format(date.plusDays(7 * n)),
+                DATE.format(date.plusDays(7 * n + 6))
+        );
     }
 
     public static String sub(String week, int n) {
-        return sub(DEFAULT_DATE_PATTERN, DEFAULT_DELIMITER, week, n);
-    }
-
-    public static String sub(String datePattern, String delimiter, String week, int n) {
-        return add(datePattern, delimiter, week, -n);
+        LocalDate date = LocalDate.parse(week.split("<=>", 2)[0], DATE);
+        return String.format("%s<=>%s",
+                DATE.format(date.minusDays(7 * n)),
+                DATE.format(date.minusDays(7 * n + 6))
+        );
     }
 
 }
