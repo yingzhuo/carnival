@@ -35,7 +35,7 @@ class BusinessExceptionAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
-    BusinessExceptionFactory businessExceptionFactory(Props props, Map1 map1, Map2 map2, Map3 map3) {
+    BusinessExceptionFactory businessExceptionFactory(Map1 map1, Map2 map2, Map3 map3) {
         return new MapBusinessExceptionFactory(merge(map1, map2, map3));
     }
 
