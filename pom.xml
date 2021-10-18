@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.29</version>
+    <version>1.11.0</version>
     <modules>
         <module>carnival-spring-boot-starter-captcha</module>
         <module>carnival-spring-boot-starter-common</module>
@@ -22,7 +22,6 @@
         <module>carnival-spring-boot-starter-qrcode</module>
         <module>carnival-spring-boot-starter-redis</module>
         <module>carnival-spring-boot-starter-security</module>
-        <module>carnival-spring-boot-starter-support</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -97,7 +96,7 @@
         <java.version>1.8</java.version>
 
         <spring.boot.version>2.5.5</spring.boot.version>
-        <spring.version>5.3.10</spring.version>
+        <spring.version>5.3.11</spring.version>
         <spring.security.version>5.5.2</spring.security.version>
         <jackson.version>2.13.0</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
@@ -511,13 +510,6 @@
                 <version>2.2.11</version>
             </dependency>
 
-            <!-- ehcache -->
-            <dependency>
-                <groupId>org.ehcache</groupId>
-                <artifactId>ehcache</artifactId>
-                <version>3.8.1</version>
-            </dependency>
-
             <!-- zxing -->
             <dependency>
                 <groupId>com.google.zxing</groupId>
@@ -574,11 +566,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-crypto</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
@@ -626,13 +613,6 @@
                 <groupId>org.yaml</groupId>
                 <artifactId>snakeyaml</artifactId>
                 <version>1.29</version>
-            </dependency>
-
-            <!-- handlebars -->
-            <dependency>
-                <groupId>com.github.jknack</groupId>
-                <artifactId>handlebars</artifactId>
-                <version>4.3.0</version>
             </dependency>
 
             <!-- javax-api -->
