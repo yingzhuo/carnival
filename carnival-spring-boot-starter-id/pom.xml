@@ -44,12 +44,6 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- codegen4j -->
-        <dependency>
-            <groupId>com.github.yingzhuo</groupId>
-            <artifactId>codegen4j</artifactId>
-        </dependency>
-
         <!-- snowflake-client -->
         <dependency>
             <groupId>com.github.yingzhuo</groupId>

@@ -496,13 +496,6 @@
                 <version>1.10.22</version>
             </dependency>
 
-            <!-- codegen4j -->
-            <dependency>
-                <groupId>com.github.yingzhuo</groupId>
-                <artifactId>codegen4j</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-
             <!-- easyexcel -->
             <dependency>
                 <groupId>com.alibaba</groupId>
@@ -599,13 +592,6 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
-            </dependency>
-
-            <!-- snakeyaml -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>1.29</version>
             </dependency>
 
             <!-- javax-api -->
