@@ -46,12 +46,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
-        <!-- bouncy-castle -->
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15to18</artifactId>
-        </dependency>
-
         <!-- slf4j -->
         <dependency>
             <groupId>org.slf4j</groupId>

@@ -38,7 +38,7 @@ class BasicAuthenticationCustomHttpSecurityDSL extends AbstractHttpConfigurer<Ba
             filter.afterPropertiesSet();
 
             http.setSharedObject(BasicAuthenticationFilter.class, filter);
-            http.addFilterBefore(filter, org.springframework.security.web.authentication.www.BasicAuthenticationFilter.class);
+            http.addFilterBefore(filter, BasicAuthenticationFilter.class);
         }
     }
 

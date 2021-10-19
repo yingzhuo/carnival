@@ -64,8 +64,4 @@ public final class AlgorithmFactories {
         return new ECDSA512AlgorithmFactory(publicKey, privateKey);
     }
 
-    public static AlgorithmFactory random() {
-        return new RandomAlgorithmFactory();
-    }
-
 }
