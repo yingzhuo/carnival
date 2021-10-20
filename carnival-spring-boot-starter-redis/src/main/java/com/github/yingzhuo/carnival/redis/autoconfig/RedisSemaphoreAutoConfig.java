@@ -30,7 +30,7 @@ import java.time.temporal.ChronoUnit;
  */
 @EnableConfigurationProperties(RedisSemaphoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.redis.semaphore", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class RedisSemaphoreAutoConfig {
+class RedisSemaphoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

@@ -27,10 +27,10 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-@EnableConfigurationProperties(IdGeneratorAutoConfig1.Props.class)
+@EnableConfigurationProperties(IdGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.id-generator", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnMissingClass({"com.github.yingzhuo.snowflake.Snowflake"})
-public class IdGeneratorAutoConfig1 {
+class IdGeneratorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
@@ -70,7 +70,7 @@ public class IdGeneratorAutoConfig1 {
             case NULL:
                 return (IdGenerator<Object>) () -> null;
             default:
-                throw new AssertionError(); // 程序不可能运行到此处
+                throw new AssertionError();
         }
     }
 

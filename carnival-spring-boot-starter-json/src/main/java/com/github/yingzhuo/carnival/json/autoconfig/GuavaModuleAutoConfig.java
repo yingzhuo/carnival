@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-public class GuavaModuleAutoConfig {
+class GuavaModuleAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {

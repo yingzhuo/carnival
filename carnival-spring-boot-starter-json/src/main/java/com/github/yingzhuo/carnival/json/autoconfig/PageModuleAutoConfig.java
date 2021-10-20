@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  */
 @ConditionalOnClass(name = "org.springframework.data.domain.Page")
-public class PageModuleAutoConfig {
+class PageModuleAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jackson2ObjectMapperBuilderCustomizer() {

@@ -20,6 +20,8 @@ import org.springframework.context.annotation.Bean;
  * @author 应卓
  * @since 1.10.2
  */
+@ConditionalOnMissingBean(Algorithm.class)
+@ConditionalOnBean(Algorithm.class)
 class JwtFactoryAutoConfig {
 
     @Autowired(required = false)
@@ -32,8 +34,6 @@ class JwtFactoryAutoConfig {
     private JwtTokenMetadataDefaults jwtTokenMetadataDefaults;
 
     @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(Algorithm.class)
     JwtTokenFactory jwtTokenFactory(Algorithm algorithm) {
         return new JwtTokenFactoryImpl(algorithm, jwtTokenMetadataDefaults, jwtIdFactory, keyIdFactory);
     }

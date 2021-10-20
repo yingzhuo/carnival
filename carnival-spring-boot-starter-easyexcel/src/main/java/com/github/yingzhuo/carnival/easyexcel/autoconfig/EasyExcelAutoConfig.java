@@ -25,10 +25,10 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableConfigurationProperties(EasyExcelAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.easyexcel", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnMissingBean(ExcelReader.class)
 public class EasyExcelAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean
     public ExcelReader excelReader() {
         return new DefaultExcelReader();
     }

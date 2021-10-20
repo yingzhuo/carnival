@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * @author 应卓
  */
-public class LocalizationChinaCoreAutoConfig {
+class LocalizationChinaCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

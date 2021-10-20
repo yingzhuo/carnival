@@ -30,7 +30,7 @@ import java.time.temporal.ChronoUnit;
  */
 @EnableConfigurationProperties(RedisLockAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.redis.lock", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class RedisLockAutoConfig {
+class RedisLockAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

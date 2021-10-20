@@ -22,10 +22,10 @@ import org.springframework.context.annotation.Bean;
  */
 @ConditionalOnProperty(prefix = "carnival.id", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ConditionalOnClass(name = {"com.github.yingzhuo.snowflake.Snowflake"})
-public class IdGeneratorAutoConfig2 {
+@ConditionalOnMissingBean(IdGenerator.class)
+class SnowflakeClientAdapterAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean
     public IdGenerator<?> idGenerator() {
         return new SnowflakeClientAdapter();
     }

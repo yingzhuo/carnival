@@ -19,7 +19,7 @@ import org.springframework.security.web.firewall.StrictHttpFirewall;
  * @since 1.10.31
  */
 @ConditionalOnMissingBean(HttpFirewall.class)
-public class HttpFirewallAutoConfig {
+class HttpFirewallAutoConfig {
 
     @Bean
     HttpFirewall httpFirewall() {

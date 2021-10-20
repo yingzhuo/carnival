@@ -15,16 +15,9 @@ package com.github.yingzhuo.carnival.id;
 public enum IdGeneratorAlgorithm {
 
     UUID_32,
-
     UUID_36,
-
     SNOWFLAKE,
-
     SNOWFLAKE_STRING,
-
-    /**
-     * @since 1.8.9
-     */
     NULL
 
 }

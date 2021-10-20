@@ -19,10 +19,10 @@ import org.springframework.context.annotation.Bean;
  * @since 1.10.16
  */
 @ConditionalOnWebApplication
+@ConditionalOnMissingBean(RequestAttributesThreadLocalAccessor.class)
 class GraphqlHttpAutoConfig {
 
     @Bean
-    @ConditionalOnMissingBean
     RequestAttributesThreadLocalAccessor requestAttributesAccessor() {
         return new RequestAttributesThreadLocalAccessor();
     }

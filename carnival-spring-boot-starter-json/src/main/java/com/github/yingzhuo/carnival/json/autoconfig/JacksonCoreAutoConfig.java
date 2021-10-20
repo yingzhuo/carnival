@@ -26,7 +26,7 @@ import java.time.format.DateTimeFormatter;
  */
 @EnableConfigurationProperties(JacksonCoreAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.jackson", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class JacksonCoreAutoConfig {
+class JacksonCoreAutoConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer(Props props) {

@@ -26,7 +26,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableConfigurationProperties(QRCodeGeneratorAutoConfig.Props.class)
 @ConditionalOnProperty(prefix = "carnival.qrcode", name = "enabled", havingValue = "true", matchIfMissing = true)
-public class QRCodeGeneratorAutoConfig {
+class QRCodeGeneratorAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean

@@ -18,7 +18,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
  * @author 应卓
  * @since 1.6.17
  */
-public class RedisCoreAutoConfig {
+class RedisCoreAutoConfig {
 
     @Bean
     @ConditionalOnMissingBean
