@@ -10,6 +10,7 @@
     <modules>
         <module>carnival-spring-boot-starter-captcha</module>
         <module>carnival-spring-boot-starter-common</module>
+        <module>carnival-spring-boot-starter-config</module>
         <module>carnival-spring-boot-starter-database</module>
         <module>carnival-spring-boot-starter-easyexcel</module>
         <module>carnival-spring-boot-starter-graphql</module>
@@ -494,6 +495,18 @@
                 <groupId>net.bytebuddy</groupId>
                 <artifactId>byte-buddy-agent</artifactId>
                 <version>1.10.22</version>
+            </dependency>
+
+            <!-- config -->
+            <dependency>
+                <groupId>com.typesafe</groupId>
+                <artifactId>config</artifactId>
+                <version>1.4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.moandjiezana.toml</groupId>
+                <artifactId>toml4j</artifactId>
+                <version>0.7.2</version>
             </dependency>
 
             <!-- easyexcel -->

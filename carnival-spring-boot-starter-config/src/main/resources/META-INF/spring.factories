@@ -1,0 +1,3 @@
+org.springframework.boot.env.PropertySourceLoader=\
+    com.github.yingzhuo.carnival.config.HoconPropertySourceLoader,\
+    com.github.yingzhuo.carnival.config.TomlPropertySourceLoader
