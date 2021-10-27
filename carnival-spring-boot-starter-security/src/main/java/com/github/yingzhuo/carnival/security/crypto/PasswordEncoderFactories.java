@@ -52,15 +52,15 @@ public final class PasswordEncoderFactories {
                 .orElseThrow(() -> new IllegalArgumentException(idForEncode + " not supported"));
     }
 
-    public static PasswordEncoder delegating() {
+    public static DelegatingPasswordEncoder delegating() {
         return delegating("bcrypt");
     }
 
-    public static PasswordEncoder delegating(String idForEncode) {
+    public static DelegatingPasswordEncoder delegating(String idForEncode) {
         return delegating(idForEncode, null);
     }
 
-    public static PasswordEncoder delegating(String idForEncode, String defaultIdForMatches) {
+    public static DelegatingPasswordEncoder delegating(String idForEncode, String defaultIdForMatches) {
         final DelegatingPasswordEncoder encoder = new DelegatingPasswordEncoder(idForEncode, SUPPORTED_ENCODERS);
 
         if (defaultIdForMatches != null) {
