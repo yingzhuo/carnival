@@ -9,8 +9,6 @@
  */
 package com.github.yingzhuo.carnival.common.util;
 
-import com.google.common.net.HostAndPort;
-
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -34,16 +32,6 @@ public final class SocketUtils {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public static boolean isReachable(HostAndPort hostAndPort) {
-        return isReachable(hostAndPort, 0);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    public static boolean isReachable(HostAndPort hostAndPort, int timeoutInMilliseconds) {
-        return isReachable(hostAndPort.getHost(), hostAndPort.getPort(), timeoutInMilliseconds);
     }
 
 }

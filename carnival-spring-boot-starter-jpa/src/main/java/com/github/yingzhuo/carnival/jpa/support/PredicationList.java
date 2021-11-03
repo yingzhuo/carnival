@@ -53,6 +53,10 @@ public final class PredicationList implements Serializable {
         return list.isEmpty();
     }
 
+    public boolean isNotEmpty() {
+        return !isEmpty();
+    }
+
     public int size() {
         return list.size();
     }
