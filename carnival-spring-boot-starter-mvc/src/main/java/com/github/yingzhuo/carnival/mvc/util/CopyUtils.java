@@ -7,7 +7,7 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.mvc.upload;
+package com.github.yingzhuo.carnival.mvc.util;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;

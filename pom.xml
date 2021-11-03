@@ -572,11 +572,6 @@
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-http</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
                 <artifactId>hutool-captcha</artifactId>
                 <version>${hutool.version}</version>
             </dependency>

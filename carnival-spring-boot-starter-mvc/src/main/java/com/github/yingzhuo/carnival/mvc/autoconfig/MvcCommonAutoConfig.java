@@ -9,10 +9,8 @@
  */
 package com.github.yingzhuo.carnival.mvc.autoconfig;
 
-import com.github.yingzhuo.carnival.mvc.support.DownloadingHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.ImageHandlerMethodReturnValueHandler;
 import com.github.yingzhuo.carnival.mvc.support.IpAddressHandlerMethodArgumentResolver;
-import com.github.yingzhuo.carnival.mvc.support.UserAgentHandlerMethodArgumentResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.core.Ordered;
@@ -36,23 +34,13 @@ class MvcCommonAutoConfig implements WebMvcConfigurer {
         }
     }
 
-//    @Override
-//    public void configurePathMatch(PathMatchConfigurer configurer) {
-//        val helper = Optional.ofNullable(configurer.getUrlPathHelper()).orElseGet(UrlPathHelper::new);
-//        helper.setDefaultEncoding("UTF-8");
-//        helper.setRemoveSemicolonContent(false);
-//        configurer.setUrlPathHelper(helper);
-//    }
-
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new IpAddressHandlerMethodArgumentResolver());
-        resolvers.add(new UserAgentHandlerMethodArgumentResolver());
     }
 
     @Override
     public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> handlers) {
-        handlers.add(new DownloadingHandlerMethodReturnValueHandler());
         handlers.add(new ImageHandlerMethodReturnValueHandler());
     }
 
