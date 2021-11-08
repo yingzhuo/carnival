@@ -13,6 +13,7 @@ import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
@@ -110,6 +111,10 @@ public final class SpringUtils {
         } catch (NoSuchBeanDefinitionException e) {
             return defaultIfNotFound;
         }
+    }
+
+    public static <B> ObjectProvider<B> getObjectProvider(Class<B> beanType) {
+        return getApplicationContext().getBeanProvider(beanType);
     }
 
     public static <B> List<B> getBeanList(Class<B> beanType) {
