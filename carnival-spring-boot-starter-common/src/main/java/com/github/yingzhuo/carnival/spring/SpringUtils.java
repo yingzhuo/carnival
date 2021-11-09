@@ -113,6 +113,10 @@ public final class SpringUtils {
         }
     }
 
+    public static <B> B getBean(Class<B> beanType, Object... constructionArgs) {
+        return getObjectProvider(beanType).getObject(constructionArgs);
+    }
+
     public static <B> ObjectProvider<B> getObjectProvider(Class<B> beanType) {
         return getApplicationContext().getBeanProvider(beanType);
     }
