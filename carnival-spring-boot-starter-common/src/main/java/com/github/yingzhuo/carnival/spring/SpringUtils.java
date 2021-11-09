@@ -19,7 +19,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.core.OrderComparator;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -150,12 +149,6 @@ public final class SpringUtils {
         } catch (NoSuchBeanDefinitionException e) {
             return false;
         }
-    }
-
-    /* -------------------------------------------------------------------------------------------------------------- */
-
-    public static ConversionService getConversionService() {
-        return getBean(ConversionService.class);
     }
 
 }

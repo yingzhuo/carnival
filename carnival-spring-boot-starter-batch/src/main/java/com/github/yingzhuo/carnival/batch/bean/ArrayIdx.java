@@ -13,15 +13,15 @@ import java.lang.annotation.*;
 
 /**
  * @author 应卓
- * @see DataBinding
+ * @see DataBindingUtils
  * @since 1.10.35
  */
 @Documented
 @Inherited
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
-public @interface Binding {
+public @interface ArrayIdx {
 
-    public int index() default -1;
+    public int value();
 
 }
