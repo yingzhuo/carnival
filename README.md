@@ -23,6 +23,9 @@ mvn -f carnival/pom.xml clean install
 
 #### 用例
 
+* carnival-spring-boot-starter-batch
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-batch-excel](https://github.com/yingzhuo/carnival-examples/tree/master/examples-batch-excel)
+
 * carnival-spring-boot-starter-graphql
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql](https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql)
 
