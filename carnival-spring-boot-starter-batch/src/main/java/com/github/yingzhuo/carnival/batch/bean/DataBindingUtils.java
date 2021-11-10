@@ -9,6 +9,7 @@
  */
 package com.github.yingzhuo.carnival.batch.bean;
 
+import com.github.yingzhuo.carnival.batch.excel.ExcelData;
 import com.github.yingzhuo.carnival.spring.ConversionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapper;
@@ -49,6 +50,13 @@ public final class DataBindingUtils {
             = new NumberFormatAnnotationFormatterFactory();
 
     private DataBindingUtils() {
+    }
+
+    public static <T> T bind(T obj, ExcelData excelData) {
+        if (obj == null || excelData == null || !excelData.isEmpty()) {
+            return obj;
+        }
+        return bind(obj, excelData.getRow());
     }
 
     public static <T> T bind(T obj, List<String> list) {

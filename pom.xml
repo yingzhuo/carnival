@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.35</version>
+    <version>1.10.36</version>
     <modules>
         <module>carnival-spring-boot-starter-batch</module>
         <module>carnival-spring-boot-starter-captcha</module>
@@ -489,6 +489,13 @@
                 <groupId>com.fasterxml</groupId>
                 <artifactId>classmate</artifactId>
                 <version>1.5.1</version>
+            </dependency>
+
+            <!-- spring-batch-extensions -->
+            <dependency>
+                <groupId>org.springframework.batch.extensions</groupId>
+                <artifactId>spring-batch-excel</artifactId>
+                <version>0.1.0</version>
             </dependency>
 
             <!-- byte-buddy -->
