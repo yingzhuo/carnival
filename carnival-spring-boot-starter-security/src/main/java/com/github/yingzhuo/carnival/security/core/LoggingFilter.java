@@ -12,7 +12,6 @@ package com.github.yingzhuo.carnival.security.core;
 import com.github.yingzhuo.carnival.common.log.ConfigurableLogger;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,10 +20,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Pattern;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -34,15 +33,16 @@ import java.util.regex.Pattern;
 public class LoggingFilter extends OncePerRequestFilter {
 
     private final ConfigurableLogger log;
-    private final Set<Pattern> skipUserAgentPatterns;
+    private final Set<Predicate<HttpServletRequest>> skips;
 
     public LoggingFilter(ConfigurableLogger log) {
-        this(log, Collections.emptySet());
+        this(log, (Predicate<HttpServletRequest>[]) null);
     }
 
-    public LoggingFilter(ConfigurableLogger log, Set<Pattern> skipUserAgentPatterns) {
+    @SafeVarargs
+    public LoggingFilter(ConfigurableLogger log, Predicate<HttpServletRequest>... skips) {
         this.log = log;
-        this.skipUserAgentPatterns = skipUserAgentPatterns;
+        this.skips = skips == null ? null : Stream.of(skips).collect(Collectors.toSet());
     }
 
     @Override
@@ -83,12 +83,10 @@ public class LoggingFilter extends OncePerRequestFilter {
     }
 
     private boolean skip(HttpServletRequest request) {
-        if (skipUserAgentPatterns == null || skipUserAgentPatterns.isEmpty()) {
+        if (skips == null || skips.isEmpty()) {
             return false;
         }
-
-        final String userAgent = Optional.ofNullable(request.getHeader(HttpHeaders.USER_AGENT)).orElse(null);
-        return skipUserAgentPatterns.stream().anyMatch(p -> p.matcher(userAgent).matches());
+        return skips.stream().anyMatch(p -> p.test(request));
     }
 
 }
