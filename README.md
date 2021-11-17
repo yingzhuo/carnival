@@ -26,15 +26,18 @@ mvn -f carnival/pom.xml clean install
 * carnival-spring-boot-starter-batch
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-batch-excel](https://github.com/yingzhuo/carnival-examples/tree/master/examples-batch-excel)
 
+* carnival-spring-boot-starter-captcha
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful)
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless)
+
+* carnival-spring-boot-starter-config
+    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-config](https://github.com/yingzhuo/carnival-examples/tree/master/examples-config)
+
 * carnival-spring-boot-starter-graphql
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql](https://github.com/yingzhuo/carnival-examples/tree/master/examples-graphql)
 
 * carnival-spring-boot-starter-id
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake](https://github.com/yingzhuo/carnival-examples/tree/master/examples-id-snowflake)
-
-* carnival-spring-boot-starter-captcha
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateful)
-    * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless](https://github.com/yingzhuo/carnival-examples/tree/master/examples-captcha-stateless)
 
 * carnival-spring-boot-starter-qrcode
     * [https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode](https://github.com/yingzhuo/carnival-examples/tree/master/examples-qrcode)
