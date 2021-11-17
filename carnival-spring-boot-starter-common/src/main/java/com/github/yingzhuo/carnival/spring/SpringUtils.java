@@ -9,7 +9,6 @@
  */
 package com.github.yingzhuo.carnival.spring;
 
-import com.github.yingzhuo.carnival.spring.springid.SpringIdProvider;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -71,7 +70,7 @@ public final class SpringUtils {
     /* -------------------------------------------------------------------------------------------------------------- */
 
     public static String getSpringId() {
-        return getBean(SpringIdProvider.class).get();
+        return ENV.getProperty("spring.id");
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */

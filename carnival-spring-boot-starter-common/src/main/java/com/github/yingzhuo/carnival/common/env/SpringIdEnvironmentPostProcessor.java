@@ -24,7 +24,7 @@ import java.util.UUID;
  * @since 1.8.4
  */
 @Slf4j
-public class SpringIdEnvironmentPostProcessor implements EnvironmentPostProcessor {
+class SpringIdEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     @Override
     public void postProcessEnvironment(ConfigurableEnvironment environment, SpringApplication application) {

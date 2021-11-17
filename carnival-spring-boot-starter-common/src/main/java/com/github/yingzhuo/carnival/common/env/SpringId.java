@@ -7,20 +7,19 @@
  *
  * https://github.com/yingzhuo/carnival
  */
-package com.github.yingzhuo.carnival.spring.springid;
+package com.github.yingzhuo.carnival.common.env;
 
 import org.springframework.beans.factory.annotation.Value;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * @author 应卓
  * @since 1.10.36
  */
-@Target({ElementType.FIELD, ElementType.METHOD})
+@Documented
+@Inherited
+@Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Value("#{environment.getProperty('spring.id')}")
 public @interface SpringId {

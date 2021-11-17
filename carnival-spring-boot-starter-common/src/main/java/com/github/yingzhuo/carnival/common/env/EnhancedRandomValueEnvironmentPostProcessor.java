@@ -19,7 +19,7 @@ import org.springframework.core.env.PropertySource;
  * @author 应卓
  * @since 1.4.11
  */
-public class EnhancedRandomValueEnvironmentPostProcessor implements EnvironmentPostProcessor {
+class EnhancedRandomValueEnvironmentPostProcessor implements EnvironmentPostProcessor {
 
     private static final String PREFIX = "random.";
 
