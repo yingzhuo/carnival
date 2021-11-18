@@ -41,6 +41,7 @@ public final class PasswordEncoderFactories {
         encoders.put("SHA-1", new MessageDigestPasswordEncoder("SHA-1"));
         encoders.put("SHA-256", new MessageDigestPasswordEncoder("SHA-256"));
         encoders.put("argon2", new Argon2PasswordEncoder());
+        encoders.put("reverse", new InversePasswordEncoder());
         SUPPORTED_ENCODERS = Collections.unmodifiableMap(encoders);
     }
 
@@ -68,6 +69,20 @@ public final class PasswordEncoderFactories {
         }
 
         return encoder;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    private static class InversePasswordEncoder implements PasswordEncoder {
+        @Override
+        public String encode(CharSequence rawPassword) {
+            return new StringBuilder(rawPassword).reverse().toString();
+        }
+
+        @Override
+        public boolean matches(CharSequence rawPassword, String encodedPassword) {
+            return encode(rawPassword).equals(encodedPassword);
+        }
     }
 
 }
