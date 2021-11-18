@@ -12,7 +12,10 @@ package com.github.yingzhuo.carnival.security.core;
 import com.github.yingzhuo.carnival.common.log.ConfigurableLogger;
 import lombok.val;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.lang.NonNull;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -20,10 +23,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author 应卓
@@ -32,17 +35,22 @@ import java.util.stream.Stream;
  */
 public class LoggingFilter extends OncePerRequestFilter {
 
+    public static SkipPatternBuilder skipPatternBuilder() {
+        return new SkipPatternBuilder();
+    }
+
+    private static final PathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
+
     private final ConfigurableLogger log;
     private final Set<Predicate<HttpServletRequest>> skips;
 
     public LoggingFilter(ConfigurableLogger log) {
-        this(log, (Predicate<HttpServletRequest>[]) null);
+        this(log, null);
     }
 
-    @SafeVarargs
-    public LoggingFilter(ConfigurableLogger log, Predicate<HttpServletRequest>... skips) {
+    public LoggingFilter(ConfigurableLogger log, Set<Predicate<HttpServletRequest>> skips) {
         this.log = log;
-        this.skips = skips == null ? null : Stream.of(skips).collect(Collectors.toSet());
+        this.skips = skips;
     }
 
     @Override
@@ -59,7 +67,7 @@ public class LoggingFilter extends OncePerRequestFilter {
     }
 
     private void doLog(HttpServletRequest request) {
-        if (!skip(request) && log.isEnabled()) {
+        if (!shouldSkip(request) && log.isEnabled()) {
             log.log(StringUtils.repeat('-', 150));
             log.log("Method: {}", request.getMethod());
             log.log("Path: {}", request.getRequestURI());
@@ -82,11 +90,52 @@ public class LoggingFilter extends OncePerRequestFilter {
         }
     }
 
-    private boolean skip(HttpServletRequest request) {
+    private boolean shouldSkip(HttpServletRequest request) {
         if (skips == null || skips.isEmpty()) {
             return false;
         }
         return skips.stream().anyMatch(p -> p.test(request));
+    }
+
+    // ----------------------------------------------------------------------------------------------------------------
+
+    public static class SkipPatternBuilder {
+        private final Set<Predicate<HttpServletRequest>> predicates = new HashSet<>();
+
+        private SkipPatternBuilder() {
+        }
+
+        public SkipPatternBuilder headerMatches(final String header, final String valueRegexPattern) {
+            predicates.add(
+                    request -> {
+                        String headerValue = request.getHeader(header);
+                        if (headerValue == null) {
+                            return false;
+                        }
+                        return headerValue.matches(valueRegexPattern);
+                    }
+            );
+            return this;
+        }
+
+        public SkipPatternBuilder pathMatches(final String antStylePattern) {
+            predicates.add(
+                    request -> ANT_PATH_MATCHER.match(antStylePattern, request.getRequestURI())
+            );
+            return this;
+        }
+
+        public SkipPatternBuilder pathMatches(final HttpMethod method, final String antStylePattern) {
+            predicates.add(
+                    request -> method.name().equalsIgnoreCase(request.getMethod()) &&
+                            ANT_PATH_MATCHER.match(antStylePattern, request.getRequestURI())
+            );
+            return this;
+        }
+
+        public Set<Predicate<HttpServletRequest>> build() {
+            return Collections.unmodifiableSet(predicates);
+        }
     }
 
 }
