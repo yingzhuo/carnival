@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.37</version>
+    <version>1.10.38</version>
     <modules>
         <module>carnival-spring-boot-starter-batch</module>
         <module>carnival-spring-boot-starter-captcha</module>
