@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * @author 应卓
  * @since 1.6.20
  */
+@FunctionalInterface
 public interface ClassPathScanner {
 
     /**
@@ -41,11 +42,11 @@ public interface ClassPathScanner {
     /**
      * 扫描
      *
-     * @param basePackage 扫描起点
+     * @param basePackages 扫描起点
      * @return 扫描结果
      */
-    public default Set<AnnotatedBeanDefinition> scanForAnnotation(Iterable<String> basePackage) {
-        return scan(basePackage)
+    public default Set<AnnotatedBeanDefinition> scanForAnnotation(Iterable<String> basePackages) {
+        return scan(basePackages)
                 .stream()
                 .filter(bd -> bd instanceof AnnotatedBeanDefinition)
                 .map(bd -> (AnnotatedBeanDefinition) bd)

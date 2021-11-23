@@ -33,7 +33,7 @@ public final class ClassPathScannerBuilder {
     ClassPathScannerBuilder() {
     }
 
-    public final ClassPathScannerBuilder typeFilters(TypeFilter... typeFilters) {
+    public ClassPathScannerBuilder typeFilters(TypeFilter... typeFilters) {
         Collections.addAll(this.typeFilters, typeFilters);
         return this;
     }

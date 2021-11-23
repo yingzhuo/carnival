@@ -13,6 +13,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEventPublisher;
@@ -65,6 +66,10 @@ public final class SpringUtils {
 
     public static ApplicationEventPublisher getApplicationEventPublisher() {
         return AC;
+    }
+
+    public static BeanDefinitionRegistry getBeanDefinitionRegistry() {
+        return (BeanDefinitionRegistry) AC.getAutowireCapableBeanFactory();
     }
 
     /* -------------------------------------------------------------------------------------------------------------- */
