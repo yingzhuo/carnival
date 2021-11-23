@@ -19,11 +19,11 @@ import java.util.Map;
 public final class StringFormatter {
 
     private static final char DELIM_START = '{';
-    private static final char DELIM_STOP = '}';
     private static final String DELIM_STR = "{}";
     private static final char ESCAPE_CHAR = '\\';
 
     private StringFormatter() {
+        super();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -53,7 +53,6 @@ public final class StringFormatter {
 
         int i = 0;
         int j;
-        // use string builder for better multicore performance
         StringBuilder builder = new StringBuilder(messagePattern.length() + 50);
 
         int L;
@@ -62,52 +61,45 @@ public final class StringFormatter {
             j = messagePattern.indexOf(DELIM_STR, i);
 
             if (j == -1) {
-                // no more variables
                 if (i == 0) { // this is a simple string
                     return messagePattern;
-                } else { // add the tail string which contains no variables and return
-                    // the result.
+                } else {
                     builder.append(messagePattern, i, messagePattern.length());
                     return messagePattern;
                 }
             } else {
-                if (isEscapedDelimeter(messagePattern, j)) {
+                if (isEscapedDelimiter(messagePattern, j)) {
                     if (!isDoubleEscaped(messagePattern, j)) {
-                        L--; // DELIM_START was escaped, thus should not be incremented
+                        L--;
                         builder.append(messagePattern, i, j - 1);
                         builder.append(DELIM_START);
                         i = j + 1;
                     } else {
-                        // The escape character preceding the delimiter start is
-                        // itself escaped: "abc x:\\{}"
-                        // we have to consume one backward slash
                         builder.append(messagePattern, i, j - 1);
                         deeplyAppendParameter(builder, argArray[L], new HashMap<>());
                         i = j + 2;
                     }
                 } else {
-                    // normal case
                     builder.append(messagePattern, i, j);
                     deeplyAppendParameter(builder, argArray[L], new HashMap<>());
                     i = j + 2;
                 }
             }
         }
-        // append the characters following the last {} pair.
         builder.append(messagePattern, i, messagePattern.length());
         return builder.toString();
     }
 
-    private static boolean isEscapedDelimeter(String messagePattern, int delimeterStartIndex) {
-        if (delimeterStartIndex == 0) {
+    private static boolean isEscapedDelimiter(String messagePattern, int delimiterStartIndex) {
+        if (delimiterStartIndex == 0) {
             return false;
         }
-        char potentialEscape = messagePattern.charAt(delimeterStartIndex - 1);
+        char potentialEscape = messagePattern.charAt(delimiterStartIndex - 1);
         return potentialEscape == ESCAPE_CHAR;
     }
 
-    private static boolean isDoubleEscaped(String messagePattern, int delimeterStartIndex) {
-        return delimeterStartIndex >= 2 && messagePattern.charAt(delimeterStartIndex - 2) == ESCAPE_CHAR;
+    private static boolean isDoubleEscaped(String messagePattern, int delimiterStartIndex) {
+        return delimiterStartIndex >= 2 && messagePattern.charAt(delimiterStartIndex - 2) == ESCAPE_CHAR;
     }
 
     private static void deeplyAppendParameter(StringBuilder builder, Object o, Map<Object[], Object> seenMap) {
@@ -118,8 +110,6 @@ public final class StringFormatter {
         if (!o.getClass().isArray()) {
             safeObjectAppend(builder, o);
         } else {
-            // check for primitive array types because they
-            // unfortunately cannot be cast to Object[]
             if (o instanceof boolean[]) {
                 booleanArrayAppend(builder, (boolean[]) o);
             } else if (o instanceof byte[]) {
@@ -161,7 +151,6 @@ public final class StringFormatter {
                 if (i != len - 1)
                     builder.append(", ");
             }
-            // allow repeats in siblings
             seenMap.remove(a);
         } else {
             builder.append("...");
@@ -257,13 +246,6 @@ public final class StringFormatter {
         builder.append(']');
     }
 
-    /**
-     * Helper method to determine if an {@link Object} array contains a {@link Throwable} as last element
-     *
-     * @param argArray The arguments off which we want to know if it contains a {@link Throwable} as last element
-     * @return if the last {@link Object} in argArray is a {@link Throwable} this method will return it,
-     * otherwise it returns null
-     */
     public static Throwable getThrowableCandidate(final Object[] argArray) {
         if (argArray == null || argArray.length == 0) {
             return null;
@@ -277,25 +259,15 @@ public final class StringFormatter {
         return null;
     }
 
-    /**
-     * Helper method to get all but the last element of an array
-     *
-     * @param argArray The arguments from which we want to remove the last element
-     * @return a copy of the array without the last element
-     */
     public static Object[] trimmedCopy(final Object[] argArray) {
         if (argArray == null || argArray.length == 0) {
-            throw new IllegalStateException("non-sensical empty or null argument array");
+            throw new IllegalStateException("empty or null argument array");
         }
-
         final int trimmedLen = argArray.length - 1;
-
         Object[] trimmed = new Object[trimmedLen];
-
         if (trimmedLen > 0) {
             System.arraycopy(argArray, 0, trimmed, 0, trimmedLen);
         }
-
         return trimmed;
     }
 

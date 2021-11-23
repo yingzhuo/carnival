@@ -25,7 +25,8 @@ public class ConfigurableLoggerConverter implements Converter<String, Configurab
             throw new IllegalArgumentException();
         }
 
-        return ConfigurableLogger.builder()
+        return ConfigurableLogger
+                .builder()
                 .level(LogLevel.valueOf(parts[0].toUpperCase()))
                 .name(parts[1])
                 .build();

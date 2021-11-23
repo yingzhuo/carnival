@@ -98,7 +98,8 @@ public final class ConfigurableLogger {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-    public static class Builder {
+    public final static class Builder {
+
         private LogLevel level = LogLevel.DEBUG;
         private String loggerName = ConfigurableLogger.class.getName();
 
