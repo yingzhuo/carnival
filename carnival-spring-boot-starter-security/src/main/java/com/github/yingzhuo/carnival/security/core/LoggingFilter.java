@@ -35,15 +35,9 @@ import java.util.function.Predicate;
  */
 public class LoggingFilter extends OncePerRequestFilter {
 
-    public static SkipPatternBuilder skipPatternBuilder() {
-        return new SkipPatternBuilder();
-    }
-
     private static final PathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
-
     private final ConfigurableLogger log;
     private final Set<Predicate<HttpServletRequest>> skips;
-
     public LoggingFilter(ConfigurableLogger log) {
         this(log, null);
     }
@@ -51,6 +45,10 @@ public class LoggingFilter extends OncePerRequestFilter {
     public LoggingFilter(ConfigurableLogger log, Set<Predicate<HttpServletRequest>> skips) {
         this.log = log;
         this.skips = skips;
+    }
+
+    public static SkipPatternBuilder skipPatternBuilder() {
+        return new SkipPatternBuilder();
     }
 
     @Override

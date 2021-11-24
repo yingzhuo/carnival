@@ -2,7 +2,8 @@ org.springframework.security.config.annotation.web.configurers.AbstractHttpConfi
     com.github.yingzhuo.carnival.security.dsl.LoggingCustomHttpSecurityDSL,\
     com.github.yingzhuo.carnival.security.dsl.TimeoutAuthenticationCustomHttpSecurityDSL,\
     com.github.yingzhuo.carnival.security.dsl.BasicAuthenticationCustomHttpSecurityDSL,\
-    com.github.yingzhuo.carnival.security.dsl.TokenAuthenticationCustomHttpSecurityDSL
+    com.github.yingzhuo.carnival.security.dsl.TokenAuthenticationCustomHttpSecurityDSL,\
+    com.github.yingzhuo.carnival.security.dsl.CorsCustomHttpSecurityDSL
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     com.github.yingzhuo.carnival.security.autoconfig.HttpFirewallAutoConfig,\
     com.github.yingzhuo.carnival.security.autoconfig.JwtFactoryAutoConfig,\
