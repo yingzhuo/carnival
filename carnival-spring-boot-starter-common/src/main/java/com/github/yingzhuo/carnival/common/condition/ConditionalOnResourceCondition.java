@@ -28,7 +28,13 @@ class ConditionalOnResourceCondition implements Condition {
 
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-        final AnnotationAttributes attributes = AnnotationAttributes.fromMap(metadata.getAnnotationAttributes(ConditionalOnResource.class.getName()));
+        final AnnotationAttributes attributes =
+                AnnotationAttributes.fromMap(
+                        metadata.getAnnotationAttributes(ConditionalOnResource.class.getName())
+                );
+
+        if (attributes == null) return false;
+
         final String[] locations = attributes.getStringArray("value");
 
         if (locations.length == 0) {

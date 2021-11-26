@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.common.condition;
 
 import org.springframework.context.annotation.Conditional;
+import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
 
@@ -27,7 +28,14 @@ public @interface ConditionalOnResource {
     /**
      * locations
      */
-    public String[] value();
+    @AliasFor("locations")
+    public String[] value() default {};
+
+    /**
+     * locations
+     */
+    @AliasFor("value")
+    public String[] locations() default {};
 
     /**
      * 存在性
