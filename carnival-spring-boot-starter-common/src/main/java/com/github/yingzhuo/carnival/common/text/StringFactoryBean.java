@@ -34,7 +34,7 @@ public class StringFactoryBean implements FactoryBean<String>, InitializingBean 
 
     @Override
     public void afterPropertiesSet() {
-        Assert.notNull(text, "text if null");
+        Assert.notNull(text, "text is null");
         if (trim) {
             text = text.trim();
         }
