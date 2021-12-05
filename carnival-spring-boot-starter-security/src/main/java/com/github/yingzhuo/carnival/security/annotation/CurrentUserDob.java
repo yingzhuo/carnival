@@ -10,6 +10,7 @@
 package com.github.yingzhuo.carnival.security.annotation;
 
 import com.github.yingzhuo.carnival.security.userdetails.UserDetailsPlus;
+import org.springframework.core.annotation.AliasFor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,4 +29,8 @@ import java.lang.annotation.*;
 @Target({ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
 @AuthenticationPrincipal(expression = "#root.dateOfBirth")
 public @interface CurrentUserDob {
+
+    @AliasFor(annotation = AuthenticationPrincipal.class, attribute = "errorOnInvalidType")
+    public boolean errorOnInvalidType() default false;
+
 }

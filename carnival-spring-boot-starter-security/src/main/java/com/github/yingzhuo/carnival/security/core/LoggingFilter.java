@@ -38,6 +38,7 @@ public class LoggingFilter extends OncePerRequestFilter {
     private static final PathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
     private final ConfigurableLogger log;
     private final Set<Predicate<HttpServletRequest>> skips;
+
     public LoggingFilter(ConfigurableLogger log) {
         this(log, null);
     }
