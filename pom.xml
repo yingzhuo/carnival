@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.yingzhuo</groupId>
     <artifactId>carnival</artifactId>
-    <version>1.10.39</version>
+    <version>1.10.40</version>
     <modules>
         <module>carnival-spring-boot-starter-batch</module>
         <module>carnival-spring-boot-starter-captcha</module>
@@ -102,9 +102,9 @@
         <spring.security.version>5.6.0</spring.security.version>
         <jackson.version>2.13.0</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
-        <netty.version>4.1.70.Final</netty.version>
+        <netty.version>4.1.71.Final</netty.version>
         <feign.version>11.7</feign.version>
-        <hutool.version>5.7.16</hutool.version>
+        <hutool.version>5.7.17</hutool.version>
         <logback.version>1.2.7</logback.version>
     </properties>
 
@@ -722,7 +722,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <encoding>${encoding}</encoding>
                 </configuration>
@@ -757,7 +757,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
