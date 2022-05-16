@@ -102,7 +102,7 @@
         <spring.security.version>5.6.0</spring.security.version>
         <jackson.version>2.13.0</jackson.version>
         <slf4j.version>1.7.32</slf4j.version>
-        <netty.version>4.1.71.Final</netty.version>
+        <netty.version>4.1.77.Final</netty.version>
         <feign.version>11.7</feign.version>
         <hutool.version>5.7.17</hutool.version>
         <logback.version>1.2.7</logback.version>
