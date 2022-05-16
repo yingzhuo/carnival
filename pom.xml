@@ -105,7 +105,7 @@
         <netty.version>4.1.71.Final</netty.version>
         <feign.version>11.7</feign.version>
         <hutool.version>5.7.17</hutool.version>
-        <logback.version>1.2.7</logback.version>
+        <logback.version>1.2.9</logback.version>
     </properties>
 
     <dependencyManagement>
